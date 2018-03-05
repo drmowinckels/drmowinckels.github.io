@@ -29,10 +29,10 @@
     <nav class="nav-center" style="text-align: center">
         <a class="nav-item" href="#about">&emsp; About &emsp;</a>
         {{ if .Site.Params.showProjects }}
-        <a class="nav-item" href="#projects">&emsp; Projects &emsp;</a>
+          <a class="nav-item" href="#projects">&emsp; Projects &emsp;</a>
         {{ end }}
         {{ if .Site.Params.showBlog }}
-        <a class="nav-item" href="#blog">&emsp; Blog &emsp;</a>
+          <a class="nav-item" href="#blog">&emsp; Blog &emsp;</a>
         {{ end }}
         <a class="nav-item" href="#contact">&emsp; Contact &emsp;</a>
     </nav>
@@ -60,6 +60,7 @@
                             {{.Content}}
                         {{end}}
                     {{ end }}
+            <div class="container has-text-centered"><a href="/aboutme">More about me</a></div>
             </div>
         </div>
     </div><!-- End About container-->
