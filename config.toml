@@ -11,26 +11,26 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
     bloghead            = "Blog"                        # Full name shows on blog post pages
-    firstname           = "Dr. Mowinckel's"                # First name shows in introduction on main page
+    firstname           = "Dr. Mowinckel's"             # First name shows in introduction on main page
     tagline             = "- all things R and neuroimaging -"       # Appears after the introduction
-    introheight         = "fullheight"                       # Input either 'medium' or 'large' or 'fullheight'
-    themestyle          = "dark"                        # Choose 'light' or 'dark'
-    avatar              = "img/profile_honey.png"             # Path to image in static folder eg. img/avatar.png, or comment out to remove
-    email               = "a.m.mowinckel@psykologi.uio.no"         # Shows in contact section, or leave blank to omit
+    introheight         = "fullheight"                  # Input either 'medium' or 'large' or 'fullheight'
+    themestyle          = "custom"                      # Choose 'light' or 'dark'
+    avatar              = "img/profile.png"             # Path to image in static folder eg. img/avatar.png, or comment out to remove
+    email               = ""         # Shows in contact section, or leave blank to omit
     localtime           = true                          # Show your current local time in contact section
-    timezone            = "Europe/Oslo"         # Your timezone as in the TZ* column of this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    timezone            = "Europe/Oslo"                 # Your timezone as in the TZ* column of this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     dateform            = "Jan 2, 2006"
     dateformfull        = "Mon Jan 2 2006 15:04:05 EST"
     cachebuster         = false                         # Add the current unix timestamp in query string for cache busting css assets (relevant in development mode)
     description         = "Cognitive neuroscientist, blogging about R and neuroimaging."        # Max 160 characters show in search results
-    faviconfile         = "img/fav.ico"
-    pygmentsStyle       = "monokai"                     # Choose theme: https://help.farbox.com/pygments.html
+    faviconfile         = "img/fav.ico.png"
+    pygmentsStyle       = "pastie"                     # Choose theme: https://help.farbox.com/pygments.html
     pygmentsCodeFences  = true
-    footertext          = ""                            # Text to show in footer (overrides default text)
+    footertext          = "Dr. Mowinckel's"             # Text to show in footer (overrides default text)
     fadein              = true                          # Turn on/off the fade-in effect
 
     showblog            = true                          # Show Blog section on home page
-    showprojects        = false                          # Show Projects section on home page
+    showprojects        = false                         # Show Projects section on home page
     projectcolumns      = "3"                           # Choose "2" or "3" columns for projects section
     placeholderimg      = "/img/workday.jpg"            # For Projects without image
     showallposts        = false                         # Set 'true' to list all posts on home page, or set 'false' to link to separate blog list page
@@ -55,7 +55,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     icon = "github"
 
 [[params.social]]
-    url = "https://linkedin.com/"
-    icon = "linkedin"
+    url = "mailto:a.m.mowinckel@psykologi.uio.no"
+    icon = "envelope"
 
   

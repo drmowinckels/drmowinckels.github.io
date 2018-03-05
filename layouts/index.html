@@ -3,7 +3,7 @@
 
 <div id="top"> <!-- Where all the awesome begins -->
 
-<div class="hero is-{{ .Site.Params.introHeight }}">
+<div class="hero is-{{ .Site.Params.introHeight }}" style="background: url(img/logo.png) center center no-repeat;">
 <!-- Possible hero-head not used -->
     <!-- Super sweet Hero body title -->
     <div class="hero-body">
@@ -26,15 +26,15 @@
     <!-- Hero foot has nav bar -->
     <div class="hero-foot {{ if .Site.Params.fadeIn }}fade-in three{{ end }}">
     <hr>
-    <nav class="nav-center">
-        <a class="nav-item" href="#about">About</a>
+    <nav class="nav-center" style="text-align: center">
+        <a class="nav-item" href="#about">&emsp; About &emsp;</a>
         {{ if .Site.Params.showProjects }}
-        <a class="nav-item" href="#projects">Projects</a>
+        <a class="nav-item" href="#projects">&emsp; Projects &emsp;</a>
         {{ end }}
         {{ if .Site.Params.showBlog }}
-        <a class="nav-item" href="#blog">Blog</a>
+        <a class="nav-item" href="#blog">&emsp; Blog &emsp;</a>
         {{ end }}
-        <a class="nav-item" href="#contact">Contact</a>
+        <a class="nav-item" href="#contact">&emsp; Contact &emsp;</a>
     </nav>
     <hr>
     </div><!-- Done with nav bar -->

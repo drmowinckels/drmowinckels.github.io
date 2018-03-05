@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "npm": "^5.7.1"
+  },
   "devDependencies": {
     "bulma": "^0.6.2"
   },
-"scripts": {
-  "build-css": "node-sass --include-path sass sass/custom.sass   public/css/custom.css"
+  "scripts": {
+    "build-css": "node-sass --include-path sass sass/custom-style.sass   public/css/custom-style.css"
   },
   "author": "Athanasia Monika Mowinckel",
   "license": "ISC"
