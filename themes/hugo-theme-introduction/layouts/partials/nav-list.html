@@ -1,5 +1,5 @@
 <hr>
-<nav class="nav nav-center">
+<nav class="nav nav-center" style="background: transparent; text-align: center;">
     <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
       <span></span>
       <span></span>
@@ -7,22 +7,22 @@
     </span>
     <div id="nav-menu" class="nav-left nav-menu">
       <span class="nav-item">
-        <a href="/">Main</a>
+        <a href="/">&emsp; Main &emsp;</a>
       </span>
       <span class="nav-item">
-        <a href="/#about">About</a> 
+        <a href="/#about">&emsp; About &emsp;</a> 
       </span>
     {{ if .Site.Params.showProjects }}
       <span class="nav-item">
-        <a href="/#projects">Projects</a> 
+        <a href="/#projects">&emsp; Projects &emsp;</a> 
       </span>
     {{ end }}
       <span class="nav-item">
-        <a href="/#contact">Contact</a>
+        <a href="/#contact">&emsp; Contact &emsp;</a>
       </span>
     {{ if .Site.RSSLink }}
       <span class="nav-item">
-        <a href="{{ .Site.RSSLink }}"><i class="fa fa-rss"></i></a>
+        <a href="{{ .Site.RSSLink }}">&emsp;<i class="fa fa-rss"></i></a>
       </span>
     {{ end }}
     </div>
