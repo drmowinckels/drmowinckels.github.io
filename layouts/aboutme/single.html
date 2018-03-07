@@ -6,7 +6,7 @@
           {{ .Site.Params.firstName }}
     </h1>
     <h1 class="subtitle is-3 {{ if.Site.Params.fadeIn }} fade-in two{{ end }}">
-          {{ .Site.Params.blogHead }}
+          About
     </h1>
 </div><!-- End Title -->
 
@@ -17,13 +17,26 @@
     {{ partial "nav-single.html" . }}
     </div><!-- End Nav bar -->
 
-    <div class="container {{ if .Site.Params.fadeIn }} fade-in three{{ end }}"><!-- Begin blog title container -->
-        <h2 class="title is-1 top-pad strong-post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-            <div class="post-data">
-                {{ .Date.Format .Site.Params.dateForm }} |
-                {{ if eq 1 .ReadingTime }}{{ .ReadingTime }} minute read{{ else }}{{ .ReadingTime }} minutes read{{ end }}
+        <div class="columns" style="background-color: transparent;"><!-- Avatar and about.md side by side except mobile -->
+            {{ if .Site.Params.avatar }}
+            <div class="column is-one-third has-text-centered">
+              <img class="img-responsive avatar" src="/{{ .Site.Params.avatar }}" alt="My profile picture.">
             </div>
+            {{ end }}
+            <div class="column markdown" style="background-color: transparent;">
+                {{.Content}}
+            </div>
+        </div>
+ <!--    </div><!-- End About container-->
 
+<!-- 
+    <div class="container markdown {{ if .Site.Params.fadeIn }} fade-in three{{ end }} top-pad"><!-- Begin blog post content -->
+<!--         {{ .Content }}
+    </div><!-- End blog post content -->
+
+   
+        <div class="container {{ if .Site.Params.fadeIn }} fade-in three{{ end }}"><!-- Begin blog title container -->
+        <h2 class="title is-1 top-pad strong-post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
             {{ if .Site.Params.shareButtons }}
                 <div class="blog-share">
                 Share this:
@@ -59,14 +72,6 @@
             {{ end }}
 
     </div><!-- End blog title container -->
-
-    <div class="container markdown {{ if .Site.Params.fadeIn }} fade-in three{{ end }} top-pad"><!-- Begin blog post content -->
-        {{ .Content }}
-    </div><!-- End blog post content -->
-
-    <div class="disqus">
-        {{ template "_internal/disqus.html" . }}
-    </div>
 
 <div class="container has-text-centered top-pad">
 <hr>
