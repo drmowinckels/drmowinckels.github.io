@@ -14,10 +14,10 @@
 <title>
 
 
-     R 
+     GAMM spaghetti plots in R with ggplot 
 
 </title>
-<link rel="canonical" href="/categories/r/">
+<link rel="canonical" href="/post/gamm-spaghetti-plots-in-r-with-ggplot/">
 
 
 
@@ -53,73 +53,72 @@ crossorigin="anonymous"></script>
 
 
 
-  <link href="/categories/r/index.xml" rel="alternate" type="application/rss+xml" title="Dr. Mowinckel&#39;s" />
-
 
 </head>
 
-<body>
 
+<body>
 <div class="section" id="top">
     
+
     <div class="container hero  fade-in one ">
         
-        <h1 class="bold-title is-1">Tagged "r"</h1>
+        <h1 class="bold-title is-1">GAMM spaghetti plots in R with ggplot</h1>
     </div>
     
 
     
-    <div class="section no-padding  fade-in two ">
+    <div class="section  fade-in two ">
 
         <div class="container">
             
             <hr>
-<nav class="nav nav-center" style="background: transparent; text-align: center;">
+<nav class="nav nav-center" style="background-color: transparent;">
     <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
     </span>
-    <div id="nav-menu" class="nav-left nav-menu" style="background-color: transparent;">
+    <div id="nav-menu" class="nav-left nav-menu">
+      
       <span class="nav-item">
         <a href="/">&emsp; Main &emsp;</a>
       </span>
-      <span class="nav-item">
-        <a href="/aboutme/aboutme/">&emsp; About &emsp;</a> 
-      </span>
-    
+      
+        <span class="nav-item">
+          <a href="/aboutme/aboutme/">&emsp; About &emsp;</a> 
+        </span>
+      
+      
+        <span class="nav-item">
+          <a href="/blog">&emsp; Blog &emsp;</a> 
+        </span>
+      
       <span class="nav-item">
         <a href="/#contact">&emsp; Contact &emsp;</a>
       </span>
-    
-      <span class="nav-item">
-        <a href="/index.xml">&emsp;<i class="fa fa-rss"></i></a>
-      </span>
-    
+      
     </div>
 </nav>
 <hr>
         </div>
         
-        <article>
-            
-            
-        </article>
 
-
-        <div class="container">
+        <div class="container markdown  fade-in two  top-pad">
             
-            <ul>
-                
-                
-                <li>
-                    <a href="/post/gamm-spaghetti-plots-in-r-with-ggplot/">Mar 7, 2018 | GAMM spaghetti plots in R with ggplot</a>
-                </li>
-                
-            </ul>
+             
+            
+            <p>Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.</p>
+<p>A co-worker was working on some generalized additive mixed models (GAMM) through the R package mgvc. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R. However, they were with base-r, and we all know base-r is not the most beautiful plotting application. Also, we have a need to a spaghetti plot in the background, as the whole point with a GAMM is that we have repeated data, and showing those in the background is very essential. <strong>This</strong> is not easily done in base-r.</p>
+<p>So I went googling, and in my frustration, there was very little help in what I found. The standard</p>
+
         </div>
         
 
+        <div class="disqus">
+            
+        </div>
+
         <div class="container has-text-centered top-pad">
             <hr>
-            <a href="/categories/r/#top">
+            <a href="/post/gamm-spaghetti-plots-in-r-with-ggplot/#top">
                 <i class="fa fa-arrow-up"></i>
             </a>
             <hr>
@@ -140,7 +139,7 @@ crossorigin="anonymous"></script>
 
 
 <script>
-    $('a[href^="\/categories\/r\/#"]').click(function (e) {
+    $('a[href^="\/post\/gamm-spaghetti-plots-in-r-with-ggplot\/#"]').click(function (e) {
         e.preventDefault();
         var target = this.hash;
         $('html, body').animate({
