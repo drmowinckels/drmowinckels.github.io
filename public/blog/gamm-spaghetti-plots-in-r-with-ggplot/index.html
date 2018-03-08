@@ -10,14 +10,14 @@
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="Cognitive neuroscientist, blogging about R and neuroimaging.">
 
-<base href="/drmowinckels.io/drmowinckels.io/">
+<base href="/">
 <title>
 
 
      GAMM spaghetti plots in R with ggplot 
 
 </title>
-<link rel="canonical" href="/drmowinckels.io/drmowinckels.io/blog/gamm-spaghetti-plots-in-r-with-ggplot/">
+<link rel="canonical" href="/blog/gamm-spaghetti-plots-in-r-with-ggplot/">
 
 
 
@@ -78,25 +78,25 @@ crossorigin="anonymous"></script>
     <div id="nav-menu" class="nav-left nav-menu">
       
         <span class="nav-item">
-          <a href="/drmowinckels.io/blog">&emsp; &lt;&lt; Back to blog &emsp;</a>
+          <a href="/blog">&emsp; &lt;&lt; Back to blog &emsp;</a>
         </span> 
       
       <span class="nav-item">
-        <a href="/drmowinckels.io/">&emsp; Main &emsp;</a>
+        <a href="/">&emsp; Main &emsp;</a>
       </span>
       
         <span class="nav-item">
-          <a href="/drmowinckels.io/aboutme/aboutme/">&emsp; About &emsp;</a> 
+          <a href="/aboutme/aboutme/">&emsp; About &emsp;</a> 
         </span>
       
       
       <span class="nav-item">
-        <a href="/drmowinckels.io/#contact">&emsp; Contact &emsp;</a>
+        <a href="/#contact">&emsp; Contact &emsp;</a>
       </span>
       
         
           <span class="nav-item">
-            <a href="/drmowinckels.io/drmowinckels.io/index.xml">&emsp;<i class="fa fa-rss"></i></a>
+            <a href="/index.xml">&emsp;<i class="fa fa-rss"></i></a>
           </span>
         
     
@@ -106,7 +106,7 @@ crossorigin="anonymous"></script>
     </div>
 
     <div class="container  fade-in three">
-        <h2 class="title is-1 top-pad strong-post-title"><a href="/drmowinckels.io/drmowinckels.io/blog/gamm-spaghetti-plots-in-r-with-ggplot/">GAMM spaghetti plots in R with ggplot</a></h2>
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/gamm-spaghetti-plots-in-r-with-ggplot/">GAMM spaghetti plots in R with ggplot</a></h2>
             <div class="post-data">
                 Mar 8, 2018 |
                 10 minutes read
@@ -116,14 +116,14 @@ crossorigin="anonymous"></script>
                 <div class="blog-share">
                 Share this:
                 
-                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20GAMM%20spaghetti%20plots%20in%20R%20with%20ggplot%20%2fdrmowinckels.io%2fblog%2fgamm-spaghetti-plots-in-r-with-ggplot%2f"
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20GAMM%20spaghetti%20plots%20in%20R%20with%20ggplot%20%2fblog%2fgamm-spaghetti-plots-in-r-with-ggplot%2f"
                 onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="fa fa-twitter"></i>
                 <span class="hidden">Twitter</span>
                 </a>
                 
                  
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fdrmowinckels.io%2fblog%2fgamm-spaghetti-plots-in-r-with-ggplot%2f"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2fgamm-spaghetti-plots-in-r-with-ggplot%2f"
                 onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                 <i class="fa fa-facebook"></i>
                 <span class="hidden">Facebook</span>
@@ -131,7 +131,7 @@ crossorigin="anonymous"></script>
                 
                 
                 
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fdrmowinckels.io%2fblog%2fgamm-spaghetti-plots-in-r-with-ggplot%2f"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2fgamm-spaghetti-plots-in-r-with-ggplot%2f"
                 onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                 <i class="fa fa-google-plus"></i>
                 <span class="hidden">Google+</span>
@@ -195,14 +195,14 @@ dat %&gt;%
   geom_point(alpha=.3) +
   geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/dataSetUp-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/dataSetUp-1.png" width="672" /></p>
 <p>The data is not particularly well crafted, but it serves to make my point I believe. <code>geom_smooth</code> runs a loess model for prediction, which, given this data, makes a lot of sense. But it’s not what I want, and it won’t take into account the repeated measures. Let’s go over to the gamm models. I’ll omit gam, because you can easily get gams in ggplot by running:</p>
 <pre class="r"><code>dat %&gt;% 
   ggplot(aes(x=x2, y=y)) + 
   geom_line(alpha=.3,aes(group=fa)) + 
   geom_point(alpha=.3) +
   geom_smooth(method=&quot;gam&quot;)</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/plotGam1-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/plotGam1-1.png" width="672" /></p>
 <p>but that’s definately not what we want, despite the horrible data</p>
 <p>We could even give it a formula, which might look really nice. Not that the formula will read x and y in the formula as the ‘x’ and ‘y’ set in the <code>aes</code>. So don’t give it the actual names of the column, use ‘x’ and ‘y’.</p>
 <pre class="r"><code>dat %&gt;% 
@@ -210,7 +210,7 @@ dat %&gt;%
   geom_line(alpha=.3,aes(group=fa)) + 
   geom_point(alpha=.3) +
   geom_smooth(method=&quot;gam&quot;, formula=y~s(x,bs=&#39;cr&#39;))</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/plotGam2-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/plotGam2-1.png" width="672" /></p>
 <p>The downside to this is that it is only modelling the one term, and we want a fit that takes into account all our covariates, but only plots the one prediction, holding the others constant. trying to increase formula complexity in ggplot directly wont work, it’s just not made for something so complex.</p>
 <pre class="r"><code>dat %&gt;% 
   ggplot(aes(x=x2, y=y)) + 
@@ -220,7 +220,7 @@ dat %&gt;%
 <pre><code>## Warning in predict.gam(model, newdata = data.frame(x = xseq), se.fit = se, : not all required variables have been supplied in  newdata!</code></pre>
 <pre><code>## Warning: Computation failed in `stat_smooth()`:
 ## object &#39;group&#39; not found</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/plotGam3-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/plotGam3-1.png" width="672" /></p>
 <p>So, let’s have a look at what we want to model. This particular example is compelx, because it is the complex that is hard to predict and plot. The simple ones will work with the above, provigin a formula directly to <code>geom_stat</code>. We’re using three smoothing splines on three predictors in this model, and including two random intercepts. But we are really only interested in the <code>x2</code> smoothing spline, the others are just covariates of no interest.</p>
 <pre class="r"><code>b = gamm(y~s(x0,bs=&quot;cr&quot;)+s(x1,bs=&quot;cr&quot;)+s(x2,bs=&quot;cr&quot;)+
            s(x3,bs=&quot;cr&quot;),data=dat,random=list(fa=~1,fb=~1),
@@ -269,7 +269,7 @@ dat %&gt;%
   geom_ribbon(aes(ymin=pred$fit-1.96*pred$se.fit,
                   ymax=pred$fit+1.96*pred$se.fit), alpha=0.2, fill=&quot;red&quot;)+
   geom_line(aes(y=pred$fit), col=&quot;blue&quot;, lwd=1)</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>Now, there are packages to help do this. For instance, visreg has a gamm plotting function. However, <a href="https://cran.r-project.org/web/packages/visreg/visreg.pdf">visreg</a> requires attached data, or each variable existing in the global environment. I don’t like working with attached data, in my opinion in makes the workflow less transparent, and it’s hard to debug issues. If you forget to detach the data, you can spend hours trying to figure out why things aren’t working, without noticing that the attached data may be messing things up.</p>
 <p>What we need to do, is predict all the data, keeping the other covariates constant, while only varying the predictor of interest. Right-o. If you’re good at simulating data etc, this might be easy for you. I’m pretty terrible at it (for lack of practise for sure).</p>
 <p>After trying for several days, without managing to make the plot I wanted, I tweeted my frustration.</p>
@@ -305,7 +305,7 @@ dat %&gt;%
   geom_point(alpha=.3) +
   geom_ribbon(data=pred, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI), show.legend = F, fill=&#39;forestgreen&#39;) +
   geom_line(data=pred, aes(y=fit), show.legend = F, color=&#39;forestgreen&#39;)</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>That’s looking much nicer! Hurrah! I also made a convenience function for my self, to make the predicted data. This would only work for other numeric predictors, and it’s not particularly pretty coding, as it’s using ugly eval parsing, but that’s how I got it working for me.</p>
 <pre class="r"><code># Custom function that predicts on a single predictor, and adds the dependent with the value of 1
 GammPredData = function(data, gamm.model, condition){
@@ -330,7 +330,7 @@ GammPredData = function(data, gamm.model, condition){
   geom_point(alpha=.3) +
   geom_ribbon(data=pred, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI), show.legend = F, fill=&#39;forestgreen&#39;) +
   geom_line(data=pred, aes(y=fit), show.legend = F, color=&#39;forestgreen&#39;)</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>You might want to grab each predictor and plot them? That can be done also, and I’ll use a combination of <code>apply</code>’es to do so, for convenience. I love apply’es…</p>
 <pre class="r"><code># Predictions
 p = c(&quot;x0&quot;, &quot;x1&quot;, &quot;x2&quot;,&quot;x3&quot;)
@@ -379,7 +379,7 @@ dat2 %&gt;%
   geom_ribbon(data=preds, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill=Pred), show.legend = F) +
   geom_line(data=preds, aes(y=fit, color=Pred), show.legend = F) +
   facet_wrap(~Pred, scales=&quot;free&quot;)</code></pre>
-<p><img src="/drmowinckels.io/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>And that is it. My first blogpost, and I hope it is to some help.</p>
 <p>Happy International Woman’s day!</p>
 
@@ -410,7 +410,7 @@ dat2 %&gt;%
 
 <div class="container has-text-centered top-pad">
 <hr>
-<a href="/drmowinckels.io/drmowinckels.io/blog/gamm-spaghetti-plots-in-r-with-ggplot/#top"><i class="fa fa-arrow-up"></i></a>
+<a href="/blog/gamm-spaghetti-plots-in-r-with-ggplot/#top"><i class="fa fa-arrow-up"></i></a>
 <hr>
 </div>
 
@@ -427,7 +427,7 @@ dat2 %&gt;%
 
 
 <script>
-$('a[href^="\/drmowinckels.io\/blog\/gamm-spaghetti-plots-in-r-with-ggplot\/#"]').click(function(e) {
+$('a[href^="\/blog\/gamm-spaghetti-plots-in-r-with-ggplot\/#"]').click(function(e) {
     e.preventDefault();
     var target = this.hash;
     $('html, body').animate({
