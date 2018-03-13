@@ -2,7 +2,7 @@
 <html lang="en-uk">
 
 <head>
-	<meta name="generator" content="Hugo 0.37" />
+	<meta name="generator" content="Hugo 0.37.1" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
 <meta name="HandheldFriendly" content="True">
@@ -51,6 +51,13 @@ crossorigin="anonymous"></script>
 
 
 
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-115545202-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
 
 
@@ -88,8 +95,8 @@ crossorigin="anonymous"></script>
         <i class="fa fa-github"></i>
     </a>
     
-    <a href="mailto:a.m.mowinckel@psykologi.uio.no">
-        <i class="fa fa-envelope"></i>
+    <a href="https://stackoverflow.com/users/8003165/athanasia-mowinckel">
+        <i class="fa fa-stack-overflow"></i>
     </a>
     
 </div>
@@ -102,6 +109,8 @@ crossorigin="anonymous"></script>
     <hr>
     <nav class="nav-center" style="text-align: center">
         <a class="nav-item" href="#about">&emsp; About &emsp;</a>
+        
+          <a class="nav-item" href="#projects">&emsp; Projects &emsp;</a>
         
         
           <a class="nav-item" href="#blog">&emsp; Blog &emsp;</a>
@@ -137,10 +146,6 @@ crossorigin="anonymous"></script>
                     
                     
                     
-                    
-                    
-                    
-                    
                             <p>I am a cognitive neuroscientist based in Oslo, Norway, who works at the <a href="www.oslobrains.no">Center for Lifespan Changes in Brain and Cognition</a>. I am passionate about cognitive neuroscience, teaching people the benefits of using R, and equalizing gender diversity in the R-community (and in data science) through <a href="www.twitter.com/RLadies_Oslo">RLadies-Oslo</a>.</p>
 
 <p style="text-align: center;"> <a href="/aboutme/aboutme/">More about me</a> </p>
@@ -158,6 +163,87 @@ crossorigin="anonymous"></script>
 
 
 
+    
+    <div class="section" id="projects">
+        <div class="container">
+    
+    <h2 class="title is-2 has-text-centered">Projects</h2>
+
+    <div class="section is-small">
+        <div class="columns is-multiline">
+             
+            
+            <div class="column is-half"> 
+                
+                <div  id="projectmri-viewer"  class="card">
+                        <div class="card-image">
+                            <figure class="image is-3by2">
+                                <a >
+                                    <img src="img/VisMRI.png">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="card-content has-text-centered top-pad">
+                                <a >
+                                    MRI viewer
+                                </a>
+                        </div>
+                </div>
+            </div>
+                     
+    </div>
+</div>
+</div>
+
+
+
+  
+<div class="modal" id="modalmri-viewer">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        
+        <header class="modal-card-header bottom-pad">
+            <p class="modal-card-title has-text-centered">MRI viewer</p>
+        </header>
+        
+        
+            <img src="img/VisMRI.png" class="img-responsive img-centered">
+        
+        
+        <section class="modal-card-body markdown">
+            <p>There is currently a lack of tools for vislualising results from MRI analyses in R, most packages call an external command to open a viewer in another program. There is, however, advantages to visualise directly from R, among other increased understanding of the underlying data.</p>
+
+<p>In this project, tentatively called visMRI, the idea is to create a shiny instance that will function as a viewer for MRI results. Ultimately, I hope to launch something that might be used on a <code>.feat</code> folder from <a href="www.fmrib.ox.ac.uk">FSL</a></p>
+
+<p>By the marvellous idea of a colleague, I also hope to incporporate his code for <a href="https://surfer.nmr.mgh.harvard.edu">Freesurfer&rsquo;s</a> aparc segmentations.</p>
+
+<p>A very buggy example can be seen <a href="https://athanasiamo.shinyapps.io/VisMRI">here</a>.</p>
+
+        </section>
+        
+    </div>
+    <button class="modal-close is-large" aria-label="close" id="closemri-viewer"></button>
+</div>
+<script>
+    $('#projectmri-viewer').click(function() {
+        $('#modalmri-viewer').addClass('is-active');
+    });
+    $('#closemri-viewer').click(function() {
+        $('#modalmri-viewer').removeClass('is-active');
+    });
+</script>
+          
+
+
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+    </div>
+
+    <div class="container"><hr></div>
     
 
 
@@ -208,10 +294,6 @@ A co-worker was working on some generalized additive mixed models (GAMM) through
                 
                 
                 
-                
-                
-                
-                
                         
                     
                 
@@ -234,6 +316,8 @@ A co-worker was working on some generalized additive mixed models (GAMM) through
         
 
         
+        <h3 class="subtitle is-3 has-text-centered top-pad"><a href="mailto:a.m.mowinckel@psykologi.uio.no">a.m.mowinckel@psykologi.uio.no</a></h3>
+        
 
         <div class="social-icons">
     
@@ -245,8 +329,8 @@ A co-worker was working on some generalized additive mixed models (GAMM) through
         <i class="fa fa-github"></i>
     </a>
     
-    <a href="mailto:a.m.mowinckel@psykologi.uio.no">
-        <i class="fa fa-envelope"></i>
+    <a href="https://stackoverflow.com/users/8003165/athanasia-mowinckel">
+        <i class="fa fa-stack-overflow"></i>
     </a>
     
 </div>
@@ -262,7 +346,7 @@ A co-worker was working on some generalized additive mixed models (GAMM) through
 <div class="section" id="footer">
     <div class="container has-text-centered">
         
-        <span class="footer-text"> Athanasia Monika Mowinckel <i class="fa fa-creative-commons"></i>-BY 2018</span>
+        <span class="footer-text"> Athanasia Monika Mowinckel <i class="fa fa-creative-commons"></i>-BY 2018. Feeding to <a href='https://rweekly.org'>R weekly</a></span>
         
     </div>
 </div>

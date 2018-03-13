@@ -14,10 +14,10 @@
 <title>
 
 
-     Contact 
+     MRI viewer 
 
 </title>
-<link rel="canonical" href="/contact/">
+<link rel="canonical" href="/projects/rmriviewer/">
 
 
 
@@ -70,7 +70,7 @@ ga('send', 'pageview');
 
     <div class="container hero  fade-in one ">
         
-        <h1 class="bold-title is-1">Contact</h1>
+        <h1 class="bold-title is-1">MRI viewer</h1>
     </div>
     
 
@@ -110,9 +110,20 @@ ga('send', 'pageview');
 
         <div class="container markdown  fade-in two  top-pad">
             
+            
+            <div class="has-text-centered">
+            <img src="img/VisMRI.png" class="img-responsive"> 
+            </div>
              
             
-            
+            <p>There is currently a lack of tools for vislualising results from MRI analyses in R, most packages call an external command to open a viewer in another program. There is, however, advantages to visualise directly from R, among other increased understanding of the underlying data.</p>
+
+<p>In this project, tentatively called visMRI, the idea is to create a shiny instance that will function as a viewer for MRI results. Ultimately, I hope to launch something that might be used on a <code>.feat</code> folder from <a href="www.fmrib.ox.ac.uk">FSL</a></p>
+
+<p>By the marvellous idea of a colleague, I also hope to incporporate his code for <a href="https://surfer.nmr.mgh.harvard.edu">Freesurfer&rsquo;s</a> aparc segmentations.</p>
+
+<p>A very buggy example can be seen <a href="https://athanasiamo.shinyapps.io/VisMRI">here</a>.</p>
+
         </div>
         
 
@@ -141,7 +152,7 @@ ga('send', 'pageview');
 
         <div class="container has-text-centered top-pad">
             <hr>
-            <a href="/contact/#top">
+            <a href="/projects/rmriviewer/#top">
                 <i class="fa fa-arrow-up"></i>
             </a>
             <hr>
@@ -162,7 +173,7 @@ ga('send', 'pageview');
 
 
 <script>
-    $('a[href^="\/contact\/#"]').click(function (e) {
+    $('a[href^="\/projects\/rmriviewer\/#"]').click(function (e) {
         e.preventDefault();
         var target = this.hash;
         $('html, body').animate({

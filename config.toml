@@ -2,11 +2,11 @@ baseurl             = "http://drmowinckels.io/"   # Your domain name. Must end w
 languageCode        = "en-uk"
 title               = "Dr. Mowinckel's"
 theme               = "hugo-theme-introduction"
-enforce_ssl         = false
+enforce_ssl         = true
 builddrafts         = false                             # Include pages with draft status of true
 canonifyurls        = true                              # Turns relative urls into absolute urls
 disqusshortname     = "drmowinckels-io"                             # Enable Disqus for comments
-# googleAnalytics   = "xxx"
+googleAnalytics     = "UA-115545202-1"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
@@ -16,7 +16,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     introheight         = "fullheight"                  # Input either 'medium' or 'large' or 'fullheight'
     themestyle          = "custom"                      # Choose 'light' or 'dark'
     avatar              = "img/profile.png"             # Path to image in static folder eg. img/avatar.png, or comment out to remove
-    email               = ""         # Shows in contact section, or leave blank to omit
+    email               = "a.m.mowinckel@psykologi.uio.no"         # Shows in contact section, or leave blank to omit
     localtime           = true                          # Show your current local time in contact section
     timezone            = "Europe/Oslo"                 # Your timezone as in the TZ* column of this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     dateform            = "Jan 2, 2006"
@@ -24,14 +24,14 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     cachebuster         = false                         # Add the current unix timestamp in query string for cache busting css assets (relevant in development mode)
     description         = "Cognitive neuroscientist, blogging about R and neuroimaging."        # Max 160 characters show in search results
     faviconfile         = "img/fav.ico.png"
-    pygmentsStyle       = "pastie"                     # Choose theme: https://help.farbox.com/pygments.html
+    pygmentsStyle       = "autumn"                     # Choose theme: https://help.farbox.com/pygments.html
     pygmentsCodeFences  = true
-    footertext          = ""             # Text to show in footer (overrides default text)
+    footertext          = ""                            # Text to show in footer (overrides default text)
     fadein              = true                          # Turn on/off the fade-in effect
 
     showblog            = true                          # Show Blog section on home page
-    showprojects        = false                         # Show Projects section on home page
-    projectcolumns      = "3"                           # Choose "2" or "3" columns for projects section
+    showprojects        = true                          # Show Projects section on home page
+    projectcolumns      = "2"                           # Choose "2" or "3" columns for projects section
     placeholderimg      = "/img/workday.jpg"            # For Projects without image
     showallposts        = false                         # Set 'true' to list all posts on home page, or set 'false' to link to separate blog list page
     showlatest          = true                          # Show latest blog post summary
@@ -54,8 +54,12 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "https://github.com/Athanasiamo"
     icon = "github"
 
-[[params.social]]
-    url = "mailto:a.m.mowinckel@psykologi.uio.no"
-    icon = "envelope"
+# [[params.social]]
+#     url = "mailto:a.m.mowinckel@psykologi.uio.no"
+#     icon = "envelope"
 
+ [[params.social]]
+    url = "https://stackoverflow.com/users/8003165/athanasia-mowinckel"
+    icon = "stack-overflow" 
+  
   
