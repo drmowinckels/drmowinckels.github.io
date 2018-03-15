@@ -1,4 +1,4 @@
-<div class="container" style="background: transparent;">
+<div class="container">
     <!-- Begin Projects container -->
     <h2 class="title is-2 has-text-centered">Projects</h2>
 
@@ -32,7 +32,7 @@
 
 <!-- Projects modals -->
 {{ range sort .Pages }} {{ if eq .Section "projects" }} {{ if not .Params.external_link }}
-<div class="modal" id="modal{{.Title | urlize}} " style="background: transparent; background-color: transparent;">
+<div class="modal" id="modal{{.Title | urlize}}">
     <div class="modal-background"></div>
     <div class="modal-card">
         {{ with .Title }}
