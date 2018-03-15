@@ -63,6 +63,27 @@ ga('send', 'pageview');
   <link href="/categories/index.xml" rel="alternate" type="application/rss+xml" title="Dr. Mowinckel&#39;s" />
 
 
+
+<script type="text/javascript">
+  
+  window.onscroll = function() {myFunction()};
+  
+  
+  var navbar = document.getElementById("navbar");
+  
+  
+  var sticky = navbar.offsetTop;
+  
+  
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add("sticky")
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  }
+</script>
+
 </head>
 
 
@@ -91,6 +112,10 @@ ga('send', 'pageview');
       </span>
       <span class="nav-item">
         <a href="/aboutme/aboutme/">&emsp; About &emsp;</a> 
+      </span>
+    
+      <span class="nav-item">
+        <a href="/#projects">&emsp; Projects &emsp;</a> 
       </span>
     
       <span class="nav-item">
