@@ -50,9 +50,9 @@
 
         <div class="columns"><!-- Avatar and about.md side by side except mobile -->
             {{ if .Site.Params.avatar }}
-            <div class="column is-one-third has-text-centered">
-              <img class="img-responsive avatar" src="/{{ .Site.Params.avatar }}" alt="My profile picture.">
-            </div>
+              <div class="column is-one-third has-text-centered">
+                <img class="img-responsive avatar" src="/{{ .Site.Params.avatar }}" alt="My profile picture.">
+              </div>
             {{ end }}
             <div class="column markdown">
                 {{ range .Data.Pages }}

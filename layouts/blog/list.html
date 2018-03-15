@@ -19,20 +19,27 @@
        
     <div class="container"><!-- Begin Blog container -->
 
-    {{ if .Site.Params.showLatest }}
-    <h2 class="title is-2 top-pad">Latest Post</h2>
-        {{ range first 1 (where .Data.Pages.ByPublishDate.Reverse "Section" "blog") }} 
-        <div class="summary">{{ .Date.Format .Site.Params.dateForm }}
-            <h3 class="title is-3 strong-post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                <div class="markdown">
+{{ if .Site.Params.showLatest }}
+  <h2 class="title is-2 has-text-centered">Latest Post</h2>
+  {{ range first 1 (where .Data.Pages.ByPublishDate.Reverse "Section" "blog") }} 
+  <div class="summary">
+        <h3 class="title is-3 latest-post-title has-text-centered"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+
+        <div class="columns"><!-- Avatar and about.md side by side except mobile -->
+              <div class="column is-one-third has-text-centered">
+                {{ with .Params.featured_image }}<img src="{{ . }}">{{ end }}
+              </div>
+            <div class="column markdown">
+                <i>{{ .Date.Format .Site.Params.dateForm }}</i> <br>
                 {{ .Summary }}
                 {{ if .Truncated }}
-                <a href="{{ .RelPermalink }}">...Read More</a>
+                  <a href="{{ .RelPermalink }}">...Read More</a>
                 {{ end }}
-                </div>
+            </div>
         </div>
-        {{ end }}
-    {{ end }}
+
+  {{ end }}
+{{ end }}
 
     <h2 class="title is-2 top-pad">All Posts</h2>
         <ul>
