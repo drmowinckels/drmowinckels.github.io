@@ -5,6 +5,9 @@ date: '2018-03-07'
 
 ```{r "setup", include=F,echo=F, warning=F, error=F}
 library(tweenr); library(gganimate); library(tidyverse); library(scholar)
+library(rio); library(knitr)
+options(knitr.kable.NA = '')
+CV = import_list("../../../Dropbox/Privat/Jobbsøking/CV-attester-etc/CV.xlsx")
 ```
 
 ### In short
@@ -12,12 +15,24 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 
 
 ### Education  
-2012 - 2016 &nbsp;&nbsp;&nbsp; PhD in Cognitive Neuroscience, University of Oslo  
-2009 - 2011 &nbsp;&nbsp;&nbsp; MPhil in Cognitive Neuroscience, University of Oslo  
-2005 - 2009 &nbsp;&nbsp;&nbsp; BA in Cognitive Psychology, University of Oslo  
+```{r "Education", echo=F}
+CV$EDU %>% 
+  kable("markdown", booktabs = T)
+
+```
+### Work  
+```{r "Work", echo=F}
+CV$WORK %>% 
+  kable("markdown", booktabs = T)
+```
+### Commissions  
+```{r "Commissions", echo=F}
+CV$COMMISSION %>% 
+  kable("markdown", booktabs = T)
+```
+
 
 ### Publications  
-
 ```{r "pubPlot", echo=FALSE, warning=FALSE, error=FALSE, dev.args = list(bg = 'transparent'), aniopts=c(interval = 0.8, loop=1)}
 pp = get_citation_history("7NkxgWQAAAAJ") %>% 
   mutate(cumulative=cumsum(cites)) %>% 
