@@ -15,7 +15,7 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 
 
 ### Education  
-```{r "Education", echo=F}
+```{r "Education", echo=F, results='asis'}
 CV$EDU %>% 
   kable("markdown", booktabs = T)
 
@@ -33,6 +33,8 @@ CV$COMMISSION %>%
 
 
 ### Publications  
+
+
 ```{r "pubPlot", echo=FALSE, warning=FALSE, error=FALSE, dev.args = list(bg = 'transparent'), aniopts=c(interval = 0.8, loop=1)}
 pp = get_citation_history("7NkxgWQAAAAJ") %>% 
   mutate(cumulative=cumsum(cites)) %>% 

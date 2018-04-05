@@ -6,7 +6,7 @@ slug: gamm-spaghetti-plots-in-r-with-ggplot
 featured_image: '/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-4-1.png'
 categories:
   - R
-tags: []
+tags: [GAMM]
 draft: false
 ---
 
@@ -43,12 +43,14 @@ for (i in 1:40) {
 }
 
 dat$y <- f + ra + rb + e
-dat$fa <- fa;dat$fb <- fb
+dat$id <- fa;dat$fb <- fb
+```
 
+```{r}
 # Let's have a look at it
 dat %>% 
   ggplot(aes(x=x2, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_smooth()
 
@@ -59,7 +61,7 @@ The data is not particularly well crafted, but it serves to make my point I beli
 ```{r "plotGam1"}
 dat %>% 
   ggplot(aes(x=x2, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_smooth(method="gam")
 ```
@@ -71,7 +73,7 @@ We could even give it a formula, which might look really nice. Not that the form
 ```{r "plotGam2"}
 dat %>% 
   ggplot(aes(x=x2, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_smooth(method="gam", formula=y~s(x,bs='cr'))
 ```
@@ -82,7 +84,7 @@ The downside to this is that it is only modelling the one term, and we want a fi
 ```{r "plotGam3"}
 dat %>% 
   ggplot(aes(x=x2, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_smooth(method="gam", formula=y~s(x,bs='cr') + s(group, bs="re"))
 ```
@@ -92,7 +94,7 @@ So, let's have a look at what we want to model. This particular example is compe
 ```{r "analyses", warning=FALSE}
 
 b = gamm(y~s(x0,bs="cr")+s(x1,bs="cr")+s(x2,bs="cr")+
-           s(x3,bs="cr"),data=dat,random=list(fa=~1,fb=~1),
+           s(x3,bs="cr"),data=dat,random=list(id=~1,fb=~1),
          correlation=corAR1())
 
 # Output is a list of two
@@ -112,7 +114,7 @@ pred <- predict(b$gam, se.fit=T)
 
 dat %>% 
   ggplot(aes(x=x2, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_ribbon(aes(ymin=pred$fit-1.96*pred$se.fit,
                   ymax=pred$fit+1.96*pred$se.fit), alpha=0.2, fill="red")+
@@ -137,8 +139,8 @@ library(itsadug)
 
 # predict on x2
 pred = get_predictions(b$gam, 
-                       cond = list(x2 = seq(min(dat$x2),
-                                            max(dat$x2), 
+                       cond = list(x2 = seq(min(dat$x2, na.rm=T),
+                                            max(dat$x2, na.rm=T), 
                                             length.out = nrow(dat)), se=T))
 
 # add y to predicted data, becasue ggplot requires all main variables in both datasets
@@ -146,7 +148,7 @@ pred = pred %>% mutate(y=1)
 
 dat %>% 
   ggplot(aes(x=x2, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_ribbon(data=pred, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI), show.legend = F, fill='forestgreen') +
   geom_line(data=pred, aes(y=fit), show.legend = F, color='forestgreen')
@@ -165,7 +167,7 @@ GammPredData = function(data, gamm.model, condition){
   eval(parse(text=paste0(
     "get_predictions(gamm.model, cond = list(",
     condition,
-    "=seq(min(data[condition]),max(data[condition]), length.out = nrow(data)))) %>% as.data.frame() %>% mutate(",
+    "=seq(min(data[condition], na.rm=T),max(data[condition], na.rm=T), length.out = nrow(data)))) %>% as.data.frame() %>% mutate(",
     str_split(gamm.model$formula, " ")[[2]],"=1)")))
 }
 
@@ -174,7 +176,7 @@ GammPredData = function(data, gamm.model, condition){
   
 dat %>% 
   ggplot(aes(x=x2, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_ribbon(data=pred, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI), show.legend = F, fill='forestgreen') +
   geom_line(data=pred, aes(y=fit), show.legend = F, color='forestgreen')
@@ -210,7 +212,7 @@ preds = bind_rows(preds)%>%
 
 dat2 %>% 
   ggplot(aes(x=x, y=y)) + 
-  geom_line(alpha=.3,aes(group=fa)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
   geom_ribbon(data=preds, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill=Pred), show.legend = F) +
   geom_line(data=preds, aes(y=fit, color=Pred), show.legend = F) +
