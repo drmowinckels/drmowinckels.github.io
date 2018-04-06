@@ -26,29 +26,29 @@ We'll continue using the example from the package
 library(tidyverse); library(mgcv)
 
 set.seed(0)
-n.g <- 10
-n<-n.g*10*4
+n.g = 10
+n=n.g*10*4
 
-dat <- gamSim(1,n=n,scale=2)
-f <- dat$f
+dat = gamSim(1,n=n,scale=2)
+f = dat$f
 
 ## simulate nested random effects....
-fa <- as.factor(rep(1:10,rep(4*n.g,10)))
-ra <- rep(rnorm(10),rep(4*n.g,10))
-fb <- as.factor(rep(rep(1:4,rep(n.g,4)),10))
-rb <- rep(rnorm(4),rep(n.g,4))
-for (i in 1:9) rb <- c(rb,rep(rnorm(4),rep(n.g,4)))
+fa = as.factor(rep(1:10,rep(4*n.g,10)))
+ra = rep(rnorm(10),rep(4*n.g,10))
+fb = as.factor(rep(rep(1:4,rep(n.g,4)),10))
+rb = rep(rnorm(4),rep(n.g,4))
+for (i in 1:9) rb = c(rb,rep(rnorm(4),rep(n.g,4)))
 
 ## simulate auto-correlated errors within groups
-e<-array(0,0)
+e=array(0,0)
 for (i in 1:40) {
-  eg <- rnorm(n.g, 0, sd(f))
-  for (j in 2:n.g) eg[j] <- eg[j-1]*0.6+ eg[j]
-  e<-c(e,eg)
+  eg = rnorm(n.g, 0, sd(f))
+  for (j in 2:n.g) eg[j] = eg[j-1]*0.6+ eg[j]
+  e=c(e,eg)
 }
 
-dat$y <- f + ra + rb + e
-dat$id <- fa;dat$fb <- fb
+dat$y = f + ra + rb + e
+dat$id = fa;dat$fb = fb
 
 # Have a look at the data
 dat %>% glimpse
