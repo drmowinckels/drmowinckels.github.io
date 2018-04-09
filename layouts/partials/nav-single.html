@@ -3,11 +3,6 @@
     <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
     </span>
     <div id="nav-menu" class="nav-left nav-menu">
-      {{if eq .Section "blog"}}
-        <span class="nav-item">
-          <a href="/{{ .Section }}">&emsp; << Back to {{ .Section }} &emsp;</a>
-        </span> 
-      {{end}}
       <span class="nav-item">
         <a href="/">&emsp; Main &emsp;</a>
       </span>

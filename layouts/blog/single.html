@@ -16,6 +16,8 @@
     <div class="container" style="text-align: center;"><!-- Begin Nav bar -->
     {{ partial "nav-single.html" . }}
     </div><!-- End Nav bar -->
+    
+<a href="/{{ .Section }}">&emsp; << Back to {{ .Section }} &emsp;</a>
 
     <div class="container"><!-- Begin blog title container -->
         <h2 class="title is-1 top-pad strong-post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
@@ -63,6 +65,8 @@
     <div class="container markdown top-pad"><!-- Begin blog post content -->
         {{ .Content }}
     </div><!-- End blog post content -->
+    
+<a href="/{{ .Section }}">&emsp; << Back to {{ .Section }} &emsp;</a>
 
     <div class="disqus">
         {{ template "_internal/disqus.html" . }}
