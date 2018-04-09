@@ -1,0 +1,38 @@
+<div id="top"> <!-- Where all the awesome begins -->
+
+<div class="hero is-{{ .Site.Params.introHeight }}" style="background: url(img/logo.png) center center no-repeat;">
+<!-- Possible hero-head not used -->
+    <!-- Super sweet Hero body title -->
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <!-- Title and tagline -->
+            <h1 class="bold-title {{ if .Site.Params.fadeIn }}fade-in one{{ end }}">
+                {{ .Site.Params.firstName }}
+            </h1>
+            <p class="subtitle is-3 {{ if.Site.Params.fadeIn }} fade-in two{{ end }}">
+                {{ .Site.Params.tagLine }}
+            </p>
+            <!-- End title and tagline -->
+            <!-- Some social icons -->
+            <div class="{{ if .Site.Params.fadeIn }}fade-in three{{ end }}">
+                {{ partial "social.html" . }}
+            </div>
+            <!-- End top social icons -->
+        </div>
+    </div> <!-- Hero body title end -->
+    <!-- Hero foot has nav bar -->
+    <div class="hero-foot {{ if .Site.Params.fadeIn }}fade-in three{{ end }}">
+    <hr>
+    <nav class="nav-center" style="text-align: center">
+        <a class="nav-item" href="#about">&emsp; About &emsp;</a>
+        {{ if .Site.Params.showProjects }}
+          <a class="nav-item" href="#projects">&emsp; Projects &emsp;</a>
+        {{ end }}
+        {{ if .Site.Params.showBlog }}
+          <a class="nav-item" href="#blog">&emsp; Blog &emsp;</a>
+        {{ end }}
+        <a class="nav-item" href="#contact">&emsp; Contact &emsp;</a>
+    </nav>
+    <hr>
+    </div><!-- Done with nav bar -->
+</div><!-- Done with Hero -->

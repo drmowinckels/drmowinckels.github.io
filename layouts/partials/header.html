@@ -10,13 +10,13 @@
 <meta name="referrer" content="no-referrer">
 {{ if .Site.Params.description }}<meta name="description" content="{{ .Site.Params.description }}">{{ end }}
 
-{{if eq .Section "blog"}}
-	{{ with .Params.featured_image }}
+  
+	{{ with .Params.images }}
 		{{ range first 1 . }}
 	<meta property="og:image" content="{{ . | absURL }}" />
 		{{ end }}
 	{{ end }}
-{{ end }}
+
 
 <base href="{{ .Site.BaseURL }}">
 <title>

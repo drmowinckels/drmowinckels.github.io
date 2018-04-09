@@ -1,15 +1,8 @@
 {{ partial "header.html" . }}
 
 <body>
-	
-<div class="section" style="text-align: center; background-image: url(img/logo.png); background-repeat: no-repeat; background-size: auto 80%; background-position: center;"><!-- Parent section -->
-    <h1 class="bold-title {{ if .Site.Params.fadeIn }}fade-in one{{ end }}">
-          {{ .Site.Params.firstName }}
-    </h1>
-    <h1 class="subtitle is-3 {{ if.Site.Params.fadeIn }} fade-in two{{ end }}">
-          {{ .Site.Params.blogHead }}
-    </h1>
-</div><!-- End Title -->
+
+{{ partial "banner.html" . }}
 
 <!-- Everything below fades in three! -->
 <div class="section {{ if .Site.Params.fadeIn }} fade-in three{{ end }}">
