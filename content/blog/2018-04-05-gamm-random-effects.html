@@ -111,16 +111,16 @@ b$gam %&gt;% summary()</code></pre>
 <p>The summary does not contain particular information about the random effect, and you can grab the random effects coefficients with the <code>ranef</code> function, and clearly see each intercept estimated.</p>
 <pre class="r"><code>ranef(b$lme)</code></pre>
 <pre><code>## Level: g 
-##             Xr1         Xr2         Xr3          Xr4        Xr5        Xr6
-## 1 -0.0005843676 0.003156998 -0.01032196 -0.006625699 0.02528885 0.04149708
-##           Xr7         Xr8
-## 1 -0.05451532 -0.07259337
+##             Xr1          Xr2         Xr3          Xr4        Xr5
+## 1 -0.0005843676 -0.003156997 -0.01032196 -0.006625699 0.02528885
+##          Xr6         Xr7         Xr8
+## 1 0.04149708 -0.05451532 -0.07259337
 ## 
 ## Level: g.0 %in% g 
-##             Xr.01        Xr.02        Xr.03        Xr.04      Xr.05
-## 1/1 -0.0009779544 -0.001372479 -0.004842131 0.0001262393 0.00105675
+##             Xr.01        Xr.02        Xr.03        Xr.04       Xr.05
+## 1/1 -0.0009779545 -0.001372479 -0.004842131 0.0001262393 -0.00105675
 ##           Xr.06       Xr.07      Xr.08
-## 1/1 0.006042108 -0.01916633 0.03101185
+## 1/1 0.006042108 -0.01916633 0.03101186
 ## 
 ## Level: g.1 %in% g.0 %in% g 
 ##         Xr.11      Xr.12     Xr.13      Xr.14      Xr.15     Xr.16
@@ -130,14 +130,14 @@ b$gam %&gt;% summary()</code></pre>
 ## 
 ## Level: g.2 %in% g.1 %in% g.0 %in% g 
 ##                Xr.21        Xr.22        Xr.23        Xr.24         Xr.25
-## 1/1/1/1 2.909213e-10 2.054713e-10 1.476593e-09 1.896267e-09 -2.472699e-09
-##                Xr.26        Xr.27         Xr.28
-## 1/1/1/1 2.618389e-10 1.642719e-09 -2.446069e-10
+## 1/1/1/1 2.909292e-10 2.054768e-10 1.476632e-09 1.896318e-09 -2.472765e-09
+##                Xr.26         Xr.27         Xr.28
+## 1/1/1/1 2.618459e-10 -1.642764e-09 -2.446136e-10
 ## 
 ## Level: id %in% g.2 %in% g.1 %in% g.0 %in% g 
 ##            (Intercept)
-## 1/1/1/1/1  -0.04093525
-## 1/1/1/1/2  -1.24502533
+## 1/1/1/1/1  -0.04093526
+## 1/1/1/1/2  -1.24502534
 ## 1/1/1/1/3   1.10530245
 ## 1/1/1/1/4  -0.41008709
 ## 1/1/1/1/5   0.36932934
@@ -149,7 +149,7 @@ b$gam %&gt;% summary()</code></pre>
 ## 
 ## Level: fb %in% id %in% g.2 %in% g.1 %in% g.0 %in% g 
 ##              (Intercept)
-## 1/1/1/1/1/1   -0.8283857
+## 1/1/1/1/1/1   -0.8283858
 ## 1/1/1/1/1/2    1.7647269
 ## 1/1/1/1/1/3   -0.7439014
 ## 1/1/1/1/1/4   -0.3082929
@@ -159,11 +159,11 @@ b$gam %&gt;% summary()</code></pre>
 ## 1/1/1/1/2/4   -1.3056657
 ## 1/1/1/1/3/1    1.2229016
 ## 1/1/1/1/3/2   -0.7911620
-## 1/1/1/1/3/3    1.9957749
+## 1/1/1/1/3/3    1.9957750
 ## 1/1/1/1/3/4    0.7006611
 ## 1/1/1/1/4/1   -1.2557125
 ## 1/1/1/1/4/2   -1.2974789
-## 1/1/1/1/4/3    2.0870432
+## 1/1/1/1/4/3    2.0870433
 ## 1/1/1/1/4/4   -0.6944613
 ## 1/1/1/1/5/1    0.1460494
 ## 1/1/1/1/5/2    0.9042705
@@ -174,20 +174,20 @@ b$gam %&gt;% summary()</code></pre>
 ## 1/1/1/1/6/3    0.8543035
 ## 1/1/1/1/6/4   -1.9822241
 ## 1/1/1/1/7/1    0.7972101
-## 1/1/1/1/7/2    1.3004747
-## 1/1/1/1/7/3   -1.1514109
+## 1/1/1/1/7/2    1.3004748
+## 1/1/1/1/7/3   -1.1514110
 ## 1/1/1/1/7/4   -1.7796134
 ## 1/1/1/1/8/1    0.1702061
 ## 1/1/1/1/8/2    0.9086099
 ## 1/1/1/1/8/3   -1.0343737
 ## 1/1/1/1/8/4    1.0134668
 ## 1/1/1/1/9/1    0.4412907
-## 1/1/1/1/9/2   -1.4015795
+## 1/1/1/1/9/2   -1.4015796
 ## 1/1/1/1/9/3    1.1137714
 ## 1/1/1/1/9/4    0.7379609
 ## 1/1/1/1/10/1   0.7863282
 ## 1/1/1/1/10/2  -0.8114996
-## 1/1/1/1/10/3  -0.7101009
+## 1/1/1/1/10/3  -0.7101010
 ## 1/1/1/1/10/4   2.2350055</code></pre>
 <p>So, this leads me to what my PI has been doing. In his code, the random effects are specified as smoothing spines through <code>mgcv</code>’s formula function <code>s()</code>. I’ll not cover this function too much right now, you can see it in the formula we have already used, and it is a powerful smoothing spline function, where you can specify different types of splines. You can also specify that the spline is a random effect, by setting the argument <code>bs</code> to <code>&quot;re&quot;</code>.</p>
 <pre class="r"><code>b2 = gamm(y~s(x0,bs=&quot;cr&quot;)+s(x1,bs=&quot;cr&quot;)+s(x2,bs=&quot;cr&quot;)+s(x3,bs=&quot;cr&quot;) +
@@ -216,7 +216,7 @@ b2$gam %&gt;% summary()</code></pre>
 ## s(x1) 2.058e+00  2.058 55.553  &lt; 2e-16 ***
 ## s(x2) 7.093e+00  7.093 44.217  &lt; 2e-16 ***
 ## s(x3) 1.000e+00  1.000  0.424 0.515152    
-## s(id) 5.984e+00 10.000  2.029 0.000526 ***
+## s(id) 5.984e+00  9.000  2.254 0.000526 ***
 ## s(fb) 1.389e-05  3.000  0.000 0.370790    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
@@ -229,14 +229,14 @@ b2$gam %&gt;% summary()</code></pre>
 <p>I was still quite insecure about what I was looking at. There are things with this output that is different enough for me to be a little insecure about the approach being <em>correct</em>. Using <code>ranef</code> on this output, furhter made me a little anxious, it was so different than what I am used to.</p>
 <pre class="r"><code>ranef(b2$lme)</code></pre>
 <pre><code>## Level: g 
-##            Xr1         Xr2         Xr3          Xr4         Xr5        Xr6
-## 1 -0.001218306 0.006751215 -0.01164747 -0.002250968 -0.03275992 0.05436231
+##            Xr1         Xr2         Xr3          Xr4        Xr5        Xr6
+## 1 -0.001218306 0.006751215 -0.01164747 -0.002250968 0.03275992 0.05436231
 ##           Xr7         Xr8
 ## 1 -0.08915512 -0.07731022
 ## 
 ## Level: g.0 %in% g 
 ##            Xr.01        Xr.02        Xr.03         Xr.04      Xr.05
-## 1/1 -0.001094679 -0.002218705 -0.006072648 -0.0008453059 0.00412478
+## 1/1 -0.001094679 -0.002218705 -0.006072648 -0.0008453058 0.00412478
 ##          Xr.06       Xr.07      Xr.08
 ## 1/1 0.00828331 -0.02910859 0.03293125
 ## 
@@ -247,10 +247,10 @@ b2$gam %&gt;% summary()</code></pre>
 ## 1/1/1 0.8277681 -0.2820918
 ## 
 ## Level: g.2 %in% g.1 %in% g.0 %in% g 
-##                Xr.21        Xr.22        Xr.23        Xr.24        Xr.25
-## 1/1/1/1 1.143437e-10 1.382411e-10 2.446304e-10 5.680407e-10 -7.16513e-10
-##                 Xr.26         Xr.27        Xr.28
-## 1/1/1/1 -1.735727e-10 -7.832407e-10 4.623326e-11
+##                Xr.21        Xr.22        Xr.23        Xr.24         Xr.25
+## 1/1/1/1 1.143442e-10 1.382417e-10 2.446314e-10 5.680431e-10 -7.165161e-10
+##                 Xr.26       Xr.27        Xr.28
+## 1/1/1/1 -1.735734e-10 7.83244e-10 4.623348e-11
 ## 
 ## Level: g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
 ##              Xr.31     Xr.32     Xr.33      Xr.34     Xr.35     Xr.36
@@ -259,8 +259,8 @@ b2$gam %&gt;% summary()</code></pre>
 ## 1/1/1/1/1 -0.70093 2.054974 -2.542524 -0.09901478
 ## 
 ## Level: g.4 %in% g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
-##                     Xr.41        Xr.42         Xr.43       Xr.44
-## 1/1/1/1/1/1 -1.281856e-06 3.506606e-06 -2.817776e-06 5.93025e-07</code></pre>
+##                     Xr.41        Xr.42         Xr.43        Xr.44
+## 1/1/1/1/1/1 -1.281738e-06 3.506285e-06 -2.817518e-06 5.929708e-07</code></pre>
 <p>Look at that, the random participant intercepts are seemingly gone! <em>Whaaaaaat?</em> I’ve been looking into why, and the answer still eludes me a little. But I know the random effects are taken into account in the model, I know they are random because I specified them so, and I also can see a simple summary of the spline in the model summary.</p>
 <p>This is not the first thing about the <code>gamm</code> output that is different from other models. We know it outputs a list of two models, a <code>gam</code> and an <code>lme</code> , and these two are given to provide something familiar to compare to <code>gamm</code> to. The splines are also quite different than what we would specify otherwise, like quadratic fits, and their output would naturally also be a little different.</p>
 <p>and it hit me I was treating a subject identifier as a <code>double</code> rather than as a <code>factor</code>. Yikes! That was punishment for me not being observant enough about my data. The second model is in a way, estimating a smoothing spline along my ID as if it was a continuous numeric variable.</p>
@@ -292,9 +292,9 @@ b3$gam %&gt;% summary()</code></pre>
 ## s(x0) 3.018e+00  3.018  4.833 0.002708 ** 
 ## s(x1) 2.058e+00  2.058 55.553  &lt; 2e-16 ***
 ## s(x2) 7.093e+00  7.093 44.217  &lt; 2e-16 ***
-## s(x3) 1.000e+00  1.000  0.424 0.515153    
-## s(id) 5.984e+00 10.000  2.029 0.000526 ***
-## s(fb) 1.391e-05  3.000  0.000 0.370790    
+## s(x3) 1.000e+00  1.000  0.424 0.515152    
+## s(id) 5.984e+00  9.000  2.254 0.000526 ***
+## s(fb) 1.389e-05  3.000  0.000 0.370790    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -304,14 +304,14 @@ b3$gam %&gt;% summary()</code></pre>
 <p>Maybe it has an effect on the random effects output?</p>
 <pre class="r"><code>ranef(b3$lme)</code></pre>
 <pre><code>## Level: g 
-##            Xr1         Xr2         Xr3          Xr4        Xr5        Xr6
-## 1 -0.001218306 0.006751215 -0.01164747 -0.002250968 0.03275992 0.05436231
+##            Xr1         Xr2         Xr3          Xr4         Xr5        Xr6
+## 1 -0.001218306 0.006751215 -0.01164747 -0.002250968 -0.03275992 0.05436231
 ##           Xr7         Xr8
 ## 1 -0.08915512 -0.07731022
 ## 
 ## Level: g.0 %in% g 
-##            Xr.01        Xr.02        Xr.03        Xr.04        Xr.05
-## 1/1 -0.001094679 -0.002218705 -0.006072649 -0.000845306 -0.004124781
+##            Xr.01        Xr.02        Xr.03         Xr.04       Xr.05
+## 1/1 -0.001094679 -0.002218705 -0.006072648 -0.0008453059 0.004124781
 ##           Xr.06       Xr.07      Xr.08
 ## 1/1 0.008283311 -0.02910859 0.03293125
 ## 
@@ -322,10 +322,10 @@ b3$gam %&gt;% summary()</code></pre>
 ## 1/1/1 0.8277681 -0.2820918
 ## 
 ## Level: g.2 %in% g.1 %in% g.0 %in% g 
-##                Xr.21        Xr.22        Xr.23       Xr.24         Xr.25
-## 1/1/1/1 1.143383e-10 1.382346e-10 2.446189e-10 5.68014e-10 -7.164793e-10
+##                Xr.21        Xr.22        Xr.23        Xr.24         Xr.25
+## 1/1/1/1 1.143437e-10 1.382411e-10 2.446304e-10 5.680407e-10 -7.165131e-10
 ##                 Xr.26        Xr.27        Xr.28
-## 1/1/1/1 -1.735645e-10 7.832038e-10 4.623107e-11
+## 1/1/1/1 -1.735727e-10 7.832407e-10 4.623325e-11
 ## 
 ## Level: g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
 ##              Xr.31     Xr.32     Xr.33      Xr.34     Xr.35     Xr.36
@@ -335,7 +335,7 @@ b3$gam %&gt;% summary()</code></pre>
 ## 
 ## Level: g.4 %in% g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
 ##                     Xr.41        Xr.42         Xr.43        Xr.44
-## 1/1/1/1/1/1 -1.283127e-06 3.510084e-06 -2.820571e-06 5.936133e-07</code></pre>
+## 1/1/1/1/1/1 -1.281854e-06 3.506601e-06 -2.817772e-06 5.930242e-07</code></pre>
 <p>Nope, not particularly. It’s stil not what i would be used to seeing. Oh well. For now, I’ve settled my mind on that the models show equivalency, which we can see if we compare the models with model comparison function <code>anova</code> (enter confusion, this function is a model comparator in R, if you want to do a “classical” anova, the function you are looking for is <code>aov</code>).</p>
 <pre class="r"><code>anova(b$lme, b2$lme, b3$lme)</code></pre>
 <pre><code>##        Model df      AIC      BIC    logLik
@@ -493,5 +493,5 @@ dat2 %&gt;%
   
   facet_wrap(~Pred, scales=&quot;free&quot;)</code></pre>
 <p><img src="/blog/2018-04-05-gamm-random-effects_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>The fit overlap is uncanny, but the confidence intervals have a makred difference. With my actual data, there is a little more difference than here, but it really is quite minute.</p>
+<p>The fit overlap is uncanny, but the confidence intervals have a marked difference. With my actual data, there is a little more difference than here, but it really is quite minute.</p>
 <p>So, through my tests, I’ve become quite confident that the approaches are both <em>valid</em>. There is nothing statistically <em>wrong</em> in doing either. However, if you want a conservative approach, the second option, with random effects as a spline is the way to go. Just make sure your subject identifier is a factor, it might impact your inference more than you think.</p>
