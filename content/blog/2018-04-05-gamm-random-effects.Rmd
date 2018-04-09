@@ -190,18 +190,19 @@ dat2 %>%
   ggplot(aes(x=x, y=y)) + 
   geom_line(alpha=.3,aes(group=id)) + 
   geom_point(alpha=.3) +
-  
-  # Add predictions for model b
-  geom_ribbon(data=preds.b, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b"), show.legend = F) +
-  geom_line(data=preds.b, alpha=.7, aes(y=fit, color="b")) +
-  
-  # Add predictions for model b2
-  geom_ribbon(data=preds.b2, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b2"), show.legend = F) +
-  geom_line(data=preds.b2, alpha=.7, aes(y=fit, color="b2")) +
+
   
   # Add predictions for model b3
   geom_ribbon(data=preds.b3, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b3"), show.legend = F) +
   geom_line(data=preds.b3, alpha=.7, aes(y=fit, color="b3")) +
+    
+  # Add predictions for model b2
+  geom_ribbon(data=preds.b2, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b2"), show.legend = F) +
+  geom_line(data=preds.b2, alpha=.7, aes(y=fit, color="b2")) +
+  
+  # Add predictions for model b
+  geom_ribbon(data=preds.b, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b"), show.legend = F) +
+  geom_line(data=preds.b, alpha=.7, aes(y=fit, color="b")) +
   
   # Add some color, this way of doing it gives us a nice legend!
   scale_color_manual("",
@@ -215,6 +216,6 @@ dat2 %>%
 
 ```
 
-The overlap is uncanny. With my actual data, there is a little more difference than here, but it really is quite minute. See how you can barely see the red and green models, they're so directly behind the blue that you can't tell they're even there!
+The fit overlap is uncanny, but the confidence intervals have a marked difference. With my actual data, there is a little more difference than here, but it really is quite minute. 
 
 So, through my tests, I've become quite confident that the approaches are both _valid_. There is nothing statistically _wrong_ in doing either. However, if you want a conservative approach, the second option, with random effects as a spline is the way to go. Just make sure your subject identifier is a factor, it might impact your inference more than you think.
