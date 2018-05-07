@@ -204,12 +204,12 @@ head(DATA)</code></pre>
 <pre class="r"><code>DATA$values = sample(1:100, size=nrow(DATA))
 head(DATA)</code></pre>
 <pre><code>##                              images names values
-## 1 brainSlices/single/0000_trans.png  0000     31
-## 2 brainSlices/single/0001_trans.png  0001     61
-## 3 brainSlices/single/0002_trans.png  0002     45
-## 4 brainSlices/single/0003_trans.png  0003      5
-## 5 brainSlices/single/0004_trans.png  0004     11
-## 6 brainSlices/single/0005_trans.png  0005     14</code></pre>
+## 1 brainSlices/single/0000_trans.png  0000     97
+## 2 brainSlices/single/0001_trans.png  0001     23
+## 3 brainSlices/single/0002_trans.png  0002     87
+## 4 brainSlices/single/0003_trans.png  0003     85
+## 5 brainSlices/single/0004_trans.png  0004     76
+## 6 brainSlices/single/0005_trans.png  0005     68</code></pre>
 </div>
 <div id="lets-do-some-plotting" class="section level2">
 <h2>Let’s do some plotting!</h2>
@@ -287,12 +287,12 @@ PLOT + theme(axis.text.x = element_text(angle=60, vjust=-.001))</code></pre>
 <p><img src="/blog/2018-05-02-adding-external-images-to-plots_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>right-o! It’s a little crowded though. Let’s reduce the plot to the ones where the value exceeds 60, let’s pretend that’s some magic significance threshold.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ──────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ tibble  1.4.2     ✔ purrr   0.2.4
 ## ✔ tidyr   0.8.0     ✔ dplyr   0.7.4
 ## ✔ readr   1.1.1     ✔ stringr 1.3.0
 ## ✔ tibble  1.4.2     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ─────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ─────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>Data_reduced = DATA %&gt;% filter(values &gt;= 60)
