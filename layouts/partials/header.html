@@ -30,7 +30,6 @@
 <link rel="canonical" href="{{ .Permalink }}">
 
 <!-- HTTPS -->
-
 {{ if .Site.Params.enforce_ssl }}
 <script type="text/javascript">
     var baseURL = '{{ .Site.BaseURL }}';
@@ -40,6 +39,11 @@
     }
 </script>
 {{ end }}
+
+<!-- highlight -->
+<link rel="stylesheet" href="{{"css/highlight/zenburn.css" | absURL}}" rel="stylesheet" id="theme-stylesheet">
+<script src="{{ "js/highlight.pack.js" | absURL }}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 <!-- jQuery -->
 <script
