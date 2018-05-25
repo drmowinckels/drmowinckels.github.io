@@ -8,7 +8,7 @@ categories:
   - R
 tags:
   - Plots
-featured_image: '/blog/2018-05-25-Circlular-plots-in-R-and-adding-images-to-them/figure-html/featured-1.png'
+featured_image: '/blog/2018-05-25-circluar-plots-in-r-and-adding-images_files/figure-html/featured-1.png'
 ---
 
 
@@ -207,12 +207,13 @@ for(si in get.all.sector.index()){
 }
 
 ```
+
 That does not look right. See how the networks in the group are made larger, while the others are bunched up in a corner? That's not what we want. We want all the networks plotted as before, but we want to highlight the chords from the network we are plotting. I've found that using HEX alpha codes is the best way to go. Short intro to HEX colours, HEXs code for red, blue and green with pairs of digits succeeding a hash. Usually, most HEXs are only 6 digits, however, 8 digit HEXs also code for the opacity (or alpha/transparency) of the coded colour. You'll notice we have 6 digits in our HEX, and so we'll ass two more, to code for alpha. You can have a look at alpha-codes for HEX [here](https://css-tricks.com/8-digit-hex-codes/)
 
 ```{r}
 oDATA = oDATA %>%
   mutate(gColorA = ifelse(Group %in% "Attention", 
-                          paste0(gColor,"FF"), # alpha=100%
+                          paste0(gColor,"B3"), # alpha=70%
                           paste0(gColor,"00"))) # alpha=0%
 
 # Plot it!
@@ -240,12 +241,6 @@ for(si in get.all.sector.index()){
 We're getting there, but it's not what we are truly after. We want the sections to still show, but the chords to change colour. That is thankfully not so hard, you can spacify both the chord and the chord border colour in circlize if you want. We'll stick to the chord colour. We will assign the `grid.col` colours with the coloumn without the alpha set (which effectively means alpha is 100%), and then use the columns with the alpha set with the `col` specification.
 
 ```{r}
-
-oDATA = oDATA %>%
-  mutate(gColorA = ifelse(Group %in% "Attention", 
-                          paste0(gColor,"FF"), # alpha=100%
-                          paste0(gColor,"00"))) # alpha=0%
-
 chordDiagram(PAIRS,annotationTrack = c("grid","name"), annotationTrackHeight=c(0.05, 0.01), preAllocateTracks = list(track.height = 0.3), 
              order=oDATA$names, grid.col = setNames(oDATA$gColor, oDATA$names), col = setNames(oDATA$gColorA, oDATA$names))
 

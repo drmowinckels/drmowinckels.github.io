@@ -85,14 +85,12 @@ crossorigin="anonymous"></script>
 <!-- Google Analytics -->
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', "{{ .Site.googleAnalytics }}", 'auto');
+ga('create', 'UA-115545202-1', 'auto');
 ga('set', 'anonymizeIp', true);
 ga('send', 'pageview');
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 <!-- End Google Analytics -->
-
-{{ template "_internal/google_analytics_async.html" . }}
 
 <!-- RSS -->
 {{ if .RSSLink }}
