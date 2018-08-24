@@ -9,9 +9,9 @@ categories:
 tags:
   - Plots
   - Packages
-featured_image: '/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations/figure-html/featured-1.png'
----
-
+featured_image: '/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/featured-1.png'
+--- 
+ 
 I've not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work.
 Fortunately, I got back to work with new gusto in August, and have something exciting to show you!
 
@@ -62,15 +62,22 @@ Of course, this grey thing isn't particularly fun to look at, so we can do some 
 The atlases all have a variable called `area`, which will colour different sections in meaningful ways.
 You do this with ggplot `aes` mapping.
 
-```{r "featured"}
+```{r}
 ggbrain(mapping=aes(fill=area), position="stacked")
+```
+
+But there are so many labels! We can't fit them all for this atlas. We can turn them off!.
+
+```{r "featured"}
+ggbrain(mapping=aes(fill=area), position="stacked", show.legend = F) +
+  ggtitle("Desikan-Killany cortical atlas")
 ```
 
 The package currently has three atlases available. The default Desikan-Killany cortical atlas as shown above, and the Automatic subcortical segmentation (aseg), and the Yeo 2011 7 resting-state networks.
 
 ```{r}
 
-ggbrain(atlas="aseg",mapping=aes(fill=area),) +
+ggbrain(atlas="aseg",mapping=aes(fill=area)) +
   ggtitle("Automatic subcortical segmentation")
 
 ggbrain(atlas="yeo7",position="stacked",mapping=aes(fill=area),) +
@@ -86,7 +93,7 @@ For instance by using different themes. The package comes with three themes:
 
 
 ```{r}
-ggbrain(mapping=aes(fill=area), position="stacked") +
+ggbrain(mapping=aes(fill=area), position="stacked",show.legend = F) +
   ggtitle("Desikan-Killany cortical atlas") +
   theme_darkbrain()
 ```
@@ -95,9 +102,8 @@ There are several extra options you can add, like increasing the size of the con
 
 ```{r}
 ggbrain(mapping=aes(fill=area), position="stacked",
-        colour="black",size=.8) +
-  ggtitle("Desikan-Killany cortical atlas") +
-  theme(legend.position="bottom")
+        colour="black",size=.8,show.legend = F) +
+  ggtitle("Desikan-Killany cortical atlas")
 ```
 
 wowsa, that's a bit too many labels. But It helps you get oriented.

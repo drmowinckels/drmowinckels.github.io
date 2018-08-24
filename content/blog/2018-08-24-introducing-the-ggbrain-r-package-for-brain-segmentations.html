@@ -9,8 +9,8 @@ categories:
 tags:
   - Plots
   - Packages
-featured_image: '/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations/figure-html/featured-1.png'
----
+featured_image: '/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/featured-1.png'
+--- 
 
 
 
@@ -35,26 +35,29 @@ ggbrain()</code></pre>
 <p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Of course, this grey thing isn’t particularly fun to look at, so we can do some colourings. The atlases all have a variable called <code>area</code>, which will colour different sections in meaningful ways. You do this with ggplot <code>aes</code> mapping.</p>
 <pre class="r"><code>ggbrain(mapping=aes(fill=area), position=&quot;stacked&quot;)</code></pre>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>But there are so many labels! We can’t fit them all for this atlas. We can turn them off!.</p>
+<pre class="r"><code>ggbrain(mapping=aes(fill=area), position=&quot;stacked&quot;, show.legend = F) +
+  ggtitle(&quot;Desikan-Killany cortical atlas&quot;)</code></pre>
 <p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/featured-1.png" width="672" /></p>
 <p>The package currently has three atlases available. The default Desikan-Killany cortical atlas as shown above, and the Automatic subcortical segmentation (aseg), and the Yeo 2011 7 resting-state networks.</p>
-<pre class="r"><code>ggbrain(atlas=&quot;aseg&quot;,mapping=aes(fill=area),) +
+<pre class="r"><code>ggbrain(atlas=&quot;aseg&quot;,mapping=aes(fill=area)) +
   ggtitle(&quot;Automatic subcortical segmentation&quot;)</code></pre>
-<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>ggbrain(atlas=&quot;yeo7&quot;,position=&quot;stacked&quot;,mapping=aes(fill=area),) +
   ggtitle(&quot;Yeo 7 resting-state networks&quot;)</code></pre>
-<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
 <p>We are working on adding the Yeo 2011 17 resting-state networks, in addition to a sagittal view of the aseg atlas. We work on that when we need other more “relaxing” tasks than responding to reviewers every whims.</p>
 <p>Since this is a ggplot-based function, there are lots of ways you can manipulate how it looks. For instance by using different themes. The package comes with three themes: <code>theme_brain</code>, <code>theme_darkbrain</code>, and <code>theme_custombrain</code>, the latter is really just a simple convenience theme for those who don’t want to or know how to customize simple things like the plot background and text colour.</p>
-<pre class="r"><code>ggbrain(mapping=aes(fill=area), position=&quot;stacked&quot;) +
+<pre class="r"><code>ggbrain(mapping=aes(fill=area), position=&quot;stacked&quot;,show.legend = F) +
   ggtitle(&quot;Desikan-Killany cortical atlas&quot;) +
   theme_darkbrain()</code></pre>
-<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>There are several extra options you can add, like increasing the size of the contouring line and its colour</p>
 <pre class="r"><code>ggbrain(mapping=aes(fill=area), position=&quot;stacked&quot;,
-        colour=&quot;black&quot;,size=.8) +
-  ggtitle(&quot;Desikan-Killany cortical atlas&quot;) +
-  theme(legend.position=&quot;bottom&quot;)</code></pre>
-<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+        colour=&quot;black&quot;,size=.8,show.legend = F) +
+  ggtitle(&quot;Desikan-Killany cortical atlas&quot;)</code></pre>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>wowsa, that’s a bit too many labels. But It helps you get oriented. Now, in most cases, we think people will use this to plot some results. Like p-values, or estimated means. To do this, you can provide the function with some data. Importantly, the data must include some variables that will match the data to the atlas data.frame for merging.</p>
 <p>Lets for instance say you have found that the thickness of the insula and superior frontal cortex increase with age, and you want to plot the estimated means highlighting those two areas only.</p>
 <pre class="r"><code>results = data.frame(cbind(area=c(&quot;superior frontal&quot;,&quot;insula&quot;),em=c(2.4,3.3)),
@@ -62,7 +65,7 @@ ggbrain()</code></pre>
 
 results %&gt;% 
   ggbrain(mapping=aes(fill=as.numeric(em)), position=&quot;stacked&quot;) </code></pre>
-<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Neat-o. But maybe the results only pertained to the right insula, and left superior frontal? Just add a <code>hemi</code> variable indicating which hemisphere the results belong to.</p>
 <pre class="r"><code>results = data.frame(cbind(area=c(&quot;superior frontal&quot;,&quot;insula&quot;),
                            em=c(2.4,3.3),
@@ -71,7 +74,7 @@ results %&gt;%
 
 results %&gt;% 
   ggbrain(mapping=aes(fill=as.numeric(em)), position=&quot;stacked&quot;) </code></pre>
-<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>If you keep your data in tall/long format, as ggplot likes it, you can also plot results from different groups using facets.</p>
 <pre class="r"><code>results = data.frame(cbind(area=c(&quot;superior frontal&quot;,&quot;insula&quot;, &quot;par orbitalis&quot;,&quot;pre central&quot;),
                            em=c(2.4,3.3,1.2,2.6),
@@ -82,5 +85,5 @@ results %&gt;%
 results %&gt;% 
   ggbrain(mapping=aes(fill=as.numeric(em)), position=&quot;stacked&quot;) +
   facet_wrap(~AgeGroup,ncol=1)</code></pre>
-<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>That’s all for now. Or, there are more options, but that’s what I’ll be going through today. As mentioned, we are very new at making packages, and I’m sure there are many ways to make this package more efficient. Drop us a line or pull request if you feel like contributing!</p>
