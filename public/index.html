@@ -194,6 +194,8 @@ ga('send', 'pageview');
                     
                     
                     
+                    
+                    
                             <p>I am a cognitive neuroscientist based in Oslo, Norway, who works at the <a href="www.oslobrains.no">Center for Lifespan Changes in Brain and Cognition</a>. I am passionate about cognitive neuroscience, teaching people the benefits of using R, and equalizing gender diversity in the R-community (and in data science) through <a href="www.twitter.com/RLadies_Oslo">RLadies-Oslo</a>.</p>
 
 <p style="text-align: center;"> <a href="/aboutme/aboutme/">More about me</a> </p>
@@ -225,6 +227,25 @@ ga('send', 'pageview');
             
             <div class="column is-half"> 
                 
+                <div  id="projectggbrain"  class="card">
+                        <div class="card-image">
+                            <figure class="image is-3by2">
+                                <a >
+                                    <img src="img/ggbrain_retro_wide.png">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="card-content has-text-centered top-pad">
+                                <a >
+                                    ggbrain
+                                </a>
+                        </div>
+                </div>
+            </div>
+              
+            
+            <div class="column is-half"> 
+                
                 <div  id="projectmri-viewer"  class="card">
                         <div class="card-image">
                             <figure class="image is-3by2">
@@ -248,6 +269,42 @@ ga('send', 'pageview');
 
 
   
+<div class="modal" id="modalggbrain">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        
+        <header class="modal-card-header bottom-pad">
+            <p class="modal-card-title has-text-centered">ggbrain</p>
+        </header>
+        
+        
+            <img src="img/ggbrain_retro_wide.png" class="img-responsive img-centered">
+        
+        
+        <section class="modal-card-body markdown">
+            <p>This package is developed with co-worker Didac Vidal Pineiro, whose had the whole idea.</p>
+
+<p>This package is meant to use for visualizing brain segmentations, often referred to as brain atlases.
+There is currenlty no shiny demonstration of it, but we will make that at some point.</p>
+
+<p>It is, however, ready to install using devtools in R, directly from github.</p>
+
+<p><a href="https://github.com/LCBC-UiO/ggbrain" title=Github repository"><i class="fa fa-github"></i></a></p>
+
+        </section>
+        
+    </div>
+    <button class="modal-close is-large" aria-label="close" id="closeggbrain"></button>
+</div>
+<script>
+    $('#projectggbrain').click(function() {
+        $('#modalggbrain').addClass('is-active');
+    });
+    $('#closeggbrain').click(function() {
+        $('#modalggbrain').removeClass('is-active');
+    });
+</script>
+    
 <div class="modal" id="modalmri-viewer">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -345,6 +402,8 @@ A while a go, my co-worker Didac, approached me with an idea for creating the po
     <h2 class="title is-2">Contact</h2>
         <div class="markdown">
             
+                
+                
                 
                 
                 
