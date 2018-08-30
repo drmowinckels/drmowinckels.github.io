@@ -227,17 +227,17 @@ ga('send', 'pageview');
             
             <div class="column is-half"> 
                 
-                <div  id="projectggbrain"  class="card">
+                <div  id="projectggseg"  class="card">
                         <div class="card-image">
                             <figure class="image is-3by2">
                                 <a >
-                                    <img src="img/ggbrain_retro_wide.png">
+                                    <img src="img/ggseg_retro_wide.png">
                                 </a>
                             </figure>
                         </div>
                         <div class="card-content has-text-centered top-pad">
                                 <a >
-                                    ggbrain
+                                    ggseg
                                 </a>
                         </div>
                 </div>
@@ -269,16 +269,16 @@ ga('send', 'pageview');
 
 
   
-<div class="modal" id="modalggbrain">
+<div class="modal" id="modalggseg">
     <div class="modal-background"></div>
     <div class="modal-card">
         
         <header class="modal-card-header bottom-pad">
-            <p class="modal-card-title has-text-centered">ggbrain</p>
+            <p class="modal-card-title has-text-centered">ggseg</p>
         </header>
         
         
-            <img src="img/ggbrain_retro_wide.png" class="img-responsive img-centered">
+            <img src="img/ggseg_retro_wide.png" class="img-responsive img-centered">
         
         
         <section class="modal-card-body markdown">
@@ -289,19 +289,19 @@ There is currenlty no shiny demonstration of it, but we will make that at some p
 
 <p>It is, however, ready to install using devtools in R, directly from github.</p>
 
-<p><a href="https://github.com/LCBC-UiO/ggbrain" title=Github repository"><i class="fa fa-github"></i></a></p>
+<p><a href="https://github.com/LCBC-UiO/ggseg" title=Github repository"><i class="fa fa-github"></i></a></p>
 
         </section>
         
     </div>
-    <button class="modal-close is-large" aria-label="close" id="closeggbrain"></button>
+    <button class="modal-close is-large" aria-label="close" id="closeggseg"></button>
 </div>
 <script>
-    $('#projectggbrain').click(function() {
-        $('#modalggbrain').addClass('is-active');
+    $('#projectggseg').click(function() {
+        $('#modalggseg').addClass('is-active');
     });
-    $('#closeggbrain').click(function() {
-        $('#modalggbrain').removeClass('is-active');
+    $('#closeggseg').click(function() {
+        $('#modalggseg').removeClass('is-active');
     });
 </script>
     
@@ -364,18 +364,18 @@ There is currenlty no shiny demonstration of it, but we will make that at some p
   <h2 class="title is-2 has-text-centered">Latest Post</h2>
    
   <div class="summary">
-        <h3 class="title is-3 latest-post-title has-text-centered"><a href="/blog/introducing-the-ggbrain-r-package-for-brain-segmentations/">Introducing the ggbrain R-package for brain segmentations</a></h3>
+        <h3 class="title is-3 latest-post-title has-text-centered"><a href="/blog/introducing-the-ggseg-r-package-for-brain-segmentations/">Introducing the ggseg R-package for brain segmentations</a></h3>
 
         <div class="columns">
               <div class="column is-one-third has-text-centered">
-                <img src="/blog/2018-08-24-introducing-the-ggbrain-r-package-for-brain-segmentations_files/figure-html/featured-1.png">
+                <img src="/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations_files/figure-html/featured-1.png">
               </div>
             <div class="column markdown">
-                <i>Aug 24, 2018</i> <br>
-                I’ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work. Fortunately, I got back to work with new gusto in August, and have something exciting to show you!
-A while a go, my co-worker Didac, approached me with an idea for creating the possibility to plot brain segmentations directly in R. I loved the idea, and went straight at it, though, overly complicated and the initial project I started is a little stalled.
+                <i>Aug 30, 2018</i> <br>
+                Edit: Though posted only a week ago, we have discovered another R package called ggBrain which has slightly different functions than what our package has. Because of this, we have altered the name of our package to ggseg short for ggsegmentation which is a better description of what our package does.
+I’ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work.
                 
-                  <a href="/blog/introducing-the-ggbrain-r-package-for-brain-segmentations/">...Read More</a>
+                  <a href="/blog/introducing-the-ggseg-r-package-for-brain-segmentations/">...Read More</a>
                 
             </div>
         </div>
