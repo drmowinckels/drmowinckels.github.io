@@ -18,7 +18,7 @@ library(ggseg)
 
 I'm super delighted that our ggseg package was so well received! We almost immediately got it on [Neuroconductor](https://neuroconductor.org/), which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there. 
 
-In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package. I had not completely understood the use og the ellipsis (`...`) and as such had not used it correctly. Once I started understanding it, we could make the package working closer to what a standard ggplot package would work!
+In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package. I had not completely understood the use and the ellipsis (`...`) and as such had not used it correctly. Once I started understanding it, we could make the package working closer to what a standard ggplot package would work!
 
 The package vignettes are update on the new usage, which mainly affects how you may supply data for facetting. Just have a look at  `vignette("ggseg")` and `vignette("externalData")` for a more up-to-date understanding of how the data should look. 
 
@@ -136,6 +136,7 @@ We use the same bare plot as before, but substitute the facet with a transition.
 
 ```{r "featured", message=F, fig.show = "animate", ffmpeg.format="gif", dev="png", results="hide"}
 library(gganimate)
+library(transformr)
 
 t = ggseg(atlas=full_data, mapping=aes(fill=thickness), position="stacked", colour="darkgrey", size=.1) +
   scale_fill_gradientn(colours=c("dodgerblue4","light blue","firebrick","goldenrod")) +

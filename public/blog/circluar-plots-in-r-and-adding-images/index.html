@@ -20,7 +20,10 @@
 <title>
 
 
-     Circular plots in R and adding images 
+     
+      Dr. Mowinckel&#39;s Circular plots in R and adding images 
+    
+    
 
 </title>
 <link rel="canonical" href="/blog/circluar-plots-in-r-and-adding-images/">
@@ -189,7 +192,10 @@ ga('send', 'pageview');
     </div>
 
     <div class="container markdown top-pad">
-        <p>Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I’ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS! because, brains make it better. Always.</p>
+        
+
+
+<p>Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I’ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS! because, brains make it better. Always.</p>
 <p>So here we go. Let’s start out with the data from the last post I did. Reading in the images, giving them names, and some values.</p>
 <pre class="r"><code>library(tidyverse); library(png);</code></pre>
 <pre class="r"><code>DATA = data.frame(images = list.files(&quot;brainSlices/single&quot;, full.names = T), stringsAsFactors = F) %&gt;% 
@@ -421,7 +427,7 @@ for(si in get.all.sector.index()){
 
     <div class="disqus">
         <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     

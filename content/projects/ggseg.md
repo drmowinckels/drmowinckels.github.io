@@ -10,9 +10,12 @@ draft: false
 This package is developed with co-worker Didac Vidal Pineiro, whose had the whole idea.
 
 This package is meant to use for visualizing brain segmentations, often referred to as brain atlases.
-There is currenlty no shiny demonstration of it, but we will make that at some point. 
+Click the eye below to see a demonstration of the package.
 
-It is, however, ready to install using devtools in R, directly from github.
+It is also ready to install using devtools in R, directly from github.
 
-
+<a href="https://athanasiamo.shinyapps.io/ggsegDemo/" title="View demonstration"><i class="fa fa-eye"></i></a>
 <a href="https://github.com/LCBC-UiO/ggseg" title=Github repository"><i class="fa fa-github"></i></a>
+
+
+

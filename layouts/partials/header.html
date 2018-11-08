@@ -24,9 +24,16 @@
 <title>
 {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
 {{ if eq $url "/" }}
-    {{ .Site.Title }}
+    {{ .Site.Title }} - Home
+{{ else if eq .Site.Title .Title }}
+    {{ .Site.Title }} - Home
 {{ else }}
-    {{ if .Params.heading }} {{ .Params.heading }} {{ else }} {{ .Title }} {{ end }}
+    {{ if .Params.heading }} 
+      {{ .Site.Title }} {{ .Params.heading }} 
+    {{ else }} 
+      {{ .Site.Title }} {{ .Title }} 
+    {{ end }}
+    
 {{ end }}
 </title>
 <link rel="canonical" href="{{ .Permalink }}">

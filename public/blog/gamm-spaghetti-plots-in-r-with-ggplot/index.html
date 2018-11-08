@@ -20,7 +20,10 @@
 <title>
 
 
-     GAMM spaghetti plots in R with ggplot 
+     
+      Dr. Mowinckel&#39;s GAMM spaghetti plots in R with ggplot 
+    
+    
 
 </title>
 <link rel="canonical" href="/blog/gamm-spaghetti-plots-in-r-with-ggplot/">
@@ -189,7 +192,10 @@ ga('send', 'pageview');
     </div>
 
     <div class="container markdown top-pad">
-        <p>Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.</p>
+        
+
+
+<p>Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.</p>
 <p>A co-worker was working on some generalized additive mixed models (GAMM) through the R package <a href="https://cran.r-project.org/web/packages/mgcv/mgcv.pdf">mgcv</a>. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R. However, they were with base-r, and we all know base-r is not the most beautiful plotting application. Also, we have a need to a spaghetti plot in the background, as the whole point with a GAMM is that we have repeated data, and showing those in the background is very essential. <strong>This</strong> is not easily done in base-r.</p>
 <p>This is what we have</p>
 <pre class="r"><code>library(tidyverse); library(mgcv)</code></pre>
@@ -434,7 +440,7 @@ dat2 %&gt;%
 
     <div class="disqus">
         <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     

@@ -20,7 +20,10 @@
 <title>
 
 
-     GAMM random effects 
+     
+      Dr. Mowinckel&#39;s GAMM random effects 
+    
+    
 
 </title>
 <link rel="canonical" href="/blog/gamm-random-effects/">
@@ -189,7 +192,10 @@ ga('send', 'pageview');
     </div>
 
     <div class="container markdown top-pad">
-        <p>I’m working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it <a href="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files.html">here</a>.</p>
+        
+
+
+<p>I’m working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it <a href="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files.html">here</a>.</p>
 <p>For this part I’d like to talk about random effects in <code>mgcv::gamm</code> as they are a little different from what I am used to from, for instance <code>lme4</code> or even a standard GAM.</p>
 <p>When I started with GAMMs, it was mainly adapting code used by my PI, and taking it somewhat for granted that the syntax was correct (and it is). But when I started really looking into the outputs, I started seeing some differences in the output from other mixed models I had run through <a href="https://cran.r-project.org/web/packages/lme4/lme4.pdf">lme4</a> and even through Bayesian mixed models with <a href="https://cran.r-project.org/web/packages/rstanarm/rstanarm.pdf">rstanarm</a>.</p>
 <p>The random effects terms were specified differently. At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before. And it seemed intuitively weird to specify a factor as a random smoothing spline, which in my head would be a <strong>slope</strong> estimator, when I know the random effect I was after was participant intercepts.</p>
@@ -680,7 +686,7 @@ dat2 %&gt;%
 
     <div class="disqus">
         <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
