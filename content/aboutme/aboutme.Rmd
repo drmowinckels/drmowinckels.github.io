@@ -1,14 +1,12 @@
 ---
 title: ""
-date: '2018-03-07'
+date: '`r Sys.Date()`'
 ---
-
+ 
 ```{r "setup", include=F,echo=F, warning=F, error=F}
-library(tweenr); library(gganimate); 
-library(tidyverse); library(scholar)
-library(rio); library(knitr)
+library(tidyverse);
 options(knitr.kable.NA = '')
-CV = import_list("../../../Dropbox/Privat/Jobbsøking/CV-attester-etc/CV.xlsx")
+CV = rio::import_list("~/Dropbox/Privat/Jobbsøking/CV-attester-etc/CV.xlsx")
 ```
 
 ### In short
@@ -18,31 +16,28 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 ### Education  
 ```{r "Education", echo=F, results='asis'}
 CV$EDU %>% 
-  kable("markdown", booktabs = T)
+  knitr::kable("markdown", booktabs = T)
 
 ```
 ### Work  
 ```{r "Work", echo=F}
 CV$WORK %>% 
-  kable("markdown", booktabs = T)
+  knitr::kable("markdown", booktabs = T)
 ```
 ### Commissions  
 ```{r "Commissions", echo=F}
 CV$COMMISSION %>% 
-  kable("markdown", booktabs = T)
+  knitr::kable("markdown", booktabs = T)
 ```
 
 
 ### Publications  
-
-
 ```{r "pubPlot", echo=FALSE, warning=FALSE, error=FALSE, dev.args = list(bg = 'transparent'), aniopts=c(interval = 0.8, loop=1)}
-pp = get_citation_history("7NkxgWQAAAAJ") %>% 
+scholar::get_citation_history("7NkxgWQAAAAJ") %>% 
   mutate(cumulative=cumsum(cites)) %>% 
   gather(metric, val, -1) %>% 
-  mutate(ease = 'cubic-in-out') %>% 
-  tween_elements("year", "metric", "ease", nframes = nrow(.)/2) %>% 
-  ggplot(aes(x=year, y=val, group=.group, fill=val, color=.group, frame=.frame,  cumulative = TRUE)) + 
+
+  ggplot(aes(x=year, y=val, group=metric, fill=metric, colour=metric)) + 
   geom_line(lineend="round") + 
   geom_point(show.legend = F) +
   annotate("text",x=-Inf,y=Inf,vjust=1.5,hjust=-0.05,size=3,colour='gray',
@@ -61,13 +56,11 @@ pp = get_citation_history("7NkxgWQAAAAJ") %>%
         line = element_line(color="#4E6769")) +
   scale_color_manual(values=c("#2c3b3b", "#AD957F"))
 
-#gganimate(pp, title_frame = FALSE)
-pp
 ```
 
 
 ```{r "pubList", results='asis', warning=FALSE, echo=FALSE}
-pubs = get_publications("7NkxgWQAAAAJ") %>% 
+pubs = scholar::get_publications("7NkxgWQAAAAJ") %>% 
   filter(journal != "") %>% 
   mutate(cid     = ifelse(is.na(cid), NA, paste0("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=", cid))) %>% 
   mutate(author  = gsub("Mowinckel", "**Mowinckel**", author), 
@@ -77,7 +70,6 @@ pubs = get_publications("7NkxgWQAAAAJ") %>%
   arrange(desc(year)) %>% 
   transmute(pub=paste(author, year, title, journal, number, collapse="<br><br>")) 
 cat(pubs[1,])
-
 
 ```
 

@@ -14,7 +14,7 @@ featured_image: '/blog/2018-10-01-get-the-brain-animated_files/figure-html/featu
 
 
 <p>I’m super delighted that our ggseg package was so well received! We almost immediately got it on <a href="https://neuroconductor.org/">Neuroconductor</a>, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.</p>
-<p>In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package. I had not completely understood the use og the ellipsis (<code>...</code>) and as such had not used it correctly. Once I started understanding it, we could make the package working closer to what a standard ggplot package would work!</p>
+<p>In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package. I had not completely understood the use and the ellipsis (<code>...</code>) and as such had not used it correctly. Once I started understanding it, we could make the package working closer to what a standard ggplot package would work!</p>
 <p>The package vignettes are update on the new usage, which mainly affects how you may supply data for facetting. Just have a look at <code>vignette(&quot;ggseg&quot;)</code> and <code>vignette(&quot;externalData&quot;)</code> for a more up-to-date understanding of how the data should look.</p>
 <p>And this post will use the technique necessary for facetting, just for making animations with the <a href="https://github.com/thomasp85/gganimate">gganimate</a> package instead. This package is so clever, and I am in complete awe of Thomas’ brilliance in making it. Especially the new development version, which has altered the way to use the package that falls completely in-line with the rest of the ggplot-idea.</p>
 <p>Let’s fabricate some data to work with. I want to plot the Desikan-Killany atlas, with information for mean values of thickness across different ages. Since I’m completely making all this data up, I’ll just start with the <code>dkt</code> data.frame that comes with the package, grabs its unique instances of area and hemisphere (which gives me every area in the dkt atlas), and start making up some cortical thickness values per age.</p>
@@ -55,13 +55,15 @@ full_data = lapply(full_data,
 
 # Bind the data together.
 full_data = full_data %&gt;% bind_rows()</code></pre>
-<p>Now we should have a data frame with values for each area and hemisphere across the ages 5-40. Let’s have a look at how it looks when we facet it.</p>
+<p>Now we should have a data frame with values for each area and hemisphere across the ages 5-40.
+Let’s have a look at how it looks when we facet it.</p>
 <pre class="r"><code>full_data %&gt;% 
   ggseg(mapping=aes(fill=thickness), position=&quot;stacked&quot;, colour=&quot;darkgrey&quot;, size=.1) +
   scale_fill_gradientn(colours=c(&quot;dodgerblue4&quot;,&quot;light blue&quot;,&quot;firebrick&quot;,&quot;goldenrod&quot;)) +
   facet_wrap(~Age)</code></pre>
 <p><img src="/blog/2018-10-01-get-the-brain-animated_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>Hm, there is something a little off here. The medial wall is omitted from all facets, and is placed in it’s own facet! This is expected behaviour as of the new <code>ggseg</code> version.</p>
+<p>Hm, there is something a little off here. The medial wall is omitted from all facets, and is placed in it’s own facet!
+This is expected behaviour as of the new <code>ggseg</code> version.</p>
 <p>If you want to facet, you’ll need to make sure each facet includes information for <em>all regions</em> even if these regions don’t have any aestetics value (in this case a thickness value we are plotting as fill).</p>
 <p>To manage this, we need to go back a step when we made the data.frame, and merge our fabricated data with the entire <code>dkt</code> atlas.</p>
 <pre class="r"><code># Make a list of all the age groups
@@ -103,6 +105,7 @@ full_data = full_data %&gt;% bind_rows()</code></pre>
 <p>While I am still far from comfortable with gganimate (I struggle to control speed and types of transitions), it is pretty easy to get an animation going. Disclaimer here: this data is quite rich, so you’ll need patienence for the animation to render.</p>
 <p>We use the same bare plot as before, but substitute the facet with a transition. The transition here you provide with the variable that contains the different transitions, and information about the transition length and state length, which I am more unsure of. At the end, we’ll make sure the title of the plot corresponds with the age currently displaying, with some more <code>gganimate</code> magic.</p>
 <pre class="r"><code>library(gganimate)
+library(transformr)
 
 t = ggseg(atlas=full_data, mapping=aes(fill=thickness), position=&quot;stacked&quot;, colour=&quot;darkgrey&quot;, size=.1) +
   scale_fill_gradientn(colours=c(&quot;dodgerblue4&quot;,&quot;light blue&quot;,&quot;firebrick&quot;,&quot;goldenrod&quot;)) +
