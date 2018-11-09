@@ -54,8 +54,8 @@
     {{ end }}
 
 <!-- Let's chat, shall we? -->
-<div class="section" id="contact">
-    <div class="container has-text-centered">
+<div class="section" id="contact" style="background: url(img/logo.png) fixed center center no-repeat; min-height: 350px;">
+    <div class="container has-text-centered" >
     <h2 class="title is-2">Contact</h2>
         <div class="markdown">
             {{ range .Data.Pages }}
@@ -97,17 +97,5 @@
 <!-- Footer done! -->
 </div><!-- End of fade in three section -->
 <!-- Where all the awesome ends. Aww. -->
-
-<!-- Bitty scrolling links script -->
-<script>
-$('a[href^="#"]').click(function(e) {
-    e.preventDefault();
-    var target = this.hash;
-    $('html, body').animate({
-    scrollTop: $(target).offset().top
-    }, 500);
-    return false;
-})
-</script>
 
 </body>

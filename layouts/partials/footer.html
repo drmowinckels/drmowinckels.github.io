@@ -10,3 +10,31 @@
         {{ end }}
     </div><!-- End Footer container -->
 </div><!-- End Footer section -->
+
+<!-- sticky navbar script -->
+<script>
+window.onscroll = function() {stickyFunc()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop; 
+
+function stickyFunc() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+
+<!-- Bitty scrolling links script -->
+<script>
+$('a[href^="{{ .Permalink }}#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>

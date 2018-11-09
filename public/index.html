@@ -42,6 +42,7 @@ crossorigin="anonymous"></script>
 
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/stickynav.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
 <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Lato" rel="stylesheet">
 
@@ -102,6 +103,9 @@ ga('send', 'pageview');
 
 
 
+
+
+
 </head>
 
 
@@ -109,7 +113,7 @@ ga('send', 'pageview');
 
 <div id="top"> 
 
-<div class="hero is-fullheight" style="background: url(img/logo.png) center center no-repeat;">
+<div class="hero is-fullheight" style="background: url(img/logo.png) fixed center center no-repeat;">
 
     
     <div class="hero-body">
@@ -143,7 +147,7 @@ ga('send', 'pageview');
             
         </div>
     </div> 
-    
+     
     <div class="hero-foot fade-in three">
     <hr>
     <nav class="nav-center" style="text-align: center">
@@ -400,8 +404,8 @@ In all of this, I learned so much about creating packages, and ended up making q
     
 
 
-<div class="section" id="contact">
-    <div class="container has-text-centered">
+<div class="section" id="contact" style="background: url(img/logo.png) fixed center center no-repeat; min-height: 350px;">
+    <div class="container has-text-centered" >
     <h2 class="title is-2">Contact</h2>
         <div class="markdown">
             
@@ -487,12 +491,24 @@ In all of this, I learned so much about creating packages, and ended up making q
 </div>
 
 
-</div>
+<script>
+window.onscroll = function() {stickyFunc()};
 
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop; 
+
+function stickyFunc() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
 
 
 <script>
-$('a[href^="#"]').click(function(e) {
+$('a[href^="\/#"]').click(function(e) {
     e.preventDefault();
     var target = this.hash;
     $('html, body').animate({
@@ -501,5 +517,9 @@ $('a[href^="#"]').click(function(e) {
     return false;
 })
 </script>
+
+
+</div>
+
 
 </body>

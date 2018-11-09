@@ -44,6 +44,7 @@ crossorigin="anonymous"></script>
 
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/stickynav.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
 <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Lato" rel="stylesheet">
 
@@ -104,6 +105,9 @@ ga('send', 'pageview');
 
 
 
+
+
+
 </head>
 
 
@@ -149,6 +153,7 @@ ga('send', 'pageview');
     </div>
 </nav>
 <hr>
+
             </div>
             
             <article>
@@ -186,6 +191,34 @@ ga('send', 'pageview');
         
     </div>
 </div>
+
+
+<script>
+window.onscroll = function() {stickyFunc()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop; 
+
+function stickyFunc() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+
+
+<script>
+$('a[href^="\/categories\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>
 
             </div>
             
