@@ -45,6 +45,7 @@ crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/stickynav.css">
+<link rel="stylesheet" href="css/hugrid.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
 <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Lato" rel="stylesheet">
 
@@ -105,7 +106,6 @@ ga('send', 'pageview');
 
 
 
-
 </head>
 
 
@@ -127,9 +127,9 @@ ga('send', 'pageview');
 
 <div class="section  fade-in three">
 
-    <div id="navbar" class="container" style="text-align: center;">
+    <div id="stickynav" class="container" style="text-align: center;">
     <hr>
-<nav class="nav nav-center" style="background-color: transparent;">
+<nav class="nav nav-center">
     <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
     </span>
     <div id="nav-menu" class="nav-left nav-menu">
@@ -355,7 +355,7 @@ animate(t, fps = 10) </code></pre>
 <script>
 window.onscroll = function() {stickyFunc()};
 
-var navbar = document.getElementById("navbar");
+var navbar = document.getElementById("stickynav");
 var sticky = navbar.offsetTop; 
 
 function stickyFunc() {
@@ -374,7 +374,7 @@ $('a[href^="\/blog\/get-the-brain-animated\/#"]').click(function(e) {
     var target = this.hash;
     $('html, body').animate({
     scrollTop: $(target).offset().top
-    }, 500);
+    }, 500);  
     return false;
 })
 </script>

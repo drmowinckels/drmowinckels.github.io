@@ -8,10 +8,12 @@
 <!-- Everything below fades in three! -->
 <div class="section {{ if .Site.Params.fadeIn }} fade-in three{{ end }}">
 
-    <div id="navbar" class="container" style="text-align: center;"><!-- Begin Nav bar -->
-    {{ partial "nav-list.html" . }} 
-    </div><!-- End Nav bar -->
-       
+<!-- Begin Nav bar -->
+    <div id="stickynav" class="container" style="text-align: center;">
+      {{ partial "nav-list.html" . }} 
+    </div>
+<!-- End Nav bar -->
+
     <div class="container"><!-- Begin Blog container -->
 
 {{ if .Site.Params.showLatest }}
@@ -37,16 +39,18 @@
 {{ end }}
 
     <h2 class="title is-2 top-pad">All Posts</h2>
-        <ul>
+         <ul>
         {{ range .Data.Pages.ByPublishDate }}
             {{ if eq .Section "blog" }}
                 {{ partial "li.html" . }}
             {{ end }}
         {{ end }}
-        </ul>
+        </ul> 
 
     </div><!-- End Blog container -->
+<br>
 
+<div style="clear:both;"></div>
 <div class="container has-text-centered top-pad">
 <hr>
 <a href="{{ .Permalink }}#top"><i class="fa fa-arrow-up"></i></a>
@@ -57,5 +61,5 @@
 </div><!-- End fade in two -->
 </div><!-- End parent section -->
 
-
+{{ partial "scripts.html" . }}
 </body>

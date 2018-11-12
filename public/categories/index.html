@@ -45,6 +45,7 @@ crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/stickynav.css">
+<link rel="stylesheet" href="css/hugrid.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
 <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Lato" rel="stylesheet">
 
@@ -107,7 +108,6 @@ ga('send', 'pageview');
 
 
 
-
 </head>
 
 
@@ -127,7 +127,7 @@ ga('send', 'pageview');
             <div class="container">
                 
                 <hr>
-<nav class="nav nav-center" style="background: transparent; text-align: center;">
+<nav class="nav nav-center" style="text-align: center;">
     <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
     </span>
     <div id="nav-menu" class="nav-left nav-menu" style="background-color: transparent;">
@@ -147,7 +147,7 @@ ga('send', 'pageview');
       </span>
     
       <span class="nav-item">
-        <a href="/index.xml">&emsp;<i class="fa fa-rss"></i></a>
+        <a href="https://drmowinckels.io/blog/index.xml">&emsp;<i class="fa fa-rss"></i></a>
       </span>
     
     </div>
@@ -198,7 +198,7 @@ ga('send', 'pageview');
 <script>
 window.onscroll = function() {stickyFunc()};
 
-var navbar = document.getElementById("navbar");
+var navbar = document.getElementById("stickynav");
 var sticky = navbar.offsetTop; 
 
 function stickyFunc() {
@@ -217,7 +217,7 @@ $('a[href^="\/categories\/#"]').click(function(e) {
     var target = this.hash;
     $('html, body').animate({
     scrollTop: $(target).offset().top
-    }, 500);
+    }, 500);  
     return false;
 })
 </script>
