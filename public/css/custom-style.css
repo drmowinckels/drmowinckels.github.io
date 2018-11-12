@@ -6682,10 +6682,10 @@ code {
   margin: 0 5px; }
 
 .nav {
-  background-color: #f6f0ea; }
+  background-color: transparent; }
 
 .nav-toggle:hover {
-  background-color: #f6f0ea; }
+  background-color: transparent; }
 
 .nav-item {
   text-transform: uppercase;
@@ -6855,3 +6855,17 @@ code {
 
 .hidden {
   display: none; }
+  
+  /* Three image containers (use 25% for four, and 50% for two, etc) */
+.columnBlog {
+  float: left;
+  width: 25%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}

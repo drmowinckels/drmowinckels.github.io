@@ -6,7 +6,7 @@
   <div class="summary">
         <h3 class="title is-3 latest-post-title has-text-centered"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
 
-        <div class="columns"><!-- Avatar and about.md side by side except mobile -->
+        <div class="columns"><!-- featured img and content side by side except mobile -->
               <div class="column is-one-third has-text-centered">
                 {{ with .Params.featured_image }}<img src="{{ . }}">{{ end }}
               </div>

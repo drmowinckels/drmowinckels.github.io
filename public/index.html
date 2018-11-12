@@ -43,6 +43,7 @@ crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/stickynav.css">
+<link rel="stylesheet" href="css/hugrid.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
 <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Lato" rel="stylesheet">
 
@@ -105,7 +106,6 @@ ga('send', 'pageview');
 
 
 
-
 </head>
 
 
@@ -148,7 +148,7 @@ ga('send', 'pageview');
         </div>
     </div> 
      
-    <div class="hero-foot fade-in three">
+    <div id="stickynav" class="hero-foot fade-in three">
     <hr>
     <nav class="nav-center" style="text-align: center">
         <a class="nav-item" href="#about">&emsp; About &emsp;</a>
@@ -405,7 +405,7 @@ Click the eye below to see a demonstration of the package.</p>
     
 
  
-<div class="section" id="contact" style="background: url(img/logo.png) fixed center center no-repeat; height: 100%;">
+<div class="section" id="contact" style="background: url(img/logo.png) fixed center center no-repeat; height: 400px;">
     <div class="container has-text-centered" >
     <h2 class="title is-2">Contact</h2>
         <div class="markdown">
@@ -497,7 +497,7 @@ Click the eye below to see a demonstration of the package.</p>
 <script>
 window.onscroll = function() {stickyFunc()};
 
-var navbar = document.getElementById("navbar");
+var navbar = document.getElementById("stickynav");
 var sticky = navbar.offsetTop; 
 
 function stickyFunc() {
@@ -516,7 +516,7 @@ $('a[href^="\/#"]').click(function(e) {
     var target = this.hash;
     $('html, body').animate({
     scrollTop: $(target).offset().top
-    }, 500);
+    }, 500);  
     return false;
 })
 </script>

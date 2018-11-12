@@ -1,5 +1,5 @@
 <hr>
-<nav class="nav nav-center" style="background: transparent; text-align: center;">
+<nav class="nav nav-center" style="text-align: center;">
     <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
     </span>
     <div id="nav-menu" class="nav-left nav-menu" style="background-color: transparent;">
@@ -19,7 +19,7 @@
       </span>
     {{ if .Site.RSSLink }}
       <span class="nav-item">
-        <a href="{{ .Site.RSSLink }}">&emsp;<i class="fa fa-rss"></i></a>
+        <a href="https://drmowinckels.io/blog/index.xml">&emsp;<i class="fa fa-rss"></i></a>
       </span>
     {{ end }}
     </div>

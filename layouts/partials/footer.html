@@ -15,7 +15,7 @@
 <script>
 window.onscroll = function() {stickyFunc()};
 
-var navbar = document.getElementById("navbar");
+var navbar = document.getElementById("stickynav");
 var sticky = navbar.offsetTop; 
 
 function stickyFunc() {
@@ -34,7 +34,7 @@ $('a[href^="{{ .Permalink }}#"]').click(function(e) {
     var target = this.hash;
     $('html, body').animate({
     scrollTop: $(target).offset().top
-    }, 500);
+    }, 500);  
     return false;
 })
 </script>
