@@ -39,13 +39,15 @@
 {{ end }}
 
     <h2 class="title is-2 top-pad">All Posts</h2>
+      <div class="cols3">
          <ul>
-        {{ range .Data.Pages.ByPublishDate }}
+        {{ range .Data.Pages.ByDate.Reverse }}
             {{ if eq .Section "blog" }}
                 {{ partial "li.html" . }}
             {{ end }}
         {{ end }}
         </ul> 
+      </div>
 
     </div><!-- End Blog container -->
 <br>

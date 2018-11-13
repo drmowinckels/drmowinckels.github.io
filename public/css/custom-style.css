@@ -6858,14 +6858,73 @@ code {
   
   /* Three image containers (use 25% for four, and 50% for two, etc) */
 .columnBlog {
+  position: relative;
+  opacity: 1;
   float: left;
-  width: 25%;
-  padding: 5px;
+  width: 100%;
+  padding: 1%;
+  box-sizing: border-box;
 }
 
+    .cols3 {
+       width: 100%;
+       max-width: 600px;
+    }
+    
+    @media (min-width: 400px) {
+      .cols3 {
+        -webkit-column-count: 2;
+        -webkit-column-gap: 1em;
+
+        -moz-column-count: 2;
+        -moz-column-gap: 1em;
+
+        column-count: 2;
+        column-gap: 1em;
+      }
+    }
+
+    @media (min-width: 600px) {
+      .cols3 {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+      }
+    }
+    
 /* Clear floats after image containers */
 .row::after {
   content: "";
   clear: both;
   display: table;
 }
+
+.middle {
+  transition: .5s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-height: 90%;
+  opacity: 0;
+  background-color: #78888baa;
+  text-align: center;
+  padding: 1em;
+  font-size: calc(.5vw + .5vh + 1vmin); 
+}
+
+.columnBlog:hover .middle {
+  opacity: 1;
+  color: white;
+}
+
+a.middle p.middle {
+  color: #ffffffbb; 
+}
+
+a.middle:hover p.middle:hover{
+  color: #ffffff;
+  font-style: none; 
+}
+ 
