@@ -1,9 +1,11 @@
 <li class="post-item" style="text-align: center center;">
-  <div class="columnBlog" > 
-      {{ with .Params.featured_image }}<img src="{{ . }}"> {{ end }}
-      <div class="middle">
-        <p>{{ .Date.Format .Site.Params.dateForm }} <br></p>
-        <a style="color: white;" href="{{ .Permalink }}" >{{ .Title }}</a>
-      </div>
-  </div>
+  <a style="color: white;" href="{{ .Permalink }}" >
+    <div class="columnBlog" > 
+        {{ with .Params.featured_image }}<img src="{{ . }}"> {{ end }}
+        <div class="middle">
+          <p>{{ .Date.Format .Site.Params.dateForm }} <br></p>
+          {{ .Title }}
+        </div>
+    </div>
+  </a>
 </li>
