@@ -6907,24 +6907,25 @@ code {
   transform: translate(-50%, -50%);
   width: 90%;
   max-height: 90%;
-  opacity: 0;
-  background-color: #78888baa;
+  opacity: 0.6;
+  background-color: #78888b;
   text-align: center;
   padding: 1em;
   font-size: calc(.5vw + .5vh + 1vmin); 
+  color: #fff;
 }
 
-.columnBlog:hover .middle {
-  opacity: 1;
-  color: white;
+.columnBlog:hover .middle:hover {
+  opacity: .9;
+  color: #eee;
+  font-size: calc(.5vw + .5vh + 1.1vmin); 
 }
 
-a.middle p.middle {
-  color: #ffffffbb; 
+.img {
+  opacity:1;
 }
 
-a.middle:hover p.middle:hover{
-  color: #ffffff;
-  font-style: none; 
+.img:hover {
+  opacity:.7;
 }
  
