@@ -17,16 +17,11 @@
     {{ partial "nav-single.html" . }}
     </div><!-- End Nav bar -->
 
-        <div class="columns" style="background-color: transparent;"><!-- Avatar and about.md side by side except mobile -->
-            {{ if .Site.Params.avatar }}
-            <div class="column is-one-third has-text-centered">
-              <img class="img-responsive avatar" src="/{{ .Site.Params.avatar }}" alt="My profile picture.">
-            </div>
-            {{ end }}
+
             <div class="column markdown" style="background-color: transparent;">
                 {{.Content}}
             </div>
-        </div>
+
  <!--    </div><!-- End About container-->
 
 <!-- 

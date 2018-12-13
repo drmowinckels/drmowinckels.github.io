@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="google-site-verification" content="Ksh3BnnjYogfJqJIiF-v0x9MNpeY6YtkpLoVypus7uw" />
+
+<meta name="description" content="Cognitive neuroscientist, blogging about R and neuroimaging.">
+
+  
+	
+
+
+<base href="/">
+<title>
+
+
+     
+      Dr. Mowinckel&#39;s Christmas tree in ggplot 
+    
+    
+
+</title>
+<link rel="canonical" href="/blog/christmas-tree-in-ggplot/">
+
+
+
+
+
+<link rel="stylesheet" href="/css/highlight/zenburn.css" rel="stylesheet" id="theme-stylesheet">
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/stickynav.css">
+<link rel="stylesheet" href="css/hugrid.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
+<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Lato" rel="stylesheet">
+
+
+
+    <link rel="stylesheet" href="css/custom-style.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="img/fav.ico.png"
+
+>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-115545202-1', 'auto');
+ga('set', 'anonymizeIp', true);
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="ee465df5-b1a8-4e93-92be-43a4d1fa111b" type="text/javascript" async></script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "drmowinckels.io",
+  "@type": "Personal homepage and blog",
+  "url": "https://www.drmowinckels.io",
+  "logo": "https://www.drmowinckels.io/img/logo.png",
+  "name": "Athanasia Monika Mowinckel"
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+
+	
+<div class="section" style="text-align: center; background-image: url(img/logo.png); background-repeat: no-repeat; background-size: auto 80%; background-position: center;">
+
+
+    <h1 class="bold-title fade-in one">
+          Dr. Mowinckel&#39;s
+    </h1>
+    <h1 class="subtitle is-3  fade-in two">
+          Blog
+    </h1>
+</div>
+
+
+
+<div class="section  fade-in three">
+
+    <div id="stickynav" class="container" style="text-align: center;">
+    <hr>
+<nav class="nav nav-center">
+    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
+    </span>
+    <div id="nav-menu" class="nav-left nav-menu">
+      <span class="nav-item">
+        <a href="/">&emsp; Main &emsp;</a>
+      </span>
+      
+        <span class="nav-item">
+          <a href="/aboutme/aboutme/">&emsp; About &emsp;</a> 
+        </span>
+      
+      
+      <span class="nav-item">
+        <a href="/#contact">&emsp; Contact &emsp;</a>
+      </span>
+      
+        
+          <span class="nav-item">
+            <a href="/index.xml">&emsp;<i class="fa fa-rss"></i></a>
+          </span>
+        
+    
+    </div>
+</nav>
+<hr>
+
+    </div>
+    
+<a href="/blog">&emsp; &lt;&lt; Back to blog &emsp;</a>
+
+    <div class="container">
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/christmas-tree-in-ggplot/">Christmas tree in ggplot</a></h2>
+            <div class="post-data">
+                Dec 13, 2018 |
+                4 minutes read
+            </div>
+
+            
+                <div class="blog-share">
+                Share this:
+                
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20Christmas%20tree%20in%20ggplot%20%2fblog%2fchristmas-tree-in-ggplot%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+                </a>
+                
+                 
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2fchristmas-tree-in-ggplot%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+                </a>
+                
+                
+                
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2fchristmas-tree-in-ggplot%2f"
+                onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+                </a>
+                
+                </div>
+            
+
+    </div>
+
+    <div class="container markdown top-pad">
+        
+
+
+<p>It’s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It’s just filled with all times of lovely things.</p>
+<p>That also means… PLOTS! You might know from my previous posts that I love plotting. A bit too much, but it truly is a lovely thing to create a great plot.</p>
+<p>So, a while ago, the amazing <a href="rladies.org">RLadies</a> network showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it! You can see all the lovely submissions he has <a href="http://smarterpoland.pl/index.php/2017/12/christmas-trees/">here</a>.</p>
+<p>So here is my process for making the Christmas tree in ggplot.</p>
+<div id="the-tree-cone" class="section level2">
+<h2>The tree cone</h2>
+<p>First, lest just make a triangle and make it green!</p>
+<pre class="r"><code>library(tidyverse, quietly = T)</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.8
+## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
+## ✔ readr   1.2.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>cone = data.frame(x = 1:9,
+                  y = c(1:5,4:1)) %&gt;% 
+  na.omit() %&gt;% 
+  arrange(x)
+
+cone %&gt;% 
+  ggplot(aes(x=x, y=y)) +
+  geom_polygon(fill=&quot;#213c18&quot;)</code></pre>
+<p><img src="/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/unnamed-chunk-1-1.png" width="384" /></p>
+</div>
+<div id="add-some-fancy-stuff" class="section level2">
+<h2>Add some fancy stuff</h2>
+<p>This as acutally meant to alter the cone and get the distinct Christmas tree shape, but I couldn’t manage the little “dips” at each branch, the wrong points kept connecting.
+So it enved up with this more abstract, contemporary thing, which I actually really like!</p>
+<pre class="r"><code>fancy = cone %&gt;% 
+  mutate(xoff = ifelse(x&lt;5, x+.4, ifelse(x&gt;5, x-.4, NA))) %&gt;% 
+  gather(del, x, contains(&quot;x&quot;)) %&gt;% 
+  mutate(y = ifelse(del==&quot;xoff&quot;, y-.1,y)) %&gt;% 
+  filter(y&gt;=1) %&gt;% 
+  na.omit() %&gt;% 
+  select(-del) %&gt;% 
+  arrange(y)
+
+cone %&gt;% 
+  ggplot(aes(x=x, y=y)) +
+  geom_polygon(fill=&quot;#213c18&quot;) +
+  geom_polygon(data=fancy, fill = &quot;#668c6f&quot;)</code></pre>
+<p><img src="/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="384" /></p>
+</div>
+<div id="baubles" class="section level2">
+<h2>BAUBLES!</h2>
+<p>What christmas tree would it be without some baubles!
+We define some nice christmas’y colours, do some data sample-randomness stuff, and voila!</p>
+<pre class="r"><code>library(gganimate, quietly = T)
+
+# Define bauble colours
+bauble_colours = c(&quot;#e5d08f&quot;, &quot;#e3d4b6&quot;,
+                   &quot;#cacbce&quot;, &quot;#9c9c9c&quot;, &quot;#e1dfdf&quot;,
+                   &quot;#c94c4c&quot;, &quot;#8d1414&quot;)
+
+baubles = cone %&gt;% 
+  
+  # Group by y, nest and make up some random values for x.
+  group_by(y) %&gt;% 
+  nest() %&gt;% 
+  mutate(data =  map(data, ~data.frame(x=seq(min(.$x), max(.$x), by=.1)))) %&gt;% 
+  unnest() %&gt;% 
+  
+  # Group by x, nest and make up some random values for y.
+  group_by(x) %&gt;% 
+  nest() %&gt;% 
+  mutate(data =  map(data, ~data.frame(y=seq(min(.$y), max(.$y), by=.1)))) %&gt;% 
+  unnest() %&gt;% 
+  
+  # Give baubles random shapes, sizes and two different colours.
+  mutate(col1 = sample(bauble_colours, nrow(.), replace = T),
+         col2 = sample(bauble_colours, nrow(.), replace = T),
+         shp = sample(1:7, nrow(.), replace = T),
+         sz = sample(seq(.5,2,by=.1), nrow(.), replace = T),
+         time = sample(seq(.5,1,by=.01), nrow(.), replace = T)
+  ) %&gt;%
+  rownames_to_column() %&gt;% 
+  
+  # Grab only 60 baubles
+  sample_n(60) %&gt;% 
+  
+  # Gather the colours into a single column
+  gather(dd, cols, contains(&quot;col&quot;)) %&gt;% 
+  mutate(alph = ifelse(dd == &quot;col1&quot;, .8, 1))
+
+
+cone %&gt;% 
+  ggplot(aes(x=x, y=y)) +
+  geom_polygon(fill=&quot;#213c18&quot;) +
+  geom_polygon(data=fancy, fill = &quot;#668c6f&quot;) +
+  geom_point(data = baubles, aes(colour=I(cols), fill=I(cols), 
+                                 shape = factor(shp),size=sz), show.legend = F) + 
+  scale_shape_manual(values = c(20:25,8))</code></pre>
+<p><img src="/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="384" /></p>
+</div>
+<div id="add-the-topper-and-animate-some-sparkly" class="section level2">
+<h2>Add the topper and animate some sparkly!</h2>
+<p>We need a tree topper, in Norway, we usually add the Christmas star.
+And then I wanted some ornaments to seemlingly sparkle a little, so we add a small animation too!</p>
+<pre class="r"><code>cone %&gt;% 
+  ggplot(aes(x=x, y=y)) +
+  
+  # Cone
+  geom_polygon(fill=&quot;#213c18&quot;) +
+  
+  # Fancy
+  geom_polygon(data=fancy, fill = &quot;#668c6f&quot;) +
+  
+  # Baubles
+  geom_point(data = baubles %&gt;% select(-time), show.legend = F, alpha = .7,
+             aes(colour=I(cols), fill=I(cols),
+                 shape = factor(shp),size=sz, group=rowname)) +
+  
+  # animated baubles!
+  geom_point(data = baubles, show.legend = F,
+             aes(colour=I(cols), fill=I(cols), alpha=I(alph),
+                 shape = factor(shp),size=sz, group=rowname)) + 
+  
+  # Topper
+  geom_point(data=data.frame(x=5, y=5), colour=&quot;#e5d08f&quot;, size=15, shape=8) +
+  scale_shape_manual(values = c(20:25,8)) +
+  
+  # remove axes etc., and make background black
+  theme_void() + 
+  theme(plot.background = element_rect(fill=&quot;black&quot;), title = element_text(colour=&quot;white&quot;)) +
+  
+  # Animate
+  #transition_states(time, transition_length = 10, state_length = 2) + 
+  transition_time(time) + 
+  ease_aes(&#39;quadratic-in-out&#39;) </code></pre>
+<p><img src="/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
+</div>
+<div id="the-snow" class="section level2">
+<h2>The snow!</h2>
+<p>I also wanted to have some snow falling in the background.</p>
+<pre class="r"><code>snow = data.frame(x = sample(seq(1, max(cone$x)+1, by=.01), 100, replace = F),
+                  y = sample(seq(1, max(cone$y)+1, by=.01), 100, replace = F)) %&gt;% 
+  group_by(x) %&gt;% 
+  nest() %&gt;% 
+  mutate(data =  map(data, 
+                     ~data.frame(y=seq(.$y, .$y-sample(seq(.5,1,by=.01),1), length.out = 100)) %&gt;% 
+                       mutate(time = sample(seq(0.5,.9, .01), 1)) %&gt;% 
+                       mutate(time = seq(unique(time), unique(time)+.02, length.out = nrow(.)))
+  )) %&gt;% 
+  unnest() 
+
+cone %&gt;% 
+  ggplot(aes(x=x, y=y)) +
+  
+  # Snow
+  geom_jitter(data=snow, aes(group=x), colour=&quot;white&quot;, shape=8, size=1) +
+  
+  # Cone
+  geom_polygon(fill=&quot;#213c18&quot;) +
+  
+  # Fancy
+  geom_polygon(data=fancy, fill = &quot;#668c6f&quot;) +
+  
+  # Baubles
+  geom_point(data = baubles %&gt;% select(-time), show.legend = F, alpha = .7,
+             aes(colour=I(cols), fill=I(cols),
+                 shape = factor(shp),size=sz, group=rowname)) +
+  
+  # animated baubles!
+  geom_point(data = baubles, show.legend = F,
+             aes(colour=I(cols), fill=I(cols), alpha=I(alph),
+                 shape = factor(shp),size=sz, group=rowname)) +
+  
+  # Topper
+  geom_point(data=data.frame(x=5, y=5), colour=&quot;#e5d08f&quot;, size=15, shape=8) +
+  scale_shape_manual(values = c(20:25,8)) +
+  
+  # remove axes etc., and make background black
+  theme_void() + 
+  theme(plot.background = element_rect(fill=&quot;black&quot;), title = element_text(colour=&quot;white&quot;)) +
+  
+  # Animate
+  transition_time(time) + 
+  ease_aes(&#39;sine-in-out&#39;) </code></pre>
+<p><img src="/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/featured-1.gif" /><!-- --></p>
+<p>There you go! My little Christmas tree!</p>
+</div>
+<div id="merry-christmas-yall" class="section level1">
+<h1>Merry Christmas, y’all!</h1>
+</div>
+
+    </div>
+    
+<a href="/blog">&emsp; &lt;&lt; Back to blog &emsp;</a>
+
+    <div class="disqus">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "drmowinckels-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+<div class="container has-text-centered top-pad">
+<hr>
+<a href="/blog/christmas-tree-in-ggplot/#top"><i class="fa fa-arrow-up"></i></a>
+<hr>
+</div>
+
+<div class="section" id="footer">
+    <div class="container has-text-centered">
+        
+        <span class="footer-text"> 
+        Athanasia Monika Mowinckel <i class="fa fa-creative-commons"></i>-BY 2018. Feeding to <a href='https://rweekly.org'>R weekly</a>.
+        See the sites <a href='/cookies/cookies'>cookie</a> policy.
+        </span>
+        
+    </div>
+</div>
+
+
+<script>
+window.onscroll = function() {stickyFunc()};
+
+var navbar = document.getElementById("stickynav");
+var sticky = navbar.offsetTop; 
+
+function stickyFunc() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+
+
+<script>
+$('a[href^="\/blog\/christmas-tree-in-ggplot\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);  
+    return false;
+})
+</script>
+
+</div>
+
+
+
+<script>
+$('a[href^="\/blog\/christmas-tree-in-ggplot\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>
+
+</body>
