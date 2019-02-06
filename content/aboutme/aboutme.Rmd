@@ -17,7 +17,7 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 
 ### Education  
 ```{r "Education", echo=F, results='asis'}
-CV$EDU %>% 
+CV$EDU %>%  
   knitr::kable("markdown", booktabs = T)
 
 ```
