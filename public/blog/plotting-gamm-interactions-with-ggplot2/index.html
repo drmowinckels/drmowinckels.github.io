@@ -218,12 +218,12 @@ But the other variables might also have smaller effects that we should be accoun
 <p>Let’s start of by just making some plots, and get an idea of the data and how they interact with price.
 I’m going to gather the numeric variables I’m interested in into a long-format table, so that I can facet (make subplots) easily for the different variables.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.2.1          ✔ purrr   0.3.3     
 ## ✔ tibble  2.1.3          ✔ dplyr   0.8.3     
 ## ✔ tidyr   1.0.0.9000     ✔ stringr 1.4.0     
 ## ✔ readr   1.3.1          ✔ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>diamonds %&gt;% 
@@ -241,7 +241,7 @@ It looks so strange, but we can play with it anyway.</p>
 <h2>GAM interactions between numeric and factors</h2>
 <p>Let’s also have a look at some of the factors, and how they play into those two variables.</p>
 <pre class="r"><code>diamonds %&gt;% 
-  gather(variable, value, carat, depth) %&gt;% 
+  gather(variable, value, carat, table) %&gt;% 
   gather(factor_g , factor_v, cut, color, clarity) %&gt;% 
   ggplot(aes(x=value, y=price)) +
   geom_smooth(aes(group=factor_v, colour=factor_v)) +
@@ -251,9 +251,10 @@ It looks so strange, but we can play with it anyway.</p>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
 <p><img src="/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>I’m not winning any awards with this plot, but it’s a quick way to get a general idea of what the data looks like.
-There’s not much fun happening with <code>depth</code> though there is this one cut that seems to behave <em>very</em> oddly.
-We will leare depth as a main contributor, and focus on carat.</p>
-<p>I’d say both the carat-clarity and carat-cut plots might have some interesting interactions, so I’ll dig into one of those. I’m just going to pick clarity, for the clarity (award for horrible word-puns goes to me!).</p>
+There’s not much fun happening with <code>table</code> though there is this one cut that seems to behave <em>very</em> oddly.
+We will leave <code>table</code> as a main contributor, and focus on <code>carat</code>.</p>
+<p>I’d say both the carat-clarity and carat-table plots might have some interesting interactions, so I’ll dig into those.
+I’m just going to pick clarity, for the clarity (award for horrible word-puns goes to me!).</p>
 <pre class="r"><code>library(mgcv)</code></pre>
 <pre><code>## Loading required package: nlme</code></pre>
 <pre><code>## 
@@ -275,14 +276,14 @@ Let’s look at predicted price in a plot.</p>
 <pre class="r"><code>plot(model1)</code></pre>
 <p><img src="/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>There’s the smooth line.
-But let’s be honest, it aint pretty.
-It’s neat for getting a quick look at it, but if you’re prepping for a paper or a report, you’ll need to fix it up a bit.
+But let’s be honest, it ain’t pretty.
+It’s neat for getting a quick look at, but if you’re prepping for a paper or a report, you’ll need to fix it up a bit.
 Let’s ggplot it.</p>
 <p>In order to do that, we need to make some data that will create the regression line.
 We do that by creating a data frame that includes the predictor variable(s) in an ordered fashion.
 In this first case, we want a data frame with a column named <code>carat</code> that covers all the carat-values in the dataset, but that is neatly ordered ascendingly.
-We can then use that data and predict what the price would be (the fit) given the model we have created.
-We also want the confidence bands, so we make sure to tell the <code>predict</code> function that we want them too, by secifying the <code>se.fit</code> argument as <code>TRUE</code>.</p>
+We can then use that ordered data and predict what the price would be (the fit) given the model we have created.
+We also want the confidence bands, so we make sure to tell the <code>predict</code> function that we want them too, by specifying the <code>se.fit</code> argument as <code>TRUE</code>.</p>
 <pre class="r"><code>tibble(
   carat = seq(from=min(diamonds$carat), 
               to=max(diamonds$carat), 
@@ -303,7 +304,7 @@ We also want the confidence bands, so we make sure to tell the <code>predict</co
 This is because ggplot2 does a cubic spline with knot reductions, while we are using the default low rank isotropic smoothers (<code>bs='tp'</code>).
 But you can see that we are nicely plotting the predicted line based on the model we have.
 We can do this because we created a tibble with a <code>carat</code> variable in the range of that is in the data (min to max) with a length of <code>1000</code>.
-For regression lines you’ll not need too many points to create a good smooth line.</p>
+For regression lines you’ll not need this many points to create a good smooth line, but what the heck.</p>
 <p>You can also predict outside the range of the data, by specifying your own range.
 Let’s hypothetically say a diamond with such an amazing quality that they decided it should have a carat of 6, i.e. extending the carat measure! 0_o</p>
 <p>We can just adjust the max value of the predicting data set and see what happens.</p>
@@ -343,7 +344,7 @@ broom::tidy(model2)</code></pre>
 This gives you a full factorial.
 <strong>Note</strong> if the <code>by</code> predictor is numeric, it is <strong>not</strong> an interaction, but its own main effect.
 Numeric interactions we do differently (see later section).
-The results here indicate that the different cuts do alter the price.</p>
+The results here indicate that the different clarities do alter the price.</p>
 <p>But notice that the main effects for each clarity is not listed here.
 The tidier for <code>gam</code> only includes the smooth terms, not the parametric ones.
 They have different summary statistics, so having them in the same table require some extra steps, but I still usually do so, atleast to get an idea of what I’m looking at.</p>
