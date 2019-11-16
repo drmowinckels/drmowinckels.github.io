@@ -52,7 +52,7 @@ Let's also have a look at some of the factors, and how they play into those two 
 
 ```{r}
 diamonds %>% 
-  gather(variable, value, carat, depth) %>% 
+  gather(variable, value, carat, table) %>% 
   gather(factor_g , factor_v, cut, color, clarity) %>% 
   ggplot(aes(x=value, y=price)) +
   geom_smooth(aes(group=factor_v, colour=factor_v)) +
@@ -60,10 +60,11 @@ diamonds %>%
 ```
 
 I'm not winning any awards with this plot, but it's a quick way to get a general idea of what the data looks like. 
-There's not much fun happening with `depth` though there is this one cut that seems to behave _very_ oddly. 
-We will leare depth as a main contributor, and focus on carat. 
+There's not much fun happening with `table` though there is this one cut that seems to behave _very_ oddly. 
+We will leave `table` as a main contributor, and focus on `carat`. 
 
-I'd say both the carat-clarity and carat-cut plots might have some interesting interactions, so I'll dig into one of those. I'm just going to pick clarity, for the clarity (award for horrible word-puns goes to me!). 
+I'd say both the carat-clarity and carat-table plots might have some interesting interactions, so I'll dig into those. 
+I'm just going to pick clarity, for the clarity (award for horrible word-puns goes to me!). 
 
 ```{r}
 library(mgcv)
@@ -81,15 +82,15 @@ plot(model1)
 ```
 
 There's the smooth line.
-But let's be honest, it aint pretty. 
-It's neat for getting a quick look at it, but if you're prepping for a paper or a report, you'll need to fix it up a bit.
+But let's be honest, it ain't pretty. 
+It's neat for getting a quick look at, but if you're prepping for a paper or a report, you'll need to fix it up a bit.
 Let's ggplot it.
 
 In order to do that, we need to make some data that will create the regression line.
 We do that by creating a data frame that includes the predictor variable(s) in an ordered fashion.
 In this first case, we want a data frame with a column named `carat` that covers all the carat-values in the dataset, but that is neatly ordered ascendingly. 
-We can then use that data and predict what the price would be (the fit) given the model we have created.
-We also want the confidence bands, so we make sure to tell the `predict` function that we want them too, by secifying the `se.fit` argument as `TRUE`.
+We can then use that ordered data and predict what the price would be (the fit) given the model we have created.
+We also want the confidence bands, so we make sure to tell the `predict` function that we want them too, by specifying the `se.fit` argument as `TRUE`.
 
 ```{r}
 tibble(
@@ -113,7 +114,7 @@ Despite the general formula being more or less the same, our gam and ggplots gam
 This is because ggplot2 does a cubic spline with knot reductions, while we are using the default low rank isotropic smoothers (`bs='tp'`). 
 But you can see that we are nicely plotting the predicted line based on the model we have. 
 We can do this because we created a tibble with a `carat` variable in the range of that is in the data (min to max) with a length of `1000`. 
-For regression lines you'll not need too many points to create a good smooth line.
+For regression lines you'll not need this many points to create a good smooth line, but what the heck.
 
 You can also predict outside the range of the data, by specifying your own range. 
 Let's hypothetically say a diamond with such an amazing quality that they decided it should have a carat of 6, i.e. extending the carat measure! 0_o
@@ -153,7 +154,7 @@ For interactions between numeric and factors, we use the `by` option in the smoo
 This gives you a full factorial.
 **Note** if the `by` predictor is numeric, it is **not** an interaction, but its own main effect. 
 Numeric interactions we do differently (see later section).
-The results here indicate that the different cuts do alter the price.
+The results here indicate that the different clarities do alter the price.
 
 But notice that the main effects for each clarity is not listed here.
 The tidier for `gam` only includes the smooth terms, not the parametric ones.
