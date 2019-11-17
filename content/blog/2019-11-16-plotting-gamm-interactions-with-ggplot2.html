@@ -27,12 +27,12 @@ But the other variables might also have smaller effects that we should be accoun
 <p>Let’s start of by just making some plots, and get an idea of the data and how they interact with price.
 I’m going to gather the numeric variables I’m interested in into a long-format table, so that I can facet (make subplots) easily for the different variables.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.2.1          ✔ purrr   0.3.3     
 ## ✔ tibble  2.1.3          ✔ dplyr   0.8.3     
 ## ✔ tidyr   1.0.0.9000     ✔ stringr 1.4.0     
 ## ✔ readr   1.3.1          ✔ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>diamonds %&gt;% 
@@ -337,4 +337,14 @@ Now you can alter the colour schemes, legends, theme and what you need using the
 <p>Hope it helps you in your endevours.
 It tok me ages to understand the whole <code>predict</code> thing, and how to make it work.
 So I hope it helps someone figure it out easier, so you can look at your results with less ache than I had!</p>
+</div>
+<div id="edit" class="section level2">
+<h2>Edit</h2>
+<p>Since I mentioned you <em>could</em> also plot the numeric-numeric interaction like the numeric-factor, with a line per interaction, I’ll do that too.
+But these are quite difficult to parse out, which is why I opt for the heatplot (which is also not trivial to interpret, but in my opinion better).</p>
+<pre class="r"><code>ct_int_pred %&gt;%
+  ggplot(aes(x=carat, y=fit)) +
+  geom_line(aes(group=table, colour=table))</code></pre>
+<p><img src="/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>It’s mighty pretty though!</p>
 </div>
