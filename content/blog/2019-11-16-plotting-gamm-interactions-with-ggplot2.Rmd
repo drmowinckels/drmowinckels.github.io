@@ -359,3 +359,16 @@ Hope it helps you in your endevours.
 It tok me ages to understand the whole `predict` thing, and how to make it work. 
 So I hope it helps someone figure it out easier, so you can look at your results with less ache than I had!
 
+## Edit
+
+Since I mentioned you _could_ also plot the numeric-numeric interaction like the numeric-factor, with a line per interaction, I'll do that too.
+But these are quite difficult to parse out, which is why I opt for the heatplot (which is also not trivial to interpret, but in my opinion better).
+
+```{r}
+ct_int_pred %>%
+  ggplot(aes(x=carat, y=fit)) +
+  geom_line(aes(group=table, colour=table))
+```
+
+It's mighty pretty though! 
+
