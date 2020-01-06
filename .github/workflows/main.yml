@@ -1,14 +1,15 @@
 # .github/workflows/main.yml
 
-name: Trigger aboutme Netlify Build
+name: Trigger aboutme update
 on:
   schedule:
     # Run at 0815 daily
-    - cron: '46 14 * * *'
+    - cron: '03 15 * * *'
 jobs:
   build:
     name: Request aboutme_update Netlify Webhook
     runs-on: ubuntu-latest
     steps:
+      - run: rm content/aboutme/aboutme.html
       - name: Curl request
         run: curl -X POST -d {} https://api.netlify.com/build_hooks/5e133796380a01bb8eb41958
