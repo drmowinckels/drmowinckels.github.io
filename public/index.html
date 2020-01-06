@@ -2,7 +2,7 @@
 <html lang="en-uk">
 
 <head>
-	<meta name="generator" content="Hugo 0.55.6" />
+	<meta name="generator" content="Hugo 0.60.1" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
 <meta name="HandheldFriendly" content="True">
@@ -190,31 +190,8 @@ ga('send', 'pageview');
                     
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                             <p>I am a cognitive neuroscientist based in Oslo, Norway, who works at the <a href="www.oslobrains.no">Center for Lifespan Changes in Brain and Cognition</a>. I am passionate about cognitive neuroscience, teaching people the benefits of using R, and equalizing gender diversity in the R-community (and in data science) through <a href="www.twitter.com/RLadies_Oslo">RLadies-Oslo</a>.</p>
-
-<p style="text-align: center;"> <a href="/aboutme/aboutme/">More about me</a> </p>
+<!-- raw HTML omitted -->
 
                         
                     
@@ -239,125 +216,55 @@ ga('send', 'pageview');
 
     <div class="section is-small" style="background: transparent; background-color: transparent;">
         <div class="columns is-multiline">
-             
+                 
             
             <div class="column is-half"> 
                 
-                <div  id="projectggseg"  class="card">
+                <div  id="projectprojects"  class="card">
                         <div class="card-image">
                             <figure class="image is-3by2">
                                 <a >
-                                    <img src="img/ggseg_retro_wide.png">
+                                    <img src="/img/workday.jpg">
                                 </a>
                             </figure>
                         </div>
                         <div class="card-content has-text-centered top-pad">
                                 <a >
-                                    ggseg
+                                    Projects
                                 </a>
                         </div>
                 </div>
             </div>
-              
-            
-            <div class="column is-half"> 
-                
-                <div  id="projectmri-viewer"  class="card">
-                        <div class="card-image">
-                            <figure class="image is-3by2">
-                                <a >
-                                    <img src="img/VisMRI_wide.png">
-                                </a>
-                            </figure>
-                        </div>
-                        <div class="card-content has-text-centered top-pad">
-                                <a >
-                                    MRI viewer
-                                </a>
-                        </div>
-                </div>
-            </div>
-                                           
+                   
     </div>
 </div>
 </div>
 
 
 
-  
-<div class="modal" id="modalggseg">
+      
+<div class="modal" id="modalprojects">
     <div class="modal-background"></div>
     <div class="modal-card">
         
         <header class="modal-card-header bottom-pad">
-            <p class="modal-card-title has-text-centered">ggseg</p>
+            <p class="modal-card-title has-text-centered">Projects</p>
         </header>
         
         
-            <img src="img/ggseg_retro_wide.png" class="img-responsive img-centered">
-        
-        
-        <section class="modal-card-body markdown">
-            <p>This package is developed with co-worker Didac Vidal Pineiro, whose had the whole idea.</p>
-
-<p>This package is meant to use for visualizing brain segmentations, often referred to as brain atlases.
-Click the eye below to see a demonstration of the package.</p>
-
-<p>It is also ready to install using devtools in R, directly from github.</p>
-
-<p><a href="https://athanasiamo.shinyapps.io/ggsegDemo/" title="View demonstration"><i class="fa fa-eye"></i></a>
-<a href="https://github.com/LCBC-UiO/ggseg" title=Github repository"><i class="fa fa-github"></i></a></p>
-
-        </section>
         
     </div>
-    <button class="modal-close is-large" aria-label="close" id="closeggseg"></button>
+    <button class="modal-close is-large" aria-label="close" id="closeprojects"></button>
 </div>
 <script>
-    $('#projectggseg').click(function() {
-        $('#modalggseg').addClass('is-active');
+    $('#projectprojects').click(function() {
+        $('#modalprojects').addClass('is-active');
     });
-    $('#closeggseg').click(function() {
-        $('#modalggseg').removeClass('is-active');
-    });
-</script>
-    
-<div class="modal" id="modalmri-viewer">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        
-        <header class="modal-card-header bottom-pad">
-            <p class="modal-card-title has-text-centered">MRI viewer</p>
-        </header>
-        
-        
-            <img src="img/VisMRI_wide.png" class="img-responsive img-centered">
-        
-        
-        <section class="modal-card-body markdown">
-            <p>There is currently a lack of tools for vislualising results from MRI analyses in R, most packages call an external command to open a viewer in another program. There is, however, advantages to visualise directly from R, among other increased understanding of the underlying data.</p>
-
-<p>In this project, tentatively called visMRI, the idea is to create a shiny instance that will function as a viewer for MRI results. Ultimately, I hope to launch something that might be used on a <code>.feat</code> folder from <a href="www.fmrib.ox.ac.uk">FSL</a></p>
-
-<p>By the marvellous idea and contribution of a colleague, I also hope to incorporate his code for <a href="https://surfer.nmr.mgh.harvard.edu">Freesurfer&rsquo;s</a> <code>aparc</code> segmentations.</p>
-
-<p><a href="https://athanasiamo.shinyapps.io/VisMRI" title="View buggy demonstration"><i class="fa fa-eye"></i></a>
-<a href="https://github.com/Athanasiamo/VisMRI" title=Github repository"><i class="fa fa-github"></i></a></p>
-
-        </section>
-        
-    </div>
-    <button class="modal-close is-large" aria-label="close" id="closemri-viewer"></button>
-</div>
-<script>
-    $('#projectmri-viewer').click(function() {
-        $('#modalmri-viewer').addClass('is-active');
-    });
-    $('#closemri-viewer').click(function() {
-        $('#modalmri-viewer').removeClass('is-active');
+    $('#closeprojects').click(function() {
+        $('#modalprojects').removeClass('is-active');
     });
 </script>
-                                
+        
 
 
 <div class="container has-text-centered top-pad">
@@ -381,18 +288,15 @@ Click the eye below to see a demonstration of the package.</p>
   <h2 class="title is-2 has-text-centered">Latest Post</h2>
    
   <div class="summary">
-        <h3 class="title is-3 latest-post-title has-text-centered"><a href="/blog/r-for-psychologists-part-ii/">R for Psychologists - part II</a></h3>
+        <h3 class="title is-3 latest-post-title has-text-centered"><a href="/blog/">Blogs</a></h3>
 
         <div class="columns">
               <div class="column is-one-third has-text-centered">
-                <img src="/blog/2019-07-17-r-for-psychologists-part-ii_files/figure-html/featured-1.png">
+                
               </div>
             <div class="column markdown">
-                <i>Jul 17, 2019</i> <br>
-                It’s been a very long time since I wrote anything. Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on. I’m sitting in old town Fredrikstad while my cat is getting some tests at the vets’, so I finally get some time and want to write something here. And we will continue with some R for Psychologists.
-I my first R for Psychologists post we really dove into it.
+                <i>Dec 11, 2019</i> <br>
                 
-                  <a href="/blog/r-for-psychologists-part-ii/">...Read More</a>
                 
             </div>
         </div>
@@ -419,28 +323,6 @@ I my first R for Psychologists post we really dove into it.
     <h2 class="title is-2">Contact</h2>
         <div class="markdown">
             
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 
                 
@@ -503,7 +385,7 @@ I my first R for Psychologists post we really dove into it.
     <div class="container has-text-centered">
         
         <span class="footer-text"> 
-        Athanasia Monika Mowinckel <i class="fa fa-creative-commons"></i>-BY 2019. Feeding to <a href='https://rweekly.org'>R weekly</a>.
+        Athanasia Monika Mowinckel <i class="fa fa-creative-commons"></i>-BY 2020. Feeding to <a href='https://rweekly.org'>R weekly</a>.
         See the sites <a href='/cookies/cookies'>cookie</a> policy.
         </span>
         
