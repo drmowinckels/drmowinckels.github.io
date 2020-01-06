@@ -4,8 +4,6 @@ date: '`r Sys.Date()`'
 ---
  
 ```{r "setup", include=F,echo=F, warning=F, error=F}
-library(scholar)
-library(knitr)
 library(tidyverse);
 options(knitr.kable.NA = '')
 CV = rio::import_list("~/Dropbox/Privat/Jobbsøking/CV-attester-etc/CV.xlsx")
@@ -20,23 +18,24 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 ### Education  
 ```{r "Education", echo=F, results='asis'}
 CV$EDU %>%  
-  kable("markdown", booktabs = T)
+  knitr::kable("markdown", booktabs = T)
 
 ```
 ### Work  
 ```{r "Work", echo=F}
 CV$WORK %>% 
-  kable("markdown", booktabs = T)
+  knitr::kable("markdown", booktabs = T)
 ```
 ### Commissions  
 ```{r "Commissions", echo=F}
 CV$COMMISSION %>% 
-  kable("markdown", booktabs = T)
+  knitr::kable("markdown", booktabs = T)
 ```
+
 
 ### Publications & Citations
 ```{r "pubPlot", echo=FALSE, warning=FALSE, error=FALSE, dev.args = list(bg = 'transparent'), aniopts=c(interval = 0.8, loop=1)}
-get_citation_history("7NkxgWQAAAAJ") %>% 
+scholar::get_citation_history("7NkxgWQAAAAJ") %>% 
   mutate(cumulative=cumsum(cites)) %>% 
   gather(metric, val, -1) %>% 
 
@@ -63,7 +62,7 @@ get_citation_history("7NkxgWQAAAAJ") %>%
 
 
 ```{r "pubList", results='asis', warning=FALSE, echo=FALSE}
-pubs = get_publications("7NkxgWQAAAAJ") %>% 
+pubs = scholar::get_publications("7NkxgWQAAAAJ") %>% 
   filter(journal != "") %>% 
   mutate(cid     = ifelse(is.na(cid), NA, paste0("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=", cid))) %>% 
   mutate(author  = gsub("Mowinckel", "**Mowinckel**", author), 
