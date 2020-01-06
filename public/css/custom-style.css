@@ -6856,6 +6856,7 @@ code {
 .hidden {
   display: none; }
   
+
   /* Three image containers (use 25% for four, and 50% for two, etc) */
 .columnBlog {
   position: relative;
@@ -6866,31 +6867,29 @@ code {
   box-sizing: border-box;
 }
 
-    .cols3 {
-       width: 100%;
-       max-width: 1000px;
-    }
+.cols3 {
+  width: 100%;
+  max-width: 1000px;
+}
     
-    @media (min-width: 400px) {
-      .cols3 {
-        -webkit-column-count: 2;
-        -webkit-column-gap: 1em;
+@media (min-width: 400px) {
+  .cols3 {
+    -webkit-column-count: 2;
+    -webkit-column-gap: 1em;
+    -moz-column-count: 2;
+    -moz-column-gap: 1em;
+    column-count: 2;
+    column-gap: 1em;
+  }
+}
 
-        -moz-column-count: 2;
-        -moz-column-gap: 1em;
-
-        column-count: 2;
-        column-gap: 1em;
-      }
-    }
-
-    @media (min-width: 600px) {
-      .cols3 {
-        -webkit-column-count: 3;
-        -moz-column-count: 3;
-        column-count: 3;
-      }
-    }
+@media (min-width: 600px) {
+  .cols3 {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+}
     
 /* Clear floats after image containers */
 .row::after {
@@ -6914,7 +6913,7 @@ code {
   font-size: calc(.5vw + .5vh + 1vmin); 
   color: #fff;
 }
-
+ 
 .columnBlog:hover .middle:hover {
   opacity: .95;
   color: #eee;
