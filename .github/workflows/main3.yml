@@ -1,0 +1,23 @@
+on:
+  push:
+    branches: master
+
+name: aboutme
+
+jobs:
+  pkgdown:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-pandoc@master
+      - name: Install dependencies
+        run: |
+          Rscript -e 'install.packages(c("remotes", "blogdown"))' \
+                  -e 'remotes::install_deps(dependencies = TRUE)' \
+                  -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")'
+      - name: Install package
+        run: R CMD INSTALL .
+      - name: Deploy package
+        run: |
+          Rscript -e "blogdown:::build_rmds("content/aboutme/aboutme.Rmd")"
