@@ -23,17 +23,17 @@ jobs:
     #    run: |
     #      rm public/aboutme/aboutme/index.html
 
-      - name: Cache Renv packages
-        uses: actions/cache@v1
-        with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles('renv.lock') }}
-          restore-keys: r-
+    #  - name: Cache Renv packages
+    #    uses: actions/cache@v1
+    #    with:
+    #      path: $HOME/.local/share/renv
+    #      key: r-${{ hashFiles('renv.lock') }}
+    #      restore-keys: r-
 
-      - name: Install packages
-        run: |
-          R -e 'install.packages("renv")'
-          R -e 'renv::restore()'
+    #  - name: Install packages
+    #    run: |
+    #      R -e 'install.packages("renv")'
+    #      R -e 'renv::restore()'
 
       - name: Install hugo
         run: |
