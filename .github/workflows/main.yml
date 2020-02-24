@@ -37,19 +37,16 @@ jobs:
     
       - name: Install packages
         run: | 
-          R -e 'install.packages("blogdown")'
-          R -e 'install.packages("tidyverse")'
-          R -e 'install.packages("rio")'
-          R -e 'install.packages("knitr")'
-          R -e 'install.packages("scholar")'
+          R -e 'install.packages(c("blogdown", "tidyverse"))' \
+               'install.packages(c("rio", "knitr", "scholar"))'
 
       - name: Install hugo
         run: |
           R -e 'blogdown::install_hugo()'
 
-      - name: Build site
+      - name: Re-build aboutme
         run: |
-          Rscript -e "blogdown:::build_rmds("content/aboutme/aboutme.Rmd")"
+          Rscript -e 'blogdown:::build_rmds("content/aboutme/aboutme.Rmd")'
           
       - name: Install npm
         uses: actions/setup-node@v1
