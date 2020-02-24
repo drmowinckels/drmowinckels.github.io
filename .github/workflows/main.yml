@@ -36,7 +36,7 @@ jobs:
     #      R -e 'renv::restore()'
     
       - name: Install packages
-        run: | knitr
+        run: | 
           R -e 'install.packages("blogdown")'
           R -e 'install.packages("tidyverse")'
           R -e 'install.packages("rio")'
