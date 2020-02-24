@@ -35,17 +35,11 @@ jobs:
     #      R -e 'install.packages("renv")'
     #      R -e 'renv::restore()'
     
-      - name: Install packages
+      - name: Build readme
         run: | 
           R -e 'install.packages("blogdown")'
-
-      - name: Install hugo
-        run: |
           R -e 'blogdown::install_hugo()'
-
-      - name: Build site
-        run: |
-          Rscript -e "blogdown:::build_rmds("content/aboutme/aboutme.Rmd")"
+          R -e 'blogdown:::build_rmds("content/aboutme/aboutme.Rmd")'
           
       - name: Install npm
         uses: actions/setup-node@v1
