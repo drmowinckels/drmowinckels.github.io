@@ -19,9 +19,9 @@ jobs:
           brew install pandoc
           brew install pandoc-citeproc
       
-      - name: Remove rendered aboutme, to force re-render
-        run: |
-          rm public/aboutme/aboutme/index.html
+     # - name: Remove rendered aboutme, to force re-render
+    #    run: |
+     #     rm public/aboutme/aboutme/index.html
 
       - name: Cache Renv packages
         uses: actions/cache@v1
@@ -41,8 +41,8 @@ jobs:
 
       - name: Build site
         run: |
-          R -e 'blogdown::build_site(TRUE)'
-
+          Rscript -e "blogdown:::build_rmds("content/aboutme/aboutme.Rmd")"
+          
       - name: Install npm
         uses: actions/setup-node@v1
 
