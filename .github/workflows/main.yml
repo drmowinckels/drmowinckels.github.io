@@ -38,7 +38,7 @@ jobs:
       - name: Install packages
         run: | 
           R -e 'install.packages(c("blogdown", "tidyverse"))' \
-               'install.packages(c("rio", "knitr", "scholar"))'
+            -e 'install.packages(c("rio", "knitr", "scholar"))'
 
       - name: Install hugo
         run: |
