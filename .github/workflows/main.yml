@@ -19,9 +19,9 @@ jobs:
           brew install pandoc
           brew install pandoc-citeproc
       
-     # - name: Remove rendered aboutme, to force re-render
+    # # - name: Remove rendered aboutme, to force re-render
     #    run: |
-     #     rm public/aboutme/aboutme/index.html
+    #      rm public/aboutme/aboutme/index.html
 
       - name: Cache Renv packages
         uses: actions/cache@v1
