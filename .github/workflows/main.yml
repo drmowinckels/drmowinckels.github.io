@@ -38,6 +38,7 @@ jobs:
       - name: Build readme
         run: | 
           R -e 'install.packages("blogdown")'
+          R -e 'install.packages("tidyverse")' 
           R -e 'blogdown::install_hugo()'
           R -e 'blogdown:::build_rmds("content/aboutme/aboutme.Rmd")'
           
