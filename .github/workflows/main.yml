@@ -19,30 +19,35 @@ jobs:
           brew install pandoc
           brew install pandoc-citeproc
       
-      - name: Remove rendered aboutme, to force re-render
-        run: |
-          rm public/aboutme/aboutme/index.html
+    # # - name: Remove rendered aboutme, to force re-render
+    #    run: |
+    #      rm public/aboutme/aboutme/index.html
 
-      - name: Cache Renv packages
-        uses: actions/cache@v1
-        with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles('renv.lock') }}
-          restore-keys: r-
+    #  - name: Cache Renv packages
+    #    uses: actions/cache@v1
+    #    with:
+    #      path: $HOME/.local/share/renv
+    #      key: r-${{ hashFiles('renv.lock') }}
+    #      restore-keys: r-
 
+    #  - name: Install packages
+    #    run: |
+    #      R -e 'install.packages("renv")'
+    #      R -e 'renv::restore()'
+    
       - name: Install packages
-        run: |
-          R -e 'install.packages("renv")'
-          R -e 'renv::restore()'
+        run: | 
+          R -e 'install.packages(c("blogdown", "tidyverse"))' \
+            -e 'install.packages(c("rio", "knitr", "scholar"))' 
 
       - name: Install hugo
         run: |
           R -e 'blogdown::install_hugo()'
 
-      - name: Build site
+      - name: Re-build aboutme
         run: |
-          R -e 'blogdown::build_site(TRUE)'
-
+          Rscript -e 'blogdown:::build_rmds("content/aboutme/aboutme.Rmd")'
+          
       - name: Install npm
         uses: actions/setup-node@v1
 
