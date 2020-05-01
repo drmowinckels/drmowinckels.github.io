@@ -24,12 +24,12 @@ The package vignettes are update on the new usage, which mainly affects how you 
 
 And this post will use the technique necessary for facetting, just for making animations with the [gganimate](https://github.com/thomasp85/gganimate) package instead. This package is so clever, and I am in complete awe of Thomas' brilliance in making it. Especially the new development version, which has altered the way to use the package that falls completely in-line with the rest of the ggplot-idea. 
 
-Let's fabricate some data to work with. I want to plot the Desikan-Killany atlas, with information for mean values of thickness across different ages. Since I'm completely making all this data up, I'll just start with the `dkt` data.frame that comes with the package, grabs its unique instances of area and hemisphere (which gives me every area in the dkt atlas), and start making up some cortical thickness values per age.
+Let's fabricate some data to work with. I want to plot the Desikan-Killany atlas, with information for mean values of thickness across different ages. Since I'm completely making all this data up, I'll just start with the `dk` data.frame that comes with the package, grabs its unique instances of region and hemisphere (which gives me every region in the dk atlas), and start making up some cortical thickness values per age.
 
 Grab the unique polygons
 ```{r}
-base_atlas = dkt %>% 
-  select(area,hemi) %>% 
+base_atlas = dk %>% 
+  select(region, hemi) %>% 
   distinct() %>% 
   na.omit()
 
@@ -46,7 +46,7 @@ new_data = base_atlas %>%
 Lets plot it to have a looksie
 ```{r}
 new_data %>% 
-  ggseg(mapping=aes(fill=thickness), position="stacked", colour="darkgrey", size=.1) +
+  ggseg(mapping=aes(fill=thickness), position="stacked", colour="darkgrey") +
   scale_fill_gradientn(colours=c("dodgerblue4","light blue","firebrick","goldenrod"))
 ```
 
@@ -70,12 +70,12 @@ full_data = lapply(full_data,
 full_data = full_data %>% bind_rows()
 ```
 
-Now we should have a data frame with values for each area and hemisphere across the ages 5-40. 
+Now we should have a data frame with values for each region and hemisphere across the ages 5-40. 
 Let's have a look at how it looks when we facet it.
 
 ```{r}
 full_data %>% 
-  ggseg(mapping=aes(fill=thickness), position="stacked", colour="darkgrey", size=.1) +
+  ggseg(mapping=aes(fill=thickness), position="stacked", colour="darkgrey") +
   scale_fill_gradientn(colours=c("dodgerblue4","light blue","firebrick","goldenrod")) +
   facet_wrap(~Age)
 ```
@@ -85,7 +85,7 @@ This is expected behaviour as of the new `ggseg` version.
 
 If you want to facet, you'll need to make sure each facet includes information for *all regions*  even if these regions don't have any aestetics value (in this case a thickness value we are plotting as fill). 
 
-To manage this, we need to go back a step when we made the data.frame, and merge our fabricated data with the entire `dkt` atlas.
+To manage this, we need to go back a step when we made the data.frame, and merge our fabricated data with the entire `dk` atlas.
 
 
 ```{r}
@@ -93,12 +93,12 @@ To manage this, we need to go back a step when we made the data.frame, and merge
 full_data = sapply(seq(5,40,by=5), list)
 names(full_data) = seq(5,40,by=5)
 
-# apply through the list to fabricate data per age, and add dkt atlas
+# apply through the list to fabricate data per age, and add dk atlas
 full_data = lapply(full_data, 
        function(x)  
          base_atlas %>% 
          mutate(thickness = sample(seq(4,5,by=.001), nrow(.))) %>% 
-         full_join(dkt) %>% 
+         full_join(dk) %>% 
          mutate(Age=x[1])
          )
 
@@ -106,22 +106,22 @@ full_data = lapply(full_data,
 full_data = full_data %>% bind_rows()
 ```
 
-You see how we've been informed that the data have been joined by `hemi` and `area`, which is exactly what we want. Let's see what it looks like now.
+You see how we've been informed that the data have been joined by `hemi` and `region`, which is exactly what we want. Let's see what it looks like now.
 
 
 ```{r}
 full_data %>% 
-  ggseg(mapping=aes(fill=thickness), position="stacked", colour="darkgrey", size=.1) +
+  ggseg(mapping=aes(fill=thickness), position="stacked", colour="darkgrey") +
   scale_fill_gradientn(colours=c("dodgerblue4","light blue","firebrick","goldenrod")) +
   facet_wrap(~Age)
 ```
 
-Even more crazy! But again, this is expected behaviour. You see, we have supplied an entire atlas of information to ggseg, which again tries to mege it with (in this case)  the dkt atlas. That makes this odd behaviour.
+Even more crazy! But again, this is expected behaviour. You see, we have supplied an entire atlas of information to ggseg, which again tries to mege it with (in this case)  the dk atlas. That makes this odd behaviour.
 
 To plot this as we want, we need to tell `ggseg` that we are supplying a new `atlas` **not** new data.
 
 ```{r}
-ggseg(atlas=full_data, mapping=aes(fill=thickness), position="stacked", colour="darkgrey", size=.1) +
+ggseg(atlas=full_data, mapping=aes(fill=thickness), position="stacked", colour="darkgrey") +
   scale_fill_gradientn(colours=c("dodgerblue4","light blue","firebrick","goldenrod")) +
   facet_wrap(~Age)
 ```
@@ -138,8 +138,12 @@ We use the same bare plot as before, but substitute the facet with a transition.
 library(gganimate)
 library(transformr)
 
-t = ggseg(atlas=full_data, mapping=aes(fill=thickness), position="stacked", colour="darkgrey", size=.1) +
-  scale_fill_gradientn(colours=c("dodgerblue4","light blue","firebrick","goldenrod")) +
+t = ggseg(atlas=full_data, 
+          mapping=aes(fill=thickness), 
+          position="stacked", colour="darkgrey") +
+  scale_fill_gradientn(
+    colours = c("dodgerblue4","light blue","firebrick","goldenrod")
+    ) +
   transition_states(Age, 1, 1) + 
   labs(title = "Age: {closest_state}")
 
@@ -148,9 +152,8 @@ animate(t, fps = 10)
 
 ```
 
-```{r echo=F}
-knitr::include_graphics("/blog/2018-10-01-get-the-brain-animated_files/figure-html/featured-1.gif")
-```
+![](blog/2018-10-01-get-the-brain-animated_files/figure-html/featured-1.gif)
+
 
  
 and there you go! A pretty animation of the data! To understand the arguments to gganimate, I guess the best way to get a feel for it is to just play around with it. Now, I have to admit, that I am a little frustrated by the the gif is shown here on the blog, as in the RStudio viewer it looks awesome, with nice smooth transitions between states (here: Ages), but it is rendered here with very stacatto transitions.
@@ -158,3 +161,5 @@ and there you go! A pretty animation of the data! To understand the arguments to
 I'm giving up a little fixing this issue for now, and hope I'll manage a better integration of gifs on the blog in the future.
   
 Happy plotting!
+
+_Edit: This post was edited May 1st 2020 to reflect newer package changes_
