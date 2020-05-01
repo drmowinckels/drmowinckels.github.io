@@ -1,3 +1,4 @@
+<!--
 <li class="post-item" style="text-align: center center;">
   <a style="color: white;" href="{{ .Permalink }}" >
     <div class="columnBlog" > 
@@ -9,3 +10,16 @@
     </div>
   </a>
 </li>
+-->
+
+      <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="{{ .Permalink }}">
+            {{ with .Params.featured_image }}<img src="{{ . }}"> {{ end }}
+            <h1>{{ .Title }}</h1>
+            <p>{{ .Date.Format .Site.Params.dateForm }} <br></p>
+          </a>
+        </div>
+      </li>
+        
+

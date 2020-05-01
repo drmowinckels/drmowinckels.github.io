@@ -37,17 +37,17 @@
 
   {{ end }}
 {{ end }}
-
-    <h2 class="title is-2 top-pad" style="text-align: center;">All Posts</h2>
-      <div class="cols3">
-         <ul>
-        {{ range .Data.Pages.ByDate.Reverse }}
+´
+    <h2 class="title is-2 top-pad" style="text-align: center;">Other posts</h2>
+    <!--  <div class="cols3"> -->
+         <ul id="hexGrid">
+        {{ range after 1 .Data.Pages.ByDate.Reverse }}
             {{ if eq .Section "blog" }}
                 {{ partial "li.html" . }}
             {{ end }}
         {{ end }}
         </ul> 
-      </div>
+     <!--  </div> -->
 
     </div><!-- End Blog container -->
 <br>
