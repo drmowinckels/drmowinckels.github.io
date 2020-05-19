@@ -1,10 +1,13 @@
 ---
 title: "ggseg"
 date: 2018-08-26T12:21:16-05:00
-image: "logo.png"
 external_link: ""
 weight: 1
 draft: false
+resources:
+    - src:logo.png
+      params:
+          weight: -100
 ---
 
 This package is developed with co-worker Didac Vidal Pineiro, whose had the whole idea.
