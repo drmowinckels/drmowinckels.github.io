@@ -1,7 +1,7 @@
 ---
 title: "ggseg3d"
 date: 2019-08-26T12:00:00-00:00
-image: "logo.png"
+image: "/img/ggseg3d_logo.png"
 external_link: ""
 weight: 1
 draft: false
