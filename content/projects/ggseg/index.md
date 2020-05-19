@@ -1,7 +1,7 @@
 ---
 title: "ggseg"
 date: 2018-08-26T12:21:16-05:00
-image: "img/ggseg_retro_wide.png"
+image: "logo.png"
 external_link: ""
 weight: 1
 draft: false
