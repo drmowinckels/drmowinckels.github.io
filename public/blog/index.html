@@ -1,850 +1,394 @@
 <!DOCTYPE html>
-<html lang="en-uk">
-
-<head>
-<meta charset="utf-8">
+<html lang="">
+    <head>
+        
+        <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<meta name="google-site-verification" content="Ksh3BnnjYogfJqJIiF-v0x9MNpeY6YtkpLoVypus7uw" />
 
-<meta name="description" content="Cognitive neuroscientist, blogging about R and neuroimaging.">
-
-  
-	
-
-
-<base href="/">
 <title>
-
-
-     
-      Dr. Mowinckel&#39;s Blogs 
-    
-    
-
+Blog - Dr. Mowinckel&#39;s
 </title>
-<link rel="canonical" href="/blog/">
+
+<link href="/blog/index.xml" rel="alternate" type="application/rss+xml" title="Dr. Mowinckel&#39;s" />
+
+        <meta property="og:title" content="Blog - Dr. Mowinckel&#39;s" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content=""/>
+<meta property="og:url" content="/blog/"/>
+<meta property="og:site_name" content="Dr. Mowinckel&#39;s"/>
+
+
+
+
+<meta property="og:image" content="/home/profile.png"/>
+
+<meta property="og:image" content="/home/profile_square.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico.png">
+
+
+        
 
 
 
 
 
-<link rel="stylesheet" href="/css/highlight/zenburn.css" rel="stylesheet" id="theme-stylesheet">
-<script src="/js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<script
-src="https://code.jquery.com/jquery-3.2.1.min.js"
-integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-crossorigin="anonymous"></script>
-
-
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
-<link rel="stylesheet" href="css/hexagongrid.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
-<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Lato" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.min.5c5478bdd5363758f3e73657d5339b1ac7c131a401ffc3338edd7eb5e1a0114e.css" integrity="sha256-XFR4vdU2N1jz5zZX1TObGsfBMaQB/8Mzjt1&#43;teGgEU4=" crossorigin="anonymous" media="screen">
 
 
 
-    <link rel="stylesheet" href="css/custom-style.css">
+
+    <link rel="stylesheet" href="/syntax.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="/hexagongrid.css" integrity="" crossorigin="anonymous" media="screen">
+
+        
+        
+        
+        
+    </head>
+    <body> 
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one " style="background-size: contain;">
+                
+                <h1 class="bold-title is-1">Blog</h1>
+                
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">main</a>
+            
+
+            
+            
+
+            
+                
+            
+
+            
+                
+            
+
+            
+            
+            
+            
+            
+            <a class="navbar-item" href="/#about">About me</a>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                  <a class="navbar-item" href="/projects/">
+                  
+                  Project
+                  
+                  </a>
+                
+                
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+            
+            
+            
+            
+
+            
+            
+            <a class="navbar-item" href="/#contact">Contact</a>
+            
+            
+
+            
+
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+    <div class="container markdown top-pad">
+        <p>I blog mainly about R, with some neuroimaging in there. Most posts are set up as tutorials or walk-throughs, so I hope they are of value.</p>
+
+    </div>
+    <div class="container">
+        
+        <h2 class="title is-2 top-pad">Latest Post</h2>
+        
+        <div class="summary">Apr 30, 2020
+            <h3 class="title is-3 strong-post-title">
+                <a href="/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r/">
+                    Using Freesurfer annotation files to plot in R
+                </a>
+            </h3>
+
+            
+                <div class="columns">
+                    <div class="column is-one-third has-text-centered">
+                        <img src="/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r_files/figure-html/featured-1.png">
+                    </div>
+                    <div class="markdown column">
+                        When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise. For me, that is usually FSL or Freesurfer. Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together. For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.
+                        
+                        <a href="/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r/">Read more</a>
+                        
+                    </div>
+                </div>
+                
+        </div>
+        
+
+        
+        <h2 class="title is-2 top-pad">All Posts</h2>
+        <ul id="hexGrid">
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r/">
+            <img src="/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r_files/figure-html/featured-1.png"> 
+            <h1>Using Freesurfer annotation files to plot in R</h1>
+             - <p>Apr 30, 2020</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2019-12-11-do-you-wanna-build-a-snowman/">
+            <img src="/blog/2019-12-11-do-you-wanna-build-a-snowman_files/figure-html/featured-1.gif"> 
+            <h1>Do you wanna build a snowman?</h1>
+             - <p>Dec 11, 2019</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2019-12-06-ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/">
+            <img src="/blog/2019-12-06-ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still.png"> 
+            <h1>ggseg3d - creating interactive brain segmentation plots with plotly</h1>
+             - <p>Dec 6, 2019</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2/">
+            <img src="/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/featured-1.png"> 
+            <h1>Plotting GAMM interactions with ggplot2</h1>
+             - <p>Nov 16, 2019</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2019-07-17-r-for-psychologists-part-ii/">
+            <img src="/blog/2019-07-17-r-for-psychologists-part-ii_files/figure-html/featured-1.png"> 
+            <h1>R for Psychologists - part II</h1>
+             - <p>Jul 17, 2019</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">
+            <img src="/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/check_1.png"> 
+            <h1>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</h1>
+             - <p>Feb 2, 2019</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2019-01-19-why-rstudio-conf-is-the-best-conference-experience-i-have-had/">
+            <img src="/blog/2019-01-19-why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf.png"> 
+            <h1>Why RStudio::conf is the best conference experience I have had</h1>
+             - <p>Jan 19, 2019</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-12-13-christmas-tree-in-ggplot/">
+            <img src="/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/featured-1.gif"> 
+            <h1>Christmas tree in ggplot</h1>
+             - <p>Dec 13, 2018</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-11-09-r-just-dive-into-it/">
+            <img src="/blog/2018-11-09-r-just-dive-into-it_files/figure-html/featured-1.png"> 
+            <h1>R for psychologists - just dive into it!</h1>
+             - <p>Nov 9, 2018</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-10-01-get-the-brain-animated/">
+            <img src="/blog/2018-10-01-get-the-brain-animated_files/figure-html/featured-1.gif"> 
+            <h1>Get the brain animated!</h1>
+             - <p>Oct 1, 2018</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations/">
+            <img src="/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations_files/figure-html/featured-1.png"> 
+            <h1>Introducing the ggseg R-package for brain segmentations</h1>
+             - <p>Aug 30, 2018</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-05-25-circluar-plots-in-r-and-adding-images/">
+            <img src="/blog/2018-05-25-circluar-plots-in-r-and-adding-images_files/figure-html/featured-1.png"> 
+            <h1>Circular plots in R and adding images</h1>
+             - <p>May 25, 2018</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-05-02-adding-external-images-to-plots/">
+            <img src="/blog/2018-05-02-adding-external-images-to-plots_files/figure-html/unnamed-chunk-16-1.png"> 
+            <h1>Adding external images to plots</h1>
+             - <p>May 7, 2018</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-04-05-gamm-random-effects/">
+            <img src="/blog/2018-04-05-gamm-random-effects_files/figure-html/unnamed-chunk-10-1.png"> 
+            <h1>GAMM random effects</h1>
+             - <p>Apr 5, 2018</p>
+          </a>
+        </div>
+    </li>
+
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/">
+            <img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-4-1.png"> 
+            <h1>GAMM spaghetti plots in R with ggplot</h1>
+             - <p>Mar 8, 2018</p>
+          </a>
+        </div>
+    </li>
+
+</ul>
+
+        
+
+        
+    </div>
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
     
+        Athanasia Monika Mowinckel CC-BY 2020. Feeding to <a href="https://rweekly.org">R weekly</a>. See the sites <a href="/cookies/cookies">cookie policy</a>.
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
 
 
+<script src="/js/bundle.e6934e69d06bb8a213134f4c1468f9478bb7755e786dfb60e3c5a917c5335805.js" integrity="sha256-5pNOadBruKITE09MFGj5R4u3dV54bftg48WpF8UzWAU="></script>
 
 
-<link rel="shortcut icon"
-
-    href="img/fav.ico.png"
-
->
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-115545202-1', 'auto');
-ga('set', 'anonymizeIp', true);
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115545202-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
-
-
-  <link href="/blog/index.xml" rel="alternate" type="application/rss+xml" title="Dr. Mowinckel&#39;s" />
-
-
-
-
-<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="ee465df5-b1a8-4e93-92be-43a4d1fa111b" type="text/javascript" async></script>
-
-
-<script type="application/ld+json">
-{
-  "@context": "drmowinckels.io",
-  "@type": "Personal homepage and blog",
-  "url": "https://www.drmowinckels.io",
-  "logo": "https://www.drmowinckels.io/img/logo.png",
-  "name": "Athanasia Monika Mowinckel"
-}
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</head>
-
-
-<body>
-
-	
-<div class="section" style="text-align: center; background-image: url(img/logo.png); background-repeat: no-repeat; background-size: auto 80%; background-position: center;">
-
-
-    <h1 class="bold-title fade-in one">
-          Dr. Mowinckel&#39;s
-    </h1>
-    <h1 class="subtitle is-3  fade-in two">
-          Blog
-    </h1>
-</div>
-
-
-
-
-<div class="section  fade-in three">
-
-
-    <div id="stickynav" class="container" style="text-align: center;">
-      <hr>
-<nav class="nav nav-center" style="text-align: center;">
-    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
-    </span>
-    <div id="nav-menu" class="nav-left nav-menu" style="background-color: transparent;">
-      <span class="nav-item">
-        <a href="/">&emsp; Main &emsp;</a>
-      </span>
-      <span class="nav-item">
-        <a href="/aboutme/aboutme/">&emsp; About &emsp;</a> 
-      </span>
-    
-      <span class="nav-item">
-        <a href="/#projects">&emsp; Projects &emsp;</a> 
-      </span>
-    
-      <span class="nav-item">
-        <a href="/#contact">&emsp; Contact &emsp;</a>
-      </span>
-    
-      <span class="nav-item">
-        <a href="https://drmowinckels.io/blog/index.xml">&emsp;<i class="fa fa-rss"></i></a>
-      </span>
-    
-    </div>
-</nav>
-<hr>
- 
-    </div>
-
-
-    <div class="container">
-
-
-  <h2 class="title is-2 has-text-centered">Latest Post</h2>
-   
-  <div class="summary">
-        <h3 class="title is-3 latest-post-title has-text-centered"><a href="/blog/using-freesurfer-annotation-files-to-plot-in-r/">Using Freesurfer annotation files to plot in R</a></h3>
-
-        <div class="columns">
-              <div class="column is-one-third has-text-centered">
-                <img src="/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r_files/figure-html/featured-1.png">
-              </div>
-            <div class="column markdown">
-                <i>Apr 30, 2020</i> <br>
-                When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise. For me, that is usually FSL or Freesurfer. Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together. For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.
-                
-                  <a href="/blog/using-freesurfer-annotation-files-to-plot-in-r/">...Read More</a>
-                
-            </div>
-        </div>
-
-  
-
-´
-    <h2 class="title is-2 top-pad" style="text-align: center;">Other posts</h2>
-    
-         <ul id="hexGrid">
         
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/do-you-wanna-build-a-snowman/">
-            <img src="blog/2019-12-11-do-you-wanna-build-a-snowman_files/figure-html/featured-1.gif"> 
-            <h1>Do you wanna build a snowman?</h1>
-            <p>Dec 11, 2019 <br></p>
-          </a>
-        </div>
-      </li>
         
-
-
-            
         
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/">
-            <img src="/blog/2019-12-06-ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly_files/ggseg3d_still.png"> 
-            <h1>ggseg3d - creating interactive brain segmentation plots with plotly</h1>
-            <p>Dec 6, 2019 <br></p>
-          </a>
-        </div>
-      </li>
         
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/plotting-gamm-interactions-with-ggplot2/">
-            <img src="/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/featured-1.png"> 
-            <h1>Plotting GAMM interactions with ggplot2</h1>
-            <p>Nov 16, 2019 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/r-for-psychologists-part-ii/">
-            <img src="/blog/2019-07-17-r-for-psychologists-part-ii_files/figure-html/featured-1.png"> 
-            <h1>R for Psychologists - part II</h1>
-            <p>Jul 17, 2019 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">
-            <img src="/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop_files/Screenshot_2019-02-06_11.48.18.png"> 
-            <h1>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</h1>
-            <p>Feb 2, 2019 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/why-rstudio-conf-is-the-best-conference-experience-i-have-had/">
-            <img src="/blog/2019-01-19-why-rstudio-conf-is-the-best-conference-experience-i-have-had_files/rstudioconf_2019.png"> 
-            <h1>Why RStudio::conf is the best conference experience I have had</h1>
-            <p>Jan 19, 2019 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/christmas-tree-in-ggplot/">
-            <img src="/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/featured-1.gif"> 
-            <h1>Christmas tree in ggplot</h1>
-            <p>Dec 13, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/r-just-dive-into-it/">
-            <img src="/blog/2018-11-09-r-just-dive-into-it_files/figure-html/featured-1.png"> 
-            <h1>R for psychologists - just dive into it!</h1>
-            <p>Nov 9, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/get-the-brain-animated/">
-            <img src="/blog/2018-10-01-get-the-brain-animated_files/figure-html/featured-1.gif"> 
-            <h1>Get the brain animated!</h1>
-            <p>Oct 1, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/introducing-the-ggseg-r-package-for-brain-segmentations/">
-            <img src="/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations_files/figure-html/featured-1.png"> 
-            <h1>Introducing the ggseg R-package for brain segmentations</h1>
-            <p>Aug 30, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/circluar-plots-in-r-and-adding-images/">
-            <img src="/blog/2018-05-25-circluar-plots-in-r-and-adding-images_files/figure-html/featured-1.png"> 
-            <h1>Circular plots in R and adding images</h1>
-            <p>May 25, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/adding-external-images-to-plots/">
-            <img src="/blog/2018-05-02-adding-external-images-to-plots_files/figure-html/unnamed-chunk-16-1.png"> 
-            <h1>Adding external images to plots</h1>
-            <p>May 7, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/gamm-random-effects/">
-            <img src="/blog/2018-04-05-gamm-random-effects_files/figure-html/unnamed-chunk-10-1.png"> 
-            <h1>GAMM random effects</h1>
-            <p>Apr 5, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-            
-                
-
-      <li class="hex">
-        <div class="hexIn">
-          <a class="hexLink" href="/blog/gamm-spaghetti-plots-in-r-with-ggplot/">
-            <img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot_files/figure-html/unnamed-chunk-4-1.png"> 
-            <h1>GAMM spaghetti plots in R with ggplot</h1>
-            <p>Mar 8, 2018 <br></p>
-          </a>
-        </div>
-      </li>
-        
-
-
-            
-        
-        </ul> 
-     
-
-    </div>
-<br>
-
-<div style="clear:both;"></div>
-<div class="container has-text-centered top-pad">
-<hr>
-<a href="/blog/#top"><i class="fa fa-arrow-up"></i></a>
-<hr>
-</div>
-
-<div class="section" id="footer">
-    <div class="container has-text-centered">
-        
-        <span class="footer-text"> 
-        Athanasia Monika Mowinckel <i class="fa fa-creative-commons"></i>-BY 2020. Feeding to <a href='https://rweekly.org'>R weekly</a>.
-        See the sites <a href='/cookies/cookies'>cookie</a> policy.
-        </span>
-        
-    </div>
-</div>
-
-
-<script>
-window.onscroll = function() {stickyFunc()};
-
-var navbar = document.getElementById("stickynav");
-var sticky = navbar.offsetTop; 
-
-function stickyFunc() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
-}
-</script>
-
-
-<script>
-$('a[href^="\/blog\/#"]').click(function(e) {
-    e.preventDefault();
-    var target = this.hash;
-    $('html, body').animate({
-    scrollTop: $(target).offset().top
-    }, 500);  
-    return false;
-})
-</script>
-
-</div>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script>
-			var $event = $.event,
-			$special,
-			resizeTimeout;
-			$special = $event.special.debouncedresize = {
-				setup: function() {
-					$( this ).on( "resize", $special.handler );
-				},
-				teardown: function() {
-					$( this ).off( "resize", $special.handler );
-				},
-				handler: function( event, execAsap ) {
-					var context = this,
-						args = arguments,
-						dispatch = function() {
-							event.type = "debouncedresize";
-							$event.dispatch.apply( context, args );
-						};
-					if ( resizeTimeout ) {
-						clearTimeout( resizeTimeout );
-					}
-					execAsap ?
-						dispatch() :
-						resizeTimeout = setTimeout( dispatch, $special.threshold );
-				},
-				threshold: 250
-			};
-			var BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-			$.fn.imagesLoaded = function( callback ) {
-				var $this = this,
-					deferred = $.isFunction($.Deferred) ? $.Deferred() : 0,
-					hasNotify = $.isFunction(deferred.notify),
-					$images = $this.find('img').add( $this.filter('img') ),
-					loaded = [],
-					proper = [],
-					broken = [];
-				if ($.isPlainObject(callback)) {
-					$.each(callback, function (key, value) {
-						if (key === 'callback') {
-							callback = value;
-						} else if (deferred) {
-							deferred[key](value);
-						}
-					});
-				}
-				function doneLoading() {
-					var $proper = $(proper),
-						$broken = $(broken);
-					if ( deferred ) {
-						if ( broken.length ) {
-							deferred.reject( $images, $proper, $broken );
-						} else {
-							deferred.resolve( $images );
-						}
-					}
-					if ( $.isFunction( callback ) ) {
-						callback.call( $this, $images, $proper, $broken );
-					}
-				}
-				function imgLoaded( img, isBroken ) {
-					if ( img.src === BLANK || $.inArray( img, loaded ) !== -1 ) {
-						return;
-					}
-					loaded.push( img );
-					if ( isBroken ) {
-						broken.push( img );
-					} else {
-						proper.push( img );
-					}
-					$.data( img, 'imagesLoaded', { isBroken: isBroken, src: img.src } );
-					if ( hasNotify ) {
-						deferred.notifyWith( $(img), [ isBroken, $images, $(proper), $(broken) ] );
-					}
-					if ( $images.length === loaded.length ){
-						setTimeout( doneLoading );
-						$images.unbind( '.imagesLoaded' );
-					}
-				}
-				if ( !$images.length ) {
-					doneLoading();
-				} else {
-					$images.bind( 'load.imagesLoaded error.imagesLoaded', function( event ){
-						imgLoaded( event.target, event.type === 'error' );
-					}).each( function( i, el ) {
-						var src = el.src;
-						var cached = $.data( el, 'imagesLoaded' );
-						if ( cached && cached.src === src ) {
-							imgLoaded( el, cached.isBroken );
-							return;
-						}
-						if ( el.complete && el.naturalWidth !== undefined ) {
-							imgLoaded( el, el.naturalWidth === 0 || el.naturalHeight === 0 );
-							return;
-						}
-						if ( el.readyState || el.complete ) {
-							el.src = BLANK;
-							el.src = src;
-						}
-					});
-				}
-				return deferred ? deferred.promise( $this ) : $this;
-			};
-			var Grid = (function() {
-				var $grid = $( '*#og-grid' ),
-					$items = $grid.children( 'li' ),
-					current = -1,
-					previewPos = -1,
-					scrollExtra = 0,
-					marginExpanded = 10,
-					$window = $( window ), winsize,
-					$body = $( 'html, body' ),
-					transEndEventNames = {
-						'WebkitTransition' : 'webkitTransitionEnd',
-						'MozTransition' : 'transitionend',
-						'OTransition' : 'oTransitionEnd',
-						'msTransition' : 'MSTransitionEnd',
-						'transition' : 'transitionend'
-					},
-					transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-					support = Modernizr.csstransitions,
-					settings = {
-						minHeight : 500,
-						speed : 350,
-						easing : 'ease'
-					};
-				function init( config ) {
-					
-					settings = $.extend( true, {}, settings, config );
-					$grid.imagesLoaded( function() {
-						saveItemInfo( true );
-						getWinSize();
-						initEvents();
-					} );
-				}
-				function addItems( $newitems ) {
-					$items = $items.add( $newitems );
-					$newitems.each( function() {
-						var $item = $( this );
-						$item.data( {
-							offsetTop : $item.offset().top,
-							height : $item.height()
-						} );
-					} );
-					initItemsEvents( $newitems );
-				}
-				function saveItemInfo( saveheight ) {
-					$items.each( function() {
-						var $item = $( this );
-						$item.data( 'offsetTop', $item.offset().top );
-						if( saveheight ) {
-							$item.data( 'height', $item.height() );
-						}
-					} );
-				}
-				function initEvents() {
-					
-					initItemsEvents( $items );
-					
-					$window.on( 'debouncedresize', function() {
-						
-						scrollExtra = 0;
-						previewPos = -1;
-						saveItemInfo();
-						getWinSize();
-						var preview = $.data( this, 'preview' );
-						if( typeof preview != 'undefined' ) {
-							hidePreview();
-						}
-					} );
-				}
-				function initItemsEvents( $items ) {
-					$items.on( 'click', 'span.og-close', function() {
-						hidePreview();
-						return false;
-					} ).children( 'a' ).on( 'click', function(e) {
-						var $item = $( this ).parent();
-						current === Array.from($items).findIndex(d => d == $item[0]) ? hidePreview() : showPreview( $item );
-						return false;
-					} );
-				}
-				function getWinSize() {
-					winsize = { width : $window.width(), height : $window.height() };
-				}
-				function showPreview( $item ) {
-					var preview = $.data( this, 'preview' ),
-						position = $item.data( 'offsetTop' );
-					scrollExtra = 0;
-					if( typeof preview != 'undefined' ) {
-						if( previewPos !== position ) {
-							if( position > previewPos ) {
-								scrollExtra = preview.height;
-							}
-							hidePreview();
-						}
-						else {
-							preview.update( $item );
-							return false;
-						}
-						
-					}
-					previewPos = position;
-					preview = $.data( this, 'preview', new Preview( $item ) );
-					preview.open();
-				}
-				function hidePreview() {
-					current = -1;
-					var preview = $.data( this, 'preview' );
-					preview.close();
-					$.removeData( this, 'preview' );
-				}
-				function Preview( $item ) {
-					this.$item = $item;
-					this.expandedIdx = Array.from($items).findIndex(d => d == this.$item[0]);
-					this.create();
-					this.update();
-				}
-				Preview.prototype = {
-					create : function() {
-						this.$title = $( '<h3></h3>' );
-						this.$description = $( '<p></p>' );
-						this.$href = $( '<a href="#" target="_blank"></a>' );
-						this.$details = $( '<div class="og-details"></div>' ).append( this.$title, this.$description, this.$href );
-						this.$loading = $( '<div class="og-loading"></div>' );
-						this.$fullimage = $( '<div class="og-fullimg"></div>' ).append( this.$loading );
-						this.$closePreview = $( '<span class="og-close"></span>' );
-						this.$previewInner = $( '<div class="og-expander-inner"></div>' ).append( this.$closePreview, this.$fullimage, this.$details );
-						this.$previewEl = $( '<div class="og-expander"></div>' ).append( this.$previewInner );
-						this.$item.append( this.getEl() );
-						if( support ) {
-							this.setTransition();
-						}
-					},
-					update : function( $item ) {
-						if( $item ) {
-							this.$item = $item;
-						}
-						
-						if( current !== -1 ) {
-							var $currentItem = $items.eq( current );
-							$currentItem.removeClass( 'og-expanded' );
-							this.$item.addClass( 'og-expanded' );
-							this.positionPreview();
-						}
-						current = this.$item.index();
-						var $itemEl = this.$item.children( 'a' ),
-							eldata = {
-								href : $itemEl.attr( 'href' ),
-								largesrc : $itemEl.data( 'largesrc' ),
-								title : $itemEl.data( 'title' ),
-								description : $itemEl.data( 'description' ),
-								buttontext : $itemEl.data( 'buttontext' )
-							};
-						this.$title.html( eldata.title );
-						this.$description.html( eldata.description );
-						if(eldata.buttontext) this.$href.text(eldata.buttontext);
-						else this.$href.text("")
-						if (eldata.href) {
-							this.$href.attr( 'href', eldata.href );
-							this.$href.show();
-						}
-						else {
-							this.$href.hide();
-						}
-						var self = this;
-						
-						if( typeof self.$largeImg != 'undefined' ) {
-							self.$largeImg.remove();
-						}
-						if( self.$fullimage.is( ':visible' ) ) {
-							this.$loading.show();
-							$( '<img/>' ).load( function() {
-								var $img = $( this );
-								if( $img.attr( 'src' ) === self.$item.children('a').data( 'largesrc' ) ) {
-									self.$loading.hide();
-									self.$fullimage.find( 'img' ).remove();
-									self.$largeImg = $img.fadeIn( 350 );
-									self.$fullimage.append( self.$largeImg );
-								}
-							} ).attr( 'src', eldata.largesrc );	
-						}
-					},
-					open : function() {
-						setTimeout( $.proxy( function() {	
-							this.setHeights();
-							this.positionPreview();
-						}, this ), 25 );
-					},
-					close : function() {
-						var self = this,
-							onEndFn = function() {
-								if( support ) {
-									$( this ).off( transEndEventName );
-								}
-								self.$item.removeClass( 'og-expanded' );
-								self.$previewEl.remove();
-							};
-						setTimeout( $.proxy( function() {
-							if( typeof this.$largeImg !== 'undefined' ) {
-								this.$largeImg.fadeOut( 'fast' );
-							}
-							this.$previewEl.css( 'height', 0 );
-							var $expandedItem = $items.eq( this.expandedIdx );
-							$expandedItem.css( 'height', $expandedItem.data( 'height' ) ).on( transEndEventName, onEndFn );
-							if( !support ) {
-								onEndFn.call();
-							}
-						}, this ), 25 );
-						
-						return false;
-					},
-					calcHeight : function() {
-						var heightPreview = winsize.height - this.$item.data( 'height' ) - marginExpanded,
-							itemHeight = winsize.height;
-						if( heightPreview < settings.minHeight ) {
-							heightPreview = settings.minHeight;
-							itemHeight = settings.minHeight + this.$item.data( 'height' ) + marginExpanded;
-						}
-						this.height = heightPreview;
-						this.itemHeight = itemHeight;
-					},
-					setHeights : function() {
-						var self = this,
-							onEndFn = function() {
-								if( support ) {
-									self.$item.off( transEndEventName );
-								}
-								self.$item.addClass( 'og-expanded' );
-							};
-						this.calcHeight();
-						this.$previewEl.css( 'height', this.height );
-						this.$item.css( 'height', this.itemHeight ).on( transEndEventName, onEndFn );
-						if( !support ) {
-							onEndFn.call();
-						}
-					},
-					positionPreview : function() {
-						var position = this.$item.data( 'offsetTop' ),
-							previewOffsetT = this.$previewEl.offset().top - scrollExtra,
-							scrollVal = this.height + this.$item.data( 'height' ) + marginExpanded <= winsize.height ? position : this.height < winsize.height ? previewOffsetT - ( winsize.height - this.height ) : previewOffsetT;
-						
-						$body.animate( { scrollTop : scrollVal }, settings.speed );
-					},
-					setTransition  : function() {
-						this.$previewEl.css( 'transition', 'height ' + settings.speed + 'ms ' + settings.easing );
-						this.$item.css( 'transition', 'height ' + settings.speed + 'ms ' + settings.easing );
-					},
-					getEl : function() {
-						return this.$previewEl;
-					}
-				}
-				return { 
-					init : init,
-					addItems : addItems
-				};
-			})();
-		</script>
-		<script>
-			$(function() {
-				Grid.init();
-			});
-		</script>
-
-</body>
+    </body>
+</html>

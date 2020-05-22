@@ -1,0 +1,82 @@
+---
+title: "About me"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    keep_md: yes
+allow_html: yes
+---
+ 
+```{r "setup", include=F,echo=F, warning=F, error=F}
+library(tidyverse);
+options(knitr.kable.NA = '')
+CV = rio::import_list("~/Dropbox/Privat/Jobbsøking/CV-attester-etc/CV.xlsx")
+```
+
+<img src="profile.png" align="left" width="33%" style="padding: 1em; border:none; border-radius: 25px; background: transparent; box-shadow: none;">
+
+### In short
+
+I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no). I'm passionate about cognitive neuroscience, using R and teaching the world the wonders of R. Doing all I can to improve gender diversity and equity in the R-community though [RLadies-Oslo](https://twitter.com/RLadies_Oslo). 
+
+
+### Education  
+```{r "Education", echo=F, results='asis'}
+CV$EDU %>%  
+  knitr::kable("markdown", booktabs = T)
+
+```
+
+### Work  
+```{r "Work", echo=F}
+CV$WORK %>% 
+  knitr::kable("markdown", booktabs = T)
+```
+
+### Commissions  
+```{r "Commissions", echo=F}
+CV$COMMISSION %>% 
+  knitr::kable("markdown", booktabs = T)
+```
+
+### Publications & Citations
+```{r "pubPlot", echo=FALSE, warning=FALSE, error=FALSE, dev.args = list(bg = 'transparent')}
+scholar::get_citation_history("7NkxgWQAAAAJ") %>% 
+  mutate(cumulative=cumsum(cites)) %>% 
+  gather(metric, val, -1) %>% 
+
+  ggplot(aes(x=year, y=val, group=metric, fill=metric, colour=metric)) + 
+  geom_line(lineend="round") + 
+  geom_point(show.legend = F) +
+  annotate("text",x=-Inf,y=Inf,vjust=1.5,hjust=-0.05,size=3,colour='gray',
+           label=format(Sys.time(), "%d-%m-%Y %H:%M %Z")) + #add timestamp for the update
+  labs(y="Googe citations", x="Year") +
+  theme(panel.grid.major = element_line(color="#4E67691F"),
+        panel.background =  element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.background = element_blank(), 
+        legend.background = element_blank(),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.key = element_blank(),
+        axis.line = element_line(),
+        text = element_text(color="#4E6769"),
+        line = element_line(color="#4E6769")) +
+  scale_color_manual(values=c("#2c3b3b", "#AD957F"))
+
+```
+
+```{r "pubList", results='asis', warning=FALSE, echo=FALSE}
+pubs = scholar::get_publications("7NkxgWQAAAAJ") %>% 
+  filter(journal != "") %>% 
+  mutate(cid     = ifelse(is.na(cid), NA, paste0("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=", cid)), 
+         author  = gsub("Mowinckel", "**Mowinckel**", author), 
+         title = ifelse(is.na(cid), paste0("_", title,"_"), paste0("[_", title,"_](", cid, ")")), 
+         number  = paste0("_",number,"_"),
+         year    = paste0("(",year,")")) %>% 
+  arrange(desc(year)) %>% 
+  transmute(pub=paste(author, year, title, journal, number, collapse="\n\n")) 
+cat(pubs[1,])
+
+```
+

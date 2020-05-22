@@ -1,0 +1,388 @@
+---
+title: R for psychologists - just dive into it!
+author: DrMowinckels
+date: '2018-11-09'
+output:
+  html_document:
+    keep_md: yes
+categories:
+  - R
+tags: [R for psychologists]
+featured_image: '/blog/2018-11-09-r-just-dive-into-it_files/figure-html/featured-1.png'
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>I recently was talking with a good friend and brilliant researcher regarding the advantages of R. As you can guess, I was the advocate. Coming from psychology, we are mainly taught to use “simple” analysis tools, and mainly SPSS. I never liked SPSS, even as a student. not knowing of any possible alternatives or what could be improved, I just thought the whole thing felt too black-boxy. But it is a convenient tool, when the data is already in a relatively clean format, and the analyses you want to do are straight forward, and you don’t mind not knowing exactly the formula SPSS uses to calculate your results.</p>
+<p>Now, R, on the other hand, requires you to be proficient in it in a different way than SPSS. It is hard, in R, to just type (or click) some stuff and get some results without haveing to work a little for it. In my opinion, this is a positive, but it also can create a barrier for those who find coding scary or just don’t have the interest or time to sit down and literally learn a new language. However, the benefit once you have done so, in my opinion, vastly out-weighs the disadvantage. Once you are proficient enough in R, and amazing realm of possibilities opens up, and you have a gazillion tools to do more or less anything you want to do, be it analysing complex data, a simple linear regression, writing a blog or making interactive data portals.</p>
+<p>So, this will be the first in my series of R for psychologists. We dive straight into it, I’ll assume you have <a href="https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/">installed both R and RStudio</a>, and are capable of opening RStudio. We will start with reading in SPSS data, looking at the data, do some simple plots, and then a simple linear model.</p>
+<div id="rstudio---the-quick-tour." class="section level1">
+<h1>RStudio - the quick tour.</h1>
+<p>RStudio will look completely different than SPSS, and it will take you some time to get comfortable with that. Firstly, you do not have to have any data open to have RStudio open, when you open RStudio you have a completely blank slate. No data, no fancy stuff, just a program ready to do your bidding.</p>
+<p>The first thing we will do is make a <code>Project</code> that will be where we put all the stuff we will be working on during this series. At the top right of Rstudio, there is a blue icon with the text <code>Project: (None)</code> next to it, click it and choose New Project - New directory - New Package, and choose what to call your project and where to put it. Let’s say for simplicity to call it “R_start” and place it on your Desktop.</p>
+<p>Rstudio will now create a folder called “R_start” on your Desktop and will go into this folder, so that anything you do will happen from within that folder.</p>
+<p>Lets also open a file we can place our script in (or our Syntax if you want). Click the little green circle with the pluss sign, and open an <code>RScript</code></p>
+<p>You’ll have something that looks like this once you’ve done so:
+<img src="https://swcarpentry.github.io/r-novice-gapminder/fig/01-rstudio-script.png" /></p>
+<p>The top left quadrant is where your script will go (i.e. is where we are building the syntax). The bottom left is the <strong>console</strong> that <em>executes</em> your commands or you script. Whenever we want to do something, it is in the console that we do it. In a way, this is where R as a program lives, the rest or RStudio is just a way of communicating with it. The top right quadrant will show you any data (called objects in R) that you have active and available, and the bottom right is a place you can navigate to where you want to be working. The bottom right hows you the content of the folder you are in, which is the “R_start” folder on your Dekstop.</p>
+<p>Let’s download some data that we can work with. This little bit of code, will download an dataset from the SPSS survival manual, and place it in your current folder.</p>
+<p>In your console, type:</p>
+<pre class="r"><code>download.file(&quot;http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/Files/experim.zip&quot;, 
+              destfile = &quot;experim.zip&quot;)</code></pre>
+<p>You will now see, in the Files pane in the bottom right, that a file named <code>experim.zip</code> is there. For us to use the data you need to unzip/extract the file. Once you have done so, a file called <code>experim.sav</code> will be in there too. This will be our data for now.</p>
+</div>
+<div id="open-spss-data-in-r" class="section level1">
+<h1>Open SPSS data in R</h1>
+<p>R has about a gazillion handy tools to open data from different sources.
+My personal favourite, working with data from so many sources, is using the <a href="https://github.com/leeper/rio">rio</a> package, which opens more or less any file you give it.</p>
+<p>To use an R package, like rio, you need to install it. We will also install the <a href="">tidyverse</a> meta-package (it contains several packages) which gives us easier ways to work with data than base R does.</p>
+<p>In your console, type:</p>
+<pre class="r"><code>install.packages(&quot;rio&quot;)
+
+install.packages(&quot;tidyverse&quot;)</code></pre>
+<p>Once you do this, your console will start being very busy. Rio is a large package, because it does so many things, so it takes a bit of time to install.</p>
+<p>Once it is installed, you can start using it. First by letting R know you want to use it, then using its <code>import</code> function.</p>
+<p>Here, we will read in the data from the <code>sav</code> file, and assign it to an object we will call <code>eData</code>.</p>
+<p>In your console, type:</p>
+<pre class="r"><code>library(rio)
+eData = import(&quot;experim.sav&quot;)</code></pre>
+<p>In your top right quandrant now, your environment pane will list one object called <code>eData</code> , that has 30 observations (cases) and 18 variables. Lets look at it!</p>
+<p>In your console, type:</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
+## ✓ tidyr   1.0.3     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>glimpse(eData)</code></pre>
+<pre><code>## Rows: 30
+## Columns: 18
+## $ id       &lt;dbl&gt; 4, 10, 9, 3, 12, 11, 6, 5, 8, 13, 14, 1, 15, 7, 2, 27, 25, 1…
+## $ sex      &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, …
+## $ age      &lt;dbl&gt; 23, 21, 25, 30, 45, 22, 22, 26, 23, 21, 23, 19, 23, 19, 21, …
+## $ group    &lt;dbl&gt; 2, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, …
+## $ fost1    &lt;dbl&gt; 50, 47, 44, 47, 46, 39, 32, 44, 40, 47, 38, 32, 39, 36, 37, …
+## $ confid1  &lt;dbl&gt; 15, 14, 12, 11, 16, 13, 21, 17, 22, 20, 28, 20, 21, 24, 29, …
+## $ depress1 &lt;dbl&gt; 44, 42, 40, 43, 44, 43, 37, 46, 37, 50, 39, 44, 47, 38, 50, …
+## $ fost2    &lt;dbl&gt; 48, 45, 39, 42, 45, 40, 33, 37, 40, 45, 37, 28, 35, 32, 36, …
+## $ confid2  &lt;dbl&gt; 16, 15, 18, 16, 16, 20, 22, 20, 23, 25, 27, 25, 26, 28, 30, …
+## $ depress2 &lt;dbl&gt; 44, 42, 40, 43, 45, 42, 36, 47, 37, 48, 36, 43, 47, 35, 47, …
+## $ fost3    &lt;dbl&gt; 45, 44, 36, 41, 43, 39, 32, 32, 40, 46, 32, 23, 35, 30, 34, …
+## $ confid3  &lt;dbl&gt; 14, 18, 19, 20, 20, 22, 23, 26, 26, 27, 29, 30, 30, 32, 34, …
+## $ depress3 &lt;dbl&gt; 40, 40, 38, 43, 43, 38, 35, 42, 35, 46, 34, 40, 47, 35, 45, …
+## $ exam     &lt;dbl&gt; 52, 55, 58, 60, 58, 62, 59, 70, 60, 70, 72, 82, 79, 80, 90, …
+## $ mah_1    &lt;dbl&gt; 0.5699842, 1.6594031, 3.5404715, 2.4542143, 0.9443036, 1.625…
+## $ DepT1gp2 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, …
+## $ DepT2Gp2 &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, …
+## $ DepT3gp2 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, …</code></pre>
+<p><code>glimpse</code> is a function you can use to get a brief idea of what the data look like. Here again, it tells you the number of observations (cases) and the number of variables, what the variables are called, and what their <code>type</code> is. As is the norm with SPSS, all data, even categorical data is coded into numbers. We dont need to do this is R, as R can run numerical operations on string/character variables, because it automatically converts them into dummies.</p>
+<p>Lets have a look at one variable we know is not truly numeric, the <code>sex</code> column is obivously dummy coded. You can look directly at a single variable using the <code>$</code> sign:</p>
+<pre class="r"><code>eData$sex</code></pre>
+<pre><code>##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## attr(,&quot;format.spss&quot;)
+## [1] &quot;F8.0&quot;
+## attr(,&quot;labels&quot;)
+##   male female 
+##      1      2</code></pre>
+<p>Neat, the console output tells us that male is coded as <code>1</code> and female is coded as <code>2</code>. Lets recode the sex variable right away, so we can look at some summaries. In this case, I’ll use the <code>mutate</code> function, which adds or alters a variable that already exists in the data</p>
+<pre class="r"><code>mutate(eData, sex = factor(sex, labels=c(&quot;Male&quot;,&quot;Female&quot;)))</code></pre>
+<pre><code>##    id    sex age group fost1 confid1 depress1 fost2 confid2 depress2 fost3
+## 1   4   Male  23     2    50      15       44    48      16       44    45
+## 2  10   Male  21     2    47      14       42    45      15       42    44
+## 3   9   Male  25     1    44      12       40    39      18       40    36
+## 4   3   Male  30     1    47      11       43    42      16       43    41
+## 5  12   Male  45     2    46      16       44    45      16       45    43
+## 6  11   Male  22     1    39      13       43    40      20       42    39
+## 7   6   Male  22     2    32      21       37    33      22       36    32
+## 8   5   Male  26     1    44      17       46    37      20       47    32
+## 9   8   Male  23     2    40      22       37    40      23       37    40
+## 10 13   Male  21     1    47      20       50    45      25       48    46
+## 11 14   Male  23     2    38      28       39    37      27       36    32
+## 12  1   Male  19     1    32      20       44    28      25       43    23
+## 13 15   Male  23     1    39      21       47    35      26       47    35
+## 14  7   Male  19     1    36      24       38    32      28       35    30
+## 15  2   Male  21     2    37      29       50    36      30       47    34
+## 16 27 Female  20     1    41      16       45    40      14       44    38
+## 17 25 Female  24     1    38      14       42    37      14       40    35
+## 18 19 Female  27     1    42      15       49    41      13       49    40
+## 19 18 Female  23     2    44      13       39    39      20       30    34
+## 20 23 Female  22     1    32      22       39    31      18       38    32
+## 21 21 Female  46     1    39      21       44    40      19       44    38
+## 22 26 Female  19     2    42      13       43    38      20       39    36
+## 23 29 Female  22     1    37      28       33    38      22       33    36
+## 24 17 Female  37     1    41      29       39    40      22       40    40
+## 25 20 Female  32     2    43      17       47    36      26       45    34
+## 26 28 Female  30     2    46      20       38    40      28       30    37
+## 27 22 Female  25     2    30      24       45    28      28       40    25
+## 28 24 Female  21     2    33      12       50    29      20       48    25
+## 29 16 Female  45     2    40      22       45    30      35       40    25
+## 30 30 Female  21     2    39      21       34    36      30       30    30
+##    confid3 depress3 exam      mah_1 DepT1gp2 DepT2Gp2 DepT3gp2
+## 1       14       40   52  0.5699842        0        0        0
+## 2       18       40   55  1.6594031        0        0        0
+## 3       19       38   58  3.5404715        0        0        0
+## 4       20       43   60  2.4542143        0        0        0
+## 5       20       43   58  0.9443036        0        1        0
+## 6       22       38   62  1.6257058        0        0        0
+## 7       23       35   59  4.1744717        0        0        0
+## 8       26       42   70  1.0261059        1        1        0
+## 9       26       35   60  1.7053103        0        0        0
+## 10      27       46   70  3.0873214        1        1        1
+## 11      29       34   72  2.9140163        0        0        0
+## 12      30       40   82  0.3469978        0        0        0
+## 13      30       47   79  1.5886241        1        1        1
+## 14      32       35   80  1.5076582        0        0        0
+## 15      34       45   90 10.2401804        1        1        1
+## 16      18       40   56  1.1776467        1        0        0
+## 17      19       39   53  1.0564668        0        0        0
+## 18      20       44   59  3.8748910        1        1        0
+## 19      22       30   64  2.7101641        0        0        0
+## 20      22       36   63  3.5488594        0        0        0
+## 21      23       44   64  0.5007192        0        0        0
+## 22      23       37   63  1.4739118        0        0        0
+## 23      26       32   67  9.1295758        0        0        0
+## 24      27       40   71  6.2065842        0        0        0
+## 25      28       42   73  1.7190981        1        1        0
+## 26      29       29   80  1.5015533        0        0        0
+## 27      30       38   83  1.9240376        1        0        0
+## 28      30       50   85  7.5576411        1        1        1
+## 29      32       42   78  1.1884922        1        0        0
+## 30      32       32   84  6.0455901        0        0        0</code></pre>
+<p>Now, notice that I did not acutally put anything to the left of that command. I have not saved the change I made. I usually never save such a change, untill I have tested it, and seen it does what I wanted. In this case, I can see it did, so I’ll overwrite the old <code>eData</code> with the new.</p>
+<pre class="r"><code>eData = mutate(eData, sex = factor(sex, labels=c(&quot;Male&quot;,&quot;Female&quot;)))</code></pre>
+<p>Up untill now, we have done everything in the console. This means that if we close RStudio now, everything we have done it lost! no! No worries though, that’s why we opened a script, we just need to put everything we have done into the script!</p>
+<p>Copy this and place it into the empty script in your top left quadrant.</p>
+<pre class="r"><code>library(rio)
+library(tidyverse)
+
+# Import the data
+eData = rio::import(&quot;SPSS/experim.sav&quot;)
+
+# Recode sex to Male and Female
+eData = mutate(eData, sex = factor(sex, labels=c(&quot;Male&quot;,&quot;Female&quot;)))</code></pre>
+<p>This now works much like an SPSS syntax. You can run it all, either by selecting it all and pressing <code>cmd/ctrl + shift + enter</code> or clicking the <code>Run</code> button on the top left of the script quadrant.</p>
+<p>Notice there are also some lines in there that have a <code>#</code> in front. These are comment lines, they will not be “run” in the console, they are just there for our safe keeping.</p>
+</div>
+<div id="the-elusive-and-brilliant-pipe" class="section level1">
+<h1>The elusive, and brilliant, pipe</h1>
+<p>If you have heard of tidyverse before, you have heard of the pipe. And you likely are wondering what that is all about. A pipe is brilliant, though can be a little odd to understand if you have never encountered something like it before.</p>
+<p>A pipe, in tidyverse it is the sign <code>%&gt;%</code>, is something we use to help us do many operations on the same data/object, without having to stop and store things in between.</p>
+<p>An equivalen way of writing our script, and my preference is:</p>
+<pre class="r"><code>library(rio)
+library(tidyverse)
+
+# Start with importing the data
+eData = rio::import(&quot;SPSS/experim.sav&quot;) %&gt;% 
+  # then recode sex to Male and Female
+  mutate(sex = factor(sex, labels=c(&quot;Male&quot;,&quot;Female&quot;)))</code></pre>
+<p>Notice how we are not assigning <code>eData</code> twice, we are going straight from import, right into mutating, and it’s all saved directly to <code>eData</code>. We can now also read it more like a sentance, “Grab this data, then mutate (i.e. change) the sex data into a factor.”</p>
+<p>The end result of <code>eData</code> is the same, it’s just cleaner. In this example, which is so short, it has little effect, but once your scripts get complicated, being able to read what happens to the data like this is very convenient.</p>
+<p>Lets have a look at our data again, lets <code>glimpse</code> it:</p>
+<pre class="r"><code>eData %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 30
+## Columns: 18
+## $ id       &lt;dbl&gt; 4, 10, 9, 3, 12, 11, 6, 5, 8, 13, 14, 1, 15, 7, 2, 27, 25, 1…
+## $ sex      &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male, Male, …
+## $ age      &lt;dbl&gt; 23, 21, 25, 30, 45, 22, 22, 26, 23, 21, 23, 19, 23, 19, 21, …
+## $ group    &lt;dbl&gt; 2, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, …
+## $ fost1    &lt;dbl&gt; 50, 47, 44, 47, 46, 39, 32, 44, 40, 47, 38, 32, 39, 36, 37, …
+## $ confid1  &lt;dbl&gt; 15, 14, 12, 11, 16, 13, 21, 17, 22, 20, 28, 20, 21, 24, 29, …
+## $ depress1 &lt;dbl&gt; 44, 42, 40, 43, 44, 43, 37, 46, 37, 50, 39, 44, 47, 38, 50, …
+## $ fost2    &lt;dbl&gt; 48, 45, 39, 42, 45, 40, 33, 37, 40, 45, 37, 28, 35, 32, 36, …
+## $ confid2  &lt;dbl&gt; 16, 15, 18, 16, 16, 20, 22, 20, 23, 25, 27, 25, 26, 28, 30, …
+## $ depress2 &lt;dbl&gt; 44, 42, 40, 43, 45, 42, 36, 47, 37, 48, 36, 43, 47, 35, 47, …
+## $ fost3    &lt;dbl&gt; 45, 44, 36, 41, 43, 39, 32, 32, 40, 46, 32, 23, 35, 30, 34, …
+## $ confid3  &lt;dbl&gt; 14, 18, 19, 20, 20, 22, 23, 26, 26, 27, 29, 30, 30, 32, 34, …
+## $ depress3 &lt;dbl&gt; 40, 40, 38, 43, 43, 38, 35, 42, 35, 46, 34, 40, 47, 35, 45, …
+## $ exam     &lt;dbl&gt; 52, 55, 58, 60, 58, 62, 59, 70, 60, 70, 72, 82, 79, 80, 90, …
+## $ mah_1    &lt;dbl&gt; 0.5699842, 1.6594031, 3.5404715, 2.4542143, 0.9443036, 1.625…
+## $ DepT1gp2 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, …
+## $ DepT2Gp2 &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, …
+## $ DepT3gp2 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, …</code></pre>
+<p>We used the pipe again, so I said <em>“Take <code>eData</code> and <code>glimpse</code> it”</em>.
+Now you’ll see the “sex” variable no longer says <code>&lt;dbl&gt;</code> it says <code>&lt;fct&gt;</code> glimpse is telling us that is it not a number, but a factor.</p>
+<p>Let’s count how many we have of each sex.</p>
+<pre class="r"><code>eData %&gt;% 
+  group_by(sex) %&gt;% 
+  tally()</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   sex        n
+##   &lt;fct&gt;  &lt;int&gt;
+## 1 Male      15
+## 2 Female    15</code></pre>
+<p>Again, we are saying <em>“Take <code>eData</code>, group it by the unique values in variable <code>sex</code> and tally them (i.e. count them)”</em>. We have 15 of each, nice.</p>
+</div>
+<div id="a-simple-plot" class="section level1">
+<h1>A simple plot</h1>
+<p>It’s always a good idea to have a look at what your data looks like. Theres a column calles <code>depress1</code>, which is depression at baseline, this is after all data from a depression intervention experiment.</p>
+<p>Lets have a look at its distribution:</p>
+<pre class="r"><code>eData %&gt;% 
+  ggplot(aes(x=depress1)) +
+  geom_histogram()</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>We are using tidyverse’s ggplot to make some pretty plots. It’s quite something else than what SPSS gives you.
+Again, with the pipe we are saying <em>“Take <code>eData</code> create a ggplot with variable <code>depress1</code> as the x-axis, and create a histogram”</em>.
+The observant might notice that after ggplot there is a <code>+</code> not a <code>%&gt;%</code>. I’ll not go into that, just know in ggplot we add more geoms (type of plots) to eachother with <code>+</code>.</p>
+<p>Maybe we would like to see the difference between men and women? We can do that is several different ways:</p>
+<pre class="r"><code># Bars coloured but on top of each other
+eData %&gt;% 
+  ggplot(aes(x=depress1, fill=sex)) +
+  geom_histogram()</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code># Bars next to each other
+eData %&gt;% 
+  ggplot(aes(x=depress1, fill=sex)) +
+  geom_histogram(position=&quot;dodge&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<pre class="r"><code># In different subplots
+eData %&gt;% 
+  ggplot(aes(x=depress1, fill=sex)) +
+  geom_histogram(show.legend = F) + 
+  facet_wrap(~sex)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+</div>
+<div id="the-tall-data-format" class="section level1">
+<h1>The tall data format</h1>
+<p>If you notice, there are actually three variables with <code>depress</code> in them. This was measures three times!
+R prefers data to be, long or tall, in contrast to SPSS which likes it wide. Wide means that each person has one row, and all data collected on them is in distinct variables/columns. Long, or tall, means that R would rather you had one variable <strong>per parameter</strong> and several rows per person. In this case, R would prefer each person has three rows, and one variable for depression.
+We can do this quite simple, like so:</p>
+<pre class="r"><code>eData_tall = eData %&gt;% 
+  gather(time, depress, c(&quot;depress1&quot;, &quot;depress2&quot;, &quot;depress3&quot;)) %&gt;% 
+  arrange(id)</code></pre>
+<pre><code>## Warning: attributes are not identical across measure variables;
+## they will be dropped</code></pre>
+<pre class="r"><code>eData_tall %&gt;% head</code></pre>
+<pre><code>##   id  sex age group fost1 confid1 fost2 confid2 fost3 confid3 exam      mah_1
+## 1  1 Male  19     1    32      20    28      25    23      30   82  0.3469978
+## 2  1 Male  19     1    32      20    28      25    23      30   82  0.3469978
+## 3  1 Male  19     1    32      20    28      25    23      30   82  0.3469978
+## 4  2 Male  21     2    37      29    36      30    34      34   90 10.2401804
+## 5  2 Male  21     2    37      29    36      30    34      34   90 10.2401804
+## 6  2 Male  21     2    37      29    36      30    34      34   90 10.2401804
+##   DepT1gp2 DepT2Gp2 DepT3gp2     time depress
+## 1        0        0        0 depress1      44
+## 2        0        0        0 depress2      43
+## 3        0        0        0 depress3      40
+## 4        1        1        1 depress1      50
+## 5        1        1        1 depress2      47
+## 6        1        1        1 depress3      45</code></pre>
+<p>I did quite a lot there, so lets go through it. I said <em>“Take <code>eData</code>, gather the variables and place the repeating column names in a variable called <code>time</code> and the values in the columns into a variable called <code>depress</code>, and sort (arrange) the observarions (rows/cases) by the id”</em>. I placed (assigned) the output of that to a object I’m calling <code>eData_tall</code>, and then asking to see the first rows of it, so i can inspect the effect. As you can see, person with <code>id==1</code> has three rows now, one for each <code>depress</code>.</p>
+<p>We can plot this now, just to see what this has made it possible for us to do.
+We can now plot each persons change on depression score over the three measurements:</p>
+<pre class="r"><code>eData_tall %&gt;% 
+  ggplot(aes(x=time, y=depress, group=id)) +
+  geom_line()</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>I’m saying _“Take the data in <code>eData_tall</code> make a plot with the variable time on the x-axis, the variable depress as the y-axis, and group the lines by the id”.</p>
+<p>We can also colour the lines by the id, so we can see each person’s trajecotry better:</p>
+<pre class="r"><code>eData_tall %&gt;% 
+  ggplot(aes(x=time, y=depress, group=id)) +
+  geom_line(aes(colour=id))</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>and there we actually see a problem! in the data, <code>id</code> is read as a double precision <strong>number</strong> to the colour bar provides shades of a colour. But, these are distinctly different people! This issue traces all the way back to the original <code>eData</code> so we are going to make sure we fix that, and then recreate the <code>eData_tall</code> data based on that again.</p>
+<p>Make sure now, that you update your script, not just type in the console.
+Your updated script should now be something like so, to make sure we fix this forever!</p>
+<pre class="r"><code>library(rio)
+library(tidyverse)
+
+# Start with importing the data
+eData = rio::import(&quot;SPSS/experim.sav&quot;) %&gt;% 
+  # then recode sex to Male and Female
+  mutate(
+    sex = factor(sex, labels=c(&quot;Male&quot;,&quot;Female&quot;)),
+    id = factor(id))
+
+# Gather depression variables into a tall depression data format.
+eData_tall = eData %&gt;% 
+  gather(time, depress, c(&quot;depress1&quot;, &quot;depress2&quot;, &quot;depress3&quot;)) %&gt;% 
+  arrange(id)</code></pre>
+<p>Our script is not update, and we can run it in its entirety by <code>cmd/ctrl + shift + enter</code>, or by pressing <code>Run</code> at the top right corner of the scripts quadrant.</p>
+<p>Let’s try making that last plot again:</p>
+<pre class="r"><code>eData_tall %&gt;% 
+  ggplot(aes(x=time, y=depress, group=id)) +
+  geom_line(aes(colour=id))</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/featured-1.png" width="672" />
+Weee! Now we have 30 distinct colours, and there is no colourbar, but a categorical legend.</p>
+</div>
+<div id="plot-some-regression-lines" class="section level1">
+<h1>Plot some regression lines!</h1>
+<p>We usually want to understand the trend in the data, right? So, let’s add a linear regression line, and some confidence intervals around this line. Sounds complicated you say? Nay! we only need to alter the <code>depress</code> variable into something numeric, which I’m going to cheat a bit here. I’m doing to remove all alphabetic characters from the variable, and then change it to an integer.</p>
+<pre class="r"><code>eData_tall %&gt;% 
+  mutate(time = as.integer(gsub(&quot;[[:alpha:]]&quot;,&quot;&quot;,time))) %&gt;% 
+  ggplot(aes(x=time, y=depress)) +
+  geom_jitter() + 
+  geom_smooth(method=&quot;lm&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>nice! So, again, we are saying <em>“Take <code>eData_tall</code>, change the time variable by removing all alphabetic characters and make it into an integer. Plot this with time on the x-axis, depress on the y-axis, create a scatter plot with a little bit of random noise, and add a regression line using a linear model.”</em></p>
+</div>
+<div id="doing-a-simple-linear-model" class="section level1">
+<h1>Doing a simple linear model</h1>
+<p>There is a little bit of a decrease with time there! Let’s actually run the linear model, to see what it’s coefficients are.</p>
+<pre class="r"><code>lm(depress~time, data=eData_tall) %&gt;% 
+  summary()</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = depress ~ time, data = eData_tall)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.7333  -3.5333   0.6333   3.4167  10.8000 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   42.5333     0.9277  45.849   &lt;2e-16 ***
+## timedepress2  -1.8000     1.3119  -1.372   0.1736    
+## timedepress3  -3.3333     1.3119  -2.541   0.0128 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.081 on 87 degrees of freedom
+## Multiple R-squared:  0.06921,    Adjusted R-squared:  0.04782 
+## F-statistic: 3.235 on 2 and 87 DF,  p-value: 0.04416</code></pre>
+<p>We are a little different here. We’re going <em>“Run a linear model predicting depress from time, in the <code>eData_tall</code> object, and display the summary of that.”</em></p>
+<p>As you can see, there are nice little asteri there and all, it seems there is a significant decrease of depression at time 3 compared to the baseline. With a handy little function from a package called <code>broom</code> we can even create a table straight away.</p>
+<pre class="r"><code>lm(depress~time, data=eData_tall) %&gt;% 
+  broom::tidy()</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   term         estimate std.error statistic  p.value
+##   &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)     42.5      0.928     45.8  1.02e-62
+## 2 timedepress2    -1.8      1.31      -1.37 1.74e- 1
+## 3 timedepress3    -3.33     1.31      -2.54 1.28e- 2</code></pre>
+<p>That is what we are covering today. And it’s covering a lot! This is probably really just throwing way too much on you way too early. But I thought it might be a good idea to just jump into it, to things you might already be comfortable doing in SPSS, and want to know how to do in R.</p>
+<p>If we combine all we have done in this session, we can end up with a script like so:</p>
+<pre class="r"><code>library(rio)
+library(tidyverse)
+
+# Start with importing the data
+eData = rio::import(&quot;SPSS/experim.sav&quot;) %&gt;% 
+  # then recode sex to Male and Female
+  mutate(
+    sex = factor(sex, labels=c(&quot;Male&quot;,&quot;Female&quot;)),
+    id = factor(id))
+
+# Gather depression variables into a tall depression data format.
+eData_tall = eData %&gt;% 
+  gather(time, depress, c(&quot;depress1&quot;, &quot;depress2&quot;, &quot;depress3&quot;)) %&gt;% 
+  mutate(time = as.integer(gsub(&quot;[[:alpha:]]&quot;,&quot;&quot;,time))) %&gt;% 
+  arrange(id)
+
+# Do a linear regression on depression over time
+lm(depress~time, data=eData_tall) %&gt;% 
+  broom::tidy()
+
+# plot the regression
+eData_tall %&gt;% 
+  ggplot(aes(x=time, y=depress)) +
+  geom_jitter() + 
+  geom_smooth(method=&quot;lm&quot;)</code></pre>
+</div>
