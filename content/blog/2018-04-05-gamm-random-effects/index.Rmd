@@ -1,0 +1,223 @@
+---
+title: GAMM random effects
+author: DrMowinckels
+date: '2018-04-05'
+output:
+  html_document:
+    keep_md: yes
+categories:
+  - R
+tags: [GAMM]
+featured_image: '/blog/2018-04-05-gamm-random-effects_files/figure-html/unnamed-chunk-10-1.png'
+---
+
+```{r setup, include=F}
+
+```
+
+I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). 
+
+For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM.
+
+When I started with GAMMs, it was mainly adapting code used by my PI, and taking it somewhat for granted that the syntax was correct (and it is). But when I started really looking into the outputs, I started seeing some differences in the output from other mixed models I had run through [lme4](https://cran.r-project.org/web/packages/lme4/lme4.pdf) and even through Bayesian mixed models with [rstanarm](https://cran.r-project.org/web/packages/rstanarm/rstanarm.pdf).
+
+The random effects terms were specified differently. At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before. And it seemed intuitively weird to specify a factor as a random smoothing spline, which in my head would be a **slope** estimator, when I know the random effect I was after was participant intercepts.
+
+We'll continue using the example from the package
+```{r}
+library(tidyverse); library(mgcv)
+
+set.seed(0)
+n.g <- 10
+n<-n.g*10*4
+
+dat <- gamSim(1,n=n,scale=2)
+f <- dat$f
+
+## simulate nested random effects....
+fa <- as.factor(rep(1:10,rep(4*n.g,10)))
+ra <- rep(rnorm(10),rep(4*n.g,10))
+fb <- as.factor(rep(rep(1:4,rep(n.g,4)),10))
+rb <- rep(rnorm(4),rep(n.g,4))
+for (i in 1:9) rb <- c(rb,rep(rnorm(4),rep(n.g,4)))
+
+## simulate auto-correlated errors within groups
+e<-array(0,0)
+for (i in 1:40) {
+  eg <- rnorm(n.g, 0, sd(f))
+  for (j in 2:n.g) eg[j] <- eg[j-1]*0.6+ eg[j]
+  e<-c(e,eg)
+}
+
+dat$y <- f + ra + rb + e
+dat$id <- fa;dat$fb <- fb
+
+# Have a look at the data
+dat %>% glimpse
+```
+
+
+The model we have run before was specified like so:
+```{r}
+
+b = gamm(y~s(x0,bs="cr")+s(x1,bs="cr")+s(x2,bs="cr")+s(x3,bs="cr"),
+         random=list(id=~1,fb=~1),
+         data=dat, correlation=corAR1())
+
+# Let's see the model summary
+b$gam %>% summary()
+```
+
+Notice how the random effects is specified as a separate argument in the function, as a list of two in this case `random=list(id=~1,fb=~1)`. The argument is given a named list, with the list names being the columns you want as random effects over, and the `~1` indicating you want estimated random intercepts over these columns.
+
+In comparison to other functions, I read this argument as being equivalent to `lme4`'s `(1|id)` and `nlme`'s `random = ~ 1 | id`. The output of such a model is also familiar to me, when looking at the lme part of the output (remember how `gamm()` outputs a list of two models, one `lme` and one `gam`).
+
+The summary does not contain particular information about the random effect, and you can grab the random effects coefficients with the `ranef` function, and clearly see each intercept estimated.
+
+```{r}
+ranef(b$lme)
+```
+
+So, this leads me to what my PI has been doing. In his code, the random effects are specified as smoothing spines through `mgcv`'s formula function `s()`. I'll not cover this function too much right now, you can see it in the formula we have already used, and it is a powerful smoothing spline function, where you can specify different types of splines. You can also specify that the spline is a random effect, by setting the argument `bs` to `"re"`. 
+
+```{r}
+b2 = gamm(y~s(x0,bs="cr")+s(x1,bs="cr")+s(x2,bs="cr")+s(x3,bs="cr") +
+            s(id, bs="re") + s(fb, bs="re"),
+          data=dat, correlation=corAR1())
+
+# Let's see the model summary
+b2$gam %>% summary()
+```
+
+Notice how we've now **not** used the `random` argument in the function, but set two splines over the random effects instead. Notice also that while p and F-values have changed, the effects are still very strong, and the adjusted R^2^ is also changed, but the conclusion would still be the same. I'm still working on understanding exactly _how_ these values change on a statistical basis, but I understand why.
+
+See also how the model summary also includes the random effect splines in the summary of fixed effects! This tripped me up a little, but they are still not handled as fixed effects, they are random, but there **is** something different about the models.
+
+and that is true. The first case uses a "standard" maximum likelihood function on the estimates, which makes it fast and powerfull. The second example introduces a penalized ridge function over the random effects, making it quite a conservative approach. Which you can see through the reduced F-values and increased p-values, and but also the increased correlation!
+
+I was still quite insecure about what I was looking at. There are things with this output that is different enough for me to be a little insecure about the approach being _correct_. Using `ranef` on this output, furhter made me a little anxious, it was so different than what I am used to.
+
+```{r}
+ranef(b2$lme)
+```
+
+Look at that, the random participant intercepts are seemingly gone! _Whaaaaaat?_ I've been looking into why, and the answer still eludes me a little. But I know the random effects are taken into account in the model, I know they are random because I specified them so, and I also can see a simple summary of the spline in the model summary. 
+
+This is not the first thing about the `gamm` output that is different from other models. We know it outputs a list of two models, a `gam` and an `lme` , and these two are given to provide something familiar to compare to `gamm` to. The splines are also quite different than what we would specify otherwise, like quadratic fits, and their output would naturally also be a little different.
+
+and it hit me I was treating a subject identifier as a `double` rather than as a `factor`. Yikes! That was punishment for me not being observant enough about my data. The second model is in a way, estimating a smoothing spline along my ID as if it was a continuous numeric variable. 
+
+Let's make it a factor, and have a look-see at what happens then.
+
+```{r}
+dat = dat %>% mutate(id = factor(id))
+
+b3 = gamm(y~s(x0,bs="cr")+s(x1,bs="cr")+s(x2,bs="cr")+s(x3,bs="cr") +
+            s(id, bs="re") + s(fb, bs="re"),
+          data=dat, correlation=corAR1())
+
+# Let's see the model summary
+b3$gam %>% summary()
+```
+
+Well, in this specific example, factoring ID does not have a particularly large effect. But on my actual data it did, which makes sense. Treating people as a continuous variable is generally a bad idea! Goes to show you should always have an extra thought about what you are doing, and what your variables **are** and what they are coded as.
+
+Maybe it has an effect on the random effects output?
+```{r}
+ranef(b3$lme)
+```
+
+Nope, not particularly. It's stil not what i would be used to seeing. Oh well. For now, I've settled my mind on that the models show equivalency, which we can see if we compare the models with model comparison function `anova` (enter confusion, this function is a model comparator in R, if you want to do a "classical" anova, the function you are looking for is `aov`).
+
+```{r}
+anova(b$lme, b2$lme, b3$lme)
+```
+
+If you are not used to model comparisons, what you want to look at is Bayesian Information Criterion (BIC) that is the lowest. In our case, the two last models are exactly the same, factoring we saw didn't have much effect in this example. The first model is, however, superior, but only by a very small margin. Most people would agree that all three models are equivalent.
+
+Lets also plot then to see how the fits look. I'll be using the function I presented in the last post, that creates fitted data with the `itsadug` package.
+
+```{r}
+GammPredData = function(data, gamm.model, condition){
+  require(itsadug)
+  eval(parse(text=paste0(
+    "get_predictions(gamm.model, cond = list(",
+    condition,
+    "=seq(min(data[condition], na.rm=T),max(data[condition], na.rm=T), length.out = nrow(data)))) %>% as.data.frame() %>% mutate(",
+    str_split(gamm.model$formula, " ")[[2]],"=1)")))
+}
+```
+
+
+```{r message=FALSE}
+# Predictions
+p = c("x0", "x1", "x2","x3")
+
+# we will be using facet_wrap, gather the data on the predictors, for a long data frame.
+dat2 = dat %>% 
+  gather(Pred, x, p)
+
+preds.b = preds.b2 = preds.b3 = list() # prepare lists for predictions
+
+# loop through the predictors
+for(i in 1:length(p)){
+  preds.b[[i]] = GammPredData(dat, b$gam, p[i]) %>% 
+    select_("y", "CI", "fit", p[i])
+  
+  preds.b2[[i]] = GammPredData(dat, b2$gam, p[i]) %>% 
+    select_("y", "CI", "fit", p[i])
+  
+  preds.b3[[i]] = GammPredData(dat, b3$gam, p[i]) %>% 
+    select_("y", "CI", "fit", p[i])
+  
+  names(preds.b)[i] = names(preds.b2)[i] = names(preds.b3)[i] = p[i]
+}
+
+# use bind_rows to make them into large data frames and gather them, just like the data
+preds.b = bind_rows(preds.b)%>% 
+  gather(Pred, x, p) %>% 
+  na.omit()
+
+preds.b2 = bind_rows(preds.b2)%>% 
+  gather(Pred, x, p) %>% 
+  na.omit()
+
+preds.b3 = bind_rows(preds.b3)%>% 
+  gather(Pred, x, p) %>% 
+  na.omit()
+
+# Lets plot them all, here, I will add all three models predictions on top of eachother in different colors, for easy comparison.
+
+dat2 %>% 
+  ggplot(aes(x=x, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+
+  
+  # Add predictions for model b3
+  geom_ribbon(data=preds.b3, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b3"), show.legend = F) +
+  geom_line(data=preds.b3, alpha=.7, aes(y=fit, color="b3")) +
+    
+  # Add predictions for model b2
+  geom_ribbon(data=preds.b2, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b2"), show.legend = F) +
+  geom_line(data=preds.b2, alpha=.7, aes(y=fit, color="b2")) +
+  
+  # Add predictions for model b
+  geom_ribbon(data=preds.b, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill="b"), show.legend = F) +
+  geom_line(data=preds.b, alpha=.7, aes(y=fit, color="b")) +
+  
+  # Add some color, this way of doing it gives us a nice legend!
+  scale_color_manual("",
+                     breaks=c("b","b2","b3"),
+                     values=c("firebrick","forestgreen","skyblue")) +
+  scale_fill_manual("",
+                    breaks=c("b","b2","b3"),
+                    values=c("firebrick","forestgreen","skyblue")) +
+  
+  facet_wrap(~Pred, scales="free")
+
+```
+
+The fit overlap is uncanny, but the confidence intervals have a marked difference. With my actual data, there is a little more difference than here, but it really is quite minute. 
+
+So, through my tests, I've become quite confident that the approaches are both _valid_. There is nothing statistically _wrong_ in doing either. However, if you want a conservative approach, the second option, with random effects as a spline is the way to go. Just make sure your subject identifier is a factor, it might impact your inference more than you think.

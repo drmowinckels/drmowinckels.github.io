@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Christmas tree in ggplot - Dr. Mowinckel&#39;s
+</title>
+
+
+
+        <meta property="og:title" content="Christmas tree in ggplot - Dr. Mowinckel&#39;s" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content=""/>
+<meta property="og:url" content="/blog/2018-12-13-christmas-tree-in-ggplot/"/>
+<meta property="og:site_name" content="Dr. Mowinckel&#39;s"/>
+
+
+
+
+<meta property="og:image" content="/home/profile.png"/>
+
+<meta property="og:image" content="/home/profile_square.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico.png">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.5c5478bdd5363758f3e73657d5339b1ac7c131a401ffc3338edd7eb5e1a0114e.css" integrity="sha256-XFR4vdU2N1jz5zZX1TObGsfBMaQB/8Mzjt1&#43;teGgEU4=" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="/syntax.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="/hexagongrid.css" integrity="" crossorigin="anonymous" media="screen">
+
+        
+        
+        
+        
+    </head>
+    <body> 
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one " style="background-size: contain;">
+                
+
+    <h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">main</a>
+            
+
+            
+            
+
+            
+                
+            
+
+            
+                
+            
+
+            
+            
+            
+            
+            
+            <a class="navbar-item" href="/#about">About me</a>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                  <a class="navbar-item" href="/projects/">
+                  
+                  Project
+                  
+                  </a>
+                
+                
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                  <a class="navbar-item" href="/blog/">
+                  
+                  Back to Blog
+                  
+                  </a>
+                
+                
+            
+            
+            
+            
+
+            
+            
+            <a class="navbar-item" href="/#contact">Contact</a>
+            
+            
+
+            
+
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+    <div class="container">
+        <h2 class="title is-1 top-pad strong-post-title">
+            <a href="/blog/2018-12-13-christmas-tree-in-ggplot/">Christmas tree in ggplot</a>
+        </h2>
+        <div class="post-data">
+            Dec 13, 2018 |
+            4 minutes read
+        </div>
+        
+        
+    </div>
+    
+    <div class="container markdown top-pad">
+        
+
+<p>It&rsquo;s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It&rsquo;s just filled with all times of lovely things.</p>
+
+<p>That also means&hellip; PLOTS! You might know from my previous posts that I love plotting. A bit too much, but it truly is a lovely thing to create a great plot.</p>
+
+<p>So, a while ago, the amazing <a href="rladies.org">RLadies</a> network showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it! You can see all the lovely submissions he has <a href="http://smarterpoland.pl/index.php/2017/12/christmas-trees/">here</a>.</p>
+
+<p>So here is my process for making the Christmas tree in ggplot.</p>
+
+<h2 id="the-tree-cone">The tree cone</h2>
+
+<p>First, lest just make a triangle and make it green!</p>
+<div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span></code></pre></div><pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre><pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
+## ✓ tidyr   1.0.3     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre><pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre><div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="n">cone</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">,</span>
+                  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="m">4</span><span class="o">:</span><span class="m">1</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">na.omit</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  <span class="nf">arrange</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">cone</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" alt="" /><!-- --></p>
+
+<h2 id="add-some-fancy-stuff">Add some fancy stuff</h2>
+
+<p>This as acutally meant to alter the cone and get the distinct Christmas tree shape, but I couldn&rsquo;t manage the little &ldquo;dips&rdquo; at each branch, the wrong points kept connecting.
+So it enved up with this more abstract, contemporary thing, which I actually really like!</p>
+<div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="n">fancy</span> <span class="o">=</span> <span class="n">cone</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">xoff</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="m">5</span><span class="p">,</span> <span class="n">x</span><span class="m">+.4</span><span class="p">,</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="m">5</span><span class="p">,</span> <span class="n">x</span><span class="m">-.4</span><span class="p">,</span> <span class="kc">NA</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">gather</span><span class="p">(</span><span class="n">del</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nf">contains</span><span class="p">(</span><span class="s">&#34;x&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">del</span><span class="o">==</span><span class="s">&#34;xoff&#34;</span><span class="p">,</span> <span class="n">y</span><span class="m">-.1</span><span class="p">,</span><span class="n">y</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">filter</span><span class="p">(</span><span class="n">y</span><span class="o">&gt;=</span><span class="m">1</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">na.omit</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">del</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">arrange</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">cone</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" alt="" /><!-- --></p>
+
+<h2 id="baubles">BAUBLES!</h2>
+
+<p>What christmas tree would it be without some baubles!
+We define some nice christmas&rsquo;y colours, do some data sample-randomness stuff, and voila!</p>
+<div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+
+<span class="c1"># Define bauble colours</span>
+<span class="n">bauble_colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#e5d08f&#34;</span><span class="p">,</span> <span class="s">&#34;#e3d4b6&#34;</span><span class="p">,</span>
+                   <span class="s">&#34;#cacbce&#34;</span><span class="p">,</span> <span class="s">&#34;#9c9c9c&#34;</span><span class="p">,</span> <span class="s">&#34;#e1dfdf&#34;</span><span class="p">,</span>
+                   <span class="s">&#34;#c94c4c&#34;</span><span class="p">,</span> <span class="s">&#34;#8d1414&#34;</span><span class="p">)</span>
+
+<span class="n">baubles</span> <span class="o">=</span> <span class="n">cone</span> <span class="o">%&gt;%</span> 
+  
+  <span class="c1"># Group by y, nest and make up some random values for x.</span>
+  <span class="nf">group_by</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">~</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">.$x</span><span class="p">),</span> <span class="nf">max</span><span class="p">(</span><span class="n">.$x</span><span class="p">),</span> <span class="n">by</span><span class="o">=</span><span class="m">.1</span><span class="p">))))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">unnest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  
+  <span class="c1"># Group by x, nest and make up some random values for y.</span>
+  <span class="nf">group_by</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">~</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">.$y</span><span class="p">),</span> <span class="nf">max</span><span class="p">(</span><span class="n">.$y</span><span class="p">),</span> <span class="n">by</span><span class="o">=</span><span class="m">.1</span><span class="p">))))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">unnest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ungroup</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  
+  <span class="c1"># Give baubles random shapes, sizes and two different colours.</span>
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">col1</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="n">bauble_colours</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
+         <span class="n">col2</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="n">bauble_colours</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
+         <span class="n">shp</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">7</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
+         <span class="n">sz</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.1</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
+         <span class="n">time</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+  <span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="nf">rownames_to_column</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  
+  <span class="c1"># Grab only 60 baubles</span>
+  <span class="nf">sample_n</span><span class="p">(</span><span class="m">60</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  
+  <span class="c1"># Gather the colours into a single column</span>
+  <span class="nf">gather</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="nf">contains</span><span class="p">(</span><span class="s">&#34;col&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">alph</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">dd</span> <span class="o">==</span> <span class="s">&#34;col1&#34;</span><span class="p">,</span> <span class="m">.8</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span></code></pre></div><pre><code>## Warning: `cols` is now required.
+## Please use `cols = c(data)`
+
+## Warning: `cols` is now required.
+## Please use `cols = c(data)`</code></pre><div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="n">cone</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> 
+                                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span> 
+  <span class="nf">scale_shape_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="m">8</span><span class="p">))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="" /><!-- --></p>
+
+<h2 id="add-the-topper-and-animate-some-sparkly">Add the topper and animate some sparkly!</h2>
+
+<p>We need a tree topper, in Norway, we usually add the Christmas star.
+And then I wanted some ornaments to seemlingly sparkle a little, so we add a small animation too!</p>
+<div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="n">cone</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># Cone</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
+  
+  <span class="c1"># Fancy</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span> <span class="o">+</span>
+  
+  <span class="c1"># Baubles</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span> <span class="o">%&gt;%</span> <span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.7</span><span class="p">,</span>
+             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span>
+                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># animated baubles!</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span>
+             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">alph</span><span class="p">),</span>
+                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span> 
+  
+  <span class="c1"># Topper</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5d08f&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">15</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">scale_shape_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="m">8</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># remove axes etc., and make background black</span>
+  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span> 
+  <span class="nf">theme</span><span class="p">(</span><span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;black&#34;</span><span class="p">),</span> <span class="n">title</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s">&#34;white&#34;</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># Animate</span>
+  <span class="c1">#transition_states(time, transition_length = 10, state_length = 2) + </span>
+  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">+</span> 
+  <span class="nf">ease_aes</span><span class="p">(</span><span class="s">&#39;quadratic-in-out&#39;</span><span class="p">)</span> </code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.gif" alt="" /><!-- --></p>
+
+<h2 id="the-snow">The snow!</h2>
+
+<p>I also wanted to have some snow falling in the background.</p>
+<div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="n">snow</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">cone</span><span class="o">$</span><span class="n">x</span><span class="p">)</span><span class="m">+1</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="m">100</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">F</span><span class="p">),</span>
+                  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">cone</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">+1</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="m">100</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">F</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">group_by</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> 
+                     <span class="o">~</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="n">.$y</span><span class="p">,</span> <span class="n">.$y</span><span class="o">-</span><span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span><span class="m">1</span><span class="p">),</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">100</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+                       <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">.9</span><span class="p">,</span> <span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+                       <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="m">+.02</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span>
+  <span class="p">))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">unnest</span><span class="p">()</span> </code></pre></div><pre><code>## Warning: `cols` is now required.
+## Please use `cols = c(data)`</code></pre><div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="n">cone</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># Snow</span>
+  <span class="nf">geom_jitter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">x</span><span class="p">),</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;white&#34;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+  
+  <span class="c1"># Cone</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
+  
+  <span class="c1"># Fancy</span>
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span> <span class="o">+</span>
+  
+  <span class="c1"># Baubles</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span> <span class="o">%&gt;%</span> <span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.7</span><span class="p">,</span>
+             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span>
+                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># animated baubles!</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span>
+             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">alph</span><span class="p">),</span>
+                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># Topper</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5d08f&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">15</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">scale_shape_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="m">8</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># remove axes etc., and make background black</span>
+  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span> 
+  <span class="nf">theme</span><span class="p">(</span><span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;black&#34;</span><span class="p">),</span> <span class="n">title</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s">&#34;white&#34;</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># Animate</span>
+  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">+</span> 
+  <span class="nf">ease_aes</span><span class="p">(</span><span class="s">&#39;sine-in-out&#39;</span><span class="p">)</span> </code></pre></div>
+<p><img src="index_files/figure-html/featured-1.gif" alt="" /><!-- --></p>
+
+<p>There you go! My little Christmas tree!</p>
+
+<h1 id="merry-christmas-y-all">Merry Christmas, y&rsquo;all!</h1>
+
+    </div>
+    
+    
+    <div class="disqus">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "drmowinckels-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        Athanasia Monika Mowinckel CC-BY 2020. Feeding to <a href="https://rweekly.org">R weekly</a>. See the sites <a href="/cookies/cookies">cookie policy</a>.
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="/js/bundle.e6934e69d06bb8a213134f4c1468f9478bb7755e786dfb60e3c5a917c5335805.js" integrity="sha256-5pNOadBruKITE09MFGj5R4u3dV54bftg48WpF8UzWAU="></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115545202-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+        
+        
+        
+        
+    </body>
+</html>

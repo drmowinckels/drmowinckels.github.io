@@ -1,0 +1,67 @@
+{{ partial "header.html" . }}
+
+<body>
+
+{{ partial "banner.html" . }}
+
+
+<!-- Everything below fades in three! -->
+<div class="section {{ if .Site.Params.fadeIn }} fade-in three{{ end }}">
+
+<!-- Begin Nav bar -->
+    <div id="stickynav" class="container" style="text-align: center;">
+      {{ partial "nav-list.html" . }} 
+    </div>
+<!-- End Nav bar -->
+
+    <div class="container"><!-- Begin Blog container -->
+
+{{ if .Site.Params.showLatest }}
+  <h2 class="title is-2 has-text-centered">Latest Post</h2>
+  {{ range first 1 (where .Data.Pages.ByPublishDate.Reverse "Section" "blog") }} 
+  <div class="summary">
+        <h3 class="title is-3 latest-post-title has-text-centered"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+
+        <div class="columns">
+              <div class="column is-one-third has-text-centered">
+                {{ with .Params.featured_image }}<img src="{{ . }}">{{ end }}
+              </div>
+            <div class="column markdown">
+                <i>{{ .Date.Format .Site.Params.dateForm }}</i> <br>
+                {{ .Summary }}
+                {{ if .Truncated }}
+                  <a href="{{ .RelPermalink }}">...Read More</a>
+                {{ end }}
+            </div>
+        </div>
+
+  {{ end }}
+{{ end }}
+´
+    <h2 class="title is-2 top-pad" style="text-align: center;">Other posts</h2>
+    <!--  <div class="cols3"> -->
+         <ul id="hexGrid">
+        {{ range after 1 .Data.Pages.ByDate.Reverse }}
+            {{ if eq .Section "blog" }}
+                {{ partial "li.html" . }}
+            {{ end }}
+        {{ end }}
+        </ul> 
+     <!--  </div> -->
+
+    </div><!-- End Blog container -->
+<br>
+
+<div style="clear:both;"></div>
+<div class="container has-text-centered top-pad">
+<hr>
+<a href="{{ .Permalink }}#top"><i class="fa fa-arrow-up"></i></a>
+<hr>
+</div>
+
+{{ partial "footer.html" . }}
+</div><!-- End fade in two -->
+</div><!-- End parent section -->
+
+{{ partial "scripts.html" . }}
+</body>
