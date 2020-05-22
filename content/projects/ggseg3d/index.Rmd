@@ -1,6 +1,5 @@
 ---
 title: "ggseg3d"
-date: 2019-08-26T12:00:00-00:00
 image: "logo.png"
 external_link: ""
 output:
@@ -10,7 +9,7 @@ weight: 1
 draft: false
 ---
 
-This package is developed with co-worker Didac Vidal Pineiro, whose had the whole idea.
+This package is based on my initial idea, and developed with co-worker Didac Vidal Piñeiro.
 
 This package is meant to use for visualizing brain segmentations, often referred to as brain atlases.
 Click the eye below to see a demonstration of the package.
