@@ -1,9 +1,10 @@
 ---
 title: "About me"
-date: '2020-05-20'
+date: '2020-05-23'
 output:
   html_document:
     keep_md: yes
+allow_html: yes
 ---
  
 
@@ -48,7 +49,7 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 |  2009| 2011|University of Oslo, Dept. of Psychology        |Student Council                                      |Representative for Cognitive Neuroscience Master.             |
 
 ### Publications & Citations
-![](index_files/figure-html/pubPlot-1.png)<!-- -->
+![plot of chunk pubPlot](figure/pubPlot-1.png)
 
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=9153014591895064781) Sleep _43 (5), zsz280_
 
@@ -66,9 +67,9 @@ AM Fjell, CH Chen, D Sederevicius, MH Sneve, H Grydeland, ... (2019) [_Continuit
 
 AM **Mowinckel**, D Vidal-Piñeiro (2019) [_Visualisation of Brain Statistics with R-packages ggseg and ggseg3d_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=14033947876110404932) arXiv preprint arXiv: _:1912.08200_
 
-AM Fjell, MH Sneve, D Sederevicius, Ø Sørensen, SK Krogsrud, ... (2019) [_Volumetric and microstructural regional changes of the hippocampus underlying development of recall performance after extended retention intervals_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=6382077352973065340) Developmental cognitive neuroscience _40, 100723_
-
 D Vidal-Pineiro, N Parker, J Shin, L French, AP Jackowski, AM **Mowinckel**, ... (2019) [_Cellular correlates of cortical thinning throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=8744493081398124722) bioRxiv _585786_
+
+AM Fjell, MH Sneve, D Sederevicius, Ø Sørensen, SK Krogsrud, ... (2019) [_Volumetric and microstructural regional changes of the hippocampus underlying development of recall performance after extended retention intervals_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=6382077352973065340) Developmental cognitive neuroscience _40, 100723_
 
 KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2019) _Genetic risk for Alzheimers disease predicts hippocampal volume through the lifespan_ bioRxiv _711689_
 

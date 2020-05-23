@@ -26,12 +26,12 @@ featured_image: '/blog/2018-05-25-circluar-plots-in-r-and-adding-images_files/fi
   )
 head(DATA)</code></pre>
 <pre><code>##                              images names values
-## 1 brainSlices/single/0000_trans.png  0000     98
-## 2 brainSlices/single/0001_trans.png  0001     70
-## 3 brainSlices/single/0002_trans.png  0002     26
-## 4 brainSlices/single/0003_trans.png  0003     20
-## 5 brainSlices/single/0004_trans.png  0004     15
-## 6 brainSlices/single/0005_trans.png  0005     56</code></pre>
+## 1 brainSlices/single/0000_trans.png  0000     20
+## 2 brainSlices/single/0001_trans.png  0001     79
+## 3 brainSlices/single/0002_trans.png  0002     22
+## 4 brainSlices/single/0003_trans.png  0003     57
+## 5 brainSlices/single/0004_trans.png  0004     28
+## 6 brainSlices/single/0005_trans.png  0005     48</code></pre>
 <p>Ok, so a circular plot is used to depict a relationship. So, a dataframe with one value per brain network (in this case) will not suffice. I will need values that way something about the relationship between pairs of brain networks. So, if we want pair-wise correlations between 40 networks, that is (40x40)/2 - 40, i.e. 40x40 gives us a matrix of correlations, but they are organized in top and bottom triangles that are identical. Since we just need the one triangle, ergo dividing by 2. And then we subtract 40, which is the diagnoal, that is each networks correlation with it self, which is obviouslye 1 and irrelevant.</p>
 <pre class="r"><code>(40*40)/2-40</code></pre>
 <pre><code>## [1] 760</code></pre>
@@ -53,12 +53,12 @@ head(PAIRS)</code></pre>
 <pre class="r"><code>PAIRS$cor = sample(seq(-1,1,.01), nrow(PAIRS), replace = T)
 head(PAIRS)</code></pre>
 <pre><code>##   Network1 Network2   cor
-## 1     0000     0001  0.61
-## 2     0000     0002 -0.83
-## 3     0000     0003  0.22
-## 4     0000     0004 -0.13
-## 5     0000     0005  0.81
-## 6     0000     0006  0.77</code></pre>
+## 1     0000     0001 -0.49
+## 2     0000     0002  0.87
+## 3     0000     0003 -0.84
+## 4     0000     0004  0.80
+## 5     0000     0005  0.23
+## 6     0000     0006  0.33</code></pre>
 <p>Alright, getting started with a circular plot (or a chord diagram) is not very hard. We’ll be using the <code>circlize</code> package, which is what I have tampered with before. I did a quick search before this post and didn’t find anything that stuck out more than this package, so I’ll stick with it. If you have other chord diagram recommendations or requests, let me know in the comments and I’ll have a look at it.</p>
 <p>Let’s get to it! To plot a using <code>circlize</code> is farily easy. The first two columns need to contain the pairs that are connected, and the third column needs to be the value they are connected by. That is how we set it up: Netwok1, Network2, Correlation. I am pre-allocating the track heights for the outer walls <code>preAllocateTracks = list(track.height = 0.25))</code>. You can play around with what you like here.</p>
 <pre class="r"><code>library(circlize)</code></pre>
@@ -80,12 +80,12 @@ DATA$gColor = wes_palette(&quot;Moonrise2&quot;,3) %&gt;% as.character %&gt;%
 
 head(DATA)</code></pre>
 <pre><code>##                              images names values     Group  gColor
-## 1 brainSlices/single/0000_trans.png  0000     98 Executive #C27D38
-## 2 brainSlices/single/0001_trans.png  0001     70    Memory #CCC591
-## 3 brainSlices/single/0002_trans.png  0002     26 Executive #C27D38
-## 4 brainSlices/single/0003_trans.png  0003     20 Executive #C27D38
-## 5 brainSlices/single/0004_trans.png  0004     15 Executive #C27D38
-## 6 brainSlices/single/0005_trans.png  0005     56 Executive #C27D38</code></pre>
+## 1 brainSlices/single/0000_trans.png  0000     20 Attention #798E87
+## 2 brainSlices/single/0001_trans.png  0001     79 Executive #C27D38
+## 3 brainSlices/single/0002_trans.png  0002     22 Attention #798E87
+## 4 brainSlices/single/0003_trans.png  0003     57 Executive #C27D38
+## 5 brainSlices/single/0004_trans.png  0004     28 Executive #C27D38
+## 6 brainSlices/single/0005_trans.png  0005     48 Executive #C27D38</code></pre>
 <p>Now, this might feel a little odd, but we need to use the original data to add the colours we want. This is because the data the chord diagram is using is pair-wise, so the data is just not ordered in a way that is convenient to work with when you want to set one colour per network. For instance, neither of the network columns in <code>PAIRS</code> contains <strong>all</strong> the networks, they’re each -1, so there is no complete list of the networks in the file. Thus, we will also struggle to create a complete list of colours and groups. So we will provide the values from the original data file to provide the colours we want.</p>
 <pre class="r"><code>chordDiagram(PAIRS,annotationTrack = c(&quot;grid&quot;), preAllocateTracks = list(track.height = 0.3), 
              order=DATA$names, grid.col = setNames(DATA$gColor, DATA$names))</code></pre>

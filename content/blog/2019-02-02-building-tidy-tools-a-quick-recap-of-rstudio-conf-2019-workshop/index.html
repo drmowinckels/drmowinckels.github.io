@@ -182,14 +182,14 @@ To put simply, if you want to pass arguments to other tidyverse package function
 <p>We’ll generate 50 random numbers, and test our <code>se()</code> function on that.</p>
 <pre class="r"><code>numbers &lt;- runif(50)
 se(numbers)</code></pre>
-<pre><code>## [1] 0.03655642</code></pre>
+<pre><code>## [1] 0.04228262</code></pre>
 <pre class="r"><code># Break down components and double check
 sd(numbers)</code></pre>
-<pre><code>## [1] 0.2584929</code></pre>
+<pre><code>## [1] 0.2989833</code></pre>
 <pre class="r"><code>sqrt(50)</code></pre>
 <pre><code>## [1] 7.071068</code></pre>
 <pre class="r"><code>sd(numbers)/sqrt(50)</code></pre>
-<pre><code>## [1] 0.03655642</code></pre>
+<pre><code>## [1] 0.04228262</code></pre>
 <p>The numbers correspond pretty nicely! What we just did, was test our function. We should formalist such a test so you can check if your functions work as expected and let you know when you break them (you will at some point, mostly by accident).</p>
 <p>We’ll use <code>usethis</code> again to set up some testing. It will create a ‘tests/’ folder with some hierarchy and initiate one test script per function script you have. Great way to organise your tests! As with <code>use_r()</code> it will create the files needed and open them so you can start editing.</p>
 <pre class="r"><code>usethis::use_test()</code></pre>
