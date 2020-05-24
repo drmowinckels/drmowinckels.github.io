@@ -1,5 +1,5 @@
 baseURL                 = "https://drmowinckels.io/"  # Your domain name. Must end with "/"
-theme                   = "introduction_orig"   
+theme                   = "introduction"   
 title                   = "Dr. Mowinckel's"
 enforce_ssl             = true
 builddrafts             = false                             # Include pages with draft status of true
@@ -28,8 +28,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     fadeInIndex                  = false                   # Turn on/off the fade-in effect on the index page even if fade-in was otherwise turned off
     dateFormat                   = "Jan 2, 2006"
     email                        = "a.m.mowinckel@psykologi.uio.no"   # E-mail address for contact section
-    #customCSS                    = ["/css/syntax.css", "/css/custom-style.css", "/css/hexagongrid.css"]              # Include custom css files placed under assets/
-   # customHead                   = "head/custom.html"      # layouts/partials/
+    customCSS                    = ["/css/syntax.css", "/css/custom-style.css", "/css/hexagongrid.css"]              # Include custom css files placed under assets/
+    customHead                   = "head/custom.html"      # layouts/partials/
     footerText = "Athanasia Monika Mowinckel CC-BY 2020. Feeding to [R weekly](https://rweekly.org'). See the sites [cookie policy](/cookies/cookies')."
 
     
