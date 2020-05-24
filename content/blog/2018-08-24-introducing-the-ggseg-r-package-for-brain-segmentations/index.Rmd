@@ -5,13 +5,8 @@ date: '2018-08-30'
 output:
   html_document:
     keep_md: yes
-categories:
-  - R
-  - Neuroimaging
-tags:
-  - Plots
-  - Packages
-featured_image: '/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations_files/figure-html/featured-1.png'
+tags: [Plots, Packages, Neuroimaging, R]
+image: '/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations_files/figure-html/featured-1.png'
 --- 
 
 **Edit**: Though posted only a week ago, we have discovered another R package called `ggBrain` which has slightly different functions than what our package has. Because of this, we have altered the name of our package to `ggseg` short for `ggsegmentation` which is a better description of what our package does.

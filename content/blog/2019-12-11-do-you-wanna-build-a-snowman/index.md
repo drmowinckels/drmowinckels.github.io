@@ -5,11 +5,8 @@ date: '2019-12-11'
 output:
   html_document:
     keep_md: yes
-categories:
-  - R
-tags:
-  - Plots
-featured_image: '/blog/2019-12-11-do-you-wanna-build-a-snowman_files/figure-html/featured-1.gif' 
+tags: [R, Plots]
+image: '/blog/2019-12-11-do-you-wanna-build-a-snowman_files/figure-html/featured-1.gif' 
 ---
 
 
@@ -38,7 +35,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
@@ -49,7 +46,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```

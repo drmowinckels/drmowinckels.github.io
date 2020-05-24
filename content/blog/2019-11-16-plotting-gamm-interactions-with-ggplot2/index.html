@@ -5,9 +5,8 @@ date: '2019-11-16'
 output:
   html_document:
     keep_md: yes
-categories: [R]
-tags: [GAMM] 
-featured_image: '/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/featured-1.png'
+tags: [R, GAMM] 
+image: '/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/featured-1.png'
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
@@ -30,12 +29,12 @@ But the other variables might also have smaller effects that we should be accoun
 <p>Let’s start of by just making some plots, and get an idea of the data and how they interact with price.
 I’m going to gather the numeric variables I’m interested in into a long-format table, so that I can facet (make subplots) easily for the different variables.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
 ## ✓ tidyr   1.0.3     ✓ stringr 1.4.0
 ## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>diamonds %&gt;% 

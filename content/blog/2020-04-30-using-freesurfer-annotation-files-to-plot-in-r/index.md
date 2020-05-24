@@ -5,12 +5,8 @@ date: '2020-04-30'
 output:
   html_document:
     keep_md: yes
-categories:
-  - Neuroimaging
-  - R
-tags:
-  - Plots
-featured_image: '/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r_files/figure-html/featured-1.png'
+tags: [R, Neuroimaging, Plots]
+image: '/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r_files/figure-html/featured-1.png'
 ---
 
 
