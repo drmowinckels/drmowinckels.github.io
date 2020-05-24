@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [R, GAMM]
-image: '/blog/2018-04-05-gamm-random-effects_files/figure-html/unnamed-chunk-10-1.png'
+image: '/blog/2018-04-05-gamm-random-effects/index_files/figure-html/unnamed-chunk-10-1.png'
 ---
 
 
@@ -26,7 +26,7 @@ library(tidyverse); library(mgcv)
 ```
 
 ```
-## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ───────────────────────────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
@@ -37,7 +37,7 @@ library(tidyverse); library(mgcv)
 ```
 
 ```
-## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ──────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```

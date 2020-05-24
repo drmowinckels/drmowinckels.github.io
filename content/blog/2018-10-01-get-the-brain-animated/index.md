@@ -5,12 +5,8 @@ date: '2018-10-01'
 output:
   html_document:
     keep_md: yes
-categories:
-  - Neuroimaging
-  - R
-tags:
-  - Packages 
-image: '/blog/2018-10-01-get-the-brain-animated_files/figure-html/featured-1.gif' 
+tags: [Packages, Neuroimaging, R]
+image: '/blog/2018-10-01-get-the-brain-animated/index_files/figure-html/featured-1.gif' 
 ---
 
 

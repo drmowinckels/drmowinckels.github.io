@@ -6,7 +6,7 @@ tags: [R]
 output:
   html_document:
     keep_md: yes
-image: '/blog/2018-05-02-adding-external-images-to-plots_files/figure-html/unnamed-chunk-16-1.png'
+image: '/blog/2018-05-02-adding-external-images-to-plots/index_files/figure-html/unnamed-chunk-16-1.png'
 ---
 
 Two weeks ago we had out first RLadies-Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks! 
@@ -76,12 +76,12 @@ head(DATA)
 
 ```
 ##                              images names values
-## 1 brainSlices/single/0000_trans.png  0000     49
-## 2 brainSlices/single/0001_trans.png  0001     99
-## 3 brainSlices/single/0002_trans.png  0002    100
-## 4 brainSlices/single/0003_trans.png  0003      9
-## 5 brainSlices/single/0004_trans.png  0004     45
-## 6 brainSlices/single/0005_trans.png  0005     22
+## 1 brainSlices/single/0000_trans.png  0000     26
+## 2 brainSlices/single/0001_trans.png  0001     43
+## 3 brainSlices/single/0002_trans.png  0002     53
+## 4 brainSlices/single/0003_trans.png  0003     69
+## 5 brainSlices/single/0004_trans.png  0004     78
+## 6 brainSlices/single/0005_trans.png  0005     86
 ```
 
 ## Let's do some plotting!
@@ -249,7 +249,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ───────────────────────────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
@@ -260,7 +260,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ──────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```

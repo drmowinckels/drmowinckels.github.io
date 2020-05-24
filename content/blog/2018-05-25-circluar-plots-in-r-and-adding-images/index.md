@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [Plots, Neuroimaging, R]
-image: '/blog/2018-05-25-circluar-plots-in-r-and-adding-images_files/figure-html/featured-1.png'
+image: '/blog/2018-05-25-circluar-plots-in-r-and-adding-images/index_files/figure-html/featured-1.png'
 ---
 
 
@@ -30,12 +30,12 @@ head(DATA)
 
 ```
 ##                              images names values
-## 1 brainSlices/single/0000_trans.png  0000     70
-## 2 brainSlices/single/0001_trans.png  0001     92
-## 3 brainSlices/single/0002_trans.png  0002     19
-## 4 brainSlices/single/0003_trans.png  0003     79
-## 5 brainSlices/single/0004_trans.png  0004      1
-## 6 brainSlices/single/0005_trans.png  0005    100
+## 1 brainSlices/single/0000_trans.png  0000     56
+## 2 brainSlices/single/0001_trans.png  0001     77
+## 3 brainSlices/single/0002_trans.png  0002     10
+## 4 brainSlices/single/0003_trans.png  0003     15
+## 5 brainSlices/single/0004_trans.png  0004     10
+## 6 brainSlices/single/0005_trans.png  0005     76
 ```
 
 Ok, so a circular plot is used to depict a relationship. So, a dataframe with one value per brain network (in this case) will not suffice. I will need values that way something about the relationship between pairs of brain networks. So, if we want pair-wise correlations between 40 networks, that is (40x40)/2 - 40, i.e. 40x40 gives us a matrix of correlations, but they are organized in top and bottom triangles that are identical. Since we just need the one triangle, ergo dividing by 2. And then we subtract 40, which is the diagnoal, that is each networks correlation with it self, which is obviouslye 1 and irrelevant. 
@@ -90,12 +90,12 @@ head(PAIRS)
 
 ```
 ##   Network1 Network2   cor
-## 1     0000     0001 -0.05
-## 2     0000     0002 -0.34
-## 3     0000     0003 -0.87
-## 4     0000     0004  0.13
-## 5     0000     0005 -0.04
-## 6     0000     0006 -0.43
+## 1     0000     0001 -0.77
+## 2     0000     0002  0.73
+## 3     0000     0003  0.00
+## 4     0000     0004  1.00
+## 5     0000     0005 -0.94
+## 6     0000     0006 -0.55
 ```
 
 Alright, getting started with a circular plot (or a chord diagram) is not very hard. We'll be using the `circlize` package, which is what I have tampered with before. I did a quick search before this post and didn't find anything that stuck out more than this package, so I'll stick with it. If you have other chord diagram recommendations or requests, let me know in the comments and I'll have a look at it.
@@ -147,12 +147,12 @@ head(DATA)
 
 ```
 ##                              images names values     Group  gColor
-## 1 brainSlices/single/0000_trans.png  0000     70    Memory #CCC591
-## 2 brainSlices/single/0001_trans.png  0001     92 Executive #C27D38
-## 3 brainSlices/single/0002_trans.png  0002     19 Attention #798E87
-## 4 brainSlices/single/0003_trans.png  0003     79 Attention #798E87
-## 5 brainSlices/single/0004_trans.png  0004      1 Executive #C27D38
-## 6 brainSlices/single/0005_trans.png  0005    100 Executive #C27D38
+## 1 brainSlices/single/0000_trans.png  0000     56 Executive #C27D38
+## 2 brainSlices/single/0001_trans.png  0001     77    Memory #CCC591
+## 3 brainSlices/single/0002_trans.png  0002     10 Executive #C27D38
+## 4 brainSlices/single/0003_trans.png  0003     15    Memory #CCC591
+## 5 brainSlices/single/0004_trans.png  0004     10    Memory #CCC591
+## 6 brainSlices/single/0005_trans.png  0005     76    Memory #CCC591
 ```
 
 Now, this might feel a little odd, but we need to use the original data to add the colours we want. This is because the data the chord diagram is using is pair-wise, so the data is just not ordered in a way that is convenient to work with when you want to set one colour per network. For instance, neither of the network columns in `PAIRS` contains **all** the networks, they're each -1, so there is no complete list of the networks in the file. Thus, we will also struggle to create a complete list of colours and groups. So we will provide the values from the original data file to provide the colours we want.

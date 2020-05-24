@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [R, plot]
-image: '/blog/2018-12-13-christmas-tree-in-ggplot_files/figure-html/featured-1.gif' 
+image: '/blog/2018-12-13-christmas-tree-in-ggplot/index_files/figure-html/featured-1.gif' 
 
 ---
 
@@ -26,7 +26,7 @@ library(tidyverse, quietly = T)
 ```
 
 ```
-## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ───────────────────────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
@@ -37,7 +37,7 @@ library(tidyverse, quietly = T)
 ```
 
 ```
-## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
