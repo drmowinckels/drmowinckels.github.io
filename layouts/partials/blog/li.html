@@ -1,0 +1,15 @@
+<ul id="hexGrid">
+{{ range .Pages.ByPublishDate.Reverse }}
+    <li class="hex">
+        <div class="hexIn">
+          <a class="hexLink" href="{{ .Permalink }}">
+            {{ with .Params.featured_image }}<img src="{{ . }}"> {{ end }}
+            <h1>{{ .Title }}</h1>
+            {{ if .Params.date }} - <p>{{ .Date.Format (.Site.Params.dateFormat | default "Jan 02, 2006") }}</p>{{ end }}
+          </a>
+        </div>
+    </li>
+{{ end }}
+</ul>
+
+        
