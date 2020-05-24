@@ -5,10 +5,8 @@ date: '2019-01-19'
 output:
   html_document:
     keep_md: yes
-categories:
-  - R
-tags: [RStudio]
-featured_image: '/blog/2019-01-19-why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf.png' 
+tags: [R, RStudio]
+image: '/blog/2019-01-19-why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf.png' 
 
 ---
 

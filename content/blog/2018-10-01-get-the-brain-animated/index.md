@@ -9,8 +9,8 @@ categories:
   - Neuroimaging
   - R
 tags:
-  - Packages
-featured_image: '/blog/2018-10-01-get-the-brain-animated_files/figure-html/featured-1.gif' 
+  - Packages 
+image: '/blog/2018-10-01-get-the-brain-animated_files/figure-html/featured-1.gif' 
 ---
 
 

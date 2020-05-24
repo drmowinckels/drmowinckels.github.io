@@ -5,10 +5,8 @@ date: '2019-02-02'
 output:
   html_document:
     keep_md: yes
-categories:
-  - R
-tags: []
-featured_image: '/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/check_1.png' 
+tags: [R]
+image: '/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/check_1.png' 
 ---
 
 
@@ -236,7 +234,7 @@ se(numbers)
 ```
 
 ```
-## [1] 0.03988453
+## [1] 0.03908713
 ```
 
 ```r
@@ -245,7 +243,7 @@ sd(numbers)
 ```
 
 ```
-## [1] 0.2820262
+## [1] 0.2763878
 ```
 
 ```r
@@ -261,7 +259,7 @@ sd(numbers)/sqrt(50)
 ```
 
 ```
-## [1] 0.03988453
+## [1] 0.03908713
 ```
 
 The numbers correspond pretty nicely! What we just did, was test our function. We should formalist such a test so you can check if your functions work as expected and let you know when you break them (you will at some point, mostly by accident). 

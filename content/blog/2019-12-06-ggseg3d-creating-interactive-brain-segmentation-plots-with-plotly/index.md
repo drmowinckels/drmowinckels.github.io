@@ -6,13 +6,8 @@ output:
   html_document:
     keep_md: yes
 allow_html: true
-categories:
-  - R
-  - Neuroimaging
-tags:
-  - Packages
-  - Plots
-featured_image: "/blog/2019-12-06-ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still.png"
+tags: [Packages, Neuroimaging, Plots, R]
+image: "/blog/2019-12-06-ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still.png"
 ---
 
 

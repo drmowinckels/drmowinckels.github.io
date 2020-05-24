@@ -5,9 +5,8 @@ date: '2019-11-16'
 output:
   html_document:
     keep_md: yes
-categories: [R]
-tags: [GAMM] 
-featured_image: '/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/featured-1.png'
+tags: [R, GAMM] 
+image: '/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2_files/figure-html/featured-1.png'
 ---
 
 
@@ -38,7 +37,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
@@ -49,7 +48,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
