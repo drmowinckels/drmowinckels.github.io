@@ -1,6 +1,24 @@
-# netlify.toml
+
+[build] 
+  publish = "public"
+  command = "hugo "
+
+[context.production.environment]
+  command = "hugo --buildFuture -b $DEPLOY_PRIME_URL"
+  HUGO_VERSION = "0.67.1" 
+  HUGO_ENV = "production"
+
 [context.deploy-preview]
-command = "hugo -b $DEPLOY_PRIME_URL --buildFuture"
+  command = "hugo --buildFuture -b $DEPLOY_PRIME_URL"
+  HUGO_VERSION = "0.67.1"
 
 [context.branch-deploy]
-command = "hugo -b $DEPLOY_PRIME_URL --buildFuture"
+  command = "hugo --buildFuture -b $DEPLOY_PRIME_URL"
+  HUGO_VERSION = "0.67.1" 
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+
