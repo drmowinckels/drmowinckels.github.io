@@ -1,0 +1,273 @@
+---
+title: GAMM spaghetti plots in R with ggplot
+author: Dr. Mowinckel
+date: '2018-03-08'
+output:
+  html_document:
+    keep_md: yes
+image: '/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1.png'
+tags: [R, GAMM]
+draft: false
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.</p>
+<p>A co-worker was working on some generalized additive mixed models (GAMM) through the R package <a href="https://cran.r-project.org/web/packages/mgcv/mgcv.pdf">mgcv</a>. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R. However, they were with base-r, and we all know base-r is not the most beautiful plotting application. Also, we have a need to a spaghetti plot in the background, as the whole point with a GAMM is that we have repeated data, and showing those in the background is very essential. <strong>This</strong> is not easily done in base-r.</p>
+<p>This is what we have</p>
+<pre class="r"><code>library(tidyverse); library(mgcv)</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
+## ✓ tidyr   1.0.3     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## 
+## Attaching package: &#39;nlme&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     collapse</code></pre>
+<pre><code>## This is mgcv 1.8-31. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<pre class="r"><code>set.seed(0)
+n.g &lt;- 10
+n&lt;-n.g*10*4
+
+dat &lt;- gamSim(1,n=n,scale=2)</code></pre>
+<pre><code>## Gu &amp; Wahba 4 term additive model</code></pre>
+<pre class="r"><code>f &lt;- dat$f
+
+## simulate nested random effects....
+fa &lt;- as.factor(rep(1:10,rep(4*n.g,10)))
+ra &lt;- rep(rnorm(10),rep(4*n.g,10))
+fb &lt;- as.factor(rep(rep(1:4,rep(n.g,4)),10))
+rb &lt;- rep(rnorm(4),rep(n.g,4))
+for (i in 1:9) rb &lt;- c(rb,rep(rnorm(4),rep(n.g,4)))
+
+## simulate auto-correlated errors within groups
+e&lt;-array(0,0)
+for (i in 1:40) {
+  eg &lt;- rnorm(n.g, 0, sd(f))
+  for (j in 2:n.g) eg[j] &lt;- eg[j-1]*0.6+ eg[j]
+  e&lt;-c(e,eg)
+}
+
+dat$y &lt;- f + ra + rb + e
+dat$id &lt;- fa;dat$fb &lt;- fb</code></pre>
+<pre class="r"><code># Let&#39;s have a look at it
+dat %&gt;% 
+  ggplot(aes(x=x2, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>The data is not particularly well crafted, but it serves to make my point I believe. <code>geom_smooth</code> runs a loess model for prediction, which, given this data, makes a lot of sense. But it’s not what I want, and it won’t take into account the repeated measures. Let’s go over to the gamm models. I’ll omit gam, because you can easily get gams in ggplot by running:</p>
+<pre class="r"><code>dat %&gt;% 
+  ggplot(aes(x=x2, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_smooth(method=&quot;gam&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/plotGam1-1.png" width="672" /></p>
+<p>but that’s definately not what we want, despite the horrible data</p>
+<p>We could even give it a formula, which might look really nice. Not that the formula will read x and y in the formula as the ‘x’ and ‘y’ set in the <code>aes</code>. So don’t give it the actual names of the column, use ‘x’ and ‘y’.</p>
+<pre class="r"><code>dat %&gt;% 
+  ggplot(aes(x=x2, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_smooth(method=&quot;gam&quot;, formula=y~s(x,bs=&#39;cr&#39;))</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/plotGam2-1.png" width="672" /></p>
+<p>The downside to this is that it is only modelling the one term, and we want a fit that takes into account all our covariates, but only plots the one prediction, holding the others constant. trying to increase formula complexity in ggplot directly wont work, it’s just not made for something so complex.</p>
+<pre class="r"><code>dat %&gt;% 
+  ggplot(aes(x=x2, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_smooth(method=&quot;gam&quot;, formula=y~s(x,bs=&#39;cr&#39;) + s(group, bs=&quot;re&quot;))</code></pre>
+<pre><code>## Warning in predict.gam(model, newdata = data_frame(x = xseq), se.fit = se, : not all required variables have been supplied in  newdata!</code></pre>
+<pre><code>## Warning: Computation failed in `stat_smooth()`:
+## object &#39;group&#39; not found</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/plotGam3-1.png" width="672" /></p>
+<p>So, let’s have a look at what we want to model. This particular example is compelx, because it is the complex that is hard to predict and plot. The simple ones will work with the above, provigin a formula directly to <code>geom_stat</code>. We’re using three smoothing splines on three predictors in this model, and including two random intercepts. But we are really only interested in the <code>x2</code> smoothing spline, the others are just covariates of no interest.</p>
+<pre class="r"><code>b = gamm(y~s(x0,bs=&quot;cr&quot;)+s(x1,bs=&quot;cr&quot;)+s(x2,bs=&quot;cr&quot;)+
+           s(x3,bs=&quot;cr&quot;),data=dat,random=list(id=~1,fb=~1),
+         correlation=corAR1())
+
+# Output is a list of two
+b %&gt;% summary()</code></pre>
+<pre><code>##     Length Class Mode
+## lme 18     lme   list
+## gam 31     gam   list</code></pre>
+<pre class="r"><code># Let&#39;s see the model summary
+b$gam %&gt;% summary()</code></pre>
+<pre><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## y ~ s(x0, bs = &quot;cr&quot;) + s(x1, bs = &quot;cr&quot;) + s(x2, bs = &quot;cr&quot;) + 
+##     s(x3, bs = &quot;cr&quot;)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   7.6878     0.5131   14.98   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##         edf Ref.df      F p-value    
+## s(x0) 2.760  2.760  5.136 0.00925 ** 
+## s(x1) 1.938  1.938 61.438 &lt; 2e-16 ***
+## s(x2) 7.059  7.059 42.398 &lt; 2e-16 ***
+## s(x3) 1.000  1.000  0.185 0.66755    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.351   
+##   Scale est. = 13.963    n = 400</code></pre>
+<p>So I went googling, and in my frustration, there was very little help in what I found. <code>mgcv</code>’s gamm output is different from other analyses, as it gives a list containing an lme and gam model (which is really a GAMM model). So grabbing the smooth directly in ggplot will not work. Furthermore, we want one single smoothed predictor while still taking into account the rest of the predictors and covariates.</p>
+<p>I even <a href="https://stackoverflow.com/questions/48907493/ggplot2-geom-ribbon-from-mgcvgamm/48907846?noredirect=1#comment85066362_48907846">posted something on stackoverflow</a> (the example data is horrendous!), and the answer pointed me to <code>predict()</code>. So that’ what I did, I tried running <code>predict()</code> on the gamm output, but the resulting output was not what I wanted. <code>predict()</code> predicts based on all the predictors and covariates, and so, we are not plotting the one smoothed predictor, but a jumble of predictors. The resulting ‘smooth’ it not pretty, and completely wrong.</p>
+<pre class="r"><code>pred &lt;- predict(b$gam, se.fit=T)
+
+dat %&gt;% 
+  ggplot(aes(x=x2, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_ribbon(aes(ymin=pred$fit-1.96*pred$se.fit,
+                  ymax=pred$fit+1.96*pred$se.fit), alpha=0.2, fill=&quot;red&quot;)+
+  geom_line(aes(y=pred$fit), col=&quot;blue&quot;, lwd=1)</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Now, there are packages to help do this. For instance, visreg has a gamm plotting function. However, <a href="https://cran.r-project.org/web/packages/visreg/visreg.pdf">visreg</a> requires attached data, or each variable existing in the global environment. I don’t like working with attached data, in my opinion in makes the workflow less transparent, and it’s hard to debug issues. If you forget to detach the data, you can spend hours trying to figure out why things aren’t working, without noticing that the attached data may be messing things up.</p>
+<p>What we need to do, is predict all the data, keeping the other covariates constant, while only varying the predictor of interest. Right-o. If you’re good at simulating data etc, this might be easy for you. I’m pretty terrible at it (for lack of practise for sure).</p>
+<p>After trying for several days, without managing to make the plot I wanted, I tweeted my frustration.</p>
+{{< tweet 968428248026832896 >}}
+<p>And to the rescue comes twitter, a useR pointed me to <a href="https://cran.r-project.org/web/packages/itsadug/index.html">itsadug</a>. The obscure package I just could not manage to find through all my googling. <code>itsadug</code> has a predict function, where you can specify which predictor you want to predict on.</p>
+<p>If you give it the min, max and length of what you want to predict, it then generates data with all other predictors set to constants, for your convenient plotting. It was like magic, exactly what i was searching for. Now, I could plot what I wanted, just like I wanted it!</p>
+<pre class="r"><code>library(itsadug)</code></pre>
+<pre><code>## Loading required package: plotfunctions</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plotfunctions&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     alpha</code></pre>
+<pre><code>## Loaded package itsadug 2.4 (see &#39;help(&quot;itsadug&quot;)&#39; ).</code></pre>
+<pre class="r"><code># predict on x2
+pred = get_predictions(b$gam, 
+                       cond = list(x2 = seq(min(dat$x2, na.rm=T),
+                                            max(dat$x2, na.rm=T), 
+                                            length.out = nrow(dat)), se=T))</code></pre>
+<pre><code>## Summary:
+##  * x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+##  * x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+##  * x2 : numeric predictor; with 400 values ranging from 0.001315 to 0.999931. 
+##  * x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+##  * NOTE : No random effects in the model to cancel.
+## </code></pre>
+<pre class="r"><code># add y to predicted data, becasue ggplot requires all main variables in both datasets
+pred = pred %&gt;% mutate(y=1)
+
+dat %&gt;% 
+  ggplot(aes(x=x2, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_ribbon(data=pred, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI), show.legend = F, fill=&#39;forestgreen&#39;) +
+  geom_line(data=pred, aes(y=fit), show.legend = F, color=&#39;forestgreen&#39;)</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>That’s looking much nicer! Hurrah! I also made a convenience function for my self, to make the predicted data. This would only work for other numeric predictors, and it’s not particularly pretty coding, as it’s using ugly eval parsing, but that’s how I got it working for me.</p>
+<pre class="r"><code># Custom function that predicts on a single predictor, and adds the dependent with the value of 1
+GammPredData = function(data, gamm.model, condition){
+  
+  eval(parse(text=paste0(
+    &quot;get_predictions(gamm.model, cond = list(&quot;,
+    condition,
+    &quot;=seq(min(data[condition], na.rm=T),max(data[condition], na.rm=T), length.out = nrow(data)))) %&gt;% as.data.frame() %&gt;% mutate(&quot;,
+    str_split(gamm.model$formula, &quot; &quot;)[[2]],&quot;=1)&quot;)))
+}
+
+  # Use the function to predict on x2. you can easily supply the other predictors
+  pred = GammPredData(dat, b$gam, &quot;x2&quot;)</code></pre>
+<pre><code>## Summary:
+##  * x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+##  * x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+##  * x2 : numeric predictor; with 400 values ranging from 0.001315 to 0.999931. 
+##  * x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+##  * NOTE : No random effects in the model to cancel.
+## </code></pre>
+<pre class="r"><code>dat %&gt;% 
+  ggplot(aes(x=x2, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_ribbon(data=pred, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI), show.legend = F, fill=&#39;forestgreen&#39;) +
+  geom_line(data=pred, aes(y=fit), show.legend = F, color=&#39;forestgreen&#39;)</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>You might want to grab each predictor and plot them? That can be done also, and I’ll use a combination of <code>apply</code>’es to do so, for convenience. I love apply’es…</p>
+<pre class="r"><code># Predictions
+p = c(&quot;x0&quot;, &quot;x1&quot;, &quot;x2&quot;,&quot;x3&quot;)
+
+# we will be using facet_wrap, gather the data on the predictors, for a long data frame.
+dat2 = dat %&gt;% 
+  gather(Pred, x, p)</code></pre>
+<pre><code>## Note: Using an external vector in selections is ambiguous.
+## ℹ Use `all_of(p)` instead of `p` to silence this message.
+## ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
+## This message is displayed once per session.</code></pre>
+<pre class="r"><code>preds = list() # prepare a list
+
+# loop through the predictors
+for(i in 1:length(p)){
+  preds[[i]] = GammPredData(dat, b$gam, p[i]) %&gt;% 
+    select_(&quot;y&quot;, &quot;CI&quot;, &quot;fit&quot;, p[i])
+  names(preds)[i] = p[i]
+}</code></pre>
+<pre><code>## Summary:
+##  * x0 : numeric predictor; with 400 values ranging from 0.013078 to 0.996077. 
+##  * x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+##  * x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+##  * x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+##  * NOTE : No random effects in the model to cancel.
+## </code></pre>
+<pre><code>## Warning: select_() is deprecated. 
+## Please use select() instead
+## 
+## The &#39;programming&#39; vignette or the tidyeval book can help you
+## to program with select() : https://tidyeval.tidyverse.org
+## This warning is displayed once per session.</code></pre>
+<pre><code>## Summary:
+##  * x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+##  * x1 : numeric predictor; with 400 values ranging from 0.001837 to 0.999455. 
+##  * x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+##  * x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+##  * NOTE : No random effects in the model to cancel.
+##  
+## Summary:
+##  * x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+##  * x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+##  * x2 : numeric predictor; with 400 values ranging from 0.001315 to 0.999931. 
+##  * x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+##  * NOTE : No random effects in the model to cancel.
+##  
+## Summary:
+##  * x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+##  * x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+##  * x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+##  * x3 : numeric predictor; with 400 values ranging from 0.001642 to 0.996272. 
+##  * NOTE : No random effects in the model to cancel.
+## </code></pre>
+<pre class="r"><code># use bind_rows to make them into a large data frame, gather them, just like the data
+preds = bind_rows(preds)%&gt;% 
+  gather(Pred, x, p) %&gt;% 
+  na.omit()
+
+dat2 %&gt;% 
+  ggplot(aes(x=x, y=y)) + 
+  geom_line(alpha=.3,aes(group=id)) + 
+  geom_point(alpha=.3) +
+  geom_ribbon(data=preds, alpha=.4, aes(ymin=fit-CI, ymax=fit+CI, fill=Pred), show.legend = F) +
+  geom_line(data=preds, aes(y=fit, color=Pred), show.legend = F) +
+  facet_wrap(~Pred, scales=&quot;free&quot;)</code></pre>
+<p><img src="/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>And that is it. My first blogpost, and I hope it is to some help.</p>
+<p>Happy International Woman’s day!</p>
