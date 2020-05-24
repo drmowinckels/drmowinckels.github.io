@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2020-05-23'
+date: '2020-05-24'
 output:
   html_document:
     keep_md: yes
@@ -49,7 +49,7 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 |  2009| 2011|University of Oslo, Dept. of Psychology        |Student Council                                      |Representative for Cognitive Neuroscience Master.             |
 
 ### Publications & Citations
-![plot of chunk pubPlot](figure/pubPlot-1.png)
+![](index_files/figure-html/pubPlot-1.png)<!-- -->
 
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=9153014591895064781) Sleep _43 (5), zsz280_
 

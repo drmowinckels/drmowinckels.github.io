@@ -10,7 +10,7 @@ DefaultContentLanguage  = "en"                    # Default language for multili
 pygmentsCodeFences      = true   
 pygmentsUseClasses      = true
 pygmentsStyle           = "autumn"                      # Choose theme: https://help.farbox.com/pygments.html   
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html"] 
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html", "static/blog/\\*_files/"] 
 
 # Getting raw html to render 
 [markup] 
@@ -30,14 +30,12 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     email                        = "a.m.mowinckel@psykologi.uio.no"   # E-mail address for contact section
     customCSS                    = ["/css/syntax.css", "/css/custom-style.css", "/css/hexagongrid.css"]              # Include custom css files placed under assets/
     customHead                   = "head/custom.html"      # layouts/partials/
-    footerText = "Athanasia Monika Mowinckel CC-BY 2020. Feeding to [R weekly](https://rweekly.org'). See the sites [cookie policy](/cookies/cookies')."
-
     
     # Configure the home page
     [params.home]
         introHeight              = "fullheight"            # Input either "medium" or "large" or "fullheight"
-        showLatest               = true                    # Show latest blog post summary
-        showAllPosts             = false                   # Set true to list all posts on home page, or set false to link to separate blog list page
+        showLatest               = false                    # Show latest blog post summary
+        showAllPosts             = true                   # Set true to list all posts on home page, or set false to link to separate blog list page
         numberOfProjectsToShow   = 2                        # Maximum number of projects to show on home page. Unset or comment out to show all projects
         localTime                = true                    # Show your current local time in contact section
         timeZone                 = "Europe/Oslo"           # Your timezone as in the TZ* column of this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones

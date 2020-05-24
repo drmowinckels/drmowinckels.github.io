@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [R for psychologists,  R]
-image: '/blog/2018-11-09-r-just-dive-into-it_files/figure-html/featured-1.png'
+image: '/blog/2018-11-09-r-just-dive-into-it/index_files/figure-html/featured-1.png'
 ---
 
 
@@ -80,7 +80,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ────────────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
@@ -91,7 +91,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
