@@ -17,20 +17,20 @@ image: "/blog/changing-you-blogdown-workflow/lucille_sassy.gif"
 
 
 
-For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was _alot_ of work that needed to be done to make that happen. 
+For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was _a lot_ of work that needed to be done to make that happen. 
 I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes. 
 
-But last week I finally got working on it, and decided I would not stop untill I had it done. 
+But last week I finally got working on it, and decided I would not stop until I had it done. 
 I hoped this would take a day or two, my [toggl](https://toggl.com/) tells me I did almost 5 days of work to get it working.
-Ok, some of that was also preparing for contributing some changes to my theme, but still.
-I hit _alot_ of extra hurdles, and I'll try to document them all here, so that others might benefit from my struggles and avoid having to spend so much time in getting their blogdown updated.
+OK, some of that was also preparing for contributing some changes to my theme, but still.
+I hit _a lot_ of extra hurdles, and I'll try to document them all here, so that others might benefit from my struggles and avoid having to spend so much time in getting their blogdown updated.
 
 **Changes I did in short:**   
 1. alter my workflow from knitting `.html` to knitting `.md`  
 2. locate theme changes breaking the webpage  
 3. figuring out why local rendering was fine, while netlify was not implementing css  
 
-These things might not look llike much, but figuring out what needed to be done was quite a toil.
+These things might not look like much, but figuring out what needed to be done was quite a toil.
 So let's get to it!
 
 ## 1. alter my workflow from knitting `.html` to knitting `.md` 
@@ -40,21 +40,21 @@ So let's get to it!
 This was a major change to how I work. 
 After discussions with [Maëlle Salmon](https://twitter.com/ma_salmon) and [Steph Locke](https://twitter.com/TheStephLocke) about the caveats of blogdown rendering directly from `.Rmd` to `.html`, I decided to follow their advice and change the way I make content for my webpage. 
 
-To be consise, blogdown is usually used with [go hugo](https://gohugo.io/) a static webpage builder. 
-Hugo renders markdown `.md` to `html` (pluss some extra things, we will see some later), and basically sets up all the internal logics of your webpage as long as you theme is correctly set up. 
+To be concise, blogdown is usually used with [go hugo](https://gohugo.io/) a static webpage builder. 
+Hugo renders markdown `.md` to `html` (plus some extra things, we will see some later), and basically sets up all the internal logics of your webpage as long as you theme is correctly set up. 
 This is super convenient, and is one of the things that makes it popular. 
 Blogdown renders directly from `.Rmd` to `.html`, meaning it circumvents hugo's processing of `md` to `html`. 
 This can cause some unwanted issues when rendering pages, all depending on your theme.
 It can also make it difficult to maintain your webpage over time, as small changes might prompt or make it necessary to re-knit old posts, and we all know how difficult it can be with R-versions and package-versions over time. 
 
 Furthermore, blogdown does not take _real_ advantage of hugo [page bundles](https://gohugo.io/content-management/page-bundles/).
-Page bundles are great as instead of making a single file for a post, you create a `subfolder` for the post (i.e. subfolder is the posts slug), and the document file is simply called `index.Rmd`. 
-Bundles will have all files within the subfolder copied over to `public` (where hugo by default places all rendered website), meaning your post can work with relative file paths. 
+Page bundles are great as instead of making a single file for a post, you create a `subfolder` for the post (i.e. sub-folder is the posts slug), and the document file is simply called `index.Rmd`. 
+Bundles will have all files within the sub-folder copied over to `public` (where hugo by default places all rendered website), meaning your post can work with relative file paths. 
 Previously, you needed to have an awkward workflow having (for instance) data or image files in a location for your `.Rmd` to access, and _also_ in `static` for it to be copied over to the website resources. 
 such a pain, using bundles makes all this a thing of the past!
 
-Lastly, in my case my theme relied on using the code fencing in the `md`s (i.e. the backticks used in `md`'s to indicate that there piece of text is code) for it to format the code with code highlighting. 
-Because blogdown renderes directly to `html` there is not code fencing and all my code just looked like the normal blog text. 
+Lastly, in my case my theme relied on using the code fencing in the `md`s (i.e. the back-ticks used in `md`'s to indicate that there piece of text is code) for it to format the code with code highlighting. 
+Because blogdown renders directly to `html` there is not code fencing and all my code just looked like the normal blog text. 
 This made for pretty hard to read posts.
 
 function(s) s*100
@@ -111,15 +111,15 @@ options(blogdown.new_bundle = TRUE,        # force making page bundle (i.e folde
 ```
 
 You'll need to restart R for the profile to be implemented, and from then on you will be working with page bundles instead of single files. 
-Just put your data and extra images, whatever you need, inside the post folder and they will be ported together with the psot it self.
+Just put your data and extra images, whatever you need, inside the post folder and they will be ported together with the post it self.
 
 **What about all my old posts**?
 Good question. 
 In my case I needed to re-knit everything, so that I would get the files created correctly for the bundle.
-Thankfuly last year was unfruitful blog-wise due to a pretty abyssmal personal year.
-So the poor blogging was a savior when doing this, as there was not too much to redo.
+Thankfully last year was unfruitful blog-wise due to a pretty abyssal personal year.
+So the poor blogging was a saviour when doing this, as there was not too much to redo.
 
-Before going through each individual post and making sure it was knitting as expected, I prepared things for bundinling using a bash loop.
+Before going through each individual post and making sure it was knitting as expected, I prepared things for bundling using a bash loop.
 
 
 ```bash
@@ -160,7 +160,7 @@ Archetypes depend on your theme, so really you should look at the archetypes alr
 In this case, we are adding something to the archetype which does not already exist, we want to add the yaml bit above, so that is ends up in every new post. 
 
 If your project does not already have an `archetypes` folder, make one, and create a file within that folder again with the name of your archetype.
-You can have several archetypes, maybe you have a series of posts with some specific yaml content or the like, and you shoudl therefore name them something that makes it obvious to you what the archetype contains. 
+You can have several archetypes, maybe you have a series of posts with some specific yaml content or the like, and you should therefore name them something that makes it obvious to you what the archetype contains. 
 
 
 In my archetype for blogpost, it looks like so:
@@ -183,7 +183,7 @@ image: index_files/
 
 ```
 
-where I have made sure that I am the author, that date and title are autofilled, and a reminder to me to add an `image` for my post, which is important to the adjustment I made to my theme (the grid of posts with the images). 
+where I have made sure that I am the author, that date and title are auto-filled, and a reminder to me to add an `image` for my post, which is important to the adjustment I made to my theme (the grid of posts with the images). 
 I'll get to `always_allow_html: true` later.
 
 Notice also I have added the snippet of `yaml` from above. 
@@ -194,9 +194,9 @@ This means that every post based on this archetype will have a yaml containing t
 
 now, we need to stop using `blogdown::serve_site()` because it messes up with the above workflow. 
 If you have knit an `.Rmd` before you will have noticed that it makes a folder called `[title]_files/`. 
-In this folder, all images, widgets etc from your code chunks in the `.Rmd` are stored, so that the end document has access to what the code has made. 
-Blogdown has a pipeline that taked this folder, renames it and places in static, and also alters come pieces in the `html` to access the files from this renames and relocated folder. 
-We dont want this anymore. 
+In this folder, all images, widgets etc. from your code chunks in the `.Rmd` are stored, so that the end document has access to what the code has made. 
+Blogdown has a pipeline that takes this folder, renames it and places in static, and also alters come pieces in the `html` to access the files from this renames and relocated folder. 
+We don't want this any more. 
 Since we are bundling the page, the folder made for the post is within the bundled folder, meaning it will be ported with all other files and all paths are already working. 
 If you run `blogdown::serve_site()` it will mess up the nice changes we have made!
 
@@ -246,7 +246,7 @@ Another thing for the toml is to make sure that html within the `md`s are render
 By default, hugo will not render things written in html.
 While plain markdown (`md`) does render it, hugo will omit it.
 
-If you look into the `html` made by hugo, you will suddenlyt see a bit looking like this:
+If you look into the `html` made by hugo, you will suddenly see a bit looking like this:
 
 
 ```html
@@ -260,7 +260,7 @@ Which I did, and it did not really work, I say really because it worked for most
 
 Then i finally understood it was hugo!
 In addition to adding `always_allow_html: true` to the yaml of the post (which is why it is now in my archetype), I also needed hugo to compile in a specific way!
-I needed to tell hugo wich markup (hugo's name for markdown) handler to use!
+I needed to tell hugo which markup (hugo's name for markdown) handler to use!
 I found [this post](https://jdhao.github.io/2019/12/29/hugo_html_not_shown/) on jdhaos blog on this exact issue.
 In my `config.toml` I added:
 
@@ -278,7 +278,7 @@ and presto! site was also rendering html content and widgets!
  
 Then once I had that in place, I needed to figure out what in my theme had changed, to work with newer hugo.
 This was a bit of a pain, a lot of internal logic in my theme had changed, and I needed to find them to get it fixed.
-One main thing was that projects, blog etc were altered to work with page bundles. Once I understood this it became more clear what I needed to do.
+One main thing was that projects, blog etc. were altered to work with page bundles. Once I understood this it became more clear what I needed to do.
 Rather than have `content/projects/ggseg.Rmd` I needed to have `content/projects/ggseg/index.Rmd` just like the blogposts.
 I did this for my projects, but they were still not displaying.
 
@@ -302,7 +302,7 @@ While I am a scientist and have lost of research projects ongoing, here I'd rath
 ```
 
 This was also necessary for `contents/blog`. Once those were in place, the main bulk of my page was working again.
-The remainder is very theme specific and a result of me tweaking my theme alot within the `layouts` folder. 
+The remainder is very theme specific and a result of me tweaking my theme a lot within the `layouts` folder. 
 I don't recommend doing many `layouts` changes, keep them minimal. In the new version I have now I have few extra layouts.
 
 ## 3. figuring out why local rendering was fine, while netlify was not implementing css  
@@ -315,16 +315,16 @@ I tried everything in that post, to no avail.
 My css was not being applied.
 
 [Maëlle Salmon](https://twitter.com/ma_salmon)  to the rescue again, telling me to have a look in my developers console. 
-I am no developer, atleast I don't' think of myself as one, so I forget about this. 
+I am no developer, at least I don't' think of myself as one, so I forget about this. 
 In the rendered netlify page, I right clicked, chose `Inspect` and in the pane that opened chose the `console`. 
-I have used the `elements` page a lot, to figure out where I coould tweak my css to look like I wanted, and do find where other issues might arise, but I've not really ever used the console!
+I have used the `elements` page a lot, to figure out where I could tweak my css to look like I wanted, and do find where other issues might arise, but I've not really ever used the console!
 
 and in the console was this beauty of an error:
 ```
 blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource
 ```
 
-I had (and still have) no idea what that meant, but googleing an error is easy, so I did.
+I had (and still have) no idea what that meant, but goggling an error is easy, so I did.
 And up popped [this post](https://community.netlify.com/t/access-control-allow-origin-policy/1813) on the netlify forums providing an answer.
 Put a bit of information in your `netlify.toml`(not the `config.toml`!):
 
@@ -346,3 +346,4 @@ On a newer hugo, with an updated theme, and new theme tweaks I'm really fond of.
 
 ![](lucille_sassy.gif)<!-- -->
 
+In the future, perhaps we don't need to do a lot of this cumbersome stuff, if [hugodown](https://github.com/r-lib/hugodown) gets developed and matures. I have high hopes for this package!
