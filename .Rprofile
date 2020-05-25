@@ -3,4 +3,7 @@ if (file.exists("~/.Rprofile")) {
   base::sys.source("~/.Rprofile", envir = environment())
 }
 
-options(blogdown.new_bundle = TRUE)
+options(blogdown.new_bundle = TRUE,
+        blogdown.author = "Dr. Mowinckel",
+        blogdown.ext = '.Rmd',
+        blogdown.subdir	 = "blog")
