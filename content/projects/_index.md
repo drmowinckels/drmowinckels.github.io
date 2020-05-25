@@ -1,5 +1,5 @@
 ---
-title: "Projects"
+title: "R-package projects"
 weight: 10
 output:
   html_document:
