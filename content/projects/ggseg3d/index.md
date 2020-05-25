@@ -1,5 +1,5 @@
 ---
-title: "ggseg3d"
+title: "3d mesh visualisation of brain segmentations"
 image: "logo.png"
 external_link: ""
 output:
