@@ -1,5 +1,5 @@
 
-#hexGrid {
+#postGrid {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
@@ -11,7 +11,9 @@
   list-style-type: none;
 }
 
+/* hex grid */
 .hex {
+  flex-basis: calc(20% - 10px);
   position: relative;
   visibility:hidden;
   outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
@@ -50,8 +52,88 @@
             transform: skewY(-30deg) rotate3d(0,0,1,60deg);
 }
 
-/*** HEX CONTENT **********************************************************************/
-.hex img {
+/* square grid */
+.square {
+  position: relative;
+  flex-basis: calc(20% - 10px);
+  margin: 5px;
+  border: 1px solid;
+  box-sizing: border-box;
+  visibility:hidden;
+  outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
+}
+.square::after{
+  content:'';
+  display:block;
+  padding-bottom: 86.602%;  /* =  100 / tan(60) * 1.5 */
+}
+.squareIn{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*padding-bottom: 110.851%; /* =  width / sin(60) */
+  margin:0 2%;
+  overflow: hidden;
+  visibility: hidden;
+  outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
+}
+.squareIn * {
+  position: absolute;
+  visibility: visible;
+  outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
+}
+.squareLink {
+  display:block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* circle grid */
+.circle {
+  position: relative;
+  flex-basis: calc(20% - 10px);
+  margin: 5px;
+  border: 1px solid;
+  box-sizing: border-box;
+  visibility:hidden;
+  outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
+}
+.circle::after{
+  content:'';
+  display:block;
+  padding-bottom: 86.602%;  /* =  100 / tan(60) * 1.5 */
+}
+.circleIn{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding-bottom: 100%;
+  margin:0 2%;
+  overflow: hidden;
+  visibility: hidden;
+  outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
+}
+.circleIn * {
+  position: absolute;
+  visibility: visible;
+  outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
+}
+.circleLink {
+  border-radius: 50%;
+  display:block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+/*** CONTENT **********************************************************************/
+.hex img, .square img, .circle img{
   left: -100%;
   right: -100%;
   width: auto;
@@ -63,7 +145,9 @@
           transform: rotate3d(0,0,0,0deg);
 }
 
-.hex h1, .hex p {
+.hex h1, .hex p, 
+.square h1, .square p,
+.circle h1, .circle p{
   width: 100%;
   padding: 5%;
   color: #fff;
@@ -73,7 +157,7 @@
   -webkit-transition:  -webkit-transform .2s ease-out, opacity .3s ease-out;
           transition:          transform .2s ease-out, opacity .3s ease-out;
 }
-.hex h1 {
+.hex h1, .square h1 , .circle h1 {
   bottom: 0%;
   color: #fff
   z-index: 1;
@@ -85,7 +169,7 @@
           transform:translate3d(0,0,0);
 
 }
-.hex h1::after {
+.hex h1::after, .square h1:after, .circle h1:after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -95,7 +179,7 @@
   border-bottom: 1px solid #fff;
 }
 
-.hex p {
+.hex p, .square p, .circle p {
   font-size: 14px;
   padding-top: 0%;
   -webkit-transform:translate3d(0,-200%,0);
@@ -105,11 +189,15 @@
 
 
 /*** HOVER EFFECT  **********************************************************************/
-.hexLink:hover h1, .hexLink:focus h1{
+.hexLink:hover h1, .hexLink:focus h1,
+.squareLink:hover h1, .squareLink:focus h1,
+.circleLink:hover h1, .circleLink:focus h1{
   background-color: #78888b;
 }
 
-.hexLink:hover p, .hexLink:focus p{
+.hexLink:hover p, .hexLink:focus p,
+.squareLink:hover p, .squareLink:focus p,
+.circleLink:hover p, .circleLink:focus p{
   -webkit-transform:translate3d(0,-30%,0);
       -ms-transform:translate3d(0,-30%,0);
           transform:translate3d(0,-30%,0);
@@ -117,55 +205,55 @@
 
 /*** HEXAGON SIZING AND EVEN ROW INDENTATION *****************************************************************/
 @media (min-width:1201px) { /* <- 5-4  hexagons per row */
-  #hexGrid{
+  #postGrid{
     padding-bottom: 4.4%
   }
-  .hex {
-    width: 20%; /* = 100 / 5 */
+  .hex, .square, .circle{
+    flex-basis: calc(20% - 10px);
   }
-  .hex:nth-child(9n+6){ /* first hexagon of even rows */
+  .hex:nth-child(9n+6), .circle:nth-child(9n+6){ /* first hexagon of even rows */
     margin-left:10%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
 @media (max-width: 1200px) and (min-width:901px) { /* <- 4-3  hexagons per row */
-  #hexGrid{
+  #postGrid{
     padding-bottom: 5.5%
   }
-  .hex {
-    width: 25%; /* = 100 / 4 */
+  .hex, .square, .circle{
+    flex-basis: calc(25% - 10px);
   }
-  .hex:nth-child(7n+5){ /* first hexagon of even rows */
-    margin-left:12.5%;  /* = width of .hex / 2  to indent even rows */
+  .hex:nth-child(7n+5), .circle:nth-child(7n+5){ /* first hexagon of even rows */
+    margin-left: 12.5%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
 @media (max-width: 900px) and (min-width:601px) { /* <- 3-2  hexagons per row */
-  #hexGrid{
+  #postGrid{
     padding-bottom: 7.4%
   }
-  .hex {
-    width: 33.333%; /* = 100 / 3 */
+  .hex, .square, .circle{
+    flex-basis: calc(33.3333% - 10px);
   }
-  .hex:nth-child(5n+4){ /* first hexagon of even rows */
-    margin-left:16.666%;  /* = width of .hex / 2  to indent even rows */
+  .hex:nth-child(5n+4), .circle:nth-child(5n+4){{ /* first hexagon of even rows */
+    margin-left: 16.666%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
 @media (max-width: 600px) { /* <- 2-1  hexagons per row */
-  #hexGrid{
+  #postGrid{
     padding-bottom: 11.2%
   }
-  .hex {
-    width: 50%; /* = 100 / 3 */
+  .hex, .square, .circle{
+    flex-basis: calc(50% - 10px);
   }
-  .hex:nth-child(3n+3){ /* first hexagon of even rows */
-    margin-left:25%;  /* = width of .hex / 2  to indent even rows */
+  .hex:nth-child(3n+3), .cirle:nth-child(3n+3){ /* first hexagon of even rows */
+    margin-left: 25%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
 @media (max-width: 400px) {
-    #hexGrid {
+    #postGrid { 
         font-size: 13px;
     }
 }
