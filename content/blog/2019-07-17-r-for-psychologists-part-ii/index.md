@@ -18,7 +18,7 @@ Life has been unexpectedly overwhelming for a period, still is I guess, but one 
 I'm sitting in old town Fredrikstad while my cat is getting some tests at the vets', so I finally get some time and want to write something here.
 And we will continue with some R for Psychologists.
 
-I my first [R for Psychologists](blog/r-just-dive-into-it/) post we really dove into it. 
+I my first [R for Psychologists](/blog/2018-11-09-r-just-dive-into-it/) post we really dove into it. 
 I very quickly covered getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model.
 That was really quite the mountful of topics to cover. 
 In this part, I'll take you more through plotting.

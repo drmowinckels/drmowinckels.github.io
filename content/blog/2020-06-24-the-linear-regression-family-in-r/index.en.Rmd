@@ -299,6 +299,23 @@ In this case, we see that both models agree that there is no difference.
 The approaches are mathematically solved slightly differently, but should produce the same conclusions in most instances (particularly when there are only two factor levels).
 Particularly notice how the `formula` are actually the same! 
 
+**Edit June 26th 2020**: it was pointed out to me by my esteemed colleague, Prof. Westerhausen, that actually the F-statistic for the `lm` model acutally is the same as the squared t-statistic in the `aov` test! And because it's squared, it also has to be positive.
+
+```{r}
+# take the square root of the anova stat
+sqrt(model_4_anova_tidy$statistic[1])
+# same as stat from lm
+model_4_lm_tidy$statistic[2]
+
+# or, square the lm stat
+model_4_lm_tidy$statistic[2]^2
+# same as anova stat
+model_4_anova_tidy$statistic[1]
+```
+
+that is so neat!
+
+
 # ANCOVA
 Analysis of covariance is something you would run if you had another continuous (scalar) variable you want to use as a predictor for your dependent variable. 
 For instance, we have a measure of confidence, perhaps confidence levels at baseline affect the success of the intervention? 
@@ -338,6 +355,15 @@ The same goes for the confidence variable.
 Only difference that makes me surprised here is that the `aov` model has a positive statistic for confidence, while the `lm` has negative.
 But given that these are both so close to 0, likely even small differnce in mathematical solution could result in tipping from one side of 0 to the other. 
 
+**Edit June 26th 2020**: and just like in the anova, we can also compare the statistics by squaring the stats from the linear model to make them the same as the ones from the ancova.
+
+```{r}
+# or, square the lm stat
+model_5_lm_tidy$statistic[-1]^2
+# same as anova stat
+model_5_ancova_tidy$statistic
+```
+
 
 
 # Two-way ANOVA
@@ -374,6 +400,7 @@ kable(results) %>%
 
 Formula are again the same, but the outputs are different.
 Again, these are solved slightly differently mathematically, but they should in most cases return the same end conclusion (especially when there are only two factor levels).
+
 In the table from model `aov`, again we get a general assessment of whether each variable we used as a whole makes any difference.
 While in the `lm` model we get an evaluation of whether a specific level of a categorical variable deviates significantly from baseline level.
 Because this is hard to convey with only two groups, let's make a somewhat stupid example to show what happens when a factor has more than two levels. 
