@@ -2,6 +2,7 @@
 title: "Talks & Workshops"
 subtitle: "I have several topics related to R and Neuroscience that I am available to do."
 weight: 1
+type: projects
 output:
   html_document:
     keep_md: yes
@@ -9,3 +10,4 @@ output:
 
 This is a list of workshops and talks I have held before, and am available to do again. 
 In this list I also have topics I _could_ present, but have currently only in development.
+ 

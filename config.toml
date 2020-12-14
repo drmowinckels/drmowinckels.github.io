@@ -1,5 +1,5 @@
 baseURL                 = "https://drmowinckels.io/"  # Your domain name. Must end with "/"
-theme                   = "introduction"   
+theme                   = "my-introduction"   
 title                   = "Dr. Mowinckel's"
 enforce_ssl             = true
 builddrafts             = false                             # Include pages with draft status of true
@@ -87,26 +87,30 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
         icon_pack = "fab"
 
 # If you don't want to use the default menu, you can define one by yourself
-#[[menu.main]] 
-#   name    = "Home"
-#   url     = "/"
-#   weight  = 1
-#[[menu.main]]
-#   name    = "About me"
-#   url     = "/aboutme/"
-#   weight  = 2
-#[[menu.main]]
-#   name    = "Projects"
-#   url     = "#projects"
-#   weight  = 3
-#[[menu.main]]
-#   name    = "Blog"
-#   url     = "/blog/"
-#   weight  = 4
-#[[menu.main]]
-#   name    = "Contact"
-#   url     = "#contact"
-#   weight  = 5
+[[menu.main]] 
+   name    = "Home"
+   url     = "/"
+   weight  = 1
+[[menu.main]]
+   name    = "About me"
+   url     = "/aboutme/"
+   weight  = 2
+[[menu.main]]
+   name    = "R-package projects"
+   url     = "/projects/"
+   weight  = 3
+[[menu.main]]
+   name    = "Blog"
+   url     = "/blog/"
+   weight  = 4
+[[menu.main]]
+   name    = "Talks & Workshops"
+   url     = "/workshops/"
+   weight  = 5
+[[menu.main]]
+   name    = "Contact"
+   url     = "#contact"
+   weight  = 6
 
 # We only use tag as a taxonomies
 # You can add more by yourself

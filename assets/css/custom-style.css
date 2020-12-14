@@ -50,7 +50,7 @@ h3, h4, h5, h6 {
 
 .section {
   font-family: Cormorant Garamond, serif !important; 
-  background-color: #f6f0ea;
+  background-color: #fffefd;
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #fffefd, #f6f0ea);
   /* Chrome 10-25, Safari 5.1-6 */
@@ -64,13 +64,15 @@ h3, h4, h5, h6 {
 .hero {
   font-family: Cormorant Garamond, serif !important;
   font-weight: 400;
-  background: #f6f0ea;
+  background: #fffefd;
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #fffefd, #f6f0ea);
   /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #fffefd, #f6f0ea);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: url(img/logo.png) center center no-repeat; }
+  background: url(img/logo.png) center center no-repeat; 
+  background-size: contain;
+}
 
 a {
   color: #4E6769; }
@@ -163,7 +165,12 @@ pre {
 }
 
 .card {
-  background-color: #f6f0ea; }
+  background-color: #f6f0ea; 
+}
+
+.figure.image{
+  object-fit: contain;
+}
   
 .card-content {
   background-color: #f6f0ea;
