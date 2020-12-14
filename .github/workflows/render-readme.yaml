@@ -14,9 +14,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown, remotes, and the local package
         run: |
-          install.packages(c("remotes", "dplyr", "tidyr", "ggplot2", "scholar", "knitr"))
-          remotes::install_local(".")
-          remotes::install_cran("rmarkdown")
+          install.packages(c("rmarkdown","dplyr", "tidyr", "ggplot2", "scholar", "knitr"))
         shell: Rscript {0}
       - name: Render README
         run: Rscript -e 'rmarkdown::render("content/aboutme/index.Rmd")'
