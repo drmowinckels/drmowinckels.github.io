@@ -8,35 +8,44 @@ allow_html: yes
 ---
  
 ```{r "setup", include=F,echo=F, warning=F, error=F}
-library(tidyverse);
+library(dplyr);
+library(ggplot2)
+library(tidyr)
+library(knitr);
+opts_chunk$set(echo=FALSE, warning=FALSE, error=FALSE, message = FALSE)
 options(knitr.kable.NA = '')
-CV = rio::import_list("~/Dropbox/Privat/Jobbsøking/CV-attester-etc/CV.xlsx")
+
+read_table <- function(x){
+  read.table(x, 
+             sep="\t", 
+             header = TRUE, 
+             stringsAsFactors = FALSE)
+}
 ```
 
 <img src="profile.png" align="left" width="33%" style="padding: 1em; border:none; border-radius: 25px; background: transparent; box-shadow: none;">
 
 ### In short
 
-I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no). I'm passionate about cognitive neuroscience, using R and teaching the world the wonders of R. Doing all I can to improve gender diversity and equity in the R-community though [RLadies-Oslo](https://twitter.com/RLadies_Oslo). 
+I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no). I'm passionate about cognitive neuroscience, using R and teaching the world the wonders of R. Doing all I can to improve gender diversity and equity in the R-community though [R-Ladies Oslo](https://twitter.com/RLadies_Oslo) and on the [R-Ladies Global Team](https://rladies.org/about-us/team/). 
 
 
 ### Education  
-```{r "Education", echo=F, results='asis'}
-CV$EDU %>%  
-  knitr::kable("markdown", booktabs = T)
-
+```{r "Education", echo=FALSE, results='asis'}
+read_table("data/edu.tsv") %>%  
+  kable("markdown", booktabs = T)
 ```
 
 ### Work  
-```{r "Work", echo=F}
-CV$WORK %>% 
-  knitr::kable("markdown", booktabs = T)
+```{r "Work", echo=FALSE}
+read_table("data/work.tsv") %>%  
+  kable("markdown", booktabs = T)
 ```
 
 ### Commissions  
-```{r "Commissions", echo=F}
-CV$COMMISSION %>% 
-  knitr::kable("markdown", booktabs = T)
+```{r "Commissions", echo=FALSE}
+read_table("data/commission.tsv") %>%  
+  kable("markdown", booktabs = T)
 ```
 
 ### Publications & Citations
@@ -68,6 +77,7 @@ scholar::get_citation_history("7NkxgWQAAAAJ") %>%
 
 ```{r "pubList", results='asis', warning=FALSE, echo=FALSE}
 pubs = scholar::get_publications("7NkxgWQAAAAJ") %>% 
+  as_tibble() %>% 
   filter(journal != "") %>% 
   mutate(cid     = ifelse(is.na(cid), NA, paste0("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=", cid)), 
          author  = gsub("Mowinckel", "**Mowinckel**", author), 
@@ -75,8 +85,9 @@ pubs = scholar::get_publications("7NkxgWQAAAAJ") %>%
          number  = paste0("_",number,"_"),
          year    = paste0("(",year,")")) %>% 
   arrange(desc(year)) %>% 
-  transmute(pub=paste(author, year, title, journal, number, collapse="\n\n")) 
-cat(pubs[1,])
+  rowwise() %>% 
+  mutate(pub=paste(author, year, title, journal, number, "\n")) 
+k <- lapply(pubs$pub, cat, sep="\n")
 
 ```
 
