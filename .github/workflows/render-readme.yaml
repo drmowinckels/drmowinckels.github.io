@@ -3,7 +3,7 @@ on:
     paths:
       - README.Rmd
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 11 * * *"
 
 name: Render about me 
 
@@ -29,5 +29,5 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git commit content/aboutme/index.Rmd -m 'Re-build about me' || echo "No changes to commit"
+          git commit content/aboutme -m 'Re-build about me' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
