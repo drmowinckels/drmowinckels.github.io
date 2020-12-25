@@ -1,7 +1,7 @@
 ---
 title: R-Package Advent Calendar 2020
 author: Dr. Mowinckel
-date: '2020-12-19'
+date: '2020-12-25'
 slug: r-package-advent-calendar-2020
 categories: []
 tags:
@@ -12,7 +12,7 @@ output:
   html_document:
     keep_md: yes
 always_allow_html: yes
-image: index_files/
+image: "/blog/r-package-advent-calendar-2020/featured.png"
 type: blog
 ---
 
@@ -313,11 +313,11 @@ get_todays(completed, pks)
 ```
 
 ```
-## reactable
+## rio
 ```
 
 ```
-## [1] 24
+## [1] 2
 ```
 
 Now, there is a slight problem with my function.
