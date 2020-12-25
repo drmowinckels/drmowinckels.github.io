@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2020-12-24'
+date: '2020-12-25'
 output:
   html_document:
     keep_md: yes
@@ -77,9 +77,9 @@ A Fjell, O Sorensen, IK Amlien, D Bartrés-Faz, A Brandmaier, D Macia, ... (2020
 
 D Vidal-Pineiro, MH Sneve, IK Amlien, HH Grydeland, AM **Mowinckel**, ... (2020) _The functional foundations of episodic memory remain stable throughout the lifespan_ bioRxiv __ 
 
-AM Fjell, CH Chen, D Sederevicius, MH Sneve, H Grydeland, ... (2019) [_Continuity and discontinuity in human cortical development and change from embryonic stages to old age_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=12292935935753013374) Cerebral Cortex _29 (9), 3879-3890_ 
-
 AM **Mowinckel**, D Vidal-Piñeiro (2019) [_Visualisation of brain statistics with r-packages ggseg and ggseg3d_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=14033947876110404932) arXiv preprint arXiv: _:1912.08200_ 
+
+AM Fjell, CH Chen, D Sederevicius, MH Sneve, H Grydeland, ... (2019) [_Continuity and discontinuity in human cortical development and change from embryonic stages to old age_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=12292935935753013374) Cerebral Cortex _29 (9), 3879-3890_ 
 
 D Vidal-Piñeiro, MH Sneve, LH Nyberg, AM **Mowinckel**, D Sederevicius, ... (2019) [_Maintained frontal activity underlies high memory function over 8 years in aging_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=17089103347718824083) Cerebral Cortex _29 (7), 3111-3123_ 
 
