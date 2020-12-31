@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2020-12-30'
+date: '2020-12-31'
 output:
   html_document:
     keep_md: yes
@@ -57,9 +57,9 @@ VM Danielsen, DV Pineiro, AM **Mowinckel**, D Sederevicius, AM Fjell, ... (2020)
 
 D Vidal-Pineiro, N Parker, J Shin, L French, H Grydeland, AP Jackowski, ... (2020) [_Cellular correlates of cortical thinning throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5860637791443459396) BioRxiv _585786_ 
 
-Ø Sørensen, AM Brandmaier, DM Bros, K Ebmeier, P Ghisletta, RA Kievit, ... (2020) [_Meta-Analysis of Generalized Additive Models in Neuroimaging Studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) arXiv preprint arXiv: _:2002.02627_ 
-
 KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2020) [_Genetic risk for Alzheimer disease predicts hippocampal volume through the human lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=2204833211052181607) Neurology Genetics _6 (5)_ 
+
+Ø Sørensen, AM Brandmaier, DM Bros, K Ebmeier, P Ghisletta, RA Kievit, ... (2020) [_Meta-Analysis of Generalized Additive Models in Neuroimaging Studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) arXiv preprint arXiv: _:2002.02627_ 
 
 KB Walhovd, ACS Bråthen, MS Panizzon, AM **Mowinckel**, Ø Sørensen, ... (2020) _Within-session verbal learning slope is predictive of lifespan delayed recall, hippocampal volume, and memory training benefit, and is heritable_ Scientific reports _10 (1), 1-13_ 
 
