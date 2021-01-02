@@ -96,8 +96,8 @@ dt <- tribble(
 
 
 <div class="container">
-  <ul id="postGrid" style="padding: 0; margin: 5%;">
-```{r, results='asis', echo = FALSE}
+  <ul id="postGrid">
+```{r, results='asis', echo = FALSE, out.width="100%"}
 dt$grid  
 ```
   </ul>

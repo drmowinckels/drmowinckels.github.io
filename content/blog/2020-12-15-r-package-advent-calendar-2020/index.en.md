@@ -36,7 +36,7 @@ There are other packages that could cover some or all of the same functionality 
 
 
 <div class="container">
-  <ul id="postGrid" style="padding: 0; margin: 5%;">
+  <ul id="postGrid">
 <li class="square">
     <div class="squareIn">
       <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1334054102905593861">
@@ -313,11 +313,11 @@ get_todays(completed, pks)
 ```
 
 ```
-## rio
+## xaringanExtra
 ```
 
 ```
-## [1] 2
+## [1] 15
 ```
 
 Now, there is a slight problem with my function.
