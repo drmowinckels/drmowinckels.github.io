@@ -1,0 +1,168 @@
+---
+title: New Year's Wishes
+author: Dr. Mowinckel
+date: '2020-12-31'
+slug: 2020-12-31-new-year-s-wishes
+categories: []
+tags:
+  - R
+  - Plots
+output:
+  html_document:
+    keep_md: yes
+always_allow_html: yes
+image: '/blog/2020-12-31-new-year-s-wishes/index.en_files/figure-html/featured-1.png'
+---
+
+```{r setup, include=F}
+library(tidyverse)
+```
+
+It's time for a new year, and I think we are all ready for it!
+At least I am. 
+
+This is just a short post, with a ggplot2 holiday card wishing you all a better 2021 than 2020!
+Let's face it, there not much needed for that to happen, and with vaccines being distributed I have hopes. 
+
+I hope the New Year, at some point, makes it possible to start going to conferences again and that I can get to meet ore R-aficionados when the time allows. 
+
+As previous years, I wanted to make a holiday card for you all in ggplot2.
+You may ask why I keep plotting these ridiculous things in ggplot2, but the answer is quite simple: why not?
+Other than being fun, it's also a nice exercise in thinking about and exploring how data need to look to create a certain output. 
+I find these holiday cards help me understand the geoms, how ggplot2 works, and how to think about grid structures.
+
+
+## Making a holiday card
+
+The first thing I do when starting a new plot, is make sure I have a decent colour palette going.
+I browse through [hex palettes](https://www.color-hex.com/color-palette/) for palettes I like, and this time a choose one called [Chinese New Year - Rooster Color Palette](https://www.color-hex.com/color-palette/30281), that I thought might work.
+
+```{r}
+# Define a palette object
+pal <- c("#f90000", "#9a1010", "#f4eb1a", "#e1d921", "#e79516")
+
+# Have a look at the colours
+scales::show_col(pal)
+```
+
+
+Next, I had in mind a simple image, with some blurred coloured circles in the background of some white text. 
+So I had so make a data.frame with the basis of some circles. 
+I knew I wanted to use `ggforce::geom_circle` for this, which would need x and y coordinates for the center of the circle and the radius. 
+So I needed a data.frame with that information, and also a colour for each circle. 
+
+```{r}
+library(tidyverse)
+
+# Choose the number of circles to make
+n_circles <- 15
+
+# Create data.frame with coordinate, radius and colour drawn by random.
+circles <- tibble(
+  x = sample(1:20, n_circles),
+  y = sample(1:20, n_circles),
+  r = sample(seq(.5, 1.5, length.out = 20), n_circles),
+  c = sample(pal, n_circles, replace = TRUE)
+)
+
+circles
+```
+
+
+After that, I needed to do some stuff to make the circles blurred. 
+I've opted for a simple solution, where I'd overlay circles of decreasing sizes on top of each other with high transparency, which should look like a blurring effect. 
+To achieve that, I decided to keep to my tibble and tidyverse way of doing things.
+First, I defined a separate tibble with the different sizes I want the radii to have for the blurring.
+
+```{r}
+transp <- tibble(
+      size = seq(from = 1, to = 1.9, length.out = 10)
+    )
+transp
+```
+
+
+Using this, I needed to make sure that each circle (every row in the `circles` tibble) gets this blurring working. 
+The best way I know how, is nesting the data by everything but radius, then merge the radius tibble with the transparency tibble, and unnest again.
+Lastly I can multiply the radius with the size, and get a large data.frame with lots of circles of different sizes, but many sharing a center and colour.
+
+```{r}
+# Nesting data moved all non-grouped columns into a "data" column
+circles %>% 
+  nest_by(x, y, c)
+```
+
+
+Once the data is nested, the `radius` column is all alone, nested within the `data` column of the tibble.
+This way we can safely merge the `transp` object with that data, which will duplicate the radius number for every row in the `transp` object.
+Here, we must make sure that within the `mutate` the output of the merge is nested within a `list()`. 
+The `data` colum is a so-called list-column, and as such the output of any manipulation of it must also be a list. 
+
+```{r}
+# Merge the data column with the transp object, 
+# make sure it outputs into a list to work with nested data
+circles %>% 
+  nest_by(x, y, c) %>% 
+  mutate(data = list(merge(data, transp)))
+```
+
+Once they are merged, we can unnest and see that our new circles object has lots of new rows!
+```{r}
+# Unnest the data, so that a large tibble exposed (lots of rows!)
+circles %>% 
+  nest_by(x, y, c) %>% 
+  mutate(data = list(merge(data, transp))) %>% 
+  unnest(data)
+```
+
+Then the `size` column can be multiplied with the `radius` column, to get circles of different sizes. 
+```{r}
+# multiply r with the size to get the "true" radius.
+circles <- circles %>% 
+  nest_by(x, y, c) %>% 
+  mutate(data = list(merge(data, transp))) %>% 
+  unnest(data) %>% 
+  mutate(r = r*size)
+circles
+```
+
+Then it's all about plotting the data. 
+Initially, I wanted a small animation like blinking of the circles, but I've decided to leave it as is for now. 
+
+Loading in ggforce, we get the geom_circle available.
+I'm also using a small colour hack a found a long time ago.
+When I have the colours in the data.frame directly, as it's own column, I usually use the identity function (`I()`) directly in the ggplot2 calls, rather than `scale_colour_identity`. 
+It's just something I got used to. 
+
+```{r "featured", fig.retina=3, fig.width=5}
+library(ggforce)
+alpha = .1
+
+ggplot(circles, aes(fill = I(c))) +
+  # Add all the circles
+  geom_circle(alpha = .1, colour = NA, 
+              aes(x0 = x, y0 = y, r = r)) +
+  # Add text at the center, but a little higher (+5)
+  geom_text(aes(x = mean(circles$x), 
+                y = mean(circles$y)+5, 
+                label = "Happy New Year"),
+            family = "Great Vibes",
+            colour = "#fefefe",
+            size = 14,
+            show.legend = FALSE) +
+  # Add text at the center but a little loswer (-5)
+    geom_text(aes(x = mean(circles$x), 
+                y = mean(circles$y)-5, 
+                label = "Adios 2020!"),
+              family = "Great Vibes",
+            size = 8,
+            colour = "#fefefe",
+            show.legend = FALSE) +
+  theme_void() +
+  theme(plot.background = element_rect(fill="black")) +
+  NULL
+```
+
+
+
+
