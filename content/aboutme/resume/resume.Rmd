@@ -2,7 +2,7 @@
 name: Athanasia Monika Mowinckel
 date: "`r format(Sys.time(), '%B, %Y')`"
 qualifications: PhD
-position: Scientist
+position: Staff Scientist
 #address: xxxx
 #phone: "+47 xxx xx xxx"
 email: a.m.mowinckel@psykologi.uio.no
@@ -141,9 +141,9 @@ tribble(
 ```{r workshops}
 tribble(
   ~ role, ~ course, ~ location, ~ dates, ~ details,
-"Instructor", "Monthly internal R-workshops for LCBC", "Center for Lifespan Changes in Brain and Cognition", "Monthly 2018 - present", "2 hour workshops in using R for analysis, visualization, dissemination etc.",
-"Instructor", "Workshop: Straightforward introduction to mixed models \\href{https://www.meetup.com/rladies-london/events/259655336/}{\\faicon{globe}}", "Oslo UseR!", "June 5, 2019", "A short workshop in the use of Mixed-models for repeated measurement data",
-"Instructor", "Linear Mixed models on repeated measurement data
+  "Instructor", "Monthly internal R-workshops for LCBC", "Center for Lifespan Changes in Brain and Cognition", "Monthly 2018 - present", "2 hour workshops in using R for analysis, visualization, dissemination etc.",
+  "Instructor", "Workshop: Straightforward introduction to mixed models \\href{https://www.meetup.com/rladies-london/events/259655336/}{\\faicon{globe}}", "Oslo UseR!", "June 5, 2019", "A short workshop in the use of Mixed-models for repeated measurement data",
+  "Instructor", "Linear Mixed models on repeated measurement data
 \\href{https://www.meetup.com/Oslo-useR-Group/events/260303778/}{\\faicon{globe}}", "R-Ladies London", "March 28, 2019", "A short workshop in the use of Mixed-models for repeated measurement data",
 "Co-instructor", "TidyVerse R \\href{https://www.ub.uio.no/english/courses-events/courses/other/Carpentry/software-carpentry/time-and-place/180925-26_TidyR}{\\faicon{globe}}", "University of Oslo - Software Carpentry", "Sept.  25 - 26, 2018", "Two-day workshop on using R and the Tidyverse-packages for data handling and analysis",
 ) %>%
@@ -165,7 +165,7 @@ tribble(
   "ggegExtra", "\\href{https://lcbc-uio.github.io/ggsegExtra/}{\\faicon{globe}}", "\\href{https://github.com/LCBC-UiO/ggsegExtra}{\\faicon{github}}", "2018 - present", "Lead developer", "Repository of atlas data for the ggseg-packages",
   "nettskjemar",  "\\href{https://lcbc-uio.github.io/nettskjemar/}{\\faicon{globe}}", "\\href{https://github.com/LCBC-UiO/nettskjemar}{\\faicon{github}}","2019 - present", "Lead developer", "Package to retrieve data and meta-data from the nettskjema questionnaire tool developed by the University of Oslo",
   "metagam",  "\\href{https://lifebrain.github.io/metagam/}{\\faicon{globe}}", "\\href{https://github.com/Lifebrain/metagam}{\\faicon{github}}","2020", "Contributor", "Meta-Analysis of Generalized Additive Models in Neuroimaging Studies",
-
+  
 ) %>%
   brief_entries(glue::glue("\\textbf{<pkg> <github> <docs>}: <role> \\newline <details>", .open = "<", .close = ">"), when, .protect = FALSE)
 ```
@@ -212,7 +212,7 @@ tribble(
 <!-- ``` -->
 
 ```{r "pubList", results='asis'}
-scholar::get_publications("7NkxgWQAAAAJ") %>%
+pubs <- scholar::get_publications("7NkxgWQAAAAJ") %>%
   arrange(desc(year)) %>%
   filter(!is.na(year), !is.na(journal), journal != "") %>%
   as_tibble() %>%
@@ -224,14 +224,32 @@ scholar::get_publications("7NkxgWQAAAAJ") %>%
     author = str_replace(author, "Mowinckel", "\\\\textbf{Mowinckel}"),
     author = str_replace(author, "\\.\\.\\.", "et al."),
     journal = str_replace(journal, "&", "and"),
-    number = ifelse(number =="", " ", number),
-    cid = glue::glue("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=<cid>", .open = "<", .close = ">"),
-    journal = glue::glue("\\href{<cid>}{<journal> <number>}", .open = "<", .close = ">")
+    number = ifelse(number == "", " ", number),
+    number = str_replace_all(number, "[[:punct:]]", ""),
+    cid = ifelse(!is.na(cid),
+                 glue::glue("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=<cid>", .open = "<", .close = ">"),
+                 NA),
+    journal = ifelse(!is.na(cid),
+                     glue::glue("\\href{<cid>}{<journal> <number>}", .open = "<", .close = ">"),
+                     glue::glue("<journal> <number>", .open = "<", .close = ">")
+    )
   ) %>%
-  brief_entries(
+  mutate(across(where(is.character), str_trim)) %>% 
+    brief_entries(
     what = glue::glue("<author> \\newline \\textit{<title>} \\newline <journal> \\vspace{1mm} ", .open = "<", .close = ">"),
     when = year,
     with = cite,
     .protect = FALSE
   )
+
+pubs %>% 
+  slice(-10, -22) %>% 
+  slice(1:19)
+
+```
+
+```{r "pubList2", results='asis'}
+pubs %>% 
+  slice(-10, -22) %>% 
+  slice(20:nrow(pubs))
 ```
