@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-01-12'
+date: '2021-01-13'
 output:
   html_document:
     keep_md: yes
@@ -65,7 +65,7 @@ KB Walhovd, ACS Bråthen, MS Panizzon, AM **Mowinckel**, Ø Sørensen, ... (2020
 
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, AM Brandmaier, ... (2020) _Poor Self-Reported Sleep is Related to Regional Cortical Thinning in Aging but not Memory Decline—Results From the Lifebrain Consortium_ Cerebral Cortex __ 
 
-I Budin-Ljøsne, BB Friedman, S Suri, C Solé-Padullés, S Düzel, ... (2020) _The Global Brain Health Survey: Development of a Multi-Language Survey of Public Views on Brain Health_ Frontiers in Public Health _8, 387_ 
+I Budin-Ljøsne, BB Friedman, S Suri, C Solé-Padullés, S Düzel, ... (2020) _The global brain health survey: development of a multi-language survey of public views on brain health_ Frontiers in public health _8, 387_ 
 
 VP Didac, N Parker, J Shin, L French, G Håkon, AP Jackowski, ... (2020) _Cellular correlates of cortical thinning throughout the lifespan_ Scientific Reports (Nature Publisher Group) _10 (1)_ 
 
