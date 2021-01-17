@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-01-16'
+date: '2021-01-17'
 output:
   html_document:
     keep_md: yes
@@ -72,6 +72,8 @@ VP Didac, N Parker, J Shin, L French, G Håkon, AP Jackowski, ... (2020) _Cellul
 KB Walhovd, A Fjell, Y Wang, IK Amlien, AM **Mowinckel**, U Lindenberger, ... (2020) _Education and income show heterogeneous relationships to lifespan brain and cognitive differences across European and US cohorts_ bioRxiv __ 
 
 T Gorbach, S Pudas, D Bartrés‐Faz, AM Brandmaier, S Düzel, ... (2020) _Longitudinal association between hippocampus atrophy and episodic‐memory decline in non‐demented APOE ε4 carriers_ Alzheimer's & Dementia: Diagnosis, Assessment & Disease Monitoring _12 (1 …_ 
+
+JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2020) _Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s Disease_ bioRxiv __ 
 
 A Fjell, H Grydeland, Y Wang, IK Amlien, D Bartres-Faz, A Brandmaier, ... (2020) _The genetic organization of subcortical volumetric change is stable throughout the lifespan_ bioRxiv __ 
 
