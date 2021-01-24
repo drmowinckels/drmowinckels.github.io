@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-01-23'
+date: '2021-01-24'
 output:
   html_document:
     keep_md: yes
@@ -53,13 +53,15 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13478746394103686546) Sleep _43 (5), zsz280_ 
 
-VM Danielsen, DV Pineiro, AM **Mowinckel**, D Sederevicius, AM Fjell, ... (2020) [_Lifespan trajectories of relative corpus callosum thickness: regional differences and cognitive relevance._](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=8904205061858122143) PsyArXiv __ 
+AM **Mowinckel**, D Vidal-Piñeiro (2020) [_Visualization of Brain Statistics With R Packages ggseg and ggseg3d_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=7728234467298477321) Advances in Methods and Practices in Psychological Science _3 (4), 466-483_ 
 
-D Vidal-Pineiro, N Parker, J Shin, L French, H Grydeland, AP Jackowski, ... (2020) [_Cellular correlates of cortical thinning throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5860637791443459396) BioRxiv _585786_ 
+D Vidal-Pineiro, N Parker, J Shin, L French, H Grydeland, AP Jackowski, ... (2020) [_Cellular correlates of cortical thinning throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5860637791443459396) Scientific reports _10 (1), 1-14_ 
+
+VM Danielsen, D Vidal-Piñeiro, AM **Mowinckel**, D Sederevicius, AM Fjell, ... (2020) [_Lifespan trajectories of relative corpus callosum thickness: regional differences and cognitive relevance_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=8904205061858122143) Cortex _130, 127-141_ 
 
 KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2020) [_Genetic risk for Alzheimer disease predicts hippocampal volume through the human lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=2204833211052181607) Neurology Genetics _6 (5)_ 
 
-Ø Sørensen, AM Brandmaier, DM Bros, K Ebmeier, P Ghisletta, RA Kievit, ... (2020) [_Meta-Analysis of Generalized Additive Models in Neuroimaging Studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) arXiv preprint arXiv: _:2002.02627_ 
+Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2020) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) NeuroImage _224, 117416_ 
 
 KB Walhovd, ACS Bråthen, MS Panizzon, AM **Mowinckel**, Ø Sørensen, ... (2020) _Within-session verbal learning slope is predictive of lifespan delayed recall, hippocampal volume, and memory training benefit, and is heritable_ Scientific reports _10 (1), 1-13_ 
 
@@ -75,13 +77,11 @@ T Gorbach, S Pudas, D Bartrés‐Faz, AM Brandmaier, S Düzel, ... (2020) _Longi
 
 JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2020) _Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s Disease_ bioRxiv __ 
 
-A Fjell, H Grydeland, Y Wang, IK Amlien, D Bartres-Faz, A Brandmaier, ... (2020) _The genetic organization of subcortical volumetric change is stable throughout the lifespan_ bioRxiv __ 
+A Fjell, H Grydeland, Y Wang, IK Amlien, D Bartrés-Faz, A Brandmaier, ... (2020) _The genetic organization of subcortical volumetric change is stable throughout the lifespan_ bioRxiv __ 
 
-A Fjell, O Sorensen, IK Amlien, D Bartrés-Faz, A Brandmaier, D Macia, ... (2020) _Self-reported sleep problems are related to cortical thinning in aging but not memory decline and amyloid-β accumulation-results from the Lifebrain consortium_ bioRxiv __ 
+A Fjell, O Sorensen, IK Amlien, D Bartres-Faz, A Brandmaier, D Macia, ... (2020) _Self-reported sleep problems are related to cortical thinning in aging but not memory decline and amyloid-β accumulation-results from the Lifebrain consortium_ bioRxiv __ 
 
-D Vidal-Pineiro, MH Sneve, IK Amlien, HH Grydeland, AM **Mowinckel**, ... (2020) _The functional foundations of episodic memory remain stable throughout the lifespan_ bioRxiv __ 
-
-AM **Mowinckel**, D Vidal-Piñeiro (2019) [_Visualisation of brain statistics with r-packages ggseg and ggseg3d_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=14033947876110404932) arXiv preprint arXiv: _:1912.08200_ 
+D Vidal-Piñeiro, MH Sneve, IK Amlien, HH Grydeland, AM **Mowinckel**, ... (2020) _The functional foundations of episodic memory remain stable throughout the lifespan_ bioRxiv __ 
 
 AM Fjell, CH Chen, D Sederevicius, MH Sneve, H Grydeland, ... (2019) [_Continuity and discontinuity in human cortical development and change from embryonic stages to old age_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=12292935935753013374) Cerebral Cortex _29 (9), 3879-3890_ 
 
@@ -89,7 +89,7 @@ D Vidal-Piñeiro, MH Sneve, LH Nyberg, AM **Mowinckel**, D Sederevicius, ... (20
 
 AM Fjell, MH Sneve, D Sederevicius, Ø Sørensen, SK Krogsrud, ... (2019) [_Volumetric and microstructural regional changes of the hippocampus underlying development of recall performance after extended retention intervals_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=6382077352973065340) Developmental cognitive neuroscience _40, 100723_ 
 
-KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2019) [_Genetic risk for Alzheimers disease predicts hippocampal volume through the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13849018663476393665) bioRxiv _711689_ 
+KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2019) [_Genetic risk for Alzheimer’s disease predicts hippocampal volume through the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13849018663476393665) bioRxiv _711689_ 
 
 AM Fjell, MH Sneve, D Sederevicius, Ø Sørensen, SK Krogsrud, ... (2019) [_Volumetric and microstructural regional changes of the hippocampus underlying development of extended delay long-term memory_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=17521939232361433407) bioRxiv _595827_ 
 
