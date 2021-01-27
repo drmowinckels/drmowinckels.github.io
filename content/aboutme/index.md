@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-01-26'
+date: '2021-01-27'
 output:
   html_document:
     keep_md: yes
@@ -51,6 +51,8 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 ### Publications & Citations
 ![](index_files/figure-html/pubPlot-1.png)<!-- -->
 
+JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) _Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer's Disease_ Nature Communications __ 
+
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13478746394103686546) Sleep _43 (5), zsz280_ 
 
 AM **Mowinckel**, D Vidal-Piñeiro (2020) [_Visualization of Brain Statistics With R Packages ggseg and ggseg3d_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=7728234467298477321) Advances in Methods and Practices in Psychological Science _3 (4), 466-483_ 
@@ -74,8 +76,6 @@ VP Didac, N Parker, J Shin, L French, G Håkon, AP Jackowski, ... (2020) _Cellul
 KB Walhovd, A Fjell, Y Wang, IK Amlien, AM **Mowinckel**, U Lindenberger, ... (2020) _Education and income show heterogeneous relationships to lifespan brain and cognitive differences across European and US cohorts_ bioRxiv __ 
 
 T Gorbach, S Pudas, D Bartrés‐Faz, AM Brandmaier, S Düzel, ... (2020) _Longitudinal association between hippocampus atrophy and episodic‐memory decline in non‐demented APOE ε4 carriers_ Alzheimer's & Dementia: Diagnosis, Assessment & Disease Monitoring _12 (1 …_ 
-
-JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2020) _Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s Disease_ bioRxiv __ 
 
 A Fjell, H Grydeland, Y Wang, IK Amlien, D Bartrés-Faz, A Brandmaier, ... (2020) _The genetic organization of subcortical volumetric change is stable throughout the lifespan_ bioRxiv __ 
 
