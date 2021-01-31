@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-01-30'
+date: '2021-01-31'
 output:
   html_document:
     keep_md: yes
@@ -51,6 +51,8 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 ### Publications & Citations
 ![](index_files/figure-html/pubPlot-1.png)<!-- -->
 
+Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2021) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) NeuroImage _224, 117416_ 
+
 JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) _Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer's Disease_ Nature Communications __ 
 
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13478746394103686546) Sleep _43 (5), zsz280_ 
@@ -62,8 +64,6 @@ D Vidal-Pineiro, N Parker, J Shin, L French, H Grydeland, AP Jackowski, ... (202
 VM Danielsen, D Vidal-Piñeiro, AM **Mowinckel**, D Sederevicius, AM Fjell, ... (2020) [_Lifespan trajectories of relative corpus callosum thickness: regional differences and cognitive relevance_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=8904205061858122143) Cortex _130, 127-141_ 
 
 KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2020) [_Genetic risk for Alzheimer disease predicts hippocampal volume through the human lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=2204833211052181607) Neurology Genetics _6 (5)_ 
-
-Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2020) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) NeuroImage _224, 117416_ 
 
 KB Walhovd, ACS Bråthen, MS Panizzon, AM **Mowinckel**, Ø Sørensen, ... (2020) _Within-session verbal learning slope is predictive of lifespan delayed recall, hippocampal volume, and memory training benefit, and is heritable_ Scientific reports _10 (1), 1-13_ 
 
