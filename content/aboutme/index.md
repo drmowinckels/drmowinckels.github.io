@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-02-06'
+date: '2021-02-07'
 output:
   html_document:
     keep_md: yes
@@ -53,7 +53,7 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 
 Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2021) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) NeuroImage _224, 117416_ 
 
-JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) _Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer's Disease_ Nature Communications __ 
+JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) _Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s Disease_ Nature Communications _12 (1), 1-11_ 
 
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13478746394103686546) Sleep _43 (5), zsz280_ 
 
