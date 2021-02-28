@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-02-27'
+date: '2021-02-28'
 output:
   html_document:
     keep_md: yes
@@ -51,7 +51,7 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 ### Publications & Citations
 ![](index_files/figure-html/pubPlot-1.png)<!-- -->
 
-Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2021) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017) NeuroImage _224, 117416_ 
+Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2021) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017,16357842307529023522) NeuroImage _224, 117416_ 
 
 JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) [_Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s Disease_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=4061283242314542178) Nature communications _12 (1), 1-11_ 
 
