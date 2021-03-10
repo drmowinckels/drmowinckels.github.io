@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: '2021-03-09'
+date: '2021-03-10'
 output:
   html_document:
     keep_md: yes
@@ -51,7 +51,13 @@ I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center 
 ### Publications & Citations
 ![](index_files/figure-html/pubPlot-1.png)<!-- -->
 
+Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2021) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017,16357842307529023522) NeuroImage _224, 117416_ 
+
 JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) [_Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s disease_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=4061283242314542178) Nature communications _12 (1), 1-11_ 
+
+AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, AM Brandmaier, ... (2021) _Poor Self-Reported Sleep is Related to Regional Cortical Thinning in Aging but not Memory Decline—Results From the Lifebrain Consortium_ Cerebral Cortex _31 (4), 1953-1969_ 
+
+D Vidal-Piñeiro, MH Sneve, IK Amlien, H Grydeland, AM **Mowinckel**, ... (2021) _The functional foundations of episodic memory remain stable throughout the lifespan_ Cerebral Cortex _31 (4), 2098-2110_ 
 
 AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13478746394103686546) Sleep _43 (5), zsz280_ 
 
@@ -63,11 +69,7 @@ KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2020) [_
 
 VM Danielsen, D Vidal-Piñeiro, AM **Mowinckel**, D Sederevicius, AM Fjell, ... (2020) [_Lifespan trajectories of relative corpus callosum thickness: regional differences and cognitive relevance_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=8904205061858122143) Cortex _130, 127-141_ 
 
-Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2020) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017,16357842307529023522) NeuroImage _224, 117416_ 
-
 KB Walhovd, ACS Bråthen, MS Panizzon, AM **Mowinckel**, Ø Sørensen, ... (2020) _Within-session verbal learning slope is predictive of lifespan delayed recall, hippocampal volume, and memory training benefit, and is heritable_ Scientific reports _10 (1), 1-13_ 
-
-AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, AM Brandmaier, ... (2020) _Poor Self-Reported Sleep is Related to Regional Cortical Thinning in Aging but not Memory Decline—Results From the Lifebrain Consortium_ Cerebral Cortex __ 
 
 I Budin-Ljøsne, BB Friedman, S Suri, C Solé-Padullés, S Düzel, ... (2020) _The global brain health survey: development of a multi-language survey of public views on brain health_ Frontiers in public health _8, 387_ 
 
@@ -80,8 +82,6 @@ T Gorbach, S Pudas, D Bartrés‐Faz, AM Brandmaier, S Düzel, ... (2020) _Longi
 A Fjell, H Grydeland, Y Wang, IK Amlien, D Bartrés-Faz, A Brandmaier, ... (2020) _The genetic organization of subcortical volumetric change is stable throughout the lifespan_ bioRxiv __ 
 
 A Fjell, O Sorensen, IK Amlien, D Bartres-Faz, A Brandmaier, D Macia, ... (2020) _Self-reported sleep problems are related to cortical thinning in aging but not memory decline and amyloid-β accumulation-results from the Lifebrain consortium_ bioRxiv __ 
-
-D Vidal-Piñeiro, MH Sneve, IK Amlien, HH Grydeland, AM **Mowinckel**, ... (2020) _The functional foundations of episodic memory remain stable throughout the lifespan_ bioRxiv __ 
 
 AM Fjell, CH Chen, D Sederevicius, MH Sneve, H Grydeland, ... (2019) [_Continuity and discontinuity in human cortical development and change from embryonic stages to old age_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=12292935935753013374) Cerebral Cortex _29 (9), 3879-3890_ 
 
