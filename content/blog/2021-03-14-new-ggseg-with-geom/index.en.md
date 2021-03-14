@@ -8,7 +8,7 @@ tags:
   - R
   - Neuroimaging
   - ggseg
-image: 'index.en_files/figure-html/featured-1.png' 
+image: '/blog/2021-03-14-new-ggseg-with-geom/index.en_files/figure-html/featured-1.png' 
 ---
 
 
