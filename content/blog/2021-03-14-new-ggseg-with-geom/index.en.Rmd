@@ -2,7 +2,7 @@
 title: New {ggseg} with Geom!
 author: Dr. Mowinckel
 date: '2021-03-14'
-slug: new-ggseg-with-geom
+slug: 2021-03-14-new-ggseg-with-geom
 categories: []
 tags:
   - R
