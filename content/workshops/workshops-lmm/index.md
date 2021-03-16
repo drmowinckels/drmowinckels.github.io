@@ -22,4 +22,4 @@ The dragons data set used in this workshop is shamelessly stolen from Gabriela H
 
 **Links:**  
 <a href="https://github.com/Athanasiamo/LME_introduction_workshop" title="GitHub source code"><i class="fab fa-github"></i></a>
-<a href="https://athanasiamo.github.io/LME_introduction_workshop/" title="Materials"><i class="fa fa-eye" aria-hidden="true"></i></a>
+<a href="https://athanasiamo.github.io/LME_introduction_workshop/" title="Materials"><i class="fa fa-globe" aria-hidden="true"></i></a>
