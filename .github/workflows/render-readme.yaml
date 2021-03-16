@@ -24,13 +24,13 @@ jobs:
         shell: Rscript {0}
         
       - name: Render about me
-        run: Rscript -e 'rmarkdown::render("content/aboutme/index.Rmd")'
+        run: Rscript -e 'rmarkdown::render("content/about/_index.Rmd")'
         
       - name: Commit results
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git commit content/aboutme -m 'Re-build about me' || echo "No changes to commit"
+          git commit content/about -m 'Re-build about me' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
       #     
       # - name: Install npm
