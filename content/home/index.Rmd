@@ -1,8 +1,5 @@
 ---
 title: "Dr. Mowinckel's"
-output:
-  html_document:
-    keep_md: yes
 headless: true
 ---
 
