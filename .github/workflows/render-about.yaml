@@ -31,6 +31,8 @@ jobs:
         
       - name: Knit cv
         run: Rscript -e 'rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")'
+        env: |
+         ORCID_TOKEN = ${{ secrets.ORCID_TOKEN }}
         
       - name: Commit results
         run: |
