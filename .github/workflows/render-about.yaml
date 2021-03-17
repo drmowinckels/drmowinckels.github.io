@@ -20,7 +20,8 @@ jobs:
       
       - name: Install R packages
         run: |
-          install.packages(c("tidyverse", "scholar", "blogdown", "vitae"), Ncpus = 2)
+          install.packages(c("tidyverse", "scholar", "remotes"), Ncpus = 2)
+          remotes::install_github("rstudio/blogdown")
         shell: Rscript {0}
       
       - name: Delete content/about/_index.md
