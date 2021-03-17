@@ -20,8 +20,7 @@ jobs:
       
       - name: Install R packages
         run: |
-          install.packages(c("tidyverse", "scholar", "remotes"), Ncpus = 2)
-          remotes::install_github("rstudio/blogdown")
+          install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown"), Ncpus = 2)
         shell: Rscript {0}
       
       - name: Delete content/about/_index.md
@@ -29,6 +28,9 @@ jobs:
         
       - name: Render about me
         run: Rscript -e 'blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")'
+        
+      - name: Knit cv
+        run: Rscript -e 'rmarkdown::render("content/about/resume/resume.Rmd")'
         
       - name: Commit results
         run: |

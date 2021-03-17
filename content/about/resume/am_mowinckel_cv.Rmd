@@ -25,6 +25,8 @@ output:
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(vitae)
+library(rorcid)
+library(glue)
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, error=FALSE, message = FALSE)
 orcid <- "0000-0002-5756-0223"
 scholar_id <- "7NkxgWQAAAAJ"
@@ -32,29 +34,25 @@ scholar_id <- "7NkxgWQAAAAJ"
 
 # Education
 ```{r education}
-
-do.call(bind_rows,
-        rorcid::orcid_educations(orcid)[[1]]$`affiliation-group`$summaries
+bind_rows(
+  orcid_educations(orcid)[[1]]$`affiliation-group`$summaries
 ) %>%
   mutate(
     thesis =  paste0("Thesis title: ",
                      c("Neurocognitive Processes of Decision-making in Adults with ADHD",
                        "Default Mode Resting-State Functional Connectivity of the Aging Brain",
-                       "Attention Deficits in Mild Cognitive Impairment and Dementia of the Alzheimer Type"))
-  ) %>%
-  detailed_entries(
-    with = glue::glue("{`education-summary.role-title`} - {`education-summary.organization.name`} - Norway"),
-    when = glue::glue("{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}"),
-    what = thesis
-  )
+                       "Attention Deficits in Mild Cognitive Impairment and Dementia of the Alzheimer Type")),
+    when = glue("{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}"),
+    with = glue("{`education-summary.role-title`} - {`education-summary.organization.name`} - Norway")) %>%
+  detailed_entries(thesis, when, with)
 ```
 
 # Research positions
 
 ```{r "research-pos"}
 
-do.call(bind_rows,
-        rorcid::orcid_employments(orcid)[[1]]$`affiliation-group`$summaries
+bind_rows(
+  orcid_employments(orcid)[[1]]$`affiliation-group`$summaries
 ) %>%
   mutate(end_date = ifelse(is.na(`employment-summary.end-date.year.value`),
                            "present",
@@ -70,8 +68,8 @@ do.call(bind_rows,
   unnest(why) %>%
   detailed_entries(
     what = `employment-summary.role-title`,
-    when = glue::glue("{`employment-summary.start-date.year.value`} - {end_date}"),
-    with = glue::glue("{`employment-summary.organization.name`} - {`employment-summary.department-name`}"),
+    when = glue("{`employment-summary.start-date.year.value`} - {end_date}"),
+    with = glue("{`employment-summary.organization.name`} - {`employment-summary.department-name`}"),
     where = `employment-summary.organization.address.city`,
     why = why
   )
@@ -90,24 +88,24 @@ I am passionate about increasing the representation and retention of women in sc
 ```{r "services"}
 
 do.call(bind_rows,
-        rorcid::orcid_memberships(orcid)[[1]]$`affiliation-group`$summaries
+        orcid_memberships(orcid)[[1]]$`affiliation-group`$summaries
 ) %>%
   detailed_entries(
     what = `membership-summary.role-title`,
-    when = glue::glue("{`membership-summary.start-date.year.value`} - present"),
-    with = glue::glue("{`membership-summary.organization.name`}"),
+    when = glue("{`membership-summary.start-date.year.value`} - present"),
+    with = glue("{`membership-summary.organization.name`}"),
     where = `membership-summary.organization.address.city`,
     why = c("Assisting in daily coordination and webpage maintenance of R-Ladies globally",
             "Initiative running events for coding, networking and support of minority genders in the R-community")
   )
 
 do.call(bind_rows,
-        rorcid::orcid_services(orcid)[[1]]$`affiliation-group`$summaries
+        orcid_services(orcid)[[1]]$`affiliation-group`$summaries
 )  %>%
   detailed_entries(
     what = `service-summary.role-title`,
-    when = glue::glue("{`service-summary.start-date.year.value`} - {`service-summary.end-date.year.value`}"),
-    with = glue::glue("{`service-summary.organization.name`}"),
+    when = glue("{`service-summary.start-date.year.value`} - {`service-summary.end-date.year.value`}"),
+    with = glue("{`service-summary.organization.name`}"),
     where = `service-summary.organization.address.city`,
     why = `service-summary.department-name`
   )
@@ -167,7 +165,7 @@ tribble(
   "metagam",  "\\href{https://lifebrain.github.io/metagam/}{\\faicon{globe}}", "\\href{https://github.com/Lifebrain/metagam}{\\faicon{github}}","2020", "Contributor", "Meta-Analysis of Generalized Additive Models in Neuroimaging Studies",
   
 ) %>%
-  brief_entries(glue::glue("\\textbf{<pkg> <github> <docs>}: <role> \\newline <details>", .open = "<", .close = ">"), when, .protect = FALSE)
+  brief_entries(glue("\\textbf{<pkg> <github> <docs>}: <role> \\newline <details>", .open = "<", .close = ">"), when, .protect = FALSE)
 ```
 
 
@@ -188,6 +186,8 @@ tribble(
 \newpage
 
 # Publications & Preprints
+
+In descending chronological order.
 
 <!-- ```{r "pubPlot", dev.args = list(bg = 'transparent'), out.width= "65%"} -->
 <!-- scholar::get_citation_history(scholar_id) %>% -->
@@ -211,45 +211,45 @@ tribble(
 <!--   scale_color_manual(values=c("#008080", "#004d4d")) -->
 <!-- ``` -->
 
-```{r "pubList", results='asis'}
+```{r "pubList-get"}
 pubs <- scholar::get_publications("7NkxgWQAAAAJ") %>%
   arrange(desc(year)) %>%
   filter(!is.na(year), !is.na(journal), journal != "") %>%
   as_tibble() %>%
   mutate_all(as.character) %>%
   mutate(
+    title = str_replace_all(title, "ε", "$\\\\varepsilon$ "),
     cite = ifelse(grepl("rxiv", journal, ignore.case = TRUE),
-                  glue::glue("Preprint \\newline cites: <cites>", .open = "<", .close = ">"),
-                  glue::glue("cites: <cites>", .open = "<", .close = ">")),
+                  glue("Preprint \\newline cites: <cites>", .open = "<", .close = ">"),
+                  glue("cites: <cites>", .open = "<", .close = ">")),
     author = str_replace(author, "Mowinckel", "\\\\textbf{Mowinckel}"),
     author = str_replace(author, "\\.\\.\\.", "et al."),
     journal = str_replace(journal, "&", "and"),
     number = ifelse(number == "", " ", number),
     number = str_replace_all(number, "[[:punct:]]", ""),
     cid = ifelse(!is.na(cid),
-                 glue::glue("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=<cid>", .open = "<", .close = ">"),
+                 glue("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=<cid>", .open = "<", .close = ">"),
                  NA),
     journal = ifelse(!is.na(cid),
-                     glue::glue("\\href{<cid>}{<journal> <number>}", .open = "<", .close = ">"),
-                     glue::glue("<journal> <number>", .open = "<", .close = ">")
+                     glue("\\href{<cid>}{<journal> <number>}", .open = "<", .close = ">"),
+                     glue("<journal> <number>", .open = "<", .close = ">")
     )
   ) %>%
   mutate(across(where(is.character), str_trim)) %>% 
-    brief_entries(
-    what = glue::glue("<author> \\newline \\textit{<title>} \\newline <journal> \\vspace{1mm} ", .open = "<", .close = ">"),
+  brief_entries(
+    what = glue("<author> \\newline \\textit{<title>} \\newline <journal> \\vspace{1mm} ", .open = "<", .close = ">"),
     when = year,
     with = cite,
     .protect = FALSE
-  )
-
-pubs %>% 
-  slice(-10, -22) %>% 
-  slice(1:19)
-
+  ) %>% 
+  filter(!grepl("\\varepsilon", what)) #%>% 
+  #slice(-10, -22) 
 ```
 
-```{r "pubList2", results='asis'}
-pubs %>% 
-  slice(-10, -22) %>% 
-  slice(20:nrow(pubs))
+```{r publist-1}
+slice(pubs, 1:19)
+```
+
+```{r publist-2, results='asis'}
+slice(pubs, 20:nrow(pubs))
 ```
