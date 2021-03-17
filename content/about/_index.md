@@ -13,6 +13,8 @@ image: profile.png
 
 I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no). I'm passionate about cognitive neuroscience, using R and teaching the world the wonders of R. Doing all I can to improve gender diversity and equity in the R-community though [R-Ladies Oslo](https://twitter.com/RLadies_Oslo) and on the [R-Ladies Global Team](https://rladies.org/about-us/team/). 
 
+Download my [CV in pdf](/about/resume/am_mowinckel_cv.pdf)
+
 <!--more-->
 
 ### Education  

@@ -7,12 +7,12 @@ type: about
 image: profile.png
 ---
  
-```{r "setup", include=F,echo=F, warning=F, error=F}
+```{r "setup", include=FALSE}
 library(dplyr);
 library(ggplot2)
 library(tidyr)
 library(knitr);
-opts_chunk$set(echo=FALSE, warning=FALSE, error=FALSE, message = FALSE)
+opts_chunk$set(echo = FALSE, warning=FALSE, error=FALSE, message=FALSE)
 options(knitr.kable.NA = '')
 
 read_table <- function(x){
@@ -27,28 +27,30 @@ read_table <- function(x){
 
 I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no). I'm passionate about cognitive neuroscience, using R and teaching the world the wonders of R. Doing all I can to improve gender diversity and equity in the R-community though [R-Ladies Oslo](https://twitter.com/RLadies_Oslo) and on the [R-Ladies Global Team](https://rladies.org/about-us/team/). 
 
+Download my [CV in pdf](/about/resume/am_mowinckel_cv.pdf)
+
 <!--more-->
 
 ### Education  
-```{r "Education", echo=FALSE, results='asis'}
+```{r "Education"}
 read_table("data/edu.tsv") %>%  
   kable("markdown", booktabs = T)
 ```
 
 ### Work  
-```{r "Work", echo=FALSE}
+```{r "Work"}
 read_table("data/work.tsv") %>%  
   kable("markdown", booktabs = T)
 ```
 
 ### Commissions  
-```{r "Commissions", echo=FALSE}
+```{r "Commissions"}
 read_table("data/commission.tsv") %>%  
   kable("markdown", booktabs = T)
 ```
 
 ### Publications & Citations
-```{r "pubPlot", echo=FALSE, warning=FALSE, error=FALSE, dev.args = list(bg = 'transparent')}
+```{r "pubPlot", dev.args = list(bg = 'transparent')}
 scholar::get_citation_history("7NkxgWQAAAAJ") %>% 
   mutate(cumulative=cumsum(cites)) %>% 
   gather(metric, val, -1) %>% 
@@ -74,7 +76,7 @@ scholar::get_citation_history("7NkxgWQAAAAJ") %>%
 
 ```
 
-```{r "pubList", results='asis', warning=FALSE, echo=FALSE}
+```{r "pubList", results='asis'}
 pubs = scholar::get_publications("7NkxgWQAAAAJ") %>% 
   as_tibble() %>% 
   filter(journal != "") %>% 
