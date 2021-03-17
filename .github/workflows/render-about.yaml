@@ -20,10 +20,6 @@ jobs:
         with:
           pandoc-version: '2.12'
       
-      # Need xelatex for vitae
-      - name: Install full latex
-        run: brew install --cask mactex-no-gui
-      
       - name: Install R packages
         run: |
           install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown"), Ncpus = 2)
