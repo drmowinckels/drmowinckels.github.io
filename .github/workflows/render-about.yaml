@@ -20,11 +20,14 @@ jobs:
       
       - name: Install R packages
         run: |
-          install.packages(c("rmarkdown","dplyr", "tidyr", "ggplot2", "scholar", "knitr"))
+          install.packages("blogdown")
         shell: Rscript {0}
+      
+      - name: Delete content/about/_index.md
+        run: rm content/about/_index.md
         
       - name: Render about me
-        run: Rscript -e 'rmarkdown::render("content/about/_index.Rmd")'
+        run: Rscript -e 'blogdown::build_site(build_rmd = "newfile")'
         
       - name: Commit results
         run: |
