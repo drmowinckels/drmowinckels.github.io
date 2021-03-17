@@ -20,7 +20,7 @@ jobs:
       
       - name: Install R packages
         run: |
-          install.packages("blogdown")
+          install.packages(c("dplyr", "tidyr", "ggplot2", "scholar", "blogdown"), Ncpus = 2)"
         shell: Rscript {0}
       
       - name: Delete content/about/_index.md
