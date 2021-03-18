@@ -25,9 +25,9 @@ jobs:
           install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown"), Ncpus = 2)
         shell: Rscript {0}
       
-      - name: Delete content/about/_index.md
-        run: rm content/about/_index.md
-        
+      # - name: Delete content/about/_index.md
+      #   run: rm content/about/_index.md
+      #   
       - name: Render about me
         run: Rscript -e 'blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")'
         
