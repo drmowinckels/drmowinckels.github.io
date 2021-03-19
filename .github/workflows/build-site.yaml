@@ -13,7 +13,7 @@ name: Build site
 
 jobs:
   render:
-    name: Render aboutme
+    name: Build site
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
