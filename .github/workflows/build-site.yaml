@@ -1,0 +1,83 @@
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches: 
+      - master
+  schedule:
+    - cron: '0 1 * * *'
+
+name: Build site
+
+jobs:
+  render:
+    name: Render aboutme
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+        
+      - name: setup R
+        uses: r-lib/actions/setup-r@v1
+        
+      - name: setup pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.12'
+          
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.81.0'
+          extended: true
+      
+      - name: Install netlify
+        run: npm install netlify-cli -g
+      
+      - name: Install R packages
+        run: |
+          install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown", "tinytex"), Ncpus = 2)
+          tinytex::install_tinytex() 
+        shell: Rscript {0}
+      
+      # - name: Delete content/about/_index.md
+      #   run: rm content/about/_index.md
+      #   
+      - name: Render about me
+        run: Rscript -e 'blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")'
+        
+      - name: Knit cv
+        run: Rscript -e 'rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")'
+        env:
+         ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
+        
+      - name: Commit results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git commit content/about -m 'Re-build about me' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
+
+      - name: Install netlify
+        run: npm install netlify-cli -g
+
+      - name: Build
+        run: hugo --buildFuture 
+        
+      - name: Deploy to Netlify production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy #--prod
+          
+      - name: Deploy Netlify preview
+        if: github.event_name == 'pull_request'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy
