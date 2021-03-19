@@ -1,11 +1,15 @@
 on:
+  pull_request:
+    branches:
+      - main
+      - master
   push:
     branches: 
       - master
   schedule:
     - cron: '0 1 * * *'
 
-name: Render about me 
+name: Build site
 
 jobs:
   render:
@@ -14,11 +18,24 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@v1
-      - uses: r-lib/actions/setup-pandoc@v1
+      - name: checkout repo
+        uses: actions/checkout@v2
+        
+      - name: setup R
+        uses: r-lib/actions/setup-r@v1
+        
+      - name: setup pandoc
+        uses: r-lib/actions/setup-pandoc@v1
         with:
           pandoc-version: '2.12'
+          
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.79.1'
+      
+      - name: Install netlify
+        run: npm install netlify-cli -g
       
       - name: Install R packages
         run: |
@@ -43,15 +60,23 @@ jobs:
           git config --local user.name "GitHub Actions"
           git commit content/about -m 'Re-build about me' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
-      #     
-      # - name: Install npm
-      #   uses: actions/setup-node@v1
-      # 
-      # - name: Deploy to Netlify
-      #   # NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID added in the repo's secrets
-      #   env:
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      #   run: |
-      #     npm install netlify-cli -g
-      #     netlify deploy --prod
+
+      - name: Install netlify
+        run: npm install netlify-cli -g
+
+      - name: Build
+        run: hugo --buildFuture 
+        
+      - name: Deploy to Netlify production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --prod
+          
+      - name: Deploy Netlify preview
+        if: github.event_name == 'pull_request'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy
