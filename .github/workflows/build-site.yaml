@@ -66,7 +66,7 @@ jobs:
         run: npm install netlify-cli -g
 
       - name: Build
-        run: hugo --buildFuture 
+        run: hugo --buildFuture -b $DEPLOY_PRIME_URL
         
       - name: Deploy to Netlify production
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
