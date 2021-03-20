@@ -33,7 +33,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     postStyle                    = "hex"                   # Blog list/grid, either list, square, circle or hex
     email                        = "a.m.mowinckel@psykologi.uio.no"   # E-mail address for contact section
     customCSS                    = ["/css/syntax.css", "/css/custom-style.css"] #, "/css/hexagongrid.css"]              # Include custom css files placed under assets/
-    customHead                   = "head/custom.html"      # layouts/partials/
+    #customHead                   = "/head/custom.html"      # layouts/partials/
     
     # Configure the home page
     [params.home]
@@ -94,24 +94,16 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
    url     = "/"
    weight  = 1
 [[menu.main]]
-   name    = "About me"
-   url     = "/aboutme/"
+   name    = "About"
+   url     = "/about"
    weight  = 2
 [[menu.main]]
-   name    = "R-package projects"
-   url     = "/projects/"
-   weight  = 3
-[[menu.main]]
    name    = "Blog"
-   url     = "/blog/"
+   url     = "/#blog"
    weight  = 4
 [[menu.main]]
-   name    = "Talks & Workshops"
-   url     = "/workshops/"
-   weight  = 5
-[[menu.main]]
    name    = "Contact"
-   url     = "#contact"
+   url     = "/#contact"
    weight  = 6
 
 # We only use tag as a taxonomies
