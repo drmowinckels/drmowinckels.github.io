@@ -66,10 +66,10 @@ jobs:
         run: npm install netlify-cli -g
 
       - name: Build
-        run: hugo --buildFuture -b $DEPLOY_PRIME_URL
+        run: hugo
         
       - name: Deploy to Netlify production
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: (github.event_name == 'push' | github.event_name == "schedule") && github.ref == 'refs/heads/master'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
