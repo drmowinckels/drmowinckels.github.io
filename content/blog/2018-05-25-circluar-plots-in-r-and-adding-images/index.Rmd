@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [Plots, Neuroimaging, R]
-image: '/blog/2018-05-25-circluar-plots-in-r-and-adding-images/index_files/figure-html/featured-1.png'
+image: 'index_files/figure-html/featured-1.png'
 ---
 
 

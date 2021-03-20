@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [R]
-image: '/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/check_1.png' 
+image: 'check_1.png' 
 ---
 
 

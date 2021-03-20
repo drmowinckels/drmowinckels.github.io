@@ -12,7 +12,7 @@ output:
   html_document:
     keep_md: yes
 always_allow_html: yes
-image: "/blog/r-package-advent-calendar-2020/featured.png"
+image: "featured.png"
 type: blog
 ---
 

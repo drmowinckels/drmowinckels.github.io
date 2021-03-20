@@ -11,7 +11,7 @@ output:
   html_document:
     keep_md: yes
 draft: false
-image: "/blog/2020-05-25-changing-you-blogdown-workflow/lucille_sassy.gif"
+image: "lucille_sassy.gif"
 ---
 
 

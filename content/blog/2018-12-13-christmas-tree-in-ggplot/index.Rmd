@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [R, plot]
-image: '/blog/2018-12-13-christmas-tree-in-ggplot/index_files/figure-html/featured-1.gif' 
+image: 'index_files/figure-html/featured-1.gif' 
 
 ---
 

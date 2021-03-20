@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: yes
 tags: [R, GAMM] 
-image: '/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2/index_files/figure-html/featured-1.png'
+image: 'index_files/figure-html/featured-1.png'
 ---
 
 

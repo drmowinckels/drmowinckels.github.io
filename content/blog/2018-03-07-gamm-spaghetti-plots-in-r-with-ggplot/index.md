@@ -5,7 +5,7 @@ date: '2018-03-08'
 output:
   html_document:
     keep_md: yes
-image: '/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1.png'
+image: 'index_files/figure-html/unnamed-chunk-4-1.png'
 tags: [R, GAMM]
 draft: false
 ---
