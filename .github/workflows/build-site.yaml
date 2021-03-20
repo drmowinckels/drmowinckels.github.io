@@ -68,7 +68,7 @@ jobs:
       # 
 
       - name: Build site
-        run: hugo -buildFuture
+        run: hugo
         
       - name: Deploy to Netlify production
         if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/master'
