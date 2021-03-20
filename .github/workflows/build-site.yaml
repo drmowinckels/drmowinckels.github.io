@@ -48,8 +48,8 @@ jobs:
           tinytex::install_tinytex()
         shell: Rscript {0}
 
-      - name: Delete content/about/_index.md
-        run: rm content/about/_index.md
+      # - name: Delete content/about/_index.md
+      #   run: rm content/about/_index.md
 
       - name: Render about me
         run: Rscript -e 'blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")'
