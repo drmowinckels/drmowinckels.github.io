@@ -40,7 +40,8 @@ jobs:
       - name: Install npm packages
         run: |
           npm install netlify-cli -g
-          npm install postcss-cli
+          npm install -g postcss-cli
+          npm install -g autoprefixer
       # 
       # - name: Install R packages
       #   run: |
