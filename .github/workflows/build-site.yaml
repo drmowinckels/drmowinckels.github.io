@@ -18,15 +18,15 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v2
         with:
           submodules: recursive
         
-      - name: setup R
+      - name: Setup R
         uses: r-lib/actions/setup-r@v1
 
-      - name: setup pandoc
+      - name: Setup pandoc
         uses: r-lib/actions/setup-pandoc@v1
         with:
           pandoc-version: '2.12'
@@ -75,7 +75,7 @@ jobs:
           if [ github.event_name == 'pull_request' ]; then
             echo "Running netlify preview deploy"
             netlify deploy
-          elif []; then
+          else
             echo "Running netlify production deploy"
             netlify deploy #--prod
           fi
