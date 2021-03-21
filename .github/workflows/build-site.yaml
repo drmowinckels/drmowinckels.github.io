@@ -77,7 +77,7 @@ jobs:
           if [ github.event_name == 'pull_request' ]; then
             echo "Running netlify preview deploy"
             prevurl=''
-            netlify deploy -alias $GITHUB_SHA
+            netlify deploy -b ${{ secrets.NETLIFY_PREVIEW }}
           else
             echo "Running netlify production deploy"
             netlify deploy #--prod
