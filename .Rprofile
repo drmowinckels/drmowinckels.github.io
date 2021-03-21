@@ -6,4 +6,5 @@ if (file.exists("~/.Rprofile")) {
 options(blogdown.new_bundle = TRUE,
         blogdown.author = "Dr. Mowinckel",
         blogdown.ext = '.Rmd',
+        blogdown.method = "markdown",
         blogdown.subdir	 = "blog")
