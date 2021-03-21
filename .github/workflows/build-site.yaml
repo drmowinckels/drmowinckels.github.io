@@ -54,7 +54,7 @@ jobs:
           blogdown::build_site(local = FALSE, 
                                run_hugo = FALSE, 
                                build_rmd = "content/about/_index.Rmd")
-          list.files(""content/about/")
+          list.files("content/about/")
           #rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")
         shell: Rscript {0}
         env:
