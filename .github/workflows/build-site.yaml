@@ -50,7 +50,7 @@ jobs:
         
       - name: Render about me & cv
         run: |
-          list.files(""content/about/")
+          list.files("content/about/")
           blogdown::build_site(local = FALSE, 
                                run_hugo = FALSE, 
                                build_rmd = "content/about/_index.Rmd")
