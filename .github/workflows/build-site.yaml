@@ -47,14 +47,14 @@ jobs:
           install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown", "tinytex"), Ncpus = 2)
           tinytex::install_tinytex()
         shell: Rscript {0}
-
-      - name: Render about me
-        run: Rscript -e 'blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")'
-# 
-#       - name: Knit cv
-#         run: Rscript -e 'rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")'
-#         env:
-#          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
+        
+      - name: Render about me & cv
+        run: |
+           blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")
+           #rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")
+        shell: Rscript {0}
+        env:
+         ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
         
       # - name: Commit results
       #   run: |
