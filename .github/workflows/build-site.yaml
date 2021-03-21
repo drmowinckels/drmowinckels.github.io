@@ -50,12 +50,9 @@ jobs:
         
       - name: Render about me & cv
         run: |
-          getOption("blogdown.method")
-          list.files("content/about/")
           blogdown::build_site(local = FALSE, 
                                run_hugo = FALSE, 
                                build_rmd = "content/about/_index.Rmd",)
-          list.files("content/about/")
           #rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")
         shell: Rscript {0}
         env:
@@ -79,7 +76,8 @@ jobs:
         run: |
           if [ github.event_name == 'pull_request' ]; then
             echo "Running netlify preview deploy"
-            netlify deploy
+            prevurl=''
+            netlify deploy -alias $GITHUB_SHA
           else
             echo "Running netlify production deploy"
             netlify deploy #--prod
