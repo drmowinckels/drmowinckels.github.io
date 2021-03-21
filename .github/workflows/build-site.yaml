@@ -37,10 +37,10 @@ jobs:
           hugo-version: '0.81.0'
           extended: true
       
-      # - name: Install npm packages
-      #   run: |
-      #     npm install netlify-cli -g
-      #     npm install
+      - name: Install npm packages
+        run: |
+          npm install netlify-cli -g
+          #npm install
       # 
       # - name: Install R packages
       #   run: |
