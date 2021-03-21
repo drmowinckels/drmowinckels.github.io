@@ -23,13 +23,13 @@ jobs:
         with:
           submodules: recursive
         
-      # - name: setup R
-      #   uses: r-lib/actions/setup-r@v1
-      # 
-      # - name: setup pandoc
-      #   uses: r-lib/actions/setup-pandoc@v1
-      #   with:
-      #     pandoc-version: '2.12'
+      - name: setup R
+        uses: r-lib/actions/setup-r@v1
+
+      - name: setup pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.12'
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -41,20 +41,20 @@ jobs:
         run: |
           npm install netlify-cli -g
           npm install
-      # 
-      # - name: Install R packages
-      #   run: |
-      #     install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown", "tinytex"), Ncpus = 2)
-      #     tinytex::install_tinytex()
-      #   shell: Rscript {0}
-      # 
-      # - name: Render about me
-      #   run: Rscript -e 'blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")'
-      # 
-      # - name: Knit cv
-      #   run: Rscript -e 'rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")'
-      #   env:
-      #    ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
+
+      - name: Install R packages
+        run: |
+          install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown", "tinytex"), Ncpus = 2)
+          tinytex::install_tinytex()
+        shell: Rscript {0}
+
+      - name: Render about me
+        run: Rscript -e 'blogdown::build_site(local = FALSE, run_hugo = FALSE, build_rmd = "content/about/_index.Rmd")'
+# 
+#       - name: Knit cv
+#         run: Rscript -e 'rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")'
+#         env:
+#          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
         
       # - name: Commit results
       #   run: |
@@ -67,16 +67,16 @@ jobs:
       - name: Build site
         run: hugo
         
-      - name: Deploy to Netlify production
-        if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/master'
+      - name: Deploy to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: netlify deploy #--prod
+        run: |
+          if [ github.event_name == 'pull_request' ]; then
+            echo "Running netlify preview deploy"
+            netlify deploy
+          elif []; then
+            echo "Running netlify production deploy"
+            netlify deploy #--prod
+          fi
           
-      - name: Deploy Netlify preview
-        if: github.event_name == 'pull_request'
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: netlify deploy
