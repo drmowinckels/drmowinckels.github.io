@@ -76,9 +76,9 @@ jobs:
         run: |
           if [ github.event_name == 'pull_request' ]; then
             echo "Running netlify preview deploy"
-            netlify deploy -b ${{ secrets.NETLIFY_PREVIEW }}
+            netlify deploy 
           else
             echo "Running netlify production deploy"
-            netlify deploy -b ${{ secrets.NETLIFY_PREVIEW }} #--prod
+            netlify deploy #--prod
           fi
           
