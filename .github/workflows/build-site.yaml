@@ -57,7 +57,7 @@ jobs:
         shell: Rscript {0}
         env:
          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
-        
+
       - name: Build site
         run: hugo
         
@@ -71,6 +71,6 @@ jobs:
             netlify deploy 
           else
             echo "Running netlify production deploy"
-            netlify deploy #--prod
+            netlify deploy --prod
           fi
           
