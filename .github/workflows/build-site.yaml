@@ -58,14 +58,6 @@ jobs:
         env:
          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
         
-      - name: Commit results
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git commit content/about -m 'Re-build about me' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
-
-
       - name: Build site
         run: hugo
         
