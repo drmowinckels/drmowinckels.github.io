@@ -73,7 +73,8 @@ jobs:
             echo "Running netlify production deploy"
             netlify deploy --prod
           fi
-          
+        shell: sh
+
         - name: Send to rweekly
           if: github.event_name == 'push'
           run: |
