@@ -24,9 +24,8 @@ jobs:
           submodules: recursive
           fetch-depth: 100
 
-      #   
-      # - name: Setup R
-      #   uses: r-lib/actions/setup-r@v1
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
 
       # - name: Setup pandoc
       #   uses: r-lib/actions/setup-pandoc@v1
@@ -81,28 +80,6 @@ jobs:
       - name: Send to rweekly
         if: github.event_name == 'push'
         run: |
-          # Get the latest blog file committed
-          file <- system("jack diff --name-only content/blog/", intern = TRUE)
-          file
-          file <- file[grepl("Rmd$", file)]
+          files=$(jack --name-only HEAD~30..HEAD content/blog/)
+          Rscript R/rweekly.R files
           
-          # read in yaml for information
-          yaml <- readLines(file, n = 10)
-          
-          # convenience for getting yaml key-value
-          .get_yml <- function(x, yaml){
-            key <- sprintf("^%s: ", x)
-            x <- yaml[grepl(key, yaml)]
-            gsub(key, "", x)
-          }
-    
-          # Define string for sending to rweekly
-          a <- sprintf("https://api.rweekly.org/submit?url=%s&desc=%s&email=%s",
-                       URLencode(sprintf("https://drmowinckels.io/blog/%s", .get_yml("slug", yaml))), 
-                       URLencode(.get_yml("title", yaml)), 
-                       URLencode("DrMowinckels")
-                       )
-                       
-          # Send it off
-          readLines(url(a))
-        shell: Rscript {0}
