@@ -23,9 +23,14 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 100
-        
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v1
+          
+      - name: find files
+        run: |
+          git diff --name-only content/blog/
+          
+      #   
+      # - name: Setup R
+      #   uses: r-lib/actions/setup-r@v1
 
       # - name: Setup pandoc
       #   uses: r-lib/actions/setup-pandoc@v1
