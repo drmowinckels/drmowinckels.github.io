@@ -20,6 +20,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+          fetch-depth: 10
         with:
           submodules: recursive
         
@@ -79,7 +80,7 @@ jobs:
         if: github.event_name == 'push'
         run: |
           # Get the latest blog file committed
-          file <- system("git diff --name-only HEAD~10..HEAD content/blog/", intern = TRUE)
+          file <- system("git diff --name-only content/blog/", intern = TRUE)
           file <- file[grepl("Rmd$", file)]
           
           # read in yaml for information
