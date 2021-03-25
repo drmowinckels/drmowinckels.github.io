@@ -33,8 +33,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     postStyle                    = "hex"                   # Blog list/grid, either list, square, circle or hex
     email                        = "a.m.mowinckel@psykologi.uio.no"   # E-mail address for contact section
     customCSS                    = ["/css/syntax.css", "/css/custom-style.css"] #, "/css/hexagongrid.css"]              # Include custom css files placed under assets/
-    #customHead                   = "/head/custom.html"      # layouts/partials/
-    
+
     # Configure the home page
     [params.home]
         introHeight              = "fullheight"            # Input either "medium" or "large" or "fullheight"
@@ -54,7 +53,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
         googlePlus               = false
         pinterest                = false
         
-     
+    [params.blog]
+        citation = true
 
     # Social icons appear in introduction and contact section. Add as many more as you like.
     # Icon pack "fab" includes social network icons, see: https://fontawesome.com/icons?d=gallery&s=brands&m=free
