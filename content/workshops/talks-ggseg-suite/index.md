@@ -18,7 +18,7 @@ They are intended to create easier workflows for researchers working in R and ne
 ### Talks
 
 27.11.2020 - Keynote - [NORMENT Early Researchers Meeting](https://athanasiamo.github.io/talks/slides/2020.11.27-norment-ggseg/)  
-10.11.2020 - Plenary talk - [NHS-R Conference)[https://athanasiamo.github.io/nhsr-2020/]  
+10.11.2020 - Plenary talk - [NHS-R Conference](https://athanasiamo.github.io/nhsr-2020/)  
 
 
 ### Package sites
