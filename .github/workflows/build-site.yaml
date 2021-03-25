@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-          fetch-depth: 10
+        fetch-depth: 10
         with:
           submodules: recursive
         
