@@ -20,9 +20,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-        fetch-depth: 10
         with:
           submodules: recursive
+          fetch-depth: 10
         
       - name: Setup R
         uses: r-lib/actions/setup-r@v1
