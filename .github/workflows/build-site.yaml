@@ -75,30 +75,30 @@ jobs:
           fi
         shell: sh
 
-        - name: Send to rweekly
-          if: github.event_name == 'push'
-          run: |
-            # Get the latest blog file committed
-            file <- system("git diff --name-only HEAD~10..HEAD content/blog/", intern = TRUE)
-            file <- file[grepl("Rmd$", file)]
-            
-            # read in yaml for information
-            yaml <- readLines(file, n = 10)
-            
-            # convenience for getting yaml key-value
-            .get_yml <- function(x, yaml){
-              key <- sprintf("^%s: ", x)
-              x <- yaml[grepl(key, yaml)]
-              gsub(key, "", x)
-            }
-
-            # Define string for sending to rweekly
-            a <- sprintf("https://api.rweekly.org/submit?url=%s&desc=%s&email=%s",
-                         URLencode(sprintf("https://drmowinckels.io/blog/%s", .get_yml("slug", yaml))), 
-                         URLencode(.get_yml("title", yaml)), 
-                         URLencode("DrMowinckels")
-                         )
-                         
-            # Send it off
-            readLines(url(a))
-          shell: Rscript {0}
+      - name: Send to rweekly
+        if: github.event_name == 'push'
+        run: |
+          # Get the latest blog file committed
+          file <- system("git diff --name-only HEAD~10..HEAD content/blog/", intern = TRUE)
+          file <- file[grepl("Rmd$", file)]
+          
+          # read in yaml for information
+          yaml <- readLines(file, n = 10)
+          
+          # convenience for getting yaml key-value
+          .get_yml <- function(x, yaml){
+            key <- sprintf("^%s: ", x)
+            x <- yaml[grepl(key, yaml)]
+            gsub(key, "", x)
+          }
+    
+          # Define string for sending to rweekly
+          a <- sprintf("https://api.rweekly.org/submit?url=%s&desc=%s&email=%s",
+                       URLencode(sprintf("https://drmowinckels.io/blog/%s", .get_yml("slug", yaml))), 
+                       URLencode(.get_yml("title", yaml)), 
+                       URLencode("DrMowinckels")
+                       )
+                       
+          # Send it off
+          readLines(url(a))
+        shell: Rscript {0}
