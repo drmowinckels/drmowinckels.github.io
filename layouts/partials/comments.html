@@ -5,6 +5,7 @@
 {{- end }}
 
 {{- if .Site.Params.giscus.repo }}
+<div class="container giscus">
 <script src="https://giscus.app/client.js"
         data-repo="Athanasiamo/Drmowinckels"
         data-repo-id="MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI="
@@ -18,4 +19,6 @@
         crossorigin="anonymous"
         async>
 </script>
+    </div>
+
 {{- end }}
