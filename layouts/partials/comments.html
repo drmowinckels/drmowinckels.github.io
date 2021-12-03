@@ -1,0 +1,21 @@
+{{- if .Site.DisqusShortname }}
+    <div class="container disqus">
+        {{ template "_internal/disqus.html" . }}
+    </div>
+{{- end }}
+
+{{- if .Site.Params.giscus.repo }}
+<script src="https://giscus.app/client.js"
+        data-repo="Athanasiamo/Drmowinckels"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI="
+        data-category="Comments"
+        data-category-id="DIC_kwDOB1wEpM4CAG0c"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+{{- end }}
