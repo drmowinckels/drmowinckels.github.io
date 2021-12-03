@@ -32,7 +32,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     dateFormat                   = "Jan 2, 2006"
     postStyle                    = "hex"                   # Blog list/grid, either list, square, circle or hex
     email                        = "a.m.mowinckel@psykologi.uio.no"   # E-mail address for contact section
-    customCSS                    = ["/css/syntax.css", "/css/custom-style.css"] #, "/css/hexagongrid.css"]              # Include custom css files placed under assets/
+    customCSS                    = ["/css/syntax.css", "/css/custom-style.css"]   # Include custom css files placed under assets/
 
     # Configure the home page
     [params.home]
@@ -64,7 +64,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
         mapping = "pathname"
         reactions_enabled = "1"
         emit_metadata = "0"
-        theme = "light"
+        theme = "/css/giscus.css"
         lang = "en"
 
     # Social icons appear in introduction and contact section. Add as many more as you like.
