@@ -131,9 +131,9 @@ And in the example config.toml I added the following:
 # https://www.joelnitta.com/posts/2021-11-24_using-giscus/
 [params.giscus]
   # repo = "github-user/github-repo" # Entering repo will enable giscus
-  repo-id = "enter-repo-id"
+  repo_id = "enter-repo-id"
   category = "Comments"
-  category-id = "enter-category-id"
+  category_id = "enter-category-id"
   mapping = "pathname"
   reactions-enabled = "1"
   emit-metadata = "0"
