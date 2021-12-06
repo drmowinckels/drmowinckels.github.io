@@ -44,24 +44,24 @@ jobs:
           npm install
       
       - name: Setup R
-        if: github.event_name == 'schedule'
         uses: r-lib/actions/setup-r@v1
 
       - name: Setup pandoc
-        if: github.event_name == 'schedule'
         uses: r-lib/actions/setup-pandoc@v1
         with:
           pandoc-version: '2.12'
 
-      - name: Install R packages
-        if: github.event_name == 'schedule'
+      - name: Run Renv
+        uses: r-lib/actions/setup-renv@v1
+        with:
+          cache-version: 2
+          
+      - name: Install tinytex
         run: |
-          install.packages(c("tidyverse", "scholar", "remotes", "vitae", "rorcid", "glue", "rmarkdown", "blogdown", "tinytex"), Ncpus = 2)
           tinytex::install_tinytex()
         shell: Rscript {0}
-
+        
       - name: Render about me & cv
-        if: github.event_name == 'schedule'
         run: |
           blogdown::build_site(local = FALSE,
                                run_hugo = FALSE,
