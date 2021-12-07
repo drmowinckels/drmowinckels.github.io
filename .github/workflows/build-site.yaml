@@ -58,10 +58,8 @@ jobs:
           cache-version: 2
           
       - name: Install tinytex
-        run: |
-          tinytex::install_tinytex()
-        shell: Rscript {0}
-        
+        uses: r-lib/actions/setup-tinytex@v1
+
       - name: Render about me & cv
         run: |
           blogdown::build_site(local = FALSE,
