@@ -1,0 +1,56 @@
+---
+title: "Main Penguin document"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r adelie, results = 'asis'}
+# Define new environment
+child_env <- new.env()
+child_env$species <- "Adelie"
+
+# knit the document and save the character output to an object
+res <- knitr::knit_child(
+  "species-child.Rmd",
+  envir = child_env,
+  quiet = TRUE
+)
+
+# Cat the object to make it render in your main document
+cat(res, sep = '\n')
+```
+
+```{r chinstrap, results = 'asis'}
+# Define new environment
+child_env <- new.env()
+child_env$species <- "Chinstrap"
+
+# knit the document and save the character output to an object
+res <- knitr::knit_child(
+  "species-child.Rmd",
+  envir = child_env,
+  quiet = TRUE
+)
+
+# Cat the object to make it render in your main document
+cat(res, sep = '\n')
+```
+
+```{r gentoo, results = 'asis'}
+# Define new environment
+child_env <- new.env()
+child_env$species <- "Gentoo"
+
+# knit the document and save the character output to an object
+res <- knitr::knit_child(
+  "species-child.Rmd",
+  envir = child_env,
+  quiet = TRUE
+)
+
+# Cat the object to make it render in your main document
+cat(res, sep = '\n')
+```
