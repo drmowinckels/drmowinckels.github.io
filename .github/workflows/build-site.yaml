@@ -77,10 +77,10 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          if [ github.event_name == 'pull_request' ]; then
+          if [[ github.event_name == 'pull_request' ]]; then
             echo "Running netlify preview deploy"
             netlify deploy
-          elif [ github.event_name == 'push' ]; then
+          elif [[ github.event_name == 'push' ]]; then
             echo "Running netlify production deploy"
             netlify deploy --prod
           else
