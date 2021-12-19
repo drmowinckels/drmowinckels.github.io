@@ -43,7 +43,7 @@ jobs:
           npm install
       
       - name: Setup R
-        uses: r-lib/actions/setup-r@v1
+        uses: r-lib/actions/setup-r@v2
         timeout-minutes: 60
 
       - name: Setup pandoc
@@ -51,11 +51,13 @@ jobs:
         with:
           pandoc-version: '2.12'
 
-      - name: Run Renv
-        uses: r-lib/actions/setup-renv@v1
-        with:
-          cache-version: 2
-          
+      - name: Install R packages
+        run: |
+          install.packages(c("dplyr", "ggplot2", "tidyr", "knitr",
+                             "scholar", "vitae", "orchid", "glue"), 
+                           Ncpus = 2)
+        shell: Rscript {0}
+        
       - name: Install tinytex
         uses: r-lib/actions/setup-tinytex@v1
 
@@ -70,7 +72,7 @@ jobs:
       #    ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
 
       - name: Build site
-        run: hugo
+        run: hugo --enableGitInfo
 
       - name: Deploy to Netlify
         env:
