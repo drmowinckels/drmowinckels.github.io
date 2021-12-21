@@ -23,11 +23,14 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(tidyverse)
+library(dplyr)
 library(vitae)
 library(rorcid)
 library(glue)
-knitr::opts_chunk$set(echo=FALSE, warning=FALSE, error=FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      error = FALSE, 
+                      message = FALSE)
 orcid <- "0000-0002-5756-0223"
 scholar_id <- "7NkxgWQAAAAJ"
 ```

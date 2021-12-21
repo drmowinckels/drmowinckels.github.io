@@ -1,0 +1,38 @@
+---
+output: pdf_document
+---
+
+## Species `r species`
+
+```{r, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(palmerpenguins)
+library(tidyr)
+knitr::opts_chunk$set(echo = FALSE)
+
+# Filter the penguins data by species
+data <- filter(penguins, species == species)
+```
+
+```{r}
+data %>% 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point()
+```
+
+```{r}
+data %>% 
+  pivot_longer(ends_with("mm"),
+               names_to = "cols",
+               values_to = "mm", 
+               values_drop_na = TRUE) %>% 
+  group_by(cols) %>% 
+  summarise(across(mm, 
+                   .fns = list(mean = mean, 
+                               min = min, 
+                               max = max,
+                               N = length),
+                    .names = "{.fn}")
+  )
+```

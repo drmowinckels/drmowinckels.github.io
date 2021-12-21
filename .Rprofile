@@ -1,4 +1,4 @@
-source("renv/activate.R")
+# source("renv/activate.R")
 # in .Rprofile of the website project
 if (file.exists("~/.Rprofile")) {
   base::sys.source("~/.Rprofile", envir = environment())
@@ -10,5 +10,5 @@ options(
   blogdown.ext = '.Rmd',
   blogdown.method = "markdown",
   blogdown.subdir	 = "blog",
-  blogdown.hugo.version	 = "0.88.1"
+  blogdown.hugo.version	 = "0.91.0"
 )
