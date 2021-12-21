@@ -3,16 +3,23 @@ title: External Images to Heatplots
 author: Dr. Mowinckel
 date: '2021-04-02'
 slug: '2021-04-02-external-images-to-heatplots'
+draft: true
 categories: []
 tags:
   - R
   - plot
 ---
 
+I've written posts before about adding images to ggplot, but in those cases I used the `annotate_custom` function, and loops. This procedure works pretty well, and its been a life saver for me in many places where I do this sort of plotting.
+
+But there is a better way! I had vaguely seen something about a {ggimage} package around, but it was not until I saw it on Thomas Mock's [The Mockup Blog](https://themockup.blog/posts/2020-10-11-embedding-images-in-ggplot/) that I saw how cool it was! 
+
+And so, I thought we'd have a look at using that now, for adding neuroimaging pictures to heatplots!
+
+In neuroimaging, heatplots are quite common. We use them often to show the correlation between networks, or even the correlations between network correlations.
+
 
 ```r
-library(png)
-library(grid)
 library(ggimage)
 ```
 
@@ -29,8 +36,8 @@ library(tidyverse)
 ```
 
 ```
-## ✓ tibble  3.1.1     ✓ dplyr   1.0.6
-## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ tibble  3.1.5     ✓ dplyr   1.0.7
+## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
 ## ✓ readr   1.4.0     ✓ forcats 0.5.1
 ## ✓ purrr   0.3.4
 ```
