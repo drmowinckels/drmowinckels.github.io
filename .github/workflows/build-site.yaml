@@ -71,7 +71,7 @@ jobs:
       - name: Build site
         run: |
           if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-            sed 's/BASEURL/${{ github.sha }}--drmowinckels.netlify.app/g' config
+            sed 's/BASEURL/${{ github.sha }}--drmowinckels.netlify.app/g' config  > config.toml
           elif [[ ${{ github.event_name }} == 'push' ]]; then
             sed 's/BASEURL/drmowinckels\.io/g' config > config.toml
           fi
@@ -88,11 +88,9 @@ jobs:
         run: |
           if [[ ${{ github.event_name }} == 'pull_request' ]]; then
             echo "Running netlify preview deploy"
-            sed 's/BASEURL/${{ github.sha }}--drmowinckels.netlify.app/g' config
-            netlify deploy
+            netlify deploy -alias ${{ github.sha }}--drmowinckels.netlify.app
           elif [[ ${{ github.event_name }} == 'push' ]]; then
             echo "Running netlify production deploy"
-            sed 's/BASEURL/drmowinckels\.io/g' config > config.toml
             netlify deploy --prod
           else
             echo "Nothing to send to netlify"
