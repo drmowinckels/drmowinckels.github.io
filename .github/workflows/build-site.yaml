@@ -69,7 +69,14 @@ jobs:
         run: npm install
 
       - name: Build site
-        run: hugo --enableGitInfo
+        run: |
+          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+            sed 's/BASEURL/${{ github.sha }}--drmowinckels.netlify.app/g' config
+          elif [[ ${{ github.event_name }} == 'push' ]]; then
+            sed 's/BASEURL/drmowinckels\.io/g' config > config.toml
+          fi
+          hugo --enableGitInfo
+        shell: sh
 
       - name: Install Netlify CLI
         run: brew install netlify-cli
