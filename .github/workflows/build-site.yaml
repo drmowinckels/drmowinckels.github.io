@@ -43,14 +43,11 @@ jobs:
       - name: Install tinytex
         uses: r-lib/actions/setup-tinytex@v1
         
-      - name: Create config.toml
+      - name: Alter base URL
+        if: github.event_name == 'pull_request'
         run: |
-          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-            sed 's/BASEURL/${{ github.sha }}--drmowinckels.netlify.app/g' config  > config.toml
-          elif [[ ${{ github.event_name }} == 'push' ]]; then
-            sed 's/BASEURL/drmowinckels\.io/g' config > config.toml
-          fi
-          hugo --enableGitInfo
+            sed 's/drmowinckels\.io/${{ github.sha }}--drmowinckels.netlify.app/g' config.toml  > tmp
+            mv tmp config.toml
         shell: sh
 
       - name: Render about me & cv
