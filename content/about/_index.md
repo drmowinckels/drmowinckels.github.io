@@ -1,6 +1,6 @@
 ---
 title: "About"
-date: '2021-03-23'
+date: '2021-12-31'
 weight: 1
 allow_html: yes
 type: about
@@ -52,49 +52,49 @@ Download my [CV in pdf](/about/resume/am_mowinckel_cv.pdf)
 ### Publications & Citations
 <img src="/about/_index_files/figure-html/pubPlot-1.png" width="672" />
 
-JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) [_Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s disease_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=4061283242314542178) Nature communications _12 (1), 1-11_ 
+JM Roe, D Vidal-Piñeiro, Ø Sørensen, AM Brandmaier, S Düzel, ... (2021) [_Asymmetric thinning of the cerebral cortex across the adult lifespan is accelerated in Alzheimer’s disease_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13796097502565679485) Nature communications _12 (1), 1-11_ 
 
-Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2021) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5651230076567075017,16357842307529023522) NeuroImage _224, 117416_ 
+KB Walhovd, AM Fjell, Y Wang, IK Amlien, AM **Mowinckel**, ... (2021) [_Education and Income Show Heterogeneous Relationships to Lifespan Brain and Cognitive Differences Across European and US Cohorts._](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=9119756821592181573) Oxford University Press (OUP) __ 
 
-AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, AM Brandmaier, ... (2021) _Poor Self-Reported Sleep is Related to Regional Cortical Thinning in Aging but not Memory Decline—Results From the Lifebrain Consortium_ Cerebral Cortex _31 (4), 1953-1969_ 
+AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, AM Brandmaier, ... (2021) [_Poor Self-Reported Sleep is Related to Regional Cortical Thinning in Aging but not Memory Decline—Results From the Lifebrain Consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=9441074857676075259) Cerebral Cortex _31 (4), 1953-1969_ 
 
-D Vidal-Piñeiro, MH Sneve, IK Amlien, H Grydeland, AM **Mowinckel**, ... (2021) _The functional foundations of episodic memory remain stable throughout the lifespan_ Cerebral Cortex _31 (4), 2098-2110_ 
+Ø Sørensen, AM Brandmaier, D Macià, K Ebmeier, P Ghisletta, RA Kievit, ... (2021) [_Meta-analysis of generalized additive models in neuroimaging studies_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13042839360510237530) NeuroImage _224, 117416_ 
 
-AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13478746394103686546) Sleep _43 (5), zsz280_ 
+AM Fjell, H Grydeland, Y Wang, IK Amlien, D Bartres-Faz, AM Brandmaier, ... (2021) [_The genetic organization of longitudinal subcortical volumetric change is stable throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=2400743366874587110,7119551764769195712) Elife _10, e66466_ 
+
+D Vidal-Piñeiro, MH Sneve, IK Amlien, H Grydeland, AM **Mowinckel**, ... (2021) [_The functional foundations of episodic memory remain stable throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=6727128473922236992) Cerebral Cortex _31 (4), 2098-2110_ 
+
+D Vidal-Pineiro, Y Wang, SK Krogsrud, IK Amlien, WFC Baare, ... (2021) [_Brain age relates to early life factors but not to accelerated brain aging_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=14333089339680091601,1074965980205397950) BioRxiv __ 
+
+SK Krogsrud, AM **Mowinckel**, D Sederevicius, D Vidal-Piñeiro, IK Amlien, ... (2021) _Relationships between apparent cortical thickness and working memory across the lifespan-Effects of genetics and socioeconomic status_ Developmental cognitive neuroscience _51, 100997_ 
 
 AM **Mowinckel**, D Vidal-Piñeiro (2020) [_Visualization of Brain Statistics With R Packages ggseg and ggseg3d_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=7728234467298477321) Advances in Methods and Practices in Psychological Science _3 (4), 466-483_ 
 
-D Vidal-Pineiro, N Parker, J Shin, L French, H Grydeland, AP Jackowski, ... (2020) [_Cellular correlates of cortical thinning throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5860637791443459396) Scientific reports _10 (1), 1-14_ 
+D Vidal-Pineiro, N Parker, J Shin, L French, H Grydeland, AP Jackowski, ... (2020) [_Cellular correlates of cortical thinning throughout the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=5860637791443459396) Scientific Reports _10 (1), 1-14_ 
+
+AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, DM Bros, N Buchmann, ... (2020) [_Self-reported sleep relates to hippocampal atrophy across the adult lifespan: results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13478746394103686546) Sleep _43 (5), zsz280_ 
 
 KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2020) [_Genetic risk for Alzheimer disease predicts hippocampal volume through the human lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=2204833211052181607) Neurology Genetics _6 (5)_ 
 
 VM Danielsen, D Vidal-Piñeiro, AM **Mowinckel**, D Sederevicius, AM Fjell, ... (2020) [_Lifespan trajectories of relative corpus callosum thickness: regional differences and cognitive relevance_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=8904205061858122143) Cortex _130, 127-141_ 
 
-KB Walhovd, ACS Bråthen, MS Panizzon, AM **Mowinckel**, Ø Sørensen, ... (2020) _Within-session verbal learning slope is predictive of lifespan delayed recall, hippocampal volume, and memory training benefit, and is heritable_ Scientific reports _10 (1), 1-13_ 
+I Budin-Ljøsne, BB Friedman, S Suri, C Solé-Padullés, S Düzel, ... (2020) [_The global brain health survey: development of a multi-language survey of public views on brain health_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=17972139162672856883) Frontiers in public health _8, 387_ 
 
-I Budin-Ljøsne, BB Friedman, S Suri, C Solé-Padullés, S Düzel, ... (2020) _The global brain health survey: development of a multi-language survey of public views on brain health_ Frontiers in public health _8, 387_ 
+KB Walhovd, ACS Bråthen, MS Panizzon, AM **Mowinckel**, Ø Sørensen, ... (2020) [_Within-session verbal learning slope is predictive of lifespan delayed recall, hippocampal volume, and memory training benefit, and is heritable_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=8471967629941904538) Scientific reports _10 (1), 1-13_ 
 
-VP Didac, N Parker, J Shin, L French, G Håkon, AP Jackowski, ... (2020) _Cellular correlates of cortical thinning throughout the lifespan_ Scientific Reports (Nature Publisher Group) _10 (1)_ 
+T Gorbach, S Pudas, D Bartrés‐Faz, AM Brandmaier, S Düzel, ... (2020) [_Longitudinal association between hippocampus atrophy and episodic‐memory decline in non‐demented APOE ε4 carriers_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=6954887246778592534) Alzheimer's & Dementia: Diagnosis, Assessment & Disease Monitoring _12 (1 …_ 
 
-KB Walhovd, A Fjell, Y Wang, IK Amlien, AM **Mowinckel**, U Lindenberger, ... (2020) _Education and income show heterogeneous relationships to lifespan brain and cognitive differences across European and US cohorts_ bioRxiv __ 
-
-T Gorbach, S Pudas, D Bartrés‐Faz, AM Brandmaier, S Düzel, ... (2020) _Longitudinal association between hippocampus atrophy and episodic‐memory decline in non‐demented APOE ε4 carriers_ Alzheimer's & Dementia: Diagnosis, Assessment & Disease Monitoring _12 (1 …_ 
-
-A Fjell, H Grydeland, Y Wang, IK Amlien, D Bartrés-Faz, A Brandmaier, ... (2020) _The genetic organization of subcortical volumetric change is stable throughout the lifespan_ bioRxiv __ 
-
-A Fjell, O Sorensen, IK Amlien, D Bartres-Faz, A Brandmaier, D Macia, ... (2020) _Self-reported sleep problems are related to cortical thinning in aging but not memory decline and amyloid-β accumulation-results from the Lifebrain consortium_ bioRxiv __ 
-
-D Vidal-Piñeiro, MH Sneve, LH Nyberg, AM **Mowinckel**, D Sederevicius, ... (2019) [_Maintained frontal activity underlies high memory function over 8 years in aging_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=17089103347718824083) Cerebral Cortex _29 (7), 3111-3123_ 
+AM Fjell, Ø Sørensen, IK Amlien, D Bartrés-Faz, AM Brandmaier, ... (2020) [_Self-reported sleep problems are related to cortical thinning in aging but not memory decline and amyloid-β accumulation–results from the Lifebrain consortium_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=9997302508201602939) bioRxiv __ 
 
 AM Fjell, CH Chen, D Sederevicius, MH Sneve, H Grydeland, ... (2019) [_Continuity and discontinuity in human cortical development and change from embryonic stages to old age_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=12292935935753013374) Cerebral Cortex _29 (9), 3879-3890_ 
+
+D Vidal-Piñeiro, MH Sneve, LH Nyberg, AM **Mowinckel**, D Sederevicius, ... (2019) [_Maintained frontal activity underlies high memory function over 8 years in aging_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=17089103347718824083) Cerebral Cortex _29 (7), 3111-3123_ 
 
 AM Fjell, MH Sneve, D Sederevicius, Ø Sørensen, SK Krogsrud, ... (2019) [_Volumetric and microstructural regional changes of the hippocampus underlying development of recall performance after extended retention intervals_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=6382077352973065340) Developmental cognitive neuroscience _40, 100723_ 
 
 KB Walhovd, AM Fjell, Ø Sørensen, AM **Mowinckel**, CS Reinbold, ... (2019) [_Genetic risk for Alzheimer’s disease predicts hippocampal volume through the lifespan_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=13849018663476393665) bioRxiv _711689_ 
 
 AM Fjell, MH Sneve, D Sederevicius, Ø Sørensen, SK Krogsrud, ... (2019) [_Volumetric and microstructural regional changes of the hippocampus underlying development of extended delay long-term memory_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=17521939232361433407) bioRxiv _595827_ 
-
-D Bartrés-Faz, Ø Sørensen, IK Amlien, AM Fjell, DM Bros, N Buchmann, ... (2019) _Self-reported sleep relates to hippocampal atrophy over the adult lifespan–results from the Lifebrain consortium_ Sleep _43 (5)_ 
 
 KB Walhovd, AM Fjell, R Westerhausen, L Nyberg, KP Ebmeier, ... (2018) [_Healthy minds 0–100 years: Optimising the use of European brain imaging cohorts (“Lifebrain”)_](https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=761121902853026504) European Psychiatry _50, 47-56_ 
 
