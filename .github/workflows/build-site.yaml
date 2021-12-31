@@ -42,6 +42,16 @@ jobs:
         
       - name: Install tinytex
         uses: r-lib/actions/setup-tinytex@v1
+        
+      - name: Create config.toml
+        run: |
+          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+            sed 's/BASEURL/${{ github.sha }}--drmowinckels.netlify.app/g' config  > config.toml
+          elif [[ ${{ github.event_name }} == 'push' ]]; then
+            sed 's/BASEURL/drmowinckels\.io/g' config > config.toml
+          fi
+          hugo --enableGitInfo
+        shell: sh
 
       - name: Render about me & cv
         if: github.event_name != 'pull_request'
@@ -71,13 +81,7 @@ jobs:
         run: npm install
 
       - name: Build site
-        run: |
-          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-            sed 's/BASEURL/${{ github.sha }}--drmowinckels.netlify.app/g' config  > config.toml
-          elif [[ ${{ github.event_name }} == 'push' ]]; then
-            sed 's/BASEURL/drmowinckels\.io/g' config > config.toml
-          fi
-          hugo --enableGitInfo
+        run: hugo --enableGitInfo
         shell: sh
 
       - name: Install Netlify CLI
