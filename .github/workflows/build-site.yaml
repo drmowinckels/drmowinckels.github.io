@@ -36,7 +36,7 @@ jobs:
         run: |
           install.packages(c("dplyr", "ggplot2", "tidyr", "knitr",
                              "scholar", "vitae", "rorhid", "glue",
-                             "stringr"), 
+                             "stringr", "blogdown"), 
                            Ncpus = 2)
         shell: Rscript {0}
         
