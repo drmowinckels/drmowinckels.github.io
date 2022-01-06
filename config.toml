@@ -4,7 +4,6 @@ title                   = "Dr. Mowinckel's"
 enforce_ssl             = true
 builddrafts             = false                             # Include pages with draft status of true
 canonifyurls            = true                              # Turns relative urls into absolute urls
-#disqusshortname         = "drmowinckels-io"                             # Enable Disqus for comments
 googleAnalytics         = "UA-115545202-1"
 DefaultContentLanguage  = "en"                    # Default language for multilingual sites
 pygmentsCodeFences      = true   
@@ -46,6 +45,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     [params.projects]
         useTwoColumns            = true                   # Use a layout with two columns instead of three
 
+    [params.matomo]
+        url = "drmowinckels.matomo.cloud"
+        id  = "1"
+        
     # Share buttons on blog post pages
     [params.share]
         twitter                  = false
