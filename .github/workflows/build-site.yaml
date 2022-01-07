@@ -46,7 +46,7 @@ jobs:
       - name: Alter base URL
         if: github.event_name == 'pull_request'
         run: |
-            sed 's/drmowinckels\.io/${{ github.sha }}--drmowinckels.netlify.app/g' config.toml  > tmp
+            sed 's/drmowinckels\\.netlify\\.app/${{ github.sha }}--drmowinckels.netlify.app/g' config.toml  > tmp
             mv tmp config.toml
         shell: sh
 
