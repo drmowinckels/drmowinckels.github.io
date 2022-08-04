@@ -200,7 +200,7 @@ scholar::get_citation_history(scholar_id) %>%
   mutate(cumulative=cumsum(cites)) %>%
   rename(yearly = cites) %>% 
   gather(metric, val, -1) %>%
-  ggplot(aes(x=as.integer(year), y=val, 
+  ggplot(aes(x=as.factor(year), y=val, 
              group=metric, colour=metric)) +
   geom_line(lineend="round") +
   geom_point(show.legend = F) +

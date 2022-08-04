@@ -52,7 +52,8 @@ read_table("data/commission.tsv") |>
 ### Publications & Citations
 ```{r "pubPlot", dev.args = list(bg = 'transparent')}
 scholar::get_citation_history("7NkxgWQAAAAJ") |> 
-  mutate(cumulative=cumsum(cites)) |> 
+  mutate(cumulative=cumsum(cites),
+         year = as.factor(year)) |> 
   gather(metric, val, -1) |> 
 
   ggplot(aes(x=year, y=val, group=metric, fill=metric, colour=metric)) + 
@@ -73,7 +74,6 @@ scholar::get_citation_history("7NkxgWQAAAAJ") |>
         text = element_text(color="#4E6769"),
         line = element_line(color="#4E6769")) +
   scale_color_manual(values=c("#2c3b3b", "#AD957F"))
-
 ```
 
 ```{r "pubList", results='asis'}
