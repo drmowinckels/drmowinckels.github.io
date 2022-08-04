@@ -5,7 +5,7 @@ enforce_ssl             = true
 builddrafts             = false                             # Include pages with draft status of true
 canonifyurls            = true                              # Turns relative urls into absolute urls
 googleAnalytics         = "UA-115545202-1"
-DefaultContentLanguage  = "en"                    # Default language for multilingual sites
+DefaultContentLanguage  = "en"                       # Default language for multilingual sites
 pygmentsCodeFences      = true   
 pygmentsUseClasses      = true
 pygmentsStyle           = "autumn"                      # Choose theme: https://help.farbox.com/pygments.html   
@@ -45,9 +45,12 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     [params.projects]
         useTwoColumns            = true                   # Use a layout with two columns instead of three
 
-    [params.matomo]
-        url = "drmowinckels.matomo.cloud"
-        id  = "1"
+    [params.analytics]
+    [params.analytics.plausible]
+        domain = "drmowinckels.io"
+#    [params.analytics.matomo]
+ #       url = "drmowinckels.matomo.cloud"
+  #      id  = "1"
         
     # Share buttons on blog post pages
     [params.share]
