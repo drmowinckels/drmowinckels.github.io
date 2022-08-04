@@ -33,27 +33,27 @@ Download my [CV in pdf](/about/resume/am_mowinckel_cv.pdf)
 
 ### Education  
 ```{r "Education"}
-read_table("data/edu.tsv") %>%  
+read_table("data/edu.tsv") |>  
   kable("markdown", booktabs = T)
 ```
 
 ### Work  
 ```{r "Work"}
-read_table("data/work.tsv") %>%  
+read_table("data/work.tsv") |>  
   kable("markdown", booktabs = T)
 ```
 
 ### Commissions  
 ```{r "Commissions"}
-read_table("data/commission.tsv") %>%  
+read_table("data/commission.tsv") |>  
   kable("markdown", booktabs = T)
 ```
 
 ### Publications & Citations
 ```{r "pubPlot", dev.args = list(bg = 'transparent')}
-scholar::get_citation_history("7NkxgWQAAAAJ") %>% 
-  mutate(cumulative=cumsum(cites)) %>% 
-  gather(metric, val, -1) %>% 
+scholar::get_citation_history("7NkxgWQAAAAJ") |> 
+  mutate(cumulative=cumsum(cites)) |> 
+  gather(metric, val, -1) |> 
 
   ggplot(aes(x=year, y=val, group=metric, fill=metric, colour=metric)) + 
   geom_line(lineend="round") + 
@@ -77,16 +77,16 @@ scholar::get_citation_history("7NkxgWQAAAAJ") %>%
 ```
 
 ```{r "pubList", results='asis'}
-pubs = scholar::get_publications("7NkxgWQAAAAJ") %>% 
-  as_tibble() %>% 
-  filter(journal != "") %>% 
+pubs = scholar::get_publications("7NkxgWQAAAAJ") |> 
+  as_tibble() |> 
+  filter(journal != "") |> 
   mutate(cid     = ifelse(is.na(cid), NA, paste0("https://scholar.google.no/scholar?oi=bibs&hl=en&cluster=", cid)), 
          author  = gsub("Mowinckel", "**Mowinckel**", author), 
          title = ifelse(is.na(cid), paste0("_", title,"_"), paste0("[_", title,"_](", cid, ")")), 
          number  = paste0("_",number,"_"),
-         year    = paste0("(",year,")")) %>% 
-  arrange(desc(year)) %>% 
-  rowwise() %>% 
+         year    = paste0("(",year,")")) |> 
+  arrange(desc(year)) |> 
+  rowwise() |> 
   mutate(pub=paste(author, year, title, journal, number, "\n")) 
 k <- lapply(pubs$pub, cat, sep="\n")
 
