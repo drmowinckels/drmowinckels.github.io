@@ -11,8 +11,6 @@ image: 'index_files/figure-html/unnamed-chunk-16-1.png'
 
 Two weeks ago we had out first RLadies-Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks! 
 
-<!--html_preserve-->{{% tweet "988476760969932800" %}}<!--/html_preserve-->
-
 
 And indeed it is true, I love plotting. Probably more than I love analysing data (and definately more than cleaning and wrangling :P). I can spend hours and hours creating my own custom plotting functions for whatever paper/output I am currently working on. I'm not sure if this is a productive way of spending my time, but it's fun and instantly grattifying. 
 

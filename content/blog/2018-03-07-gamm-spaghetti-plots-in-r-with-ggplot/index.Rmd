@@ -89,7 +89,7 @@ dat %>%
   geom_smooth(method="gam", formula=y~s(x,bs='cr') + s(group, bs="re"))
 ```
 
-So, let's have a look at what we want to model. This particular example is compelx, because it is the complex that is hard to predict and plot. The simple ones will work with the above, provigin a formula directly to `geom_stat`. We're using three smoothing splines on three predictors in this model, and including two random intercepts. But we are really only interested in the `x2` smoothing spline, the others are just covariates of no interest.
+So, let's have a look at what we want to model. This particular example is complex, because it is the complex that is hard to predict and plot. The simple ones will work with the above, providing a formula directly to `geom_stat`. We're using three smoothing splines on three predictors in this model, and including two random intercepts. But we are really only interested in the `x2` smoothing spline, the others are just covariates of no interest.
 
 ```{r "analyses", warning=FALSE}
 
@@ -128,7 +128,7 @@ What we need to do, is predict all the data, keeping the other covariates consta
 
 After trying for several days, without managing to make the plot I wanted, I tweeted my frustration. 
 
-`r htmltools::HTML("{{< tweet 968428248026832896 >}}")`
+{{< tweet user="DrMowinckels" id="968428248026832896" >}}
 
 And to the rescue comes twitter, a useR pointed me to [itsadug](https://cran.r-project.org/web/packages/itsadug/index.html). The obscure package I just could not manage to find through all my googling. `itsadug` has a predict function, where you can specify which predictor you want to predict on. 
 
