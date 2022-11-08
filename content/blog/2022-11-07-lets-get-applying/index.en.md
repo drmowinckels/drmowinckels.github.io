@@ -628,7 +628,7 @@ mtcars
 
 And now we can see we have the exact same output from all the different approaches, but the last one leaves somewhat less room for error in the long run. 
 
-Of course, if you are tidyverse'ing, this is all void.
+Of course, if you are tidyverseing, this is all void.
 There is a _much_ neater way of doing it.
 
 
@@ -676,7 +676,7 @@ But as I said in the beginning, some ties, we work on systems where our tools of
 I will quite often start development working with tidyverse, then slowly start swapping out dependencies where I can if I know this tool will be used in a hard-to-install place.
 
 This concludes my first bit in the "apply"-series.
-Next time I'll show a bit more about how I use apply to read in multiple files at once and start prepping them for merging. 
+Next time I'll show a bit more about how I use apply to read in multiple files at once and start preparing them for merging. 
 
 <img src="blobby_bricks_TradingCard.jpg" alt="[Created with WOMBO Dream](https://www.wombo.art/listing/ff57e347-4214-4c9e-80b4-3b5ffd8cec6e)" width="540" />
 
