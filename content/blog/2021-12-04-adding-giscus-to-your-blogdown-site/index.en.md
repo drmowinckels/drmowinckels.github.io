@@ -21,7 +21,7 @@ I was procrastinating mainly because it felt like a little much to figure out [u
 
 But, the other day, I saw Shannon Pileggi tweet about something new and exciting:
 
-{{% tweet "1465878389852676107" %}}
+{{% tweet user="PipingHotData" id="1465878389852676107" %}}
 
 giscus sounded awesome. I already use github to not only store all my blog content, but also use github actions to [render and deploy](/blog/2021-03-23-using-github-actions-to-build-your-hugo-website/) my blog.
 
