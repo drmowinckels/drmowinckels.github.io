@@ -23,6 +23,29 @@ jobs:
         with:
           submodules: recursive
       
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ steps.hugo_vr.outputs.value }}
+          extended: true
+      
+      - name: Install Netlify CLI
+        run: brew install netlify-cli
+        
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
         timeout-minutes: 60
@@ -32,14 +55,12 @@ jobs:
         with:
           pandoc-version: '2.12'
 
-      - name: Install R packages
-        run: |
-          install.packages(c("dplyr", "ggplot2", "tidyr", "knitr",
-                             "scholar", "vitae", "rorcid", "glue",
-                             "stringr", "blogdown"), 
-                           Ncpus = 2)
-        shell: Rscript {0}
-        
+      - name: Cache R packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: r-${{ hashFiles('DESCRIPTION') }}  
+          
       - name: Install tinytex
         uses: r-lib/actions/setup-tinytex@v1
         
@@ -67,12 +88,6 @@ jobs:
           ver=$(cat .Rprofile | grep hugo.version | cut -d"=" -f2 | sed -e s.\"..g | sed -e s.\ ..g)
           echo ".Rprofile sets hugo version to $ver"
           echo "::set-output name=value::${ver}"
-          
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: ${{ steps.hugo_vr.outputs.value }}
-          extended: true
         
       - name: Install npm packages
         run: npm install
@@ -80,9 +95,6 @@ jobs:
       - name: Build site
         run: hugo --enableGitInfo
         shell: sh
-
-      - name: Install Netlify CLI
-        run: brew install netlify-cli
         
       - name: Deploy to Netlify
         env:
