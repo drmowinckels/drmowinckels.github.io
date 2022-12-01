@@ -1,32 +1,32 @@
 baseURL                 = "https://drmowinckels.io/"  # Your domain name. Must end with "/"
-theme                   = "hugo-chairome"   
+theme                   = "hugo-chairome"
 title                   = "Dr. Mowinckel's"
 enforce_ssl             = true
 builddrafts             = false               # Include pages with draft status of true
 canonifyurls            = true                # Turns relative urls into absolute urls
 googleAnalytics         = "UA-115545202-1"
 DefaultContentLanguage  = "en"                # Default language for multilingual sites
-pygmentsCodeFences      = true   
+pygmentsCodeFences      = true
 pygmentsUseClasses      = true
-pygmentsStyle           = "autumn"            # Choose theme: https://help.farbox.com/pygments.html   
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html", "static/blog/\\*_files/", "README", "\\.knit\\.md$", "\\.utf8\\.md$"] 
+pygmentsStyle           = "autumn"            # Choose theme: https://help.farbox.com/pygments.html
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html", "static/blog/\\*_files/", "README", "\\.knit\\.md$", "\\.utf8\\.md$"]
 
-# Getting raw html to render 
+# Getting raw html to render
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-   
+
 [permalinks]
     post = "/:year/:month/:day/:slug/"
-   
+
 [params]
     themeStyle                   = "light"                 # Choose "light" or "dark"
     favicon                      = "/img/fav.ico.png"      # Path to favicon file
     logo                         = "/img/logo_large.svg"
     logo_size                    = "50%"
     showRSSButton                = false                   # Show rss button in navigation
-    fadeIn                       = true                    # Turn on/off the fade-in effect 
+    fadeIn                       = true                    # Turn on/off the fade-in effect
     fadeInIndex                  = false                   # Turn on/off the fade-in effect on the index page even if fade-in was otherwise turned off
     dateFormat                   = "Jan 2, 2006"
     postStyle                    = "hex"                   # Blog list/grid, either list, square, circle or hex
@@ -51,17 +51,17 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
 #    [params.analytics.matomo]
  #       url = "drmowinckels.matomo.cloud"
   #      id  = "1"
-        
+
     # Share buttons on blog post pages
     [params.share]
         twitter                  = false
         facebook                 = false
         googlePlus               = false
         pinterest                = false
-        
+
     [params.blog]
         citation = true
-    
+
     [params.giscus]
         repo = "DrMowinckels/DrMowinckels"
         repo_id = "MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI="
@@ -70,7 +70,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
         mapping = "pathname"
         reactions_enabled = "1"
         emit_metadata = "0"
-        theme = "/css/giscus.css"
+        #theme = "/css/giscus.css"
+        theme = "light"
         lang = "en"
 
     # Social icons appear in introduction and contact section. Add as many more as you like.
@@ -110,7 +111,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
         icon_pack = "fab"
 
 # If you don't want to use the default menu, you can define one by yourself
-[[menu.main]] 
+[[menu.main]]
    name    = "Home"
    url     = ""
    weight  = 1
