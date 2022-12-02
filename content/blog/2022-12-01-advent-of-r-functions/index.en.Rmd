@@ -66,6 +66,104 @@ This is a staple bit of code for me.
 Hope it will help you get your scripts tidier!
 
 
+## 2<sup>nd</sup> of December - Writing subsetted data to files
+
+I'll continue in the same line as the first day, with working with the file system.
+I've shown how I create a utility function to create new directories if they don't exist, and now we want to write files to them!
+
+I'll continue using base-R, as for this first part of the calendar, I am emulating work I do on our offline server where I often struggle with getting dependencies installed in stable ways. 
+
+We have our lovely penguins data set, and I want to save one file per penguin species in the data.table.
+That is, I want to split the data.frame into three data.frames each containing only the data from a single penguin species.
+Then I want to save each of those to file. 
+
+First we need to split the data set. 
+Usually, when not on the server, I'd do some {dplyr} `nest_by` magic, but I cannot in this case.
+So we need to deal with what we have.
+Neatly, base-R has the `split` function, which does exactly what I want.
+
+```{r}
+penguins |> 
+  split(~species)
+```
+Out comes three data.frames with each data set in them, preserved in a list. 
+Awesome!
+
+Then, I need to save them to files. 
+I will use `lapply` (list apply) to loop through the list, and save each file.
+I send each data set into the lapply function, giving them the placeholder name `x`.
+So, `x` will be one data.frame. 
+Then I write the csv to file, using the species name.
+
+```{r}
+penguins |> 
+  split(~species) |> 
+  lapply(function(x){
+    write.csv(x, paste0(unique(x$species), ".csv"), row.names = FALSE)
+  })
+
+list.files(".", "csv")
+```
+```{r, include=FALSE}
+file.remove(list.files(".", "csv"))
+```
+Ok. so the files are there, but I am not super happy with this. 
+I don't like capitalisation in my file names, and they are not in a folder. 
+I also cannot easily change the grouping factor, if I for instance wanted to save by island or sex in stead.
+To do that, I'll construct a function that will do my work for me in a standardised way.
+It's going to be quite a doozy, but its such a convenient thing for me!
+
+```{r, include=FALSE}
+unlink("csvs", force = TRUE, recursive = TRUE)
+```
+```{r}
+save_files <- function(data, group, directory) {
+  # get column name from formula
+  colname <- as.character(group)[-1]
+  
+  # Create directory
+  dir <- file.path(directory, colname)
+  dir_create(dir)
+
+  # split the data
+  tmp <- split(data, group)
+
+  # internal file name constructor
+  .filename <- function(data){
+    # get unique value, make lower, append .csv
+    g <- unique(data[[colname]]) |> 
+      tolower() |> 
+      paste0(".csv")
+    # construct file path with directory, grouping and dataset
+    file.path(dir, g)
+  }
+  
+  # apply file names to the split data
+  # makes `sapply` give a really nice output
+  names(tmp) <- sapply(tmp, .filename)
+
+  # write the filees!
+  sapply(tmp, function(x) {
+    write.csv(x,
+              .filename(x),
+              row.names = FALSE)
+  })
+}
+save_files(penguins, ~species, "csvs")
+save_files(penguins, ~island, "csvs")
+list.files("csvs", recursive = TRUE)
+```
+
+
+See? 
+Now we have everything I wanted. 
+The files are all in neatly ordered folders, named neatly, and it just makes my organisatory heart happy!
+Admittedly, it is kind of a large function, but it is also very convenient for quite some stuff I do.
+For instance, while I regularly run analyses on complete datasets, some times I need to get some things done in subgroups of the data to inspect possible origins of effects that can be hard when I look at the entire data as a whole. 
+And many of the analyses I run are heavy computing, so I need to prepare files to send analyses to a computing cluster. 
+
+This tidbit of code is nice to have to create these datafiles I need.
+
 
 <!-- Let's kick it off by a piece of code that I often use on our offline server, where we store and use sensitive human data.  -->
 <!-- Here, I have less options in terms of R packages, so I often rely on base-R funcitonality, to avoid issues with compilers not being equal between my workflows.  -->

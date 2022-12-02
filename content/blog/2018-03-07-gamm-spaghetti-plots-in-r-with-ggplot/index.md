@@ -239,6 +239,7 @@ What we need to do, is predict all the data, keeping the other covariates consta
 
 After trying for several days, without managing to make the plot I wanted, I tweeted my frustration. 
 
+
 <!--html_preserve-->{{< tweet user="DrMowinckels" id="968428248026832896" >}}
 <!--/html_preserve-->
 
