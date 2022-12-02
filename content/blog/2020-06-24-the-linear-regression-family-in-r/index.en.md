@@ -32,7 +32,7 @@ It's a flaw in how we teach stats to psychology students, that we are struggling
 
 If you are running t-tests, ANOVA's and ANCOVA's, you are doing linear regression. 
 
-<!--html_preserve-->{{% tweet "1259586040219594753" %}}<!--/html_preserve-->
+<!--html_preserve-->{{% tweet user="ChelseaParlett" id="1259586040219594753" %}}<!--/html_preserve-->
 
 In this post we will go through a couple of examples of how we can specify different linear models (linear regressions) in R, and compare how running specialised types of linear regressions (like ANOVA) can also be specified as a linear model. 
 I will focus on _running models_, not on what constitutes _good_ or _bad_ models or their interpretation.

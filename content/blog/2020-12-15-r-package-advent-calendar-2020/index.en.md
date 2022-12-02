@@ -323,7 +323,7 @@ get_todays(completed, pks)
 Now, there is a slight problem with my function.
 I forgot to add a random seed, as pointed out by [Tobias Busch](https://twitter.com/tobilottii)
 
-{{< tweet 1334169186751410178 >}}
+{{< tweet user="tobilottii" id="1334169186751410178" >}}
 
 So, always room for improvement! If I do something similar next year, I'll be sure to add that!
 
