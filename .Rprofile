@@ -9,5 +9,5 @@ options(
   blogdown.ext = '.Rmd',
   blogdown.method = "markdown",
   blogdown.subdir	 = "blog",
-  blogdown.hugo_verion	 = "0.88.1"
+  blogdown.hugo.version	 = "0.91.0"
 )

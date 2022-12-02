@@ -8,14 +8,13 @@ position: Staff Scientist
 email: a.m.mowinckel@psykologi.uio.no
 profilepic: ../profile.png
 www: "drmowinckels.io/"
-github: Athanasiamo
+github: drmowinckels
 linkedin: drmowinckels
 twitter: DrMowinckels
 headcolor: 008080
 urlcolor:  008080
 linkcolor: 008080
 citecolor: 008080
-geometry: "top=1cm,bottom=1cm"
 docname: mowinckel_cv
 output: 
   vitae::awesomecv:
@@ -23,11 +22,18 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
 library(vitae)
 library(rorcid)
 library(glue)
-knitr::opts_chunk$set(echo=FALSE, warning=FALSE, error=FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      error = FALSE, 
+                      message = FALSE)
+options(tinytex.verbose = TRUE)
 orcid <- "0000-0002-5756-0223"
 scholar_id <- "7NkxgWQAAAAJ"
 ```
@@ -189,30 +195,31 @@ tribble(
 
 In descending chronological order.
 
-<!-- ```{r "pubPlot", dev.args = list(bg = 'transparent'), out.width= "65%"} -->
-<!-- scholar::get_citation_history(scholar_id) %>% -->
-<!--   mutate(cumulative=cumsum(cites)) %>% -->
-<!--   gather(metric, val, -1) %>% -->
-<!--   ggplot(aes(x=year, y=val, group=metric, fill=metric, colour=metric)) + -->
-<!--   geom_line(lineend="round") + -->
-<!--   geom_point(show.legend = F) + -->
-<!--   annotate("text",x=-Inf,y=Inf,vjust=1.5,hjust=-0.05,size=3,colour='gray', -->
-<!--            label=format(Sys.time(), "%d-%m-%Y")) + #add timestamp for the update -->
-<!--   labs(y="Googe citations", x="Year", -->
-<!--        colour = "", -->
-<!--        title = "Citations over time", -->
-<!--        subtitle = "retrieved from google scholar")+ -->
-<!--   theme_minimal() + -->
-<!--   theme(panel.grid.major = element_line(color="#4E67691F"), -->
-<!--         legend.position = "bottom", -->
-<!--         axis.line = element_line(), -->
-<!--         text = element_text(color="#4E6769"), -->
-<!--         line = element_line(color="#4E6769")) + -->
-<!--   scale_color_manual(values=c("#008080", "#004d4d")) -->
-<!-- ``` -->
+```{r "pubPlot", dev.args = list(bg = 'transparent'), out.width= "100%", fig.height=3}
+scholar::get_citation_history(scholar_id) %>%
+  mutate(cumulative=cumsum(cites)) %>%
+  rename(yearly = cites) %>% 
+  gather(metric, val, -1) %>%
+  ggplot(aes(x=as.factor(year), y=val, 
+             group=metric, colour=metric)) +
+  geom_line(lineend="round") +
+  geom_point(show.legend = F) +
+  labs(y="Googe citations", x="Year",
+       colour = "",
+       title = "Citations over time",
+       caption = paste("retrieved from google scholar on",
+                       format(Sys.time(), "%Y-%m-%d at %H:%M"))
+       ) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color="#4E67691F"),
+        axis.line = element_line(),
+        text = element_text(color="#4E6769"),
+        line = element_line(color="#4E6769")) +
+  scale_color_manual(values=c("#008080", "#004d4d"))
+```
 
 ```{r "pubList-get"}
-pubs <- scholar::get_publications("7NkxgWQAAAAJ") %>%
+pubs <- scholar::get_publications(scholar_id) %>%
   arrange(desc(year)) %>%
   filter(!is.na(year), !is.na(journal), journal != "") %>%
   as_tibble() %>%
@@ -247,9 +254,13 @@ pubs <- scholar::get_publications("7NkxgWQAAAAJ") %>%
 ```
 
 ```{r publist-1}
-slice(pubs, 1:19)
+n <- 12
+slice(pubs, 1:n)
 ```
 
 ```{r publist-2, results='asis'}
-slice(pubs, 20:nrow(pubs))
+pubs <- slice(pubs, (n+1):nrow(pubs))
+n <- 19
+sl <- ceiling(nrow(pubs) / n)
+pubs
 ```

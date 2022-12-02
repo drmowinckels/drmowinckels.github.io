@@ -1,21 +1,23 @@
-{  
-  "name": "drmowinckels",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.4",
-    "postcss-cli": "^9.0.2"
+{
+  "name":"drmowinckels",
+  "version":"1.0.1",
+  "description":"",
+  "main":"index.js",
+  "dependencies":{
+    "autoprefixer":"^10.4.0",
+    "postcss":"^8.4.5",
+    "postcss-cli":"^9.1.0",
+    "uuid":"^8.3.2"
+    
   },
-  "devDependencies": {
-    "bulma": "^0.9.3",
-    "node-sass": "^6.0.1"
+  "devDependencies":{
+    "bulma":"^0.9.3",
+    "node-sass":"^7.0.0"
   },
-  "scripts": {
-    "build-css": "node-sass --include-path sass sass/custom-style.sass   public/css/custom-style.css",
-    "watch-css": "nodemon -e sass -x \"npm run build-css\""
+  "scripts":{
+    "build-css":"node-sass --include-path sass sass/custom-style.sass public/css/custom-style.css",
+    "watch-css":"nodemon -e sass -x \"npm run build-css\""
   },
-  "author": "Athanasia Monika Mowinckel",
-  "license": "ISC"
+  "author":"Athanasia Monika Mowinckel",
+  "license":"ISC"
 }

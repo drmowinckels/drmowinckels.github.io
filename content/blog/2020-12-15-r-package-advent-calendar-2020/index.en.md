@@ -22,7 +22,7 @@ This year has been truly something different for us all.
 Blogging has definitely taken a toll, as real life has been quite something to handle.
 So, in order to end the year with a bang, and something fun, I started a twitter advent calendar!
 
-{{< tweet 1334052850037645314 >}}
+{{< tweet user="DrMowinckels" id="1334052850037645314" >}}
 
 
 The advent calendar is one R-package per day that I personally use and find very useful in my work. 

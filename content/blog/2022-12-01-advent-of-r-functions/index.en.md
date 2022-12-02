@@ -185,7 +185,7 @@ list.files(".", "csv")
 ```
 
 ```
-## [1] "Adelie.csv"    "Chinstrap.csv" "Gentoo.csv"
+## [1] "Adelie.csv"    "Chinstrap.csv" "csvs"          "Gentoo.csv"
 ```
 
 Ok. so the files are there, but I am not super happy with this. 
@@ -276,6 +276,7 @@ For instance, while I regularly run analyses on complete datasets, some times I 
 And many of the analyses I run are heavy computing, so I need to prepare files to send analyses to a computing cluster. 
 
 This tidbit of code is nice to have to create these datafiles I need.
+
 
 <!-- Let's kick it off by a piece of code that I often use on our offline server, where we store and use sensitive human data.  -->
 <!-- Here, I have less options in terms of R packages, so I often rely on base-R funcitonality, to avoid issues with compilers not being equal between my workflows.  -->
