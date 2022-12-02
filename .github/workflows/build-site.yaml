@@ -26,7 +26,7 @@ jobs:
       - name: Get Hugo version
         id: hugo_vr
         run: |
-          ver=$(cat .Rprofile | grep hugo.version | cut -d"=" -f2 | sed -e s.\"..g | sed -e s.\ ..g)
+          ver=$(cat .Rprofile | grep hugo.version | cut -d'"' -f2 )
           echo ".Rprofile sets hugo version to $ver"
           echo "::set-output name=value::${ver}"
           
