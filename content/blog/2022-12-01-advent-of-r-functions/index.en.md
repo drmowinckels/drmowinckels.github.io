@@ -12,6 +12,7 @@ image: 'featured.jpg'
 ---
 
 
+
 It is advent!
 And we all know by now how much I LOVE advent and Christmas. 
 Keeping true to who I am and that I finally have some extra energy for things like this, this advent brings you a series of 24 pieces of code I often use in my work, and that I hope can be of interest and help to you.
@@ -277,53 +278,134 @@ And many of the analyses I run are heavy computing, so I need to prepare files t
 
 This tidbit of code is nice to have to create these datafiles I need.
 
+## 3<sup>rd</sup> of December - Reading in lots of files
 
-<!-- Let's kick it off by a piece of code that I often use on our offline server, where we store and use sensitive human data.  -->
-<!-- Here, I have less options in terms of R packages, so I often rely on base-R funcitonality, to avoid issues with compilers not being equal between my workflows.  -->
-<!-- And if you have no idea what I just said, ignore it, be happy you don't need to deal with stuff like that! -->
+Now that we have managed to create lots of files, based on data groupings, let us also see how we can read them in efficiently.
+I've made so many absolutely horrid pipelines to do this, before I figured out this way of doing it.
 
-<!-- Ok, so we kick of with being able to easily split a data.frame by some grouping and save them into separate files. -->
-<!-- I'll first show you the entire code, then we will start breaking it down. -->
+The pre-requisites for this is that all the files you are reading in all have the same columns, if they don't, the last bit will fail. 
 
-<!-- ```{r} -->
-<!-- penguins <- palmerpenguins::penguins -->
-<!-- save_files <- function(data, group, directory) { -->
-<!--   # Create directory to place files in, called "csvs" -->
-<!--   if(!dir.exists(directory)) dir.create(directory) -->
 
-<!--   tmp <- palmerpenguins::penguins |> -->
-<!--     split(group) -->
 
-<!--   .filename <- function(data){ -->
-<!--     species <- paste0(unique(data$species), ".csv") -->
-<!--     species <- tolower(species) -->
-<!--     file.path(directory, species) -->
-<!--   } -->
-<!--   names(tmp) <- sapply(tmp, .filename) -->
+```r
+# list all files in the species folder,
+# contiaing the ending "csv" and 
+# keep the entire relative path.
+list.files("csvs/species", "csv$", full.names = TRUE)
+```
 
-<!--   sapply(tmp, function(x) { -->
-<!--     write.csv(x, -->
-<!--               .filename(x), -->
-<!--               row.names = FALSE) -->
-<!--   }) -->
-<!-- } -->
-<!-- save_files(penguins, ~species, "csvs") -->
+```
+## [1] "csvs/species/adelie.csv"    "csvs/species/chinstrap.csv"
+## [3] "csvs/species/gentoo.csv"
+```
 
-<!-- # Check that they are there -->
-<!-- list.files("csvs", full.names = TRUE) -->
-<!-- ``` -->
+We have three files, and we want to read the all in, at once and get them into a list.
+We've worked with `lapply()` before, and we will again here. 
+We will use the list of file paths in lapply, and run the `read.csv` function on them all.
+This should give us a list of three data sets.
 
-<!-- ### Splitting into several data.frames -->
-<!-- Let start by how I'm breaking up the penguins dataset into several data.frames -->
 
-<!-- ```{r} -->
-<!-- penguins |>  -->
-<!--   split(~species) -->
-<!-- ``` -->
+```r
+list.files("csvs/species", "csv$", full.names = TRUE) |> 
+  lapply(read.csv)
+```
 
-<!-- The `split()` function is super neat for things like this.  -->
-<!-- When done on a data.frame, you can provide a formula to split by variables in your data.  -->
-<!-- In this case, we are telling it to split by species, and therefore it produces one data.frame per species in the original dataset, each data.frame reduced to rows only containing that species.  -->
-<!-- Really neat, if you ask me! -->
+```
+## [[1]]
+##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Torgersen           39.1          18.7               181        3750
+## 2  Adelie Torgersen           39.5          17.4               186        3800
+## 3  Adelie Torgersen           40.3          18.0               195        3250
+##      sex year
+## 1   male 2007
+## 2 female 2007
+## 3 female 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 149 rows ]
+## 
+## [[2]]
+##     species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1 Chinstrap  Dream           46.5          17.9               192        3500
+## 2 Chinstrap  Dream           50.0          19.5               196        3900
+## 3 Chinstrap  Dream           51.3          19.2               193        3650
+##      sex year
+## 1 female 2007
+## 2   male 2007
+## 3   male 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 65 rows ]
+## 
+## [[3]]
+##   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Gentoo Biscoe           46.1          13.2               211        4500
+## 2  Gentoo Biscoe           50.0          16.3               230        5700
+## 3  Gentoo Biscoe           48.7          14.1               210        4450
+##      sex year
+## 1 female 2007
+## 2   male 2007
+## 3 female 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 121 rows ]
+```
 
+Once that is done, we also want to have them all combined into a single data set, i.e. back to our full penguins data set.
+To do that, we will use `do.call` and `rbind` to achieve this.
+Now, `do.call` is a bit of magic, and I am not entirely sure of what it does in all contexts.
+In this context, it will run through the list, and run `rbind` on each data set, so that we get a single one out.
+
+
+```r
+data_list <- list.files("csvs/species", "csv$", full.names = TRUE) |> 
+  lapply(read.csv)
+
+do.call(rbind, data_list)
+```
+
+```
+##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Torgersen           39.1          18.7               181        3750
+## 2  Adelie Torgersen           39.5          17.4               186        3800
+## 3  Adelie Torgersen           40.3          18.0               195        3250
+##      sex year
+## 1   male 2007
+## 2 female 2007
+## 3 female 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 341 rows ]
+```
+
+And now we have our data frame with 344 rows back!
+But! Usually, I would want to know _which file each row comes from_.
+In the penguins data here, that is not a huge issue, as the species column basically already tells us that.
+But there might be lots of other reasons you'd like to know, for instence for debugging the original data (in case there are suspicious entries), or because the source file information is not inherent in the data. 
+To do that, we need a little custom function.
+
+
+```r
+merge_files <- function(path, pattern, func = read.csv, ...){
+  file_list <- list.files(path, pattern, full.names = TRUE)
+  data_list <- lapply(file_list, func, ...)
+  # loop through data_list length
+  # apply new column with source information
+  data_list <- lapply(seq_along(data_list), function(x){
+    data_list[[x]]$src <- file_list[x]
+    data_list[[x]]
+  })
+  do.call(rbind, data_list)
+}
+merged <- merge_files("csvs/species/", "csv")
+merged[, c(1:3, 9)]
+```
+
+```
+##   species    island bill_length_mm                      src
+## 1  Adelie Torgersen           39.1 csvs/species//adelie.csv
+## 2  Adelie Torgersen           39.5 csvs/species//adelie.csv
+## 3  Adelie Torgersen           40.3 csvs/species//adelie.csv
+## 4  Adelie Torgersen             NA csvs/species//adelie.csv
+## 5  Adelie Torgersen           36.7 csvs/species//adelie.csv
+## 6  Adelie Torgersen           39.3 csvs/species//adelie.csv
+## 7  Adelie Torgersen           38.9 csvs/species//adelie.csv
+##  [ reached 'max' / getOption("max.print") -- omitted 337 rows ]
+```
+
+Now we have it all!
+The function does quite a lot, in little space, but it also allows quite some customisation.
+Like, we can our selves define which `read` function to use, in case the data has a different delimiter than csv, and we can also add any other named argument to that function in our main function call.
 
