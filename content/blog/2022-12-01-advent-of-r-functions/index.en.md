@@ -373,7 +373,7 @@ do.call(rbind, data_list)
 And now we have our data frame with 344 rows back!
 But! Usually, I would want to know _which file each row comes from_.
 In the penguins data here, that is not a huge issue, as the species column basically already tells us that.
-But there might be lots of other reasons you'd like to know, for instence for debugging the original data (in case there are suspicious entries), or because the source file information is not inherent in the data. 
+But there might be lots of other reasons you'd like to know, for instance for debugging the original data (in case there are suspicious entries), or because the source file information is not inherent in the data. 
 To do that, we need a little custom function.
 
 
@@ -408,4 +408,142 @@ merged[, c(1:3, 9)]
 Now we have it all!
 The function does quite a lot, in little space, but it also allows quite some customisation.
 Like, we can our selves define which `read` function to use, in case the data has a different delimiter than csv, and we can also add any other named argument to that function in our main function call.
+
+
+## 4<sup>th</sup> of December - fixing column names
+I love the [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) package.
+It has some cleaning functions for data that just make my world so much easier. 
+And while janitor's dependencies are small enough that I can often get it when I need, I still have install issues in certain cases.
+In those cases, I need to do some simple steps to improve my data dealings.
+
+Depending on how bad things are, there are some small things we can to to help with column naming.
+I'm being a little cheeky an borrowing the example data from janitor.
+I will not be able to make it _as neat_ as janitor, but we can make it much better!
+
+
+```r
+test_df <- as.data.frame(matrix(ncol = 6, nrow = 5))
+names(test_df) <- c("first_name", "bc", "successful_2009", "repeat_value", "repeat_value", "v6")
+
+# add some data
+test_df[1, ] <- c("jane", "JANE", TRUE, NA, 10, NA)
+test_df[2, ] <- c("elleven", "011", FALSE, NA, NA, NA)
+test_df[3, ] <- c("Henry", "001", NA, NA, NA, NA)
+test_df
+```
+
+```
+##   first_name   bc successful_2009 repeat_value repeat_value   v6
+## 1       jane JANE            TRUE         <NA>           10 <NA>
+## 2    elleven  011           FALSE         <NA>         <NA> <NA>
+## 3      Henry  001            <NA>         <NA>         <NA> <NA>
+## 4       <NA> <NA>            <NA>         <NA>         <NA> <NA>
+## 5       <NA> <NA>            <NA>         <NA>         <NA> <NA>
+```
+
+I think we can all agree this is no fun column names to deal with!
+Keeping to base R and some [regular expression](https://www.wikiwand.com/en/Regular_expression) (oh man, I need to google those expressions every time!), we can do a decent bit of cleaning.
+
+
+```r
+clean_names <- function(data, col_prefix = "v"){
+  colnames <- names(data)
+  
+  # turn camelCase to snake_case
+  colnames <- gsub("(?![A-Z])(\\G(?!^)|\\b[a-zA-Z][a-z]*)([A-Z][a-z]*|\\d+)", 
+       "\\1_\\2", colnames, ignore.case = FALSE, perl = TRUE)
+  
+  # turn white space into _
+  colnames <- gsub(" ", "_", colnames)
+  
+  # turn to lower case
+  colnames <- tolower(colnames)
+  
+  # remove punctuations except _
+  colnames <- gsub("[^a-z0-9_]+", "", colnames)
+  
+  # trim _ from beginning and end
+  colnames <- gsub("^_|_$", "", colnames)
+
+  # add column names to columns missing them
+  k <- sapply(match("", colnames), function(x){
+    colnames[x] <<- paste0(col_prefix, x)
+  })
+  
+  # apply name changes
+  names(data) <- colnames
+  
+  # returned the renamed data
+  data
+}
+clean_names(test_df)
+```
+
+```
+##   first_name   bc successful_2009 repeat_value repeat_value  v_6
+## 1       jane JANE            TRUE         <NA>           10 <NA>
+## 2    elleven  011           FALSE         <NA>         <NA> <NA>
+## 3      Henry  001            <NA>         <NA>         <NA> <NA>
+## 4       <NA> <NA>            <NA>         <NA>         <NA> <NA>
+## 5       <NA> <NA>            <NA>         <NA>         <NA> <NA>
+```
+
+Ok, we get pretty close to what I was after.
+camelCase turned into snake_case, all lower case, and weird punctuations removed. 
+We also manage to name columns without names.
+What we miss is that the `á` in "ábc@!*" is removed.
+This is because my regular expression is interpreting as a weird special character to remove.
+To replace it with an `a` I'd need to get a library that would know how to translate it, and I don't/can't do that. 
+So, I'll have to deal with that manually.
+
+## 5<sup>th</sup> of December - removing empty columns
+
+In the type of data I deal with, I do also quite often have to deal with columns containing no data.
+Either because the subsetted data are missing a variable, or because a file I read in thinks there is another column, when there truly is not.
+I want a nice easy way to deal with that.
+Again [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) would be my "online" solution, but when offline, I need to deal in my own code.
+
+
+```r
+test_df
+```
+
+```
+##   first_name   bc successful_2009 repeat_value repeat_value   v6
+## 1       jane JANE            TRUE         <NA>           10 <NA>
+## 2    elleven  011           FALSE         <NA>         <NA> <NA>
+## 3      Henry  001            <NA>         <NA>         <NA> <NA>
+## 4       <NA> <NA>            <NA>         <NA>         <NA> <NA>
+## 5       <NA> <NA>            <NA>         <NA>         <NA> <NA>
+```
+
+We made a data.frame yesterday with missing values completely from rows 4 and 5, and partial missing data from 2 and 3, while row 1 is the only complete row of data.
+And in columns 4 and 6 we are completely missing any data.
+We want a simple way to remove all columns that have no information, so we have something simpler to work with.
+
+
+```r
+na_rm_col <- function(data){
+  # find columns with only missing values
+  idx <- apply(data, 2, function(x) all(is.na(x)))
+  
+  # keep only data where there is data
+  data[, !idx]
+}
+test_df <- na_rm_col(test_df)
+test_df
+```
+
+```
+##   first_name   bc successful_2009 repeat_value
+## 1       jane JANE            TRUE           10
+## 2    elleven  011           FALSE         <NA>
+## 3      Henry  001            <NA>         <NA>
+## 4       <NA> <NA>            <NA>         <NA>
+## 5       <NA> <NA>            <NA>         <NA>
+```
+
+With this function we first apply across the columns (apply dimension 2) and check if all values are `NA`. 
+If they are, we make sure we don't return a data.frame with those columns.
+The function is neither long nor particularly complicated (though `apply` does take a little time to get the hang of), and its super quick!
 
