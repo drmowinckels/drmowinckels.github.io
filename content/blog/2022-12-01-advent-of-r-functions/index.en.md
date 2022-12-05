@@ -527,7 +527,7 @@ na_rm_col <- function(data){
   # find columns with only missing values
   idx <- apply(data, 2, function(x) all(is.na(x)))
   
-  # keep only data where there is data
+  # keep only columns where there is data
   data[, !idx]
 }
 test_df <- na_rm_col(test_df)
@@ -547,3 +547,33 @@ With this function we first apply across the columns (apply dimension 2) and che
 If they are, we make sure we don't return a data.frame with those columns.
 The function is neither long nor particularly complicated (though `apply` does take a little time to get the hang of), and its super quick!
 
+
+## 6<sup>th</sup> of December - removing empty rows
+Yesterday we removed empty columns, but we might also need to remove empty rows!
+Imagine having subsetted columns, and now, lots of your rows actually don't contain meaningful information any more.
+No use in having them around, lets just get rid of them!
+
+The code is _remarkably_ similar to yesterdays code,
+
+
+```r
+na_rm_row <- function(data){
+  # find columns with only missing values
+  idx <- apply(data, 1, function(x) all(is.na(x)))
+  
+  # keep only rows where there is data
+  data[!idx, ]
+}
+test_df <- na_rm_row(test_df)
+test_df
+```
+
+```
+##   first_name   bc successful_2009 repeat_value
+## 1       jane JANE            TRUE           10
+## 2    elleven  011           FALSE         <NA>
+## 3      Henry  001            <NA>         <NA>
+```
+We are still using `apply`, but this time along the `1` dimension, which is rows.
+And we are using the exact same function inside apply!
+Then, we subset the rows with the inverse of that output, giving us only the rows we want.
