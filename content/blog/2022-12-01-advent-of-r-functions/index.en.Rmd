@@ -250,7 +250,7 @@ names(test_df) <- c("first_name", "bc", "successful_2009", "repeat_value", "repe
 # add some data
 test_df[1, ] <- c("jane", "JANE", TRUE, NA, 10, NA)
 test_df[2, ] <- c("elleven", "011", FALSE, NA, NA, NA)
-test_df[3, ] <- c("Henry", "001", NA, NA, NA, NA)
+test_df[3, ] <- c("Henry", "001", NA, NA, 20, NA)
 test_df
 ```
 
@@ -346,9 +346,57 @@ na_rm_row <- function(data){
   # keep only rows where there is data
   data[!idx, ]
 }
-test_df <- na_rm_row(test_df)
-test_df
+test_df2 <- na_rm_row(test_df)
+test_df2
 ```
 We are still using `apply`, but this time along the `1` dimension, which is rows.
 And we are using the exact same function inside apply!
 Then, we subset the rows with the inverse of that output, giving us only the rows we want.
+
+## 7<sup>th</sup> of December - removing empty rows 2<sup>nd</sup> ed.
+In our last post, we removed rows that had all `NA` values, but this is often not the case.
+Likely, you'll have some identifier columns that are always populated, and you'll want to make sure you check for `NA` _not_ in those columns.
+I.e. we want to discard rows where certain columns only have `NA` not necessarily all!
+
+This one becomes a little trickier!
+
+```{r}
+na_rm_row <- function(data, 
+                      col_names = names(data),
+                      col_inverse = FALSE){
+  # Get column index for wanted cols
+  col_idx <- names(data) %in% col_names
+  
+  # Get column names by index
+  cols <-  names(data)[col_idx]
+  
+  # Reverse if you want exclude the columns
+  if(col_inverse){
+    cols <- names(data)[!col_idx]
+  }
+    
+  # subset the data
+  # force output to data.frame
+  tmp <- data.frame(data[, cols])
+
+  # find rows with only missing values
+  idx <- apply(tmp, 1, function(x) all(is.na(x)))
+  
+  # keep only rows where there is data
+  data[!idx, ]
+}
+na_rm_row(test_df, 
+          col_names = c("successful_2009",
+                        "repeat_value"))
+
+na_rm_row(test_df, 
+          col_names = c("first_name", "bc"), 
+          col_inverse = TRUE)
+
+```
+So this function is a little busy. 
+Hopefully the code comments help understanding of what is going on. 
+I've added to option to either name columns you want to check for `NA`s in, _or_ columns you want **excluded** from that check. 
+This way, we can hopefully make it work in any of the circumstances we meet.
+
+
