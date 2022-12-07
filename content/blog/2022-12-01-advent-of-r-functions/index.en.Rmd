@@ -245,7 +245,8 @@ I will not be able to make it _as neat_ as janitor, but we can make it much bett
 
 ```{r}
 test_df <- as.data.frame(matrix(ncol = 6, nrow = 5))
-names(test_df) <- c("first_name", "bc", "successful_2009", "repeat_value", "repeat_value", "v6")
+names(test_df) <- c("firstName", "ábc@!*", "% successful (2009)",
+                    "REPEAT VALUE", "REPEAT VALUE", "")
 
 # add some data
 test_df[1, ] <- c("jane", "JANE", TRUE, NA, 10, NA)
@@ -288,7 +289,8 @@ clean_names <- function(data, col_prefix = "v"){
   # returned the renamed data
   data
 }
-clean_names(test_df)
+test_df <- clean_names(test_df)
+test_df
 ```
 
 Ok, we get pretty close to what I was after.

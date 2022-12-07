@@ -423,7 +423,8 @@ I will not be able to make it _as neat_ as janitor, but we can make it much bett
 
 ```r
 test_df <- as.data.frame(matrix(ncol = 6, nrow = 5))
-names(test_df) <- c("first_name", "bc", "successful_2009", "repeat_value", "repeat_value", "v6")
+names(test_df) <- c("firstName", "ábc@!*", "% successful (2009)",
+                    "REPEAT VALUE", "REPEAT VALUE", "")
 
 # add some data
 test_df[1, ] <- c("jane", "JANE", TRUE, NA, 10, NA)
@@ -433,12 +434,12 @@ test_df
 ```
 
 ```
-##   first_name   bc successful_2009 repeat_value repeat_value   v6
-## 1       jane JANE            TRUE         <NA>           10 <NA>
-## 2    elleven  011           FALSE         <NA>         <NA> <NA>
-## 3      Henry  001            <NA>         <NA>           20 <NA>
-## 4       <NA> <NA>            <NA>         <NA>         <NA> <NA>
-## 5       <NA> <NA>            <NA>         <NA>         <NA> <NA>
+##   firstName ábc@!* % successful (2009) REPEAT VALUE REPEAT VALUE     
+## 1      jane   JANE                TRUE         <NA>           10 <NA>
+## 2   elleven    011               FALSE         <NA>         <NA> <NA>
+## 3     Henry    001                <NA>         <NA>           20 <NA>
+## 4      <NA>   <NA>                <NA>         <NA>         <NA> <NA>
+## 5      <NA>   <NA>                <NA>         <NA>         <NA> <NA>
 ```
 
 I think we can all agree this is no fun column names to deal with!
@@ -476,11 +477,12 @@ clean_names <- function(data, col_prefix = "v"){
   # returned the renamed data
   data
 }
-clean_names(test_df)
+test_df <- clean_names(test_df)
+test_df
 ```
 
 ```
-##   first_name   bc successful_2009 repeat_value repeat_value  v_6
+##   first_name   bc successful_2009 repeat_value repeat_value   v6
 ## 1       jane JANE            TRUE         <NA>           10 <NA>
 ## 2    elleven  011           FALSE         <NA>         <NA> <NA>
 ## 3      Henry  001            <NA>         <NA>           20 <NA>
