@@ -642,4 +642,171 @@ Hopefully the code comments help understanding of what is going on.
 I've added to option to either name columns you want to check for `NA`s in, _or_ columns you want **excluded** from that check. 
 This way, we can hopefully make it work in any of the circumstances we meet.
 
+## 8<sup>th</sup> of December - File extention changes
+
+In many cases, I will read in files in one format, but want to save them - with the same file name - in another format.
+I prefer working with tab-separated files, as in Norway the comma is actually used for a decimal separator and we always seem to end up with issues using either comma or semi-colon separated files.
+So, I might read in a file, do some cleaning, and then want to save it to file just with another extension name.
+In my case, I usually opt for changing "csv" to "tsv" to make it clear that the file is tab-separated.
+
+So, we need to use the file name, strip the extension and add our own.
+We have saved our penguin data as csv, so lets read them in, and then save them as tsv.
+
+
+```r
+# Find all files ending with csv in a folder
+files <- list.files("csvs/species", "csv", full.names = TRUE)
+files
+```
+
+```
+## [1] "csvs/species/adelie.csv"    "csvs/species/chinstrap.csv"
+## [3] "csvs/species/gentoo.csv"
+```
+
+
+```r
+# read in the files
+dt_list <- lapply(files, read.csv)
+names(dt_list) <- files
+dt_list
+```
+
+```
+## $`csvs/species/adelie.csv`
+##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Torgersen           39.1          18.7               181        3750
+## 2  Adelie Torgersen           39.5          17.4               186        3800
+## 3  Adelie Torgersen           40.3          18.0               195        3250
+##      sex year
+## 1   male 2007
+## 2 female 2007
+## 3 female 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 149 rows ]
+## 
+## $`csvs/species/chinstrap.csv`
+##     species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1 Chinstrap  Dream           46.5          17.9               192        3500
+## 2 Chinstrap  Dream           50.0          19.5               196        3900
+## 3 Chinstrap  Dream           51.3          19.2               193        3650
+##      sex year
+## 1 female 2007
+## 2   male 2007
+## 3   male 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 65 rows ]
+## 
+## $`csvs/species/gentoo.csv`
+##   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Gentoo Biscoe           46.1          13.2               211        4500
+## 2  Gentoo Biscoe           50.0          16.3               230        5700
+## 3  Gentoo Biscoe           48.7          14.1               210        4450
+##      sex year
+## 1 female 2007
+## 2   male 2007
+## 3 female 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 121 rows ]
+```
+
+
+```r
+csv2tsv <- function(data, file){
+  # remove csv extension from file name
+  file <- tools::file_path_sans_ext(file)
+  
+  # add `.tsv`
+  file <- paste0(file, ".tsv")
+  
+  # print location for clarity
+  cat("Saving to: ", file, "\n")
+  
+  # save it in the wanted format
+  write.table(data, file, 
+              sep = "\t", 
+              row.names = FALSE,
+              quote = FALSE
+              )
+}
+
+# Test on one file
+csv2tsv(dt_list[[1]], files[1])
+```
+
+```
+## Saving to:  csvs/species/adelie.tsv
+```
+That seems to work. 
+We first remote the file extension, then add our own `.tsv` to it.
+Then we use the base-R table writing function, specifying exactly the format we want to save in.
+I prefer not quoting strings when I'm working with tab-separated files, since people in general do not enter tabs in character vectors, so its not needed and the file content looks cleaner.
+
+
+We should double check that the file looks as we intend.
+I'm going to use bash to do this, as its my go-to for something like this, rather than R!
+
+
+```bash
+head csvs/species/adelie.tsv
+```
+
+```
+## species	island	bill_length_mm	bill_depth_mm	flipper_length_mm	body_mass_g	sex	year
+## Adelie	Torgersen	39.1	18.7	181	3750	male	2007
+## Adelie	Torgersen	39.5	17.4	186	3800	female	2007
+## Adelie	Torgersen	40.3	18	195	3250	female	2007
+## Adelie	Torgersen	NA	NA	NA	NA	NA	2007
+## Adelie	Torgersen	36.7	19.3	193	3450	female	2007
+## Adelie	Torgersen	39.3	20.6	190	3650	male	2007
+## Adelie	Torgersen	38.9	17.8	181	3625	female	2007
+## Adelie	Torgersen	39.2	19.6	195	4675	male	2007
+## Adelie	Torgersen	34.1	18.1	193	3475	NA	2007
+```
+
+That looks good to me!
+tabs, no quotes, no row numbers.
+
+Now we can run it on all, and I will use mapply, which makes it possible to send several vectors (of the same size) into an apply function.
+
+
+```r
+mapply(
+  csv2tsv,
+  dt_list,
+  names(dt_list)
+)
+```
+
+```
+## Saving to:  csvs/species/adelie.tsv 
+## Saving to:  csvs/species/chinstrap.tsv 
+## Saving to:  csvs/species/gentoo.tsv
+```
+
+```
+## $`csvs/species/adelie.csv`
+## NULL
+## 
+## $`csvs/species/chinstrap.csv`
+## NULL
+## 
+## $`csvs/species/gentoo.csv`
+## NULL
+```
+
+That seemed to work, and if we look into the species folder, we can see they are all there.
+csv, and tsv next to each other. 
+
+
+```r
+list.files("csvs/species", full.names = TRUE)
+```
+
+```
+## [1] "csvs/species/adelie.csv"    "csvs/species/adelie.tsv"   
+## [3] "csvs/species/chinstrap.csv" "csvs/species/chinstrap.tsv"
+## [5] "csvs/species/gentoo.csv"    "csvs/species/gentoo.tsv"
+```
+
+Now, in this case, they are the same file, just delimited differently.
+Which is why I am ok with having them in the same folder (despite the parent folder being named `csv`).
+If I have done cleaning and changed the file content in some way, I would make another folder, to clearly show the content was different, not just delimited differently.
 
