@@ -642,7 +642,7 @@ Hopefully the code comments help understanding of what is going on.
 I've added to option to either name columns you want to check for `NA`s in, _or_ columns you want **excluded** from that check. 
 This way, we can hopefully make it work in any of the circumstances we meet.
 
-## 8<sup>th</sup> of December - File extention changes
+## 8<sup>th</sup> of December - File extension changes
 
 In many cases, I will read in files in one format, but want to save them - with the same file name - in another format.
 I prefer working with tab-separated files, as in Norway the comma is actually used for a decimal separator and we always seem to end up with issues using either comma or semi-colon separated files.
@@ -810,3 +810,139 @@ Now, in this case, they are the same file, just delimited differently.
 Which is why I am ok with having them in the same folder (despite the parent folder being named `csv`).
 If I have done cleaning and changed the file content in some way, I would make another folder, to clearly show the content was different, not just delimited differently.
 
+
+## 9<sup>th</sup> of December - System commands from R
+
+I work in neuroimaging.
+While most of my work now is concentrated around tabular data and software engineering, I still deal with situations where I need to call a system program from the command line, to do some _stuff_. 
+Many times, I want to do _some stuff_ and capture the result of that _stuff_ in R. 
+This is not always easy, depending on the complexity of what you are doing.
+I'll have a small fairly "easy" example, using a command line tool that should be available to most, to just show the example. 
+
+I'll use the command `head` to get the first `n` rows of a dataset, default is 10 rows, if we give no extra argument.
+
+
+```r
+# Look at first 10 rows
+system2("head", "csvs/species/adelie.tsv")
+```
+
+
+```r
+# -n [integer] gives the number of rows wanted
+system2("head", "-n 5 csvs/species/adelie.tsv")
+
+system2("head", "-n 15 csvs/species/adelie.tsv")
+```
+
+But the output just gets printed in the console.
+We want to capture it.
+
+
+```r
+data <- system2("head", "-n 5 csvs/species/adelie.tsv")
+data
+```
+
+```
+## [1] 0
+```
+wait, what?!
+Where is the data?
+system2 (and system) by default does not return anything, is is a message printed to the console through something called stdout (standard out, there is also stderr, standard error).
+To capture it, we need to redirect stdout, and we do this through an argument in `system2`.
+
+
+```r
+data <- system2("head", "-n 5 csvs/species/adelie.tsv", stdout = TRUE)
+data
+```
+
+```
+## [1] "species\tisland\tbill_length_mm\tbill_depth_mm\tflipper_length_mm\tbody_mass_g\tsex\tyear"
+## [2] "Adelie\tTorgersen\t39.1\t18.7\t181\t3750\tmale\t2007"                                     
+## [3] "Adelie\tTorgersen\t39.5\t17.4\t186\t3800\tfemale\t2007"                                   
+## [4] "Adelie\tTorgersen\t40.3\t18\t195\t3250\tfemale\t2007"                                     
+## [5] "Adelie\tTorgersen\tNA\tNA\tNA\tNA\tNA\t2007"
+```
+
+The data is now stored as a string vector with 15 elements. 
+We'll need to work with it to get it into the shape we want.
+
+
+```r
+read_custom <- function(command, arguments = list()){
+  
+  # turn list of arguments into single string
+  arguments <- do.call(paste, arguments)
+  
+  cat("Running:", command, arguments, sep = " ")
+  # run command
+  data <- system2(command, arguments, stdout = TRUE)
+
+  # split string into elements by comma
+  data <- strsplit(data, "\t")
+  
+  # bind rows together
+  data <- do.call(rbind, data)
+  
+  # force into data frame
+  data <- as.data.frame(data)
+  
+  # apply col names from the first row
+  names(data) <- data[1, ]
+  
+  # remove first row of data, as its the col names
+  data <- data[-1, ]
+  
+  # auto-detect column types
+  data <- type.convert(data, as.is = TRUE)
+  
+  data
+}
+
+read_custom("head", list("-n 5", "csvs/species/adelie.tsv"))
+```
+
+```
+## Running: head -n 5 csvs/species/adelie.tsv
+```
+
+```
+##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 2  Adelie Torgersen           39.1          18.7               181        3750
+## 3  Adelie Torgersen           39.5          17.4               186        3800
+## 4  Adelie Torgersen           40.3          18.0               195        3250
+##      sex year
+## 2   male 2007
+## 3 female 2007
+## 4 female 2007
+##  [ reached 'max' / getOption("max.print") -- omitted 1 rows ]
+```
+
+Now we have a custom reading in files function!
+I mean, yeah `read.table` is hella better, but it shows what kind of amazing things you _can_ do when need arises.
+I've done things like this when I get very irregular files in formats that have no standard way of being read.
+
+What is neat with this one, is that we can change the command used (as long as it does the basic same thing as head) or change the arguments quite easily.
+`tail` for instance, is the reverse of head, giving the last rows.-
+
+
+```r
+read_custom("tail", list("-n 5", "csvs/species/adelie.tsv"))
+```
+
+```
+## Running: tail -n 5 csvs/species/adelie.tsv
+```
+
+```
+##   Adelie Dream 36.6 18.4 184 3475 female 2009
+## 2 Adelie Dream 36.0 17.8 195 3450 female 2009
+## 3 Adelie Dream 37.8 18.1 193 3750   male 2009
+## 4 Adelie Dream 36.0 17.1 187 3700 female 2009
+##  [ reached 'max' / getOption("max.print") -- omitted 1 rows ]
+```
+
+Convoluted? Yes.
+Fun? Yes :) 
