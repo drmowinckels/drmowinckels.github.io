@@ -573,3 +573,55 @@ read_custom("tail", list("-n 5", "csvs/species/adelie.tsv"))
 
 Convoluted? Yes.
 Fun? Yes :) 
+
+## 10<sup>th</sup> of December - Function calling it self
+
+Once upon a time, I made a function where I needed the function behaviour inside the function it self. 
+It sounds weird, I know!
+But I was trying to get the dependency tree of packages, and I needed to get all of the dependencies and have my own function not rely on anything but base-R.
+
+Then I learned, a function can cal it self!!
+That concept it still hard for me to grasp, but it does work!
+We just need to be _very_ careful to have ways that the function stops calling it self when its not supposed to, else we end up in infinite loops of recursion.
+
+
+
+```{r}
+# make a nested list
+mock <- list(
+  character = c("a", "string", "vector"),
+  list = list(
+    nested1 = c("nested", "list", "1"),
+    nested2 = c("nested", "list", "2")
+  ),
+  number = 1:5
+)
+mock
+```
+
+```{r}
+collapse_strings <- function(x){
+  if(inherits(x, "list")){
+    x <- sapply(x, collapse_strings)
+    return(x)
+  }
+  
+  # if not a character, return NULL
+  if(!inherits(x, "character")){
+    return(NULL)
+  }
+  
+  # collapse strings else
+  paste(x, collapse = " ")
+}
+
+sapply(mock, collapse_strings)
+```
+
+This function calls it self, if the vector provided is a list.
+This way, we know it wont be recursing into oblivion, but just if it is a list.
+I also added a check if the vector was not a character, as a collapse only makes sense for string vectors.
+Now we have a tidy function that recursively collapses string vectors. 
+
+
+
