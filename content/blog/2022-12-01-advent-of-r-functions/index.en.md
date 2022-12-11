@@ -9,6 +9,7 @@ tags:
   - R
   - R functions 2022
 image: 'featured.jpg'
+toc: true
 ---
 
 
@@ -1025,6 +1026,36 @@ This function calls it self, if the vector provided is a list.
 This way, we know it wont be recursing into oblivion, but just if it is a list.
 I also added a check if the vector was not a character, as a collapse only makes sense for string vectors.
 Now we have a tidy function that recursively collapses string vectors. 
+
+## 11<sup>th</sup> of December - Empty strings to `NA`
+
+I fairly often come across data that is not particularly clean.
+At least in terms of interfacing with the data through a computer, and let's face it, that's what we all mostly do :P
+
+Often, data come in as strings when they should not, or I choose to read them in as strings to preserve data I might loose when turned into something else. 
+But that can also lead to some quite frustrating consequences I need to deal with, like empty cells `""` or NA cells read as `"NA"`. Le Sigh. 
+
+I have a little convenience function to deal with this situation exactly.
+
+
+
+```r
+empty_to_na <- function(x){
+  ifelse(x == "NA" | x == "" | x == "NULL",
+         NA_character_, 
+         x)
+}
+
+c("", "Merry", "Christmas", "NA", "NULL", "!") |> 
+  empty_to_na()
+```
+
+```
+## [1] NA          "Merry"     "Christmas" NA          NA          "!"
+```
+
+This is my little catch all for weird string data that I know should be `NA`. 
+After this, the remaining tedious cleaning begins, but this first step is something I use quite often to help myself.
 
 
 
