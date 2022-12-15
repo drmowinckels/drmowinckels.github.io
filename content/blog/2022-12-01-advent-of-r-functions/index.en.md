@@ -1058,4 +1058,164 @@ This is my little catch all for weird string data that I know should be `NA`.
 After this, the remaining tedious cleaning begins, but this first step is something I use quite often to help myself.
 
 
+## 12<sup>th</sup> of December - format for nice print
+
+Some times, when I work in R markdown documents, I need to format numbers to look nicer.
+So today's post is a short but sweet one!
+
+
+```r
+thousand <- function(x){
+  formatC(x, 
+          format = "f", 
+          big.mark = " ", 
+          digits = 0)
+}
+thousand(c(10000, 3000, 200, 320485))
+```
+
+```
+## [1] "10 000"  "3 000"   "200"     "320 485"
+```
+
+This is great for plots, but also for in-line numbers, like 102 937! 
+
+
+## 13<sup>th</sup> of December - bar chart convenience
+
+I love me some ggplot.
+And most of the time, I get to use the standard build and wrap for subplots etc.
+But sometimes, I need some plot that is more specialised, needs som pre-computation of some sort before plotting.
+In those cases, I make a convenience function for the plotting, so I can call it at need, so make the same type of plot over and over for different settings.
+
+
+```r
+library(ggplot2)
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+ggbar <- function(data, grouping){
+  
+  # Must have both arguments to work
+  stopifnot(!missing(data))
+  stopifnot(!missing(grouping))
+  
+  # Create some summary stats
+  # in this case percent 
+  data |> 
+    group_by({{grouping}}) |> 
+    tally() |> 
+    mutate(pc = n/sum(n)) |> 
+  
+  # plot it!
+  ggplot(aes(x = {{grouping}}, 
+             y = n)) + 
+    geom_bar(aes(fill = pc),
+             stat="identity", 
+             position = "dodge", 
+             colour = "darkgrey", 
+             size = .3,
+             show.legend = FALSE) +
+    geom_label(aes(label = scales::percent(pc))) 
+}
+
+ggbar(penguins, sex)  
+```
+
+```
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+```
+
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+
+```r
+ggbar(penguins, species)  
+```
+
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-40-2.png" width="672" />
+
+```r
+ggbar(penguins, island)  
+```
+
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-40-3.png" width="672" />
+
+I like this a lot. It saves me a lot of copy and paste and makes everything look neat.
+
+## 14<sup>th</sup> of December - wrapping plots in lists
+
+Yesterday's function can be used even further!
+Some times, it would be convenient to make subplots easily, and wrap them all together.
+We can do this with yesterday's function, 
+by adding another layer of complexity!
+
+
+```r
+library(patchwork)
+ggbar_wrap <- function(data, wrap, grouping){
+  # Nest data by wrapping column
+  nest_by(data, {{wrap}}, .key = "dt") |> 
+    mutate(
+      # create a list of plots!
+      plots = list(
+             ggbar(dt,
+                   grouping = {{grouping}}) +
+               labs(x = "", 
+                    y = "", 
+                    subtitle = {{wrap}})
+           )) |> 
+    pull(plots) |> 
+    
+    #wrap them!
+    wrap_plots(ncol = 3)
+}
+
+ggbar_wrap(penguins, species, sex)  
+```
+
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-41-1.png" width="672" />
+
+```r
+ggbar_wrap(penguins, species, island)  
+```
+
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-41-2.png" width="672" />
+
+Now we can create lots of different constellations of plots!
+
+
+## 15<sup>th</sup> of December - logit to probability
+
+In my PhD days, I did quite some binomial modelling.
+That gives results in odds ratios.
+But odds ratios are not always the easiest to interpret, so I might want to convert them into probabilities, which my puny brain deals with a little better.
+
+
+```r
+logit2prob <- function(logit){
+  # turn odds ratio into odds
+  odds <- exp(logit)
+  # Turn odds into probability
+  odds / (1 + odds)
+}
+```
 
