@@ -1132,17 +1132,12 @@ ggbar <- function(data, grouping){
              stat="identity", 
              position = "dodge", 
              colour = "darkgrey", 
-             size = .3,
+             linewidth = .3,
              show.legend = FALSE) +
     geom_label(aes(label = scales::percent(pc))) 
 }
 
 ggbar(penguins, sex)  
-```
-
-```
-## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.
 ```
 
 <img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-40-1.png" width="672" />
@@ -1206,16 +1201,22 @@ Now we can create lots of different constellations of plots!
 ## 15<sup>th</sup> of December - logit to probability
 
 In my PhD days, I did quite some binomial modelling.
-That gives results in odds ratios.
-But odds ratios are not always the easiest to interpret, so I might want to convert them into probabilities, which my puny brain deals with a little better.
+That gives results in logit scale.
+But I struggle with logit, as they are not always the easiest to interpret, so I might want to convert them into probabilities, which my puny brain deals with a little better.
 
 
 ```r
 logit2prob <- function(logit){
-  # turn odds ratio into odds
+  # turn logit into odds
   odds <- exp(logit)
   # Turn odds into probability
   odds / (1 + odds)
 }
+logit2prob(c(0.5, 0.3, 1.5))
 ```
 
+```
+## [1] 0.6224593 0.5744425 0.8175745
+```
+
+So, there it is. It helps me at least!!
