@@ -3,7 +3,6 @@
 - Pronouns: She/Her
 - How to reach me: 
   - mastodon: [@DrMowinckels@fosstodon.org](https://fosstodon.org/web/@Drmowinckels)
-  - twitter:  [@DrMowinckels](https://twitter.com/DrMowinckels/)
   - website:  [DrMowinckels](www.drmowinckels.io)
 
 I'm part of the [R-Ladies](www.rladies.org) global team, where I particularly focus on the website development and maintenance, as well as the YouTube channel. 
