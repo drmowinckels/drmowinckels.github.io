@@ -6,8 +6,9 @@ if (file.exists("~/.Rprofile")) {
 options(
   blogdown.new_bundle = TRUE,
   blogdown.author = "Dr. Mowinckel",
-  blogdown.ext = '.md',
+  blogdown.ext = '.Rmd',
   blogdown.method = "markdown",
   blogdown.subdir	 = "blog",
-  blogdown.hugo.version	 = "0.91.0"
+  blogdown.hugo.version	 = "0.91.0",
+  blogdown.knit.on_save	= TRUE
 )
