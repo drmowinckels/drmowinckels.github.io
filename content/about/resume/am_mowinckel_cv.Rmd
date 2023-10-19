@@ -39,6 +39,7 @@ scholar_id <- "7NkxgWQAAAAJ"
 ```
 
 # Education
+
 ```{r education}
 bind_rows(
   orcid_educations(orcid)[[1]]$`affiliation-group`$summaries
@@ -89,8 +90,6 @@ I am passionate about increasing the representation and retention of women in sc
 ")
 ```
 
-
-
 ```{r "services"}
 
 do.call(bind_rows,
@@ -101,11 +100,14 @@ do.call(bind_rows,
     when = glue("{`membership-summary.start-date.year.value`} - present"),
     with = glue("{`membership-summary.organization.name`}"),
     where = `membership-summary.organization.address.city`,
-    why = c("Assisting in daily coordination and webpage maintenance of R-Ladies globally",
-            "Initiative running events for coding, networking and support of minority genders in the R-community")
+    why = c(
+      "Global coordination of R-Ladies as a non-profit organisation",
+      "Assisting in daily coordination and webpage maintenance of R-Ladies globally",
+      "Initiative running events for coding, networking and support of minority genders in the R-community")
   )
 
-do.call(bind_rows,
+do.call(
+  bind_rows,
         orcid_services(orcid)[[1]]$`affiliation-group`$summaries
 )  %>%
   detailed_entries(
@@ -115,11 +117,10 @@ do.call(bind_rows,
     where = `service-summary.organization.address.city`,
     why = `service-summary.department-name`
   )
-
-
 ```
 
 # Teaching & Dissemination
+
 ```{r results='asis'}
 cat("\\footnotesize
 In addition to teaching and workshops, I run a coding and neuroscience blog, \\href{https://drmowinckels.io}{drmowinckels.io \\faicon{globe} }, that includes tutorials in R and neuroimaging. I am also a certified \\href{https://software-carpentry.org/}{Software Carpentry Instructor \\faicon{globe}}.
@@ -155,6 +156,7 @@ tribble(
 ```
 
 # Research software development
+
 ```{r results='asis'}
 cat("\\footnotesize
 A recent interest and professional endeavor is creating R-packages to improve data workflows and visualization in R. Icons link to package websites with documentation (\\faicon{globe}), and github repositories (\\faicon{github}) where source code is openly available.
@@ -174,19 +176,30 @@ tribble(
   brief_entries(glue("\\textbf{<pkg> <github> <docs>}: <role> \\newline <details>", .open = "<", .close = ">"), when, .protect = FALSE)
 ```
 
-
 <!-- # Awards & Achievements -->
+
 <!-- ## Awards -->
+
 <!-- ```{r} -->
+
 <!-- tribble( -->
+
 <!--   ~ award, ~ from, ~ year, -->
+
 <!--   "Commerce Dean's Honour", "Monash", "2017", -->
+
 <!--   "Commerce Dean's Commendation", "Monash", "2016", -->
+
 <!--   "Science Dean’s List", "Monash", "2014-2016", -->
+
 <!--   "International Institute of Forecasters Award", "IIF", "2014", -->
+
 <!--   "Rotary Youth Leadership Award", "Rotary", "2013" -->
+
 <!-- ) %>% -->
+
 <!--   brief_entries(award, year, from) -->
+
 <!-- ``` -->
 
 \newpage
