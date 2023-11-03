@@ -73,7 +73,6 @@ jobs:
 
       - name: Cache node modules
         id: cache-npm
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -86,7 +85,6 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install npm dependencies
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: npm install
 
       - name: Render about me & cv
