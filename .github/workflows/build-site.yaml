@@ -81,13 +81,6 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Alter base URL
-        if: github.event_name == 'pull_request'
-        run: |
-          sed 's/drmowinckels\.io/${{ github.sha }}--drmowinckels.netlify.app/g' config.toml > tmp
-          mv tmp config.toml
-        shell: sh
-
       - name: Render about me & cv
         if: github.event_name != 'pull_request'
         run: |
@@ -99,24 +92,33 @@ jobs:
         env:
          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
 
-      - name: Build site
-        run: hugo --enableGitInfo
-        shell: sh
+      - name: Build
+        run: |
+          if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
+            hugo \
+              -e production \
+              --minify
+          else
+            hugo  \
+              --minify \
+              -b https://${{ github.sha }}--drmowinckels.netlify.app/
+          fi
+
+      - name: Deploy production 🚀
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: public
 
       - name: Deploy to Netlify
+        if: github.event_name == 'pull_request'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
             echo "Running netlify preview deploy"
             netlify deploy --alias ${{ github.sha }}
-          elif [[ ${{ github.event_name }} == 'push' ]]; then
-            echo "Running netlify production deploy"
-            netlify deploy --prod
-          else
-            echo "Nothing to send to netlify"
-          fi
         shell: sh
 
 #
