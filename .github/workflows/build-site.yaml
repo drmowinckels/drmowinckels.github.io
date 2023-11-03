@@ -28,12 +28,12 @@ jobs:
         run: |
           ver=$(cat .Rprofile | grep hugo.version | cut -d'"' -f2 )
           echo ".Rprofile sets hugo version to $ver"
-          echo "::set-output name=value::${ver}"
+          echo "hugo_v=${ver}" >> $GITHUB_ENV
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: ${{ steps.hugo_vr.outputs.value }}
+          hugo-version: ${{ env.hugo_v }}
           extended: true
 
       - name: Install Netlify CLI
