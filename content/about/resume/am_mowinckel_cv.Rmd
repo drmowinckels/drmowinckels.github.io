@@ -206,8 +206,6 @@ tribble(
 
 # Publications & Preprints
 
-In descending chronological order.
-
 ```{r "pubPlot", dev.args = list(bg = 'transparent'), out.width= "100%", fig.height=3}
 scholar::get_citation_history(scholar_id) %>%
   mutate(cumulative=cumsum(cites)) %>%
@@ -253,27 +251,35 @@ pubs <- scholar::get_publications(scholar_id) %>%
     journal = ifelse(!is.na(cid),
                      glue("\\href{<cid>}{<journal> <number>}", .open = "<", .close = ">"),
                      glue("<journal> <number>", .open = "<", .close = ">")
-    )
-  ) %>%
-  mutate(across(where(is.character), str_trim)) %>% 
+    ),
+    across(where(is.character), str_trim)
+  )  %>% 
+  filter(!grepl("\\varepsilon", title))
+
+```
+
+## Most recent 10
+
+```{r publist-1}
+pubs |> 
+  arrange(year) |> 
   brief_entries(
     what = glue("<author> \\newline \\textit{<title>} \\newline <journal> \\vspace{1mm} ", .open = "<", .close = ">"),
     when = year,
     with = cite,
     .protect = FALSE
-  ) %>% 
-  filter(!grepl("\\varepsilon", what)) #%>% 
-  #slice(-10, -22) 
+  ) 
 ```
 
-```{r publist-1}
-n <- 12
-slice(pubs, 1:n)
-```
+## Most cited 10
 
 ```{r publist-2, results='asis'}
-pubs <- slice(pubs, (n+1):nrow(pubs))
-n <- 19
-sl <- ceiling(nrow(pubs) / n)
-pubs
+pubs |> 
+  arrange(desc(as.numeric(cites))) |> 
+  brief_entries(
+    what = glue("<author> \\newline \\textit{<title>} \\newline <journal> \\vspace{1mm} ", .open = "<", .close = ">"),
+    when = year,
+    with = cite,
+    .protect = FALSE
+  ) 
 ```
