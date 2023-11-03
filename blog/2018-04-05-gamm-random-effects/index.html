@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        
+            <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Gamm Random Effects - Dr. Mowinckel&rsquo;s
+</title>
+
+
+
+            <meta property="og:title" content="GAMM random effects - Dr. Mowinckel&rsquo;s" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content=""/>
+<meta property="og:url" content="https://drmowinckels.io/blog/2018-04-05-gamm-random-effects/"/>
+<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+
+
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2018-04-05-gamm-random-effects/index_files/figure-html/unnamed-chunk-10-1.png"/>
+
+
+
+            
+<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
+
+
+            
+
+
+  
+  
+  
+  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+        
+        
+        
+        
+    </head>
+    <body> 
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
+                
+                
+
+<h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/">
+                            
+                            Home
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/about">
+                            
+                            About
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
+                            
+                            Blog
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
+                            
+                            Contact
+                            
+                        </a>
+                    
+                
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://drmowinckels.io/blog/2018-04-05-gamm-random-effects/">GAMM random effects</a>
+    </h2>
+    <div class="post-data">
+        Apr 5, 2018 |
+        20 minutes read
+    </div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Tags:
+          
+           <a href="https://drmowinckels.io/tags/r">
+             R</a>,
+         
+           <a href="https://drmowinckels.io/tags/gamm">
+             GAMM</a>
+         
+        </p>
+      
+    
+      
+    
+
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>I&rsquo;m working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it <a href="blog/gamm-spaghetti-plots-in-r-with-ggplot/">here</a>.</p>
+<p>For this part I&rsquo;d like to talk about random effects in <code>mgcv::gamm</code> as they are a little different from what I am used to from, for instance <code>lme4</code> or even a standard GAM.</p>
+<p>When I started with GAMMs, it was mainly adapting code used by my PI, and taking it somewhat for granted that the syntax was correct (and it is). But when I started really looking into the outputs, I started seeing some differences in the output from other mixed models I had run through <a href="https://cran.r-project.org/web/packages/lme4/lme4.pdf">lme4</a> and even through Bayesian mixed models with <a href="https://cran.r-project.org/web/packages/rstanarm/rstanarm.pdf">rstanarm</a>.</p>
+<p>The random effects terms were specified differently. At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before. And it seemed intuitively weird to specify a factor as a random smoothing spline, which in my head would be a <strong>slope</strong> estimator, when I know the random effect I was after was participant intercepts.</p>
+<p>We&rsquo;ll continue using the example from the package</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">);</span> <span class="nf">library</span><span class="p">(</span><span class="n">mgcv</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## ── Attaching packages ───────────────────────────────────────────────────── tidyverse 1.3.0 ──
+</code></pre><pre tabindex="0"><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
+## ✓ tidyr   1.0.3     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0
+</code></pre><pre tabindex="0"><code>## ── Conflicts ──────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+</code></pre><pre tabindex="0"><code>## Loading required package: nlme
+</code></pre><pre tabindex="0"><code>## 
+## Attaching package: 'nlme'
+</code></pre><pre tabindex="0"><code>## The following object is masked from 'package:dplyr':
+## 
+##     collapse
+</code></pre><pre tabindex="0"><code>## This is mgcv 1.8-31. For overview type 'help(&quot;mgcv-package&quot;)'.
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">set.seed</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="n">n.g</span> <span class="o">&lt;-</span> <span class="m">10</span>
+<span class="n">n</span><span class="o">&lt;-</span><span class="n">n.g</span><span class="o">*</span><span class="m">10</span><span class="o">*</span><span class="m">4</span>
+
+<span class="n">dat</span> <span class="o">&lt;-</span> <span class="nf">gamSim</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## Gu &amp; Wahba 4 term additive model
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">f</span> <span class="o">&lt;-</span> <span class="n">dat</span><span class="o">$</span><span class="n">f</span>
+
+<span class="c1">## simulate nested random effects....</span>
+<span class="n">fa</span> <span class="o">&lt;-</span> <span class="nf">as.factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="m">4</span><span class="o">*</span><span class="n">n.g</span><span class="p">,</span><span class="m">10</span><span class="p">)))</span>
+<span class="n">ra</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">10</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="m">4</span><span class="o">*</span><span class="n">n.g</span><span class="p">,</span><span class="m">10</span><span class="p">))</span>
+<span class="n">fb</span> <span class="o">&lt;-</span> <span class="nf">as.factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span><span class="m">4</span><span class="p">)),</span><span class="m">10</span><span class="p">))</span>
+<span class="n">rb</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">4</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span><span class="m">4</span><span class="p">))</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">)</span> <span class="n">rb</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">rb</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">4</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span><span class="m">4</span><span class="p">)))</span>
+
+<span class="c1">## simulate auto-correlated errors within groups</span>
+<span class="n">e</span><span class="o">&lt;-</span><span class="nf">array</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">)</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">40</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">eg</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="nf">sd</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+  <span class="nf">for </span><span class="p">(</span><span class="n">j</span> <span class="n">in</span> <span class="m">2</span><span class="o">:</span><span class="n">n.g</span><span class="p">)</span> <span class="n">eg[j]</span> <span class="o">&lt;-</span> <span class="n">eg[j</span><span class="m">-1</span><span class="n">]</span><span class="o">*</span><span class="m">0.6</span><span class="o">+</span> <span class="n">eg[j]</span>
+  <span class="n">e</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">eg</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">dat</span><span class="o">$</span><span class="n">y</span> <span class="o">&lt;-</span> <span class="n">f</span> <span class="o">+</span> <span class="n">ra</span> <span class="o">+</span> <span class="n">rb</span> <span class="o">+</span> <span class="n">e</span>
+<span class="n">dat</span><span class="o">$</span><span class="n">id</span> <span class="o">&lt;-</span> <span class="n">fa</span><span class="p">;</span><span class="n">dat</span><span class="o">$</span><span class="n">fb</span> <span class="o">&lt;-</span> <span class="n">fb</span>
+
+<span class="c1"># Have a look at the data</span>
+<span class="n">dat</span> <span class="o">%&gt;%</span> <span class="n">glimpse</span>
+</code></pre></div><pre tabindex="0"><code>## Rows: 400
+## Columns: 12
+## $ y  &lt;dbl&gt; 5.7219994, -0.9639415, -1.2327185, 5.3578028, -0.5071576, 9.376896…
+## $ x0 &lt;dbl&gt; 0.89669720, 0.26550866, 0.37212390, 0.57285336, 0.90820779, 0.2016…
+## $ x1 &lt;dbl&gt; 0.14784571, 0.65887761, 0.18506996, 0.95437814, 0.89784849, 0.9436…
+## $ x2 &lt;dbl&gt; 0.34826473, 0.85868745, 0.03443876, 0.97099715, 0.74511014, 0.2732…
+## $ x3 &lt;dbl&gt; 0.04572472, 0.36652658, 0.74139303, 0.93350625, 0.67320995, 0.7013…
+## $ f  &lt;dbl&gt; 7.962274, 5.514517, 3.576406, 8.692625, 8.752859, 16.190349, 8.026…
+## $ f0 &lt;dbl&gt; 0.63773679, 1.48141126, 1.84076823, 1.94784424, 0.56878697, 1.1841…
+## $ f1 &lt;dbl&gt; 1.344055, 3.735028, 1.447937, 6.744695, 6.023672, 6.602142, 4.2519…
+## $ f2 &lt;dbl&gt; 5.980482e+00, 2.980780e-01, 2.877006e-01, 8.611364e-05, 2.160400e+…
+## $ f3 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ id &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ fb &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, …
+</code></pre><p>The model we have run before was specified like so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">b</span> <span class="o">=</span> <span class="nf">gamm</span><span class="p">(</span><span class="n">y</span><span class="o">~</span><span class="nf">s</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">),</span>
+         <span class="n">random</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">id</span><span class="o">=~</span><span class="m">1</span><span class="p">,</span><span class="n">fb</span><span class="o">=~</span><span class="m">1</span><span class="p">),</span>
+         <span class="n">data</span><span class="o">=</span><span class="n">dat</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="nf">corAR1</span><span class="p">())</span>
+
+<span class="c1"># Let&#39;s see the model summary</span>
+<span class="n">b</span><span class="o">$</span><span class="n">gam</span> <span class="o">%&gt;%</span> <span class="nf">summary</span><span class="p">()</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## y ~ s(x0, bs = &quot;cr&quot;) + s(x1, bs = &quot;cr&quot;) + s(x2, bs = &quot;cr&quot;) + 
+##     s(x3, bs = &quot;cr&quot;)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   7.6878     0.5131   14.98   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Approximate significance of smooth terms:
+##         edf Ref.df      F p-value    
+## s(x0) 2.760  2.760  5.136 0.00925 ** 
+## s(x1) 1.938  1.938 61.438 &lt; 2e-16 ***
+## s(x2) 7.059  7.059 42.398 &lt; 2e-16 ***
+## s(x3) 1.000  1.000  0.185 0.66755    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## R-sq.(adj) =  0.351   
+##   Scale est. = 13.963    n = 400
+</code></pre><p>Notice how the random effects is specified as a separate argument in the function, as a list of two in this case <code>random=list(id=~1,fb=~1)</code>. The argument is given a named list, with the list names being the columns you want as random effects over, and the <code>~1</code> indicating you want estimated random intercepts over these columns.</p>
+<p>In comparison to other functions, I read this argument as being equivalent to <code>lme4</code>&rsquo;s <code>(1|id)</code> and <code>nlme</code>&rsquo;s <code>random = ~ 1 | id</code>. The output of such a model is also familiar to me, when looking at the lme part of the output (remember how <code>gamm()</code> outputs a list of two models, one <code>lme</code> and one <code>gam</code>).</p>
+<p>The summary does not contain particular information about the random effect, and you can grab the random effects coefficients with the <code>ranef</code> function, and clearly see each intercept estimated.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ranef</span><span class="p">(</span><span class="n">b</span><span class="o">$</span><span class="n">lme</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## Level: g 
+##            Xr1         Xr2         Xr3          Xr4        Xr5        Xr6
+## 1 0.0005843676 0.003156997 -0.01032196 -0.006625699 0.02528885 0.04149708
+##           Xr7         Xr8
+## 1 -0.05451532 -0.07259337
+## 
+## Level: g.0 %in% g 
+##             Xr.01        Xr.02        Xr.03        Xr.04       Xr.05
+## 1/1 -0.0009779545 -0.001372479 -0.004842131 0.0001262393 -0.00105675
+##           Xr.06       Xr.07      Xr.08
+## 1/1 0.006042108 -0.01916633 0.03101186
+## 
+## Level: g.1 %in% g.0 %in% g 
+##         Xr.11      Xr.12     Xr.13      Xr.14      Xr.15     Xr.16     Xr.17
+## 1/1/1 0.57811 -0.2616855 -0.772783 -0.7038865 -0.7802115 -1.149971 0.7456378
+##            Xr.18
+## 1/1/1 -0.2837219
+## 
+## Level: g.2 %in% g.1 %in% g.0 %in% g 
+##                Xr.21        Xr.22        Xr.23        Xr.24         Xr.25
+## 1/1/1/1 2.909284e-10 2.054763e-10 1.476629e-09 1.896314e-09 -2.472759e-09
+##                Xr.26       Xr.27        Xr.28
+## 1/1/1/1 2.618453e-10 1.64276e-09 -2.44613e-10
+## 
+## Level: id %in% g.2 %in% g.1 %in% g.0 %in% g 
+##            (Intercept)
+## 1/1/1/1/1  -0.04093526
+## 1/1/1/1/2  -1.24502533
+## 1/1/1/1/3   1.10530245
+## 1/1/1/1/4  -0.41008709
+## 1/1/1/1/5   0.36932934
+## 1/1/1/1/6  -0.70282594
+## 1/1/1/1/7  -0.29445029
+## 1/1/1/1/8   0.37379922
+## 1/1/1/1/9   0.31498060
+## 1/1/1/1/10  0.52991230
+## 
+## Level: fb %in% id %in% g.2 %in% g.1 %in% g.0 %in% g 
+##              (Intercept)
+## 1/1/1/1/1/1   -0.8283858
+## 1/1/1/1/1/2    1.7647269
+## 1/1/1/1/1/3   -0.7439014
+## 1/1/1/1/1/4   -0.3082929
+## 1/1/1/1/2/1   -0.4582550
+## 1/1/1/1/2/2   -0.6137777
+## 1/1/1/1/2/3   -1.1459145
+## 1/1/1/1/2/4   -1.3056657
+## 1/1/1/1/3/1    1.2229016
+## 1/1/1/1/3/2   -0.7911620
+## 1/1/1/1/3/3    1.9957750
+## 1/1/1/1/3/4    0.7006611
+## 1/1/1/1/4/1   -1.2557125
+## 1/1/1/1/4/2   -1.2974789
+## 1/1/1/1/4/3    2.0870433
+## 1/1/1/1/4/4   -0.6944613
+## 1/1/1/1/5/1    0.1460494
+## 1/1/1/1/5/2    0.9042705
+## 1/1/1/1/5/3   -0.7208290
+## 1/1/1/1/5/4    0.7157679
+## 1/1/1/1/6/1   -0.4242333
+## 1/1/1/1/6/2   -0.4369515
+## 1/1/1/1/6/3    0.8543035
+## 1/1/1/1/6/4   -1.9822241
+## 1/1/1/1/7/1    0.7972101
+## 1/1/1/1/7/2    1.3004748
+## 1/1/1/1/7/3   -1.1514110
+## 1/1/1/1/7/4   -1.7796134
+## 1/1/1/1/8/1    0.1702061
+## 1/1/1/1/8/2    0.9086099
+## 1/1/1/1/8/3   -1.0343737
+## 1/1/1/1/8/4    1.0134668
+## 1/1/1/1/9/1    0.4412907
+## 1/1/1/1/9/2   -1.4015796
+## 1/1/1/1/9/3    1.1137714
+## 1/1/1/1/9/4    0.7379609
+## 1/1/1/1/10/1   0.7863282
+## 1/1/1/1/10/2  -0.8114996
+## 1/1/1/1/10/3  -0.7101010
+## 1/1/1/1/10/4   2.2350055
+</code></pre><p>So, this leads me to what my PI has been doing. In his code, the random effects are specified as smoothing spines through <code>mgcv</code>&rsquo;s formula function <code>s()</code>. I&rsquo;ll not cover this function too much right now, you can see it in the formula we have already used, and it is a powerful smoothing spline function, where you can specify different types of splines. You can also specify that the spline is a random effect, by setting the argument <code>bs</code> to <code>&quot;re&quot;</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">b2</span> <span class="o">=</span> <span class="nf">gamm</span><span class="p">(</span><span class="n">y</span><span class="o">~</span><span class="nf">s</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span> <span class="o">+</span>
+            <span class="nf">s</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="s">&#34;re&#34;</span><span class="p">)</span> <span class="o">+</span> <span class="nf">s</span><span class="p">(</span><span class="n">fb</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="s">&#34;re&#34;</span><span class="p">),</span>
+          <span class="n">data</span><span class="o">=</span><span class="n">dat</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="nf">corAR1</span><span class="p">())</span>
+
+<span class="c1"># Let&#39;s see the model summary</span>
+<span class="n">b2</span><span class="o">$</span><span class="n">gam</span> <span class="o">%&gt;%</span> <span class="nf">summary</span><span class="p">()</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## y ~ s(x0, bs = &quot;cr&quot;) + s(x1, bs = &quot;cr&quot;) + s(x2, bs = &quot;cr&quot;) + 
+##     s(x3, bs = &quot;cr&quot;) + s(id, bs = &quot;re&quot;) + s(fb, bs = &quot;re&quot;)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   7.6814     0.6034   12.73   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Approximate significance of smooth terms:
+##             edf Ref.df      F  p-value    
+## s(x0) 3.018e+00  3.018  4.833 0.002708 ** 
+## s(x1) 2.058e+00  2.058 55.553  &lt; 2e-16 ***
+## s(x2) 7.093e+00  7.093 44.217  &lt; 2e-16 ***
+## s(x3) 1.000e+00  1.000  0.424 0.515152    
+## s(id) 5.984e+00  9.000  2.254 0.000526 ***
+## s(fb) 1.389e-05  3.000  0.000 0.370790    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## R-sq.(adj) =  0.428   
+##   Scale est. = 16.399    n = 400
+</code></pre><p>Notice how we&rsquo;ve now <strong>not</strong> used the <code>random</code> argument in the function, but set two splines over the random effects instead. Notice also that while p and F-values have changed, the effects are still very strong, and the adjusted R^2^ is also changed, but the conclusion would still be the same. I&rsquo;m still working on understanding exactly <em>how</em> these values change on a statistical basis, but I understand why.</p>
+<p>See also how the model summary also includes the random effect splines in the summary of fixed effects! This tripped me up a little, but they are still not handled as fixed effects, they are random, but there <strong>is</strong> something different about the models.</p>
+<p>and that is true. The first case uses a &ldquo;standard&rdquo; maximum likelihood function on the estimates, which makes it fast and powerfull. The second example introduces a penalized ridge function over the random effects, making it quite a conservative approach. Which you can see through the reduced F-values and increased p-values, and but also the increased correlation!</p>
+<p>I was still quite insecure about what I was looking at. There are things with this output that is different enough for me to be a little insecure about the approach being <em>correct</em>. Using <code>ranef</code> on this output, furhter made me a little anxious, it was so different than what I am used to.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ranef</span><span class="p">(</span><span class="n">b2</span><span class="o">$</span><span class="n">lme</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## Level: g 
+##           Xr1         Xr2         Xr3          Xr4        Xr5        Xr6
+## 1 0.001218306 0.006751215 -0.01164747 -0.002250968 0.03275992 0.05436231
+##           Xr7         Xr8
+## 1 -0.08915512 -0.07731022
+## 
+## Level: g.0 %in% g 
+##            Xr.01        Xr.02        Xr.03         Xr.04        Xr.05
+## 1/1 -0.001094679 -0.002218705 -0.006072649 -0.0008453061 -0.004124781
+##           Xr.06       Xr.07      Xr.08
+## 1/1 0.008283311 -0.02910859 0.03293125
+## 
+## Level: g.1 %in% g.0 %in% g 
+##          Xr.11     Xr.12      Xr.13      Xr.14      Xr.15     Xr.16     Xr.17
+## 1/1/1 0.600786 -0.311167 -0.6703398 -0.8216271 -0.8450285 -1.124136 0.8277681
+##            Xr.18
+## 1/1/1 -0.2820918
+## 
+## Level: g.2 %in% g.1 %in% g.0 %in% g 
+##                Xr.21        Xr.22        Xr.23        Xr.24         Xr.25
+## 1/1/1/1 1.143455e-10 1.382432e-10 2.446341e-10 5.680494e-10 -7.165239e-10
+##                 Xr.26        Xr.27        Xr.28
+## 1/1/1/1 -1.735753e-10 7.832526e-10 4.623393e-11
+## 
+## Level: g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
+##              Xr.31     Xr.32     Xr.33      Xr.34     Xr.35     Xr.36    Xr.37
+## 1/1/1/1/1 1.014185 0.5310558 0.8330142 -0.3497278 -1.347548 0.6065157 -0.70093
+##              Xr.38     Xr.39      Xr.310
+## 1/1/1/1/1 2.054974 -2.542524 -0.09901478
+## 
+## Level: g.4 %in% g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
+##                     Xr.41        Xr.42         Xr.43        Xr.44
+## 1/1/1/1/1/1 -1.281446e-06 3.505485e-06 -2.816875e-06 5.928355e-07
+</code></pre><p>Look at that, the random participant intercepts are seemingly gone! <em>Whaaaaaat?</em> I&rsquo;ve been looking into why, and the answer still eludes me a little. But I know the random effects are taken into account in the model, I know they are random because I specified them so, and I also can see a simple summary of the spline in the model summary.</p>
+<p>This is not the first thing about the <code>gamm</code> output that is different from other models. We know it outputs a list of two models, a <code>gam</code> and an <code>lme</code> , and these two are given to provide something familiar to compare to <code>gamm</code> to. The splines are also quite different than what we would specify otherwise, like quadratic fits, and their output would naturally also be a little different.</p>
+<p>and it hit me I was treating a subject identifier as a <code>double</code> rather than as a <code>factor</code>. Yikes! That was punishment for me not being observant enough about my data. The second model is in a way, estimating a smoothing spline along my ID as if it was a continuous numeric variable.</p>
+<p>Let&rsquo;s make it a factor, and have a look-see at what happens then.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">dat</span> <span class="o">=</span> <span class="n">dat</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
+
+<span class="n">b3</span> <span class="o">=</span> <span class="nf">gamm</span><span class="p">(</span><span class="n">y</span><span class="o">~</span><span class="nf">s</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span> <span class="o">+</span>
+            <span class="nf">s</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="s">&#34;re&#34;</span><span class="p">)</span> <span class="o">+</span> <span class="nf">s</span><span class="p">(</span><span class="n">fb</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="s">&#34;re&#34;</span><span class="p">),</span>
+          <span class="n">data</span><span class="o">=</span><span class="n">dat</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="nf">corAR1</span><span class="p">())</span>
+
+<span class="c1"># Let&#39;s see the model summary</span>
+<span class="n">b3</span><span class="o">$</span><span class="n">gam</span> <span class="o">%&gt;%</span> <span class="nf">summary</span><span class="p">()</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## y ~ s(x0, bs = &quot;cr&quot;) + s(x1, bs = &quot;cr&quot;) + s(x2, bs = &quot;cr&quot;) + 
+##     s(x3, bs = &quot;cr&quot;) + s(id, bs = &quot;re&quot;) + s(fb, bs = &quot;re&quot;)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   7.6814     0.6034   12.73   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Approximate significance of smooth terms:
+##             edf Ref.df      F  p-value    
+## s(x0) 3.018e+00  3.018  4.833 0.002708 ** 
+## s(x1) 2.058e+00  2.058 55.553  &lt; 2e-16 ***
+## s(x2) 7.093e+00  7.093 44.217  &lt; 2e-16 ***
+## s(x3) 1.000e+00  1.000  0.424 0.515152    
+## s(id) 5.984e+00  9.000  2.254 0.000526 ***
+## s(fb) 1.389e-05  3.000  0.000 0.370790    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## R-sq.(adj) =  0.428   
+##   Scale est. = 16.399    n = 400
+</code></pre><p>Well, in this specific example, factoring ID does not have a particularly large effect. But on my actual data it did, which makes sense. Treating people as a continuous variable is generally a bad idea! Goes to show you should always have an extra thought about what you are doing, and what your variables <strong>are</strong> and what they are coded as.</p>
+<p>Maybe it has an effect on the random effects output?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ranef</span><span class="p">(</span><span class="n">b3</span><span class="o">$</span><span class="n">lme</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## Level: g 
+##           Xr1         Xr2         Xr3          Xr4        Xr5        Xr6
+## 1 0.001218306 0.006751215 -0.01164747 -0.002250968 0.03275992 0.05436231
+##           Xr7         Xr8
+## 1 -0.08915512 -0.07731022
+## 
+## Level: g.0 %in% g 
+##            Xr.01        Xr.02        Xr.03         Xr.04        Xr.05
+## 1/1 -0.001094679 -0.002218705 -0.006072649 -0.0008453061 -0.004124781
+##           Xr.06       Xr.07      Xr.08
+## 1/1 0.008283311 -0.02910859 0.03293125
+## 
+## Level: g.1 %in% g.0 %in% g 
+##          Xr.11     Xr.12      Xr.13      Xr.14      Xr.15     Xr.16     Xr.17
+## 1/1/1 0.600786 -0.311167 -0.6703398 -0.8216271 -0.8450285 -1.124136 0.8277681
+##            Xr.18
+## 1/1/1 -0.2820918
+## 
+## Level: g.2 %in% g.1 %in% g.0 %in% g 
+##                Xr.21        Xr.22        Xr.23        Xr.24         Xr.25
+## 1/1/1/1 1.143455e-10 1.382432e-10 2.446341e-10 5.680494e-10 -7.165239e-10
+##                 Xr.26        Xr.27        Xr.28
+## 1/1/1/1 -1.735753e-10 7.832526e-10 4.623393e-11
+## 
+## Level: g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
+##              Xr.31     Xr.32     Xr.33      Xr.34     Xr.35     Xr.36    Xr.37
+## 1/1/1/1/1 1.014185 0.5310558 0.8330142 -0.3497278 -1.347548 0.6065157 -0.70093
+##              Xr.38     Xr.39      Xr.310
+## 1/1/1/1/1 2.054974 -2.542524 -0.09901478
+## 
+## Level: g.4 %in% g.3 %in% g.2 %in% g.1 %in% g.0 %in% g 
+##                     Xr.41        Xr.42         Xr.43        Xr.44
+## 1/1/1/1/1/1 -1.281446e-06 3.505485e-06 -2.816875e-06 5.928355e-07
+</code></pre><p>Nope, not particularly. It&rsquo;s stil not what i would be used to seeing. Oh well. For now, I&rsquo;ve settled my mind on that the models show equivalency, which we can see if we compare the models with model comparison function <code>anova</code> (enter confusion, this function is a model comparator in R, if you want to do a &ldquo;classical&rdquo; anova, the function you are looking for is <code>aov</code>).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">anova</span><span class="p">(</span><span class="n">b</span><span class="o">$</span><span class="n">lme</span><span class="p">,</span> <span class="n">b2</span><span class="o">$</span><span class="n">lme</span><span class="p">,</span> <span class="n">b3</span><span class="o">$</span><span class="n">lme</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>##        Model df      AIC      BIC    logLik
+## b$lme      1 13 2178.215 2230.104 -1076.108
+## b2$lme     2 13 2191.055 2242.943 -1082.527
+## b3$lme     3 13 2191.055 2242.943 -1082.527
+</code></pre><p>If you are not used to model comparisons, what you want to look at is Bayesian Information Criterion (BIC) that is the lowest. In our case, the two last models are exactly the same, factoring we saw didn&rsquo;t have much effect in this example. The first model is, however, superior, but only by a very small margin. Most people would agree that all three models are equivalent.</p>
+<p>Lets also plot then to see how the fits look. I&rsquo;ll be using the function I presented in the last post, that creates fitted data with the <code>itsadug</code> package.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">GammPredData</span> <span class="o">=</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gamm.model</span><span class="p">,</span> <span class="n">condition</span><span class="p">){</span>
+  <span class="nf">require</span><span class="p">(</span><span class="n">itsadug</span><span class="p">)</span>
+  <span class="nf">eval</span><span class="p">(</span><span class="nf">parse</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="nf">paste0</span><span class="p">(</span>
+    <span class="s">&#34;get_predictions(gamm.model, cond = list(&#34;</span><span class="p">,</span>
+    <span class="n">condition</span><span class="p">,</span>
+    <span class="s">&#34;=seq(min(data[condition], na.rm=T),max(data[condition], na.rm=T), length.out = nrow(data)))) %&gt;% as.data.frame() %&gt;% mutate(&#34;</span><span class="p">,</span>
+    <span class="nf">str_split</span><span class="p">(</span><span class="n">gamm.model</span><span class="o">$</span><span class="n">formula</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">)</span><span class="n">[[2]]</span><span class="p">,</span><span class="s">&#34;=1)&#34;</span><span class="p">)))</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Predictions</span>
+<span class="n">p</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;x0&#34;</span><span class="p">,</span> <span class="s">&#34;x1&#34;</span><span class="p">,</span> <span class="s">&#34;x2&#34;</span><span class="p">,</span><span class="s">&#34;x3&#34;</span><span class="p">)</span>
+
+<span class="c1"># we will be using facet_wrap, gather the data on the predictors, for a long data frame.</span>
+<span class="n">dat2</span> <span class="o">=</span> <span class="n">dat</span> <span class="o">%&gt;%</span> 
+  <span class="nf">gather</span><span class="p">(</span><span class="n">Pred</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+<span class="n">preds.b</span> <span class="o">=</span> <span class="n">preds.b2</span> <span class="o">=</span> <span class="n">preds.b3</span> <span class="o">=</span> <span class="nf">list</span><span class="p">()</span> <span class="c1"># prepare lists for predictions</span>
+
+<span class="c1"># loop through the predictors</span>
+<span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">p</span><span class="p">)){</span>
+  <span class="n">preds.b[[i]]</span> <span class="o">=</span> <span class="nf">GammPredData</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">b</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+    <span class="nf">select_</span><span class="p">(</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="s">&#34;CI&#34;</span><span class="p">,</span> <span class="s">&#34;fit&#34;</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span>
+  
+  <span class="n">preds.b2[[i]]</span> <span class="o">=</span> <span class="nf">GammPredData</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">b2</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+    <span class="nf">select_</span><span class="p">(</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="s">&#34;CI&#34;</span><span class="p">,</span> <span class="s">&#34;fit&#34;</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span>
+  
+  <span class="n">preds.b3[[i]]</span> <span class="o">=</span> <span class="nf">GammPredData</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">b3</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+    <span class="nf">select_</span><span class="p">(</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="s">&#34;CI&#34;</span><span class="p">,</span> <span class="s">&#34;fit&#34;</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span>
+  
+  <span class="nf">names</span><span class="p">(</span><span class="n">preds.b</span><span class="p">)</span><span class="n">[i]</span> <span class="o">=</span> <span class="nf">names</span><span class="p">(</span><span class="n">preds.b2</span><span class="p">)</span><span class="n">[i]</span> <span class="o">=</span> <span class="nf">names</span><span class="p">(</span><span class="n">preds.b3</span><span class="p">)</span><span class="n">[i]</span> <span class="o">=</span> <span class="n">p[i]</span>
+<span class="p">}</span>
+</code></pre></div><pre tabindex="0"><code>## Summary:
+## 	* x0 : numeric predictor; with 400 values ranging from 0.013078 to 0.996077. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* NOTE : No random effects in the model to cancel.
+## 
+</code></pre><pre tabindex="0"><code>## Warning: select_() is deprecated. 
+## Please use select() instead
+## 
+## The 'programming' vignette or the tidyeval book can help you
+## to program with select() : https://tidyeval.tidyverse.org
+## This warning is displayed once per session.
+</code></pre><pre tabindex="0"><code>## Summary:
+## 	* x0 : numeric predictor; with 400 values ranging from 0.013078 to 0.996077. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+##  
+## Summary:
+## 	* x0 : numeric predictor; with 400 values ranging from 0.013078 to 0.996077. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; with 400 values ranging from 0.001837 to 0.999455. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* NOTE : No random effects in the model to cancel.
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; with 400 values ranging from 0.001837 to 0.999455. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; with 400 values ranging from 0.001837 to 0.999455. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; with 400 values ranging from 0.001315 to 0.999931. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* NOTE : No random effects in the model to cancel.
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; with 400 values ranging from 0.001315 to 0.999931. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; with 400 values ranging from 0.001315 to 0.999931. 
+## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; with 400 values ranging from 0.001642 to 0.996272. 
+## 	* NOTE : No random effects in the model to cancel.
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; with 400 values ranging from 0.001642 to 0.996272. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+##  
+## Summary:
+## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
+## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
+## 	* x2 : numeric predictor; set to the value(s): 0.445692849811167. 
+## 	* x3 : numeric predictor; with 400 values ranging from 0.001642 to 0.996272. 
+## 	* id : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* fb : factor; set to the value(s): 1. (Might be canceled as random effect, check below.) 
+## 	* NOTE : The following random effects columns are canceled: s(id),s(fb)
+## 
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># use bind_rows to make them into large data frames and gather them, just like the data</span>
+<span class="n">preds.b</span> <span class="o">=</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">preds.b</span><span class="p">)</span><span class="o">%&gt;%</span> 
+  <span class="nf">gather</span><span class="p">(</span><span class="n">Pred</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">na.omit</span><span class="p">()</span>
+
+<span class="n">preds.b2</span> <span class="o">=</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">preds.b2</span><span class="p">)</span><span class="o">%&gt;%</span> 
+  <span class="nf">gather</span><span class="p">(</span><span class="n">Pred</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">na.omit</span><span class="p">()</span>
+
+<span class="n">preds.b3</span> <span class="o">=</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">preds.b3</span><span class="p">)</span><span class="o">%&gt;%</span> 
+  <span class="nf">gather</span><span class="p">(</span><span class="n">Pred</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">na.omit</span><span class="p">()</span>
+
+<span class="c1"># Lets plot them all, here, I will add all three models predictions on top of eachother in different colors, for easy comparison.</span>
+
+<span class="n">dat2</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
+  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
+
+  
+  <span class="c1"># Add predictions for model b3</span>
+  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds.b3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.4</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">fit</span><span class="o">-</span><span class="n">CI</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">fit</span><span class="o">+</span><span class="n">CI</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&#34;b3&#34;</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds.b3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.7</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">fit</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#34;b3&#34;</span><span class="p">))</span> <span class="o">+</span>
+    
+  <span class="c1"># Add predictions for model b2</span>
+  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds.b2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.4</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">fit</span><span class="o">-</span><span class="n">CI</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">fit</span><span class="o">+</span><span class="n">CI</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&#34;b2&#34;</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds.b2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.7</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">fit</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#34;b2&#34;</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># Add predictions for model b</span>
+  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds.b</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.4</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">fit</span><span class="o">-</span><span class="n">CI</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">fit</span><span class="o">+</span><span class="n">CI</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&#34;b&#34;</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds.b</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.7</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">fit</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#34;b&#34;</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="c1"># Add some color, this way of doing it gives us a nice legend!</span>
+  <span class="nf">scale_color_manual</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span>
+                     <span class="n">breaks</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;b&#34;</span><span class="p">,</span><span class="s">&#34;b2&#34;</span><span class="p">,</span><span class="s">&#34;b3&#34;</span><span class="p">),</span>
+                     <span class="n">values</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;forestgreen&#34;</span><span class="p">,</span><span class="s">&#34;skyblue&#34;</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">scale_fill_manual</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span>
+                    <span class="n">breaks</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;b&#34;</span><span class="p">,</span><span class="s">&#34;b2&#34;</span><span class="p">,</span><span class="s">&#34;b3&#34;</span><span class="p">),</span>
+                    <span class="n">values</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;forestgreen&#34;</span><span class="p">,</span><span class="s">&#34;skyblue&#34;</span><span class="p">))</span> <span class="o">+</span>
+  
+  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Pred</span><span class="p">,</span> <span class="n">scales</span><span class="o">=</span><span class="s">&#34;free&#34;</span><span class="p">)</span>
+</code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" alt=""><!-- --></p>
+<p>The fit overlap is uncanny, but the confidence intervals have a marked difference. With my actual data, there is a little more difference than here, but it really is quite minute.</p>
+<p>So, through my tests, I&rsquo;ve become quite confident that the approaches are both <em>valid</em>. There is nothing statistically <em>wrong</em> in doing either. However, if you want a conservative approach, the second option, with random effects as a spline is the way to go. Just make sure your subject identifier is a factor, it might impact your inference more than you think.</p>
+
+
+    
+    <h3>Citation</h3>
+    <div class="columns">
+      <div class="column is-half">
+        For attribution, please cite this work as
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            DrMowinckels (Apr 5, 2018) GAMM random effects. Retrieved from https://drmowinckels.io/blog/2018-04-05-gamm-random-effects/
+          </p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <b>BibTeX citation</b>
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            @misc{ 2018-gamm-random-effects,<br>
+            &emsp;author = { DrMowinckels },<br>
+            &emsp;title = { GAMM random effects },<br>
+            &emsp;url = { https://drmowinckels.io/blog/2018-04-05-gamm-random-effects/ },<br>
+            &emsp;year = { 2018 }<br>
+            &emsp;updated = { Nov 3, 2023 }<br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+
+<div class="container giscus my-4">
+    <script src="https://giscus.app/client.js"
+        data-repo=DrMowinckels/DrMowinckels
+        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+        data-category=Comments
+        data-category-id=DIC_kwDOB1wEpM4CAG0c
+        data-mapping=pathname
+        data-reactions-enabled=1
+        data-emit-metadata=0
+        data-theme=light
+        data-lang=en
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115545202-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+
+  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

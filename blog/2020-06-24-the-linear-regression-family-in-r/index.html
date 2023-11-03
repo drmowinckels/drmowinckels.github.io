@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        
+            <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+The Linear Regression Family in R - Dr. Mowinckel&rsquo;s
+</title>
+
+
+
+            <meta property="og:title" content="The Linear Regression Family in R - Dr. Mowinckel&rsquo;s" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content=""/>
+<meta property="og:url" content="https://drmowinckels.io/blog/2020-06-24-the-linear-regression-family-in-r/"/>
+<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+
+
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2020-06-24-the-linear-regression-family-in-r/index.en_files/figure-html/featured-1.png"/>
+
+
+
+            
+<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
+
+
+            
+
+
+  
+  
+  
+  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+        
+        
+        
+        
+    </head>
+    <body> 
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
+                
+                
+
+<h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/">
+                            
+                            Home
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/about">
+                            
+                            About
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
+                            
+                            Blog
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
+                            
+                            Contact
+                            
+                        </a>
+                    
+                
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://drmowinckels.io/blog/2020-06-24-the-linear-regression-family-in-r/">The Linear Regression Family in R</a>
+    </h2>
+    <div class="post-data">
+        Jun 24, 2020 |
+        21 minutes read
+    </div>
+    
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Categories:
+          
+        </p>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Tags:
+          
+           <a href="https://drmowinckels.io/tags/r">
+             R</a>,
+         
+           <a href="https://drmowinckels.io/tags/analysis">
+             Analysis</a>,
+         
+           <a href="https://drmowinckels.io/tags/linear-regression">
+             Linear regression</a>
+         
+        </p>
+      
+    
+      
+    
+
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>Let&rsquo;s talk linear regression.
+It&rsquo;s the thing we learn about first year in psychology at Uni, and it blows all our minds that we are doing <em>math</em> in psychology.
+An unfortunate effect of all high school student counsellors in Norway thinking all psychologists do is shrink people&rsquo;s heads.
+And then here we come to Uni and first semester they stick us with <em>math</em>.</p>
+<p>I&rsquo;m no statistician, I&rsquo;m no mathematician.
+So I&rsquo;ll be honest with you all, I am not the one to answer your most indepth and deep questions about stats.
+But, I can hopefully get you going in doing stats in R.</p>
+<p>One of the things that took me a PhD to get, is that when we are going ANOVAs and ANCOVAs (psychology&rsquo;s favourite stats approaches), we are in fact doing linear regression.
+Many students find the term &ldquo;linear regression&rdquo; intimidating, all the while running statistical tests that at their core are exactly that.
+It&rsquo;s a flaw in how we teach stats to psychology students, that we are struggling to convey this point.</p>
+<p>If you are running t-tests, ANOVA&rsquo;s and ANCOVA&rsquo;s, you are doing linear regression.</p>
+<!--html_preserve--><blockquote class="twitter-tweet"><p lang="en" dir="ltr">There once was a model, ANOVA,<br>who along with their cousin ANCOVA,<br>made a great big confession:<br>“We’re the same as regression,<br> but we’ve established a separate persona.”</p>&mdash; Chelsea Parlett-Pelleriti (@ChelseaParlett) <a href="https://twitter.com/ChelseaParlett/status/1259586040219594753?ref_src=twsrc%5Etfw">May 10, 2020</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<!--/html_preserve-->
+<p>In this post we will go through a couple of examples of how we can specify different linear models (linear regressions) in R, and compare how running specialised types of linear regressions (like ANOVA) can also be specified as a linear model.
+I will focus on <em>running models</em>, not on what constitutes <em>good</em> or <em>bad</em> models or their interpretation.
+These are important things to think about when doing analyses, and no analysis is completely objective.
+Knowledge of the source of the data, the context in which the data was collected, the assumed and the actual distribution of the data etc., these are all important aspects to think about before, during and after analysing the data.
+But these things all depend on the data at hand, and as such I will focus on how you can run models in R, and it will be up to you to try to translate your hypothesis into a model.
+This can be hard, I have almost daily discussions with co-workers regarding this point.</p>
+<p>I am no genious here, I got the inspiration for this post from this amazing sheet made by [Jonas Kristoffer Lindeløv](Jonas Kristoffer Lindeløv)</p>
+<iframe src="https://lindeloev.github.io/tests-as-linear/linear_tests_cheat_sheet.pdf" width ="100%" height="800px"></iframe>
+
+<h1 id="r-model-syntax" class="anchor-link"><a href="#r-model-syntax">R model syntax</a></h1>
+<p>Before we get started, let&rsquo;s cover some R syntax regarding modelling.
+While there might be specific versions of this formula depending on the modelling you are doing, there are general rules in R on how we specify models.</p>
+<p>Running models in R, we use something we call a <code>formula</code>. This is an unquoted expression of your model specification.</p>
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> formula </th>
+   <th style="text-align:left;"> tests </th>
+   <th style="text-align:left;"> read as </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> y ~ x </td>
+   <td style="text-align:left;"> main effect of x on y </td>
+   <td style="text-align:left;"> y predicted by x </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> y ~ x + z </td>
+   <td style="text-align:left;"> main effects of x and z on y </td>
+   <td style="text-align:left;"> y predicted by both x and z </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> y ~ x:z </td>
+   <td style="text-align:left;"> interaction of x and z on y </td>
+   <td style="text-align:left;"> y predicted by the interaction of x and z </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> y ~ x + z + x:z </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> main and interaction effects of x and z on y </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> y predicted by x and z, as well as their interaction </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> y ~ x * z </td>
+  </tr>
+</tbody>
+</table>
+<p>What is on the left-side of the tilde (<code>~</code>) is your dependent variable, and on the right you place you predictors.
+Using this syntax we can build regression models that test our hypotheses.
+Notice that the two last rows are testing the same thing, the bottom rows is a shorthand for the formula above, which R will expand to the above formula when running it.</p>
+<p>For the examples we will be running, we will use data from the SPSS survival guide, a dataset a lot of fledgling Psychologists are familiar with, and that I have myself used in two posts:</p>
+<ul>
+<li><a href="https://drmowinckels.io/blog/2018-11-09-r-just-dive-into-it/">R for Psychologists</a></li>
+<li><a href="https://drmowinckels.io/blog/2019-07-17-r-for-psychologists-part-ii/">R for Psychologists - pt. II</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">rio</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Start with importing the SPSS data</span>
+<span class="c1"># then recode sex to Male and Female</span>
+<span class="c1"># and make id a factor (categorical)</span>
+<span class="c1"># then make group a factor</span>
+<span class="n">eData</span> <span class="o">=</span> <span class="n">rio</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&#34;experim.sav&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span>
+    <span class="n">sex</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">sex</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;Male&#34;</span><span class="p">,</span><span class="s">&#34;Female&#34;</span><span class="p">)),</span>
+    <span class="n">id</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  <span class="p">)</span>
+
+<span class="c1"># Look at it</span>
+<span class="nf">tibble</span><span class="p">(</span><span class="n">eData</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 30 x 18
+##    id    sex     age group fost1 confid1 depress1 fost2 confid2 depress2 fost3
+##    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+##  1 4     Male     23 2        50      15       44    48      16       44    45
+##  2 10    Male     21 2        47      14       42    45      15       42    44
+##  3 9     Male     25 1        44      12       40    39      18       40    36
+##  4 3     Male     30 1        47      11       43    42      16       43    41
+##  5 12    Male     45 2        46      16       44    45      16       45    43
+##  6 11    Male     22 1        39      13       43    40      20       42    39
+##  7 6     Male     22 2        32      21       37    33      22       36    32
+##  8 5     Male     26 1        44      17       46    37      20       47    32
+##  9 8     Male     23 2        40      22       37    40      23       37    40
+## 10 13    Male     21 1        47      20       50    45      25       48    46
+## # … with 20 more rows, and 7 more variables: confid3 &lt;dbl&gt;, depress3 &lt;dbl&gt;,
+## #   exam &lt;dbl&gt;, mah_1 &lt;dbl&gt;, DepT1gp2 &lt;dbl&gt;, DepT2Gp2 &lt;dbl&gt;, DepT3gp2 &lt;dbl&gt;
+</code></pre><p>To summarise the data quickly, we have an experimental dataset, with two groups. One group has been given an intervention for depression, and the other is a control group.
+We have depression scores from three time points, and each person has a single row of data, as would be expected from an SPSS file.</p>
+
+<h1 id="t-tests" class="anchor-link"><a href="#t-tests">T-tests</a></h1>
+<p>The good old t-tests, tests your hypothesis against the null.
+In short, it tests whether your data deviates enough from a normal distribution around 0.
+R has a built in t-test version we can run, and we can test if depression scores at the first measurement deviates from null.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run t-test</span>
+<span class="n">model_1_t</span> <span class="o">&lt;-</span> <span class="nf">t.test</span><span class="p">(</span><span class="n">eData</span><span class="o">$</span><span class="n">depress1</span><span class="p">)</span>
+<span class="n">model_1_t</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## 	One Sample t-test
+## 
+## data:  eData$depress1
+## t = 50.734, df = 29, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  40.81871 44.24796
+## sample estimates:
+## mean of x 
+##  42.53333
+</code></pre><p>Unsurprisingly, it does.
+If we look at Jonas' cheat sheet, we see that the equivalent linear model (<code>lm</code>) would be</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run equivalent linear model</span>
+<span class="n">model_1_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress1</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_1_lm</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Call:
+## lm(formula = depress1 ~ 1, data = eData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9.5333 -3.5333  0.4667  2.4667  7.4667 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  42.5333     0.8384   50.73   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.592 on 29 degrees of freedom
+</code></pre><p>Here we are exposed to a &ldquo;strange&rdquo; syntax piece, where <code>y</code> is predicted by <code>1</code>.
+This is a way in R we specify when we don&rsquo;t want to test against some other parameter in our data, weare testing against a null distribution.</p>
+<p>The print outs from the two versions are different, and so I needed to wrap <code>lm</code> in <code>summary</code> to get the values we needed to compare.
+If you look at them, you will see that both have a t-value of <code>50.73</code>, estimates of <code>42.53</code> and p-value of <code>2.2e-16</code>.
+If we create some tidy table outputs from them using broom, we can see the values are the same easily.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">broom</span><span class="p">)</span>
+
+<span class="c1"># tidy() gets model outputs we usually use to report our results</span>
+<span class="n">model_1_t_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_1_t</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;t.test(y)&#34;</span><span class="p">)</span>
+<span class="n">model_1_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_1_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ 1)&#34;</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_1_t_tidy</span><span class="p">,</span> <span class="n">model_1_lm_tidy</span><span class="p">)</span><span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> t.test(y) </td>
+   <td style="text-align:right;"> 42.533 </td>
+   <td style="text-align:right;"> 50.734 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lm(y ~ 1) </td>
+   <td style="text-align:right;"> 42.533 </td>
+   <td style="text-align:right;"> 50.734 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+<p>Here we can clearly see we have run the <em>exact</em> same test, in two different ways. In fact the <code>t.test()</code> function in R is just a direct call to the <code>lm()</code> function like we specified.</p>
+<p>Most likely we would want to know if the interevention has any effect, i.e. is there a difference between depression scores at baseline (depress1)  and at end-of-study (depress3). This would mean running a paired sample t-test, as each person is their own control.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># run paired t-test testing depression from g1 against g2</span>
+<span class="n">model_2_t</span> <span class="o">&lt;-</span> <span class="nf">t.test</span><span class="p">(</span><span class="n">eData</span><span class="o">$</span><span class="n">depress1</span><span class="p">,</span> <span class="n">eData</span><span class="o">$</span><span class="n">depress3</span><span class="p">,</span> <span class="n">paired</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">model_2_t_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_2_t</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;t.test(x, y, paired = TRUE&#34;</span><span class="p">)</span>
+<span class="n">model_2_t</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## 	Paired t-test
+## 
+## data:  eData$depress1 and eData$depress3
+## t = 7.1962, df = 29, p-value = 6.374e-08
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.385972 4.280695
+## sample estimates:
+## mean of the differences 
+##                3.333333
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># run linear model</span>
+<span class="n">model_2_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress1</span> <span class="o">-</span> <span class="n">depress3</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_2_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_2_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y-x ~ 1)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_2_lm</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Call:
+## lm(formula = depress1 - depress3 ~ 1, data = eData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.3333 -1.3333 -0.3333  1.6667  5.6667 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   3.3333     0.4632   7.196 6.37e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.537 on 29 degrees of freedom
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># we combine the two model outputs, rowwise</span>
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_2_t_tidy</span><span class="p">,</span> <span class="n">model_2_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> t.test(x, y, paired = TRUE </td>
+   <td style="text-align:right;"> 3.333 </td>
+   <td style="text-align:right;"> 7.196 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lm(y-x ~ 1) </td>
+   <td style="text-align:right;"> 3.333 </td>
+   <td style="text-align:right;"> 7.196 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+<p>Let&rsquo;s break down the linear model here a little, because it also gives us insight into what the paired t-test does.
+<code>lm(depress1-depress3 ~ 1)</code> on the dependent variable side, we are subtracting the values from EOS depression, from the depression scores at baseline, in a rowwise fashion.
+Then we are testing the difference distribution to the null distribution.
+That is what t-tests do (simplistically), they compare a distribution to the null (or another distribution).</p>
+<p>We could also do the same test by taking the difference between the two variables first, then doing a one-sample t-test on that.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># calculate the difference between baseline and tp3 depression</span>
+<span class="n">eData</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span>
+    <span class="n">dep_slope</span> <span class="o">=</span> <span class="n">depress1</span> <span class="o">-</span> <span class="n">depress3</span>
+  <span class="p">)</span>
+
+<span class="n">model_2_lm2</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_2_lm2_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_2_lm2</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ 1)&#34;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># we combine the three model outputs, rowwise</span>
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_2_t_tidy</span><span class="p">,</span> <span class="n">model_2_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_2_lm2_tidy</span><span class="p">)</span><span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> t.test(x, y, paired = TRUE </td>
+   <td style="text-align:right;"> 3.333 </td>
+   <td style="text-align:right;"> 7.196 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lm(y-x ~ 1) </td>
+   <td style="text-align:right;"> 3.333 </td>
+   <td style="text-align:right;"> 7.196 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lm(y ~ 1) </td>
+   <td style="text-align:right;"> 3.333 </td>
+   <td style="text-align:right;"> 7.196 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+<p>See that all three models are giving us the same result?
+The third model does so because we have pre-calculated the difference scores, rather than doing it formulaically within the <code>lm</code> function.</p>
+
+<h1 id="correlations" class="anchor-link"><a href="#correlations">Correlations</a></h1>
+<p>It&rsquo;s quite common to test correlations of two variables.
+If you have two continuous (scalar) variables, you likely want to know the correlation between the two and if the correlation is significant (let&rsquo;s leave the significance debate aside during this post).
+We will do a Peasons R tests here, though there are also other options.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run correlation test</span>
+<span class="n">model_3_cor</span> <span class="o">&lt;-</span> <span class="nf">cor.test</span><span class="p">(</span><span class="n">eData</span><span class="o">$</span><span class="n">depress3</span><span class="p">,</span> <span class="n">eData</span><span class="o">$</span><span class="n">depress1</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&#34;pearson&#34;</span><span class="p">)</span>
+<span class="n">model_3_cor_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_3_cor</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;cor.test(x, y)&#34;</span><span class="p">)</span>
+<span class="n">model_3_cor</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## 	Pearson's product-moment correlation
+## 
+## data:  eData$depress3 and eData$depress1
+## t = 9.2291, df = 28, p-value = 5.486e-10
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.7378688 0.9354310
+## sample estimates:
+##       cor 
+## 0.8675231
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run equivalent linear model</span>
+<span class="n">model_3_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress3</span> <span class="o">~</span> <span class="n">depress1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_3_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_3_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_3_lm</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Call:
+## lm(formula = depress3 ~ depress1, data = eData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.8421 -1.4744  0.1772  1.2933  4.1966 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -1.6871     4.4551  -0.379    0.708    
+## depress1      0.9613     0.1042   9.229 5.49e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.576 on 28 degrees of freedom
+## Multiple R-squared:  0.7526,	Adjusted R-squared:  0.7438 
+## F-statistic: 85.18 on 1 and 28 DF,  p-value: 5.486e-10
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># we combine the two model outputs, rowwise</span>
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_3_cor_tidy</span><span class="p">,</span> <span class="n">model_3_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> cor.test(x, y) </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> 0.868 </td>
+   <td style="text-align:right;"> 9.229 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> lm(y ~ x) </td>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> -1.687 </td>
+   <td style="text-align:right;"> -0.379 </td>
+   <td style="text-align:right;"> 0.708 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> depress1 </td>
+   <td style="text-align:right;"> 0.961 </td>
+   <td style="text-align:right;"> 9.229 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+</tbody>
+</table>
+<p>Here we get slightly different tidies data tables out.
+This is because the linear model also will provide you with the intercept estimate (alpha, i.e. the value of <code>y</code> when <code>x == 0</code>).
+There is a slight deviation on the beta-coefficients between the two models, but they are almost identical, and both statistic and p-value for the correlation of <code>x</code> (here: depression score at end of study) with <code>y</code> (here: depression score at baseline) are the same.</p>
+
+<h1 id="one-way-anova" class="anchor-link"><a href="#one-way-anova">One-way ANOVA</a></h1>
+<p>Analyses of variance, likely the most staple analysis in psychology, together with its cousin ANCOVA of course.
+The models become more complex now, as we have more than one predictor for the dependent variable.
+Let&rsquo;s say we want to know if there are differences between the two groups in terms of the baseline depression score.
+Then we have a model where we want to know if the categorical groups have different values.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run one-way anova</span>
+<span class="n">model_4_anova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">depress1</span> <span class="o">~</span> <span class="n">group</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_4_anova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_4_anova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ factor(x))&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_4_anova</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)
+## group        1    2.1   2.133   0.098  0.757
+## Residuals   28  609.3  21.762
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run equivalent linear model</span>
+<span class="n">model_4_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress1</span> <span class="o">~</span> <span class="n">group</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_4_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_4_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ factor(x))&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_4_lm</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Call:
+## lm(formula = depress1 ~ group, data = eData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9.8000 -3.6667  0.4667  2.7333  7.7333 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  42.8000     1.2045  35.534   &lt;2e-16 ***
+## group2       -0.5333     1.7034  -0.313    0.757    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.665 on 28 degrees of freedom
+## Multiple R-squared:  0.003489,	Adjusted R-squared:  -0.0321 
+## F-statistic: 0.09803 on 1 and 28 DF,  p-value: 0.7565
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># we combine the two model outputs, rowwise</span>
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_4_anova_tidy</span><span class="p">,</span> <span class="n">model_4_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> aov(y ~ factor(x)) </td>
+   <td style="text-align:left;"> group </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0.098 </td>
+   <td style="text-align:right;"> 0.757 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Residuals </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> lm(y ~ factor(x)) </td>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 42.800 </td>
+   <td style="text-align:right;"> 35.534 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group2 </td>
+   <td style="text-align:right;"> -0.533 </td>
+   <td style="text-align:right;"> -0.313 </td>
+   <td style="text-align:right;"> 0.757 </td>
+  </tr>
+</tbody>
+</table>
+<p>What are we looking at here?
+The outputs from the two equivalent models is different, and the difference is not so easily understood.
+<code>aov</code> gives an evaluation of whether the <code>group</code> variable per se has an effect.
+This <em>should</em> be significant if any of the levels in the factor deviates significantly from the baseline factor.
+In the <code>lm</code> we are comparing the groups directly to eachother, and in R this is done by setting the first group in the factor as &ldquo;baseline&rdquo; (<code>(Intercept)</code>) distribution, and comparing the other factor levels to that.
+So while <code>aov</code> is giving a type of overall evaluation of whether adding <code>group</code> to the test make a difference, <code>lm</code> tests specifically if the other group level(s) deviates from the first.
+In this case, we see that both models agree that there is no difference.</p>
+<p><code>aov</code> does not return an estimate for the beta(s), and the F-value (statistic) is higher than from the linear model.
+The approaches are mathematically solved slightly differently, but should produce the same conclusions in most instances (particularly when there are only two factor levels).
+Particularly notice how the <code>formula</code> are actually the same!</p>
+<p><strong>Edit June 26th 2020</strong>: it was pointed out to me by my esteemed colleague, Prof. Westerhausen, that actually the F-statistic for the <code>lm</code> model acutally is the same as the squared t-statistic in the <code>aov</code> test! And because it&rsquo;s squared, it also has to be positive.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># take the square root of the anova stat</span>
+<span class="nf">sqrt</span><span class="p">(</span><span class="n">model_4_anova_tidy</span><span class="o">$</span><span class="n">statistic[1]</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## [1] 0.3130984
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># same as stat from lm</span>
+<span class="n">model_4_lm_tidy</span><span class="o">$</span><span class="n">statistic[2]</span>
+</code></pre></div><pre tabindex="0"><code>## [1] -0.3130984
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># or, square the lm stat</span>
+<span class="n">model_4_lm_tidy</span><span class="o">$</span><span class="n">statistic[2]^2</span>
+</code></pre></div><pre tabindex="0"><code>## [1] 0.09803063
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># same as anova stat</span>
+<span class="n">model_4_anova_tidy</span><span class="o">$</span><span class="n">statistic[1]</span>
+</code></pre></div><pre tabindex="0"><code>## [1] 0.09803063
+</code></pre><p>that is so neat!</p>
+
+<h1 id="ancova" class="anchor-link"><a href="#ancova">ANCOVA</a></h1>
+<p>Analysis of covariance is something you would run if you had another continuous (scalar) variable you want to use as a predictor for your dependent variable.
+For instance, we have a measure of confidence, perhaps confidence levels at baseline affect the success of the intervention?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run one-way anova</span>
+<span class="n">model_5_ancova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">+</span> <span class="n">confid1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_5_ancova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_5_ancova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ x + z)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_5_ancova</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## group        1  19.20  19.200   3.134  0.088 .
+## confid1      1   2.03   2.032   0.332  0.569  
+## Residuals   27 165.43   6.127                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run equivalent linear model</span>
+<span class="n">model_5_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">+</span> <span class="n">confid1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_5_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_5_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x + z)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_5_lm</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Call:
+## lm(formula = dep_slope ~ group + confid1, data = eData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.4851 -2.0413  0.4239  1.5226  4.9094 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  3.46372    1.73752   1.993   0.0564 .
+## group2       1.61315    0.90415   1.784   0.0856 .
+## confid1     -0.04931    0.08564  -0.576   0.5695  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.475 on 27 degrees of freedom
+## Multiple R-squared:  0.1137,	Adjusted R-squared:  0.04809 
+## F-statistic: 1.733 on 2 and 27 DF,  p-value: 0.1959
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># we combine the two model outputs, rowwise</span>
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_5_ancova_tidy</span><span class="p">,</span> <span class="n">model_5_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="3"> aov(y ~ x + z) </td>
+   <td style="text-align:left;"> group </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 3.134 </td>
+   <td style="text-align:right;"> 0.088 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> confid1 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0.332 </td>
+   <td style="text-align:right;"> 0.569 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Residuals </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="3"> lm(y ~ x + z) </td>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 3.464 </td>
+   <td style="text-align:right;"> 1.993 </td>
+   <td style="text-align:right;"> 0.056 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group2 </td>
+   <td style="text-align:right;"> 1.613 </td>
+   <td style="text-align:right;"> 1.784 </td>
+   <td style="text-align:right;"> 0.086 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> confid1 </td>
+   <td style="text-align:right;"> -0.049 </td>
+   <td style="text-align:right;"> -0.576 </td>
+   <td style="text-align:right;"> 0.569 </td>
+  </tr>
+</tbody>
+</table>
+<p>We have now run two equivalent ANCOVAs, and as in the One-way ANOVA the outputs are a little different, but are essentially telling us the same.
+While the test-statstics are a little different (because they are indicating slightly different things), the p-values are (almost) identical.
+The overall p-value of <code>group</code> in the <code>aov</code> model is at ~0.088, and the <code>lm</code> models test of whether group2 is different from group1 is at ~0.86.
+The same goes for the confidence variable.
+Only difference that makes me surprised here is that the <code>aov</code> model has a positive statistic for confidence, while the <code>lm</code> has negative.
+But given that these are both so close to 0, likely even small differnce in mathematical solution could result in tipping from one side of 0 to the other.</p>
+<p><strong>Edit June 26th 2020</strong>: and just like in the anova, we can also compare the statistics by squaring the stats from the linear model to make them the same as the ones from the ancova.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># or, square the lm stat</span>
+<span class="n">model_5_lm_tidy</span><span class="o">$</span><span class="n">statistic[</span><span class="m">-1</span><span class="n">]^2</span>
+</code></pre></div><pre tabindex="0"><code>## [1] 3.1832469 0.3315903
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># same as anova stat</span>
+<span class="n">model_5_ancova_tidy</span><span class="o">$</span><span class="n">statistic</span>
+</code></pre></div><pre tabindex="0"><code>## [1] 3.1335581 0.3315903        NA
+</code></pre>
+<h1 id="two-way-anova" class="anchor-link"><a href="#two-way-anova">Two-way ANOVA</a></h1>
+<p>If we want to run a two-way anova, with two predictors having each their own main effect as well as an interaction term between them, we add them in the formula. Here we&rsquo;ll add a test for sex differences, and whether there is a sex difference within the groups on the depression change.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run anova</span>
+<span class="n">model_6_anova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_6_anova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_6_anova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ x * z)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_6_anova</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## group        1  19.20  19.200   3.332 0.0794 .
+## sex          1   5.15   5.148   0.894 0.3532  
+## group:sex    1  12.51  12.515   2.172 0.1525  
+## Residuals   26 149.80   5.762                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run equivalent linear model</span>
+<span class="n">model_6_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
+<span class="n">model_6_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_6_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x * z)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_6_lm</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Call:
+## lm(formula = dep_slope ~ group * sex, data = eData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1250 -1.8214  0.4821  1.7188  3.8750 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)        2.7500     0.8487   3.240  0.00326 **
+## group2             0.2500     1.2423   0.201  0.84208   
+## sexFemale         -0.4643     1.2423  -0.374  0.71163   
+## group2:sexFemale   2.5893     1.7569   1.474  0.15254   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.4 on 26 degrees of freedom
+## Multiple R-squared:  0.1975,	Adjusted R-squared:  0.1049 
+## F-statistic: 2.133 on 3 and 26 DF,  p-value: 0.1204
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># we combine the two model outputs, rowwise</span>
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_6_anova_tidy</span><span class="p">,</span> <span class="n">model_6_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> aov(y ~ x * z) </td>
+   <td style="text-align:left;"> group </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 3.332 </td>
+   <td style="text-align:right;"> 0.079 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sex </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0.894 </td>
+   <td style="text-align:right;"> 0.353 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group:sex </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2.172 </td>
+   <td style="text-align:right;"> 0.153 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Residuals </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> lm(y ~ x * z) </td>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 2.750 </td>
+   <td style="text-align:right;"> 3.240 </td>
+   <td style="text-align:right;"> 0.003 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group2 </td>
+   <td style="text-align:right;"> 0.250 </td>
+   <td style="text-align:right;"> 0.201 </td>
+   <td style="text-align:right;"> 0.842 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sexFemale </td>
+   <td style="text-align:right;"> -0.464 </td>
+   <td style="text-align:right;"> -0.374 </td>
+   <td style="text-align:right;"> 0.712 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group2:sexFemale </td>
+   <td style="text-align:right;"> 2.589 </td>
+   <td style="text-align:right;"> 1.474 </td>
+   <td style="text-align:right;"> 0.153 </td>
+  </tr>
+</tbody>
+</table>
+<p>Formula are again the same, but the outputs are different.
+Again, these are solved slightly differently mathematically, but they should in most cases return the same end conclusion (especially when there are only two factor levels).</p>
+<p>In the table from model <code>aov</code>, again we get a general assessment of whether each variable we used as a whole makes any difference.
+While in the <code>lm</code> model we get an evaluation of whether a specific level of a categorical variable deviates significantly from baseline level.
+Because this is hard to convey with only two groups, let&rsquo;s make a somewhat stupid example to show what happens when a factor has more than two levels.</p>
+<p>In this case, we are making another dataset we call <code>eData_mock</code> where we will combine the <code>eData</code> twice rowwise (doubling N), and in one set add 2 to group so that we now would have four groups.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_mock</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
+  <span class="c1"># Add 2 to numeric version of groups</span>
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">group</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="m">+2</span><span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="c1"># bind this by row to the origincal eData (with group as numeric)</span>
+  <span class="nf">bind_rows</span><span class="p">(</span><span class="n">eData</span> <span class="o">%&gt;%</span> 
+              <span class="nf">mutate</span><span class="p">(</span><span class="n">group</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">group</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+  <span class="c1"># make group a factor again so the correct test is applied</span>
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">group</span> <span class="o">=</span> <span class="nf">as.factor</span><span class="p">(</span><span class="n">group</span><span class="p">))</span> 
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run  anova</span>
+<span class="n">model_7_anova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData_mock</span><span class="p">)</span>
+<span class="n">model_7_anova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_7_anova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ x * z)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_7_anova</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## group        3  38.40  12.800   2.222 0.0966 .
+## sex          1  10.30  10.296   1.787 0.1871  
+## group:sex    3  25.03   8.343   1.448 0.2395  
+## Residuals   52 299.61   5.762                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Run equivalent linear model</span>
+<span class="n">model_7_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData_mock</span><span class="p">)</span>
+<span class="n">model_7_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_7_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x * z)&#34;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model_7_lm</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## 
+## Call:
+## lm(formula = dep_slope ~ group * sex, data = eData_mock)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1250 -2.0000  0.4821  1.8750  3.8750 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)       2.750e+00  8.487e-01   3.240  0.00208 **
+## group2            2.500e-01  1.242e+00   0.201  0.84130   
+## group3           -2.352e-15  1.200e+00   0.000  1.00000   
+## group4            2.500e-01  1.242e+00   0.201  0.84130   
+## sexFemale        -4.643e-01  1.242e+00  -0.374  0.71012   
+## group2:sexFemale  2.589e+00  1.757e+00   1.474  0.14656   
+## group3:sexFemale  1.126e-15  1.757e+00   0.000  1.00000   
+## group4:sexFemale  2.589e+00  1.757e+00   1.474  0.14656   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.4 on 52 degrees of freedom
+## Multiple R-squared:  0.1975,	Adjusted R-squared:  0.08945 
+## F-statistic: 1.828 on 7 and 52 DF,  p-value: 0.1015
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># we combine the two model outputs, rowwise</span>
+<span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_7_anova_tidy</span><span class="p">,</span> <span class="n">model_7_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">results</span> 
+</code></pre></div><table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> model </th>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> aov(y ~ x * z) </td>
+   <td style="text-align:left;"> group </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2.222 </td>
+   <td style="text-align:right;"> 0.097 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sex </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 1.787 </td>
+   <td style="text-align:right;"> 0.187 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group:sex </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 1.448 </td>
+   <td style="text-align:right;"> 0.239 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Residuals </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="8"> lm(y ~ x * z) </td>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 2.750 </td>
+   <td style="text-align:right;"> 3.240 </td>
+   <td style="text-align:right;"> 0.002 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group2 </td>
+   <td style="text-align:right;"> 0.250 </td>
+   <td style="text-align:right;"> 0.201 </td>
+   <td style="text-align:right;"> 0.841 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group3 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 1.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group4 </td>
+   <td style="text-align:right;"> 0.250 </td>
+   <td style="text-align:right;"> 0.201 </td>
+   <td style="text-align:right;"> 0.841 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sexFemale </td>
+   <td style="text-align:right;"> -0.464 </td>
+   <td style="text-align:right;"> -0.374 </td>
+   <td style="text-align:right;"> 0.710 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group2:sexFemale </td>
+   <td style="text-align:right;"> 2.589 </td>
+   <td style="text-align:right;"> 1.474 </td>
+   <td style="text-align:right;"> 0.147 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group3:sexFemale </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 1.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group4:sexFemale </td>
+   <td style="text-align:right;"> 2.589 </td>
+   <td style="text-align:right;"> 1.474 </td>
+   <td style="text-align:right;"> 0.147 </td>
+  </tr>
+</tbody>
+</table>
+<p>Unsurpisingly the conclusions are the same, the only thing we did was duplicate the already existing data and create new groups.
+Of course, because sample size is larger the statistics and p-values are different.
+Notice in particular the <code>lm</code> table.
+There are now two extra group rows, and two extra group:sex interaction rows.
+This is because each level is being tested against the intercept (baseline).
+Notice in particular that group3 has estimate and statistic at 0, and p-value at 1.
+This is because this is the <em>same data</em> as group1, right? So there is absolutely no difference between these two levels.
+Same goes for group2 and group4, which are the same groups, and their comaprison to baseline has the exact same values.</p>
+<p>This is why I prefer running linear models in stead of the specialised tests, while the output might be unfamiliar in many cases, it also provides you with some more detail about <em>where</em> differences between factor levels occur.
+Rather than only getting an idea whether the variable as a whole has an effect, we would know which level of the factor is deviating from baseline.
+For instance, while we combined the data twice on purpose here to make a point, this could also have happened by accident in a <code>join</code> statement or the like, duplicating rows of data.
+Looking at the values for each level might give insight into something wrong having happened, like in this table. The probability of two gropus showing <em>identical</em> estimates is just so low.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">`sex:group`</span> <span class="o">=</span> <span class="nf">interaction</span><span class="p">(</span><span class="n">sex</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#34;:&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">sex</span><span class="o">:</span><span class="n">group</span><span class="p">,</span> 
+             <span class="n">y</span> <span class="o">=</span> <span class="n">dep_slope</span><span class="p">,</span> 
+             <span class="n">colour</span> <span class="o">=</span> <span class="n">sex</span><span class="o">:</span><span class="n">group</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_jitter</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_boxplot</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.3</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">labs</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Depression difference&#34;</span><span class="p">,</span>
+       <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Depression difference between baseline and EOS&#34;</span><span class="p">,</span>
+       <span class="n">subtitle</span> <span class="o">=</span> <span class="s">&#34;Divided by intervention group and sex&#34;</span>
+       <span class="p">)</span> 
+</code></pre></div><p><img src="index.en_files/figure-html/featured-1.png" alt=""><!-- --></p>
+
+
+    
+    <h3>Citation</h3>
+    <div class="columns">
+      <div class="column is-half">
+        For attribution, please cite this work as
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            Dr. Mowinckel (Jun 24, 2020) The Linear Regression Family in R. Retrieved from https://drmowinckels.io/blog/2020-06-24-the-linear-regression-family-in-r/
+          </p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <b>BibTeX citation</b>
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            @misc{ 2020-the-linear-regression-family-in-r,<br>
+            &emsp;author = { Dr. Mowinckel },<br>
+            &emsp;title = { The Linear Regression Family in R },<br>
+            &emsp;url = { https://drmowinckels.io/blog/2020-06-24-the-linear-regression-family-in-r/ },<br>
+            &emsp;year = { 2020 }<br>
+            &emsp;updated = { Nov 3, 2023 }<br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+
+<div class="container giscus my-4">
+    <script src="https://giscus.app/client.js"
+        data-repo=DrMowinckels/DrMowinckels
+        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+        data-category=Comments
+        data-category-id=DIC_kwDOB1wEpM4CAG0c
+        data-mapping=pathname
+        data-reactions-enabled=1
+        data-emit-metadata=0
+        data-theme=light
+        data-lang=en
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115545202-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+
+  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>
