@@ -36,30 +36,33 @@ jobs:
           hugo-version: ${{ env.hugo_v }}
           extended: true
 
+      - name: Install npm dependencies
+        run: npm install
+
       - name: Install Netlify CLI
         if: github.event_name == 'pull_request'
         run: brew install netlify-cli
 
       - name: Setup R
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: r-lib/actions/setup-r@v2
         timeout-minutes: 60
 
       - name: Setup pandoc
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: '2.12'
 
       - name: Cache R packages
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
           key: r-${{ hashFiles('DESCRIPTION') }}
 
       - name: Install R packages
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         run: |
           install.packages(c("dplyr", "ggplot2", "tidyr", "knitr",
                              "scholar", "vitae", "rorcid", "glue",
@@ -68,7 +71,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Install tinytex
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: r-lib/actions/setup-tinytex@v2
 
       - name: Cache node modules
@@ -84,11 +87,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install npm dependencies
-        run: npm install
 
       - name: Render about me & cv
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         run: |
           blogdown::build_site(local = FALSE,
                                run_hugo = FALSE,
@@ -107,7 +108,7 @@ jobs:
           fi
 
       - name: Deploy production 🚀
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
