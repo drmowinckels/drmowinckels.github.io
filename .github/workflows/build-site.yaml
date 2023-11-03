@@ -37,24 +37,29 @@ jobs:
           extended: true
 
       - name: Install Netlify CLI
+        if: github.event_name == 'pull_request'
         run: brew install netlify-cli
 
       - name: Setup R
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: r-lib/actions/setup-r@v2
         timeout-minutes: 60
 
       - name: Setup pandoc
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: '2.12'
 
       - name: Cache R packages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
           key: r-${{ hashFiles('DESCRIPTION') }}
 
       - name: Install R packages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           install.packages(c("dplyr", "ggplot2", "tidyr", "knitr",
                              "scholar", "vitae", "rorcid", "glue",
@@ -63,10 +68,12 @@ jobs:
         shell: Rscript {0}
 
       - name: Install tinytex
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: r-lib/actions/setup-tinytex@v2
 
       - name: Cache node modules
         id: cache-npm
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -79,10 +86,11 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install npm dependencies
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: npm install
 
       - name: Render about me & cv
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           blogdown::build_site(local = FALSE,
                                run_hugo = FALSE,
@@ -95,13 +103,9 @@ jobs:
       - name: Build
         run: |
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
-            hugo \
-              -e production \
-              --minify
+            hugo -e production
           else
-            hugo  \
-              --minify \
-              -b https://${{ github.sha }}--drmowinckels.netlify.app/
+            hugo -b https://${{ github.sha }}--drmowinckels.netlify.app/
           fi
 
       - name: Deploy production 🚀
