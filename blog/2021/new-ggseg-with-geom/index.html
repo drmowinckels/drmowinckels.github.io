@@ -207,7 +207,7 @@ Before, it was rather cumbersome to re-position the brain slices as you&rsquo;d 
       <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> 
       <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span>
       <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;dispersed&#34;</span><span class="p">)</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <p>&ldquo;dispersed&rdquo; is the default position of any brain atlas we have for ggseg.
 Where the brain slices are ordered neatly in a single row.</p>
 <p>This can be changes to a grid by using the &ldquo;stacked&rdquo; position.</p>
@@ -216,14 +216,14 @@ Where the brain slices are ordered neatly in a single row.</p>
       <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> 
       <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span>
       <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;stacked&#34;</span><span class="p">)</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 <p>Any other re-ordering of slice positions just don&rsquo;t work, because the internal logic of doing that is just not there.
 And it&rsquo;s too much to get it in there.</p>
 <p>But in the geom, we have more flexibility because of the position!</p>
 <p>When using the geom, the syntax is quite different from <code>ggseg()</code> but more close to other ggplots.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
   <span class="nf">geom_brain</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 <p>We can see here that there are several things that have changed.
 For instance, I did not specify the fill colour by regions, but it happened automatically!
 This is a thing I got for free basically, because <code>geom_brain</code> is built on <code>geom_sf</code> which also does this.
@@ -243,7 +243,7 @@ It takes a formula, that should be familiar to ggplot users used to working with
     <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
     <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">hemi</span> <span class="o">~</span> <span class="n">side</span><span class="p">)</span>
   <span class="p">)</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 <p>See what&rsquo;s happened? By using the formula, we could now position the slices so that the hemispheres are in each row, and the lateral/medial side are in the columns.
 We could easily switch that up, though, so that the sides are in rows and hemisphere in columns</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
@@ -252,7 +252,7 @@ We could easily switch that up, though, so that the sides are in rows and hemisp
     <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
     <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">side</span> <span class="o">~</span> <span class="n">hemi</span><span class="p">)</span>
   <span class="p">)</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 <p>We could even alter their order in the default single row if we wanted.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
   <span class="nf">geom_brain</span><span class="p">(</span>
@@ -260,7 +260,7 @@ We could easily switch that up, though, so that the sides are in rows and hemisp
     <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
     <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">. </span><span class="o">~</span> <span class="n">side</span>  <span class="o">+</span> <span class="n">hemi</span><span class="p">)</span>
   <span class="p">)</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 <p>or get them stacked in one single column.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
   <span class="nf">geom_brain</span><span class="p">(</span>
@@ -268,7 +268,7 @@ We could easily switch that up, though, so that the sides are in rows and hemisp
     <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
     <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">side</span>  <span class="o">+</span> <span class="n">hemi</span> <span class="o">~</span> <span class="n">.)</span>
   <span class="p">)</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 <p>As you can see, the flexibility here is just so much more, so people can get their plots into the shape they are after.
 I&rsquo;m pretty happy about that!
 There are still some limitations to the position altering, but all-in-all there is a lot more you can do now than before.</p>
@@ -280,7 +280,7 @@ These should together give everyone a better experience with the package and all
      <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">hemi</span> <span class="o">~</span> <span class="n">side</span><span class="p">)</span>
      <span class="p">)</span> <span class="o">+</span>
   <span class="nf">theme_brain2</span><span class="p">()</span>
-</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index.en_files/figure-html/featured-1.png" width="672" />
+</code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1.png" width="672" />
 
 
     

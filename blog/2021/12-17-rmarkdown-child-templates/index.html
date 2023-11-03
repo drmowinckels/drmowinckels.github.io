@@ -187,10 +187,13 @@ Rmarkdown Child Templates - Dr. Mowinckel&rsquo;s
 <h2 id="output-pdf_document" class="anchor-link"><a href="#output-pdf_document">title: &ldquo;main document&rdquo;
 output: pdf_document</a></h2>
 <hr>
-
-<h2 id="aliases-blog2021-12-17-rmarkdown-child-templates" class="anchor-link"><a href="#aliases-blog2021-12-17-rmarkdown-child-templates">output: pdf_document
+<p>output: pdf_document
 slug: &ldquo;rmarkdown-child-templates&rdquo;
-aliases: [&ldquo;blog/2021-12-17-rmarkdown-child-templates&rdquo;]</a></h2>
+aliases:</p>
+<ul>
+<li>&lsquo;/blog/2021-12-17-rmarkdown-child-templates&rsquo;</li>
+</ul>
+<hr>
 <p>I have recently been working on a set of analyses from a survey at work.
 This has been really fun, but also a little tedious.
 The survey has two basic type of questions, likert-scale questions and binary yes/no questions.
@@ -242,7 +245,7 @@ We’ll use the palmerpenguins package and dataset, and make a plot of penguins 
   <span class="nf">geom_point</span><span class="p">()</span>
 </code></pre></div><pre><code>## Warning: Removed 2 rows containing missing values (geom_point).
 </code></pre>
-<img src="https://drmowinckels.io/blog/2021/12-17-rmarkdown-child-templates/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="https://drmowinckels.io/blog/2021/12-17-rmarkdown-child-templates/index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span>
 <span class="n">penguins</span> <span class="o">%&gt;%</span> 
   <span class="nf">pivot_longer</span><span class="p">(</span><span class="nf">ends_with</span><span class="p">(</span><span class="s">&#34;mm&#34;</span><span class="p">),</span>
