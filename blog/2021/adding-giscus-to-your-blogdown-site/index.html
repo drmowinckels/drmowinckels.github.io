@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        
+            <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Adding Giscus to Your Blogdown Site - Dr. Mowinckel&rsquo;s
+</title>
+
+
+
+            <meta property="og:title" content="Adding giscus to your blogdown site - Dr. Mowinckel&rsquo;s" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content=""/>
+<meta property="og:url" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/"/>
+<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+
+
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg"/>
+
+
+
+            
+<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
+
+
+            
+
+
+  
+  
+  
+  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+        
+        
+        
+        
+    </head>
+    <body> 
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
+                
+                
+
+<h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/">
+                            
+                            Home
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/about">
+                            
+                            About
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
+                            
+                            Blog
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
+                            
+                            Contact
+                            
+                        </a>
+                    
+                
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/">Adding giscus to your blogdown site</a>
+    </h2>
+    <div class="post-data">
+        Dec 4, 2021 |
+        6 minutes read
+    </div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Categories:
+          
+        </p>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Tags:
+          
+           <a href="https://drmowinckels.io/tags/blogdown">
+             blogdown</a>
+         
+        </p>
+      
+    
+      
+    
+
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>This is going to be a short one.
+I have been wanting to change my comment section from disqus to utterances for a long while, but have been postponing. Or procrastinating… with me, its usually the latter.
+I’m not going to go into details of why I wanted to move away from disqus, <a href="https://fatfrogmedia.com/delete-disqus-comments-wordpress/">others</a> have written better about it that I ever could.</p>
+<p>I was procrastinating mainly because it felt like a little much to figure out <a href="https://utteranc.es/">utterances</a> too, and the idea of using GitHub issues for comments felt awkward.</p>
+<p>But, the other day, I saw Shannon Pileggi tweet about something new and exciting:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">tonight i intended to update my <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> blog from disqus to utterances, but then i found this great post by <a href="https://twitter.com/joel_nitta?ref_src=twsrc%5Etfw">@joel_nitta</a> about ✨giscus✨! thanks, Joel! 👏<br><br>i hope the new giscus gets used - go ahead, pipe up!😉<a href="https://t.co/Wx1j80TKVD">https://t.co/Wx1j80TKVD</a></p>&mdash; Shannon Pileggi... @PipingHotData@fosstodon.org (@PipingHotData) <a href="https://twitter.com/PipingHotData/status/1465878389852676107?ref_src=twsrc%5Etfw">December 1, 2021</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>giscus sounded awesome. I already use github to not only store all my blog content, but also use github actions to <a href="https://drmowinckels.io/blog/2021-03-23-using-github-actions-to-build-your-hugo-website/">render and deploy</a> my blog.</p>
+<p>Off I went to the blogpost she links to, an awesome post by <a href="https://www.joelnitta.com/posts/2021-11-24_using-giscus/">Joel Nitta</a>, that made the whole process super smooth.</p>
+<p>I followed all the steps he provides for getting giscus installed for your github repo, setting up GitHub discissions, and getting the information I needed to get it into my blog. I’m not going to re-iterate them, he does a great job describing it, so you should rather take a look there.</p>
+<p>The difference between Joel and me, is that I am not going to switch away from blogdown to distill. I love blogdown too much, and I love hugo too much. So where he starts describing how to get giscus working with distill, I’ll take you through getting it working with blogdown/hugo!</p>
+
+<h1 id="creating-a-new-layouts-file" class="anchor-link"><a href="#creating-a-new-layouts-file">Creating a new layouts file</a></h1>
+<p>This will require some navigation in your hugo theme’s folders.
+You will need to navigate to the html template for you blog/post sections or wherever your theme has the comments section defined.</p>
+<p><strong>Unfortunately, I cannot tell you exactly where that is! It depends entirely on the developer of your theme, how that has been organised.</strong></p>
+<p>In my case it was quite easy, I looked into the <code>themes/my-theme/layouts/blog/single.html</code> and found a line of code that said <code>{{ partial comments.html .}}</code> this is hugo-speak for inserting contents from another layout into the current file. So I navigated to <code>themes/my-theme/layouts/partials/comments.html</code> and found what I was looking for.</p>
+<p>In my case, the theme creator had a little piece of code that would enable disqus if the disqus shortname was set in the config toml.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">{{- if .Site.DisqusShortname }}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container disqus&#34;</span><span class="p">&gt;</span>
+        {{ template &#34;_internal/disqus.html&#34; . }}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{{- end }}
+</code></pre></div><p>We dont really need to deal with that, it can just stay there, I’ll be removing my disqus shortname from the config, so it wont appear anymore.
+But I needed to add the giscus script that was provided to me following Joel’s instructions, below this.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container giscus my-4&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://giscus.app/client.js&#34;</span>
+        <span class="na">data-repo</span><span class="o">=</span><span class="s">&#34;[YOUR REPO]&#34;</span>
+        <span class="na">data-repo-id</span><span class="o">=</span><span class="s">&#34;[YOUR REPO ID]&#34;</span>
+        <span class="na">data-category</span><span class="o">=</span><span class="s">&#34;[YOUR CATEGORY]&#34;</span>
+        <span class="na">data-category-id</span><span class="o">=</span><span class="s">&#34;[YOUR CATEGORY ID]&#34;</span>
+        <span class="na">data-mapping</span><span class="o">=</span><span class="s">&#34;pathname&#34;</span>
+        <span class="na">data-reactions-enabled</span><span class="o">=</span><span class="s">&#34;1&#34;</span>
+        <span class="na">data-emit-metadata</span><span class="o">=</span><span class="s">&#34;0&#34;</span>
+        <span class="na">data-theme</span><span class="o">=</span><span class="s">&#34;light&#34;</span>
+        <span class="na">data-lang</span><span class="o">=</span><span class="s">&#34;[YOUR LANGUAGE]&#34;</span>
+        <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
+        <span class="na">async</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div><p>But we cannot (should not) add this to the theme files!
+If you do this, it will break in the future when you update your theme. Don’t do it!</p>
+<p>You copy the entire file, and in your main blogdown folder create the same path to the file as if the <code>theme/my-theme</code> part of the path did not exist. For me, that meant creating a file under my main project folder <code>layouts/partials/comments.html</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">your_site/
+  content/
+  config.toml
+  theme/
+    my_theme/
+      layouts/      --------
+        partials/           <span class="p">|</span> mimmick this
+          comments.html ----
+  layouts/    --------------
+    partials/               <span class="p">|</span> in your root project folder
+      comments.html   ------           
+</code></pre></div><p>What will happen, is that when hugo renders your site, it will use the layouts file in your folder rather than the theme’s folder. Its a way of customising hugo without disturbing the main theme.
+I saved it, rendered the site and it worked! I had giscus installed on my page.</p>
+
+<h1 id="adding-giscus-to-a-theme" class="anchor-link"><a href="#adding-giscus-to-a-theme">Adding giscus to a theme</a></h1>
+<p>The theme for my site, is actually my own adaptation of the hugo theme <a href="https://github.com/victoriadrake/hugo-theme-introduction">instoduction</a> by Victoria Drake. My version has a couple of extra features, like the options to have blogposts shown in a grid with images, rather than a simple list.</p>
+<p>I called the theme <a href="https://github.com/Athanasiamo/hugo-chairome?organization=Athanasiamo&amp;organization=Athanasiamo">hugo chairome</a>. “Chairome” is what we say in Greek when we make a new acquaintance.
+I wanted to make sure anyone using my theme might also get giscus working easily through the config file rather than having to make their own workaround like explained above.</p>
+<p>In the comments.html file in my theme, I added the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">{{- if .Site.Params.giscus.repo }}
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container giscus my-4&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://giscus.app/client.js&#34;</span>
+        <span class="na">data-repo</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">repo</span> <span class="err">}}</span>
+        <span class="na">data-repo-id</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">repo_id</span> <span class="err">}}</span>
+        <span class="na">data-category</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">category</span> <span class="err">}}</span>
+        <span class="na">data-category-id</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">category_id</span> <span class="err">}}</span>
+        <span class="na">data-mapping</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">mapping</span> <span class="err">}}</span>
+        <span class="na">data-reactions-enabled</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">reactions_enabled</span> <span class="err">|</span> <span class="na">default</span> <span class="na">0</span><span class="err">}}</span>
+        <span class="na">data-emit-metadata</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">emit_metadata</span> <span class="err">|</span> <span class="na">default</span> <span class="na">0</span> <span class="err">}}</span>
+        <span class="na">data-theme</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">theme</span> <span class="err">}}</span>
+        <span class="na">data-lang</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">lang</span> <span class="err">}}</span>
+        <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
+        <span class="na">async</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{{- end }}
+</code></pre></div><p>And in the example config.toml I added the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="c"># To enable giscus, the github discussions based comment section,</span>
+<span class="c"># Follow the steps described to enable giscus and get the values</span>
+<span class="c"># needed to populate the below information.</span>
+<span class="c"># https://www.joelnitta.com/posts/2021-11-24_using-giscus/</span>
+<span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">giscus</span><span class="p">]</span>
+  <span class="c"># repo = &#34;github-user/github-repo&#34; # Entering repo will enable giscus</span>
+  <span class="nx">repo_id</span> <span class="p">=</span> <span class="s2">&#34;enter-repo-id&#34;</span>
+  <span class="nx">category</span> <span class="p">=</span> <span class="s2">&#34;Comments&#34;</span>
+  <span class="nx">category_id</span> <span class="p">=</span> <span class="s2">&#34;enter-category-id&#34;</span>
+  <span class="nx">mapping</span> <span class="p">=</span> <span class="s2">&#34;pathname&#34;</span>
+  <span class="nx">reactions-enabled</span> <span class="p">=</span> <span class="s2">&#34;1&#34;</span>
+  <span class="nx">emit-metadata</span> <span class="p">=</span> <span class="s2">&#34;0&#34;</span>
+  <span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;light&#34;</span>
+  <span class="nx">lang</span> <span class="p">=</span> <span class="s2">&#34;en&#34;</span>
+</code></pre></div><p>This connects the information placed in the config file with the information that the comments.html template needs to work.
+This way, users of my theme need only fill in the correct information in the config.toml to get giscus working on their blog.</p>
+
+<h1 id="using-a-custom-theme" class="anchor-link"><a href="#using-a-custom-theme">Using a custom theme.</a></h1>
+<p>Giscus also allows users to specify a custom theme to the comment section. I still want to tweak mine a little, but adding a custom theme was really a matter of making a css file that the “theme” part of the script wl poing to, rather than a pre-defined theme (like the default “light” theme).</p>
+<p>In my project folder I have extra css files that customise my website as I want it to look. Such files should always be placed in the <code>assets</code> folder of a hugo site. I added another file there <code>assets/css/giscus.css</code>, and entered the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="c">/*! Custom CSS */</span>
+<span class="p">.</span><span class="nc">gsc-comments</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">gsc-comment-box</span> <span class="p">{</span>
+  <span class="k">order</span><span class="p">:</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">gsc-comments</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">gsc-timeline</span> <span class="p">{</span>
+  <span class="k">order</span><span class="p">:</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">gsc-timeline</span> <span class="p">{</span>
+  <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column-reverse</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">gsc-header</span> <span class="p">{</span>
+  <span class="k">padding-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Then, I needed to change where the <code>data-theme</code> portion of the giscus scrit was pointing to. Before it was just specifying “light” theme, and now I wanted it to use a file.
+So I changed <code>data-theme=&quot;light&quot;</code> to <code>data-theme=&quot;css/giscus.css</code>, my newly created custom css file.</p>
+<p>For me, the theme for the giscus section magically tok on most of the colours from my site (because most things seem transparent!), even without specifying any colours in the css.
+It looks nice, but I’ll need to figure out how to customize it a little more, right now it fades away a little too much in the background.</p>
+<p>You can read more about the custom css options for giscus <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#data-theme">on their website</a>.</p>
+
+
+    
+    <h3>Citation</h3>
+    <div class="columns">
+      <div class="column is-half">
+        For attribution, please cite this work as
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            Athanasia M. Mowinckel (Dec 4, 2021) Adding giscus to your blogdown site. Retrieved from https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/
+          </p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <b>BibTeX citation</b>
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            @misc{ 2021-adding-giscus-to-your-blogdown-site,<br>
+            &emsp;author = { Athanasia M. Mowinckel },<br>
+            &emsp;title = { Adding giscus to your blogdown site },<br>
+            &emsp;url = { https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/ },<br>
+            &emsp;year = { 2021 }<br>
+            &emsp;updated = { Nov 3, 2023 }<br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+
+<div class="container giscus my-4">
+    <script src="https://giscus.app/client.js"
+        data-repo=DrMowinckels/DrMowinckels
+        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+        data-category=Comments
+        data-category-id=DIC_kwDOB1wEpM4CAG0c
+        data-mapping=pathname
+        data-reactions-enabled=1
+        data-emit-metadata=0
+        data-theme=light
+        data-lang=en
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115545202-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+
+  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

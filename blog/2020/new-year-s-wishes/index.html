@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        
+            <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+New Year&#39;s Wishes - Dr. Mowinckel&rsquo;s
+</title>
+
+
+
+            <meta property="og:title" content="New Year&rsquo;s Wishes - Dr. Mowinckel&rsquo;s" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content=""/>
+<meta property="og:url" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/"/>
+<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+
+
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/index_files/figure-html/featured-1.png"/>
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/index_files/figure-html/unnamed-chunk-1-1.png"/>
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/index_files/figure-html/unnamed-chunk-2-1.png"/>
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/new-year.svg"/>
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/plot.svg"/>
+
+
+
+            
+<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
+
+
+            
+
+
+  
+  
+  
+  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+        
+        
+        
+        
+    </head>
+    <body> 
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
+                
+                
+
+<h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/">
+                            
+                            Home
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/about">
+                            
+                            About
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
+                            
+                            Blog
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
+                            
+                            Contact
+                            
+                        </a>
+                    
+                
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://drmowinckels.io/blog/2020/new-year-s-wishes/">New Year&rsquo;s Wishes</a>
+    </h2>
+    <div class="post-data">
+        Dec 31, 2020 |
+        8 minutes read
+    </div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Categories:
+          
+        </p>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Tags:
+          
+           <a href="https://drmowinckels.io/tags/r">
+             R</a>,
+         
+           <a href="https://drmowinckels.io/tags/plots">
+             Plots</a>
+         
+        </p>
+      
+    
+      
+    
+
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>It&rsquo;s time for a new year, and I think we are all ready for it!
+At least I am.</p>
+<p>This is just a short post, with a ggplot2 holiday card wishing you all a better 2021 than 2020!
+Let&rsquo;s face it, there not much needed for that to happen, and with vaccines being distributed I have hopes.</p>
+<p>I hope the New Year, at some point, makes it possible to start going to conferences again and that I can get to meet ore R-aficionados when the time allows.</p>
+<p>As previous years, I wanted to make a holiday card for you all in ggplot2.
+You may ask why I keep plotting these ridiculous things in ggplot2, but the answer is quite simple: why not?
+Other than being fun, it&rsquo;s also a nice exercise in thinking about and exploring how data need to look to create a certain output.
+I find these holiday cards help me understand the geoms, how ggplot2 works, and how to think about grid structures.</p>
+
+<h2 id="making-a-holiday-card" class="anchor-link"><a href="#making-a-holiday-card">Making a holiday card</a></h2>
+<p>The first thing I do when starting a new plot, is make sure I have a decent colour palette going.
+I browse through <a href="https://www.color-hex.com/color-palette/">hex palettes</a> for palettes I like, and this time a choose one called <a href="https://www.color-hex.com/color-palette/30281">Chinese New Year - Rooster Color Palette</a>, that I thought might work.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Define a palette object</span>
+<span class="n">pal</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#f90000&#34;</span><span class="p">,</span> <span class="s">&#34;#9a1010&#34;</span><span class="p">,</span> <span class="s">&#34;#f4eb1a&#34;</span><span class="p">,</span> <span class="s">&#34;#e1d921&#34;</span><span class="p">,</span> <span class="s">&#34;#e79516&#34;</span><span class="p">)</span>
+
+<span class="c1"># Have a look at the colours</span>
+<span class="n">scales</span><span class="o">::</span><span class="nf">show_col</span><span class="p">(</span><span class="n">pal</span><span class="p">)</span>
+</code></pre></div><p><img src="index.en_files/figure-html/unnamed-chunk-1-1.png" alt=""><!-- --></p>
+<p>Next, I had in mind a simple image, with some blurred coloured circles in the background of some white text.
+So I had so make a data.frame with the basis of some circles.
+I knew I wanted to use <code>ggforce::geom_circle</code> for this, which would need x and y coordinates for the center of the circle and the radius.
+So I needed a data.frame with that information, and also a colour for each circle.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+
+<span class="c1"># Choose the number of circles to make</span>
+<span class="n">n_circles</span> <span class="o">&lt;-</span> <span class="m">15</span>
+
+<span class="c1"># Create data.frame with coordinate, radius and colour drawn by random.</span>
+<span class="n">circles</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">),</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">),</span>
+  <span class="n">r</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">20</span><span class="p">),</span> <span class="n">n_circles</span><span class="p">),</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="n">pal</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">circles</span>
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
+##        x     y     r c      
+##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1    14     3 1.18  #9a1010
+##  2     1    13 0.816 #9a1010
+##  3    17    19 1.29  #f90000
+##  4    19     7 0.868 #f4eb1a
+##  5    18    15 1.24  #e1d921
+##  6     4    10 1.39  #f90000
+##  7     3     2 0.605 #e1d921
+##  8     9     6 1.08  #9a1010
+##  9    12    11 1.03  #e1d921
+## 10     2     8 0.5   #e79516
+## 11    16    20 0.553 #f4eb1a
+## 12     8     1 0.974 #f4eb1a
+## 13    15    12 0.711 #f90000
+## 14    20     4 0.763 #9a1010
+## 15    11     5 1.5   #9a1010
+</code></pre><p>After that, I needed to do some stuff to make the circles blurred.
+I&rsquo;ve opted for a simple solution, where I&rsquo;d overlay circles of decreasing sizes on top of each other with high transparency, which should look like a blurring effect.
+To achieve that, I decided to keep to my tibble and tidyverse way of doing things.
+First, I defined a separate tibble with the different sizes I want the radii to have for the blurring.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">transp</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+      <span class="n">size</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="m">1.9</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">transp</span>
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 10 x 1
+##     size
+##    &lt;dbl&gt;
+##  1   1  
+##  2   1.1
+##  3   1.2
+##  4   1.3
+##  5   1.4
+##  6   1.5
+##  7   1.6
+##  8   1.7
+##  9   1.8
+## 10   1.9
+</code></pre><p>Using this, I needed to make sure that each circle (every row in the <code>circles</code> tibble) gets this blurring working.
+The best way I know how, is nesting the data by everything but radius, then merge the radius tibble with the transparency tibble, and unnest again.
+Lastly I can multiply the radius with the size, and get a large data.frame with lots of circles of different sizes, but many sharing a center and colour.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Nesting data moved all non-grouped columns into a &#34;data&#34; column</span>
+<span class="n">circles</span> <span class="o">%&gt;%</span> 
+  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
+## # Rowwise:  x, y, c
+##        x     y c                     data
+##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;list&lt;tbl_df[,1]&gt;&gt;
+##  1     1    13 #9a1010            [1 × 1]
+##  2     2     8 #e79516            [1 × 1]
+##  3     3     2 #e1d921            [1 × 1]
+##  4     4    10 #f90000            [1 × 1]
+##  5     8     1 #f4eb1a            [1 × 1]
+##  6     9     6 #9a1010            [1 × 1]
+##  7    11     5 #9a1010            [1 × 1]
+##  8    12    11 #e1d921            [1 × 1]
+##  9    14     3 #9a1010            [1 × 1]
+## 10    15    12 #f90000            [1 × 1]
+## 11    16    20 #f4eb1a            [1 × 1]
+## 12    17    19 #f90000            [1 × 1]
+## 13    18    15 #e1d921            [1 × 1]
+## 14    19     7 #f4eb1a            [1 × 1]
+## 15    20     4 #9a1010            [1 × 1]
+</code></pre><p>Once the data is nested, the <code>radius</code> column is all alone, nested within the <code>data</code> column of the tibble.
+This way we can safely merge the <code>transp</code> object with that data, which will duplicate the radius number for every row in the <code>transp</code> object.
+Here, we must make sure that within the <code>mutate</code> the output of the merge is nested within a <code>list()</code>.
+The <code>data</code> colum is a so-called list-column, and as such the output of any manipulation of it must also be a list.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Merge the data column with the transp object, </span>
+<span class="c1"># make sure it outputs into a list to work with nested data</span>
+<span class="n">circles</span> <span class="o">%&gt;%</span> 
+  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span>
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
+## # Rowwise:  x, y, c
+##        x     y c       data             
+##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;list&gt;           
+##  1     1    13 #9a1010 &lt;df[,2] [10 × 2]&gt;
+##  2     2     8 #e79516 &lt;df[,2] [10 × 2]&gt;
+##  3     3     2 #e1d921 &lt;df[,2] [10 × 2]&gt;
+##  4     4    10 #f90000 &lt;df[,2] [10 × 2]&gt;
+##  5     8     1 #f4eb1a &lt;df[,2] [10 × 2]&gt;
+##  6     9     6 #9a1010 &lt;df[,2] [10 × 2]&gt;
+##  7    11     5 #9a1010 &lt;df[,2] [10 × 2]&gt;
+##  8    12    11 #e1d921 &lt;df[,2] [10 × 2]&gt;
+##  9    14     3 #9a1010 &lt;df[,2] [10 × 2]&gt;
+## 10    15    12 #f90000 &lt;df[,2] [10 × 2]&gt;
+## 11    16    20 #f4eb1a &lt;df[,2] [10 × 2]&gt;
+## 12    17    19 #f90000 &lt;df[,2] [10 × 2]&gt;
+## 13    18    15 #e1d921 &lt;df[,2] [10 × 2]&gt;
+## 14    19     7 #f4eb1a &lt;df[,2] [10 × 2]&gt;
+## 15    20     4 #9a1010 &lt;df[,2] [10 × 2]&gt;
+</code></pre><p>Once they are merged, we can unnest and see that our new circles object has lots of new rows!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Unnest the data, so that a large tibble exposed (lots of rows!)</span>
+<span class="n">circles</span> <span class="o">%&gt;%</span> 
+  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">unnest</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 150 x 5
+## # Groups:   x, y, c [15]
+##        x     y c           r  size
+##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1     1    13 #9a1010 0.816   1  
+##  2     1    13 #9a1010 0.816   1.1
+##  3     1    13 #9a1010 0.816   1.2
+##  4     1    13 #9a1010 0.816   1.3
+##  5     1    13 #9a1010 0.816   1.4
+##  6     1    13 #9a1010 0.816   1.5
+##  7     1    13 #9a1010 0.816   1.6
+##  8     1    13 #9a1010 0.816   1.7
+##  9     1    13 #9a1010 0.816   1.8
+## 10     1    13 #9a1010 0.816   1.9
+## # … with 140 more rows
+</code></pre><p>Then the <code>size</code> column can be multiplied with the <code>radius</code> column, to get circles of different sizes.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># multiply r with the size to get the &#34;true&#34; radius.</span>
+<span class="n">circles</span> <span class="o">&lt;-</span> <span class="n">circles</span> <span class="o">%&gt;%</span> 
+  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+  <span class="nf">unnest</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="nf">mutate</span><span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">size</span><span class="p">)</span>
+<span class="n">circles</span>
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 150 x 5
+## # Groups:   x, y, c [15]
+##        x     y c           r  size
+##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1     1    13 #9a1010 0.816   1  
+##  2     1    13 #9a1010 0.897   1.1
+##  3     1    13 #9a1010 0.979   1.2
+##  4     1    13 #9a1010 1.06    1.3
+##  5     1    13 #9a1010 1.14    1.4
+##  6     1    13 #9a1010 1.22    1.5
+##  7     1    13 #9a1010 1.31    1.6
+##  8     1    13 #9a1010 1.39    1.7
+##  9     1    13 #9a1010 1.47    1.8
+## 10     1    13 #9a1010 1.55    1.9
+## # … with 140 more rows
+</code></pre><p>Then it&rsquo;s all about plotting the data.
+Initially, I wanted a small animation like blinking of the circles, but I&rsquo;ve decided to leave it as is for now.</p>
+<p>Loading in ggforce, we get the geom_circle available.
+I&rsquo;m also using a small colour hack a found a long time ago.
+When I have the colours in the data.frame directly, as it&rsquo;s own column, I usually use the identity function (<code>I()</code>) directly in the ggplot2 calls, rather than <code>scale_colour_identity</code>.
+It&rsquo;s just something I got used to.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">ggforce</span><span class="p">)</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="m">.1</span>
+
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">circles</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span> <span class="o">+</span>
+  <span class="c1"># Add all the circles</span>
+  <span class="nf">geom_circle</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="m">.1</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="kc">NA</span><span class="p">,</span> 
+              <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span>
+  <span class="c1"># Add text at the center, but a little higher (+5)</span>
+  <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">x</span><span class="p">),</span> 
+                <span class="n">y</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">+5</span><span class="p">,</span> 
+                <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Happy New Year&#34;</span><span class="p">),</span>
+            <span class="n">family</span> <span class="o">=</span> <span class="s">&#34;Great Vibes&#34;</span><span class="p">,</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;#fefefe&#34;</span><span class="p">,</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="m">14</span><span class="p">,</span>
+            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
+  <span class="c1"># Add text at the center but a little loswer (-5)</span>
+    <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">x</span><span class="p">),</span> 
+                <span class="n">y</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">-5</span><span class="p">,</span> 
+                <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Adios 2020!&#34;</span><span class="p">),</span>
+              <span class="n">family</span> <span class="o">=</span> <span class="s">&#34;Great Vibes&#34;</span><span class="p">,</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="m">8</span><span class="p">,</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;#fefefe&#34;</span><span class="p">,</span>
+            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span>
+  <span class="nf">theme</span><span class="p">(</span><span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;black&#34;</span><span class="p">))</span> <span class="o">+</span>
+  <span class="kc">NULL</span>
+</code></pre></div><img src="index.en_files/figure-html/featured-1.png" width="480" />
+
+
+    
+    <h3>Citation</h3>
+    <div class="columns">
+      <div class="column is-half">
+        For attribution, please cite this work as
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            Dr. Mowinckel (Dec 31, 2020) New Year&#39;s Wishes. Retrieved from https://drmowinckels.io/blog/2020/new-year-s-wishes/
+          </p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <b>BibTeX citation</b>
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            @misc{ 2020-new-years-wishes,<br>
+            &emsp;author = { Dr. Mowinckel },<br>
+            &emsp;title = { New Year&#39;s Wishes },<br>
+            &emsp;url = { https://drmowinckels.io/blog/2020/new-year-s-wishes/ },<br>
+            &emsp;year = { 2020 }<br>
+            &emsp;updated = { Nov 3, 2023 }<br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+
+<div class="container giscus my-4">
+    <script src="https://giscus.app/client.js"
+        data-repo=DrMowinckels/DrMowinckels
+        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+        data-category=Comments
+        data-category-id=DIC_kwDOB1wEpM4CAG0c
+        data-mapping=pathname
+        data-reactions-enabled=1
+        data-emit-metadata=0
+        data-theme=light
+        data-lang=en
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115545202-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+
+  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>
