@@ -22,6 +22,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install cURL Headers
+        run: |
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev
+
       - name: Get Hugo version
         id: hugo_vr
         run: |
@@ -38,9 +43,6 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Install Netlify CLI
-        if: github.event_name == 'pull_request'
-        run: brew install netlify-cli
 #
 #       - name: Setup R
 #         if: github.ref == 'refs/heads/main'
@@ -107,7 +109,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-            echo "Running netlify preview deploy"
+            npm install netlify-cli -g
             netlify deploy --alias ${{ github.sha }}
         shell: sh
 
