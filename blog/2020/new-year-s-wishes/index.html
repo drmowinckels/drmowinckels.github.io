@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         
             <meta charset="utf-8">
@@ -199,31 +199,31 @@ I find these holiday cards help me understand the geoms, how ggplot2 works, and 
 <h2 id="making-a-holiday-card" class="anchor-link"><a href="#making-a-holiday-card">Making a holiday card</a></h2>
 <p>The first thing I do when starting a new plot, is make sure I have a decent colour palette going.
 I browse through <a href="https://www.color-hex.com/color-palette/">hex palettes</a> for palettes I like, and this time a choose one called <a href="https://www.color-hex.com/color-palette/30281">Chinese New Year - Rooster Color Palette</a>, that I thought might work.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Define a palette object</span>
-<span class="n">pal</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#f90000&#34;</span><span class="p">,</span> <span class="s">&#34;#9a1010&#34;</span><span class="p">,</span> <span class="s">&#34;#f4eb1a&#34;</span><span class="p">,</span> <span class="s">&#34;#e1d921&#34;</span><span class="p">,</span> <span class="s">&#34;#e79516&#34;</span><span class="p">)</span>
-
-<span class="c1"># Have a look at the colours</span>
-<span class="n">scales</span><span class="o">::</span><span class="nf">show_col</span><span class="p">(</span><span class="n">pal</span><span class="p">)</span>
-</code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Define a palette object</span>
+</span></span><span class="line"><span class="cl"><span class="n">pal</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#f90000&#34;</span><span class="p">,</span> <span class="s">&#34;#9a1010&#34;</span><span class="p">,</span> <span class="s">&#34;#f4eb1a&#34;</span><span class="p">,</span> <span class="s">&#34;#e1d921&#34;</span><span class="p">,</span> <span class="s">&#34;#e79516&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Have a look at the colours</span>
+</span></span><span class="line"><span class="cl"><span class="n">scales</span><span class="o">::</span><span class="nf">show_col</span><span class="p">(</span><span class="n">pal</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" alt=""><!-- --></p>
 <p>Next, I had in mind a simple image, with some blurred coloured circles in the background of some white text.
 So I had so make a data.frame with the basis of some circles.
 I knew I wanted to use <code>ggforce::geom_circle</code> for this, which would need x and y coordinates for the center of the circle and the radius.
 So I needed a data.frame with that information, and also a colour for each circle.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-
-<span class="c1"># Choose the number of circles to make</span>
-<span class="n">n_circles</span> <span class="o">&lt;-</span> <span class="m">15</span>
-
-<span class="c1"># Create data.frame with coordinate, radius and colour drawn by random.</span>
-<span class="n">circles</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">),</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">),</span>
-  <span class="n">r</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">20</span><span class="p">),</span> <span class="n">n_circles</span><span class="p">),</span>
-  <span class="n">c</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="n">pal</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">circles</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Choose the number of circles to make</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_circles</span> <span class="o">&lt;-</span> <span class="m">15</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create data.frame with coordinate, radius and colour drawn by random.</span>
+</span></span><span class="line"><span class="cl"><span class="n">circles</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">20</span><span class="p">),</span> <span class="n">n_circles</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">c</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="n">pal</span><span class="p">,</span> <span class="n">n_circles</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">circles</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
 ##        x     y     r c      
 ##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  
 ##  1    14     3 1.18  #9a1010
@@ -245,11 +245,11 @@ So I needed a data.frame with that information, and also a colour for each circl
 I&rsquo;ve opted for a simple solution, where I&rsquo;d overlay circles of decreasing sizes on top of each other with high transparency, which should look like a blurring effect.
 To achieve that, I decided to keep to my tibble and tidyverse way of doing things.
 First, I defined a separate tibble with the different sizes I want the radii to have for the blurring.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">transp</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-      <span class="n">size</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="m">1.9</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="n">transp</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 10 x 1
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">transp</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">size</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="m">1.9</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">transp</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 10 x 1
 ##     size
 ##    &lt;dbl&gt;
 ##  1   1  
@@ -265,10 +265,10 @@ First, I defined a separate tibble with the different sizes I want the radii to 
 </code></pre><p>Using this, I needed to make sure that each circle (every row in the <code>circles</code> tibble) gets this blurring working.
 The best way I know how, is nesting the data by everything but radius, then merge the radius tibble with the transparency tibble, and unnest again.
 Lastly I can multiply the radius with the size, and get a large data.frame with lots of circles of different sizes, but many sharing a center and colour.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Nesting data moved all non-grouped columns into a &#34;data&#34; column</span>
-<span class="n">circles</span> <span class="o">%&gt;%</span> 
-  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Nesting data moved all non-grouped columns into a &#34;data&#34; column</span>
+</span></span><span class="line"><span class="cl"><span class="n">circles</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
 ## # Rowwise:  x, y, c
 ##        x     y c                     data
 ##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;list&lt;tbl_df[,1]&gt;&gt;
@@ -291,12 +291,12 @@ Lastly I can multiply the radius with the size, and get a large data.frame with 
 This way we can safely merge the <code>transp</code> object with that data, which will duplicate the radius number for every row in the <code>transp</code> object.
 Here, we must make sure that within the <code>mutate</code> the output of the merge is nested within a <code>list()</code>.
 The <code>data</code> colum is a so-called list-column, and as such the output of any manipulation of it must also be a list.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Merge the data column with the transp object, </span>
-<span class="c1"># make sure it outputs into a list to work with nested data</span>
-<span class="n">circles</span> <span class="o">%&gt;%</span> 
-  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Merge the data column with the transp object, </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># make sure it outputs into a list to work with nested data</span>
+</span></span><span class="line"><span class="cl"><span class="n">circles</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 15 x 4
 ## # Rowwise:  x, y, c
 ##        x     y c       data             
 ##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;list&gt;           
@@ -316,12 +316,12 @@ The <code>data</code> colum is a so-called list-column, and as such the output o
 ## 14    19     7 #f4eb1a &lt;df[,2] [10 × 2]&gt;
 ## 15    20     4 #9a1010 &lt;df[,2] [10 × 2]&gt;
 </code></pre><p>Once they are merged, we can unnest and see that our new circles object has lots of new rows!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Unnest the data, so that a large tibble exposed (lots of rows!)</span>
-<span class="n">circles</span> <span class="o">%&gt;%</span> 
-  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">unnest</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 150 x 5
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Unnest the data, so that a large tibble exposed (lots of rows!)</span>
+</span></span><span class="line"><span class="cl"><span class="n">circles</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">unnest</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 150 x 5
 ## # Groups:   x, y, c [15]
 ##        x     y c           r  size
 ##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
@@ -337,14 +337,14 @@ The <code>data</code> colum is a so-called list-column, and as such the output o
 ## 10     1    13 #9a1010 0.816   1.9
 ## # … with 140 more rows
 </code></pre><p>Then the <code>size</code> column can be multiplied with the <code>radius</code> column, to get circles of different sizes.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># multiply r with the size to get the &#34;true&#34; radius.</span>
-<span class="n">circles</span> <span class="o">&lt;-</span> <span class="n">circles</span> <span class="o">%&gt;%</span> 
-  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">unnest</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">size</span><span class="p">)</span>
-<span class="n">circles</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 150 x 5
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># multiply r with the size to get the &#34;true&#34; radius.</span>
+</span></span><span class="line"><span class="cl"><span class="n">circles</span> <span class="o">&lt;-</span> <span class="n">circles</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">nest_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transp</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">unnest</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">circles</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 150 x 5
 ## # Groups:   x, y, c [15]
 ##        x     y c           r  size
 ##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
@@ -365,33 +365,33 @@ Initially, I wanted a small animation like blinking of the circles, but I&rsquo;
 I&rsquo;m also using a small colour hack a found a long time ago.
 When I have the colours in the data.frame directly, as it&rsquo;s own column, I usually use the identity function (<code>I()</code>) directly in the ggplot2 calls, rather than <code>scale_colour_identity</code>.
 It&rsquo;s just something I got used to.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">ggforce</span><span class="p">)</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="m">.1</span>
-
-<span class="nf">ggplot</span><span class="p">(</span><span class="n">circles</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span> <span class="o">+</span>
-  <span class="c1"># Add all the circles</span>
-  <span class="nf">geom_circle</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="m">.1</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="kc">NA</span><span class="p">,</span> 
-              <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span>
-  <span class="c1"># Add text at the center, but a little higher (+5)</span>
-  <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">x</span><span class="p">),</span> 
-                <span class="n">y</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">+5</span><span class="p">,</span> 
-                <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Happy New Year&#34;</span><span class="p">),</span>
-            <span class="n">family</span> <span class="o">=</span> <span class="s">&#34;Great Vibes&#34;</span><span class="p">,</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;#fefefe&#34;</span><span class="p">,</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="m">14</span><span class="p">,</span>
-            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
-  <span class="c1"># Add text at the center but a little loswer (-5)</span>
-    <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">x</span><span class="p">),</span> 
-                <span class="n">y</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">-5</span><span class="p">,</span> 
-                <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Adios 2020!&#34;</span><span class="p">),</span>
-              <span class="n">family</span> <span class="o">=</span> <span class="s">&#34;Great Vibes&#34;</span><span class="p">,</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="m">8</span><span class="p">,</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;#fefefe&#34;</span><span class="p">,</span>
-            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span>
-  <span class="nf">theme</span><span class="p">(</span><span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;black&#34;</span><span class="p">))</span> <span class="o">+</span>
-  <span class="kc">NULL</span>
-</code></pre></div><img src="index_files/figure-html/featured-1.png" width="480" />
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggforce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">alpha</span> <span class="o">=</span> <span class="m">.1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">circles</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Add all the circles</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="m">.1</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="kc">NA</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">              <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Add text at the center, but a little higher (+5)</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">x</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">y</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">+5</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Happy New Year&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">family</span> <span class="o">=</span> <span class="s">&#34;Great Vibes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;#fefefe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">size</span> <span class="o">=</span> <span class="m">14</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Add text at the center but a little loswer (-5)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">x</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">y</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">circles</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">-5</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Adios 2020!&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">              <span class="n">family</span> <span class="o">=</span> <span class="s">&#34;Great Vibes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">size</span> <span class="o">=</span> <span class="m">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;#fefefe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme</span><span class="p">(</span><span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;black&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="kc">NULL</span>
+</span></span></code></pre></div><img src="index_files/figure-html/featured-1.png" width="480" />
 
 
     
@@ -414,7 +414,7 @@ It&rsquo;s just something I got used to.</p>
             &emsp;title = { New Year&#39;s Wishes },<br>
             &emsp;url = { https://drmowinckels.io/blog/2020/new-year-s-wishes/ },<br>
             &emsp;year = { 2020 }<br>
-            &emsp;updated = { Nov 3, 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
             }
           </p>
         </div>
@@ -474,7 +474,7 @@ It&rsquo;s just something I got used to.</p>
         
 
 
-<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
 
 
 

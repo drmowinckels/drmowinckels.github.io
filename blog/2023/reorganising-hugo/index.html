@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+            <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Reorganising Hugo Content and Aliasing - Dr. Mowinckel&rsquo;s
+</title>
+
+
+
+            <meta property="og:title" content="Reorganising Hugo Content and Aliasing - Dr. Mowinckel&rsquo;s" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content=""/>
+<meta property="og:url" content="https://drmowinckels.io/blog/2023/reorganising-hugo/"/>
+<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+
+
+
+<meta property="og:image" content="https://drmowinckels.io/blog/2023/reorganising-hugo/image.png"/>
+
+
+
+            
+<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
+
+
+            
+
+
+  
+  
+  
+  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
+    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+        
+        
+        
+        
+    </head>
+    <body> 
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
+                
+                
+
+<h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/">
+                            
+                            Home
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/about">
+                            
+                            About
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
+                            
+                            Blog
+                            
+                        </a>
+                    
+                
+                    
+                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
+                            
+                            Contact
+                            
+                        </a>
+                    
+                
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://drmowinckels.io/blog/2023/reorganising-hugo/">Reorganising Hugo Content and Aliasing</a>
+    </h2>
+    <div class="post-data">
+        Nov 3, 2023 |
+        11 minutes read
+    </div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      
+     <p>
+         Tags:
+          
+           <a href="https://drmowinckels.io/tags/blogdown">
+             blogdown</a>,
+         
+           <a href="https://drmowinckels.io/tags/hugo">
+             hugo</a>,
+         
+           <a href="https://drmowinckels.io/tags/bash">
+             bash</a>
+         
+        </p>
+      
+    
+      
+    
+
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>I&rsquo;m working on a little website revamp, and on that occasion I have been thinking through some reorganisation of the file content of my website.</p>
+<p>I&rsquo;m a stickler for good organisation of content, and I was feeling that my blog folder was turning unruly.
+While it was nice machine readable and sorting well etc, it was just not&hellip; nice for a human in the long run.
+I needed something different, something to soothe my organisatory heart.</p>
+<p>What I had was like so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">&gt; ls content/blog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2020-04-30-using-freesurfer-annotation-files-to-plot-in-r
+</span></span><span class="line"><span class="cl">2020-05-25-changing-you-blogdown-workflow
+</span></span><span class="line"><span class="cl">2020-06-24-the-linear-regression-family-in-r
+</span></span><span class="line"><span class="cl">2020-12-15-r-package-advent-calendar-2020
+</span></span><span class="line"><span class="cl">2020-12-31-new-year-s-wishes
+</span></span><span class="line"><span class="cl">2021-03-14-new-ggseg-with-geom
+</span></span><span class="line"><span class="cl">2021-03-23-using-github-actions-to-build-your-hugo-website
+</span></span><span class="line"><span class="cl">2021-04-02-external-images-to-heatplots
+</span></span><span class="line"><span class="cl">2021-12-04-adding-giscus-to-your-blogdown-site
+</span></span><span class="line"><span class="cl">2021-12-17-rmarkdown-child-templates
+</span></span><span class="line"><span class="cl">2022-11-07-lets-get-applying
+</span></span><span class="line"><span class="cl">2022-12-01-advent-of-r-functions
+</span></span><span class="line"><span class="cl">2023-09-26-positconf-2023
+</span></span></code></pre></div><p>Arguably, a pretty decent way to organise.
+ISO dates, sorts nicely, informative names, albeit somewhat long some places.
+Like, it ticks a lot of boxes, but its not doing it for me anymore.
+I feel like I&rsquo;m loosing control over the blog folder, and find it hard to look at and navigate all the folders.</p>
+<p>So, I want to reorganise them into subfolders by year.
+This way, I can more easily distinguish between years and navigate quickly where I need to go, rather than scroll through lots of stuff.
+And, its still all very machine searchable.</p>
+<p>But, gosh, that would be a lot of work if we didnt script it, which we of course will!
+But there are some more things to consider.</p>
+
+<h2 id="hugo-aliasing-redirects" class="anchor-link"><a href="#hugo-aliasing-redirects">Hugo Aliasing (redirects)</a></h2>
+<blockquote>
+<p>What if people link to my blogposts, and I break the links?</p>
+</blockquote>
+<p>not good. I need to redirect them to where the content will be, from where it used to be.
+Hugo has a nice way of dealing with that, which they call <a href="https://gohugo.io/content-management/urls/">aliasing</a>.
+The concept is that, through an array in the front matter of the content markdown, you can specify the urls (on your site) that should redirect people to the specific page.</p>
+<p>for example, lets say I move the <code>2023-09-26-positconf-2023</code> post, to a <code>2023/</code> folder.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mv content/blog/2023-09-26-positconf-2023 <span class="se">\ </span> content/blog/2023/09-26-positconf-2023
+</span></span></code></pre></div><p>The difference is slight, I just switched a dash for a slash, but it makes for neater organisation.
+Now, the new url for this post will be <code>domain.com/blog/2023/09-26-positconf-2023</code>, and everyone visiting <code>domain.com/blog/2023-09-26-positconf-2023</code> will get a <code>404 does not exist!</code></p>
+<p>To fix that, we add a bit in the markdown yaml front matter</p>
+<pre><code>aliases:
+  - /blog/2023-09-26-positconf-2023
+</code></pre>
+<p>notice two things: 1. this is an array, 2. it starts with a slash!
+That slash cost me <a href="https://fosstodon.org/@Drmowinckels/111348405037507554">3 hours of debugging</a>, don&rsquo;t forget it!</p>
+<p>Now, if someone visits <code>domain.com/blog/2023-09-26-positconf-2023</code> they will get redirected to the new <code>domain.com/blog/2023/09-26-positconf-2023</code>.</p>
+<p>In short, we use the old-url as an alias, and Hugo will make sure people coming in from that link get to where the content has been moved automagically.</p>
+<p>Neat!</p>
+
+<h2 id="fixing-the-slug" class="anchor-link"><a href="#fixing-the-slug">Fixing the slug</a></h2>
+<p>Now, we need to talk about the slug.</p>
+<p>No, not slugs, but urls!</p>
+<iframe src="https://giphy.com/embed/5pUwbYWSX35GygAKTY" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen>
+</iframe>
+<p>
+<a href="https://giphy.com/gifs/harrypotter-5pUwbYWSX35GygAKTY">via GIPHY</a>
+</p>
+<p><code>/blog/2023/09-26-positconf-2023</code> is nice as a content naming scheme.
+Its organises subfolder by year, and still has the month and say as prefix, to sort nicely.
+However, as a url is not awesome.
+Most people will not care <em>when</em> the post was made, at least not enough to have it in the url, and the url gets sooo looong.</p>
+<blockquote>
+<p>So, how can we have both worlds?</p>
+</blockquote>
+<p>The second bit of front matter vi want to tamper with is the slug.
+The slug is the <em>exposed</em> url for the content, so that rather than using the file name (or hugo bundle name in my case) for the post, it uses the slug in stead.</p>
+<p>if we define the slug as:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">slug</span><span class="p">:</span><span class="w"> </span><span class="l">positconf-2023</span><span class="w">
+</span></span></span></code></pre></div><p>the url the visitor sees is <code>domain.com/blog/2023/positconf-2023</code>, which is a much nicer url.
+And then I get to both have a nice organisation, and a nice looking url.
+win-win!</p>
+
+<h2 id="automating-the-move" class="anchor-link"><a href="#automating-the-move">Automating the move</a></h2>
+<p>Now, I am inherently against doing such tasks manually.
+I can script this to make the move better, more consistent, and fast.</p>
+<p>I made the script below in bash to take care of all the pesky details for me.
+It makes the new subdirectories for year, moves the content there as needed,
+adds the yaml front matter for the aliases and slugs, and does it all in seconds.
+It did the job perfectly for me, and I am so happy with the result!</p>
+
+<h3 id="defining-key-variables" class="anchor-link"><a href="#defining-key-variables">Defining key variables</a></h3>
+<p>Let&rsquo;s start slow with a single page to edit.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">&gt; <span class="nv">file</span><span class="o">=</span>content/blog/2023-09-26-positconf-2023/index.md
+</span></span><span class="line"><span class="cl">&gt; <span class="nb">echo</span> <span class="nv">$file</span>
+</span></span><span class="line"><span class="cl">content/blog/2023-09-26-positconf-2023/index.md
+</span></span></code></pre></div><p>So we have one of the index.md&rsquo;s paths stored in a variable in bash called <code>file</code> which we can access by prefixing a <code>$</code>.</p>
+<p>We can extract the name of the page bundle with a combination of <code>dirname</code> (omits the index.md) and <code>basename</code> retains the last bit of the path.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">&gt; <span class="nv">folder_title</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>basename <span class="k">$(</span>dirname <span class="nv">$file</span><span class="k">))</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nb">echo</span> <span class="nv">$folder_title</span>
+</span></span><span class="line"><span class="cl">2023-09-26-positconf-2023
+</span></span></code></pre></div><p>Since we now have the folder title, and they all follow the pattern: <code>YYYY-MM-DD-title</code> we can further extract the year and title from the pattern.
+Here, I use the <code>cut</code> command with the delimiter argument <code>-d</code> with &lsquo;-&rsquo; as delimiter character, and select which number after the string has been split to choose with the field <code>-f</code> argument and the number in the split.
+For the title, I keep everything from the forth field and on, which would omit the date.
+For the year, I keep just the first field, which is the year.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">&gt; <span class="c1"># Extract the post title from the filename</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nv">post_title</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$folder_title</span> <span class="p">|</span> cut -d<span class="s1">&#39;-&#39;</span> -f4-<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nb">echo</span> <span class="nv">$post_title</span>
+</span></span><span class="line"><span class="cl">positconf-2023
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&gt; <span class="c1"># Extract the year from the filename</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nv">year</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="si">${</span><span class="nv">folder_title</span><span class="si">}</span> <span class="p">|</span> cut -d<span class="s1">&#39;-&#39;</span> -f1<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nb">echo</span> <span class="nv">$year</span>
+</span></span><span class="line"><span class="cl"><span class="m">2023</span>
+</span></span></code></pre></div><p>Now I have the important components, I&rsquo;ll start actually changing things in the blog folder, so its best to start that by defining which folder is the directory we will be working in, and make our first year folder.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Define the source and destination directories</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nv">dir</span><span class="o">=</span><span class="s2">&#34;content/blog&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Make year folder</span>
+</span></span><span class="line"><span class="cl">&gt; mkdir -p <span class="s2">&#34;</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$year</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>We&rsquo;ll need to define the end folder we will get things into, and the wanted file name.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Define the output</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nv">dest_subdir</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$year</span><span class="s2">/</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$folder_title</span> <span class="p">|</span> cut -b6-<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nb">echo</span> <span class="nv">$dest_subdir</span>
+</span></span><span class="line"><span class="cl">content/blog/2023/09-26-positconf-202
+</span></span></code></pre></div><p>We have premade the year folder, and we have defined what our new end directory should be.
+We should now move the old content to its new path.
+One might argue that moving is a daring thing, as it&rsquo;s hard to revert.
+But I am working in a git folder so a <code>git checkout content</code> will get me back into working order, and moving makes sure that I can see if any content is left behind later.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># move contents</span>
+</span></span><span class="line"><span class="cl">mv <span class="k">$(</span>dirname <span class="nv">$file</span>/<span class="k">)</span> <span class="nv">$dest_subdir</span>
+</span></span></code></pre></div><p>With this one simple line, we move the page bundle to its new location in one fell swoop.</p>
+
+<h3 id="altering-the-files-and-front-matter" class="anchor-link"><a href="#altering-the-files-and-front-matter">Altering the files and front matter</a></h3>
+<p>Now comes the hard part, changing the front matter of the index file.
+<strong>Please notice</strong> I am only changing the markdown documents, not the Rmarkdown documents that are the real source of the content.
+I have a very good reason to, I don&rsquo;t plan on ever re-knitting the source Rmds from scratch.
+Between package changes and R changes, I just don&rsquo;t want to deal with re-knitting my old posts ever again.
+So, I leave them alone, and only alter the markdown files, which are the source for what is displayed in the blog.</p>
+<p>If you are working with blogdown&rsquo;s default behaviour, which makes the <code>html</code> files, this whole approach will need adaptation to work with the Rmds instead, and you&rsquo;ll need to re-knit all your posts&hellip;
+I don&rsquo;t think I recommend that.
+There are ways, but they will be more tricky.</p>
+<p>Since we&rsquo;ve moved the content, we need to rebuild the path to the index.md based on the new path and the old index.md file name.
+At some point in 2021, my posts started having the multilingual <code>.en</code> string in their file names.
+While my theme supports multilingual posts, I don&rsquo;t use that, so I want to fix that in the same go, I&rsquo;ll show that at the end.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">&gt; <span class="nv">file_new</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$dest_subdir</span>/<span class="k">$(</span>basename <span class="nv">$file</span><span class="k">))</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nb">echo</span> <span class="nv">$file_new</span>
+</span></span><span class="line"><span class="cl">content/blog/2023/09-26-positconf-2023/index.md
+</span></span></code></pre></div><p>To edit the front matter alone, we need to do some magic.
+Since I&rsquo;m sticking to bash, this is gonna get ugly!</p>
+<p>We will focus in using <code>sed</code> which is a string replacement CLI for bash.
+First, we will extract the front matter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">&gt; sed -n <span class="s1">&#39;/^---$/,/^---$/p&#39;</span> <span class="s2">&#34;</span><span class="nv">$file_new</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: Posit::conf <span class="m">2023</span>
+</span></span><span class="line"><span class="cl">author: Dr. Mowinckel
+</span></span><span class="line"><span class="cl">date: <span class="s1">&#39;2023-09-26&#39;</span>
+</span></span><span class="line"><span class="cl">tags:
+</span></span><span class="line"><span class="cl">  - R
+</span></span><span class="line"><span class="cl">image: speak.jpeg
+</span></span><span class="line"><span class="cl">---
+</span></span></code></pre></div><p>Look at that!
+<code>sed</code> is very powerful, and it can do so many things.
+Don&rsquo;t think I knew about this amazing capability, I&rsquo;ve only ever used it for string replacement before, this was with a little bit of help from copilot.
+I need to save that temporarily, so I can acutally work with it, so we put it in a temporary file, by redirecting the console output to a file using <code>&gt;</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Save the existing front matter to a temporary file</span>
+</span></span><span class="line"><span class="cl">sed -n <span class="s1">&#39;/^---$/,/^---$/p&#39;</span> <span class="s2">&#34;</span><span class="nv">$file_new</span><span class="s2">&#34;</span>  &gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp&#34;</span>
+</span></span></code></pre></div><p>Next, if I want to <em>add</em> parameters to the front matter, I&rsquo;ll need to remove the last <code>---</code> to do so.
+This bit of <code>sed</code> with the <code>$ d</code> (yes there is a space between!) will remove the last line of a file, and we redirect that into a new file.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># remove last ---</span>
+</span></span><span class="line"><span class="cl">sed <span class="s1">&#39;$ d&#39;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp&#34;</span> &gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp3&#34;</span>
+</span></span></code></pre></div><p>And then, the file might already have a slug defined in the front matter, so we need to remove that to replace with the new one we want.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># remove existing slug</span>
+</span></span><span class="line"><span class="cl">sed <span class="s1">&#39;/^slug:/d&#39;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp3&#34;</span> &gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span></code></pre></div><p>This is sed string replacement as I know it.
+Its in the format of <code>/pattern/replacement</code>, and in this case the &ldquo;replacement being <code>d</code> means delete in this specific case.
+It uses regex, so the also define that the line needs to start with (<code>^</code>) <code>slug:</code> so we don&rsquo;t replace anything else in the file that might mention&quot;slug&rdquo;.</p>
+<p>Last thing to add to the front matter is the new alias.
+I know that none of my posts have any aliases defined already.
+If yours does, you&rsquo;ll need to deal with them before you can do this.</p>
+<p>Aliases beed to be in an array, and arrays in yaml can either be comma separated between <code>[]</code> or on separate lines starting with <code>-</code>.
+I prefer the latter, its much neater in my opinion.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Add an alias to the front matter of the old file</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;aliases:&#39;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;  - &#39;/&#34;</span><span class="k">$(</span>dirname <span class="nv">$file</span> <span class="p">|</span> cut -d<span class="s1">&#39;/&#39;</span> -f 2-6<span class="k">)</span><span class="s2">&#34;&#39;&#34;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span></code></pre></div><p>A couple of things to notice!
+First, notice two <code>echo</code>s, because we want sepaerate lines.
+and second, we are using <code>&gt;&gt;</code> rather than just <code>&gt;</code>.
+In bash that means &ldquo;append to file&rdquo;, rather than &ldquo;write to file&rdquo;.
+The difference being that append adds lines at the bottom of the file, and write means &ldquo;overwrite&rdquo;, deleting the old content.</p>
+<p>Lastly, we want to end the front matter with the standard tripple dash <code>---</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># add trailing --- to end yaml section</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;---&#39;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span></code></pre></div><p>Our front matter is done!
+But&hellip; we need to get the rest of the content in!</p>
+<p>In comes another piece of sed magic. Just like we could only grasb the front matter before, we can now grab everything that is <strong>not</strong> the front matter!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># add content</span>
+</span></span><span class="line"><span class="cl">sed -n <span class="s1">&#39;/^---$/,/^---$/!p&#39;</span> <span class="s2">&#34;</span><span class="nv">$file_new</span><span class="s2">&#34;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span></code></pre></div><p>and we append that straight to the temporary file that has the new front matter :)</p>
+<p>Our file is now ready, and we should do some cleaning before we do the final piece, and make it into the new index.md.</p>
+<p>We need to delete the temp files we no longer need (but not tmp2!), and also delete the old index file.
+Remember how I said that I from 2021 had an issue with some being added the language code?
+Well, deleting the original file, to then rename tmp2 just index.md fixed all that easily.
+So, that&rsquo;s what we&rsquo;ll do!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># remove temp files</span>
+</span></span><span class="line"><span class="cl">rm <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp&#34;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp3&#34;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/</span><span class="k">$(</span>basename <span class="nv">$file</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Move the modified front matter to the new file</span>
+</span></span><span class="line"><span class="cl">mv <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/index.md&#34;</span>
+</span></span></code></pre></div><p>Now, no matter if the originating file is <code>index.en.md</code> or not, I will have a file name as I wish. Clean!</p>
+<p>And that is it!</p>
+<p>Now that I had it confirmed that this worked for a single file, I deleted what I had changed in the blog folder, ran a <code>git checkout content</code> to restore file folder to its original state, and created the entire script, and called it <code>rename_files.sh</code>, which I placed in the root of my project.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Define the source and destination directories</span>
+</span></span><span class="line"><span class="cl"><span class="nv">dir</span><span class="o">=</span><span class="s2">&#34;content/blog&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Loop through the source directory</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> file in <span class="si">${</span><span class="nv">dir</span><span class="si">}</span>/*/index*.md<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2"> ---------------------&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># folder title</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">folder_title</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>basename <span class="k">$(</span>dirname <span class="nv">$file</span><span class="k">))</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Extract the post title from the filename</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">post_title</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$folder_title</span> <span class="p">|</span> cut -d<span class="s1">&#39;-&#39;</span> -f4-<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Extract the year from the filename</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">year</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="si">${</span><span class="nv">folder_title</span><span class="si">}</span> <span class="p">|</span> cut -d<span class="s1">&#39;-&#39;</span> -f1<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  mkdir -p <span class="s2">&#34;</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$year</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Define the output</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">dest_subdir</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$year</span><span class="s2">/</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$folder_title</span> <span class="p">|</span> cut -b6-<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># move contents</span>
+</span></span><span class="line"><span class="cl">  mv <span class="k">$(</span>dirname <span class="nv">$file</span>/<span class="k">)</span> <span class="nv">$dest_subdir</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">file_new</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$dest_subdir</span>/<span class="k">$(</span>basename <span class="nv">$file</span><span class="k">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Save the existing front matter to a temporary file</span>
+</span></span><span class="line"><span class="cl">  sed -n <span class="s1">&#39;/^---$/,/^---$/p&#39;</span> <span class="s2">&#34;</span><span class="nv">$file_new</span><span class="s2">&#34;</span>  &gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># remove last ---</span>
+</span></span><span class="line"><span class="cl">  sed <span class="s1">&#39;$ d&#39;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp&#34;</span> &gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp3&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># remove existing slug</span>
+</span></span><span class="line"><span class="cl">  sed <span class="s1">&#39;/^slug:/d&#39;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp3&#34;</span> &gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Add a slug parameter to the front matter</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s1">&#39;slug: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$post_title</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;&#39;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Add an alias to the front matter of the old file</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s1">&#39;aliases:&#39;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;  - &#39;/&#34;</span><span class="k">$(</span>dirname <span class="nv">$file</span> <span class="p">|</span> cut -d<span class="s1">&#39;/&#39;</span> -f 2-6<span class="k">)</span><span class="s2">&#34;&#39;&#34;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># add trailing --- to end yaml section</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s1">&#39;---&#39;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># add content</span>
+</span></span><span class="line"><span class="cl">  sed -n <span class="s1">&#39;/^---$/,/^---$/!p&#39;</span> <span class="s2">&#34;</span><span class="nv">$file_new</span><span class="s2">&#34;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># remove temp files</span>
+</span></span><span class="line"><span class="cl">  rm <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp&#34;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp3&#34;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/</span><span class="k">$(</span>basename <span class="nv">$file</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Move the modified front matter to the new file</span>
+</span></span><span class="line"><span class="cl">  mv <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span> <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/index.md&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Content reorganization completed.&#34;</span>
+</span></span></code></pre></div><p>Now, I could run it in my terminal with</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sh rename_files.sh
+</span></span></code></pre></div><p>and watch the magic happen!</p>
+
+<h3 id="word-of-caution" class="anchor-link"><a href="#word-of-caution">Word of caution</a></h3>
+<p>Don&rsquo;t run this willy-nilly.
+Make sure it makes sense for a single one of your files first, then give it a go.
+For one, this will <em>not</em> work for a multilingual site, it would need quite some work to do that.</p>
+<p>But I am all-in-all very happy with my new setup, and feel its a good first step towards a new and improved website!</p>
+<p><img src="image.png" alt=""></p>
+
+
+    
+    <h3>Citation</h3>
+    <div class="columns">
+      <div class="column is-half">
+        For attribution, please cite this work as
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            Dr. Mowinckel (Nov 3, 2023) Reorganising Hugo Content and Aliasing. Retrieved from https://drmowinckels.io/blog/2023/reorganising-hugo/
+          </p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <b>BibTeX citation</b>
+        <div class="highlight" style="border: 1px solid grey">
+          <p style="padding: 1em;font-family: 'monospace">
+            @misc{ 2023-reorganising-hugo-content-and-aliasing,<br>
+            &emsp;author = { Dr. Mowinckel },<br>
+            &emsp;title = { Reorganising Hugo Content and Aliasing },<br>
+            &emsp;url = { https://drmowinckels.io/blog/2023/reorganising-hugo/ },<br>
+            &emsp;year = { 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+
+<div class="container giscus my-4">
+    <script src="https://giscus.app/client.js"
+        data-repo=DrMowinckels/DrMowinckels
+        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+        data-category=Comments
+        data-category-id=DIC_kwDOB1wEpM4CAG0c
+        data-mapping=pathname
+        data-reactions-enabled=1
+        data-emit-metadata=0
+        data-theme=light
+        data-lang=en
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115545202-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+
+  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

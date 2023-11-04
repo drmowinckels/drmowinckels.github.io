@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         
             <meta charset="utf-8">
@@ -10,7 +10,7 @@
 <meta name="referrer" content="no-referrer">
 
 <title>
-Let&#39;S Get Apply&#39;ing - Dr. Mowinckel&rsquo;s
+Let&#39;s Get Apply&#39;ing - Dr. Mowinckel&rsquo;s
 </title>
 
 
@@ -185,25 +185,25 @@ I was looping through files to read them in, looping through list elements to gr
 <p>We can have a look an example of what that could look like.
 We can base it of the very well-known <code>mtcars</code> dataset built-in to R.
 We&rsquo;ll only use two columns, just to keep it simple.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">mtcars</span> <span class="o">&lt;-</span> <span class="n">mtcars[</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;cyl&#34;</span><span class="p">,</span> <span class="s">&#34;mpg&#34;</span><span class="p">)</span><span class="n">]</span>
-</code></pre></div><p>Let&rsquo;s say we want to demean the <em>miles per gallon</em>  to the <em>number of cylinders</em> the cars have.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span> <span class="o">&lt;-</span> <span class="n">mtcars[</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;cyl&#34;</span><span class="p">,</span> <span class="s">&#34;mpg&#34;</span><span class="p">)</span><span class="n">]</span>
+</span></span></code></pre></div><p>Let&rsquo;s say we want to demean the <em>miles per gallon</em>  to the <em>number of cylinders</em> the cars have.
 So we&rsquo;ll mean to calculate the mean <code>mpg</code> for the number of cylinders and subtract the mpg from the mean.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">)){</span>
-  <span class="c1"># Number of cylinders for this cars</span>
-  <span class="n">cylinders</span> <span class="o">&lt;-</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl[i]</span>
-  
-  <span class="c1"># subset data to only cars with that cylinder</span>
-  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
-  
-  <span class="c1"># mean of mpg for this cylinder type</span>
-  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
-  
-  <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg_dm[i]</span> <span class="o">&lt;-</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg[i]</span> <span class="o">-</span> <span class="n">mcyl</span>
-<span class="p">}</span>
-
-<span class="c1"># Look at the results</span>
-<span class="n">mtcars</span>
-</code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Number of cylinders for this cars</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cylinders</span> <span class="o">&lt;-</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl[i]</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># subset data to only cars with that cylinder</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># mean of mpg for this cylinder type</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg_dm[i]</span> <span class="o">&lt;-</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg[i]</span> <span class="o">-</span> <span class="n">mcyl</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Look at the results</span>
+</span></span><span class="line"><span class="cl"><span class="n">mtcars</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm
 ## Mazda RX4             6 21.0  1.25714286
 ## Mazda RX4 Wag         6 21.0  1.25714286
 ## Datsun 710            4 22.8 -3.86363636
@@ -258,46 +258,46 @@ Apply&rsquo;s tend to be faster than loops, but I&rsquo;m not going to spend tim
 <p>Let us start with a simpler example, just to get a feel for it.
 As a stupid thing to do, the data in our mtcars subset into characters with <code>as.character()</code>.</p>
 <p>We <code>apply</code> over the <code>mtcars</code> dataset, in a column-wise fashion (<code>MARGIN = 2</code> , margin <code>1</code> is over rows), and apply the function <code>as.character</code> on these vectors.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">cars</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> 
-      <span class="n">MARGIN</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> 
-      <span class="n">FUN</span> <span class="o">=</span> <span class="n">as.character</span><span class="p">)</span>
-<span class="n">cars</span>
-</code></pre></div><pre tabindex="0"><code>##       cyl mpg    mpg_dm               
-##  [1,] &quot;6&quot; &quot;21&quot;   &quot;1.25714285714286&quot;   
-##  [2,] &quot;6&quot; &quot;21&quot;   &quot;1.25714285714286&quot;   
-##  [3,] &quot;4&quot; &quot;22.8&quot; &quot;-3.86363636363636&quot;  
-##  [4,] &quot;6&quot; &quot;21.4&quot; &quot;1.65714285714285&quot;   
-##  [5,] &quot;8&quot; &quot;18.7&quot; &quot;3.6&quot;                
-##  [6,] &quot;6&quot; &quot;18.1&quot; &quot;-1.64285714285714&quot;  
-##  [7,] &quot;8&quot; &quot;14.3&quot; &quot;-0.799999999999999&quot; 
-##  [8,] &quot;4&quot; &quot;24.4&quot; &quot;-2.26363636363637&quot;  
-##  [9,] &quot;4&quot; &quot;22.8&quot; &quot;-3.86363636363636&quot;  
-## [10,] &quot;6&quot; &quot;19.2&quot; &quot;-0.542857142857144&quot; 
-## [11,] &quot;6&quot; &quot;17.8&quot; &quot;-1.94285714285714&quot;  
-## [12,] &quot;8&quot; &quot;16.4&quot; &quot;1.3&quot;                
-## [13,] &quot;8&quot; &quot;17.3&quot; &quot;2.2&quot;                
-## [14,] &quot;8&quot; &quot;15.2&quot; &quot;0.0999999999999996&quot; 
-## [15,] &quot;8&quot; &quot;10.4&quot; &quot;-4.7&quot;               
-## [16,] &quot;8&quot; &quot;10.4&quot; &quot;-4.7&quot;               
-## [17,] &quot;8&quot; &quot;14.7&quot; &quot;-0.4&quot;               
-## [18,] &quot;4&quot; &quot;32.4&quot; &quot;5.73636363636363&quot;   
-## [19,] &quot;4&quot; &quot;30.4&quot; &quot;3.73636363636363&quot;   
-## [20,] &quot;4&quot; &quot;33.9&quot; &quot;7.23636363636363&quot;   
-## [21,] &quot;4&quot; &quot;21.5&quot; &quot;-5.16363636363636&quot;  
-## [22,] &quot;8&quot; &quot;15.5&quot; &quot;0.4&quot;                
-## [23,] &quot;8&quot; &quot;15.2&quot; &quot;0.0999999999999996&quot; 
-## [24,] &quot;8&quot; &quot;13.3&quot; &quot;-1.8&quot;               
-## [25,] &quot;8&quot; &quot;19.2&quot; &quot;4.1&quot;                
-## [26,] &quot;4&quot; &quot;27.3&quot; &quot;0.636363636363637&quot;  
-## [27,] &quot;4&quot; &quot;26&quot;   &quot;-0.663636363636364&quot; 
-## [28,] &quot;4&quot; &quot;30.4&quot; &quot;3.73636363636363&quot;   
-## [29,] &quot;8&quot; &quot;15.8&quot; &quot;0.700000000000001&quot;  
-## [30,] &quot;6&quot; &quot;19.7&quot; &quot;-0.0428571428571445&quot;
-## [31,] &quot;8&quot; &quot;15&quot;   &quot;-0.0999999999999996&quot;
-## [32,] &quot;4&quot; &quot;21.4&quot; &quot;-5.26363636363637&quot;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">MARGIN</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">FUN</span> <span class="o">=</span> <span class="n">as.character</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">cars</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##       cyl mpg    mpg_dm               
+##  [1,] &#34;6&#34; &#34;21&#34;   &#34;1.25714285714286&#34;   
+##  [2,] &#34;6&#34; &#34;21&#34;   &#34;1.25714285714286&#34;   
+##  [3,] &#34;4&#34; &#34;22.8&#34; &#34;-3.86363636363636&#34;  
+##  [4,] &#34;6&#34; &#34;21.4&#34; &#34;1.65714285714285&#34;   
+##  [5,] &#34;8&#34; &#34;18.7&#34; &#34;3.6&#34;                
+##  [6,] &#34;6&#34; &#34;18.1&#34; &#34;-1.64285714285714&#34;  
+##  [7,] &#34;8&#34; &#34;14.3&#34; &#34;-0.799999999999999&#34; 
+##  [8,] &#34;4&#34; &#34;24.4&#34; &#34;-2.26363636363637&#34;  
+##  [9,] &#34;4&#34; &#34;22.8&#34; &#34;-3.86363636363636&#34;  
+## [10,] &#34;6&#34; &#34;19.2&#34; &#34;-0.542857142857144&#34; 
+## [11,] &#34;6&#34; &#34;17.8&#34; &#34;-1.94285714285714&#34;  
+## [12,] &#34;8&#34; &#34;16.4&#34; &#34;1.3&#34;                
+## [13,] &#34;8&#34; &#34;17.3&#34; &#34;2.2&#34;                
+## [14,] &#34;8&#34; &#34;15.2&#34; &#34;0.0999999999999996&#34; 
+## [15,] &#34;8&#34; &#34;10.4&#34; &#34;-4.7&#34;               
+## [16,] &#34;8&#34; &#34;10.4&#34; &#34;-4.7&#34;               
+## [17,] &#34;8&#34; &#34;14.7&#34; &#34;-0.4&#34;               
+## [18,] &#34;4&#34; &#34;32.4&#34; &#34;5.73636363636363&#34;   
+## [19,] &#34;4&#34; &#34;30.4&#34; &#34;3.73636363636363&#34;   
+## [20,] &#34;4&#34; &#34;33.9&#34; &#34;7.23636363636363&#34;   
+## [21,] &#34;4&#34; &#34;21.5&#34; &#34;-5.16363636363636&#34;  
+## [22,] &#34;8&#34; &#34;15.5&#34; &#34;0.4&#34;                
+## [23,] &#34;8&#34; &#34;15.2&#34; &#34;0.0999999999999996&#34; 
+## [24,] &#34;8&#34; &#34;13.3&#34; &#34;-1.8&#34;               
+## [25,] &#34;8&#34; &#34;19.2&#34; &#34;4.1&#34;                
+## [26,] &#34;4&#34; &#34;27.3&#34; &#34;0.636363636363637&#34;  
+## [27,] &#34;4&#34; &#34;26&#34;   &#34;-0.663636363636364&#34; 
+## [28,] &#34;4&#34; &#34;30.4&#34; &#34;3.73636363636363&#34;   
+## [29,] &#34;8&#34; &#34;15.8&#34; &#34;0.700000000000001&#34;  
+## [30,] &#34;6&#34; &#34;19.7&#34; &#34;-0.0428571428571445&#34;
+## [31,] &#34;8&#34; &#34;15&#34;   &#34;-0.0999999999999996&#34;
+## [32,] &#34;4&#34; &#34;21.4&#34; &#34;-5.26363636363637&#34;
 </code></pre><p>The output here is not a data.frame, so we would have to make it one later</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">as.data.frame</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>##    cyl  mpg              mpg_dm
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">as.data.frame</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##    cyl  mpg              mpg_dm
 ## 1    6   21    1.25714285714286
 ## 2    6   21    1.25714285714286
 ## 3    4 22.8   -3.86363636363636
@@ -331,12 +331,12 @@ As a stupid thing to do, the data in our mtcars subset into characters with <cod
 ## 31   8   15 -0.0999999999999996
 ## 32   4 21.4   -5.26363636363637
 </code></pre><p>Doing this in a loop could look like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">cars2</span> <span class="o">&lt;-</span> <span class="n">mtcars</span>
-<span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="nf">seq_along</span><span class="p">(</span><span class="n">mtcars</span><span class="p">)){</span>
-  <span class="n">cars2[[i]]</span> <span class="o">&lt;-</span> <span class="nf">as.character</span><span class="p">(</span><span class="n">mtcars[[i]]</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="n">cars2</span>
-</code></pre></div><pre tabindex="0"><code>##                     cyl  mpg              mpg_dm
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars2</span> <span class="o">&lt;-</span> <span class="n">mtcars</span>
+</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="nf">seq_along</span><span class="p">(</span><span class="n">mtcars</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cars2[[i]]</span> <span class="o">&lt;-</span> <span class="nf">as.character</span><span class="p">(</span><span class="n">mtcars[[i]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">cars2</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg              mpg_dm
 ## Mazda RX4             6   21    1.25714285714286
 ## Mazda RX4 Wag         6   21    1.25714285714286
 ## Datsun 710            4 22.8   -3.86363636363636
@@ -376,51 +376,51 @@ Avoiding the need of the indexes is a great thing.</p>
 we do quite a lot there, and we need to turn it into a funtion to make it work in apply.</p>
 <p>The loop needs two things, the <code>mtcars</code> data set it is based on, and the <code>element</code> it is demeaning.
 This means we need to make a function with two arguments, one for each.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
-  
-<span class="p">}</span>
-</code></pre></div><p>When we create a function, the object name is the function&rsquo;s name, and we use the <code>function()</code> function to construct it.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>When we create a function, the object name is the function&rsquo;s name, and we use the <code>function()</code> function to construct it.
 The arguments of  <em>your</em> function, are added in the function call, and what your function will <em>do</em> with these two arguments, is specified in the following section within the curly braces.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
-  <span class="c1"># Number of cylinders for this cars</span>
-  <span class="n">cylinders</span> <span class="o">&lt;-</span> <span class="n">data</span><span class="o">$</span><span class="n">cyl[i]</span>
-  
-  <span class="c1"># subset data to only cars with that cylinder</span>
-  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
-  
-  <span class="c1"># mean of mpg for this cylinder type</span>
-  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
-  
-  <span class="nf">return</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">mpg[i]</span> <span class="o">-</span> <span class="n">mcyl</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div><p>In our code, which was previously a loop, we have changed two things:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Number of cylinders for this cars</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cylinders</span> <span class="o">&lt;-</span> <span class="n">data</span><span class="o">$</span><span class="n">cyl[i]</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># subset data to only cars with that cylinder</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># mean of mpg for this cylinder type</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nf">return</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">mpg[i]</span> <span class="o">-</span> <span class="n">mcyl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In our code, which was previously a loop, we have changed two things:</p>
 <ol>
 <li>we no longer refer to <code>mtcars</code> directly, but to <code>data</code>, which is the input data provided.</li>
 <li>in stead of assigning the output of the demeaned element into the data again, we return the demeaned value as the output of the function.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">demean</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## [1] 1.257143
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">demean</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## [1] -0.5428571
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">demean</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## [1] 2.2
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] 1.257143
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] -0.5428571
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] 2.2
 </code></pre><p>We can then apply this to all the elements in an apply.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">apply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Error in match.fun(FUN): argument &quot;FUN&quot; is missing, with no default
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">apply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Error in match.fun(FUN): argument &#34;FUN&#34; is missing, with no default
 </code></pre><p>We get an error!
 why?
 Because <code>apply()</code> expects an data.frame, and a <code>MARGIN</code> specification.
 We are providing a single vector (of indices), there is no margin to provide and its failing.</p>
 <p>We need to switch to another in the apply family to get it working.
 We have some choose from, but in this case, we have a single vector , we&rsquo;ll use <code>sapply</code> which in my head means &ldquo;simple apply&rdquo;.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Error in FUN(X[[i]], ...): argument &quot;data&quot; is missing, with no default
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Error in FUN(X[[i]], ...): argument &#34;data&#34; is missing, with no default
 </code></pre><p>Its still erroring. This time we have another error.
 The error comes from <em>our</em> function, it doesn&rsquo;t know which data to use!
 We&rsquo;ve given <code>sapply</code> the <code>i</code> argument, and its missing something for the <code>data</code> argument.</p>
 <p>In <code>sapply</code> the first argument in is the vector your are applying over, the second is the function you are applying, and <em>after that</em> you can provide any single <em>named</em> argument into the applying function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>##  [1]  1.25714286  1.25714286 -3.86363636  1.65714286  3.60000000 -1.64285714
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##  [1]  1.25714286  1.25714286 -3.86363636  1.65714286  3.60000000 -1.64285714
 ##  [7] -0.80000000 -2.26363636 -3.86363636 -0.54285714 -1.94285714  1.30000000
 ## [13]  2.20000000  0.10000000 -4.70000000 -4.70000000 -0.40000000  5.73636364
 ## [19]  3.73636364  7.23636364 -5.16363636  0.40000000  0.10000000 -1.80000000
@@ -428,9 +428,9 @@ We&rsquo;ve given <code>sapply</code> the <code>i</code> argument, and its missi
 ## [31] -0.10000000 -5.26363636
 </code></pre><p>It works!
 Since we are getting back a single vector as long as there are rows in mtcars, we can assign the vector straight into mtcars if we want.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">mtcars</span><span class="o">$</span><span class="n">dm</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
-<span class="n">mtcars</span>
-</code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm          dm
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span><span class="o">$</span><span class="n">dm</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mtcars</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm          dm
 ## Mazda RX4             6 21.0  1.25714286  1.25714286
 ## Mazda RX4 Wag         6 21.0  1.25714286  1.25714286
 ## Datsun 710            4 22.8 -3.86363636 -3.86363636
@@ -466,9 +466,9 @@ Since we are getting back a single vector as long as there are rows in mtcars, w
 </code></pre><p>And we can see its giving the exact same output as our loop.</p>
 <p>Now, lets say we want to do this on just a subsample of mtcars.
 We can give sapply the subset, and have it run it on that.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">cars</span> <span class="o">&lt;-</span> <span class="n">mtcars[1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">]</span>
-<span class="n">cars</span>
-</code></pre></div><pre tabindex="0"><code>##                     cyl  mpg     mpg_dm         dm
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars</span> <span class="o">&lt;-</span> <span class="n">mtcars[1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">cars</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg     mpg_dm         dm
 ## Mazda RX4             6 21.0  1.2571429  1.2571429
 ## Mazda RX4 Wag         6 21.0  1.2571429  1.2571429
 ## Datsun 710            4 22.8 -3.8636364 -3.8636364
@@ -489,9 +489,9 @@ We can give sapply the subset, and have it run it on that.</p>
 ## Fiat 128              4 32.4  5.7363636  5.7363636
 ## Honda Civic           4 30.4  3.7363636  3.7363636
 ## Toyota Corolla        4 33.9  7.2363636  7.2363636
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">cars</span><span class="o">$</span><span class="n">dm_sub</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">cars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">cars</span><span class="p">)</span>
-<span class="n">cars</span>
-</code></pre></div><pre tabindex="0"><code>##                     cyl  mpg     mpg_dm         dm    dm_sub
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars</span><span class="o">$</span><span class="n">dm_sub</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">cars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">cars</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">cars</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg     mpg_dm         dm    dm_sub
 ## Mazda RX4             6 21.0  1.2571429  1.2571429  1.250000
 ## Mazda RX4 Wag         6 21.0  1.2571429  1.2571429  1.250000
 ## Datsun 710            4 22.8 -3.8636364 -3.8636364 -4.983333
@@ -528,29 +528,29 @@ If what you are doing does not depend on a previous iteration, you technically d
 In this case, we need to know how many cylinders a specific car has, so we can get the mean of mpg for those cars with that many cylinders.
 So we use the index to get that.
 But if we inputed the cylinder as a argument to our function, we could deal with it differently.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cylinders</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
-  <span class="c1"># subset data to only cars with that cylinder</span>
-  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
-  
-  <span class="c1"># mean of mpg for this cylinder type</span>
-  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
-  
-  <span class="nf">return</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mcyl</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div><p>ok, I&rsquo;ve changed several things here.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cylinders</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># subset data to only cars with that cylinder</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># mean of mpg for this cylinder type</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nf">return</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mcyl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>ok, I&rsquo;ve changed several things here.
 Main input into our function is now <code>x</code> rather than <code>i</code>.
 The name does not really matter, but its more common to name an input element <code>x</code>, so we keep to that here.
 The difference being that <code>i</code> was the index of an element, while <code>x</code> is now the value it self.
 And we&rsquo;ve added the <code>cylinders</code> argument, so we can input how many cylinders the car has.
 We could then use it like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">demean</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">21</span><span class="p">,</span> <span class="n">cylinders</span> <span class="o">=</span> <span class="m">6</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## [1] 1.257143
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">demean</span><span class="p">(</span><span class="m">10.4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## [1] -16.26364
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">21</span><span class="p">,</span> <span class="n">cylinders</span> <span class="o">=</span> <span class="m">6</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] 1.257143
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">10.4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] -16.26364
 </code></pre><p>How can we use that in <code>sapply</code> then?
 Remember that any more arguments given to <code>sapply</code> have to be singular and named.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">sapply</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">21</span><span class="p">,</span> <span class="m">10.4</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">,</span> <span class="n">cylinders</span> <span class="o">=</span> <span class="m">6</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## [1]  1.257143 -9.342857
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">sapply</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">21</span><span class="p">,</span> <span class="m">10.4</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">,</span> <span class="n">cylinders</span> <span class="o">=</span> <span class="m">6</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## [1]  1.257143 -9.342857
 </code></pre><p>But doing it like this, we cannot account for different cylinders of different cars.
 We _have set it up so we could run it several times, each for each cylinder type, but that is not as elegant as I&rsquo;d like, and harder to get back into its original form.</p>
 <p>This means that <code>sapply</code> is not the function we are looking for.
@@ -558,13 +558,13 @@ What we want is <code>mapply</code>, which in my head stands for &ldquo;matrix a
 And I use this <em>a lot</em>!</p>
 <p><code>mapply</code> has a slightly different order of arguments, because of how it works.
 It first takes the function you can to apply, then all the vectors you want to apply over, and then you can add other named arguments.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">mapply</span><span class="p">(</span><span class="n">demean</span><span class="p">,</span>
-       <span class="n">x</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg</span><span class="p">,</span>
-       <span class="n">cylinders</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl</span><span class="p">,</span>
-       <span class="n">MoreArgs</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
-         <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span>
-       <span class="p">))</span>
-</code></pre></div><pre tabindex="0"><code>##  [1]  1.25714286  1.25714286 -3.86363636  1.65714286  3.60000000 -1.64285714
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">mapply</span><span class="p">(</span><span class="n">demean</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">x</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">cylinders</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">MoreArgs</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">         <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span>
+</span></span><span class="line"><span class="cl">       <span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##  [1]  1.25714286  1.25714286 -3.86363636  1.65714286  3.60000000 -1.64285714
 ##  [7] -0.80000000 -2.26363636 -3.86363636 -0.54285714 -1.94285714  1.30000000
 ## [13]  2.20000000  0.10000000 -4.70000000 -4.70000000 -0.40000000  5.73636364
 ## [19]  3.73636364  7.23636364 -5.16363636  0.40000000  0.10000000 -1.80000000
@@ -578,14 +578,14 @@ These have to be of equal length.
 The first <code>x</code> goes with the first <code>cylinders</code>, the second <code>x</code> with the second <code>cylinders</code> and so on.
 But we have a <em>single</em> data source.
 This is provided as a named list to the <code>MoreArgs</code> argument.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">mtcars</span><span class="o">$</span><span class="n">dm_m</span> <span class="o">&lt;-</span> <span class="nf">mapply</span><span class="p">(</span><span class="n">demean</span><span class="p">,</span>
-       <span class="n">x</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg</span><span class="p">,</span>
-       <span class="n">cylinders</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl</span><span class="p">,</span>
-       <span class="n">MoreArgs</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
-         <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span>
-       <span class="p">))</span>
-<span class="n">mtcars</span>
-</code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm          dm        dm_m
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span><span class="o">$</span><span class="n">dm_m</span> <span class="o">&lt;-</span> <span class="nf">mapply</span><span class="p">(</span><span class="n">demean</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">x</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">cylinders</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">MoreArgs</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">         <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span>
+</span></span><span class="line"><span class="cl">       <span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">mtcars</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm          dm        dm_m
 ## Mazda RX4             6 21.0  1.25714286  1.25714286  1.25714286
 ## Mazda RX4 Wag         6 21.0  1.25714286  1.25714286  1.25714286
 ## Datsun 710            4 22.8 -3.86363636 -3.86363636 -3.86363636
@@ -621,8 +621,8 @@ This is provided as a named list to the <code>MoreArgs</code> argument.</p>
 </code></pre><p>And now we can see we have the exact same output from all the different approaches, but the last one leaves somewhat less room for error in the long run.</p>
 <p>Of course, if you are tidyverseing, this is all void.
 There is a <em>much</em> neater way of doing it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
 ## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
@@ -630,10 +630,10 @@ There is a <em>much</em> neater way of doing it.</p>
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">mtcars</span> <span class="o">|&gt;</span> 
-  <span class="nf">group_by</span><span class="p">(</span><span class="n">cyl</span><span class="p">)</span> <span class="o">|&gt;</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">dm_t</span> <span class="o">=</span> <span class="n">mpg</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">mpg</span><span class="p">))</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 32 × 6
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span> <span class="o">|&gt;</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">cyl</span><span class="p">)</span> <span class="o">|&gt;</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">dm_t</span> <span class="o">=</span> <span class="n">mpg</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">mpg</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 32 × 6
 ## # Groups:   cyl [3]
 ##      cyl   mpg mpg_dm     dm   dm_m   dm_t
 ##    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -675,7 +675,7 @@ Next time I&rsquo;ll show a bit more about how I use apply to read in multiple f
             &emsp;title = { Let&#39;s Get Apply&#39;ing },<br>
             &emsp;url = { https://drmowinckels.io/blog/2022/lets-get-applying/ },<br>
             &emsp;year = { 2022 }<br>
-            &emsp;updated = { Nov 3, 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
             }
           </p>
         </div>
@@ -735,7 +735,7 @@ Next time I&rsquo;ll show a bit more about how I use apply to read in multiple f
         
 
 
-<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
 
 
 

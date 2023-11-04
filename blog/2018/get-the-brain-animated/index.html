@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         
             <meta charset="utf-8">
@@ -182,16 +182,16 @@ Get the Brain Animated! - Dr. Mowinckel&rsquo;s
     <p>I&rsquo;m super delighted that our ggseg package was so well received! We almost immediately got it on <a href="https://neuroconductor.org/">Neuroconductor</a>, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.</p>
 <p>In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package. I had not completely understood the use and the ellipsis (<code>...</code>) and as such had not used it correctly. Once I started understanding it, we could make the package working closer to what a standard ggplot package would work!</p>
 <p>The package vignettes are update on the new usage, which mainly affects how you may supply data for facetting. Just have a look at  <code>vignette(&quot;ggseg&quot;)</code> and <code>vignette(&quot;externalData&quot;)</code> for a more up-to-date understanding of how the data should look.</p>
-<p>And this post will use the technique necessary for facetting, just for making animations with the <a href="https://github.com/thomasp85/gganimate">gganimate</a> package instead. This package is so clever, and I am in complete awe of Thomas' brilliance in making it. Especially the new development version, which has altered the way to use the package that falls completely in-line with the rest of the ggplot-idea.</p>
+<p>And this post will use the technique necessary for facetting, just for making animations with the <a href="https://github.com/thomasp85/gganimate">gganimate</a> package instead. This package is so clever, and I am in complete awe of Thomas&rsquo; brilliance in making it. Especially the new development version, which has altered the way to use the package that falls completely in-line with the rest of the ggplot-idea.</p>
 <p>Let&rsquo;s fabricate some data to work with. I want to plot the Desikan-Killany atlas, with information for mean values of thickness across different ages. Since I&rsquo;m completely making all this data up, I&rsquo;ll just start with the <code>dk</code> data.frame that comes with the package, grabs its unique instances of region and hemisphere (which gives me every region in the dk atlas), and start making up some cortical thickness values per age.</p>
 <p>Grab the unique polygons</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">base_atlas</span> <span class="o">=</span> <span class="n">dk</span> <span class="o">%&gt;%</span> 
-  <span class="nf">select</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">distinct</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-  <span class="nf">na.omit</span><span class="p">()</span>
-
-<span class="n">base_atlas</span> <span class="o">%&gt;%</span> <span class="nf">head</span><span class="p">(</span><span class="m">5</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 5 x 2
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">base_atlas</span> <span class="o">=</span> <span class="n">dk</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">distinct</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">na.omit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">base_atlas</span> <span class="o">%&gt;%</span> <span class="nf">head</span><span class="p">(</span><span class="m">5</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 5 x 2
 ##   region                hemi 
 ##   &lt;chr&gt;                 &lt;chr&gt;
 ## 1 bankssts              left 
@@ -200,93 +200,93 @@ Get the Brain Animated! - Dr. Mowinckel&rsquo;s
 ## 4 inferior parietal     left 
 ## 5 inferior temporal     left
 </code></pre><p>Make up some cortical thickness values given an age</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">new_data</span> <span class="o">=</span> <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="m">7</span><span class="p">,</span>
-         <span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span>
-</code></pre></div><p>Lets plot it to have a looksie</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">new_data</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span>
-</code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">new_data</span> <span class="o">=</span> <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="m">7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span>
+</span></span></code></pre></div><p>Lets plot it to have a looksie</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">new_data</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt=""><!-- --></p>
 <p>ok, so that looks pretty decent. Notice that I&rsquo;ve included some extra aestetics to make it look nice. I&rsquo;ve added <code>colour</code> to provide definition between the cortical parcellations, and made sure the <code>size</code> of this line is thin.</p>
 <p>So, now I want to do the same thing, just for many different age groups.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Make a list of all the age groups</span>
-<span class="n">full_data</span> <span class="o">=</span> <span class="nf">sapply</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">list</span><span class="p">)</span>
-<span class="nf">names</span><span class="p">(</span><span class="n">full_data</span><span class="p">)</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
-
-<span class="c1"># apply through the list to fabricate data per age.</span>
-<span class="n">full_data</span> <span class="o">=</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> 
-       <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
-         <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
-         <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="n">x[1]</span><span class="p">,</span>
-                <span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">)))</span>
-
-<span class="c1"># Bind the data together.</span>
-<span class="n">full_data</span> <span class="o">=</span> <span class="n">full_data</span> <span class="o">%&gt;%</span> <span class="nf">bind_rows</span><span class="p">()</span>
-</code></pre></div><p>Now we should have a data frame with values for each region and hemisphere across the ages 5-40.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Make a list of all the age groups</span>
+</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">sapply</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">full_data</span><span class="p">)</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># apply through the list to fabricate data per age.</span>
+</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">       <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">         <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">         <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="n">x[1]</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Bind the data together.</span>
+</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="n">full_data</span> <span class="o">%&gt;%</span> <span class="nf">bind_rows</span><span class="p">()</span>
+</span></span></code></pre></div><p>Now we should have a data frame with values for each region and hemisphere across the ages 5-40.
 Let&rsquo;s have a look at how it looks when we facet it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">full_data</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
-</code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-5-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-5-1.png" alt=""><!-- --></p>
 <p>Hm, there is something a little off here. The medial wall is omitted from all facets, and is placed in it&rsquo;s own facet!
 This is expected behaviour as of the new <code>ggseg</code> version.</p>
 <p>If you want to facet, you&rsquo;ll need to make sure each facet includes information for <em>all regions</em>  even if these regions don&rsquo;t have any aestetics value (in this case a thickness value we are plotting as fill).</p>
 <p>To manage this, we need to go back a step when we made the data.frame, and merge our fabricated data with the entire <code>dk</code> atlas.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Make a list of all the age groups</span>
-<span class="n">full_data</span> <span class="o">=</span> <span class="nf">sapply</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">list</span><span class="p">)</span>
-<span class="nf">names</span><span class="p">(</span><span class="n">full_data</span><span class="p">)</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
-
-<span class="c1"># apply through the list to fabricate data per age, and add dk atlas</span>
-<span class="n">full_data</span> <span class="o">=</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> 
-       <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
-         <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
-         <span class="nf">mutate</span><span class="p">(</span><span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-         <span class="nf">full_join</span><span class="p">(</span><span class="n">dk</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-         <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="n">x[1]</span><span class="p">)</span>
-         <span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-## Joining, by = c(&quot;region&quot;, &quot;hemi&quot;)
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Bind the data together.</span>
-<span class="n">full_data</span> <span class="o">=</span> <span class="n">full_data</span> <span class="o">%&gt;%</span> <span class="nf">bind_rows</span><span class="p">()</span>
-</code></pre></div><p>You see how we&rsquo;ve been informed that the data have been joined by <code>hemi</code> and <code>region</code>, which is exactly what we want. Let&rsquo;s see what it looks like now.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">full_data</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
-</code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-7-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Make a list of all the age groups</span>
+</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">sapply</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">full_data</span><span class="p">)</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># apply through the list to fabricate data per age, and add dk atlas</span>
+</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">       <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">         <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">         <span class="nf">mutate</span><span class="p">(</span><span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">         <span class="nf">full_join</span><span class="p">(</span><span class="n">dk</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">         <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="n">x[1]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         <span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Bind the data together.</span>
+</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="n">full_data</span> <span class="o">%&gt;%</span> <span class="nf">bind_rows</span><span class="p">()</span>
+</span></span></code></pre></div><p>You see how we&rsquo;ve been informed that the data have been joined by <code>hemi</code> and <code>region</code>, which is exactly what we want. Let&rsquo;s see what it looks like now.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-7-1.png" alt=""><!-- --></p>
 <p>Even more crazy! But again, this is expected behaviour. You see, we have supplied an entire atlas of information to ggseg, which again tries to mege it with (in this case)  the dk atlas. That makes this odd behaviour.</p>
 <p>To plot this as we want, we need to tell <code>ggseg</code> that we are supplying a new <code>atlas</code> <strong>not</strong> new data.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="n">full_data</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
-</code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
-<p>Right-o! Now we&rsquo;re cookin'! Now that we&rsquo;ve established that our data is good for faceting, this means it is also good for animating.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="n">full_data</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
+<p>Right-o! Now we&rsquo;re cookin&rsquo;! Now that we&rsquo;ve established that our data is good for faceting, this means it is also good for animating.</p>
 <p>You&rsquo;ll need to install the gganimate package from github to get this working and also install the package <code>transformr</code> from the same author, as we are working with polygons.</p>
 <p>While I am still far from comfortable with gganimate (I struggle to control speed and types of transitions), it is pretty easy to get an animation going. Disclaimer here: this data is quite rich, so you&rsquo;ll need patienence for the animation to render.</p>
 <p>We use the same bare plot as before, but substitute the facet with a transition. The transition here you provide with the variable that contains the different transitions, and information about the transition length and state length, which I am more unsure of. At the end, we&rsquo;ll make sure the title of the plot corresponds with the age currently displaying, with some more <code>gganimate</code> magic.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">transformr</span><span class="p">)</span>
-
-<span class="n">t</span> <span class="o">=</span> <span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="n">full_data</span><span class="p">,</span> 
-          <span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> 
-          <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
-    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">)</span>
-    <span class="p">)</span> <span class="o">+</span>
-  <span class="nf">transition_states</span><span class="p">(</span><span class="n">Age</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">labs</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Age: {closest_state}&#34;</span><span class="p">)</span>
-
-<span class="c1"># This last part is just to control the output in this blog, which was rendering the gif too slow by default</span>
-<span class="nf">animate</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span> 
-</code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">transformr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">t</span> <span class="o">=</span> <span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="n">full_data</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">transition_states</span><span class="p">(</span><span class="n">Age</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Age: {closest_state}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># This last part is just to control the output in this blog, which was rendering the gif too slow by default</span>
+</span></span><span class="line"><span class="cl"><span class="nf">animate</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span> 
+</span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""></p>
 <p>and there you go! A pretty animation of the data! To understand the arguments to gganimate, I guess the best way to get a feel for it is to just play around with it. Now, I have to admit, that I am a little frustrated by the the gif is shown here on the blog, as in the RStudio viewer it looks awesome, with nice smooth transitions between states (here: Ages), but it is rendered here with very stacatto transitions.</p>
 <p>I&rsquo;m giving up a little fixing this issue for now, and hope I&rsquo;ll manage a better integration of gifs on the blog in the future.</p>
 <p>Happy plotting!</p>
@@ -313,7 +313,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
             &emsp;title = { Get the brain animated! },<br>
             &emsp;url = { https://drmowinckels.io/blog/2018/get-the-brain-animated/ },<br>
             &emsp;year = { 2018 }<br>
-            &emsp;updated = { Nov 3, 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
             }
           </p>
         </div>
@@ -373,7 +373,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
         
 
 
-<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
 
 
 

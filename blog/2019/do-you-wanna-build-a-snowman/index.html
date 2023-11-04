@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         
             <meta charset="utf-8">
@@ -192,8 +192,8 @@ This is a very convenient geom, because drawing circles is not arbitrary, and th
 That would mean a lot of code (at least for me), so {ggforce} is truly to the rescue here.
 <code>geom_circle</code> needs an x and y position of the <em>center</em> of the circle, and then the radius of that circle.
 Here we specify three circles, with different radii.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## ── Attaching packages ───────────────────────────────────────────────── tidyverse 1.3.0 ──
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ───────────────────────────────────────────────── tidyverse 1.3.0 ──
 </code></pre><pre tabindex="0"><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
 ## ✓ tidyr   1.0.3     ✓ stringr 1.4.0
@@ -201,50 +201,50 @@ Here we specify three circles, with different radii.</p>
 </code></pre><pre tabindex="0"><code>## ── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">ggforce</span><span class="p">)</span>
-
-<span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-  <span class="n">r</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">3</span>
-<span class="p">)</span>
-
-<span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span> 
-  <span class="nf">coord_fixed</span><span class="p">()</span>
-</code></pre></div><p><img src="index_files/figure-html/circles1-1.png" alt=""><!-- --></p>
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggforce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/circles1-1.png" alt=""><!-- --></p>
 <p>So we have three circles, and while this is pretty, it&rsquo;s not what we wanted.
 We need the circles stacked on top of eachother, not within eachother.
 An easy way to do this, is to calculate the y position of the circle middle using the radius information.
 We will square the radius in a mutate (remember, a <code>mutate</code> can add or alter columns in the dataset in a row-wise fashion).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-  <span class="n">r</span> <span class="o">=</span> <span class="m">3</span><span class="o">:</span><span class="m">1</span>
-<span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span>  <span class="n">r^2</span><span class="p">)</span>
-
-<span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span> 
-  <span class="nf">coord_fixed</span><span class="p">()</span>
-</code></pre></div><p><img src="index_files/figure-html/circles2-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="m">3</span><span class="o">:</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span>  <span class="n">r^2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/circles2-1.png" alt=""><!-- --></p>
 <p>Alright! Almost there.
 The body is up-side-down. Easy fix though, just multiply the y-axis with <code>-1</code> to flip it.
 This means we will be operating with negative numbers on the y-axis, but I don&rsquo;t really mind that.
 We save this plot to <code>p</code> so we can continue adding new layers of data as we build our snowman.
 This way we don&rsquo;t need to repeat the previous code all the time.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-  <span class="n">r</span> <span class="o">=</span> <span class="m">3</span><span class="o">:</span><span class="m">1</span>
-<span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span>  <span class="p">(</span><span class="n">r^2</span><span class="p">)</span> <span class="o">*</span><span class="m">-1</span><span class="p">)</span>
-
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">),</span>
-              <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;white&#34;</span><span class="p">,</span> 
-              <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;lightgrey&#34;</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">coord_fixed</span><span class="p">()</span>
-<span class="n">p</span>
-</code></pre></div><p><img src="index_files/figure-html/body-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="m">3</span><span class="o">:</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span>  <span class="p">(</span><span class="n">r^2</span><span class="p">)</span> <span class="o">*</span><span class="m">-1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">              <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;white&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">              <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;lightgrey&#34;</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/body-1.png" alt=""><!-- --></p>
 <p>Any snowman needs a face too.
 We&rsquo;re making a data frame (a tibble is a type of data frame), with x and y coordinates for eyes and nose, and also make a column specifying the colour for those elemens.
 We add them to our snowman by adding a <code>geom_point</code> to the plot, and use <code>shape = type</code> to make sure we get different shapes to the eyes and nose.
@@ -254,30 +254,30 @@ In this case <code>I(colour)</code> will make sure that ggplot uses the <strong>
 So we do not need to tweak that more later.</p>
 
 <h2 id="face" class="anchor-link"><a href="#face">Face</a></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">face</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-0.5</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">.75</span><span class="p">,</span> <span class="m">.75</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span><span class="o">*</span><span class="m">-1</span><span class="p">,</span>
-  <span class="n">type</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;eye&#34;</span><span class="p">,</span> <span class="s">&#34;eye&#34;</span><span class="p">,</span> <span class="s">&#34;nose&#34;</span><span class="p">),</span>
-  <span class="n">colour</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;black&#34;</span><span class="p">,</span><span class="s">&#34;black&#34;</span><span class="p">,</span> <span class="s">&#34;coral2&#34;</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">face</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-             <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> 
-                 <span class="n">shape</span> <span class="o">=</span> <span class="n">type</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">colour</span><span class="p">)))</span>
-<span class="n">p</span>
-</code></pre></div><p><img src="index_files/figure-html/face-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">face</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-0.5</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">.75</span><span class="p">,</span> <span class="m">.75</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span><span class="o">*</span><span class="m">-1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;eye&#34;</span><span class="p">,</span> <span class="s">&#34;eye&#34;</span><span class="p">,</span> <span class="s">&#34;nose&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">colour</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;black&#34;</span><span class="p">,</span><span class="s">&#34;black&#34;</span><span class="p">,</span> <span class="s">&#34;coral2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">face</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="n">type</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">colour</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/face-1.png" alt=""><!-- --></p>
 <p>What is a face without a mouth?
 The arc of a mouth again is not the easiest to make, but again {ggforce} comes to the rescue with <code>geom_arc</code>.
 I have to be honest, I don&rsquo;t really understand the mapping of the <code>start</code> and <code>end</code> points of the arc, but otherwise it is quite similar to <code>geom_circle</code>.
 In stead of plotting the <em>entire</em> circle, it plots parts of the circle, specified by the <code>start</code> and <code>end</code> arguments.
 We need to specify the x and y  coordinates for the middle of the arc, which we take from the first circle specification for the head of the snowman, and then I just did some random values for <code>start</code> and <code>end</code> untill the mouth was in the position I wanted.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-  <span class="nf">geom_arc</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">x</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-               <span class="n">y0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">y</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-               <span class="n">start</span> <span class="o">=</span> <span class="m">2.2</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="m">.6</span><span class="p">))</span>
-<span class="n">p</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_arc</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">x</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">               <span class="n">y0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">y</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">               <span class="n">start</span> <span class="o">=</span> <span class="m">2.2</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="m">.6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/mouth-1.png" alt=""><!-- --></p>
 <p>Next up in the body-department, are arms.
@@ -286,28 +286,28 @@ This was again mostly trial and error or finding coordinates I liked for the arm
 and I wanted arms and fingers a little uneven, so they would look like snowmen often do.
 Each arm consists of an arm and two fingers, and in addition to coordinates for the end points of each of these in a dataset, we also give pairs of two points the same name, so we can connect them using <code>geom_line</code>.
 In <code>geom_line</code> using the <code>group</code> argument informs the geom which points belong together and should be connected with a line, else it will try to connect them all!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">arms</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3.5</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.4</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span>
-        <span class="m">2</span><span class="p">,</span> <span class="m">3.6</span><span class="p">,</span> <span class="m">3.1</span><span class="p">,</span> <span class="m">3.5</span><span class="p">,</span> <span class="m">3.1</span><span class="p">,</span> <span class="m">3.3</span><span class="p">),</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3</span><span class="p">,</span> <span class="m">-3.7</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-3.5</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-2.8</span><span class="p">,</span>
-        <span class="m">-3.7</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-3.4</span><span class="p">,</span> <span class="m">-3.1</span><span class="p">,</span> <span class="m">-2.5</span><span class="p">),</span>
-  <span class="n">side</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span>
-    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left arm&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left finger1&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left finger2&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right arm&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right finger1&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right finger2&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
-  <span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">arms</span><span class="p">,</span> 
-            <span class="n">size</span> <span class="o">=</span> <span class="m">1.5</span><span class="p">,</span> <span class="n">lineend</span> <span class="o">=</span> <span class="s">&#34;round&#34;</span><span class="p">,</span>
-            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">side</span><span class="p">))</span>
-
-<span class="n">p</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">arms</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3.5</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.4</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="m">2</span><span class="p">,</span> <span class="m">3.6</span><span class="p">,</span> <span class="m">3.1</span><span class="p">,</span> <span class="m">3.5</span><span class="p">,</span> <span class="m">3.1</span><span class="p">,</span> <span class="m">3.3</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3</span><span class="p">,</span> <span class="m">-3.7</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-3.5</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-2.8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="m">-3.7</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-3.4</span><span class="p">,</span> <span class="m">-3.1</span><span class="p">,</span> <span class="m">-2.5</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">side</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left arm&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left finger1&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left finger2&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right arm&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right finger1&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right finger2&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">arms</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">size</span> <span class="o">=</span> <span class="m">1.5</span><span class="p">,</span> <span class="n">lineend</span> <span class="o">=</span> <span class="s">&#34;round&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">side</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/arms-1.png" alt=""><!-- --></p>
 <p>He looks like a happy snowman!</p>
@@ -316,44 +316,44 @@ In <code>geom_line</code> using the <code>group</code> argument informs the geom
 <p>Let&rsquo;s give him some accessories, it&rsquo;s all in the detailes.
 First up, some buttons.
 These are farily easy, we position all buttons at <code>x = 0</code> and then at <code>y = c(-3, -4, -5)</code> for nice even spacing.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-3</span><span class="o">:</span><span class="m">-5</span><span class="p">),</span> <span class="n">size</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
-<span class="n">p</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-3</span><span class="o">:</span><span class="m">-5</span><span class="p">),</span> <span class="n">size</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/buttons-1.png" alt=""><!-- --></p>
 <p>And what is a snowman without a hat?
 We give him a tophat, &lsquo;cause he&rsquo;s a gentleman (and tophats are not particularly hard to draw with a polygon).
 Since we&rsquo;re making a polygon, we need x and y position for each polygon corner(breakpoint), and add an id column so we can tell <code>geom_polygon</code> that all these points belong to a single polygon.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">tophat</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span> <span class="m">-0.9</span><span class="p">,</span> <span class="m">-0.3</span><span class="p">,</span> <span class="m">-0.4</span><span class="p">,</span> <span class="m">1.1</span><span class="p">,</span> <span class="m">0.8</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1.4</span><span class="p">),</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">.25</span><span class="p">,</span> <span class="m">.15</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">.75</span><span class="p">,</span> <span class="m">-0.04</span><span class="p">,</span> <span class="m">-.25</span><span class="p">,</span> <span class="m">-.5</span><span class="p">),</span>
-  <span class="n">id</span> <span class="o">=</span> <span class="m">1</span>
-<span class="p">)</span>
-
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span> 
-  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">tophat</span><span class="p">,</span> 
-               <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">id</span><span class="p">))</span>
-<span class="n">p</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">tophat</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span> <span class="m">-0.9</span><span class="p">,</span> <span class="m">-0.3</span><span class="p">,</span> <span class="m">-0.4</span><span class="p">,</span> <span class="m">1.1</span><span class="p">,</span> <span class="m">0.8</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1.4</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">.25</span><span class="p">,</span> <span class="m">.15</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">.75</span><span class="p">,</span> <span class="m">-0.04</span><span class="p">,</span> <span class="m">-.25</span><span class="p">,</span> <span class="m">-.5</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">id</span> <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">tophat</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">               <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">id</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/tophat-1.png" alt=""><!-- --></p>
 <p>He&rsquo;s looking quite fab, I must say.
 But it looks a little chilly, he needs a scarf, and we&rsquo;ll use lines for that.
 For simplicitiy.
 And then make it red.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">scarf</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-0.5</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.5</span><span class="p">),</span> 
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-2</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-2</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">scarf</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> 
-            <span class="n">lineend</span><span class="o">=</span><span class="s">&#34;round&#34;</span><span class="p">,</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;firebrick4&#34;</span><span class="p">,</span>
-            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">p</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">scarf</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-0.5</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.5</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-2</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">scarf</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">lineend</span><span class="o">=</span><span class="s">&#34;round&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;firebrick4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/scarf-1.png" alt=""><!-- --></p>
 
@@ -369,45 +369,45 @@ We&rsquo;re also going to specify the plot window in a <code>plot_window</code> 
 This we are going to use to create where the snow appears, and also later when we make a background.</p>
 <p>We&rsquo;re going to make a <code>snow</code> dataset, where we randomly draw using <code>sample()</code> locations on the x an y axis where snow will appear.
 Then we&rsquo;re going to use that data, and expand it so that we have a dataset that is time varying.
-So each snowflake is identified with the &lsquo;id&rsquo; column, and a new column &lsquo;time&rsquo; again is a random number indicating when the snowflake appears in the plot, and how it falls.</p>
+So each snowflake is identified with the &lsquo;id&rsquo; column, and a new column &rsquo;time&rsquo; again is a random number indicating when the snowflake appears in the plot, and how it falls.</p>
 <p>Since last year, Thomas Lin Pedersen (yeah, the {ggforce} guy, he also maintains <a href="https://gganimate.com/">gganimate</a>, and lots of cool other plot-related packages. Seriously, follow him, you&rsquo;ll not regret it <a href="https://twitter.com/thomasp85">@thomasp85</a>) did a rewrite of the {gganimate} package, and so also controlling the animation became lots easier, and follows rules more familiar from general ggplot functions.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">)</span>
-
-<span class="n">plot_window</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-5</span><span class="p">,</span> <span class="m">5</span><span class="p">),</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">-12</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">falling_snow</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="m">1</span><span class="p">){</span>
-  <span class="n">yy</span> <span class="o">&lt;-</span> <span class="nf">unlist</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-  
-  <span class="nf">tibble</span><span class="p">(</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">yy</span> <span class="o">-</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="m">.5</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="n">dist</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">),</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">100</span><span class="p">)</span>
-  <span class="p">)</span> <span class="o">%&gt;%</span> 
-    <span class="nf">mutate</span><span class="p">(</span>
-      <span class="n">time</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">.9</span><span class="p">,</span> <span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">),</span>
-      <span class="n">time</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="m">+.02</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">}</span>
-
-<span class="n">snow</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[1]</span><span class="p">,</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[2]</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">1000</span><span class="p">),</span> 
-             <span class="m">200</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[1]</span><span class="p">,</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[2]</span><span class="m">+2</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">1000</span><span class="p">),</span> 
-             <span class="m">200</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span>
-  <span class="n">id</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">200</span>
-<span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">group_by</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>  <span class="o">~</span> <span class="nf">falling_snow</span><span class="p">(</span><span class="n">.x</span><span class="o">$</span><span class="n">y</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">unnest</span><span class="p">(</span><span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="p">)</span> 
-
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span> 
-  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">),</span> 
-             <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5efff&#34;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-<span class="n">p</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plot_window</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-5</span><span class="p">,</span> <span class="m">5</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">-12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">falling_snow</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="m">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="n">yy</span> <span class="o">&lt;-</span> <span class="nf">unlist</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">yy</span> <span class="o">-</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="m">.5</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="n">dist</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">),</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">    <span class="nf">mutate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">time</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">.9</span><span class="p">,</span> <span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">time</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="m">+.02</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">snow</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[1]</span><span class="p">,</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[2]</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">1000</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">             <span class="m">200</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[1]</span><span class="p">,</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[2]</span><span class="m">+2</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">1000</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">             <span class="m">200</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">id</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">200</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>  <span class="o">~</span> <span class="nf">falling_snow</span><span class="p">(</span><span class="n">.x</span><span class="o">$</span><span class="n">y</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">unnest</span><span class="p">(</span><span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5efff&#34;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/snow-1.gif" alt=""><!-- --></p>
 <p>SNOW! Falling snow AND a snowman!
@@ -422,25 +422,25 @@ By providing <code>expand_grid</code> with all possible values for x and for y, 
 Then, we will group everything by x, and have a cumulative count of the occurance of each unique x value, using <code>row_number()</code> in a mutate.
 This will create a scalar numeric value, that increases as y increases, which is what a gradient is!
 By using this dataset in <code>geom_tile</code> and using the &lsquo;id&rsquo; column as the fill, we will get a heatplot, and then we alter the colour of the tiles so that we start with a soft dark blue, end end with a dark navy blue.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">background</span> <span class="o">&lt;-</span> <span class="nf">expand_grid</span><span class="p">(</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[1]</span><span class="p">,</span> 
-          <span class="n">plot_window</span><span class="o">$</span><span class="n">x[2]</span><span class="p">),</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[2]</span><span class="p">,</span> 
-          <span class="n">plot_window</span><span class="o">$</span><span class="n">y[1]</span><span class="p">,</span> 
-          <span class="n">length.out</span> <span class="o">=</span> <span class="m">50</span><span class="p">)</span>
-<span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">group_by</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span>
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="nf">row_number</span><span class="p">())</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ungroup</span><span class="p">()</span>
-
-<span class="n">p</span> <span class="o">+</span> 
-  <span class="nf">geom_tile</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">background</span><span class="p">,</span> 
-            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">id</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
-    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#463f94&#34;</span><span class="p">,</span> <span class="s">&#34;#2e2960&#34;</span><span class="p">)</span>
-  <span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">background</span> <span class="o">&lt;-</span> <span class="nf">expand_grid</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[1]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">plot_window</span><span class="o">$</span><span class="n">x[2]</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[2]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">plot_window</span><span class="o">$</span><span class="n">y[1]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">length.out</span> <span class="o">=</span> <span class="m">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="nf">row_number</span><span class="p">())</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ungroup</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_tile</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">background</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">id</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#463f94&#34;</span><span class="p">,</span> <span class="s">&#34;#2e2960&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/background-1.gif" alt=""><!-- -->
 But oh no! The tiles are masking the rest of the plot!
@@ -448,85 +448,85 @@ No worries, this was expected.
 Remember that ggplot layers are added in the sequence you provide them.
 Since the tiles are the last geom we add, it will be placed on top of the others.
 To fix this, we will remake the entire plot, and make sure things come in the other we want them to be, starting with the background.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># Initiate plot</span>
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
-  
-  <span class="c1"># gradient background</span>
-  <span class="nf">geom_tile</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">background</span><span class="p">,</span>
-            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-            <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
-    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#463f94&#34;</span><span class="p">,</span> <span class="s">&#34;#2e2960&#34;</span><span class="p">)</span>
-  <span class="p">)</span> <span class="o">+</span>
-  
-  <span class="c1"># Snowman body</span>
-  <span class="nf">geom_circle</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">snowman</span><span class="p">,</span>
-              <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">),</span>
-              <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;white&#34;</span><span class="p">,</span> 
-              <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;lightgrey&#34;</span><span class="p">)</span> <span class="o">+</span> 
-  
-  <span class="c1"># Snowman face</span>
-  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">face</span><span class="p">,</span> 
-             <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-             <span class="n">size</span><span class="o">=</span><span class="m">2</span><span class="p">,</span>
-             <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> 
-                 <span class="n">shape</span> <span class="o">=</span> <span class="n">type</span><span class="p">,</span> 
-                 <span class="n">colour</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">colour</span><span class="p">))</span>
-  <span class="p">)</span> <span class="o">+</span>
-  
-  <span class="c1"># Snowman mouth</span>
-  <span class="nf">geom_arc</span><span class="p">(</span>
-    <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">x</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-        <span class="n">y0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">y</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-        <span class="n">start</span> <span class="o">=</span> <span class="m">2.2</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="m">.6</span><span class="p">)</span>
-  <span class="p">)</span> <span class="o">+</span>
-  
-  <span class="c1"># Body buttons</span>
-  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-3</span><span class="o">:</span><span class="m">-5</span><span class="p">),</span> 
-             <span class="n">size</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span> <span class="o">+</span>
-  
-  <span class="c1"># Body arms</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">arms</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1.5</span><span class="p">,</span> 
-            <span class="n">lineend</span> <span class="o">=</span> <span class="s">&#34;round&#34;</span><span class="p">,</span>
-            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">side</span><span class="p">))</span> <span class="o">+</span>
-  
-  <span class="c1"># Tophat</span>
-  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">tophat</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;grey70&#34;</span><span class="p">,</span>
-               <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">id</span><span class="p">)</span>
-  <span class="p">)</span> <span class="o">+</span>
-  
-  <span class="c1"># Scarf</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">scarf</span><span class="p">,</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">lineend</span><span class="o">=</span><span class="s">&#34;round&#34;</span><span class="p">,</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;firebrick4&#34;</span><span class="p">,</span>
-            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-  
-  <span class="c1"># Snow</span>
-  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> 
-             <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">),</span> 
-             <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5efff&#34;</span><span class="p">,</span> 
-             <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
-  
-  <span class="c1"># Fix coordinates for aspect ration preservance</span>
-  <span class="nf">coord_fixed</span><span class="p">()</span> <span class="o">+</span>
-  
-  <span class="c1"># Remove theme stuff (grey background, axes etc)</span>
-  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span>
-  
-  <span class="c1"># Animate the snow</span>
-  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-
-<span class="n">p</span>
-</code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Initiate plot</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># gradient background</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_tile</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">background</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#463f94&#34;</span><span class="p">,</span> <span class="s">&#34;#2e2960&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Snowman body</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">snowman</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">              <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;white&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">              <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;lightgrey&#34;</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Snowman face</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">face</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">size</span><span class="o">=</span><span class="m">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="n">type</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                 <span class="n">colour</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">colour</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Snowman mouth</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_arc</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">x</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">y0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">y</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="m">2.2</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="m">.6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Body buttons</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-3</span><span class="o">:</span><span class="m">-5</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">size</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Body arms</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">arms</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1.5</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">lineend</span> <span class="o">=</span> <span class="s">&#34;round&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">side</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Tophat</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">tophat</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;grey70&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Scarf</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">scarf</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">size</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">lineend</span><span class="o">=</span><span class="s">&#34;round&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;firebrick4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Snow</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5efff&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Fix coordinates for aspect ration preservance</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Remove theme stuff (grey background, axes etc)</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Animate the snow</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" alt=""><!-- --></p>
 <p>Look at him! :) I&rsquo;m quite happy with this guy.
 Play around with it as you like, figure out what I did and how.
 Show me your snowmen too!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">p</span> <span class="o">+</span>
-  <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-8</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Merry Christmas!&#34;</span><span class="p">),</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;goldenrod&#34;</span><span class="p">,</span> <span class="n">vjust</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> 
-            <span class="n">angle</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> 
-            <span class="n">family</span><span class="o">=</span><span class="s">&#34;Times&#34;</span><span class="p">,</span> <span class="n">fontface</span> <span class="o">=</span> <span class="s">&#34;italic&#34;</span><span class="p">)</span>
-</code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-8</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Merry Christmas!&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;goldenrod&#34;</span><span class="p">,</span> <span class="n">vjust</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">angle</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">family</span><span class="o">=</span><span class="s">&#34;Times&#34;</span><span class="p">,</span> <span class="n">fontface</span> <span class="o">=</span> <span class="s">&#34;italic&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""><!-- --></p>
 
 
     
@@ -549,7 +549,7 @@ Show me your snowmen too!</p>
             &emsp;title = { Do you wanna build a snowman? },<br>
             &emsp;url = { https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/ },<br>
             &emsp;year = { 2019 }<br>
-            &emsp;updated = { Nov 3, 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
             }
           </p>
         </div>
@@ -609,7 +609,7 @@ Show me your snowmen too!</p>
         
 
 
-<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
 
 
 

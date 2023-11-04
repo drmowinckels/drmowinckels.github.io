@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         
             <meta charset="utf-8">
@@ -435,30 +435,30 @@ There are other packages that could cover some or all of the same functionality 
 <p>The point of the calendar was to do something fun, that others might find useful, and that would highlight and give credit to great packages.
 But I also did not have the possibility of spending lots of time researching other alternative options or the like, it was to be a light-weight and easy thing for me to do.</p>
 <p>So i wrote down my list in R:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">pks</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;usethis&#34;</span><span class="p">,</span> <span class="s">&#34;rio&#34;</span><span class="p">,</span> <span class="s">&#34;distill&#34;</span><span class="p">,</span> 
-         <span class="s">&#34;boom&#34;</span><span class="p">,</span> <span class="s">&#34;patchwork&#34;</span><span class="p">,</span> <span class="s">&#34;holepunch&#34;</span><span class="p">,</span>
-         <span class="s">&#34;learnr&#34;</span><span class="p">,</span> <span class="s">&#34;xaringan&#34;</span><span class="p">,</span> <span class="s">&#34;magick&#34;</span><span class="p">,</span>
-         <span class="s">&#34;nettskjemar&#34;</span><span class="p">,</span> <span class="s">&#34;pkgdown&#34;</span><span class="p">,</span> <span class="s">&#34;here&#34;</span><span class="p">,</span>
-         <span class="s">&#34;rticles&#34;</span><span class="p">,</span> <span class="s">&#34;vitae&#34;</span><span class="p">,</span> <span class="s">&#34;xaringanExtra&#34;</span><span class="p">,</span>
-         <span class="s">&#34;stringr&#34;</span><span class="p">,</span> <span class="s">&#34;forcats&#34;</span><span class="p">,</span> <span class="s">&#34;lubridate&#34;</span><span class="p">,</span> 
-         <span class="s">&#34;glue&#34;</span><span class="p">,</span> <span class="s">&#34;janitor&#34;</span><span class="p">,</span> <span class="s">&#34;pbmcapply&#34;</span><span class="p">,</span>
-         <span class="s">&#34;kableExtra&#34;</span><span class="p">,</span> <span class="s">&#34;papayar&#34;</span><span class="p">,</span> <span class="s">&#34;reactable&#34;</span><span class="p">)</span>
-</code></pre></div><p>Then I made a little function that would draw a random one every time I ran it, while omitting the ones I had drawn before</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">get_todays</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">completed</span><span class="p">,</span> <span class="n">pkgs</span><span class="p">){</span>
-  <span class="n">days</span> <span class="o">&lt;-</span> <span class="m">1</span><span class="o">:</span><span class="m">24</span>
-  <span class="n">days</span> <span class="o">&lt;-</span> <span class="n">days[</span><span class="o">!</span><span class="n">days</span> <span class="o">%in%</span> <span class="n">completed]</span>
-  <span class="n">k</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>  
-  <span class="nf">cat</span><span class="p">(</span><span class="n">pkgs[k]</span><span class="p">,</span> <span class="s">&#34;\n&#34;</span><span class="p">)</span>
-  <span class="n">k</span>
-<span class="p">}</span>
-</code></pre></div><p>Now I had an itty bitty function that would draw from my list by random each day, so I did not have to think about the order of things.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">pks</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;usethis&#34;</span><span class="p">,</span> <span class="s">&#34;rio&#34;</span><span class="p">,</span> <span class="s">&#34;distill&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">         <span class="s">&#34;boom&#34;</span><span class="p">,</span> <span class="s">&#34;patchwork&#34;</span><span class="p">,</span> <span class="s">&#34;holepunch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="s">&#34;learnr&#34;</span><span class="p">,</span> <span class="s">&#34;xaringan&#34;</span><span class="p">,</span> <span class="s">&#34;magick&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="s">&#34;nettskjemar&#34;</span><span class="p">,</span> <span class="s">&#34;pkgdown&#34;</span><span class="p">,</span> <span class="s">&#34;here&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="s">&#34;rticles&#34;</span><span class="p">,</span> <span class="s">&#34;vitae&#34;</span><span class="p">,</span> <span class="s">&#34;xaringanExtra&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="s">&#34;stringr&#34;</span><span class="p">,</span> <span class="s">&#34;forcats&#34;</span><span class="p">,</span> <span class="s">&#34;lubridate&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">         <span class="s">&#34;glue&#34;</span><span class="p">,</span> <span class="s">&#34;janitor&#34;</span><span class="p">,</span> <span class="s">&#34;pbmcapply&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="s">&#34;kableExtra&#34;</span><span class="p">,</span> <span class="s">&#34;papayar&#34;</span><span class="p">,</span> <span class="s">&#34;reactable&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>Then I made a little function that would draw a random one every time I ran it, while omitting the ones I had drawn before</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">get_todays</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">completed</span><span class="p">,</span> <span class="n">pkgs</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="n">days</span> <span class="o">&lt;-</span> <span class="m">1</span><span class="o">:</span><span class="m">24</span>
+</span></span><span class="line"><span class="cl">  <span class="n">days</span> <span class="o">&lt;-</span> <span class="n">days[</span><span class="o">!</span><span class="n">days</span> <span class="o">%in%</span> <span class="n">completed]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">k</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">  <span class="nf">cat</span><span class="p">(</span><span class="n">pkgs[k]</span><span class="p">,</span> <span class="s">&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">k</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now I had an itty bitty function that would draw from my list by random each day, so I did not have to think about the order of things.
 Every day I drew a new package, tweeted about it, and added it to the completed list.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">completed</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> 
-               <span class="m">10</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> 
-               <span class="m">17</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">7</span><span class="p">)</span>
-
-<span class="nf">get_todays</span><span class="p">(</span><span class="n">completed</span><span class="p">,</span> <span class="n">pks</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## xaringanExtra
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">completed</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">               <span class="m">10</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">               <span class="m">17</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">get_todays</span><span class="p">(</span><span class="n">completed</span><span class="p">,</span> <span class="n">pks</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## xaringanExtra
 </code></pre><pre tabindex="0"><code>## [1] 15
 </code></pre><p>Now, there is a slight problem with my function.
 I forgot to add a random seed, as pointed out by <a href="https://twitter.com/tobilottii">Tobias Busch</a></p>
@@ -489,7 +489,7 @@ I forgot to add a random seed, as pointed out by <a href="https://twitter.com/to
             &emsp;title = { R-Package Advent Calendar 2020 },<br>
             &emsp;url = { https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020/ },<br>
             &emsp;year = { 2020 }<br>
-            &emsp;updated = { Nov 3, 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
             }
           </p>
         </div>
@@ -549,7 +549,7 @@ I forgot to add a random seed, as pointed out by <a href="https://twitter.com/to
         
 
 
-<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
 
 
 

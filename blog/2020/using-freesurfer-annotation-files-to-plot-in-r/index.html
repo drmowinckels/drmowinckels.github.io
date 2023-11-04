@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         
             <meta charset="utf-8">
@@ -183,21 +183,21 @@ This is an atlas that consist of 36 segments, which are well-defined (<a href="h
 <p>Since the brain is full of sulci (grooves), we often inflate the brain surface so we can more clearly see the entire brain.
 This is what is shown  above.
 For those who have followed some of my posts, you might recognise this image to be similar to the default image from our <a href="https://lcbc-uio.github.io/ggseg/">ggseg</a> package.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">ggseg</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Loading required package: ggplot2
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> <span class="n">mapping</span> <span class="o">=</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">region</span><span class="p">),</span>
-      <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span> 
-      <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">scale_fill_brain</span><span class="p">(</span><span class="s">&#34;dk&#34;</span><span class="p">)</span>
-</code></pre></div><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggseg</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Loading required package: ggplot2
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> <span class="n">mapping</span> <span class="o">=</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">region</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_brain</span><span class="p">(</span><span class="s">&#34;dk&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
 <p>Similarly is our package <code>ggseg3d</code>, where you can render the proper 3d version using plotly.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">,</span> <span class="n">warn.conflicts</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">ggseg3d</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggseg3d</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk_3d</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">pan_camera</span><span class="p">(</span><span class="n">camera</span> <span class="o">=</span> <span class="s">&#34;right lateral&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">remove_axes</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">p</span>
-</code></pre></div><!--html_preserve--><iframe src="ggseg_1_widget.html" width="100%" height="500px"></iframe><!--/html_preserve-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">,</span> <span class="n">warn.conflicts</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggseg3d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggseg3d</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk_3d</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">pan_camera</span><span class="p">(</span><span class="n">camera</span> <span class="o">=</span> <span class="s">&#34;right lateral&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">remove_axes</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><!--html_preserve--><iframe src="ggseg_1_widget.html" width="100%" height="500px"></iframe><!--/html_preserve-->
 <p>That is some nerdy fun!</p>
 <p>But getting to the point of having this data was quite some road.
 And I&rsquo;d like to share that road with you now.
@@ -217,17 +217,17 @@ This makes me quite stoked!</p>
 <li>a vector of labels</li>
 <li>a data.frame of colours and region names</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># remotes::install_github(&#34;muschellij2/freesurfer&#34;)</span>
-<span class="n">annot_file</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/fsaverage5/label/lh.aparc.annot&#34;</span>
-<span class="n">dk_annot</span> <span class="o">&lt;-</span> <span class="n">freesurfer</span><span class="o">::</span><span class="nf">read_annotation</span><span class="p">(</span><span class="n">annot_file</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Reading from version 2 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># remotes::install_github(&#34;muschellij2/freesurfer&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">annot_file</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/fsaverage5/label/lh.aparc.annot&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">dk_annot</span> <span class="o">&lt;-</span> <span class="n">freesurfer</span><span class="o">::</span><span class="nf">read_annotation</span><span class="p">(</span><span class="n">annot_file</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Reading from version 2 
 ## colortable with 36 entries read (originally /autofs/space/amaebi_026/users/buckner_cortical_atlas/scripts/colortable_final.txt )
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">str</span><span class="p">(</span><span class="n">dk_annot</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## List of 3
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">str</span><span class="p">(</span><span class="n">dk_annot</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## List of 3
 ##  $ vertices  : int [1:10242] 0 1 2 3 4 5 6 7 8 9 ...
 ##  $ label     : int [1:10242] 14423100 9221140 10542100 8204875 14423100 1351760 9182740 11832480 1639705 3296035 ...
-##  $ colortable:'data.frame':	36 obs. of  6 variables:
-##   ..$ label: chr [1:36] &quot;unknown&quot; &quot;bankssts&quot; &quot;caudalanteriorcingulate&quot; &quot;caudalmiddlefrontal&quot; ...
+##  $ colortable:&#39;data.frame&#39;:	36 obs. of  6 variables:
+##   ..$ label: chr [1:36] &#34;unknown&#34; &#34;bankssts&#34; &#34;caudalanteriorcingulate&#34; &#34;caudalmiddlefrontal&#34; ...
 ##   ..$ R    : int [1:36] 25 25 125 100 120 220 220 180 220 180 ...
 ##   ..$ G    : int [1:36] 5 100 100 25 70 20 20 220 60 40 ...
 ##   ..$ B    : int [1:36] 25 40 160 0 50 100 10 140 220 120 ...
@@ -235,13 +235,13 @@ This makes me quite stoked!</p>
 ##   ..$ code : num [1:36] 1639705 2647065 10511485 6500 3294840 ...
 </code></pre><p>This data we will need to create brain segments per row in the data.frame returned.
 Since R is more happy with hexidecimal colour codes, we can go ahead and turn RGB to hex</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span> <span class="o">&lt;-</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span><span class="p">,</span>
-                     <span class="n">hex</span> <span class="o">=</span> <span class="n">grDevices</span><span class="o">::</span><span class="nf">rgb</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> 
-                                          <span class="n">maxColorValue</span> <span class="o">=</span> <span class="m">255</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="nf">as_tibble</span><span class="p">(</span><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span><span class="p">)</span> 
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 36 x 7
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span> <span class="o">&lt;-</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">hex</span> <span class="o">=</span> <span class="n">grDevices</span><span class="o">::</span><span class="nf">rgb</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                          <span class="n">maxColorValue</span> <span class="o">=</span> <span class="m">255</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">as_tibble</span><span class="p">(</span><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span><span class="p">)</span> 
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 36 x 7
 ##    label                       R     G     B     A     code hex    
 ##    &lt;chr&gt;                   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;  
 ##  1 unknown                    25     5    25     0  1639705 #190519
@@ -260,12 +260,12 @@ This is technically an <code>ascii</code> file.
 This is what we will use to combine all vertices into triangular meshes for 3d rendering.
 For this I made a function called <code>ggsegExtra::annot2dpv</code> for simplicity.
 What is does is map the labels from the annotation file, restructure the labels  so that we get a matrix with 5 columns.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># remotes::install_github(&#34;LCBC-UiO/ggsegExtra&#34;)</span>
-<span class="n">dpv</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">annot2dpv</span><span class="p">(</span><span class="n">annot_file</span><span class="p">,</span> <span class="s">&#34;annot.dpv&#34;</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Reading from version 2 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># remotes::install_github(&#34;LCBC-UiO/ggsegExtra&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">dpv</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">annot2dpv</span><span class="p">(</span><span class="n">annot_file</span><span class="p">,</span> <span class="s">&#34;annot.dpv&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Reading from version 2 
 ## colortable with 36 entries read (originally /autofs/space/amaebi_026/users/buckner_cortical_atlas/scripts/colortable_final.txt )
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">as_tibble</span><span class="p">(</span><span class="n">dpv</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 10,242 x 5
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">as_tibble</span><span class="p">(</span><span class="n">dpv</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 10,242 x 5
 ##       V1    V2    V3    V4    V5
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ##  1     0     0     0     0    25
@@ -288,17 +288,17 @@ The format tok me a while to understand, but it has two main parts:</p>
 <p>Now that we have mapping of vertices and faces, we also need a surface to project on to.
 In Freesurfer, we have quite some surfaces to choose from, but we will go with inflated for now, and use the left hemisphere (<code>lh</code>).
 This file we also need to convert into an ascii file, with the convenient <code>surf3asc()</code> function we made.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">surf_file</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/fsaverage5/surf/lh.inflated&#34;</span>
-<span class="n">surf</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">surf2asc</span><span class="p">(</span><span class="n">surf_file</span><span class="p">,</span> <span class="s">&#34;~/Desktop/surf.dpv&#34;</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## Saving ~/Desktop/surf.dpv
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">str</span><span class="p">(</span><span class="n">surf</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## List of 2
-##  $ vertices:'data.frame':	10242 obs. of  4 variables:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">surf_file</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/fsaverage5/surf/lh.inflated&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">surf</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">surf2asc</span><span class="p">(</span><span class="n">surf_file</span><span class="p">,</span> <span class="s">&#34;~/Desktop/surf.dpv&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Saving ~/Desktop/surf.dpv
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">str</span><span class="p">(</span><span class="n">surf</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## List of 2
+##  $ vertices:&#39;data.frame&#39;:	10242 obs. of  4 variables:
 ##   ..$ V1: num [1:10242] -5.84 16.43 30.06 5.29 -36.14 ...
 ##   ..$ V2: num [1:10242] 2.5 -64.2 16.6 92.2 24.7 ...
 ##   ..$ V3: num [1:10242] 57.65 54.94 43.2 13.27 -2.76 ...
 ##   ..$ V4: int [1:10242] 0 0 0 0 0 0 0 0 0 0 ...
-##  $ faces   :'data.frame':	10239 obs. of  4 variables:
+##  $ faces   :&#39;data.frame&#39;:	10239 obs. of  4 variables:
 ##   ..$ V1: num [1:10239] -5.19 -4.16 -3.1 -2.28 -1.44 ...
 ##   ..$ V2: num [1:10239] -12.2 -11.7 -11.1 -13.7 -16.3 ...
 ##   ..$ V3: num [1:10239] -60.7 -60.1 -59.4 -57.5 -55.6 ...
@@ -306,9 +306,9 @@ This file we also need to convert into an ascii file, with the convenient <code>
 </code></pre><p>This format we will turn into Stanford Polygon files (<code>.ply</code>) which are quite common for mesh data.
 You can read more about this format in Anderson Winklers <a href="https://brainder.org/tag/ply/">blogpost</a>.</p>
 <p>This is quite an easy transformation, as it&rsquo;s actually just chaging the text in the ascii  little, but a function always makes transformations easier!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">ply</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">asc2ply</span><span class="p">(</span><span class="s">&#34;~/Desktop/surf.dpv&#34;</span><span class="p">,</span><span class="s">&#34;~/Desktop/surf.ply&#34;</span><span class="p">)</span>
-<span class="nf">str</span><span class="p">(</span><span class="n">ply</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>##  chr [1:30731] &quot;ply&quot; &quot;format ascii 1.0&quot; &quot;element vertex 10242&quot; ...
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">ply</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">asc2ply</span><span class="p">(</span><span class="s">&#34;~/Desktop/surf.dpv&#34;</span><span class="p">,</span><span class="s">&#34;~/Desktop/surf.ply&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">str</span><span class="p">(</span><span class="n">ply</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>##  chr [1:30731] &#34;ply&#34; &#34;format ascii 1.0&#34; &#34;element vertex 10242&#34; ...
 </code></pre><p>The fun part is that, despite this being a file made completely of text and might seem very niche, Mac&rsquo;s Finder recognises this format as a 3d object and can preview it for you!
 Albeit in a strange angle, there it is!</p>
 <p><img src="ply_ss.png" alt="screenshot of ply file in Finder"></p>
@@ -327,20 +327,20 @@ It works only internally.</p>
 <p>Sorry about that! But it really is such a piece I think not alot of people will find it particularly interesting.</p>
 <p>Once all .ply files are generated, all of them are collected in R using a nested data.frame.</p>
 <p>Running the entire pipeline, selecting the subject <code>fsaverage5</code>, right hemisphere, on an inflasted surface, for the <code>aparc</code>(Desikan Killany) atlas.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">subj</span> <span class="o">&lt;-</span> <span class="s">&#34;fsaverage5&#34;</span>
-<span class="n">fs_subj_dir</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/&#34;</span>
-
-<span class="n">dk_atlas</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">aparc_2_mesh</span><span class="p">(</span><span class="n">subject</span> <span class="o">=</span> <span class="n">subj</span><span class="p">,</span>
-                                     <span class="n">hemisphere</span> <span class="o">=</span> <span class="s">&#34;rh&#34;</span><span class="p">,</span>
-                                     <span class="n">surface</span> <span class="o">=</span> <span class="s">&#34;inflated&#34;</span><span class="p">,</span>
-                                     <span class="n">annot</span> <span class="o">=</span> <span class="s">&#34;aparc&#34;</span><span class="p">,</span>
-                                     <span class="n">subjects_dir</span> <span class="o">=</span> <span class="n">fs_subj_dir</span><span class="p">,</span>
-                                     <span class="n">annot_dir</span> <span class="o">=</span> <span class="nf">file.path</span><span class="p">(</span><span class="n">fs_subj_dir</span><span class="p">,</span> <span class="n">subj</span><span class="p">,</span> <span class="s">&#34;label&#34;</span><span class="p">),</span>
-                                     <span class="n">output_dir</span> <span class="o">=</span> <span class="s">&#34;~/Desktop/&#34;</span><span class="p">,</span>
-                                     <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-                                     <span class="n">verbose</span> <span class="o">=</span> <span class="kc">FALSE</span> <span class="p">)</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">dk_atlas</span>
-</code></pre></div><pre tabindex="0"><code>## # A tibble: 36 x 9
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">subj</span> <span class="o">&lt;-</span> <span class="s">&#34;fsaverage5&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">fs_subj_dir</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dk_atlas</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">aparc_2_mesh</span><span class="p">(</span><span class="n">subject</span> <span class="o">=</span> <span class="n">subj</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">hemisphere</span> <span class="o">=</span> <span class="s">&#34;rh&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">surface</span> <span class="o">=</span> <span class="s">&#34;inflated&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">annot</span> <span class="o">=</span> <span class="s">&#34;aparc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">subjects_dir</span> <span class="o">=</span> <span class="n">fs_subj_dir</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">annot_dir</span> <span class="o">=</span> <span class="nf">file.path</span><span class="p">(</span><span class="n">fs_subj_dir</span><span class="p">,</span> <span class="n">subj</span><span class="p">,</span> <span class="s">&#34;label&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">output_dir</span> <span class="o">=</span> <span class="s">&#34;~/Desktop/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                     <span class="n">verbose</span> <span class="o">=</span> <span class="kc">FALSE</span> <span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dk_atlas</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 36 x 9
 ##    atlas surf   hemi  region       colour  mesh     label       roi   annot     
 ##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;list&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;     
 ##  1 dk_3d infla… left  &lt;NA&gt;         &lt;NA&gt;    &lt;named … lh_unknown  0001  unknown   
@@ -356,30 +356,30 @@ It works only internally.</p>
 ## # … with 26 more rows
 </code></pre><p>Within the <code>mesh</code> column, are both the vertices and faced needed to make the mesh for plotting.
 In a <em>very</em> simplified version, the <code>ggseg3d()</code> function just loops through each segment and adds it as a trace to plotly.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">p</span> <span class="o">=</span> <span class="n">plotly</span><span class="o">::</span><span class="nf">plot_ly</span><span class="p">()</span>
-<span class="nf">for </span><span class="p">(</span><span class="n">tt</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">dk_atlas</span><span class="p">))</span> <span class="p">{</span>
-  
-  <span class="n">p</span> <span class="o">=</span> <span class="n">plotly</span><span class="o">::</span><span class="nf">add_trace</span><span class="p">(</span><span class="n">p</span><span class="p">,</span>
-                        
-                        <span class="c1"># map vertices</span>
-                        <span class="n">x</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">x</span><span class="p">,</span> 
-                        <span class="n">y</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">y</span><span class="p">,</span> 
-                        <span class="n">z</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">z</span><span class="p">,</span> 
-                        
-                        <span class="c1"># map faces</span>
-                        <span class="n">i</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">i</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
-                        <span class="n">j</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">j</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
-                        <span class="n">k</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">k</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
-                        
-                        <span class="n">facecolor</span> <span class="o">=</span> <span class="nf">rep</span><span class="p">(</span><span class="n">dk_atlas</span><span class="o">$</span><span class="n">colour[tt]</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="p">)),</span> 
-                        <span class="n">type</span> <span class="o">=</span> <span class="s">&#34;mesh3d&#34;</span><span class="p">,</span> 
-                        <span class="n">showscale</span> <span class="o">=</span> <span class="kc">FALSE</span>
-                        <span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">p</span>
-</code></pre></div><!--html_preserve--><iframe src="ggseg_2_widget.html" width="100%" height="500px"></iframe><!--/html_preserve-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">plotly</span><span class="o">::</span><span class="nf">plot_ly</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nf">for </span><span class="p">(</span><span class="n">tt</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">dk_atlas</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">p</span> <span class="o">=</span> <span class="n">plotly</span><span class="o">::</span><span class="nf">add_trace</span><span class="p">(</span><span class="n">p</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        
+</span></span><span class="line"><span class="cl">                        <span class="c1"># map vertices</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">x</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">x</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        <span class="n">y</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">y</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        <span class="n">z</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">z</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        
+</span></span><span class="line"><span class="cl">                        <span class="c1"># map faces</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">i</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">i</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        <span class="n">j</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">j</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        <span class="n">k</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">k</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        
+</span></span><span class="line"><span class="cl">                        <span class="n">facecolor</span> <span class="o">=</span> <span class="nf">rep</span><span class="p">(</span><span class="n">dk_atlas</span><span class="o">$</span><span class="n">colour[tt]</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="p">)),</span> 
+</span></span><span class="line"><span class="cl">                        <span class="n">type</span> <span class="o">=</span> <span class="s">&#34;mesh3d&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        <span class="n">showscale</span> <span class="o">=</span> <span class="kc">FALSE</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span>
+</span></span></code></pre></div><!--html_preserve--><iframe src="ggseg_2_widget.html" width="100%" height="500px"></iframe><!--/html_preserve-->
 <p>This tok me well over a week to pan out. :)
-The translations of Andersons' scripts, the trying desperately to be able to map the faces to colour without splitting up into multiple <code>.ply</code>s.
+The translations of Andersons&rsquo; scripts, the trying desperately to be able to map the faces to colour without splitting up into multiple <code>.ply</code>s.
 I learned so much, and it was really a fun challenge!</p>
 <p>I hope the function to make the atlas is easy enough for you who need it, and that you will be able to create your own atlases compatible with ggseg3d!</p>
 
@@ -404,7 +404,7 @@ I learned so much, and it was really a fun challenge!</p>
             &emsp;title = { Using Freesurfer annotation files to plot in R },<br>
             &emsp;url = { https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/ },<br>
             &emsp;year = { 2020 }<br>
-            &emsp;updated = { Nov 3, 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
             }
           </p>
         </div>
@@ -464,7 +464,7 @@ I learned so much, and it was really a fun challenge!</p>
         
 
 
-<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
 
 
 

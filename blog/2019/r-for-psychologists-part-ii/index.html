@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         
             <meta charset="utf-8">
@@ -180,7 +180,7 @@ R for Psychologists Part Ii - Dr. Mowinckel&rsquo;s
 <div class="container markdown top-pad">
     <p>It&rsquo;s been a very long time since I wrote anything.
 Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on.
-I&rsquo;m sitting in old town Fredrikstad while my cat is getting some tests at the vets', so I finally get some time and want to write something here.
+I&rsquo;m sitting in old town Fredrikstad while my cat is getting some tests at the vets&rsquo;, so I finally get some time and want to write something here.
 And we will continue with some R for Psychologists.</p>
 <p>I my first <a href="https://drmowinckels.io/blog/2018-11-09-r-just-dive-into-it/">R for Psychologists</a> post we really dove into it.
 I very quickly covered getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model.
@@ -195,32 +195,32 @@ Just as in SPSS, data need to have the correct <code>types</code> or <code>class
 If you have not been working in R since the last tutorial, you should be able to open RStudio, and our project will open immediately, and your script from last time should already be ready for you to work with.
 Otherwise, either navigate to the folder where your project was made and click on the <code>Rproj</code>-file, or in the top right corner of RStudio, click the drop-down menu next to the R-project icon and select the <code>R-start</code> project.</p>
 <p>Our script from last time should look something like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="nf">library</span><span class="p">(</span><span class="n">rio</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-
-<span class="c1"># Start with importing the data</span>
-<span class="n">eData</span> <span class="o">=</span> <span class="n">rio</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&#34;SPSS/experim.sav&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="c1"># then recode sex to Male and Female</span>
-  <span class="nf">mutate</span><span class="p">(</span>
-    <span class="n">sex</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">sex</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;Male&#34;</span><span class="p">,</span><span class="s">&#34;Female&#34;</span><span class="p">)),</span>
-    <span class="n">id</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
-
-<span class="c1"># Gather depression variables into a tall depression data format.</span>
-<span class="n">eData_tall</span> <span class="o">=</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-  <span class="nf">gather</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">depress</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;depress1&#34;</span><span class="p">,</span> <span class="s">&#34;depress2&#34;</span><span class="p">,</span> <span class="s">&#34;depress3&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">as.integer</span><span class="p">(</span><span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:alpha:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">time</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">arrange</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
-
-<span class="c1"># Do a linear regression on depression over time</span>
-<span class="nf">lm</span><span class="p">(</span><span class="n">depress</span><span class="o">~</span><span class="n">time</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">eData_tall</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="n">broom</span><span class="o">::</span><span class="nf">tidy</span><span class="p">()</span>
-
-<span class="c1"># plot the regression</span>
-<span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">depress</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span> 
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;lm&#34;</span><span class="p">)</span>
-</code></pre></div><p>In this script we have already some both a plot (<code>ggplot</code>) and some data
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">rio</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Start with importing the data</span>
+</span></span><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">=</span> <span class="n">rio</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&#34;SPSS/experim.sav&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1"># then recode sex to Male and Female</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sex</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">sex</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;Male&#34;</span><span class="p">,</span><span class="s">&#34;Female&#34;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Gather depression variables into a tall depression data format.</span>
+</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">=</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">depress</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;depress1&#34;</span><span class="p">,</span> <span class="s">&#34;depress2&#34;</span><span class="p">,</span> <span class="s">&#34;depress3&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">as.integer</span><span class="p">(</span><span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:alpha:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">time</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">arrange</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Do a linear regression on depression over time</span>
+</span></span><span class="line"><span class="cl"><span class="nf">lm</span><span class="p">(</span><span class="n">depress</span><span class="o">~</span><span class="n">time</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">eData_tall</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">broom</span><span class="o">::</span><span class="nf">tidy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># plot the regression</span>
+</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">depress</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;lm&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>In this script we have already some both a plot (<code>ggplot</code>) and some data
 wrangling (<code>mutate</code>).</p>
 
 <h2 id="ggplotting" class="anchor-link"><a href="#ggplotting">Ggplotting</a></h2>
@@ -234,19 +234,19 @@ So much time spent fixing.</p>
 <p>But as I said last time, it takes time to get good enough in R to not need that step, and making the scripts also takes time.
 There are no quick-fix solutions, but I believe R makes the fixes faster, as they will be minor tweaks, or if new data comes in, just load the new data, and rerun, and presto all the plots are updated.</p>
 <p>Anyway, let&rsquo;s get into it. Lets have a look at the plot from last time, at the end of our script.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="c1"># plot the regression</span>
-<span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">depress</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span> 
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;lm&#34;</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># plot the regression</span>
+</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">depress</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;lm&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" alt=""><!-- --></p>
 <p>Alrighty, we have the individual data points for depression (y-axis) at each timepoint (x-axis) for all individuals as the scatter plot, and a regression-line fitted to that data.
-To reiterate what the code is doing: <em>&ldquo;Take <code>eData_tall</code>, plot with time on the x-axis, depress on the y-axis, create a scatter plot with a little bit of random noise, and add a regression line using a linear model.&quot;</em>
+To reiterate what the code is doing: <em>&ldquo;Take <code>eData_tall</code>, plot with time on the x-axis, depress on the y-axis, create a scatter plot with a little bit of random noise, and add a regression line using a linear model.&rdquo;</em>
 Let&rsquo;s break that down a little bit by looking at the data again.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">glimpse</span><span class="p">()</span>
-</code></pre></div><pre tabindex="0"><code>## Rows: 90
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">glimpse</span><span class="p">()</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Rows: 90
 ## Columns: 17
 ## $ id       &lt;fct&gt; 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, …
 ## $ sex      &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male, Male, …
@@ -275,8 +275,8 @@ When we have done this, we can make some really nice plots too!</p>
 
 <h2 id="reshape-the-data" class="anchor-link"><a href="#reshape-the-data">Reshape the data</a></h2>
 <p>We&rsquo;ll go back to the original <code>eData</code> file for this.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData</span> <span class="o">%&gt;%</span> <span class="nf">glimpse</span><span class="p">()</span>
-</code></pre></div><pre tabindex="0"><code>## Rows: 30
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">%&gt;%</span> <span class="nf">glimpse</span><span class="p">()</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Rows: 30
 ## Columns: 18
 ## $ id       &lt;fct&gt; 4, 10, 9, 3, 12, 11, 6, 5, 8, 13, 14, 1, 15, 7, 2, 27, 25, 1…
 ## $ sex      &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male, Male, …
@@ -299,9 +299,9 @@ When we have done this, we can make some really nice plots too!</p>
 </code></pre><p>Notice that in the dataset, all variables that are repeated have a number in their variable name, except <code>mah_1</code> which is not repeated, but we can work with that.
 This logic helps us a lot, as it will make it possible for us to wrangle the data into shape using that logic.</p>
 <p>As we did last time, we will use the <code>gather</code> function from <code>tidyverse</code> to make the data long, and use the logic of numbers in the column names to helps to get the data into shape.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData</span> <span class="o">%&gt;%</span> 
-  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><pre tabindex="0"><code>##     id    sex age group exam  colName      value
 ## 1    4   Male  23     2   52    fost1 50.0000000
@@ -696,14 +696,14 @@ This logic helps us a lot, as it will make it possible for us to wrangle the dat
 ## 390 30 Female  21     2   84 DepT3gp2  0.0000000
 </code></pre><p>As I usually do when I work, I start by running commands in my console, <em>without</em> saving the output (i.e. putting something to the left of an <code>=</code> sign of that command), so I can make sure the commands are doing what I expect.
 Let&rsquo;s face it, we&rsquo;ll never be computers, you will rarely write a command that does everything you want in one go.</p>
-<p>In this case I said <em>&ldquo;Take <code>eData</code>, gather all variables that matches with 1,2 or 3 in their variable name, and place all the variable names into a column named <code>colName</code> and the values of those columns into a variable called <code>value</code>&quot;</em></p>
+<p>In this case I said <em>&ldquo;Take <code>eData</code>, gather all variables that matches with 1,2 or 3 in their variable name, and place all the variable names into a column named <code>colName</code> and the values of those columns into a variable called <code>value</code>&rdquo;</em></p>
 <p>That was step one, now we want to make sure we have one column with the names of the columns <em>without</em> the numbers in one variable, and the numbers into a column named <code>time</code>.
 We are going to use <code>mutate</code> for that in this case.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData</span> <span class="o">%&gt;%</span> 
-  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
-         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">))</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><pre tabindex="0"><code>##     id    sex age group exam colName      value time
 ## 1    4   Male  23     2   52    fost 50.0000000    1
@@ -1099,68 +1099,68 @@ We are going to use <code>mutate</code> for that in this case.</p>
 </code></pre><p>We are mutating two variables.
 Firstly, we are extracting any numder from the <code>colName</code> variable and placing that into a new variable called <code>time</code> wuth <code>parse_number</code>, then we are removing all digits from <code>colName</code> and overwriting it using <code>gsub</code>.
 I like this output for now, so we are going to save it, since this data is more like the data I want, I&rsquo;m overwriting <code>eData_tall</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
-         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">))</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><p>Because the data are in such a long format now, such that even different types of observations are in one column (<code>value</code>), made distinct by the information in the <code>colName</code> variable, we can actually plot them all in one <code>ggplot</code> command!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
 <p>Look at that, suddenly we have a histogram for each of the variables!
-What we did there was <em>&ldquo;Take the data in <code>eData_tall</code> and plot <code>value</code> on the x-axis, make histograms of that, and create different facets (panels) using the information in <code>colName</code>&quot;</em>.
+What we did there was <em>&ldquo;Take the data in <code>eData_tall</code> and plot <code>value</code> on the x-axis, make histograms of that, and create different facets (panels) using the information in <code>colName</code>&rdquo;</em>.
 Now we also see that apparently there was a naming inconsistency with the <code>DepTgp</code> variables, where one was typed as <code>Gp</code> instead of <code>gp</code>.
 We will fix that before we continue.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
-         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">),</span>
-         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;Gp&#34;</span><span class="p">,</span> <span class="s">&#34;gp&#34;</span><span class="p">,</span> <span class="n">colName</span><span class="p">,</span> <span class="n">ignore.case</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span>
-</code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;Gp&#34;</span><span class="p">,</span> <span class="s">&#34;gp&#34;</span><span class="p">,</span> <span class="n">colName</span><span class="p">,</span> <span class="n">ignore.case</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><p>I&rsquo;ve added another line to our <code>mutate</code> function, saying to replace any instance of &ldquo;Gp&rdquo;, and &ldquo;gp&rdquo; and to make sure to do this as case sensitive.
 Let&rsquo;s see if our plot looks better now:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" alt=""><!-- --></p>
 <p>We can build more on that, because we also have the <code>time</code> variable, we can create a facet grid with histograms for each variable at each timepoint very easily</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
-  <span class="nf">facet_grid</span><span class="p">(</span><span class="n">colName</span><span class="o">~</span><span class="n">time</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_grid</span><span class="p">(</span><span class="n">colName</span><span class="o">~</span><span class="n">time</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-11-1.png" alt=""><!-- --></p>
 <p>I think that&rsquo;s pretty neat.
 We can do that because the data is in long format, and everything is contained in just some few columns, and ggplot can therefore make some nice plots out of, rather than having to tell it about the 5 different columns the data would otherwise be in (one for each variable).
 Distribution plots might not be the most interesting though, let&rsquo;s look at a plot more similar like the one we did before, scatter plot with a regression line.</p>
 <p>The basic&rsquo;s are pretty much the same as above:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-12-1.png" alt=""><!-- --></p>
 <p>That&rsquo;s looking much as expected!
 And we can see that <code>mah_</code> only has observations at <em>one</em> timepoint, so you would not be able to fit a regression line with that.
 It&rsquo;s no matter for us now.
 Since we are interested to have a look across time, we might as well omit <code>mah_</code> from the plot.
 We want the data to remain in the main data, but just not to plot it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="n">colName</span> <span class="o">!=</span> <span class="s">&#34;mah_&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="n">colName</span> <span class="o">!=</span> <span class="s">&#34;mah_&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-13-1.png" alt=""><!-- --></p>
 <p>Now, we added a <code>filter</code> before we did <code>ggplot</code>.
 Here we are going <em>&ldquo;Take <code>eData_tall</code> and filter away any rows where the value in <code>colName</code> is <code>mah_</code>, then make this ggplot&rdquo;.</em>
@@ -1169,13 +1169,13 @@ It only has values of 0 and 1, and here indicates belonging to a treatment group
 In R, we would call that variable a logical, i.e. it is a variable indicating if some statement is TRUE (1)  or FALSE (0).
 A standard regression makes no sense in this case.
 Let&rsquo;s also filter away these, as they are not interesting here, just like we did with <code>mah_</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-14-1.png" alt=""><!-- --></p>
 <p>The <code>filter</code> now looks a little different than before.
 Rather than a <code>!=</code> (not equal to), we are using <code>%in%</code> and negating that (<code>!</code>) in front of the statement.
@@ -1186,14 +1186,14 @@ In this case we are going <em>&ldquo;Take <code>eData_tall</code> and filter awa
 Let us also add some spaghetti in the background.
 By that I mean,let&rsquo;s connect the subject data points with lines, so we can see the individual trends in the background of the refression.
 This should also give us an idea whether there are datapoints that behave oddly over time.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-15-1.png" alt=""><!-- --></p>
 <p>That is looking very odd.
 The points and the lines are not connecting.
@@ -1201,68 +1201,68 @@ That is beause we are using <code>geom_jitter</code>, which generates a little r
 But this happens independently from <code>geom_line</code>, so the dots and lines dont know where they should connect.</p>
 <p>We can fix that,and I&rsquo;ll break the process down, hopefully to make it understandable.
 First, let&rsquo;s replace <code>geom_jitter</code> with <code>geom_point</code> and see what happens.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_point</span><span class="p">()</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-16-1.png" alt=""><!-- --></p>
 <p>The dots and lines are connecting, good.
 Overplotting in this case is actally not too bad, in many cases like this, I&rsquo;d leave it be.
 But, I mostly have data with many more points, and so I need to find a way to reduce overplotting.</p>
 <p>We will be using the <code>ggplot2</code>&rsquo;s function <code>position_dodge</code> to introduce noise to both the lines and the points.
 We will also need to make sure both the lines and the dots have the correct group setting, letting ggplot know that lines and dots are grouped by <code>id</code>, meaning that data with the same values in <code>id</code> belong together.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">.5</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">.5</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">.5</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">.5</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-17-1.png" alt=""><!-- --></p>
 <p>See, now there is a little more space between the points so you can see them all, but everything still connects correctly.
 The lines and points are a little too domineering , so let&rsquo;s reduve their opacity/transparency, byt reducing the àlpha` setting for those two geoms.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
-<span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-18-1.png" alt=""><!-- --></p>
 <p>When we adjust the <code>alpa</code>, we can also see that there still is some overplotting.
 This is because we cannot create noise in the y-axis, that would be akin to data-manipulation, we should not enter noise in the obsvered measurements.
 But the alpa helps us see that, and now the regression line is a little more obious too.</p>
 <p>The last thing for today, is changing the regression lines and CI band colour, to make it &ldquo;pop&rdquo; more.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
-<span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;forestgreen&#34;</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;forestgreen&#34;</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;forestgreen&#34;</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;forestgreen&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" alt=""><!-- --></p>
 <p>In this case, altering the colour is very easy, because we set the colour (line)  and fill (CI band)  to be a single value (not within aes).
 By setting the colour like this, all panels get the same.
 We could also use the <code>colName</code> variable to give each panel it&rsquo;s own colour.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
-<span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
-  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-              <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="n">colName</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">colName</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
-</code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula 'y ~ x'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="n">colName</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">colName</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+</span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
 <p>that is pretty neat, right?</p>
 <p>That&rsquo;s all for this time. We&rsquo;re explored more plots, and ways to change the data, so it becomes easy to plot in this faceted way.</p>
@@ -1289,7 +1289,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
             &emsp;title = { R for Psychologists - part II },<br>
             &emsp;url = { https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/ },<br>
             &emsp;year = { 2019 }<br>
-            &emsp;updated = { Nov 3, 2023 }<br>
+            &emsp;updated = { Nov 4, 2023 }<br>
             }
           </p>
         </div>
@@ -1349,7 +1349,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
         
 
 
-<script src="https://drmowinckels.io/js/bundle.f1741e9868b2f697e71cf8fccfcc12166540999b3d36f8fb9edd0882ba425d55.js" integrity="sha256-8XQemGiy9pfnHPj8z8wSFmVAmZs9Nvj7nt0IgrpCXVU=" crossorigin="anonymous">></script>
+<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
 
 
 

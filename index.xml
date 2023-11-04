@@ -5,7 +5,8 @@
     <link>https://drmowinckels.io/</link>
     <description>Recent content on Dr. Mowinckel&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 26 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://drmowinckels.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Fri, 03 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://drmowinckels.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>**Talks**: The ggseg-suite of R-packages</title>
       <link>https://drmowinckels.io/workshops/talks-ggseg-suite/</link>
@@ -25,7 +26,7 @@ The packages create the possibility of visualizing brain atlas data directly in 
       <description>This package is developed with co-worker Didac Vidal Pineiro, whose had the whole idea.
 This package is meant to use for visualizing brain segmentations, often referred to as brain atlases. Click the eye below to see a demonstration of the package.
 It is also ready to install using devtools in R, directly from github.
-Links:</description>
+Links: </description>
     </item>
     
     <item>
@@ -46,7 +47,7 @@ Recordings 01.05.2019 - Healthy minds from 0-100 years: Optimising the use of Eu
       
       <guid>https://drmowinckels.io/workshops/talks-rladies/</guid>
       <description>I&amp;rsquo;ve had R-Ladies talks both locally to the local Oslo chapter, the Norwegian Bergen chapter and also for R-Ladies London. I try reaching out to local R-Ladies chapters when I travel and offer a talk. It&amp;rsquo;s a great way to meet new people and get inspiration from other chapters!
-Talks 06.10.2020 - Bergen / Online - Workshop: Linear mixed models in R 11.05.2020 - Oslo - Reports to impress your boss  30.</description>
+Talks 06.10.2020 - Bergen / Online - Workshop: Linear mixed models in R 11.05.2020 - Oslo - Reports to impress your boss 30.</description>
     </item>
     
     <item>
@@ -90,7 +91,7 @@ It is also ready to install using devtools in R, directly from github.</descript
       <guid>https://drmowinckels.io/projects/ggsegextra/</guid>
       <description>This package is an addon-package to the ggseg-suite of packages. It contains functions to create your own atlases compatible with the ggseg-packages, and includes a curated list of repositories with ggseg compatible atlases.
 It is also ready to install using devtools in R, directly from github.
-Links:</description>
+Links: </description>
     </item>
     
     <item>
@@ -99,8 +100,18 @@ Links:</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/projects/nettskjemar/</guid>
-      <description>This package uses the nettskjema API developed by the University of Oslo IT, making it possible to communicate with the University of Oslo specialized survey platform &amp;lsquo;nettskjema&amp;rsquo;. Currently the package is geared towards downloading and creating data.frames in R from answers to surveys. This is an easy and convenient way for people to access data they have stored in the survey platform into R and ready for analyses.
+      <description>This package uses the nettskjema API developed by the University of Oslo IT, making it possible to communicate with the University of Oslo specialized survey platform &amp;rsquo;nettskjema&amp;rsquo;. Currently the package is geared towards downloading and creating data.frames in R from answers to surveys. This is an easy and convenient way for people to access data they have stored in the survey platform into R and ready for analyses.
 It is also ready to install using devtools in R, directly from github.</description>
+    </item>
+    
+    <item>
+      <title>Reorganising Hugo Content and Aliasing</title>
+      <link>https://drmowinckels.io/blog/2023/reorganising-hugo/</link>
+      <pubDate>Fri, 03 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://drmowinckels.io/blog/2023/reorganising-hugo/</guid>
+      <description>I&amp;rsquo;m working on a little website revamp, and on that occasion I have been thinking through some reorganisation of the file content of my website.
+I&amp;rsquo;m a stickler for good organisation of content, and I was feeling that my blog folder was turning unruly. While it was nice machine readable and sorting well etc, it was just not&amp;hellip; nice for a human in the long run. I needed something different, something to soothe my organisatory heart.</description>
     </item>
     
     <item>
@@ -139,8 +150,8 @@ So naturaly, when I started working in R, I was looping all over the place. Espe
       <pubDate>Fri, 17 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2021/12-17-rmarkdown-child-templates/</guid>
-      <description>title: &amp;ldquo;main document&amp;rdquo; output: pdf_document  output: pdf_document slug: &amp;ldquo;rmarkdown-child-templates&amp;rdquo; aliases:
- &amp;lsquo;/blog/2021-12-17-rmarkdown-child-templates&amp;rsquo;   I have recently been working on a set of analyses from a survey at work. This has been really fun, but also a little tedious. The survey has two basic type of questions, likert-scale questions and binary yes/no questions. For each of these two types of questions, I’ve needed to generate a set of descriptive plots and tables, as well as run a particular set of statistical models.</description>
+      <description>title: &amp;ldquo;main document&amp;rdquo; output: pdf_document output: pdf_document slug: &amp;ldquo;rmarkdown-child-templates&amp;rdquo; aliases:
+&amp;lsquo;/blog/2021-12-17-rmarkdown-child-templates&amp;rsquo; I have recently been working on a set of analyses from a survey at work. This has been really fun, but also a little tedious. The survey has two basic type of questions, likert-scale questions and binary yes/no questions. For each of these two types of questions, I’ve needed to generate a set of descriptive plots and tables, as well as run a particular set of statistical models.</description>
     </item>
     
     <item>
@@ -213,8 +224,8 @@ I&amp;rsquo;m no statistician, I&amp;rsquo;m no mathematician. So I&amp;rsquo;ll
       <guid>https://drmowinckels.io/blog/2020/05-25-changing-you-blogdown-workflow/</guid>
       <description>title: &amp;ldquo;{{ replace .TranslationBaseName &amp;ldquo;-&amp;rdquo; &amp;quot; &amp;quot; | title }}&amp;rdquo; author: Dr. Mowinckel date: {{ .Date }}
 draft: true output: html_document: keep_md: yes always_allow_html: true
-tags: [] image: index_files/  title: &amp;ldquo;R-package Projects&amp;rdquo; weight: 10 output: html_document: keep_md: yes slug: &amp;ldquo;changing-you-blogdown-workflow&amp;rdquo; aliases:
- &amp;lsquo;/blog/2020-05-25-changing-you-blogdown-workflow&amp;rsquo;   For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen.</description>
+tags: [] image: index_files/ title: &amp;ldquo;R-package Projects&amp;rdquo; weight: 10 output: html_document: keep_md: yes slug: &amp;ldquo;changing-you-blogdown-workflow&amp;rdquo; aliases:
+&amp;lsquo;/blog/2020-05-25-changing-you-blogdown-workflow&amp;rsquo; For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen.</description>
     </item>
     
     <item>
@@ -261,7 +272,7 @@ I guess it&amp;rsquo;s extra timely to do it now, as we recently split the mesh-
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/</guid>
-      <description>It&amp;rsquo;s been a very long time since I wrote anything. Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on. I&amp;rsquo;m sitting in old town Fredrikstad while my cat is getting some tests at the vets&#39;, so I finally get some time and want to write something here. And we will continue with some R for Psychologists.
+      <description>It&amp;rsquo;s been a very long time since I wrote anything. Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on. I&amp;rsquo;m sitting in old town Fredrikstad while my cat is getting some tests at the vets&amp;rsquo;, so I finally get some time and want to write something here. And we will continue with some R for Psychologists.
 I my first R for Psychologists post we really dove into it.</description>
     </item>
     
@@ -369,7 +380,7 @@ A co-worker was working on some generalized additive mixed models (GAMM) through
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/about/resume/am_mowinckel_cv/</guid>
-      <description>Education ## # A tibble: 3 × 5 ## what when with where why ## &amp;lt;chr&amp;gt; &amp;lt;glu&amp;gt; &amp;lt;glu&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;lis&amp;gt; ## 1 Thesis title: Neurocognitive Processes of Decision-ma… 2012… Phil… &amp;lt;NA&amp;gt; &amp;lt;chr&amp;gt; ## 2 Thesis title: Default Mode Resting-State Functional C… 2009… Mast… &amp;lt;NA&amp;gt; &amp;lt;chr&amp;gt; ## 3 Thesis title: Attention Deficits in Mild Cognitive Im… 2006… Bach… &amp;lt;NA&amp;gt; &amp;lt;chr&amp;gt;  Research positions ## # A tibble: 3 × 5 ## what when with where why ## &amp;lt;chr&amp;gt; &amp;lt;glue&amp;gt; &amp;lt;glue&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;lis&amp;gt; ## 1 Staff scientist 2018 - present University o… Oslo &amp;lt;chr&amp;gt; ## 2 Researcher / Project Manager 2016 - 2017 University o… Oslo &amp;lt;chr&amp;gt; ## 3 Research assistant and lab-technician 2011 - 2012 University o… Oslo &amp;lt;chr&amp;gt;  Memberships &amp;amp; Services \footnotesize I am passionate about increasing the representation and retention of women in science, and in improving the formal training and competencies taught at the University.</description>
+      <description>Education ## # A tibble: 3 × 5 ## what when with where why ## &amp;lt;chr&amp;gt; &amp;lt;glu&amp;gt; &amp;lt;glu&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;lis&amp;gt; ## 1 Thesis title: Neurocognitive Processes of Decision-ma… 2012… Phil… &amp;lt;NA&amp;gt; &amp;lt;chr&amp;gt; ## 2 Thesis title: Default Mode Resting-State Functional C… 2009… Mast… &amp;lt;NA&amp;gt; &amp;lt;chr&amp;gt; ## 3 Thesis title: Attention Deficits in Mild Cognitive Im… 2006… Bach… &amp;lt;NA&amp;gt; &amp;lt;chr&amp;gt; Research positions ## # A tibble: 3 × 5 ## what when with where why ## &amp;lt;chr&amp;gt; &amp;lt;glue&amp;gt; &amp;lt;glue&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;lis&amp;gt; ## 1 Staff scientist 2018 - present University o… Oslo &amp;lt;chr&amp;gt; ## 2 Researcher / Project Manager 2016 - 2017 University o… Oslo &amp;lt;chr&amp;gt; ## 3 Research assistant and lab-technician 2011 - 2012 University o… Oslo &amp;lt;chr&amp;gt; Memberships &amp;amp; Services \footnotesize I am passionate about increasing the representation and retention of women in science, and in improving the formal training and competencies taught at the University.</description>
     </item>
     
   </channel>
