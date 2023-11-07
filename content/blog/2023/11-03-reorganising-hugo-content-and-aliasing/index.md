@@ -273,7 +273,7 @@ echo "  - '/"$(dirname $file | cut -d'/' -f 2-6)"'" >> "$dest_subdir/tmp2"
 ```
 
 A couple of things to notice!
-First, notice two `echo`s, because we want sepaerate lines.
+First, notice two `echo`s, because we want separate lines.
 and second, we are using `>>` rather than just `>`.
 In bash that means "append to file", rather than "write to file".
 The difference being that append adds lines at the bottom of the file, and write means "overwrite", deleting the old content.
