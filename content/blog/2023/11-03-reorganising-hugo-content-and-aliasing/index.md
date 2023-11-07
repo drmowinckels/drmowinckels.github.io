@@ -288,7 +288,7 @@ echo '---' >> "$dest_subdir/tmp2"
 Our front matter is done!
 But... we need to get the rest of the content in!
 
-In comes another piece of sed magic. Just like we could only grasb the front matter before, we can now grab everything that is **not** the front matter!
+In comes another piece of sed magic. Just like we could only grab the front matter before, we can now grab everything that is **not** the front matter!
 
 ``` sh
 # add content
