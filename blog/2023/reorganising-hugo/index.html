@@ -346,7 +346,7 @@ I prefer the latter, its much neater in my opinion.</p>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;aliases:&#39;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;  - &#39;/&#34;</span><span class="k">$(</span>dirname <span class="nv">$file</span> <span class="p">|</span> cut -d<span class="s1">&#39;/&#39;</span> -f 2-6<span class="k">)</span><span class="s2">&#34;&#39;&#34;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
 </span></span></code></pre></div><p>A couple of things to notice!
-First, notice two <code>echo</code>s, because we want sepaerate lines.
+First, notice two <code>echo</code>s, because we want separate lines.
 and second, we are using <code>&gt;&gt;</code> rather than just <code>&gt;</code>.
 In bash that means &ldquo;append to file&rdquo;, rather than &ldquo;write to file&rdquo;.
 The difference being that append adds lines at the bottom of the file, and write means &ldquo;overwrite&rdquo;, deleting the old content.</p>
@@ -355,7 +355,7 @@ The difference being that append adds lines at the bottom of the file, and write
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;---&#39;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
 </span></span></code></pre></div><p>Our front matter is done!
 But&hellip; we need to get the rest of the content in!</p>
-<p>In comes another piece of sed magic. Just like we could only grasb the front matter before, we can now grab everything that is <strong>not</strong> the front matter!</p>
+<p>In comes another piece of sed magic. Just like we could only grab the front matter before, we can now grab everything that is <strong>not</strong> the front matter!</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># add content</span>
 </span></span><span class="line"><span class="cl">sed -n <span class="s1">&#39;/^---$/,/^---$/!p&#39;</span> <span class="s2">&#34;</span><span class="nv">$file_new</span><span class="s2">&#34;</span> &gt;&gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp2&#34;</span>
 </span></span></code></pre></div><p>and we append that straight to the temporary file that has the new front matter :)</p>
@@ -461,7 +461,7 @@ For one, this will <em>not</em> work for a multilingual site, it would need quit
             &emsp;title = { Reorganising Hugo Content and Aliasing },<br>
             &emsp;url = { https://drmowinckels.io/blog/2023/reorganising-hugo/ },<br>
             &emsp;year = { 2023 }<br>
-            &emsp;updated = { Nov 4, 2023 }<br>
+            &emsp;updated = { Nov 7, 2023 }<br>
             }
           </p>
         </div>
