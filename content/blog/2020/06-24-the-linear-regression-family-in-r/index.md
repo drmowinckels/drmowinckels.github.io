@@ -613,7 +613,7 @@ In this case, we see that both models agree that there is no difference.
 The approaches are mathematically solved slightly differently, but should produce the same conclusions in most instances (particularly when there are only two factor levels).
 Particularly notice how the `formula` are actually the same! 
 
-**Edit June 26th 2020**: it was pointed out to me by my esteemed colleague, Prof. Westerhausen, that actually the F-statistic for the `lm` model acutally is the same as the squared t-statistic in the `aov` test! And because it's squared, it also has to be positive.
+**Edit June 26th 2020**: it was pointed out to me by my esteemed colleague, Prof. Westerhausen, that actually the F-statistic for the `lm` model actually is the same as the squared t-statistic in the `aov` test! And because it's squared, it also has to be positive.
 
 
 ```r

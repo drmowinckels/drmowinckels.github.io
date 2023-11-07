@@ -59,7 +59,7 @@ cone %>%
 ![](index_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
 ## Add some fancy stuff
-This as acutally meant to alter the cone and get the distinct Christmas tree shape, but I couldn't manage the little "dips" at each branch, the wrong points kept connecting. 
+This as actually meant to alter the cone and get the distinct Christmas tree shape, but I couldn't manage the little "dips" at each branch, the wrong points kept connecting. 
 So it enved up with this more abstract, contemporary thing, which I actually really like!
 
 ```r

@@ -93,7 +93,7 @@ Neat, the console output tells us that male is coded as `1` and female is coded 
 mutate(eData, sex = factor(sex, labels=c("Male","Female")))
 ```
 
-Now, notice that I did not acutally put anything to the left of that command. I have not saved the change I made. I usually never save such a change, untill I have tested it, and seen it does what I wanted. In this case, I can see it did, so I'll overwrite the old `eData` with the new.
+Now, notice that I did not actually put anything to the left of that command. I have not saved the change I made. I usually never save such a change, untill I have tested it, and seen it does what I wanted. In this case, I can see it did, so I'll overwrite the old `eData` with the new.
 
 ```{r}
 eData = mutate(eData, sex = factor(sex, labels=c("Male","Female")))
