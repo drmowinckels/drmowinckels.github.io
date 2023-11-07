@@ -643,7 +643,7 @@ In this case, we see that both models agree that there is no difference.</p>
 <p><code>aov</code> does not return an estimate for the beta(s), and the F-value (statistic) is higher than from the linear model.
 The approaches are mathematically solved slightly differently, but should produce the same conclusions in most instances (particularly when there are only two factor levels).
 Particularly notice how the <code>formula</code> are actually the same!</p>
-<p><strong>Edit June 26th 2020</strong>: it was pointed out to me by my esteemed colleague, Prof. Westerhausen, that actually the F-statistic for the <code>lm</code> model acutally is the same as the squared t-statistic in the <code>aov</code> test! And because it&rsquo;s squared, it also has to be positive.</p>
+<p><strong>Edit June 26th 2020</strong>: it was pointed out to me by my esteemed colleague, Prof. Westerhausen, that actually the F-statistic for the <code>lm</code> model actually is the same as the squared t-statistic in the <code>aov</code> test! And because it&rsquo;s squared, it also has to be positive.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># take the square root of the anova stat</span>
 </span></span><span class="line"><span class="cl"><span class="nf">sqrt</span><span class="p">(</span><span class="n">model_4_anova_tidy</span><span class="o">$</span><span class="n">statistic[1]</span><span class="p">)</span>
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 0.3130984
@@ -1070,7 +1070,7 @@ Looking at the values for each level might give insight into something wrong hav
 
 <div class="container giscus my-4">
     <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels
+        data-repo=DrMowinckels/DrMowinckels.github.io
         data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
         data-category=Comments
         data-category-id=DIC_kwDOB1wEpM4CAG0c

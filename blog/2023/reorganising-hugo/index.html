@@ -324,7 +324,7 @@ First, we will extract the front matter.</p>
 </span></span></code></pre></div><p>Look at that!
 <code>sed</code> is very powerful, and it can do so many things.
 Don&rsquo;t think I knew about this amazing capability, I&rsquo;ve only ever used it for string replacement before, this was with a little bit of help from copilot.
-I need to save that temporarily, so I can acutally work with it, so we put it in a temporary file, by redirecting the console output to a file using <code>&gt;</code>.</p>
+I need to save that temporarily, so I can actually work with it, so we put it in a temporary file, by redirecting the console output to a file using <code>&gt;</code>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Save the existing front matter to a temporary file</span>
 </span></span><span class="line"><span class="cl">sed -n <span class="s1">&#39;/^---$/,/^---$/p&#39;</span> <span class="s2">&#34;</span><span class="nv">$file_new</span><span class="s2">&#34;</span>  &gt; <span class="s2">&#34;</span><span class="nv">$dest_subdir</span><span class="s2">/tmp&#34;</span>
 </span></span></code></pre></div><p>Next, if I want to <em>add</em> parameters to the front matter, I&rsquo;ll need to remove the last <code>---</code> to do so.
@@ -474,7 +474,7 @@ For one, this will <em>not</em> work for a multilingual site, it would need quit
 
 <div class="container giscus my-4">
     <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels
+        data-repo=DrMowinckels/DrMowinckels.github.io
         data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
         data-category=Comments
         data-category-id=DIC_kwDOB1wEpM4CAG0c
