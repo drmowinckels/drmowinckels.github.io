@@ -309,6 +309,7 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 <!--html_preserve--><blockquote class="twitter-tweet"><p lang="en" dir="ltr">my inability to plot partial predictions of <a href="https://twitter.com/hashtag/gamm?src=hash&amp;ref_src=twsrc%5Etfw">#gamm</a> models in <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/ggplot?src=hash&amp;ref_src=twsrc%5Etfw">#ggplot</a> after 2 days of googling, stackoverflow and constant coding is infuriatingly frustrating! I&#39;m not used to not grasping plotting!</p>&mdash; Athanasia Mo Mowinckel @Drmowinckels@fosstodon.org (@DrMowinckels) <a href="https://twitter.com/DrMowinckels/status/968428248026832896?ref_src=twsrc%5Etfw">February 27, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+
 <!--/html_preserve-->
 <p>And to the rescue comes twitter, a useR pointed me to <a href="https://cran.r-project.org/web/packages/itsadug/index.html">itsadug</a>. The obscure package I just could not manage to find through all my googling. <code>itsadug</code> has a predict function, where you can specify which predictor you want to predict on.</p>
 <p>If you give it the min, max and length of what you want to predict, it then generates data with all other predictors set to constants, for your convenient plotting. It was like magic, exactly what i was searching for. Now, I could plot what I wanted, just like I wanted it!</p>
