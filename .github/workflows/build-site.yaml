@@ -93,7 +93,7 @@ jobs:
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
             hugo -e production
           else
-            hugo -b https://${{ github.sha }}--drmowinckels.netlify.app/
+            hugo -b https://${{ github.head_ref }}--drmowinckels.netlify.app/
           fi
 
       - name: Deploy production 🚀
@@ -110,7 +110,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
             npm install netlify-cli -g
-            netlify deploy --alias ${{ github.sha }}
+            netlify deploy --alias ${{ github.head_ref }}
         shell: sh
 
 #
