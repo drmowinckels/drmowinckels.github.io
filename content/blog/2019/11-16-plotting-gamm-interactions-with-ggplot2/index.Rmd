@@ -184,7 +184,7 @@ plot(model2)
 
 Now, we get quite a lot of plots! 
 One per smooth we have.
-But again, not pretty, and acutally very hard to descipher. 
+But again, not pretty, and actually very hard to descipher. 
 To make them nicer, we need again to make some new data to predict on, and this time add another level of complexity, namely the `by` variable.
 The complexity lies in that the `by` variable needs to have _each_ level represented in the data, with the range of the carat for _each_ of them, giving us long data with the carat range being duplicated for as many as the levels in `by`. 
 For this I like using `expand_grid`. 

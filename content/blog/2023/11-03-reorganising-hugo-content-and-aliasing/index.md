@@ -233,7 +233,7 @@ image: speak.jpeg
 Look at that!
 `sed` is very powerful, and it can do so many things.
 Don't think I knew about this amazing capability, I've only ever used it for string replacement before, this was with a little bit of help from copilot.
-I need to save that temporarily, so I can acutally work with it, so we put it in a temporary file, by redirecting the console output to a file using `>`.
+I need to save that temporarily, so I can actually work with it, so we put it in a temporary file, by redirecting the console output to a file using `>`.
 
 ``` sh
 # Save the existing front matter to a temporary file
@@ -273,7 +273,7 @@ echo "  - '/"$(dirname $file | cut -d'/' -f 2-6)"'" >> "$dest_subdir/tmp2"
 ```
 
 A couple of things to notice!
-First, notice two `echo`s, because we want sepaerate lines.
+First, notice two `echo`s, because we want separate lines.
 and second, we are using `>>` rather than just `>`.
 In bash that means "append to file", rather than "write to file".
 The difference being that append adds lines at the bottom of the file, and write means "overwrite", deleting the old content.
@@ -288,7 +288,7 @@ echo '---' >> "$dest_subdir/tmp2"
 Our front matter is done!
 But... we need to get the rest of the content in!
 
-In comes another piece of sed magic. Just like we could only grasb the front matter before, we can now grab everything that is **not** the front matter!
+In comes another piece of sed magic. Just like we could only grab the front matter before, we can now grab everything that is **not** the front matter!
 
 ``` sh
 # add content

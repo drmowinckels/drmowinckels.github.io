@@ -215,7 +215,7 @@ mutate(eData, sex = factor(sex, labels=c("Male","Female")))
 ## 30      32       32   84  6.0455901        0        0        0
 ```
 
-Now, notice that I did not acutally put anything to the left of that command. I have not saved the change I made. I usually never save such a change, untill I have tested it, and seen it does what I wanted. In this case, I can see it did, so I'll overwrite the old `eData` with the new.
+Now, notice that I did not actually put anything to the left of that command. I have not saved the change I made. I usually never save such a change, untill I have tested it, and seen it does what I wanted. In this case, I can see it did, so I'll overwrite the old `eData` with the new.
 
 
 ```r
