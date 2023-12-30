@@ -3,12 +3,13 @@ theme                   = "hugo-igloo"
 title                   = "Dr. Mowinckel's"
 enforce_ssl             = true
 builddrafts             = true               # Include pages with draft status of true
+buildFuture             = true
 canonifyurls            = true                # Turns relative urls into absolute urls
 DefaultContentLanguage  = "en"                # Default language for multilingual sites
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html", "static/blog/\\*_files/", "README", "\\.knit\\.md$", "\\.utf8\\.md$"]
 
-enableRobotsTXT= true
-enableGitInfo= true
+enableRobotsTXT = true
+enableGitInfo   = true
 
 # Getting raw html to render
 [markup]
