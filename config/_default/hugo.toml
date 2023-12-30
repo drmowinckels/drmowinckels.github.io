@@ -1,0 +1,102 @@
+baseURL                 = "." 
+theme                   = "hugo-igloo"
+title                   = "Dr. Mowinckel's"
+enforce_ssl             = true
+builddrafts             = true               # Include pages with draft status of true
+canonifyurls            = true                # Turns relative urls into absolute urls
+DefaultContentLanguage  = "en"                # Default language for multilingual sites
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html", "static/blog/\\*_files/", "README", "\\.knit\\.md$", "\\.utf8\\.md$"]
+
+enableRobotsTXT= true
+enableGitInfo= true
+
+# Getting raw html to render
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+    themeStyle    = "light"                 # Choose "light" or "dark"
+    dateFormat    = "Jan 2, 2006"
+    #customCSS     = ["/css/syntax.css", "/css/custom-style.css"]   # Include custom css files placed under assets/
+    subtitle       = "&#8212; all things R and neuroimaging &#8212;"
+
+    [params.footerSection]
+        title   = "<i class=\"fa-regular fa-copyright\"></i> 2023 Athanasia Mo Mowinckel"
+        content = ""
+        height  = "500px"
+
+    [params.aesthetics]
+        # Path to icon files from the assets/ directory
+        favicon  = "/img/fav.ico.png"
+        logo     = "/img/logo.png"
+        height   = "100px"
+
+        # All possible themes can
+        # be found at: https://highlightjs.org/examples
+        highightStyle  = "foundation"
+
+        # icicle, mint, barbie,
+        # dune, vlad, poppy,
+        # moss, paper, plum, 
+        # violet, water
+        #design = "icicle"  
+
+        # Or set your own custom colours
+        primary = "#2d6363"
+        secondary = "#c081c0"
+        #emphasis = "#843c84"
+        muted = "#b7dbdb"
+
+        thumbShape = "hexagon"
+
+    [params.analytics]
+    [params.analytics.plausible]
+        domain = "drmowinckels.io"
+#    [params.analytics.matomo]
+ #       url = "drmowinckels.matomo.cloud"
+  #      id  = "1"
+
+
+    [params.blog]
+        citation = true
+
+    [params.giscus]
+        repo = "DrMowinckels/drmowinckels.github.io"
+        repo_id = "MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI="
+        category = "Comments"
+        category_id = "DIC_kwDOB1wEpM4CAG0c"
+        mapping = "pathname"
+        reactions_enabled = "1"
+        emit_metadata = "0"
+        #theme = "/css/giscus.css"
+        theme = "light"
+        lang = "en"
+
+# If you don't want to use the default menu, you can define one by yourself
+[[menu.main]]
+   name    = "About"
+   url     = "/about"
+   weight  = 1
+[[menu.main]]
+   name    = "Blog"
+   url     = "/blog"
+   weight  = 2
+[[menu.main]]
+   name    = "Talks"
+   url     = "/talks"
+   weight  = 3
+[[menu.main]]
+   name    = "Projects"
+   url     = "/projects"
+   weight  = 4
+
+
+# We only use tag as a taxonomies
+# You can add more by yourself
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+
