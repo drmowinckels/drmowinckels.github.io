@@ -1,15 +1,22 @@
 ---
-title: "**Workshop:** Tidyverse Quick Introduction"
-image: "logo.png"
-output:
-  html_document:
-    keep_md: yes
-external_link: ""
-weight: 1
+title: "R and the Tidyverse for working with data"
+image: "https://pbs.twimg.com/profile_images/961401893535629312/JOCXLSLz_400x400.jpg"
+date: 2022-06-17
+tags:
+    - workshop
+    - tidyverse
+    - carpentry
+social_media:
+    - icon: github
+      link: https://github.com/drmowinckels/tidyquintro
+    - icon: world
+      link: https://drmowinckels.io/tidyquintro/
+summary: |
+    **Workshop**: How to work efficiently with datasets in R using the Tidyverse, a Carpentries-style workshop.
+    The workshop is intended to be interactive, was initially developed to be run as a webinar, and can be expanded to single or two whole day workshop.
+    The workshop is intended both for R beginners as well as intermediate R users who know base-R well but wish to learn more about the Tidyverse way of working with data. 
+    At the end of the workshop you will have a grasp of the Tidyverse way of working with data, and have learned new ways of efficiently working with data in R.
 ---
-
-This is a 4 hour workshop on working with the tidyverse packages in R. 
-The workshop is intended to be interactive, was initially developed to be run as a webinar, and can be expanded to single or two whole day workshop.
 
 R has become a popular tool for doing statistical analysis. 
 However, the sheer number of different packages for data preparation and analysis makes R code heterogeneous, hard to read, and error-prone. 
@@ -21,6 +28,3 @@ At the end of the workshop you will have a grasp of the Tidyverse way of working
 
 This workshop is a combination of presentation, live coding, and exercises. 
 
-**Links:**  
-<a href="https://github.com/Athanasiamo/tidyquintro" title="GitHub source code"><i class="fab fa-github"></i></a>
-<a href="https://athanasiamo.github.io/tidyquintro/" title="Materials"><i class="fa fa-globe" aria-hidden="true"></i></a>
