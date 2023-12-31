@@ -1,179 +1,379 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Using Freesurfer annotation files to plot in R - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise. For me, that is usually FSL or Freesurfer. Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together. For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Using Freesurfer Annotation Files to Plot in R - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Using Freesurfer annotation files to plot in R - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise. For me, that is usually FSL or Freesurfer. Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together. For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.">
 
 
-
-            <meta property="og:title" content="Using Freesurfer annotation files to plot in R - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise. For me, that is usually FSL or Freesurfer. Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together. For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/index_files/figure-html/featured-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/ply_ss.png"/>
-
+    <meta property="og:image" content="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/index_files/figure-html/featured-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/index_files/figure-html/featured-1.png">
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
 
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/index_files/figure-html/featured-1.png" alt="Using Freesurfer annotation files to plot in R" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/">Using Freesurfer annotation files to plot in R</a>
-    </h2>
-    <div class="post-data">
-        Apr 30, 2020 |
-        10 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Using Freesurfer annotation files to plot in R</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Apr 30, 2020
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label uk-label-secondary tags" >
+                                Neuroimaging
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/plots/" class="uk-label uk-label-secondary tags" >
+                                Plots
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/neuroimaging">
-             Neuroimaging</a>,
-         
-           <a href="https://drmowinckels.io/tags/plots">
-             Plots</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise.
 For me, that is usually <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/">FSL</a> or <a href="https://surfer.nmr.mgh.harvard.edu/">Freesurfer</a>.
 Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together.
 For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.
@@ -183,27 +383,26 @@ This is an atlas that consist of 36 segments, which are well-defined (<a href="h
 <p>Since the brain is full of sulci (grooves), we often inflate the brain surface so we can more clearly see the entire brain.
 This is what is shown  above.
 For those who have followed some of my posts, you might recognise this image to be similar to the default image from our <a href="https://lcbc-uio.github.io/ggseg/">ggseg</a> package.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggseg</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggseg)
 </span></span></code></pre></div><pre tabindex="0"><code>## Loading required package: ggplot2
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> <span class="n">mapping</span> <span class="o">=</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">region</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">      <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_brain</span><span class="p">(</span><span class="s">&#34;dk&#34;</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas <span style="color:#f92672">=</span> dk, mapping <span style="color:#f92672">=</span> <span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region),
+</span></span><span style="display:flex;"><span>      position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;stacked&#34;</span>, colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>, 
+</span></span><span style="display:flex;"><span>      show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_brain</span>(<span style="color:#e6db74">&#34;dk&#34;</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
 <p>Similarly is our package <code>ggseg3d</code>, where you can render the proper 3d version using plotly.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">,</span> <span class="n">warn.conflicts</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggseg3d</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggseg3d</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk_3d</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">pan_camera</span><span class="p">(</span><span class="n">camera</span> <span class="o">=</span> <span class="s">&#34;right lateral&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">remove_axes</span><span class="p">()</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dplyr, warn.conflicts <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggseg3d)
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggseg3d</span>(atlas <span style="color:#f92672">=</span> dk_3d) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pan_camera</span>(camera <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;right lateral&#34;</span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">remove_axes</span>()
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p
 </span></span></code></pre></div><!--html_preserve--><iframe src="ggseg_1_widget.html" width="100%" height="500px"></iframe><!--/html_preserve-->
 <p>That is some nerdy fun!</p>
 <p>But getting to the point of having this data was quite some road.
 And I&rsquo;d like to share that road with you now.
 This entire pipeline is made into a function in our companion package <a href="https://lcbc-uio.github.io/ggsegExtra/">ggsegExtra</a>, the <code>aparc_2_mesh()</code> function.</p>
-
-<h1 id="making-freesurfer-files-into-plotly-mesh-files" class="anchor-link"><a href="#making-freesurfer-files-into-plotly-mesh-files">Making Freesurfer files into plotly mesh files.</a></h1>
+<h1 id="making-freesurfer-files-into-plotly-mesh-files">Making Freesurfer files into plotly mesh files.</h1>
 <p>First step in this journey, was to take a binary file type that exists in Freesurfer called an annotation file (<code>annot</code>).
 The <code>annot</code> file contains information about the segments of the atlas, their colours etc.
 I had never worked with binary files before, and if is was not for the fact that I had some early PhD days where I did do some Matlab scripting, I&rsquo;d likely not get any further.
@@ -217,12 +416,12 @@ This makes me quite stoked!</p>
 <li>a vector of labels</li>
 <li>a data.frame of colours and region names</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># remotes::install_github(&#34;muschellij2/freesurfer&#34;)</span>
-</span></span><span class="line"><span class="cl"><span class="n">annot_file</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/fsaverage5/label/lh.aparc.annot&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">dk_annot</span> <span class="o">&lt;-</span> <span class="n">freesurfer</span><span class="o">::</span><span class="nf">read_annotation</span><span class="p">(</span><span class="n">annot_file</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># remotes::install_github(&#34;muschellij2/freesurfer&#34;)</span>
+</span></span><span style="display:flex;"><span>annot_file <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;/Applications/freesurfer/subjects/fsaverage5/label/lh.aparc.annot&#34;</span>
+</span></span><span style="display:flex;"><span>dk_annot <span style="color:#f92672">&lt;-</span> freesurfer<span style="color:#f92672">::</span><span style="color:#a6e22e">read_annotation</span>(annot_file)
 </span></span></code></pre></div><pre tabindex="0"><code>## Reading from version 2 
 ## colortable with 36 entries read (originally /autofs/space/amaebi_026/users/buckner_cortical_atlas/scripts/colortable_final.txt )
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">str</span><span class="p">(</span><span class="n">dk_annot</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(dk_annot)
 </span></span></code></pre></div><pre tabindex="0"><code>## List of 3
 ##  $ vertices  : int [1:10242] 0 1 2 3 4 5 6 7 8 9 ...
 ##  $ label     : int [1:10242] 14423100 9221140 10542100 8204875 14423100 1351760 9182740 11832480 1639705 3296035 ...
@@ -235,12 +434,12 @@ This makes me quite stoked!</p>
 ##   ..$ code : num [1:36] 1639705 2647065 10511485 6500 3294840 ...
 </code></pre><p>This data we will need to create brain segments per row in the data.frame returned.
 Since R is more happy with hexidecimal colour codes, we can go ahead and turn RGB to hex</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span> <span class="o">&lt;-</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                     <span class="n">hex</span> <span class="o">=</span> <span class="n">grDevices</span><span class="o">::</span><span class="nf">rgb</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                                          <span class="n">maxColorValue</span> <span class="o">=</span> <span class="m">255</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">as_tibble</span><span class="p">(</span><span class="n">dk_annot</span><span class="o">$</span><span class="n">colortable</span><span class="p">)</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dk_annot<span style="color:#f92672">$</span>colortable <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mutate</span>(dk_annot<span style="color:#f92672">$</span>colortable,
+</span></span><span style="display:flex;"><span>                     hex <span style="color:#f92672">=</span> grDevices<span style="color:#f92672">::</span><span style="color:#a6e22e">rgb</span>(R, G, B, 
+</span></span><span style="display:flex;"><span>                                          maxColorValue <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">as_tibble</span>(dk_annot<span style="color:#f92672">$</span>colortable) 
 </span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 36 x 7
 ##    label                       R     G     B     A     code hex    
 ##    &lt;chr&gt;                   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;  
@@ -260,11 +459,11 @@ This is technically an <code>ascii</code> file.
 This is what we will use to combine all vertices into triangular meshes for 3d rendering.
 For this I made a function called <code>ggsegExtra::annot2dpv</code> for simplicity.
 What is does is map the labels from the annotation file, restructure the labels  so that we get a matrix with 5 columns.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># remotes::install_github(&#34;LCBC-UiO/ggsegExtra&#34;)</span>
-</span></span><span class="line"><span class="cl"><span class="n">dpv</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">annot2dpv</span><span class="p">(</span><span class="n">annot_file</span><span class="p">,</span> <span class="s">&#34;annot.dpv&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># remotes::install_github(&#34;LCBC-UiO/ggsegExtra&#34;)</span>
+</span></span><span style="display:flex;"><span>dpv <span style="color:#f92672">&lt;-</span> ggsegExtra<span style="color:#f92672">::</span><span style="color:#a6e22e">annot2dpv</span>(annot_file, <span style="color:#e6db74">&#34;annot.dpv&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## Reading from version 2 
 ## colortable with 36 entries read (originally /autofs/space/amaebi_026/users/buckner_cortical_atlas/scripts/colortable_final.txt )
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">as_tibble</span><span class="p">(</span><span class="n">dpv</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">as_tibble</span>(dpv)
 </span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 10,242 x 5
 ##       V1    V2    V3    V4    V5
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -288,10 +487,10 @@ The format tok me a while to understand, but it has two main parts:</p>
 <p>Now that we have mapping of vertices and faces, we also need a surface to project on to.
 In Freesurfer, we have quite some surfaces to choose from, but we will go with inflated for now, and use the left hemisphere (<code>lh</code>).
 This file we also need to convert into an ascii file, with the convenient <code>surf3asc()</code> function we made.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">surf_file</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/fsaverage5/surf/lh.inflated&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">surf</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">surf2asc</span><span class="p">(</span><span class="n">surf_file</span><span class="p">,</span> <span class="s">&#34;~/Desktop/surf.dpv&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>surf_file <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;/Applications/freesurfer/subjects/fsaverage5/surf/lh.inflated&#34;</span>
+</span></span><span style="display:flex;"><span>surf <span style="color:#f92672">&lt;-</span> ggsegExtra<span style="color:#f92672">::</span><span style="color:#a6e22e">surf2asc</span>(surf_file, <span style="color:#e6db74">&#34;~/Desktop/surf.dpv&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## Saving ~/Desktop/surf.dpv
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">str</span><span class="p">(</span><span class="n">surf</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(surf)
 </span></span></code></pre></div><pre tabindex="0"><code>## List of 2
 ##  $ vertices:&#39;data.frame&#39;:	10242 obs. of  4 variables:
 ##   ..$ V1: num [1:10242] -5.84 16.43 30.06 5.29 -36.14 ...
@@ -306,8 +505,8 @@ This file we also need to convert into an ascii file, with the convenient <code>
 </code></pre><p>This format we will turn into Stanford Polygon files (<code>.ply</code>) which are quite common for mesh data.
 You can read more about this format in Anderson Winklers <a href="https://brainder.org/tag/ply/">blogpost</a>.</p>
 <p>This is quite an easy transformation, as it&rsquo;s actually just chaging the text in the ascii  little, but a function always makes transformations easier!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">ply</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">asc2ply</span><span class="p">(</span><span class="s">&#34;~/Desktop/surf.dpv&#34;</span><span class="p">,</span><span class="s">&#34;~/Desktop/surf.ply&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">str</span><span class="p">(</span><span class="n">ply</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ply <span style="color:#f92672">&lt;-</span> ggsegExtra<span style="color:#f92672">::</span><span style="color:#a6e22e">asc2ply</span>(<span style="color:#e6db74">&#34;~/Desktop/surf.dpv&#34;</span>,<span style="color:#e6db74">&#34;~/Desktop/surf.ply&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(ply)
 </span></span></code></pre></div><pre tabindex="0"><code>##  chr [1:30731] &#34;ply&#34; &#34;format ascii 1.0&#34; &#34;element vertex 10242&#34; ...
 </code></pre><p>The fun part is that, despite this being a file made completely of text and might seem very niche, Mac&rsquo;s Finder recognises this format as a 3d object and can preview it for you!
 Albeit in a strange angle, there it is!</p>
@@ -327,19 +526,19 @@ It works only internally.</p>
 <p>Sorry about that! But it really is such a piece I think not alot of people will find it particularly interesting.</p>
 <p>Once all .ply files are generated, all of them are collected in R using a nested data.frame.</p>
 <p>Running the entire pipeline, selecting the subject <code>fsaverage5</code>, right hemisphere, on an inflasted surface, for the <code>aparc</code>(Desikan Killany) atlas.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">subj</span> <span class="o">&lt;-</span> <span class="s">&#34;fsaverage5&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">fs_subj_dir</span> <span class="o">&lt;-</span> <span class="s">&#34;/Applications/freesurfer/subjects/&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dk_atlas</span> <span class="o">&lt;-</span> <span class="n">ggsegExtra</span><span class="o">::</span><span class="nf">aparc_2_mesh</span><span class="p">(</span><span class="n">subject</span> <span class="o">=</span> <span class="n">subj</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">hemisphere</span> <span class="o">=</span> <span class="s">&#34;rh&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">surface</span> <span class="o">=</span> <span class="s">&#34;inflated&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">annot</span> <span class="o">=</span> <span class="s">&#34;aparc&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">subjects_dir</span> <span class="o">=</span> <span class="n">fs_subj_dir</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">annot_dir</span> <span class="o">=</span> <span class="nf">file.path</span><span class="p">(</span><span class="n">fs_subj_dir</span><span class="p">,</span> <span class="n">subj</span><span class="p">,</span> <span class="s">&#34;label&#34;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">output_dir</span> <span class="o">=</span> <span class="s">&#34;~/Desktop/&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">cleanup</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                     <span class="n">verbose</span> <span class="o">=</span> <span class="kc">FALSE</span> <span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dk_atlas</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>subj <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;fsaverage5&#34;</span>
+</span></span><span style="display:flex;"><span>fs_subj_dir <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;/Applications/freesurfer/subjects/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dk_atlas <span style="color:#f92672">&lt;-</span> ggsegExtra<span style="color:#f92672">::</span><span style="color:#a6e22e">aparc_2_mesh</span>(subject <span style="color:#f92672">=</span> subj,
+</span></span><span style="display:flex;"><span>                                     hemisphere <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rh&#34;</span>,
+</span></span><span style="display:flex;"><span>                                     surface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;inflated&#34;</span>,
+</span></span><span style="display:flex;"><span>                                     annot <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aparc&#34;</span>,
+</span></span><span style="display:flex;"><span>                                     subjects_dir <span style="color:#f92672">=</span> fs_subj_dir,
+</span></span><span style="display:flex;"><span>                                     annot_dir <span style="color:#f92672">=</span> <span style="color:#a6e22e">file.path</span>(fs_subj_dir, subj, <span style="color:#e6db74">&#34;label&#34;</span>),
+</span></span><span style="display:flex;"><span>                                     output_dir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;~/Desktop/&#34;</span>,
+</span></span><span style="display:flex;"><span>                                     cleanup <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>                                     verbose <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span> )
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dk_atlas
 </span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 36 x 9
 ##    atlas surf   hemi  region       colour  mesh     label       roi   annot     
 ##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;list&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;     
@@ -356,147 +555,95 @@ It works only internally.</p>
 ## # … with 26 more rows
 </code></pre><p>Within the <code>mesh</code> column, are both the vertices and faced needed to make the mesh for plotting.
 In a <em>very</em> simplified version, the <code>ggseg3d()</code> function just loops through each segment and adds it as a trace to plotly.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">plotly</span><span class="o">::</span><span class="nf">plot_ly</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for </span><span class="p">(</span><span class="n">tt</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">dk_atlas</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">p</span> <span class="o">=</span> <span class="n">plotly</span><span class="o">::</span><span class="nf">add_trace</span><span class="p">(</span><span class="n">p</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                        
-</span></span><span class="line"><span class="cl">                        <span class="c1"># map vertices</span>
-</span></span><span class="line"><span class="cl">                        <span class="n">x</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">x</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                        <span class="n">y</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">y</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                        <span class="n">z</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">vertices</span><span class="o">$</span><span class="n">z</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                        
-</span></span><span class="line"><span class="cl">                        <span class="c1"># map faces</span>
-</span></span><span class="line"><span class="cl">                        <span class="n">i</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">i</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                        <span class="n">j</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">j</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                        <span class="n">k</span> <span class="o">=</span> <span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="o">$</span><span class="n">k</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                        
-</span></span><span class="line"><span class="cl">                        <span class="n">facecolor</span> <span class="o">=</span> <span class="nf">rep</span><span class="p">(</span><span class="n">dk_atlas</span><span class="o">$</span><span class="n">colour[tt]</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">dk_atlas</span><span class="o">$</span><span class="n">mesh[[tt]]</span><span class="o">$</span><span class="n">faces</span><span class="p">)),</span> 
-</span></span><span class="line"><span class="cl">                        <span class="n">type</span> <span class="o">=</span> <span class="s">&#34;mesh3d&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                        <span class="n">showscale</span> <span class="o">=</span> <span class="kc">FALSE</span>
-</span></span><span class="line"><span class="cl">                        <span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p <span style="color:#f92672">=</span> plotly<span style="color:#f92672">::</span><span style="color:#a6e22e">plot_ly</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for </span>(tt in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(dk_atlas)) {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">=</span> plotly<span style="color:#f92672">::</span><span style="color:#a6e22e">add_trace</span>(p,
+</span></span><span style="display:flex;"><span>                        
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e"># map vertices</span>
+</span></span><span style="display:flex;"><span>                        x <span style="color:#f92672">=</span> dk_atlas<span style="color:#f92672">$</span>mesh[[tt]]<span style="color:#f92672">$</span>vertices<span style="color:#f92672">$</span>x, 
+</span></span><span style="display:flex;"><span>                        y <span style="color:#f92672">=</span> dk_atlas<span style="color:#f92672">$</span>mesh[[tt]]<span style="color:#f92672">$</span>vertices<span style="color:#f92672">$</span>y, 
+</span></span><span style="display:flex;"><span>                        z <span style="color:#f92672">=</span> dk_atlas<span style="color:#f92672">$</span>mesh[[tt]]<span style="color:#f92672">$</span>vertices<span style="color:#f92672">$</span>z, 
+</span></span><span style="display:flex;"><span>                        
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e"># map faces</span>
+</span></span><span style="display:flex;"><span>                        i <span style="color:#f92672">=</span> dk_atlas<span style="color:#f92672">$</span>mesh[[tt]]<span style="color:#f92672">$</span>faces<span style="color:#f92672">$</span>i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>                        j <span style="color:#f92672">=</span> dk_atlas<span style="color:#f92672">$</span>mesh[[tt]]<span style="color:#f92672">$</span>faces<span style="color:#f92672">$</span>j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>                        k <span style="color:#f92672">=</span> dk_atlas<span style="color:#f92672">$</span>mesh[[tt]]<span style="color:#f92672">$</span>faces<span style="color:#f92672">$</span>k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>                        
+</span></span><span style="display:flex;"><span>                        facecolor <span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(dk_atlas<span style="color:#f92672">$</span>colour[tt], <span style="color:#a6e22e">nrow</span>(dk_atlas<span style="color:#f92672">$</span>mesh[[tt]]<span style="color:#f92672">$</span>faces)), 
+</span></span><span style="display:flex;"><span>                        type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mesh3d&#34;</span>, 
+</span></span><span style="display:flex;"><span>                        showscale <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>                        )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p
 </span></span></code></pre></div><!--html_preserve--><iframe src="ggseg_2_widget.html" width="100%" height="500px"></iframe><!--/html_preserve-->
 <p>This tok me well over a week to pan out. :)
 The translations of Andersons&rsquo; scripts, the trying desperately to be able to map the faces to colour without splitting up into multiple <code>.ply</code>s.
 I learned so much, and it was really a fun challenge!</p>
 <p>I hope the function to make the atlas is easy enough for you who need it, and that you will be able to create your own atlases compatible with ggseg3d!</p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Dr. Mowinckel (Apr 30, 2020) Using Freesurfer annotation files to plot in R. Retrieved from https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2020-using-freesurfer-annotation-files-to-plot-in-r,<br>
-            &emsp;author = { Dr. Mowinckel },<br>
-            &emsp;title = { Using Freesurfer annotation files to plot in R },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/ },<br>
-            &emsp;year = { 2020 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Do you wanna build a snowman?
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/">
+                Changing your Blogdown Workflow
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

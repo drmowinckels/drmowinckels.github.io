@@ -1,196 +1,393 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Get the brain animated! - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="I’m super delighted that our ggseg package was so well received! We almost immediately got it on Neuroconductor, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.
+In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package." />
+  <meta name="author" content="DrMowinckels" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Get the Brain Animated! - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Get the brain animated! - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="I’m super delighted that our ggseg package was so well received! We almost immediately got it on Neuroconductor, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.
+In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package.">
 
 
-
-            <meta property="og:title" content="Get the brain animated! - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="I’m super delighted that our ggseg package was so well received! We almost immediately got it on Neuroconductor, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.
+In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1.gif"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/unnamed-chunk-3-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/unnamed-chunk-5-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/unnamed-chunk-7-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/unnamed-chunk-8-1.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1.gif" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1.gif">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1.gif" alt="Get the brain animated!" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2018/get-the-brain-animated/">Get the brain animated!</a>
-    </h2>
-    <div class="post-data">
-        Oct 1, 2018 |
-        6 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Get the brain animated!</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Oct 1, 2018
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/packages/" class="uk-label uk-label-secondary tags" >
+                                Packages
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label uk-label-secondary tags" >
+                                Neuroimaging
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/packages">
-             Packages</a>,
-         
-           <a href="https://drmowinckels.io/tags/neuroimaging">
-             Neuroimaging</a>,
-         
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>I&rsquo;m super delighted that our ggseg package was so well received! We almost immediately got it on <a href="https://neuroconductor.org/">Neuroconductor</a>, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.</p>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>I&rsquo;m super delighted that our ggseg package was so well received! We almost immediately got it on <a href="https://neuroconductor.org/">Neuroconductor</a>, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.</p>
 <p>In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package. I had not completely understood the use and the ellipsis (<code>...</code>) and as such had not used it correctly. Once I started understanding it, we could make the package working closer to what a standard ggplot package would work!</p>
 <p>The package vignettes are update on the new usage, which mainly affects how you may supply data for facetting. Just have a look at  <code>vignette(&quot;ggseg&quot;)</code> and <code>vignette(&quot;externalData&quot;)</code> for a more up-to-date understanding of how the data should look.</p>
 <p>And this post will use the technique necessary for facetting, just for making animations with the <a href="https://github.com/thomasp85/gganimate">gganimate</a> package instead. This package is so clever, and I am in complete awe of Thomas&rsquo; brilliance in making it. Especially the new development version, which has altered the way to use the package that falls completely in-line with the rest of the ggplot-idea.</p>
 <p>Let&rsquo;s fabricate some data to work with. I want to plot the Desikan-Killany atlas, with information for mean values of thickness across different ages. Since I&rsquo;m completely making all this data up, I&rsquo;ll just start with the <code>dk</code> data.frame that comes with the package, grabs its unique instances of region and hemisphere (which gives me every region in the dk atlas), and start making up some cortical thickness values per age.</p>
 <p>Grab the unique polygons</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">base_atlas</span> <span class="o">=</span> <span class="n">dk</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">distinct</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">na.omit</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">base_atlas</span> <span class="o">%&gt;%</span> <span class="nf">head</span><span class="p">(</span><span class="m">5</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>base_atlas <span style="color:#f92672">=</span> dk <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(region, hemi) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">distinct</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">na.omit</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>base_atlas <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">head</span>(<span style="color:#ae81ff">5</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 5 x 2
 ##   region                hemi 
 ##   &lt;chr&gt;                 &lt;chr&gt;
@@ -200,52 +397,52 @@ Get the Brain Animated! - Dr. Mowinckel&rsquo;s
 ## 4 inferior parietal     left 
 ## 5 inferior temporal     left
 </code></pre><p>Make up some cortical thickness values given an age</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">new_data</span> <span class="o">=</span> <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="m">7</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">         <span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>new_data <span style="color:#f92672">=</span> base_atlas <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(Age<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>,
+</span></span><span style="display:flex;"><span>         thickness <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.001</span>), <span style="color:#a6e22e">nrow</span>(.)))
 </span></span></code></pre></div><p>Lets plot it to have a looksie</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">new_data</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>new_data <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>thickness), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;darkgrey&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(colours<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dodgerblue4&#34;</span>,<span style="color:#e6db74">&#34;light blue&#34;</span>,<span style="color:#e6db74">&#34;firebrick&#34;</span>,<span style="color:#e6db74">&#34;goldenrod&#34;</span>))
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt=""><!-- --></p>
 <p>ok, so that looks pretty decent. Notice that I&rsquo;ve included some extra aestetics to make it look nice. I&rsquo;ve added <code>colour</code> to provide definition between the cortical parcellations, and made sure the <code>size</code> of this line is thin.</p>
 <p>So, now I want to do the same thing, just for many different age groups.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Make a list of all the age groups</span>
-</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">sapply</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">list</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">full_data</span><span class="p">)</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># apply through the list to fabricate data per age.</span>
-</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">       <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
-</span></span><span class="line"><span class="cl">         <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">         <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="n">x[1]</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Bind the data together.</span>
-</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="n">full_data</span> <span class="o">%&gt;%</span> <span class="nf">bind_rows</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Make a list of all the age groups</span>
+</span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">sapply</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">40</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>), list)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(full_data) <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">40</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># apply through the list to fabricate data per age.</span>
+</span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(full_data, 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">function</span>(x)  
+</span></span><span style="display:flex;"><span>         base_atlas <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">mutate</span>(Age<span style="color:#f92672">=</span>x[1],
+</span></span><span style="display:flex;"><span>                thickness <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.001</span>), <span style="color:#a6e22e">nrow</span>(.))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Bind the data together.</span>
+</span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> full_data <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">bind_rows</span>()
 </span></span></code></pre></div><p>Now we should have a data frame with values for each region and hemisphere across the ages 5-40.
 Let&rsquo;s have a look at how it looks when we facet it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>full_data <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>thickness), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;darkgrey&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(colours<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dodgerblue4&#34;</span>,<span style="color:#e6db74">&#34;light blue&#34;</span>,<span style="color:#e6db74">&#34;firebrick&#34;</span>,<span style="color:#e6db74">&#34;goldenrod&#34;</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>Age)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-5-1.png" alt=""><!-- --></p>
 <p>Hm, there is something a little off here. The medial wall is omitted from all facets, and is placed in it&rsquo;s own facet!
 This is expected behaviour as of the new <code>ggseg</code> version.</p>
 <p>If you want to facet, you&rsquo;ll need to make sure each facet includes information for <em>all regions</em>  even if these regions don&rsquo;t have any aestetics value (in this case a thickness value we are plotting as fill).</p>
 <p>To manage this, we need to go back a step when we made the data.frame, and merge our fabricated data with the entire <code>dk</code> atlas.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Make a list of all the age groups</span>
-</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">sapply</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">list</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">full_data</span><span class="p">)</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># apply through the list to fabricate data per age, and add dk atlas</span>
-</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">       <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
-</span></span><span class="line"><span class="cl">         <span class="n">base_atlas</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">         <span class="nf">mutate</span><span class="p">(</span><span class="n">thickness</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.001</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">         <span class="nf">full_join</span><span class="p">(</span><span class="n">dk</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">         <span class="nf">mutate</span><span class="p">(</span><span class="n">Age</span><span class="o">=</span><span class="n">x[1]</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">         <span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Make a list of all the age groups</span>
+</span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">sapply</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">40</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>), list)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(full_data) <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">40</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># apply through the list to fabricate data per age, and add dk atlas</span>
+</span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(full_data, 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">function</span>(x)  
+</span></span><span style="display:flex;"><span>         base_atlas <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">mutate</span>(thickness <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.001</span>), <span style="color:#a6e22e">nrow</span>(.))) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">full_join</span>(dk) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">mutate</span>(Age<span style="color:#f92672">=</span>x[1])
+</span></span><span style="display:flex;"><span>         )
 </span></span></code></pre></div><pre tabindex="0"><code>## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
 ## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
 ## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
@@ -254,158 +451,106 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
 ## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
 ## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
 ## Joining, by = c(&#34;region&#34;, &#34;hemi&#34;)
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Bind the data together.</span>
-</span></span><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">=</span> <span class="n">full_data</span> <span class="o">%&gt;%</span> <span class="nf">bind_rows</span><span class="p">()</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Bind the data together.</span>
+</span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> full_data <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">bind_rows</span>()
 </span></span></code></pre></div><p>You see how we&rsquo;ve been informed that the data have been joined by <code>hemi</code> and <code>region</code>, which is exactly what we want. Let&rsquo;s see what it looks like now.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">full_data</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggseg</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>full_data <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>thickness), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;darkgrey&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(colours<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dodgerblue4&#34;</span>,<span style="color:#e6db74">&#34;light blue&#34;</span>,<span style="color:#e6db74">&#34;firebrick&#34;</span>,<span style="color:#e6db74">&#34;goldenrod&#34;</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>Age)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-7-1.png" alt=""><!-- --></p>
 <p>Even more crazy! But again, this is expected behaviour. You see, we have supplied an entire atlas of information to ggseg, which again tries to mege it with (in this case)  the dk atlas. That makes this odd behaviour.</p>
 <p>To plot this as we want, we need to tell <code>ggseg</code> that we are supplying a new <code>atlas</code> <strong>not</strong> new data.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="n">full_data</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Age</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas<span style="color:#f92672">=</span>full_data, mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>thickness), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;darkgrey&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(colours<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dodgerblue4&#34;</span>,<span style="color:#e6db74">&#34;light blue&#34;</span>,<span style="color:#e6db74">&#34;firebrick&#34;</span>,<span style="color:#e6db74">&#34;goldenrod&#34;</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>Age)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
 <p>Right-o! Now we&rsquo;re cookin&rsquo;! Now that we&rsquo;ve established that our data is good for faceting, this means it is also good for animating.</p>
 <p>You&rsquo;ll need to install the gganimate package from github to get this working and also install the package <code>transformr</code> from the same author, as we are working with polygons.</p>
 <p>While I am still far from comfortable with gganimate (I struggle to control speed and types of transitions), it is pretty easy to get an animation going. Disclaimer here: this data is quite rich, so you&rsquo;ll need patienence for the animation to render.</p>
 <p>We use the same bare plot as before, but substitute the facet with a transition. The transition here you provide with the variable that contains the different transitions, and information about the transition length and state length, which I am more unsure of. At the end, we&rsquo;ll make sure the title of the plot corresponds with the age currently displaying, with some more <code>gganimate</code> magic.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">transformr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">t</span> <span class="o">=</span> <span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="n">full_data</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">thickness</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">position</span><span class="o">=</span><span class="s">&#34;stacked&#34;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;darkgrey&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;dodgerblue4&#34;</span><span class="p">,</span><span class="s">&#34;light blue&#34;</span><span class="p">,</span><span class="s">&#34;firebrick&#34;</span><span class="p">,</span><span class="s">&#34;goldenrod&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">transition_states</span><span class="p">(</span><span class="n">Age</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Age: {closest_state}&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># This last part is just to control the output in this blog, which was rendering the gif too slow by default</span>
-</span></span><span class="line"><span class="cl"><span class="nf">animate</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(gganimate)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(transformr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">ggseg</span>(atlas<span style="color:#f92672">=</span>full_data, 
+</span></span><span style="display:flex;"><span>          mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>thickness), 
+</span></span><span style="display:flex;"><span>          position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;darkgrey&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(
+</span></span><span style="display:flex;"><span>    colours <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dodgerblue4&#34;</span>,<span style="color:#e6db74">&#34;light blue&#34;</span>,<span style="color:#e6db74">&#34;firebrick&#34;</span>,<span style="color:#e6db74">&#34;goldenrod&#34;</span>)
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_states</span>(Age, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Age: {closest_state}&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This last part is just to control the output in this blog, which was rendering the gif too slow by default</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">animate</span>(t, fps <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) 
 </span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""></p>
 <p>and there you go! A pretty animation of the data! To understand the arguments to gganimate, I guess the best way to get a feel for it is to just play around with it. Now, I have to admit, that I am a little frustrated by the the gif is shown here on the blog, as in the RStudio viewer it looks awesome, with nice smooth transitions between states (here: Ages), but it is rendered here with very stacatto transitions.</p>
 <p>I&rsquo;m giving up a little fixing this issue for now, and hope I&rsquo;ll manage a better integration of gifs on the blog in the future.</p>
 <p>Happy plotting!</p>
 <p><em>Edit: This post was edited May 1st 2020 to reflect newer package changes</em></p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            DrMowinckels (Oct 1, 2018) Get the brain animated!. Retrieved from https://drmowinckels.io/blog/2018/get-the-brain-animated/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2018-get-the-brain-animated,<br>
-            &emsp;author = { DrMowinckels },<br>
-            &emsp;title = { Get the brain animated! },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2018/get-the-brain-animated/ },<br>
-            &emsp;year = { 2018 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Introducing the ggseg R-package for brain segmentations
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/r-just-dive-into-it/">
+                R for psychologists - just dive into it!
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

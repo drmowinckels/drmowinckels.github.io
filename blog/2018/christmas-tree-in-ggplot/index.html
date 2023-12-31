@@ -1,189 +1,388 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Christmas tree in ggplot - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="It’s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It’s just filled with all times of lovely things.
+That also means… PLOTS! You might know from my previous posts that I love plotting. A bit too much, but it truly is a lovely thing to create a great plot.
+So, a while ago, the amazing RLadies network showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it!" />
+  <meta name="author" content="DrMowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Christmas Tree in Ggplot - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Christmas tree in ggplot - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="It’s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It’s just filled with all times of lovely things.
+That also means… PLOTS! You might know from my previous posts that I love plotting. A bit too much, but it truly is a lovely thing to create a great plot.
+So, a while ago, the amazing RLadies network showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it!">
 
 
-
-            <meta property="og:title" content="Christmas tree in ggplot - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="It’s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It’s just filled with all times of lovely things.
+That also means… PLOTS! You might know from my previous posts that I love plotting. A bit too much, but it truly is a lovely thing to create a great plot.
+So, a while ago, the amazing RLadies network showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it!">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/featured-1.gif"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/unnamed-chunk-1-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/unnamed-chunk-2-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/unnamed-chunk-3-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/unnamed-chunk-4-1.gif"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/featured-1.gif" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/featured-1.gif">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/featured-1.gif" alt="Christmas tree in ggplot" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/">Christmas tree in ggplot</a>
-    </h2>
-    <div class="post-data">
-        Dec 13, 2018 |
-        4 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Christmas tree in ggplot</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Dec 13, 2018
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/plot/" class="uk-label uk-label-secondary tags" >
+                                plot
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/plot">
-             plot</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>It&rsquo;s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It&rsquo;s just filled with all times of lovely things.</p>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-tree-cone">The tree cone</a></li>
+    <li><a href="#add-some-fancy-stuff">Add some fancy stuff</a></li>
+    <li><a href="#baubles">BAUBLES!</a></li>
+    <li><a href="#add-the-topper-and-animate-some-sparkly">Add the topper and animate some sparkly!</a></li>
+    <li><a href="#the-snow">The snow!</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>It&rsquo;s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It&rsquo;s just filled with all times of lovely things.</p>
 <p>That also means&hellip; PLOTS! You might know from my previous posts that I love plotting. A bit too much, but it truly is a lovely thing to create a great plot.</p>
 <p>So, a while ago, the amazing <a href="rladies.org">RLadies</a> network showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it! You can see all the lovely submissions he has <a href="http://smarterpoland.pl/index.php/2017/12/christmas-trees/">here</a>.</p>
 <p>So here is my process for making the Christmas tree in ggplot.</p>
-
-<h2 id="the-tree-cone" class="anchor-link"><a href="#the-tree-cone">The tree cone</a></h2>
+<h2 id="the-tree-cone">The tree cone</h2>
 <p>First, lest just make a triangle and make it green!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse, quietly <span style="color:#f92672">=</span> T)
 </span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ───────────────────────────────────────────────── tidyverse 1.3.0 ──
 </code></pre><pre tabindex="0"><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
@@ -192,290 +391,233 @@ Christmas Tree in Ggplot - Dr. Mowinckel&rsquo;s
 </code></pre><pre tabindex="0"><code>## ── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cone</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="m">4</span><span class="o">:</span><span class="m">1</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">na.omit</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">arrange</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">cone</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cone <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>,
+</span></span><span style="display:flex;"><span>                  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">na.omit</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cone <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#213c18&#34;</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" alt=""><!-- --></p>
-
-<h2 id="add-some-fancy-stuff" class="anchor-link"><a href="#add-some-fancy-stuff">Add some fancy stuff</a></h2>
+<h2 id="add-some-fancy-stuff">Add some fancy stuff</h2>
 <p>This as actually meant to alter the cone and get the distinct Christmas tree shape, but I couldn&rsquo;t manage the little &ldquo;dips&rdquo; at each branch, the wrong points kept connecting.
 So it enved up with this more abstract, contemporary thing, which I actually really like!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">fancy</span> <span class="o">=</span> <span class="n">cone</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">xoff</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="m">5</span><span class="p">,</span> <span class="n">x</span><span class="m">+.4</span><span class="p">,</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="m">5</span><span class="p">,</span> <span class="n">x</span><span class="m">-.4</span><span class="p">,</span> <span class="kc">NA</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">del</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nf">contains</span><span class="p">(</span><span class="s">&#34;x&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">del</span><span class="o">==</span><span class="s">&#34;xoff&#34;</span><span class="p">,</span> <span class="n">y</span><span class="m">-.1</span><span class="p">,</span><span class="n">y</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span><span class="n">y</span><span class="o">&gt;=</span><span class="m">1</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">na.omit</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">del</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">arrange</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">cone</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>fancy <span style="color:#f92672">=</span> cone <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(xoff <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(x<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5</span>, x<span style="color:#ae81ff">+.4</span>, <span style="color:#a6e22e">ifelse</span>(x<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">5</span>, x<span style="color:#ae81ff">-.4</span>, <span style="color:#66d9ef">NA</span>))) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(del, x, <span style="color:#a6e22e">contains</span>(<span style="color:#e6db74">&#34;x&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(y <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(del<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;xoff&#34;</span>, y<span style="color:#ae81ff">-.1</span>,y)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(y<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">na.omit</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(<span style="color:#f92672">-</span>del) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cone <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#213c18&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(data<span style="color:#f92672">=</span>fancy, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#668c6f&#34;</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" alt=""><!-- --></p>
-
-<h2 id="baubles" class="anchor-link"><a href="#baubles">BAUBLES!</a></h2>
+<h2 id="baubles">BAUBLES!</h2>
 <p>What christmas tree would it be without some baubles!
 We define some nice christmas&rsquo;y colours, do some data sample-randomness stuff, and voila!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Define bauble colours</span>
-</span></span><span class="line"><span class="cl"><span class="n">bauble_colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#e5d08f&#34;</span><span class="p">,</span> <span class="s">&#34;#e3d4b6&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                   <span class="s">&#34;#cacbce&#34;</span><span class="p">,</span> <span class="s">&#34;#9c9c9c&#34;</span><span class="p">,</span> <span class="s">&#34;#e1dfdf&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                   <span class="s">&#34;#c94c4c&#34;</span><span class="p">,</span> <span class="s">&#34;#8d1414&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">baubles</span> <span class="o">=</span> <span class="n">cone</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Group by y, nest and make up some random values for x.</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">~</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">.$x</span><span class="p">),</span> <span class="nf">max</span><span class="p">(</span><span class="n">.$x</span><span class="p">),</span> <span class="n">by</span><span class="o">=</span><span class="m">.1</span><span class="p">))))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">unnest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Group by x, nest and make up some random values for y.</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">~</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">.$y</span><span class="p">),</span> <span class="nf">max</span><span class="p">(</span><span class="n">.$y</span><span class="p">),</span> <span class="n">by</span><span class="o">=</span><span class="m">.1</span><span class="p">))))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">unnest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ungroup</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Give baubles random shapes, sizes and two different colours.</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">col1</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="n">bauble_colours</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">col2</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="n">bauble_colours</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">shp</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">7</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">sz</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.1</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">time</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">rownames_to_column</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Grab only 60 baubles</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">sample_n</span><span class="p">(</span><span class="m">60</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Gather the colours into a single column</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="nf">contains</span><span class="p">(</span><span class="s">&#34;col&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">alph</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">dd</span> <span class="o">==</span> <span class="s">&#34;col1&#34;</span><span class="p">,</span> <span class="m">.8</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(gganimate, quietly <span style="color:#f92672">=</span> T)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define bauble colours</span>
+</span></span><span style="display:flex;"><span>bauble_colours <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e5d08f&#34;</span>, <span style="color:#e6db74">&#34;#e3d4b6&#34;</span>,
+</span></span><span style="display:flex;"><span>                   <span style="color:#e6db74">&#34;#cacbce&#34;</span>, <span style="color:#e6db74">&#34;#9c9c9c&#34;</span>, <span style="color:#e6db74">&#34;#e1dfdf&#34;</span>,
+</span></span><span style="display:flex;"><span>                   <span style="color:#e6db74">&#34;#c94c4c&#34;</span>, <span style="color:#e6db74">&#34;#8d1414&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>baubles <span style="color:#f92672">=</span> cone <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Group by y, nest and make up some random values for x.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(y) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(data <span style="color:#f92672">=</span>  <span style="color:#a6e22e">map</span>(data, <span style="color:#f92672">~</span><span style="color:#a6e22e">data.frame</span>(x<span style="color:#f92672">=</span><span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">min</span>(.$x), <span style="color:#a6e22e">max</span>(.$x), by<span style="color:#f92672">=</span><span style="color:#ae81ff">.1</span>)))) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">unnest</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Group by x, nest and make up some random values for y.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(x) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(data <span style="color:#f92672">=</span>  <span style="color:#a6e22e">map</span>(data, <span style="color:#f92672">~</span><span style="color:#a6e22e">data.frame</span>(y<span style="color:#f92672">=</span><span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">min</span>(.$y), <span style="color:#a6e22e">max</span>(.$y), by<span style="color:#f92672">=</span><span style="color:#ae81ff">.1</span>)))) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">unnest</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ungroup</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Give baubles random shapes, sizes and two different colours.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(col1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(bauble_colours, <span style="color:#a6e22e">nrow</span>(.), replace <span style="color:#f92672">=</span> T),
+</span></span><span style="display:flex;"><span>         col2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(bauble_colours, <span style="color:#a6e22e">nrow</span>(.), replace <span style="color:#f92672">=</span> T),
+</span></span><span style="display:flex;"><span>         shp <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">7</span>, <span style="color:#a6e22e">nrow</span>(.), replace <span style="color:#f92672">=</span> T),
+</span></span><span style="display:flex;"><span>         sz <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">.5</span>,<span style="color:#ae81ff">2</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.1</span>), <span style="color:#a6e22e">nrow</span>(.), replace <span style="color:#f92672">=</span> T),
+</span></span><span style="display:flex;"><span>         time <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">.5</span>,<span style="color:#ae81ff">1</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.01</span>), <span style="color:#a6e22e">nrow</span>(.), replace <span style="color:#f92672">=</span> T)
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rownames_to_column</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Grab only 60 baubles</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sample_n</span>(<span style="color:#ae81ff">60</span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Gather the colours into a single column</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(dd, cols, <span style="color:#a6e22e">contains</span>(<span style="color:#e6db74">&#34;col&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(alph <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(dd <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;col1&#34;</span>, <span style="color:#ae81ff">.8</span>, <span style="color:#ae81ff">1</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: `cols` is now required.
 ## Please use `cols = c(data)`
 
 ## Warning: `cols` is now required.
 ## Please use `cols = c(data)`
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cone</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">                                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_shape_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="m">8</span><span class="p">))</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cone <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#213c18&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(data<span style="color:#f92672">=</span>fancy, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#668c6f&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> baubles, <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), fill<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), 
+</span></span><span style="display:flex;"><span>                                 shape <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(shp),size<span style="color:#f92672">=</span>sz), show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_shape_manual</span>(values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#ae81ff">25</span>,<span style="color:#ae81ff">8</span>))
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt=""><!-- --></p>
-
-<h2 id="add-the-topper-and-animate-some-sparkly" class="anchor-link"><a href="#add-the-topper-and-animate-some-sparkly">Add the topper and animate some sparkly!</a></h2>
+<h2 id="add-the-topper-and-animate-some-sparkly">Add the topper and animate some sparkly!</h2>
 <p>We need a tree topper, in Norway, we usually add the Christmas star.
 And then I wanted some ornaments to seemlingly sparkle a little, so we add a small animation too!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cone</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Cone</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Fancy</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Baubles</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span> <span class="o">%&gt;%</span> <span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.7</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># animated baubles!</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">alph</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Topper</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5d08f&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">15</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_shape_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="m">8</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># remove axes etc., and make background black</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">theme</span><span class="p">(</span><span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;black&#34;</span><span class="p">),</span> <span class="n">title</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s">&#34;white&#34;</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Animate</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">#transition_states(time, transition_length = 10, state_length = 2) + </span>
-</span></span><span class="line"><span class="cl">  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ease_aes</span><span class="p">(</span><span class="s">&#39;quadratic-in-out&#39;</span><span class="p">)</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cone <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Cone</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#213c18&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Fancy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(data<span style="color:#f92672">=</span>fancy, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#668c6f&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Baubles</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> baubles <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(<span style="color:#f92672">-</span>time), show.legend <span style="color:#f92672">=</span> F, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.7</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), fill<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols),
+</span></span><span style="display:flex;"><span>                 shape <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(shp),size<span style="color:#f92672">=</span>sz, group<span style="color:#f92672">=</span>rowname)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># animated baubles!</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> baubles, show.legend <span style="color:#f92672">=</span> F,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), fill<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), alpha<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(alph),
+</span></span><span style="display:flex;"><span>                 shape <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(shp),size<span style="color:#f92672">=</span>sz, group<span style="color:#f92672">=</span>rowname)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Topper</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>(x<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, y<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>), colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#e5d08f&#34;</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, shape<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_shape_manual</span>(values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#ae81ff">25</span>,<span style="color:#ae81ff">8</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># remove axes etc., and make background black</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_void</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme</span>(plot.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>), title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;white&#34;</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Animate</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#transition_states(time, transition_length = 10, state_length = 2) + </span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_time</span>(time) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ease_aes</span>(<span style="color:#e6db74">&#39;quadratic-in-out&#39;</span>) 
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-4-1.gif" alt=""><!-- --></p>
-
-<h2 id="the-snow" class="anchor-link"><a href="#the-snow">The snow!</a></h2>
+<h2 id="the-snow">The snow!</h2>
 <p>I also wanted to have some snow falling in the background.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">snow</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">cone</span><span class="o">$</span><span class="n">x</span><span class="p">)</span><span class="m">+1</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="m">100</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">F</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">cone</span><span class="o">$</span><span class="n">y</span><span class="p">)</span><span class="m">+1</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="m">100</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">F</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                     <span class="o">~</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="n">.$y</span><span class="p">,</span> <span class="n">.$y</span><span class="o">-</span><span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span><span class="m">1</span><span class="p">),</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">100</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">                       <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">.9</span><span class="p">,</span> <span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">                       <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="m">+.02</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">unnest</span><span class="p">()</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>snow <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">max</span>(cone<span style="color:#f92672">$</span>x)<span style="color:#ae81ff">+1</span>, by<span style="color:#f92672">=</span><span style="color:#ae81ff">.01</span>), <span style="color:#ae81ff">100</span>, replace <span style="color:#f92672">=</span> F),
+</span></span><span style="display:flex;"><span>                  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">max</span>(cone<span style="color:#f92672">$</span>y)<span style="color:#ae81ff">+1</span>, by<span style="color:#f92672">=</span><span style="color:#ae81ff">.01</span>), <span style="color:#ae81ff">100</span>, replace <span style="color:#f92672">=</span> F)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(x) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(data <span style="color:#f92672">=</span>  <span style="color:#a6e22e">map</span>(data, 
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">~</span><span style="color:#a6e22e">data.frame</span>(y<span style="color:#f92672">=</span><span style="color:#a6e22e">seq</span>(.$y, .$y<span style="color:#f92672">-</span><span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">.5</span>,<span style="color:#ae81ff">1</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.01</span>),<span style="color:#ae81ff">1</span>), length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>                       <span style="color:#a6e22e">mutate</span>(time <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0.5</span>,<span style="color:#ae81ff">.9</span>, <span style="color:#ae81ff">.01</span>), <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>                       <span style="color:#a6e22e">mutate</span>(time <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">unique</span>(time), <span style="color:#a6e22e">unique</span>(time)<span style="color:#ae81ff">+.02</span>, length.out <span style="color:#f92672">=</span> <span style="color:#a6e22e">nrow</span>(.)))
+</span></span><span style="display:flex;"><span>  )) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">unnest</span>() 
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: `cols` is now required.
 ## Please use `cols = c(data)`
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cone</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Snow</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">x</span><span class="p">),</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;white&#34;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Cone</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;#213c18&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Fancy</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fancy</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#668c6f&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Baubles</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span> <span class="o">%&gt;%</span> <span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.7</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># animated baubles!</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">baubles</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="nf">I</span><span class="p">(</span><span class="n">alph</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">shp</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">rowname</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Topper</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">5</span><span class="p">),</span> <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5d08f&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">15</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_shape_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="m">8</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># remove axes etc., and make background black</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">theme</span><span class="p">(</span><span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;black&#34;</span><span class="p">),</span> <span class="n">title</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s">&#34;white&#34;</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Animate</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ease_aes</span><span class="p">(</span><span class="s">&#39;sine-in-out&#39;</span><span class="p">)</span> 
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cone <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Snow</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>(data<span style="color:#f92672">=</span>snow, <span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>x), colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;white&#34;</span>, shape<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Cone</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#213c18&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Fancy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(data<span style="color:#f92672">=</span>fancy, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#668c6f&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Baubles</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> baubles <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(<span style="color:#f92672">-</span>time), show.legend <span style="color:#f92672">=</span> F, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.7</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), fill<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols),
+</span></span><span style="display:flex;"><span>                 shape <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(shp),size<span style="color:#f92672">=</span>sz, group<span style="color:#f92672">=</span>rowname)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># animated baubles!</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> baubles, show.legend <span style="color:#f92672">=</span> F,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), fill<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), alpha<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(alph),
+</span></span><span style="display:flex;"><span>                 shape <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(shp),size<span style="color:#f92672">=</span>sz, group<span style="color:#f92672">=</span>rowname)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Topper</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data<span style="color:#f92672">=</span><span style="color:#a6e22e">data.frame</span>(x<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, y<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>), colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#e5d08f&#34;</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, shape<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_shape_manual</span>(values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#ae81ff">25</span>,<span style="color:#ae81ff">8</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># remove axes etc., and make background black</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_void</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme</span>(plot.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>), title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;white&#34;</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Animate</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_time</span>(time) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ease_aes</span>(<span style="color:#e6db74">&#39;sine-in-out&#39;</span>) 
 </span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""><!-- --></p>
 <p>There you go! My little Christmas tree!</p>
+<h1 id="merry-christmas-yall">Merry Christmas, y&rsquo;all!</h1>
 
-<h1 id="merry-christmas-yall" class="anchor-link"><a href="#merry-christmas-yall">Merry Christmas, y&rsquo;all!</a></h1>
-
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            DrMowinckel (Dec 13, 2018) Christmas tree in ggplot. Retrieved from https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2018-christmas-tree-in-ggplot,<br>
-            &emsp;author = { DrMowinckel },<br>
-            &emsp;title = { Christmas tree in ggplot },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/ },<br>
-            &emsp;year = { 2018 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/r-just-dive-into-it/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                R for psychologists - just dive into it!
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/">
+                Why RStudio::conf is the best conference experience I have had
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

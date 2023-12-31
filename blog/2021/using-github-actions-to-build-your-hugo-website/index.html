@@ -1,186 +1,384 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Using GitHub Actions to Build your Hugo Website - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Lately, I’ve been doing some work in getting Hugo websites building through Github actions, and then have them deployed with Netlify. Of course, once we are building with GitHub actions we could also just use GitHub pages to deploy, and I’ll show how you can do that too, even if I will keep using Netlify.
+Why build with GitHub actions and not let Netlify do all the job? Well, there is definitely good reasons to let Netlify do all the work for you." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Using Git Hub Actions to Build Your Hugo Website - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Using GitHub Actions to Build your Hugo Website - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="Lately, I’ve been doing some work in getting Hugo websites building through Github actions, and then have them deployed with Netlify. Of course, once we are building with GitHub actions we could also just use GitHub pages to deploy, and I’ll show how you can do that too, even if I will keep using Netlify.
+Why build with GitHub actions and not let Netlify do all the job? Well, there is definitely good reasons to let Netlify do all the work for you.">
 
 
-
-            <meta property="og:title" content="Using GitHub Actions to Build your Hugo Website - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Lately, I’ve been doing some work in getting Hugo websites building through Github actions, and then have them deployed with Netlify. Of course, once we are building with GitHub actions we could also just use GitHub pages to deploy, and I’ll show how you can do that too, even if I will keep using Netlify.
+Why build with GitHub actions and not let Netlify do all the job? Well, there is definitely good reasons to let Netlify do all the work for you.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy.png">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy.png" alt="Using GitHub Actions to Build your Hugo Website" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/">Using GitHub Actions to Build your Hugo Website</a>
-    </h2>
-    <div class="post-data">
-        Mar 23, 2021 |
-        14 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Using GitHub Actions to Build your Hugo Website</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Mar 23, 2021
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label uk-label-secondary tags" >
+                                hugo
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/continuous-integration/" class="uk-label uk-label-secondary tags" >
+                                Continuous Integration
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/github-actions/" class="uk-label uk-label-secondary tags" >
+                                GitHub Actions
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Categories:
-          
-        </p>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/hugo">
-             hugo</a>,
-         
-           <a href="https://drmowinckels.io/tags/continuous-integration">
-             Continuous Integration</a>,
-         
-           <a href="https://drmowinckels.io/tags/github-actions">
-             GitHub Actions</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>Lately, I&rsquo;ve been doing some work in getting <a href="">Hugo</a> websites building through Github actions, and then have them deployed with Netlify.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>Lately, I&rsquo;ve been doing some work in getting <a href="">Hugo</a> websites building through Github actions, and then have them deployed with Netlify.
 Of course, once we are building with GitHub actions we <em>could</em> also just use GitHub pages to deploy, and I&rsquo;ll show how you can do that too, even if I will keep using Netlify.</p>
-
-<h1 id="why-build-with-github-actions-and-not-let-netlify-do-all-the-job" class="anchor-link"><a href="#why-build-with-github-actions-and-not-let-netlify-do-all-the-job">Why build with GitHub actions and not let Netlify do all the job?</a></h1>
+<h1 id="why-build-with-github-actions-and-not-let-netlify-do-all-the-job">Why build with GitHub actions and not let Netlify do all the job?</h1>
 <p>Well, there is definitely good reasons to let Netlify do all the work for you.
 The less you are doing your self, the less you have to maintain, and long-term maintenance of things can take a toll.
 All of us adopting blogdown early on feel this acutely, there was absolutely some pains in updating themes and hugo and blogdown, and rendering of old pages etc.
@@ -195,21 +393,19 @@ But what if you want to have data on your website that <em>does not</em> live in
 This page contains a plot of my publication citations, and also a knitted academic CV in pdf.
 These are files I <em>don&rsquo;t</em> want in my history, blowing up my repository size at every knit.
 And at every knit is often in my case, as I update them daily through GitHub actions (I&rsquo;ll get to that shortly) so that people can get update information about my research activities without me having to do too much work on that aspect of it.</p>
-
-<h1 id="how-do-you-keep-the-files-out-of-version-control-but-rendered-on-your-website" class="anchor-link"><a href="#how-do-you-keep-the-files-out-of-version-control-but-rendered-on-your-website">How do you keep the files out of version control but rendered on your website?</a></h1>
+<h1 id="how-do-you-keep-the-files-out-of-version-control-but-rendered-on-your-website">How do you keep the files out of version control but rendered on your website?</h1>
 <p>This is where GitHub Actions shines.
 GitHub Actions is a service that runs Continuous Integration, meaning that using a set-up file you can ask workers (computers run by GitHub) to do certain operations on your repository at certain triggers (at push, pull-requests or even on a schedule with crontab).
 This if often used for package and pipeline testing, but can also be used to build your website!</p>
 <p>What we want is Github Actions to run certain operations on a set schedule, build our website with hugo, and then trigger a Netlify deployment.
 In particular, we want to render the <code>content/about.Rmd</code> and knit my CV which is located in <code>content/about/resume/am_mowinckel_cv.Rmd</code>, and <em>not</em> commit these to git, just have them rendered right before Hugo build</p>
-
-<h1 id="where-to-start" class="anchor-link"><a href="#where-to-start">Where to start?</a></h1>
+<h1 id="where-to-start">Where to start?</h1>
 <p>First, you&rsquo;ll need to have your website repository on GitHub.
 There are other CI services one can use, but GitHub is free and so are its actions for small jobs like what we want to do.</p>
 <p>To create a setup file, I turn to the trusty {usethis} package.
 Its just so damn convenient!
 We&rsquo;ll base our workflow off the &ldquo;blogdown&rdquo; action, which conveniently sets up a lot of logics for us so we don&rsquo;t have to.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">usethis</span><span class="o">::</span><span class="nf">use_github_action</span><span class="p">(</span><span class="s">&#34;blogdown&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_github_action</span>(<span style="color:#e6db74">&#34;blogdown&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>✓ Setting active project to &#39;/my/path/to/DrMowinckels&#39;
 ✓ Writing &#39;.github/workflows/blogdown.yaml&#39;
 ● Learn more at &lt;https://github.com/r-lib/actions/blob/master/examples/README.md&gt;
@@ -218,63 +414,63 @@ We&rsquo;ll open this file and have a look at it&rsquo;s content and see what we
 <p>Github Action files are written in yaml, which should be somewhat familiar for Rmarkdown users, as its the same type of content language as the front matter of Rmarkdown files.
 Convenient!</p>
 <p>The top part reads as follows:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">blogdown</span><span class="w">
-</span></span></span></code></pre></div><p><code>on:</code> dictated when the job should be run. In this case, the default is on <code>push</code> to the branches <code>master</code> and <code>main</code>.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">blogdown</span>
+</span></span></code></pre></div><p><code>on:</code> dictated when the job should be run. In this case, the default is on <code>push</code> to the branches <code>master</code> and <code>main</code>.
 and  <code>name: blogdown</code> gives the job a name we can see in the Github Actions site online.</p>
 <p>We&rsquo;re going to re-write this a little.
 With this setup, we&rsquo;ll only render on push to the main/master branch, but its a good idea to also get previews of what you are working on, before pushing to master.
 So we will add rendering also when there are pull_requests to master/main.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">master</span><span class="w">
-</span></span></span></code></pre></div><p>Additionally, we want it running on a set schedule. I update mine at 1AM UTC. You can read more about the cron time syntax <a href="https://www.tutorialspoint.com/unix_commands/crontab.htm">online</a>. But remember that GitHub Actions run on UTC time, so think about that when you specify the timing of your job and when you expect it to run.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">schedule</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 1 * * *&#39;</span><span class="w">
-</span></span></span></code></pre></div><p>I&rsquo;m also going to change the name, because we&rsquo;re technically not using blogdown for this, we&rsquo;ll be using something a little more custom.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build and deploy</span><span class="w">
-</span></span></span></code></pre></div><p>After this, comes the longer list that sets up the jobs specifics.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">macOS-latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">GITHUB_PAT</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
-</span></span></span></code></pre></div><p>This part first declares that here comes the specifications of <code>jobs</code> to do.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">master</span>
+</span></span></code></pre></div><p>Additionally, we want it running on a set schedule. I update mine at 1AM UTC. You can read more about the cron time syntax <a href="https://www.tutorialspoint.com/unix_commands/crontab.htm">online</a>. But remember that GitHub Actions run on UTC time, so think about that when you specify the timing of your job and when you expect it to run.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>: <span style="color:#e6db74">&#39;0 1 * * *&#39;</span>
+</span></span></code></pre></div><p>I&rsquo;m also going to change the name, because we&rsquo;re technically not using blogdown for this, we&rsquo;ll be using something a little more custom.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build and deploy</span>
+</span></span></code></pre></div><p>After this, comes the longer list that sets up the jobs specifics.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">macOS-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">GITHUB_PAT</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span></code></pre></div><p>This part first declares that here comes the specifications of <code>jobs</code> to do.
 We will be <code>building</code> on <code>macOS-latest</code>, meaning the site will be rendered using the lastest GithHub image of MacOS.
 Then, we can declare global environment variables, and in this case, its the <code>GITHUB_TOKEN</code> for you repository.
 You do not have to declare it in any other way, GitHub actions has this information stored for you.</p>
 <p>After this, we can start declaring the steps of the process we are making.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup R</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">r-lib/actions/setup-r@v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install pandoc</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          brew install pandoc</span><span class="w">          
-</span></span></span></code></pre></div><p>The first part checks out the repository, meaning the worker gets a local clone of the repo to work with.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout repo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup R</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-r@v1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install pandoc</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          brew install pandoc</span>          
+</span></span></code></pre></div><p>The first part checks out the repository, meaning the worker gets a local clone of the repo to work with.
 Then it gets R installed and setup on the worker, so we can run our R-things on it.
 And then, we get <code>pandoc</code> which we need to render Rmd to md or html (or even pdf in my case).</p>
 <p>In my case, I needed to add a little oiece to the checking out of the repo.
@@ -282,51 +478,51 @@ I have my theme not as a simple theme folder, but as a <a href="https://git-scm.
 Again, there are pro&rsquo;s and cons of using a submodule, but in my case I&rsquo;ve now a decent setup I like, if you don&rsquo;t use it, you can skip this next step.
 I need to tell the checkout step, that it should also checkout and clone the submodule repositories into their locations (in my case into <code>themes/</code>).
 The information on the location, git remote and compatible hash of the theme to my repo is all stored in the repo&rsquo;s git history, so checking it out is not a big extra step.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># replace this</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># with this</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="l">recursive</span><span class="w">
-</span></span></span></code></pre></div><p>If you have more submodules, it will get them all.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># replace this</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout repo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># with this</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout repo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">submodules</span>: <span style="color:#ae81ff">recursive</span>
+</span></span></code></pre></div><p>If you have more submodules, it will get them all.
 If you my some chance are checking out a private repo as a submodule, you&rsquo;ll need to do some <a href="https://eriksamuelsson.com/access-private-submodules-in-github-actions/">more work</a> to get it working.</p>
 <p>I also experienced a little trouble with the pandoc installed by the brew, as my CV knitting needed a specific version to work, so I also replaced the pandoc step with</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup pandoc</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">r-lib/actions/setup-pandoc@v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">pandoc-version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2.12&#39;</span><span class="w">
-</span></span></span></code></pre></div><p>The next bit gets you sorted with <code>renv</code> if you use that. I don&rsquo;t, so I&rsquo;ve deleted it from mine.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup pandoc</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-pandoc@v1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">pandoc-version</span>: <span style="color:#e6db74">&#39;2.12&#39;</span>
+</span></span></code></pre></div><p>The next bit gets you sorted with <code>renv</code> if you use that. I don&rsquo;t, so I&rsquo;ve deleted it from mine.
 I likely should get started using it, but I just have not sat down to get into it yet.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache Renv packages</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">$HOME/.local/share/renv</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">r-${{ hashFiles(&#39;renv.lock&#39;) }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">restore-keys</span><span class="p">:</span><span class="w"> </span><span class="l">r-</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install packages</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          R -e &#39;install.packages(&#34;renv&#34;)&#39;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          R -e &#39;renv::restore()&#39;</span><span class="w">          
-</span></span></span></code></pre></div><p>The next bit gets hugo installed.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install hugo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          R -e &#39;blogdown::install_hugo()&#39;</span><span class="w">          
-</span></span></span></code></pre></div><p>If this works for you, that is cool. Keep on keeping on! I love it when default stuff works.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Cache Renv packages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/cache@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">$HOME/.local/share/renv</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">key</span>: <span style="color:#ae81ff">r-${{ hashFiles(&#39;renv.lock&#39;) }}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">restore-keys</span>: <span style="color:#ae81ff">r-</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install packages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          R -e &#39;install.packages(&#34;renv&#34;)&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          R -e &#39;renv::restore()&#39;</span>          
+</span></span></code></pre></div><p>The next bit gets hugo installed.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install hugo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          R -e &#39;blogdown::install_hugo()&#39;</span>          
+</span></span></code></pre></div><p>If this works for you, that is cool. Keep on keeping on! I love it when default stuff works.
 For me, I needed a little other things to work, and I set it up before I found ways to work with blogdown in that way.
 You might have a theme that requires extented hugo, in which you can add the <code>extended = TRUE</code> argument to the function to get that.
 I&rsquo;m a little weird, and prefer using a hugo action for setup.
 Mainly because I started this process with the idea of <em>not</em> needing to install blogdown on the worker (something I&rsquo;ve ended up with anyway).
 I rather use a hugo action created by someone else, where I specify version and if its extended in the action it self.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0.81.0&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span></code></pre></div><p>Now, I&rsquo;m going to skip ahead, the next setp in the default is to build the site, which is not what we are going to do just yet.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup Hugo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#39;0.81.0&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">extended</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>Now, I&rsquo;m going to skip ahead, the next setp in the default is to build the site, which is not what we are going to do just yet.
 For my part, my theme needs a couple of extra javascript things to work, and I need to set them up on the worker, else my theme will look like  a hot mess.</p>
 <p>My theme relies on <code>postcss</code> and <code>autoprefixer</code> which I have installed locally with <code>npm</code>.
 This is farily straight forward for me on my mac.
@@ -335,32 +531,32 @@ When I installed these to me website repo, I also got a file called <code>packag
 So rather than me having tos pecify exactly which npm libraries to install (and updating that every time I might add something new), I just let npm take that information from the <code>package.json</code>.
 If you have these dependencies in your theme, make sure to add <code>package.json</code> to your version history, but omit <code>package-lock.json</code>. The latter will screw things up on the CI, put it in your <code>.gitignore</code>!</p>
 <p>In addition to the npm libraries for my theme, I also need the netlify API client, which can also be installed via npm. So we set up a step for that:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install npm packages</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          npm install netlify-cli -g
-</span></span></span><span class="line"><span class="cl"><span class="sd">          npm install # reads info from package.json</span><span class="w">          
-</span></span></span></code></pre></div><p>Cool cool cool.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install npm packages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          npm install netlify-cli -g
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          npm install # reads info from package.json</span>          
+</span></span></code></pre></div><p>Cool cool cool.
 We now should have all the software we need installed on the worker.
 Next is to get the R-packages we need to build the about-page and the CV.
 This is likely where using <code>renv</code> would have made my life easier, I hope to get there at some point.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install R packages</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          install.packages(c(&#34;tidyverse&#34;, &#34;scholar&#34;, &#34;remotes&#34;, &#34;vitae&#34;, &#34;rorcid&#34;, &#34;glue&#34;, &#34;rmarkdown&#34;, &#34;blogdown&#34;, &#34;tinytex&#34;), Ncpus = 2)
-</span></span></span><span class="line"><span class="cl"><span class="sd">          tinytex::install_tinytex()</span><span class="w">          
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">Rscript {0}</span><span class="w">
-</span></span></span></code></pre></div><p>The syntax should be familiar to R-users. I&rsquo;m installing a bunch of packages using the 2 CPU&rsquo;s available in a standard action.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install R packages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          install.packages(c(&#34;tidyverse&#34;, &#34;scholar&#34;, &#34;remotes&#34;, &#34;vitae&#34;, &#34;rorcid&#34;, &#34;glue&#34;, &#34;rmarkdown&#34;, &#34;blogdown&#34;, &#34;tinytex&#34;), Ncpus = 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          tinytex::install_tinytex()</span>          
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">Rscript {0}</span>
+</span></span></code></pre></div><p>The syntax should be familiar to R-users. I&rsquo;m installing a bunch of packages using the 2 CPU&rsquo;s available in a standard action.
 And then I install tinytex, in order to render Rmd to pdf.</p>
 <p>Now we finally get to the rendering!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Render about me &amp; cv</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          blogdown::build_site(local = FALSE, 
-</span></span></span><span class="line"><span class="cl"><span class="sd">                               run_hugo = FALSE, 
-</span></span></span><span class="line"><span class="cl"><span class="sd">                               build_rmd = &#34;content/about/_index.Rmd&#34;,)
-</span></span></span><span class="line"><span class="cl"><span class="sd">          rmarkdown::render(&#34;content/about/resume/am_mowinckel_cv.Rmd&#34;)</span><span class="w">          
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">Rscript {0}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="nt">ORCID_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ORCID_TOKEN }}</span><span class="w">
-</span></span></span></code></pre></div><p>I render the about page and cv in the same step, to keep the steps clean and distinct.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Render about me &amp; cv</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          blogdown::build_site(local = FALSE, 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                               run_hugo = FALSE, 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                               build_rmd = &#34;content/about/_index.Rmd&#34;,)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          rmarkdown::render(&#34;content/about/resume/am_mowinckel_cv.Rmd&#34;)</span>          
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">Rscript {0}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">ORCID_TOKEN</span>: <span style="color:#ae81ff">${{ secrets.ORCID_TOKEN }}</span>
+</span></span></code></pre></div><p>I render the about page and cv in the same step, to keep the steps clean and distinct.
 I use blogdown to render the about me page, because it renders a type of <code>md</code> where the front-matter yaml of the Rmd is kept, as hugo uses this for page rendering.
 Then I use rmarkdown to render the cv (which is made based on a <a href="">vitae</a> template).
 Here I also specify an environment variable to use, my <code>ORCID_TOKEN</code>.
@@ -368,39 +564,39 @@ My CV is based on information from my ORCiD account, which is a fairly common re
 The token is saved as a secret in my github repository, something you can <a href="https://docs.github.com/en/actions/reference/encrypted-secrets">read more about</a> if you need something similar.</p>
 <p>All right, cool. We have all the stuff!
 Lets build the website!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build site</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo</span><span class="w">
-</span></span></span></code></pre></div><p>This will create all the files for my website in the <code>public</code> folder.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build site</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo</span>
+</span></span></code></pre></div><p>This will create all the files for my website in the <code>public</code> folder.
 Neat-O!
 If you want to build your site into another folder that <code>public</code> you can specify this in the command.
 For GitHub, I&rsquo;m assuming here that you might rather want to use the <code>docs</code> folder to render GitHub pages from that, which you could do with</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build site</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo -d docs</span><span class="w">
-</span></span></span></code></pre></div><p>But note, if this is your intent, the repo will increase in size as it keeps adding every entire pdf and image to version history every day. Because if you use GitHub pages to deploy the page, the entire docs folder must be commited to the repo history.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build site</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo -d docs</span>
+</span></span></code></pre></div><p>But note, if this is your intent, the repo will increase in size as it keeps adding every entire pdf and image to version history every day. Because if you use GitHub pages to deploy the page, the entire docs folder must be commited to the repo history.</p>
 <p>Your next step would then be to do that:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">     </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit results</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.email &#34;actions@github.com&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.name &#34;GitHub Actions&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit docs -m &#39;build site&#39; || echo &#34;No changes to commit&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git push origin || echo &#34;No changes to commit&#34;</span><span class="w">          
-</span></span></span></code></pre></div><p>This bit will commit the entire docs folder to history and push it into you repository.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>     - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Commit results</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          git config --local user.email &#34;actions@github.com&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          git config --local user.name &#34;GitHub Actions&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          git commit docs -m &#39;build site&#39; || echo &#34;No changes to commit&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          git push origin || echo &#34;No changes to commit&#34;</span>          
+</span></span></code></pre></div><p>This bit will commit the entire docs folder to history and push it into you repository.
 You&rsquo;ll then need to get GitHub to render a website from that folder, <a href="https://guides.github.com/features/pages/">which you can read more about</a> if that is what you need.</p>
 <p>In my case, I don&rsquo;t want to use GitHub pages, I don&rsquo;t want these things in my repo history inflating it rapidly.
 So I&rsquo;m going to get it off to Netlify.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to Netlify</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">NETLIFY_AUTH_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.NETLIFY_AUTH_TOKEN }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">NETLIFY_SITE_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.NETLIFY_SITE_ID }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ github.event_name == &#39;pull_request&#39; ]; then
-</span></span></span><span class="line"><span class="cl"><span class="sd">            echo &#34;Running netlify preview deploy&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">            netlify deploy 
-</span></span></span><span class="line"><span class="cl"><span class="sd">          else
-</span></span></span><span class="line"><span class="cl"><span class="sd">            echo &#34;Running netlify production deploy&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">            netlify deploy --prod
-</span></span></span><span class="line"><span class="cl"><span class="sd">          fi</span><span class="w">          
-</span></span></span></code></pre></div><p>There&rsquo;s quite some stuff going on here, so let&rsquo;s break it down.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy to Netlify</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">NETLIFY_AUTH_TOKEN</span>: <span style="color:#ae81ff">${{ secrets.NETLIFY_AUTH_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">NETLIFY_SITE_ID</span>: <span style="color:#ae81ff">${{ secrets.NETLIFY_SITE_ID }}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          if [ github.event_name == &#39;pull_request&#39; ]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;Running netlify preview deploy&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            netlify deploy 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          else
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;Running netlify production deploy&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            netlify deploy --prod
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          fi</span>          
+</span></span></code></pre></div><p>There&rsquo;s quite some stuff going on here, so let&rsquo;s break it down.
 Firstly we are declaring two environment variables from github secrets.
 <a href="https://twitter.com/Emil_Hvitfeldt">Emil Hvitfeldt</a> has an excellent walk through of how to obtain and set these on GitHub, so you should <a href="https://www.hvitfeldt.me/blog/bookdown-netlify-github-actions/">take a look at his tutorial</a> to make sure you have it right.
 These two secrets lets Netlify know that we have the right to deploy our stuff to them, it&rsquo;s authenticating our worker as us, basically.</p>
@@ -410,82 +606,82 @@ I want to use pull_requests as previews of what the site <em>will look like</em>
 So, the if statement first checks if this is a pull_request, and if it is, it will run <code>netlify deploy</code> which renders a preview site.
 For any other instance (which is puch to master/main or on schedule) it should run <code>netlify deploy --prod</code> signalling to netlify that this is the true production website and should be deployed to the production url.</p>
 <p>All in all, I now have a setup file that looks like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> 
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 1 * * *&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build site</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">render</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build site</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">macOS-latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">GITHUB_PAT</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="l">recursive</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup R</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">r-lib/actions/setup-r@v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup pandoc</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">r-lib/actions/setup-pandoc@v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">pandoc-version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2.12&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0.81.0&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install npm packages</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          npm install netlify-cli -g
-</span></span></span><span class="line"><span class="cl"><span class="sd">          npm install</span><span class="w">          
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install R packages</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          install.packages(c(&#34;tidyverse&#34;, &#34;scholar&#34;, &#34;remotes&#34;, &#34;vitae&#34;, &#34;rorcid&#34;, &#34;glue&#34;, &#34;rmarkdown&#34;, &#34;blogdown&#34;, &#34;tinytex&#34;), Ncpus = 2)
-</span></span></span><span class="line"><span class="cl"><span class="sd">          tinytex::install_tinytex()</span><span class="w">          
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">Rscript {0}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Render about me &amp; cv</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          blogdown::build_site(local = FALSE, 
-</span></span></span><span class="line"><span class="cl"><span class="sd">                               run_hugo = FALSE, 
-</span></span></span><span class="line"><span class="cl"><span class="sd">                               build_rmd = &#34;content/about/_index.Rmd&#34;,)
-</span></span></span><span class="line"><span class="cl"><span class="sd">          rmarkdown::render(&#34;content/about/resume/am_mowinckel_cv.Rmd&#34;)</span><span class="w">          
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">Rscript {0}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="nt">ORCID_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ORCID_TOKEN }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build site</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to Netlify</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">NETLIFY_AUTH_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.NETLIFY_AUTH_TOKEN }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">NETLIFY_SITE_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.NETLIFY_SITE_ID }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ github.event_name == &#39;pull_request&#39; ]; then
-</span></span></span><span class="line"><span class="cl"><span class="sd">            echo &#34;Running netlify preview deploy&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">            netlify deploy 
-</span></span></span><span class="line"><span class="cl"><span class="sd">          else
-</span></span></span><span class="line"><span class="cl"><span class="sd">            echo &#34;Running netlify production deploy&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">            netlify deploy --prod
-</span></span></span><span class="line"><span class="cl"><span class="sd">          fi</span><span class="w">          
-</span></span></span></code></pre></div><p>It might look huge and intimidating, but I hope my break down of it helps you out.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>: 
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>: <span style="color:#e6db74">&#39;0 1 * * *&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build site</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">render</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build site</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">macOS-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">GITHUB_PAT</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout repo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">submodules</span>: <span style="color:#ae81ff">recursive</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup R</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-r@v1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup pandoc</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-pandoc@v1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">pandoc-version</span>: <span style="color:#e6db74">&#39;2.12&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup Hugo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#39;0.81.0&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">extended</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install npm packages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          npm install netlify-cli -g
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          npm install</span>          
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install R packages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          install.packages(c(&#34;tidyverse&#34;, &#34;scholar&#34;, &#34;remotes&#34;, &#34;vitae&#34;, &#34;rorcid&#34;, &#34;glue&#34;, &#34;rmarkdown&#34;, &#34;blogdown&#34;, &#34;tinytex&#34;), Ncpus = 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          tinytex::install_tinytex()</span>          
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">Rscript {0}</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Render about me &amp; cv</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          blogdown::build_site(local = FALSE, 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                               run_hugo = FALSE, 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                               build_rmd = &#34;content/about/_index.Rmd&#34;,)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          rmarkdown::render(&#34;content/about/resume/am_mowinckel_cv.Rmd&#34;)</span>          
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">Rscript {0}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">ORCID_TOKEN</span>: <span style="color:#ae81ff">${{ secrets.ORCID_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build site</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy to Netlify</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">NETLIFY_AUTH_TOKEN</span>: <span style="color:#ae81ff">${{ secrets.NETLIFY_AUTH_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">NETLIFY_SITE_ID</span>: <span style="color:#ae81ff">${{ secrets.NETLIFY_SITE_ID }}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          if [ github.event_name == &#39;pull_request&#39; ]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;Running netlify preview deploy&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            netlify deploy 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          else
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;Running netlify production deploy&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            netlify deploy --prod
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          fi</span>          
+</span></span></code></pre></div><p>It might look huge and intimidating, but I hope my break down of it helps you out.
 Committing this file to git history and pushing it to master will trigger a github Action to start.
 Going to your GitHub repository, you should locate the <code>Actions</code> pane, and have a look at it as it works.
 You will likely need to trouble shoot some stuff as things error, untill you have a setup that works seamlessly.
@@ -494,120 +690,68 @@ Don&rsquo;t be discouraged, you can do it!</p>
 <p><img src="gh-deploy.png" alt=""></p>
 <p>Now you have a neat action building your site without increasing its size needlessly :)</p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Dr. Mowinckel (Mar 23, 2021) Using GitHub Actions to Build your Hugo Website. Retrieved from https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2021-using-github-actions-to-build-your-hugo-website,<br>
-            &emsp;author = { Dr. Mowinckel },<br>
-            &emsp;title = { Using GitHub Actions to Build your Hugo Website },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/ },<br>
-            &emsp;year = { 2021 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                New {ggseg} with Geom!
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/">
+                Adding giscus to your blogdown site
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

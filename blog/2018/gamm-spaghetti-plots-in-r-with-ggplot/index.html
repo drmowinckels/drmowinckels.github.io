@@ -1,185 +1,374 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>GAMM spaghetti plots in R with ggplot - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.
+A co-worker was working on some generalized additive mixed models (GAMM) through the R package mgcv. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GAMM spaghetti plots in R with ggplot - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.
+A co-worker was working on some generalized additive mixed models (GAMM) through the R package mgcv. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R.">
 
 
-
-            <meta property="og:title" content="GAMM spaghetti plots in R with ggplot - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.
+A co-worker was working on some generalized additive mixed models (GAMM) through the R package mgcv. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/plotGam1-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/plotGam2-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/plotGam3-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-1-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-2-1.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1.png">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1.png" alt="GAMM spaghetti plots in R with ggplot" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/">GAMM spaghetti plots in R with ggplot</a>
-    </h2>
-    <div class="post-data">
-        Mar 8, 2018 |
-        10 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">GAMM spaghetti plots in R with ggplot</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Mar 8, 2018
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/gamm/" class="uk-label uk-label-secondary tags" >
+                                GAMM
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/gamm">
-             GAMM</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.</p>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.</p>
 <p>A co-worker was working on some generalized additive mixed models (GAMM) through the R package <a href="https://cran.r-project.org/web/packages/mgcv/mgcv.pdf">mgcv</a>. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R. However, they were with base-r, and we all know base-r is not the most beautiful plotting application. Also, we have a need to a spaghetti plot in the background, as the whole point with a GAMM is that we have repeated data, and showing those in the background is very essential. <strong>This</strong> is not easily done in base-r.</p>
 <p>This is what we have</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">);</span> <span class="nf">library</span><span class="p">(</span><span class="n">mgcv</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse); <span style="color:#a6e22e">library</span>(mgcv)
 </span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.3.0 ──
 </code></pre><pre tabindex="0"><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
@@ -195,77 +384,77 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 ## 
 ##     collapse
 </code></pre><pre tabindex="0"><code>## This is mgcv 1.8-31. For overview type &#39;help(&#34;mgcv-package&#34;)&#39;.
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">n.g</span> <span class="o">&lt;-</span> <span class="m">10</span>
-</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="o">&lt;-</span><span class="n">n.g</span><span class="o">*</span><span class="m">10</span><span class="o">*</span><span class="m">4</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">&lt;-</span> <span class="nf">gamSim</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>n.g <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>n<span style="color:#f92672">&lt;-</span>n.g<span style="color:#f92672">*</span><span style="color:#ae81ff">10</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dat <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gamSim</span>(<span style="color:#ae81ff">1</span>,n<span style="color:#f92672">=</span>n,scale<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## Gu &amp; Wahba 4 term additive model
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">f</span> <span class="o">&lt;-</span> <span class="n">dat</span><span class="o">$</span><span class="n">f</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## simulate nested random effects....</span>
-</span></span><span class="line"><span class="cl"><span class="n">fa</span> <span class="o">&lt;-</span> <span class="nf">as.factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="m">4</span><span class="o">*</span><span class="n">n.g</span><span class="p">,</span><span class="m">10</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl"><span class="n">ra</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">10</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="m">4</span><span class="o">*</span><span class="n">n.g</span><span class="p">,</span><span class="m">10</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">fb</span> <span class="o">&lt;-</span> <span class="nf">as.factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span><span class="m">4</span><span class="p">)),</span><span class="m">10</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">rb</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">4</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span><span class="m">4</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">)</span> <span class="n">rb</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">rb</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">4</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span><span class="m">4</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## simulate auto-correlated errors within groups</span>
-</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">&lt;-</span><span class="nf">array</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">40</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">eg</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="n">n.g</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="nf">sd</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">for </span><span class="p">(</span><span class="n">j</span> <span class="n">in</span> <span class="m">2</span><span class="o">:</span><span class="n">n.g</span><span class="p">)</span> <span class="n">eg[j]</span> <span class="o">&lt;-</span> <span class="n">eg[j</span><span class="m">-1</span><span class="n">]</span><span class="o">*</span><span class="m">0.6</span><span class="o">+</span> <span class="n">eg[j]</span>
-</span></span><span class="line"><span class="cl">  <span class="n">e</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">eg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dat</span><span class="o">$</span><span class="n">y</span> <span class="o">&lt;-</span> <span class="n">f</span> <span class="o">+</span> <span class="n">ra</span> <span class="o">+</span> <span class="n">rb</span> <span class="o">+</span> <span class="n">e</span>
-</span></span><span class="line"><span class="cl"><span class="n">dat</span><span class="o">$</span><span class="n">id</span> <span class="o">&lt;-</span> <span class="n">fa</span><span class="p">;</span><span class="n">dat</span><span class="o">$</span><span class="n">fb</span> <span class="o">&lt;-</span> <span class="n">fb</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Let&#39;s have a look at it</span>
-</span></span><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">()</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>f <span style="color:#f92672">&lt;-</span> dat<span style="color:#f92672">$</span>f
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## simulate nested random effects....</span>
+</span></span><span style="display:flex;"><span>fa <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.factor</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>,<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>n.g,<span style="color:#ae81ff">10</span>)))
+</span></span><span style="display:flex;"><span>ra <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">10</span>),<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>n.g,<span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>fb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.factor</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>,<span style="color:#a6e22e">rep</span>(n.g,<span style="color:#ae81ff">4</span>)),<span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>rb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">4</span>),<span style="color:#a6e22e">rep</span>(n.g,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for </span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>) rb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(rb,<span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">4</span>),<span style="color:#a6e22e">rep</span>(n.g,<span style="color:#ae81ff">4</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## simulate auto-correlated errors within groups</span>
+</span></span><span style="display:flex;"><span>e<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">array</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for </span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">40</span>) {
+</span></span><span style="display:flex;"><span>  eg <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(n.g, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">sd</span>(f))
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for </span>(j in <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n.g) eg[j] <span style="color:#f92672">&lt;-</span> eg[j<span style="color:#ae81ff">-1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">0.6</span><span style="color:#f92672">+</span> eg[j]
+</span></span><span style="display:flex;"><span>  e<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>(e,eg)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dat<span style="color:#f92672">$</span>y <span style="color:#f92672">&lt;-</span> f <span style="color:#f92672">+</span> ra <span style="color:#f92672">+</span> rb <span style="color:#f92672">+</span> e
+</span></span><span style="display:flex;"><span>dat<span style="color:#f92672">$</span>id <span style="color:#f92672">&lt;-</span> fa;dat<span style="color:#f92672">$</span>fb <span style="color:#f92672">&lt;-</span> fb
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s have a look at it</span>
+</span></span><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" alt=""><!-- --></p>
 <p>The data is not particularly well crafted, but it serves to make my point I believe. <code>geom_smooth</code> runs a loess model for prediction, which, given this data, makes a lot of sense. But it&rsquo;s not what I want, and it won&rsquo;t take into account the repeated measures. Let&rsquo;s go over to the gamm models. I&rsquo;ll omit gam, because you can easily get gams in ggplot by running:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;gam&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gam&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
 </code></pre><p><img src="index_files/figure-html/plotGam1-1.png" alt=""><!-- --></p>
 <p>but that&rsquo;s definately not what we want, despite the horrible data</p>
 <p>We could even give it a formula, which might look really nice. Not that the formula will read x and y in the formula as the &lsquo;x&rsquo; and &lsquo;y&rsquo; set in the <code>aes</code>. So don&rsquo;t give it the actual names of the column, use &lsquo;x&rsquo; and &lsquo;y&rsquo;.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;gam&#34;</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="n">y</span><span class="o">~</span><span class="nf">s</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#39;cr&#39;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gam&#34;</span>, formula<span style="color:#f92672">=</span>y<span style="color:#f92672">~</span><span style="color:#a6e22e">s</span>(x,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cr&#39;</span>))
 </span></span></code></pre></div><p><img src="index_files/figure-html/plotGam2-1.png" alt=""><!-- --></p>
 <p>The downside to this is that it is only modelling the one term, and we want a fit that takes into account all our covariates, but only plots the one prediction, holding the others constant. trying to increase formula complexity in ggplot directly wont work, it&rsquo;s just not made for something so complex.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;gam&#34;</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="n">y</span><span class="o">~</span><span class="nf">s</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#39;cr&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nf">s</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="s">&#34;re&#34;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gam&#34;</span>, formula<span style="color:#f92672">=</span>y<span style="color:#f92672">~</span><span style="color:#a6e22e">s</span>(x,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cr&#39;</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">s</span>(group, bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;re&#34;</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning in predict.gam(model, newdata = data_frame(x = xseq), se.fit = se, : not all required variables have been supplied in  newdata!
 </code></pre><pre tabindex="0"><code>## Warning: Computation failed in `stat_smooth()`:
 ## object &#39;group&#39; not found
 </code></pre><p><img src="index_files/figure-html/plotGam3-1.png" alt=""><!-- --></p>
 <p>So, let&rsquo;s have a look at what we want to model. This particular example is compelx, because it is the complex that is hard to predict and plot. The simple ones will work with the above, provigin a formula directly to <code>geom_stat</code>. We&rsquo;re using three smoothing splines on three predictors in this model, and including two random intercepts. But we are really only interested in the <code>x2</code> smoothing spline, the others are just covariates of no interest.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="nf">gamm</span><span class="p">(</span><span class="n">y</span><span class="o">~</span><span class="nf">s</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span><span class="nf">s</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">)</span><span class="o">+</span>
-</span></span><span class="line"><span class="cl">           <span class="nf">s</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">bs</span><span class="o">=</span><span class="s">&#34;cr&#34;</span><span class="p">),</span><span class="n">data</span><span class="o">=</span><span class="n">dat</span><span class="p">,</span><span class="n">random</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">id</span><span class="o">=~</span><span class="m">1</span><span class="p">,</span><span class="n">fb</span><span class="o">=~</span><span class="m">1</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">correlation</span><span class="o">=</span><span class="nf">corAR1</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Output is a list of two</span>
-</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">%&gt;%</span> <span class="nf">summary</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#a6e22e">gamm</span>(y<span style="color:#f92672">~</span><span style="color:#a6e22e">s</span>(x0,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">s</span>(x1,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">s</span>(x2,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#a6e22e">s</span>(x3,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>),data<span style="color:#f92672">=</span>dat,random<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(id<span style="color:#f92672">=~</span><span style="color:#ae81ff">1</span>,fb<span style="color:#f92672">=~</span><span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>         correlation<span style="color:#f92672">=</span><span style="color:#a6e22e">corAR1</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output is a list of two</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">summary</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>##     Length Class Mode
 ## lme 18     lme   list
 ## gam 31     gam   list
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Let&#39;s see the model summary</span>
-</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="o">$</span><span class="n">gam</span> <span class="o">%&gt;%</span> <span class="nf">summary</span><span class="p">()</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s see the model summary</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#f92672">$</span>gam <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">summary</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Family: gaussian 
 ## Link function: identity 
@@ -293,15 +482,15 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 ##   Scale est. = 13.963    n = 400
 </code></pre><p>So I went googling, and in my frustration, there was very little help in what I found. <code>mgcv</code>&rsquo;s gamm output is different from other analyses, as it gives a list containing an lme and gam model (which is really a GAMM model). So grabbing the smooth directly in ggplot will not work. Furthermore, we want one single smoothed predictor while still taking into account the rest of the predictors and covariates.</p>
 <p>I even <a href="https://stackoverflow.com/questions/48907493/ggplot2-geom-ribbon-from-mgcvgamm/48907846?noredirect=1#comment85066362_48907846">posted something on stackoverflow</a> (the example data is horrendous!), and the answer pointed me to <code>predict()</code>. So that&rsquo; what I did, I tried running <code>predict()</code> on the gamm output, but the resulting output was not what I wanted. <code>predict()</code> predicts based on all the predictors and covariates, and so, we are not plotting the one smoothed predictor, but a jumble of predictors. The resulting &lsquo;smooth&rsquo; it not pretty, and completely wrong.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">pred</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">b</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> <span class="n">se.fit</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">pred</span><span class="o">$</span><span class="n">fit</span><span class="m">-1.96</span><span class="o">*</span><span class="n">pred</span><span class="o">$</span><span class="n">se.fit</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                  <span class="n">ymax</span><span class="o">=</span><span class="n">pred</span><span class="o">$</span><span class="n">fit</span><span class="m">+1.96</span><span class="o">*</span><span class="n">pred</span><span class="o">$</span><span class="n">se.fit</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.2</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&#34;red&#34;</span><span class="p">)</span><span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">pred</span><span class="o">$</span><span class="n">fit</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#34;blue&#34;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>pred <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(b<span style="color:#f92672">$</span>gam, se.fit<span style="color:#f92672">=</span>T)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(<span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>pred<span style="color:#f92672">$</span>fit<span style="color:#ae81ff">-1.96</span><span style="color:#f92672">*</span>pred<span style="color:#f92672">$</span>se.fit,
+</span></span><span style="display:flex;"><span>                  ymax<span style="color:#f92672">=</span>pred<span style="color:#f92672">$</span>fit<span style="color:#ae81ff">+1.96</span><span style="color:#f92672">*</span>pred<span style="color:#f92672">$</span>se.fit), alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>pred<span style="color:#f92672">$</span>fit), col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" alt=""><!-- --></p>
 <p>Now, there are packages to help do this. For instance, visreg has a gamm plotting function. However, <a href="https://cran.r-project.org/web/packages/visreg/visreg.pdf">visreg</a> requires attached data, or each variable existing in the global environment. I don&rsquo;t like working with attached data, in my opinion in makes the workflow less transparent, and it&rsquo;s hard to debug issues. If you forget to detach the data, you can spend hours trying to figure out why things aren&rsquo;t working, without noticing that the attached data may be messing things up.</p>
 <p>What we need to do, is predict all the data, keeping the other covariates constant, while only varying the predictor of interest. Right-o. If you&rsquo;re good at simulating data etc, this might be easy for you. I&rsquo;m pretty terrible at it (for lack of practise for sure).</p>
@@ -313,7 +502,7 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 <!--/html_preserve-->
 <p>And to the rescue comes twitter, a useR pointed me to <a href="https://cran.r-project.org/web/packages/itsadug/index.html">itsadug</a>. The obscure package I just could not manage to find through all my googling. <code>itsadug</code> has a predict function, where you can specify which predictor you want to predict on.</p>
 <p>If you give it the min, max and length of what you want to predict, it then generates data with all other predictors set to constants, for your convenient plotting. It was like magic, exactly what i was searching for. Now, I could plot what I wanted, just like I wanted it!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">itsadug</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(itsadug)
 </span></span></code></pre></div><pre tabindex="0"><code>## Loading required package: plotfunctions
 </code></pre><pre tabindex="0"><code>## 
 ## Attaching package: &#39;plotfunctions&#39;
@@ -321,11 +510,11 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 ## 
 ##     alpha
 </code></pre><pre tabindex="0"><code>## Loaded package itsadug 2.4 (see &#39;help(&#34;itsadug&#34;)&#39; ).
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># predict on x2</span>
-</span></span><span class="line"><span class="cl"><span class="n">pred</span> <span class="o">=</span> <span class="nf">get_predictions</span><span class="p">(</span><span class="n">b</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                       <span class="n">cond</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">x2</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">x2</span><span class="p">,</span> <span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                                            <span class="nf">max</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">x2</span><span class="p">,</span> <span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">                                            <span class="n">length.out</span> <span class="o">=</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">dat</span><span class="p">)),</span> <span class="n">se</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># predict on x2</span>
+</span></span><span style="display:flex;"><span>pred <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_predictions</span>(b<span style="color:#f92672">$</span>gam, 
+</span></span><span style="display:flex;"><span>                       cond <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(x2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">min</span>(dat<span style="color:#f92672">$</span>x2, na.rm<span style="color:#f92672">=</span>T),
+</span></span><span style="display:flex;"><span>                                            <span style="color:#a6e22e">max</span>(dat<span style="color:#f92672">$</span>x2, na.rm<span style="color:#f92672">=</span>T), 
+</span></span><span style="display:flex;"><span>                                            length.out <span style="color:#f92672">=</span> <span style="color:#a6e22e">nrow</span>(dat)), se<span style="color:#f92672">=</span>T))
 </span></span></code></pre></div><pre tabindex="0"><code>## Summary:
 ## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
 ## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
@@ -333,29 +522,29 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 ## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
 ## 	* NOTE : No random effects in the model to cancel.
 ## 
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># add y to predicted data, becasue ggplot requires all main variables in both datasets</span>
-</span></span><span class="line"><span class="cl"><span class="n">pred</span> <span class="o">=</span> <span class="n">pred</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.4</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">fit</span><span class="o">-</span><span class="n">CI</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">fit</span><span class="o">+</span><span class="n">CI</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&#39;forestgreen&#39;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pred</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">fit</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;forestgreen&#39;</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># add y to predicted data, becasue ggplot requires all main variables in both datasets</span>
+</span></span><span style="display:flex;"><span>pred <span style="color:#f92672">=</span> pred <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(y<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(data<span style="color:#f92672">=</span>pred, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.4</span>, <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>CI, ymax<span style="color:#f92672">=</span>fit<span style="color:#f92672">+</span>CI), show.legend <span style="color:#f92672">=</span> F, fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data<span style="color:#f92672">=</span>pred, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>fit), show.legend <span style="color:#f92672">=</span> F, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt=""><!-- --></p>
 <p>That&rsquo;s looking much nicer! Hurrah! I also made a convenience function for my self, to make the predicted data. This would only work for other numeric predictors, and it&rsquo;s not particularly pretty coding, as it&rsquo;s using ugly eval parsing, but that&rsquo;s how I got it working for me.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Custom function that predicts on a single predictor, and adds the dependent with the value of 1</span>
-</span></span><span class="line"><span class="cl"><span class="n">GammPredData</span> <span class="o">=</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gamm.model</span><span class="p">,</span> <span class="n">condition</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="nf">eval</span><span class="p">(</span><span class="nf">parse</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="nf">paste0</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;get_predictions(gamm.model, cond = list(&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">condition</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;=seq(min(data[condition], na.rm=T),max(data[condition], na.rm=T), length.out = nrow(data)))) %&gt;% as.data.frame() %&gt;% mutate(&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">str_split</span><span class="p">(</span><span class="n">gamm.model</span><span class="o">$</span><span class="n">formula</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">)</span><span class="n">[[2]]</span><span class="p">,</span><span class="s">&#34;=1)&#34;</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># Use the function to predict on x2. you can easily supply the other predictors</span>
-</span></span><span class="line"><span class="cl">  <span class="n">pred</span> <span class="o">=</span> <span class="nf">GammPredData</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">b</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> <span class="s">&#34;x2&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Custom function that predicts on a single predictor, and adds the dependent with the value of 1</span>
+</span></span><span style="display:flex;"><span>GammPredData <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(data, gamm.model, condition){
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">eval</span>(<span style="color:#a6e22e">parse</span>(text<span style="color:#f92672">=</span><span style="color:#a6e22e">paste0</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;get_predictions(gamm.model, cond = list(&#34;</span>,
+</span></span><span style="display:flex;"><span>    condition,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;=seq(min(data[condition], na.rm=T),max(data[condition], na.rm=T), length.out = nrow(data)))) %&gt;% as.data.frame() %&gt;% mutate(&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">str_split</span>(gamm.model<span style="color:#f92672">$</span>formula, <span style="color:#e6db74">&#34; &#34;</span>)[[2]],<span style="color:#e6db74">&#34;=1)&#34;</span>)))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Use the function to predict on x2. you can easily supply the other predictors</span>
+</span></span><span style="display:flex;"><span>  pred <span style="color:#f92672">=</span> <span style="color:#a6e22e">GammPredData</span>(dat, b<span style="color:#f92672">$</span>gam, <span style="color:#e6db74">&#34;x2&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## Summary:
 ## 	* x0 : numeric predictor; set to the value(s): 0.476351245073602. 
 ## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
@@ -363,32 +552,32 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 ## 	* x3 : numeric predictor; set to the value(s): 0.477402933407575. 
 ## 	* NOTE : No random effects in the model to cancel.
 ## 
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.4</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">fit</span><span class="o">-</span><span class="n">CI</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">fit</span><span class="o">+</span><span class="n">CI</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&#39;forestgreen&#39;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pred</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">fit</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;forestgreen&#39;</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(data<span style="color:#f92672">=</span>pred, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.4</span>, <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>CI, ymax<span style="color:#f92672">=</span>fit<span style="color:#f92672">+</span>CI), show.legend <span style="color:#f92672">=</span> F, fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data<span style="color:#f92672">=</span>pred, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>fit), show.legend <span style="color:#f92672">=</span> F, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-4-1.png" alt=""><!-- --></p>
 <p>You might want to grab each predictor and plot them? That can be done also, and I&rsquo;ll use a combination of <code>apply</code>&lsquo;es to do so, for convenience. I love apply&rsquo;es&hellip;</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Predictions</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;x0&#34;</span><span class="p">,</span> <span class="s">&#34;x1&#34;</span><span class="p">,</span> <span class="s">&#34;x2&#34;</span><span class="p">,</span><span class="s">&#34;x3&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># we will be using facet_wrap, gather the data on the predictors, for a long data frame.</span>
-</span></span><span class="line"><span class="cl"><span class="n">dat2</span> <span class="o">=</span> <span class="n">dat</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">Pred</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Predictions</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;x0&#34;</span>, <span style="color:#e6db74">&#34;x1&#34;</span>, <span style="color:#e6db74">&#34;x2&#34;</span>,<span style="color:#e6db74">&#34;x3&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># we will be using facet_wrap, gather the data on the predictors, for a long data frame.</span>
+</span></span><span style="display:flex;"><span>dat2 <span style="color:#f92672">=</span> dat <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(Pred, x, p)
 </span></span></code></pre></div><pre tabindex="0"><code>## Note: Using an external vector in selections is ambiguous.
 ## ℹ Use `all_of(p)` instead of `p` to silence this message.
 ## ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
 ## This message is displayed once per session.
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">preds</span> <span class="o">=</span> <span class="nf">list</span><span class="p">()</span> <span class="c1"># prepare a list</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># loop through the predictors</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">p</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">preds[[i]]</span> <span class="o">=</span> <span class="nf">GammPredData</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">b</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">select_</span><span class="p">(</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="s">&#34;CI&#34;</span><span class="p">,</span> <span class="s">&#34;fit&#34;</span><span class="p">,</span> <span class="n">p[i]</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">names</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span><span class="n">[i]</span> <span class="o">=</span> <span class="n">p[i]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>preds <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>() <span style="color:#75715e"># prepare a list</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># loop through the predictors</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(p)){
+</span></span><span style="display:flex;"><span>  preds[[i]] <span style="color:#f92672">=</span> <span style="color:#a6e22e">GammPredData</span>(dat, b<span style="color:#f92672">$</span>gam, p[i]) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">select_</span>(<span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;CI&#34;</span>, <span style="color:#e6db74">&#34;fit&#34;</span>, p[i])
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(preds)[i] <span style="color:#f92672">=</span> p[i]
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><pre tabindex="0"><code>## Summary:
 ## 	* x0 : numeric predictor; with 400 values ranging from 0.013078 to 0.996077. 
 ## 	* x1 : numeric predictor; set to the value(s): 0.514732652809471. 
@@ -423,136 +612,79 @@ Gamm Spaghetti Plots in R With Ggplot - Dr. Mowinckel&rsquo;s
 ## 	* x3 : numeric predictor; with 400 values ranging from 0.001642 to 0.996272. 
 ## 	* NOTE : No random effects in the model to cancel.
 ## 
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># use bind_rows to make them into a large data frame, gather them, just like the data</span>
-</span></span><span class="line"><span class="cl"><span class="n">preds</span> <span class="o">=</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span><span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">Pred</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">na.omit</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dat2</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">.3</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">.4</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">fit</span><span class="o">-</span><span class="n">CI</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">fit</span><span class="o">+</span><span class="n">CI</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">Pred</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">preds</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">fit</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">Pred</span><span class="p">),</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">Pred</span><span class="p">,</span> <span class="n">scales</span><span class="o">=</span><span class="s">&#34;free&#34;</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># use bind_rows to make them into a large data frame, gather them, just like the data</span>
+</span></span><span style="display:flex;"><span>preds <span style="color:#f92672">=</span> <span style="color:#a6e22e">bind_rows</span>(preds)<span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(Pred, x, p) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">na.omit</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dat2 <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(data<span style="color:#f92672">=</span>preds, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.4</span>, <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>CI, ymax<span style="color:#f92672">=</span>fit<span style="color:#f92672">+</span>CI, fill<span style="color:#f92672">=</span>Pred), show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data<span style="color:#f92672">=</span>preds, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>fit, color<span style="color:#f92672">=</span>Pred), show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>Pred, scales<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;free&#34;</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-5-1.png" alt=""><!-- --></p>
 <p>And that is it. My first blogpost, and I hope it is to some help.</p>
 <p>Happy International Woman&rsquo;s day!</p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Dr. Mowinckel (Mar 8, 2018) GAMM spaghetti plots in R with ggplot. Retrieved from https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2018-gamm-spaghetti-plots-in-r-with-ggplot,<br>
-            &emsp;author = { Dr. Mowinckel },<br>
-            &emsp;title = { GAMM spaghetti plots in R with ggplot },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/ },<br>
-            &emsp;year = { 2018 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/gamm-random-effects/">
+                GAMM random effects
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

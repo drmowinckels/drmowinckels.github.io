@@ -1,192 +1,383 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Advent of R Functions - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="It is advent! And we all know by now how much I LOVE advent and Christmas. Keeping true to who I am and that I finally have some extra energy for things like this, this advent brings you a series of 24 pieces of code I often use in my work, and that I hope can be of interest and help to you.
+1st of December - Creating a directory I often find myself doing quite some file handling in my work, often leading to many of the same things happening over and over in slightly different contexts." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Advent of R Functions - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Advent of R Functions - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="It is advent! And we all know by now how much I LOVE advent and Christmas. Keeping true to who I am and that I finally have some extra energy for things like this, this advent brings you a series of 24 pieces of code I often use in my work, and that I hope can be of interest and help to you.
+1st of December - Creating a directory I often find myself doing quite some file handling in my work, often leading to many of the same things happening over and over in slightly different contexts.">
 
 
-
-            <meta property="og:title" content="Advent of R Functions - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="It is advent! And we all know by now how much I LOVE advent and Christmas. Keeping true to who I am and that I finally have some extra energy for things like this, this advent brings you a series of 24 pieces of code I often use in my work, and that I hope can be of interest and help to you.
+1st of December - Creating a directory I often find myself doing quite some file handling in my work, often leading to many of the same things happening over and over in slightly different contexts.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/featured.jpg"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-39-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-39-2.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-39-3.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-40-1.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/featured.jpg" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/featured.jpg">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2022/advent-of-r-functions/featured.jpg" alt="Advent of R Functions" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2022/advent-of-r-functions/">Advent of R Functions</a>
-    </h2>
-    <div class="post-data">
-        Dec 1, 2022 |
-        27 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Advent of R Functions</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Dec 1, 2022
+            </h3>
+            
+            <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top"
+                type="button" uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/advent-calendar/" class="uk-label uk-label-secondary tags" >
+                                Advent calendar
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r-functions-2022/" class="uk-label uk-label-secondary tags" >
+                                R functions 2022
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Categories:
-          
-        </p>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/advent-calendar">
-             Advent calendar</a>,
-         
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/r-functions-2022">
-             R functions 2022</a>
-         
-        </p>
-      
-    
-      
-    
-      
-    
-
-    
-      <aside>
-          <h1>Contents</h1>
-          <nav id="TableOfContents">
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
   <ul>
     <li><a href="#1supstsup-of-december---creating-a-directory">1<sup>st</sup> of December - Creating a directory</a></li>
     <li><a href="#2supndsup-of-december---writing-subsetted-data-to-files">2<sup>nd</sup> of December - Writing subsetted data to files</a></li>
@@ -205,42 +396,39 @@ Advent of R Functions - Dr. Mowinckel&rsquo;s
     <li><a href="#15supthsup-of-december---logit-to-probability">15<sup>th</sup> of December - logit to probability</a></li>
   </ul>
 </nav>
-      </aside>
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>It is advent!
+            </div>
+        </div>
+        
+        <div>
+            <p>It is advent!
 And we all know by now how much I LOVE advent and Christmas.
 Keeping true to who I am and that I finally have some extra energy for things like this, this advent brings you a series of 24 pieces of code I often use in my work, and that I hope can be of interest and help to you.</p>
-
-<h2 id="1supstsup-of-december---creating-a-directory" class="anchor-link"><a href="#1supstsup-of-december---creating-a-directory">1<sup>st</sup> of December - Creating a directory</a></h2>
+<h2 id="1supstsup-of-december---creating-a-directory">1<sup>st</sup> of December - Creating a directory</h2>
 <p>I often find myself doing quite some file handling in my work, often leading to many of the same things happening over and over in slightly different contexts.
 If you try to create files in a directory that does not exists, R will throw an error</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">penguins</span> <span class="o">&lt;-</span> <span class="n">palmerpenguins</span><span class="o">::</span><span class="n">penguins</span>
-</span></span><span class="line"><span class="cl"><span class="nf">write.table</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="s">&#34;new_folder/penguins.csv&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>penguins <span style="color:#f92672">&lt;-</span> palmerpenguins<span style="color:#f92672">::</span>penguins
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.table</span>(penguins, <span style="color:#e6db74">&#34;new_folder/penguins.csv&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning in file(file, ifelse(append, &#34;a&#34;, &#34;w&#34;)): cannot open file &#39;new_folder/
 ## penguins.csv&#39;: No such file or directory
 </code></pre><pre tabindex="0"><code>## Error in file(file, ifelse(append, &#34;a&#34;, &#34;w&#34;)): cannot open the connection
 </code></pre><p>So, I very often have this piece of code in any file-writing function I make to create the folder.
 But R will also throw annoying warnings if the folder already exists, which I also don&rsquo;t like.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">dir.create</span><span class="p">(</span><span class="s">&#34;new_folder&#34;</span><span class="p">)</span> <span class="c1"># no warning</span>
-</span></span><span class="line"><span class="cl"><span class="nf">dir.create</span><span class="p">(</span><span class="s">&#34;new_folder&#34;</span><span class="p">)</span> <span class="c1"># produces warning</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">dir.create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>) <span style="color:#75715e"># no warning</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dir.create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>) <span style="color:#75715e"># produces warning</span>
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning in dir.create(&#34;new_folder&#34;): &#39;new_folder&#39; already exists
 </code></pre><p>The solution, is to check if the directory already exists, and make it if it does not.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">dir.exists</span><span class="p">(</span><span class="s">&#34;new_folder&#34;</span><span class="p">))</span> <span class="nf">dir.create</span><span class="p">(</span><span class="s">&#34;new_folder&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)) <span style="color:#a6e22e">dir.create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)
 </span></span></code></pre></div><p>Actually, I often end up using a little convenience function for this, since I do it quite often.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dir_create</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="kc">...</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">dir.exists</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">dir.create</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">recursive</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="kc">...</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nf">dir_create</span><span class="p">(</span><span class="s">&#34;new_folder&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">dir_create</span><span class="p">(</span><span class="s">&#34;new_folder&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dir_create <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, <span style="color:#66d9ef">...</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(x)) 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dir.create</span>(x, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dir_create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dir_create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)
 </span></span></code></pre></div><p>Here, I can have a function to easily create new folders, with any extra arguments to <code>dir.create</code> passed along using the <code>...</code> (ellipsis), and only make the directory if it does not already exist.
 This is a staple bit of code for me.
 Hope it will help you get your scripts tidier!</p>
-
-<h2 id="2supndsup-of-december---writing-subsetted-data-to-files" class="anchor-link"><a href="#2supndsup-of-december---writing-subsetted-data-to-files">2<sup>nd</sup> of December - Writing subsetted data to files</a></h2>
+<h2 id="2supndsup-of-december---writing-subsetted-data-to-files">2<sup>nd</sup> of December - Writing subsetted data to files</h2>
 <p>I&rsquo;ll continue in the same line as the first day, with working with the file system.
 I&rsquo;ve shown how I create a utility function to create new directories if they don&rsquo;t exist, and now we want to write files to them!</p>
 <p>I&rsquo;ll continue using base-R, as for this first part of the calendar, I am emulating work I do on our offline server where I often struggle with getting dependencies installed in stable ways.</p>
@@ -251,8 +439,8 @@ Then I want to save each of those to file.</p>
 Usually, when not on the server, I&rsquo;d do some {dplyr} <code>nest_by</code> magic, but I cannot in this case.
 So we need to deal with what we have.
 Neatly, base-R has the <code>split</code> function, which does exactly what I want.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">penguins</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">split</span><span class="p">(</span><span class="o">~</span><span class="n">species</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>penguins <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">split</span>(<span style="color:#f92672">~</span>species)
 </span></span></code></pre></div><pre tabindex="0"><code>## $Adelie
 ## # A tibble: 152 × 8
 ##    species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
@@ -310,11 +498,11 @@ I will use <code>lapply</code> (list apply) to loop through the list, and save e
 I send each data set into the lapply function, giving them the placeholder name <code>x</code>.
 So, <code>x</code> will be one data.frame.
 Then I write the csv to file, using the species name.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">penguins</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">split</span><span class="p">(</span><span class="o">~</span><span class="n">species</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">lapply</span><span class="p">(</span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">write.csv</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="nf">unique</span><span class="p">(</span><span class="n">x</span><span class="o">$</span><span class="n">species</span><span class="p">),</span> <span class="s">&#34;.csv&#34;</span><span class="p">),</span> <span class="n">row.names</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>penguins <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">split</span>(<span style="color:#f92672">~</span>species) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">write.csv</span>(x, <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">unique</span>(x<span style="color:#f92672">$</span>species), <span style="color:#e6db74">&#34;.csv&#34;</span>), row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  })
 </span></span></code></pre></div><pre tabindex="0"><code>## $Adelie
 ## NULL
 ## 
@@ -323,46 +511,46 @@ Then I write the csv to file, using the species name.</p>
 ## 
 ## $Gentoo
 ## NULL
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">,</span> <span class="s">&#34;csv&#34;</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;csv&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;Adelie.csv&#34;    &#34;Chinstrap.csv&#34; &#34;csvs&#34;          &#34;Gentoo.csv&#34;
 </code></pre><p>Ok. so the files are there, but I am not super happy with this.
 I don&rsquo;t like capitalisation in my file names, and they are not in a folder.
 I also cannot easily change the grouping factor, if I for instance wanted to save by island or sex in stead.
 To do that, I&rsquo;ll construct a function that will do my work for me in a standardised way.
 It&rsquo;s going to be quite a doozy, but its such a convenient thing for me!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">save_files</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># get column name from formula</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colname</span> <span class="o">&lt;-</span> <span class="nf">as.character</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="n">[</span><span class="m">-1</span><span class="n">]</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Create directory</span>
-</span></span><span class="line"><span class="cl">  <span class="n">dir</span> <span class="o">&lt;-</span> <span class="nf">file.path</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">colname</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">dir_create</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># split the data</span>
-</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># internal file name constructor</span>
-</span></span><span class="line"><span class="cl">  <span class="n">.filename</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># get unique value, make lower, append .csv</span>
-</span></span><span class="line"><span class="cl">    <span class="n">g</span> <span class="o">&lt;-</span> <span class="nf">unique</span><span class="p">(</span><span class="n">data[[colname]]</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">      <span class="nf">tolower</span><span class="p">()</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">      <span class="nf">paste0</span><span class="p">(</span><span class="s">&#34;.csv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># construct file path with directory, grouping and dataset</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">file.path</span><span class="p">(</span><span class="n">dir</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># apply file names to the split data</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># makes `sapply` give a really nice output</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">names</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">.filename</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># write the filees!</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">sapply</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">write.csv</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="nf">.filename</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">              <span class="n">row.names</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nf">save_files</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="o">~</span><span class="n">species</span><span class="p">,</span> <span class="s">&#34;csvs&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>save_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, group, directory) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># get column name from formula</span>
+</span></span><span style="display:flex;"><span>  colname <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.character</span>(group)[<span style="color:#ae81ff">-1</span>]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Create directory</span>
+</span></span><span style="display:flex;"><span>  dir <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(directory, colname)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">dir_create</span>(dir)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># split the data</span>
+</span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">split</span>(data, group)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># internal file name constructor</span>
+</span></span><span style="display:flex;"><span>  .filename <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># get unique value, make lower, append .csv</span>
+</span></span><span style="display:flex;"><span>    g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unique</span>(data[[colname]]) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">tolower</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;.csv&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># construct file path with directory, grouping and dataset</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">file.path</span>(dir, g)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># apply file names to the split data</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># makes `sapply` give a really nice output</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(tmp) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(tmp, .filename)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># write the filees!</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sapply</span>(tmp, <span style="color:#a6e22e">function</span>(x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">write.csv</span>(x,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">.filename</span>(x),
+</span></span><span style="display:flex;"><span>              row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">save_files</span>(penguins, <span style="color:#f92672">~</span>species, <span style="color:#e6db74">&#34;csvs&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## $`csvs/species/adelie.csv`
 ## NULL
 ## 
@@ -371,7 +559,7 @@ It&rsquo;s going to be quite a doozy, but its such a convenient thing for me!</p
 ## 
 ## $`csvs/species/gentoo.csv`
 ## NULL
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">save_files</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="o">~</span><span class="n">island</span><span class="p">,</span> <span class="s">&#34;csvs&#34;</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">save_files</span>(penguins, <span style="color:#f92672">~</span>island, <span style="color:#e6db74">&#34;csvs&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## $`csvs/island/biscoe.csv`
 ## NULL
 ## 
@@ -380,7 +568,7 @@ It&rsquo;s going to be quite a doozy, but its such a convenient thing for me!</p
 ## 
 ## $`csvs/island/torgersen.csv`
 ## NULL
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;csvs&#34;</span><span class="p">,</span> <span class="n">recursive</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;csvs&#34;</span>, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;island/biscoe.csv&#34;     &#34;island/dream.csv&#34;      &#34;island/torgersen.csv&#34; 
 ## [4] &#34;species/adelie.csv&#34;    &#34;species/chinstrap.csv&#34; &#34;species/gentoo.csv&#34;
 </code></pre><p>See?
@@ -390,23 +578,22 @@ Admittedly, it is kind of a large function, but it is also very convenient for q
 For instance, while I regularly run analyses on complete datasets, some times I need to get some things done in subgroups of the data to inspect possible origins of effects that can be hard when I look at the entire data as a whole.
 And many of the analyses I run are heavy computing, so I need to prepare files to send analyses to a computing cluster.</p>
 <p>This tidbit of code is nice to have to create these datafiles I need.</p>
-
-<h2 id="3suprdsup-of-december---reading-in-lots-of-files" class="anchor-link"><a href="#3suprdsup-of-december---reading-in-lots-of-files">3<sup>rd</sup> of December - Reading in lots of files</a></h2>
+<h2 id="3suprdsup-of-december---reading-in-lots-of-files">3<sup>rd</sup> of December - Reading in lots of files</h2>
 <p>Now that we have managed to create lots of files, based on data groupings, let us also see how we can read them in efficiently.
 I&rsquo;ve made so many absolutely horrid pipelines to do this, before I figured out this way of doing it.</p>
 <p>The pre-requisites for this is that all the files you are reading in all have the same columns, if they don&rsquo;t, the last bit will fail.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># list all files in the species folder,</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># contiaing the ending &#34;csv&#34; and </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># keep the entire relative path.</span>
-</span></span><span class="line"><span class="cl"><span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;csvs/species&#34;</span><span class="p">,</span> <span class="s">&#34;csv$&#34;</span><span class="p">,</span> <span class="n">full.names</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># list all files in the species folder,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># contiaing the ending &#34;csv&#34; and </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># keep the entire relative path.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;csvs/species&#34;</span>, <span style="color:#e6db74">&#34;csv$&#34;</span>, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;csvs/species/adelie.csv&#34;    &#34;csvs/species/chinstrap.csv&#34;
 ## [3] &#34;csvs/species/gentoo.csv&#34;
 </code></pre><p>We have three files, and we want to read the all in, at once and get them into a list.
 We&rsquo;ve worked with <code>lapply()</code> before, and we will again here.
 We will use the list of file paths in lapply, and run the <code>read.csv</code> function on them all.
 This should give us a list of three data sets.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;csvs/species&#34;</span><span class="p">,</span> <span class="s">&#34;csv$&#34;</span><span class="p">,</span> <span class="n">full.names</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">lapply</span><span class="p">(</span><span class="n">read.csv</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;csvs/species&#34;</span>, <span style="color:#e6db74">&#34;csv$&#34;</span>, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(read.csv)
 </span></span></code></pre></div><pre tabindex="0"><code>## [[1]]
 ##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ## 1  Adelie Torgersen           39.1          18.7               181        3750
@@ -443,10 +630,10 @@ This should give us a list of three data sets.</p>
 To do that, we will use <code>do.call</code> and <code>rbind</code> to achieve this.
 Now, <code>do.call</code> is a bit of magic, and I am not entirely sure of what it does in all contexts.
 In this context, it will run through the list, and run <code>rbind</code> on each data set, so that we get a single one out.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">data_list</span> <span class="o">&lt;-</span> <span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;csvs/species&#34;</span><span class="p">,</span> <span class="s">&#34;csv$&#34;</span><span class="p">,</span> <span class="n">full.names</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">lapply</span><span class="p">(</span><span class="n">read.csv</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span> <span class="n">data_list</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;csvs/species&#34;</span>, <span style="color:#e6db74">&#34;csv$&#34;</span>, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(read.csv)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">do.call</span>(rbind, data_list)
 </span></span></code></pre></div><pre tabindex="0"><code>##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ## 1  Adelie Torgersen           39.1          18.7               181        3750
 ## 2  Adelie Torgersen           39.5          17.4               186        3800
@@ -461,19 +648,19 @@ But! Usually, I would want to know <em>which file each row comes from</em>.
 In the penguins data here, that is not a huge issue, as the species column basically already tells us that.
 But there might be lots of other reasons you&rsquo;d like to know, for instance for debugging the original data (in case there are suspicious entries), or because the source file information is not inherent in the data.
 To do that, we need a little custom function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">merge_files</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="n">read.csv</span><span class="p">,</span> <span class="kc">...</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">file_list</span> <span class="o">&lt;-</span> <span class="nf">list.files</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">full.names</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data_list</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="kc">...</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># loop through data_list length</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># apply new column with source information</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data_list</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="nf">seq_along</span><span class="p">(</span><span class="n">data_list</span><span class="p">),</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data_list[[x]]</span><span class="o">$</span><span class="n">src</span> <span class="o">&lt;-</span> <span class="n">file_list[x]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data_list[[x]]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span> <span class="n">data_list</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">merged</span> <span class="o">&lt;-</span> <span class="nf">merge_files</span><span class="p">(</span><span class="s">&#34;csvs/species/&#34;</span><span class="p">,</span> <span class="s">&#34;csv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">merged[</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span> <span class="m">9</span><span class="p">)</span><span class="n">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>merge_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(path, pattern, func <span style="color:#f92672">=</span> read.csv, <span style="color:#66d9ef">...</span>){
+</span></span><span style="display:flex;"><span>  file_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(path, pattern, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  data_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(file_list, func, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># loop through data_list length</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># apply new column with source information</span>
+</span></span><span style="display:flex;"><span>  data_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">seq_along</span>(data_list), <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>    data_list[[x]]<span style="color:#f92672">$</span>src <span style="color:#f92672">&lt;-</span> file_list[x]
+</span></span><span style="display:flex;"><span>    data_list[[x]]
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">do.call</span>(rbind, data_list)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>merged <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge_files</span>(<span style="color:#e6db74">&#34;csvs/species/&#34;</span>, <span style="color:#e6db74">&#34;csv&#34;</span>)
+</span></span><span style="display:flex;"><span>merged[, <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">9</span>)]
 </span></span></code></pre></div><pre tabindex="0"><code>##   species    island bill_length_mm                      src
 ## 1  Adelie Torgersen           39.1 csvs/species//adelie.csv
 ## 2  Adelie Torgersen           39.5 csvs/species//adelie.csv
@@ -486,8 +673,7 @@ To do that, we need a little custom function.</p>
 </code></pre><p>Now we have it all!
 The function does quite a lot, in little space, but it also allows quite some customisation.
 Like, we can our selves define which <code>read</code> function to use, in case the data has a different delimiter than csv, and we can also add any other named argument to that function in our main function call.</p>
-
-<h2 id="4supthsup-of-december---fixing-column-names" class="anchor-link"><a href="#4supthsup-of-december---fixing-column-names">4<sup>th</sup> of December - fixing column names</a></h2>
+<h2 id="4supthsup-of-december---fixing-column-names">4<sup>th</sup> of December - fixing column names</h2>
 <p>I love the <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">janitor</a> package.
 It has some cleaning functions for data that just make my world so much easier.
 And while janitor&rsquo;s dependencies are small enough that I can often get it when I need, I still have install issues in certain cases.
@@ -495,15 +681,15 @@ In those cases, I need to do some simple steps to improve my data dealings.</p>
 <p>Depending on how bad things are, there are some small things we can to to help with column naming.
 I&rsquo;m being a little cheeky an borrowing the example data from janitor.
 I will not be able to make it <em>as neat</em> as janitor, but we can make it much better!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">test_df</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="n">ncol</span> <span class="o">=</span> <span class="m">6</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">=</span> <span class="m">5</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;firstName&#34;</span><span class="p">,</span> <span class="s">&#34;ábc@!*&#34;</span><span class="p">,</span> <span class="s">&#34;% successful (2009)&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="s">&#34;REPEAT VALUE&#34;</span><span class="p">,</span> <span class="s">&#34;REPEAT VALUE&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># add some data</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df[1</span><span class="p">,</span> <span class="n">]</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;jane&#34;</span><span class="p">,</span> <span class="s">&#34;JANE&#34;</span><span class="p">,</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="kc">NA</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df[2</span><span class="p">,</span> <span class="n">]</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;elleven&#34;</span><span class="p">,</span> <span class="s">&#34;011&#34;</span><span class="p">,</span> <span class="kc">FALSE</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="kc">NA</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df[3</span><span class="p">,</span> <span class="n">]</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;Henry&#34;</span><span class="p">,</span> <span class="s">&#34;001&#34;</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="kc">NA</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>test_df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.data.frame</span>(<span style="color:#a6e22e">matrix</span>(ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(test_df) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;firstName&#34;</span>, <span style="color:#e6db74">&#34;ábc@!*&#34;</span>, <span style="color:#e6db74">&#34;% successful (2009)&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;REPEAT VALUE&#34;</span>, <span style="color:#e6db74">&#34;REPEAT VALUE&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add some data</span>
+</span></span><span style="display:flex;"><span>test_df[1, ] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;jane&#34;</span>, <span style="color:#e6db74">&#34;JANE&#34;</span>, <span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#ae81ff">10</span>, <span style="color:#66d9ef">NA</span>)
+</span></span><span style="display:flex;"><span>test_df[2, ] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;elleven&#34;</span>, <span style="color:#e6db74">&#34;011&#34;</span>, <span style="color:#66d9ef">FALSE</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#66d9ef">NA</span>)
+</span></span><span style="display:flex;"><span>test_df[3, ] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Henry&#34;</span>, <span style="color:#e6db74">&#34;001&#34;</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#ae81ff">20</span>, <span style="color:#66d9ef">NA</span>)
+</span></span><span style="display:flex;"><span>test_df
 </span></span></code></pre></div><pre tabindex="0"><code>##   firstName ábc@!* % successful (2009) REPEAT VALUE REPEAT VALUE     
 ## 1      jane   JANE                TRUE         &lt;NA&gt;           10 &lt;NA&gt;
 ## 2   elleven    011               FALSE         &lt;NA&gt;         &lt;NA&gt; &lt;NA&gt;
@@ -512,38 +698,38 @@ I will not be able to make it <em>as neat</em> as janitor, but we can make it mu
 ## 5      &lt;NA&gt;   &lt;NA&gt;                &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt; &lt;NA&gt;
 </code></pre><p>I think we can all agree this is no fun column names to deal with!
 Keeping to base R and some <a href="https://www.wikiwand.com/en/Regular_expression">regular expression</a> (oh man, I need to google those expressions every time!), we can do a decent bit of cleaning.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">clean_names</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">col_prefix</span> <span class="o">=</span> <span class="s">&#34;v&#34;</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colnames</span> <span class="o">&lt;-</span> <span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># turn camelCase to snake_case</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colnames</span> <span class="o">&lt;-</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;(?![A-Z])(\\G(?!^)|\\b[a-zA-Z][a-z]*)([A-Z][a-z]*|\\d+)&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">       <span class="s">&#34;\\1_\\2&#34;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">ignore.case</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> <span class="n">perl</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># turn white space into _</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colnames</span> <span class="o">&lt;-</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">,</span> <span class="s">&#34;_&#34;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># turn to lower case</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colnames</span> <span class="o">&lt;-</span> <span class="nf">tolower</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># remove punctuations except _</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colnames</span> <span class="o">&lt;-</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[^a-z0-9_]+&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># trim _ from beginning and end</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colnames</span> <span class="o">&lt;-</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;^_|_$&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># add column names to columns missing them</span>
-</span></span><span class="line"><span class="cl">  <span class="n">k</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="nf">match</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">),</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">colnames[x]</span> <span class="o">&lt;&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">col_prefix</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># apply name changes</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">colnames</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># returned the renamed data</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df</span> <span class="o">&lt;-</span> <span class="nf">clean_names</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>clean_names <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, col_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;v&#34;</span>){
+</span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">names</span>(data)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn camelCase to snake_case</span>
+</span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;(?![A-Z])(\\G(?!^)|\\b[a-zA-Z][a-z]*)([A-Z][a-z]*|\\d+)&#34;</span>, 
+</span></span><span style="display:flex;"><span>       <span style="color:#e6db74">&#34;\\1_\\2&#34;</span>, colnames, ignore.case <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, perl <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn white space into _</span>
+</span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#e6db74">&#34;_&#34;</span>, colnames)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn to lower case</span>
+</span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tolower</span>(colnames)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># remove punctuations except _</span>
+</span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;[^a-z0-9_]+&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, colnames)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># trim _ from beginning and end</span>
+</span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;^_|_$&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, colnames)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># add column names to columns missing them</span>
+</span></span><span style="display:flex;"><span>  k <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">&#34;&#34;</span>, colnames), <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>    colnames[x] <span style="color:#f92672">&lt;&lt;-</span> <span style="color:#a6e22e">paste0</span>(col_prefix, x)
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># apply name changes</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(data) <span style="color:#f92672">&lt;-</span> colnames
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># returned the renamed data</span>
+</span></span><span style="display:flex;"><span>  data
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>test_df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">clean_names</span>(test_df)
+</span></span><span style="display:flex;"><span>test_df
 </span></span></code></pre></div><pre tabindex="0"><code>##   first_name   bc successful_2009 repeat_value repeat_value   v6
 ## 1       jane JANE            TRUE         &lt;NA&gt;           10 &lt;NA&gt;
 ## 2    elleven  011           FALSE         &lt;NA&gt;         &lt;NA&gt; &lt;NA&gt;
@@ -557,13 +743,12 @@ What we miss is that the <code>á</code> in &ldquo;ábc@!*&rdquo; is removed.
 This is because my regular expression is interpreting as a weird special character to remove.
 To replace it with an <code>a</code> I&rsquo;d need to get a library that would know how to translate it, and I don&rsquo;t/can&rsquo;t do that.
 So, I&rsquo;ll have to deal with that manually.</p>
-
-<h2 id="5supthsup-of-december---removing-empty-columns" class="anchor-link"><a href="#5supthsup-of-december---removing-empty-columns">5<sup>th</sup> of December - removing empty columns</a></h2>
+<h2 id="5supthsup-of-december---removing-empty-columns">5<sup>th</sup> of December - removing empty columns</h2>
 <p>In the type of data I deal with, I do also quite often have to deal with columns containing no data.
 Either because the subsetted data are missing a variable, or because a file I read in thinks there is another column, when there truly is not.
 I want a nice easy way to deal with that.
 Again <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">janitor</a> would be my &ldquo;online&rdquo; solution, but when offline, I need to deal in my own code.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">test_df</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>test_df
 </span></span></code></pre></div><pre tabindex="0"><code>##   first_name   bc successful_2009 repeat_value repeat_value   v6
 ## 1       jane JANE            TRUE         &lt;NA&gt;           10 &lt;NA&gt;
 ## 2    elleven  011           FALSE         &lt;NA&gt;         &lt;NA&gt; &lt;NA&gt;
@@ -573,15 +758,15 @@ Again <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor
 </code></pre><p>We made a data.frame yesterday with missing values completely from rows 4 and 5, and partial missing data from 2 and 3, while row 1 is the only complete row of data.
 And in columns 4 and 6 we are completely missing any data.
 We want a simple way to remove all columns that have no information, so we have something simpler to work with.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">na_rm_col</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># find columns with only missing values</span>
-</span></span><span class="line"><span class="cl">  <span class="n">idx</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">all</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># keep only columns where there is data</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data[</span><span class="p">,</span> <span class="o">!</span><span class="n">idx]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df</span> <span class="o">&lt;-</span> <span class="nf">na_rm_col</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_col <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># find columns with only missing values</span>
+</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(data, <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># keep only columns where there is data</span>
+</span></span><span style="display:flex;"><span>  data[, <span style="color:#f92672">!</span>idx]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>test_df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">na_rm_col</span>(test_df)
+</span></span><span style="display:flex;"><span>test_df
 </span></span></code></pre></div><pre tabindex="0"><code>##   first_name   bc successful_2009 repeat_value
 ## 1       jane JANE            TRUE           10
 ## 2    elleven  011           FALSE         &lt;NA&gt;
@@ -591,21 +776,20 @@ We want a simple way to remove all columns that have no information, so we have 
 </code></pre><p>With this function we first apply across the columns (apply dimension 2) and check if all values are <code>NA</code>.
 If they are, we make sure we don&rsquo;t return a data.frame with those columns.
 The function is neither long nor particularly complicated (though <code>apply</code> does take a little time to get the hang of), and its super quick!</p>
-
-<h2 id="6supthsup-of-december---removing-empty-rows" class="anchor-link"><a href="#6supthsup-of-december---removing-empty-rows">6<sup>th</sup> of December - removing empty rows</a></h2>
+<h2 id="6supthsup-of-december---removing-empty-rows">6<sup>th</sup> of December - removing empty rows</h2>
 <p>Yesterday we removed empty columns, but we might also need to remove empty rows!
 Imagine having subsetted columns, and now, lots of your rows actually don&rsquo;t contain meaningful information any more.
 No use in having them around, lets just get rid of them!</p>
 <p>The code is <em>remarkably</em> similar to yesterdays code,</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">na_rm_row</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># find columns with only missing values</span>
-</span></span><span class="line"><span class="cl">  <span class="n">idx</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">all</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># keep only rows where there is data</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data[</span><span class="o">!</span><span class="n">idx</span><span class="p">,</span> <span class="n">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df2</span> <span class="o">&lt;-</span> <span class="nf">na_rm_row</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">test_df2</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_row <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># find columns with only missing values</span>
+</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(data, <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># keep only rows where there is data</span>
+</span></span><span style="display:flex;"><span>  data[<span style="color:#f92672">!</span>idx, ]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>test_df2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">na_rm_row</span>(test_df)
+</span></span><span style="display:flex;"><span>test_df2
 </span></span></code></pre></div><pre tabindex="0"><code>##   first_name   bc successful_2009 repeat_value
 ## 1       jane JANE            TRUE           10
 ## 2    elleven  011           FALSE         &lt;NA&gt;
@@ -613,46 +797,45 @@ No use in having them around, lets just get rid of them!</p>
 </code></pre><p>We are still using <code>apply</code>, but this time along the <code>1</code> dimension, which is rows.
 And we are using the exact same function inside apply!
 Then, we subset the rows with the inverse of that output, giving us only the rows we want.</p>
-
-<h2 id="7supthsup-of-december---removing-empty-rows-2supndsup-ed" class="anchor-link"><a href="#7supthsup-of-december---removing-empty-rows-2supndsup-ed">7<sup>th</sup> of December - removing empty rows 2<sup>nd</sup> ed.</a></h2>
+<h2 id="7supthsup-of-december---removing-empty-rows-2supndsup-ed">7<sup>th</sup> of December - removing empty rows 2<sup>nd</sup> ed.</h2>
 <p>In our last post, we removed rows that had all <code>NA</code> values, but this is often not the case.
 Likely, you&rsquo;ll have some identifier columns that are always populated, and you&rsquo;ll want to make sure you check for <code>NA</code> <em>not</em> in those columns.
 I.e. we want to discard rows where certain columns only have <code>NA</code> not necessarily all!</p>
 <p>This one becomes a little trickier!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">na_rm_row</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                      <span class="n">col_names</span> <span class="o">=</span> <span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                      <span class="n">col_inverse</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># Get column index for wanted cols</span>
-</span></span><span class="line"><span class="cl">  <span class="n">col_idx</span> <span class="o">&lt;-</span> <span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%in%</span> <span class="n">col_names</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Get column names by index</span>
-</span></span><span class="line"><span class="cl">  <span class="n">cols</span> <span class="o">&lt;-</span>  <span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="n">[col_idx]</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Reverse if you want exclude the columns</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="n">col_inverse</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cols</span> <span class="o">&lt;-</span> <span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="n">[</span><span class="o">!</span><span class="n">col_idx]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">  <span class="c1"># subset the data</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># force output to data.frame</span>
-</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">data[</span><span class="p">,</span> <span class="n">cols]</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># find rows with only missing values</span>
-</span></span><span class="line"><span class="cl">  <span class="n">idx</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">all</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># keep only rows where there is data</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data[</span><span class="o">!</span><span class="n">idx</span><span class="p">,</span> <span class="n">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nf">na_rm_row</span><span class="p">(</span><span class="n">test_df</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">col_names</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;successful_2009&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                        <span class="s">&#34;repeat_value&#34;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_row <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, 
+</span></span><span style="display:flex;"><span>                      col_names <span style="color:#f92672">=</span> <span style="color:#a6e22e">names</span>(data),
+</span></span><span style="display:flex;"><span>                      col_inverse <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get column index for wanted cols</span>
+</span></span><span style="display:flex;"><span>  col_idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">names</span>(data) <span style="color:#f92672">%in%</span> col_names
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get column names by index</span>
+</span></span><span style="display:flex;"><span>  cols <span style="color:#f92672">&lt;-</span>  <span style="color:#a6e22e">names</span>(data)[col_idx]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Reverse if you want exclude the columns</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(col_inverse){
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">names</span>(data)[<span style="color:#f92672">!</span>col_idx]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># subset the data</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># force output to data.frame</span>
+</span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(data[, cols])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># find rows with only missing values</span>
+</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(tmp, <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># keep only rows where there is data</span>
+</span></span><span style="display:flex;"><span>  data[<span style="color:#f92672">!</span>idx, ]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">na_rm_row</span>(test_df, 
+</span></span><span style="display:flex;"><span>          col_names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;successful_2009&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;repeat_value&#34;</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>##   first_name   bc successful_2009 repeat_value
 ## 1       jane JANE            TRUE           10
 ## 2    elleven  011           FALSE         &lt;NA&gt;
 ## 3      Henry  001            &lt;NA&gt;           20
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">na_rm_row</span><span class="p">(</span><span class="n">test_df</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">col_names</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;first_name&#34;</span><span class="p">,</span> <span class="s">&#34;bc&#34;</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">col_inverse</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">na_rm_row</span>(test_df, 
+</span></span><span style="display:flex;"><span>          col_names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;first_name&#34;</span>, <span style="color:#e6db74">&#34;bc&#34;</span>), 
+</span></span><span style="display:flex;"><span>          col_inverse <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>##   first_name   bc successful_2009 repeat_value
 ## 1       jane JANE            TRUE           10
 ## 2    elleven  011           FALSE         &lt;NA&gt;
@@ -661,23 +844,22 @@ I.e. we want to discard rows where certain columns only have <code>NA</code> not
 Hopefully the code comments help understanding of what is going on.
 I&rsquo;ve added to option to either name columns you want to check for <code>NA</code>s in, <em>or</em> columns you want <strong>excluded</strong> from that check.
 This way, we can hopefully make it work in any of the circumstances we meet.</p>
-
-<h2 id="8supthsup-of-december---file-extension-changes" class="anchor-link"><a href="#8supthsup-of-december---file-extension-changes">8<sup>th</sup> of December - File extension changes</a></h2>
+<h2 id="8supthsup-of-december---file-extension-changes">8<sup>th</sup> of December - File extension changes</h2>
 <p>In many cases, I will read in files in one format, but want to save them - with the same file name - in another format.
 I prefer working with tab-separated files, as in Norway the comma is actually used for a decimal separator and we always seem to end up with issues using either comma or semi-colon separated files.
 So, I might read in a file, do some cleaning, and then want to save it to file just with another extension name.
 In my case, I usually opt for changing &ldquo;csv&rdquo; to &ldquo;tsv&rdquo; to make it clear that the file is tab-separated.</p>
 <p>So, we need to use the file name, strip the extension and add our own.
 We have saved our penguin data as csv, so lets read them in, and then save them as tsv.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Find all files ending with csv in a folder</span>
-</span></span><span class="line"><span class="cl"><span class="n">files</span> <span class="o">&lt;-</span> <span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;csvs/species&#34;</span><span class="p">,</span> <span class="s">&#34;csv&#34;</span><span class="p">,</span> <span class="n">full.names</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">files</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Find all files ending with csv in a folder</span>
+</span></span><span style="display:flex;"><span>files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;csvs/species&#34;</span>, <span style="color:#e6db74">&#34;csv&#34;</span>, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>files
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;csvs/species/adelie.csv&#34;    &#34;csvs/species/chinstrap.csv&#34;
 ## [3] &#34;csvs/species/gentoo.csv&#34;
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># read in the files</span>
-</span></span><span class="line"><span class="cl"><span class="n">dt_list</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">read.csv</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">dt_list</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">files</span>
-</span></span><span class="line"><span class="cl"><span class="n">dt_list</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># read in the files</span>
+</span></span><span style="display:flex;"><span>dt_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(files, read.csv)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(dt_list) <span style="color:#f92672">&lt;-</span> files
+</span></span><span style="display:flex;"><span>dt_list
 </span></span></code></pre></div><pre tabindex="0"><code>## $`csvs/species/adelie.csv`
 ##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ## 1  Adelie Torgersen           39.1          18.7               181        3750
@@ -710,26 +892,26 @@ We have saved our penguin data as csv, so lets read them in, and then save them 
 ## 2   male 2007
 ## 3 female 2007
 ##  [ reached &#39;max&#39; / getOption(&#34;max.print&#34;) -- omitted 121 rows ]
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">csv2tsv</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">file</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># remove csv extension from file name</span>
-</span></span><span class="line"><span class="cl">  <span class="n">file</span> <span class="o">&lt;-</span> <span class="n">tools</span><span class="o">::</span><span class="nf">file_path_sans_ext</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># add `.tsv`</span>
-</span></span><span class="line"><span class="cl">  <span class="n">file</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s">&#34;.tsv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># print location for clarity</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">cat</span><span class="p">(</span><span class="s">&#34;Saving to: &#34;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="s">&#34;\n&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># save it in the wanted format</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">write.table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">              <span class="n">sep</span> <span class="o">=</span> <span class="s">&#34;\t&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">              <span class="n">row.names</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="n">quote</span> <span class="o">=</span> <span class="kc">FALSE</span>
-</span></span><span class="line"><span class="cl">              <span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Test on one file</span>
-</span></span><span class="line"><span class="cl"><span class="nf">csv2tsv</span><span class="p">(</span><span class="n">dt_list[[1]]</span><span class="p">,</span> <span class="n">files[1]</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>csv2tsv <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, file){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># remove csv extension from file name</span>
+</span></span><span style="display:flex;"><span>  file <span style="color:#f92672">&lt;-</span> tools<span style="color:#f92672">::</span><span style="color:#a6e22e">file_path_sans_ext</span>(file)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># add `.tsv`</span>
+</span></span><span style="display:flex;"><span>  file <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(file, <span style="color:#e6db74">&#34;.tsv&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># print location for clarity</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;Saving to: &#34;</span>, file, <span style="color:#e6db74">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># save it in the wanted format</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">write.table</span>(data, file, 
+</span></span><span style="display:flex;"><span>              sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\t&#34;</span>, 
+</span></span><span style="display:flex;"><span>              row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>              quote <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>              )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Test on one file</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">csv2tsv</span>(dt_list[[1]], files[1])
 </span></span></code></pre></div><pre tabindex="0"><code>## Saving to:  csvs/species/adelie.tsv
 </code></pre><p>That seems to work.
 We first remote the file extension, then add our own <code>.tsv</code> to it.
@@ -737,7 +919,7 @@ Then we use the base-R table writing function, specifying exactly the format we 
 I prefer not quoting strings when I&rsquo;m working with tab-separated files, since people in general do not enter tabs in character vectors, so its not needed and the file content looks cleaner.</p>
 <p>We should double check that the file looks as we intend.
 I&rsquo;m going to use bash to do this, as its my go-to for something like this, rather than R!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">head csvs/species/adelie.tsv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>head csvs/species/adelie.tsv
 </span></span></code></pre></div><pre tabindex="0"><code>## species	island	bill_length_mm	bill_depth_mm	flipper_length_mm	body_mass_g	sex	year
 ## Adelie	Torgersen	39.1	18.7	181	3750	male	2007
 ## Adelie	Torgersen	39.5	17.4	186	3800	female	2007
@@ -751,11 +933,11 @@ I&rsquo;m going to use bash to do this, as its my go-to for something like this,
 </code></pre><p>That looks good to me!
 tabs, no quotes, no row numbers.</p>
 <p>Now we can run it on all, and I will use mapply, which makes it possible to send several vectors (of the same size) into an apply function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">mapply</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">csv2tsv</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="n">dt_list</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">names</span><span class="p">(</span><span class="n">dt_list</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">mapply</span>(
+</span></span><span style="display:flex;"><span>  csv2tsv,
+</span></span><span style="display:flex;"><span>  dt_list,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(dt_list)
+</span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## Saving to:  csvs/species/adelie.tsv 
 ## Saving to:  csvs/species/chinstrap.tsv 
 ## Saving to:  csvs/species/gentoo.tsv
@@ -769,38 +951,37 @@ tabs, no quotes, no row numbers.</p>
 ## NULL
 </code></pre><p>That seemed to work, and if we look into the species folder, we can see they are all there.
 csv, and tsv next to each other.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;csvs/species&#34;</span><span class="p">,</span> <span class="n">full.names</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;csvs/species&#34;</span>, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;csvs/species/adelie.csv&#34;    &#34;csvs/species/adelie.tsv&#34;   
 ## [3] &#34;csvs/species/chinstrap.csv&#34; &#34;csvs/species/chinstrap.tsv&#34;
 ## [5] &#34;csvs/species/gentoo.csv&#34;    &#34;csvs/species/gentoo.tsv&#34;
 </code></pre><p>Now, in this case, they are the same file, just delimited differently.
 Which is why I am ok with having them in the same folder (despite the parent folder being named <code>csv</code>).
 If I have done cleaning and changed the file content in some way, I would make another folder, to clearly show the content was different, not just delimited differently.</p>
-
-<h2 id="9supthsup-of-december---system-commands-from-r" class="anchor-link"><a href="#9supthsup-of-december---system-commands-from-r">9<sup>th</sup> of December - System commands from R</a></h2>
+<h2 id="9supthsup-of-december---system-commands-from-r">9<sup>th</sup> of December - System commands from R</h2>
 <p>I work in neuroimaging.
 While most of my work now is concentrated around tabular data and software engineering, I still deal with situations where I need to call a system program from the command line, to do some <em>stuff</em>.
 Many times, I want to do <em>some stuff</em> and capture the result of that <em>stuff</em> in R.
 This is not always easy, depending on the complexity of what you are doing.
 I&rsquo;ll have a small fairly &ldquo;easy&rdquo; example, using a command line tool that should be available to most, to just show the example.</p>
 <p>I&rsquo;ll use the command <code>head</code> to get the first <code>n</code> rows of a dataset, default is 10 rows, if we give no extra argument.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Look at first 10 rows</span>
-</span></span><span class="line"><span class="cl"><span class="nf">system2</span><span class="p">(</span><span class="s">&#34;head&#34;</span><span class="p">,</span> <span class="s">&#34;csvs/species/adelie.tsv&#34;</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># -n [integer] gives the number of rows wanted</span>
-</span></span><span class="line"><span class="cl"><span class="nf">system2</span><span class="p">(</span><span class="s">&#34;head&#34;</span><span class="p">,</span> <span class="s">&#34;-n 5 csvs/species/adelie.tsv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">system2</span><span class="p">(</span><span class="s">&#34;head&#34;</span><span class="p">,</span> <span class="s">&#34;-n 15 csvs/species/adelie.tsv&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Look at first 10 rows</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;head&#34;</span>, <span style="color:#e6db74">&#34;csvs/species/adelie.tsv&#34;</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># -n [integer] gives the number of rows wanted</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;head&#34;</span>, <span style="color:#e6db74">&#34;-n 5 csvs/species/adelie.tsv&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;head&#34;</span>, <span style="color:#e6db74">&#34;-n 15 csvs/species/adelie.tsv&#34;</span>)
 </span></span></code></pre></div><p>But the output just gets printed in the console.
 We want to capture it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">system2</span><span class="p">(</span><span class="s">&#34;head&#34;</span><span class="p">,</span> <span class="s">&#34;-n 5 csvs/species/adelie.tsv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">data</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;head&#34;</span>, <span style="color:#e6db74">&#34;-n 5 csvs/species/adelie.tsv&#34;</span>)
+</span></span><span style="display:flex;"><span>data
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 0
 </code></pre><p>wait, what?!
 Where is the data?
 system2 (and system) by default does not return anything, is is a message printed to the console through something called stdout (standard out, there is also stderr, standard error).
 To capture it, we need to redirect stdout, and we do this through an argument in <code>system2</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">system2</span><span class="p">(</span><span class="s">&#34;head&#34;</span><span class="p">,</span> <span class="s">&#34;-n 5 csvs/species/adelie.tsv&#34;</span><span class="p">,</span> <span class="n">stdout</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">data</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;head&#34;</span>, <span style="color:#e6db74">&#34;-n 5 csvs/species/adelie.tsv&#34;</span>, stdout <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>data
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;species\tisland\tbill_length_mm\tbill_depth_mm\tflipper_length_mm\tbody_mass_g\tsex\tyear&#34;
 ## [2] &#34;Adelie\tTorgersen\t39.1\t18.7\t181\t3750\tmale\t2007&#34;                                     
 ## [3] &#34;Adelie\tTorgersen\t39.5\t17.4\t186\t3800\tfemale\t2007&#34;                                   
@@ -808,37 +989,37 @@ To capture it, we need to redirect stdout, and we do this through an argument in
 ## [5] &#34;Adelie\tTorgersen\tNA\tNA\tNA\tNA\tNA\t2007&#34;
 </code></pre><p>The data is now stored as a string vector with 15 elements.
 We&rsquo;ll need to work with it to get it into the shape we want.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">read_custom</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">arguments</span> <span class="o">=</span> <span class="nf">list</span><span class="p">()){</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># turn list of arguments into single string</span>
-</span></span><span class="line"><span class="cl">  <span class="n">arguments</span> <span class="o">&lt;-</span> <span class="nf">do.call</span><span class="p">(</span><span class="n">paste</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="nf">cat</span><span class="p">(</span><span class="s">&#34;Running:&#34;</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">arguments</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># run command</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">system2</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">arguments</span><span class="p">,</span> <span class="n">stdout</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># split string into elements by comma</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">strsplit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s">&#34;\t&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># bind rows together</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># force into data frame</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># apply col names from the first row</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">data[1</span><span class="p">,</span> <span class="n">]</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># remove first row of data, as its the col names</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data[</span><span class="m">-1</span><span class="p">,</span> <span class="n">]</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># auto-detect column types</span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">type.convert</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">as.is</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">data</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">read_custom</span><span class="p">(</span><span class="s">&#34;head&#34;</span><span class="p">,</span> <span class="nf">list</span><span class="p">(</span><span class="s">&#34;-n 5&#34;</span><span class="p">,</span> <span class="s">&#34;csvs/species/adelie.tsv&#34;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>read_custom <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(command, arguments <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>()){
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn list of arguments into single string</span>
+</span></span><span style="display:flex;"><span>  arguments <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">do.call</span>(paste, arguments)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;Running:&#34;</span>, command, arguments, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># run command</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">system2</span>(command, arguments, stdout <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># split string into elements by comma</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">strsplit</span>(data, <span style="color:#e6db74">&#34;\t&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># bind rows together</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">do.call</span>(rbind, data)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># force into data frame</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.data.frame</span>(data)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># apply col names from the first row</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(data) <span style="color:#f92672">&lt;-</span> data[1, ]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># remove first row of data, as its the col names</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> data[<span style="color:#ae81ff">-1</span>, ]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># auto-detect column types</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">type.convert</span>(data, as.is <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  data
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">read_custom</span>(<span style="color:#e6db74">&#34;head&#34;</span>, <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;-n 5&#34;</span>, <span style="color:#e6db74">&#34;csvs/species/adelie.tsv&#34;</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## Running: head -n 5 csvs/species/adelie.tsv
 </code></pre><pre tabindex="0"><code>##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ## 2  Adelie Torgersen           39.1          18.7               181        3750
@@ -854,7 +1035,7 @@ I mean, yeah <code>read.table</code> is hella better, but it shows what kind of 
 I&rsquo;ve done things like this when I get very irregular files in formats that have no standard way of being read.</p>
 <p>What is neat with this one, is that we can change the command used (as long as it does the basic same thing as head) or change the arguments quite easily.
 <code>tail</code> for instance, is the reverse of head, giving the last rows.-</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">read_custom</span><span class="p">(</span><span class="s">&#34;tail&#34;</span><span class="p">,</span> <span class="nf">list</span><span class="p">(</span><span class="s">&#34;-n 5&#34;</span><span class="p">,</span> <span class="s">&#34;csvs/species/adelie.tsv&#34;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">read_custom</span>(<span style="color:#e6db74">&#34;tail&#34;</span>, <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#34;-n 5&#34;</span>, <span style="color:#e6db74">&#34;csvs/species/adelie.tsv&#34;</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## Running: tail -n 5 csvs/species/adelie.tsv
 </code></pre><pre tabindex="0"><code>##   Adelie Dream 36.6 18.4 184 3475 female 2009
 ## 2 Adelie Dream 36.0 17.8 195 3450 female 2009
@@ -863,24 +1044,23 @@ I&rsquo;ve done things like this when I get very irregular files in formats that
 ##  [ reached &#39;max&#39; / getOption(&#34;max.print&#34;) -- omitted 1 rows ]
 </code></pre><p>Convoluted? Yes.
 Fun? Yes :)</p>
-
-<h2 id="10supthsup-of-december---function-calling-it-self" class="anchor-link"><a href="#10supthsup-of-december---function-calling-it-self">10<sup>th</sup> of December - Function calling it self</a></h2>
+<h2 id="10supthsup-of-december---function-calling-it-self">10<sup>th</sup> of December - Function calling it self</h2>
 <p>Once upon a time, I made a function where I needed the function behaviour inside the function it self.
 It sounds weird, I know!
 But I was trying to get the dependency tree of packages, and I needed to get all of the dependencies and have my own function not rely on anything but base-R.</p>
 <p>Then I learned, a function can cal it self!!
 That concept it still hard for me to grasp, but it does work!
 We just need to be <em>very</em> careful to have ways that the function stops calling it self when its not supposed to, else we end up in infinite loops of recursion.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># make a nested list</span>
-</span></span><span class="line"><span class="cl"><span class="n">mock</span> <span class="o">&lt;-</span> <span class="nf">list</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">character</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;string&#34;</span><span class="p">,</span> <span class="s">&#34;vector&#34;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">list</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">nested1</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;nested&#34;</span><span class="p">,</span> <span class="s">&#34;list&#34;</span><span class="p">,</span> <span class="s">&#34;1&#34;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="n">nested2</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;nested&#34;</span><span class="p">,</span> <span class="s">&#34;list&#34;</span><span class="p">,</span> <span class="s">&#34;2&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">number</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">mock</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># make a nested list</span>
+</span></span><span style="display:flex;"><span>mock <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  character <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;string&#34;</span>, <span style="color:#e6db74">&#34;vector&#34;</span>),
+</span></span><span style="display:flex;"><span>  list <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    nested1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;nested&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;1&#34;</span>),
+</span></span><span style="display:flex;"><span>    nested2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;nested&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>)
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  number <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>mock
 </span></span></code></pre></div><pre tabindex="0"><code>## $character
 ## [1] &#34;a&#34;      &#34;string&#34; &#34;vector&#34;
 ## 
@@ -894,22 +1074,22 @@ We just need to be <em>very</em> careful to have ways that the function stops ca
 ## 
 ## $number
 ## [1] 1 2 3 4 5
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">collapse_strings</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="nf">inherits</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#34;list&#34;</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collapse_strings</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">return</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># if not a character, return NULL</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">inherits</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#34;character&#34;</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">return</span><span class="p">(</span><span class="kc">NULL</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># collapse strings else</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">paste</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collapse</span> <span class="o">=</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">sapply</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span> <span class="n">collapse_strings</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>collapse_strings <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">inherits</span>(x, <span style="color:#e6db74">&#34;list&#34;</span>)){
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(x, collapse_strings)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(x)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># if not a character, return NULL</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">inherits</span>(x, <span style="color:#e6db74">&#34;character&#34;</span>)){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">NULL</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># collapse strings else</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">paste</span>(x, collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(mock, collapse_strings)
 </span></span></code></pre></div><pre tabindex="0"><code>## $character
 ## [1] &#34;a string vector&#34;
 ## 
@@ -923,45 +1103,42 @@ We just need to be <em>very</em> careful to have ways that the function stops ca
 This way, we know it wont be recursing into oblivion, but just if it is a list.
 I also added a check if the vector was not a character, as a collapse only makes sense for string vectors.
 Now we have a tidy function that recursively collapses string vectors.</p>
-
-<h2 id="11supthsup-of-december---empty-strings-to-na" class="anchor-link"><a href="#11supthsup-of-december---empty-strings-to-na">11<sup>th</sup> of December - Empty strings to <code>NA</code></a></h2>
+<h2 id="11supthsup-of-december---empty-strings-to-na">11<sup>th</sup> of December - Empty strings to <code>NA</code></h2>
 <p>I fairly often come across data that is not particularly clean.
 At least in terms of interfacing with the data through a computer, and let&rsquo;s face it, that&rsquo;s what we all mostly do :P</p>
 <p>Often, data come in as strings when they should not, or I choose to read them in as strings to preserve data I might loose when turned into something else.
 But that can also lead to some quite frustrating consequences I need to deal with, like empty cells <code>&quot;&quot;</code> or NA cells read as <code>&quot;NA&quot;</code>. Le Sigh.</p>
 <p>I have a little convenience function to deal with this situation exactly.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">empty_to_na</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">ifelse</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s">&#34;NA&#34;</span> <span class="o">|</span> <span class="n">x</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="o">|</span> <span class="n">x</span> <span class="o">==</span> <span class="s">&#34;NULL&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">         <span class="kc">NA_character_</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">         <span class="n">x</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">c</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;Merry&#34;</span><span class="p">,</span> <span class="s">&#34;Christmas&#34;</span><span class="p">,</span> <span class="s">&#34;NA&#34;</span><span class="p">,</span> <span class="s">&#34;NULL&#34;</span><span class="p">,</span> <span class="s">&#34;!&#34;</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">empty_to_na</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>empty_to_na <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ifelse</span>(x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;NA&#34;</span> <span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;NULL&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">NA_character_</span>, 
+</span></span><span style="display:flex;"><span>         x)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;Merry&#34;</span>, <span style="color:#e6db74">&#34;Christmas&#34;</span>, <span style="color:#e6db74">&#34;NA&#34;</span>, <span style="color:#e6db74">&#34;NULL&#34;</span>, <span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">empty_to_na</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] NA          &#34;Merry&#34;     &#34;Christmas&#34; NA          NA          &#34;!&#34;
 </code></pre><p>This is my little catch all for weird string data that I know should be <code>NA</code>.
 After this, the remaining tedious cleaning begins, but this first step is something I use quite often to help myself.</p>
-
-<h2 id="12supthsup-of-december---format-for-nice-print" class="anchor-link"><a href="#12supthsup-of-december---format-for-nice-print">12<sup>th</sup> of December - format for nice print</a></h2>
+<h2 id="12supthsup-of-december---format-for-nice-print">12<sup>th</sup> of December - format for nice print</h2>
 <p>Some times, when I work in R markdown documents, I need to format numbers to look nicer.
 So today&rsquo;s post is a short but sweet one!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">thousand</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">formatC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">format</span> <span class="o">=</span> <span class="s">&#34;f&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">big.mark</span> <span class="o">=</span> <span class="s">&#34; &#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">digits</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nf">thousand</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">10000</span><span class="p">,</span> <span class="m">3000</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">320485</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thousand <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">formatC</span>(x, 
+</span></span><span style="display:flex;"><span>          format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>, 
+</span></span><span style="display:flex;"><span>          big.mark <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>, 
+</span></span><span style="display:flex;"><span>          digits <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">thousand</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">10000</span>, <span style="color:#ae81ff">3000</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">320485</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;10 000&#34;  &#34;3 000&#34;   &#34;200&#34;     &#34;320 485&#34;
 </code></pre><p>This is great for plots, but also for in-line numbers, like 102 937!</p>
-
-<h2 id="13supthsup-of-december---bar-chart-convenience" class="anchor-link"><a href="#13supthsup-of-december---bar-chart-convenience">13<sup>th</sup> of December - bar chart convenience</a></h2>
+<h2 id="13supthsup-of-december---bar-chart-convenience">13<sup>th</sup> of December - bar chart convenience</h2>
 <p>I love me some ggplot.
 And most of the time, I get to use the standard build and wrap for subplots etc.
 But sometimes, I need some plot that is more specialised, needs som pre-computation of some sort before plotting.
 In those cases, I make a convenience function for the plotting, so I can call it at need, so make the same type of plot over and over for different settings.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dplyr)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Attaching package: &#39;dplyr&#39;
 </code></pre><pre tabindex="0"><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -970,197 +1147,143 @@ In those cases, I make a convenience function for the plotting, so I can call it
 </code></pre><pre tabindex="0"><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">ggbar</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grouping</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Must have both arguments to work</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">stopifnot</span><span class="p">(</span><span class="o">!</span><span class="nf">missing</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">stopifnot</span><span class="p">(</span><span class="o">!</span><span class="nf">missing</span><span class="p">(</span><span class="n">grouping</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Create some summary stats</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># in this case percent </span>
-</span></span><span class="line"><span class="cl">  <span class="n">data</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">group_by</span><span class="p">({{</span><span class="n">grouping</span><span class="p">}})</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">tally</span><span class="p">()</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">mutate</span><span class="p">(</span><span class="n">pc</span> <span class="o">=</span> <span class="n">n</span><span class="o">/</span><span class="nf">sum</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># plot it!</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">{{</span><span class="n">grouping</span><span class="p">}},</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">y</span> <span class="o">=</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">geom_bar</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">pc</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">             <span class="n">stat</span><span class="o">=</span><span class="s">&#34;identity&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;dodge&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;darkgrey&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">linewidth</span> <span class="o">=</span> <span class="m">.3</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">geom_label</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="n">scales</span><span class="o">::</span><span class="nf">percent</span><span class="p">(</span><span class="n">pc</span><span class="p">)))</span> 
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">ggbar</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">sex</span><span class="p">)</span>  
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ggbar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, grouping){
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Must have both arguments to work</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stopifnot</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">missing</span>(data))
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stopifnot</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">missing</span>(grouping))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Create some summary stats</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># in this case percent </span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">group_by</span>({{grouping}}) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tally</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mutate</span>(pc <span style="color:#f92672">=</span> n<span style="color:#f92672">/</span><span style="color:#a6e22e">sum</span>(n)) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># plot it!</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> {{grouping}}, 
+</span></span><span style="display:flex;"><span>             y <span style="color:#f92672">=</span> n)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_bar</span>(<span style="color:#a6e22e">aes</span>(fill <span style="color:#f92672">=</span> pc),
+</span></span><span style="display:flex;"><span>             stat<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;identity&#34;</span>, 
+</span></span><span style="display:flex;"><span>             position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dodge&#34;</span>, 
+</span></span><span style="display:flex;"><span>             colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;darkgrey&#34;</span>, 
+</span></span><span style="display:flex;"><span>             linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">.3</span>,
+</span></span><span style="display:flex;"><span>             show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_label</span>(<span style="color:#a6e22e">aes</span>(label <span style="color:#f92672">=</span> scales<span style="color:#f92672">::</span><span style="color:#a6e22e">percent</span>(pc))) 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggbar</span>(penguins, sex)  
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-40-1.png" width="672" />
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggbar</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggbar</span>(penguins, species)  
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-40-2.png" width="672" />
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggbar</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">island</span><span class="p">)</span>  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggbar</span>(penguins, island)  
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-40-3.png" width="672" />
 <p>I like this a lot. It saves me a lot of copy and paste and makes everything look neat.</p>
-
-<h2 id="14supthsup-of-december---wrapping-plots-in-lists" class="anchor-link"><a href="#14supthsup-of-december---wrapping-plots-in-lists">14<sup>th</sup> of December - wrapping plots in lists</a></h2>
+<h2 id="14supthsup-of-december---wrapping-plots-in-lists">14<sup>th</sup> of December - wrapping plots in lists</h2>
 <p>Yesterday&rsquo;s function can be used even further!
 Some times, it would be convenient to make subplots easily, and wrap them all together.
 We can do this with yesterday&rsquo;s function,
 by adding another layer of complexity!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">patchwork</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">ggbar_wrap</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">wrap</span><span class="p">,</span> <span class="n">grouping</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># Nest data by wrapping column</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">nest_by</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{{</span><span class="n">wrap</span><span class="p">}},</span> <span class="n">.key</span> <span class="o">=</span> <span class="s">&#34;dt&#34;</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">mutate</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">      <span class="c1"># create a list of plots!</span>
-</span></span><span class="line"><span class="cl">      <span class="n">plots</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">             <span class="nf">ggbar</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                   <span class="n">grouping</span> <span class="o">=</span> <span class="p">{{</span><span class="n">grouping</span><span class="p">}})</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">               <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                    <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                    <span class="n">subtitle</span> <span class="o">=</span> <span class="p">{{</span><span class="n">wrap</span><span class="p">}})</span>
-</span></span><span class="line"><span class="cl">           <span class="p">))</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">pull</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="c1">#wrap them!</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">wrap_plots</span><span class="p">(</span><span class="n">ncol</span> <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">ggbar_wrap</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">sex</span><span class="p">)</span>  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(patchwork)
+</span></span><span style="display:flex;"><span>ggbar_wrap <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, wrap, grouping){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Nest data by wrapping column</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest_by</span>(data, {{wrap}}, .key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dt&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># create a list of plots!</span>
+</span></span><span style="display:flex;"><span>      plots <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">ggbar</span>(dt,
+</span></span><span style="display:flex;"><span>                   grouping <span style="color:#f92672">=</span> {{grouping}}) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">labs</span>(x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, 
+</span></span><span style="display:flex;"><span>                    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>, 
+</span></span><span style="display:flex;"><span>                    subtitle <span style="color:#f92672">=</span> {{wrap}})
+</span></span><span style="display:flex;"><span>           )) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pull</span>(plots) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#wrap them!</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wrap_plots</span>(ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggbar_wrap</span>(penguins, species, sex)  
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-41-1.png" width="672" />
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggbar_wrap</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">island</span><span class="p">)</span>  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggbar_wrap</span>(penguins, species, island)  
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2022/advent-of-r-functions/index_files/figure-html/unnamed-chunk-41-2.png" width="672" />
 <p>Now we can create lots of different constellations of plots!</p>
-
-<h2 id="15supthsup-of-december---logit-to-probability" class="anchor-link"><a href="#15supthsup-of-december---logit-to-probability">15<sup>th</sup> of December - logit to probability</a></h2>
+<h2 id="15supthsup-of-december---logit-to-probability">15<sup>th</sup> of December - logit to probability</h2>
 <p>In my PhD days, I did quite some binomial modelling.
 That gives results in logit scale.
 But I struggle with logit, as they are not always the easiest to interpret, so I might want to convert them into probabilities, which my puny brain deals with a little better.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">logit2prob</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">logit</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># turn logit into odds</span>
-</span></span><span class="line"><span class="cl">  <span class="n">odds</span> <span class="o">&lt;-</span> <span class="nf">exp</span><span class="p">(</span><span class="n">logit</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># Turn odds into probability</span>
-</span></span><span class="line"><span class="cl">  <span class="n">odds</span> <span class="o">/</span> <span class="p">(</span><span class="m">1</span> <span class="o">+</span> <span class="n">odds</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nf">logit2prob</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">1.5</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>logit2prob <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(logit){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn logit into odds</span>
+</span></span><span style="display:flex;"><span>  odds <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">exp</span>(logit)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Turn odds into probability</span>
+</span></span><span style="display:flex;"><span>  odds <span style="color:#f92672">/</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> odds)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">logit2prob</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">1.5</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 0.6224593 0.5744425 0.8175745
 </code></pre><p>So, there it is. It helps me at least!!</p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Dr. Mowinckel (Dec 1, 2022) Advent of R Functions. Retrieved from https://drmowinckels.io/blog/2022/advent-of-r-functions/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2022-advent-of-r-functions,<br>
-            &emsp;author = { Dr. Mowinckel },<br>
-            &emsp;title = { Advent of R Functions },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2022/advent-of-r-functions/ },<br>
-            &emsp;year = { 2022 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2022/lets-get-applying/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Let&rsquo;s Get Apply&rsquo;ing
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2023/positconf-2023/">
+                Posit::conf 2023
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

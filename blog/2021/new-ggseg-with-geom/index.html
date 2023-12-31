@@ -1,191 +1,382 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>New {ggseg} with Geom! - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="A couple of months ago, we released a new version of our ggseg R-package for visualisations of brain atlases. I had been wanting to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult. Likely because I was trying to do too many things, but, hey… that’s me!
+One of the main things I wanted to get rid of, was this need to first group your data before sending it to ggplot if you want to facet." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-New {Ggseg} With Geom! - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="New {ggseg} with Geom! - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="A couple of months ago, we released a new version of our ggseg R-package for visualisations of brain atlases. I had been wanting to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult. Likely because I was trying to do too many things, but, hey… that’s me!
+One of the main things I wanted to get rid of, was this need to first group your data before sending it to ggplot if you want to facet.">
 
 
-
-            <meta property="og:title" content="New {ggseg} with Geom! - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="A couple of months ago, we released a new version of our ggseg R-package for visualisations of brain atlases. I had been wanting to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult. Likely because I was trying to do too many things, but, hey… that’s me!
+One of the main things I wanted to get rid of, was this need to first group your data before sending it to ggplot if you want to facet.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-1-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-2-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-3-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-4-1.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1.png">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1.png" alt="New {ggseg} with Geom!" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/">New {ggseg} with Geom!</a>
-    </h2>
-    <div class="post-data">
-        Mar 14, 2021 |
-        5 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">New {ggseg} with Geom!</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Mar 14, 2021
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label uk-label-secondary tags" >
+                                Neuroimaging
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/ggseg/" class="uk-label uk-label-secondary tags" >
+                                ggseg
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Categories:
-          
-        </p>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/neuroimaging">
-             Neuroimaging</a>,
-         
-           <a href="https://drmowinckels.io/tags/ggseg">
-             ggseg</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>A couple of months ago, we released a new version of our ggseg R-package for visualisations of brain atlases.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>A couple of months ago, we released a new version of our ggseg R-package for visualisations of brain atlases.
 I had been wanting to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult.
 Likely because I was trying to do too many things, but, hey&hellip; that&rsquo;s me!</p>
 <p>One of the main things I wanted to get rid of, was this need to first group your data <em>before</em> sending it to ggplot if you want to facet.
@@ -199,30 +390,30 @@ The geom it self I&rsquo;m quite happy with, despite it still missing some featu
 But the position is what I&rsquo;m truly happy about!
 Before, it was rather cumbersome to re-position the brain slices as you&rsquo;d like to.</p>
 <p>Let&rsquo;s have a look at it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggseg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">mapping</span> <span class="o">=</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">region</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">      <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;dispersed&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggseg)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas <span style="color:#f92672">=</span> dk, 
+</span></span><span style="display:flex;"><span>      mapping <span style="color:#f92672">=</span> <span style="color:#a6e22e">aes</span>(fill <span style="color:#f92672">=</span> region),
+</span></span><span style="display:flex;"><span>      show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, 
+</span></span><span style="display:flex;"><span>      color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+</span></span><span style="display:flex;"><span>      position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dispersed&#34;</span>)
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <p>&ldquo;dispersed&rdquo; is the default position of any brain atlas we have for ggseg.
 Where the brain slices are ordered neatly in a single row.</p>
 <p>This can be changes to a grid by using the &ldquo;stacked&rdquo; position.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggseg</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">mapping</span> <span class="o">=</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">region</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">      <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">position</span> <span class="o">=</span> <span class="s">&#34;stacked&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas <span style="color:#f92672">=</span> dk, 
+</span></span><span style="display:flex;"><span>      mapping <span style="color:#f92672">=</span> <span style="color:#a6e22e">aes</span>(fill <span style="color:#f92672">=</span> region),
+</span></span><span style="display:flex;"><span>      show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, 
+</span></span><span style="display:flex;"><span>      color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+</span></span><span style="display:flex;"><span>      position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;stacked&#34;</span>)
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 <p>Any other re-ordering of slice positions just don&rsquo;t work, because the internal logic of doing that is just not there.
 And it&rsquo;s too much to get it in there.</p>
 <p>But in the geom, we have more flexibility because of the position!</p>
 <p>When using the geom, the syntax is quite different from <code>ggseg()</code> but more close to other ggplots.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_brain</span><span class="p">(</span><span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_brain</span>(atlas <span style="color:#f92672">=</span> dk, show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 <p>We can see here that there are several things that have changed.
 For instance, I did not specify the fill colour by regions, but it happened automatically!
@@ -237,37 +428,37 @@ I&rsquo;ll likely add som convenience functions to help users along for this, bu
 Currently, this only works for the cortical atlases, I&rsquo;m working on something even more versatile, but its still not ready.</p>
 <p>So, the new ggseg version now also comes with a <code>position_brain()</code> function, that is meant to be called from <em>within <code>geom_brain()</code></em>.
 It takes a formula, that should be familiar to ggplot users used to working with facets, in particular <code>facet_grid()</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_brain</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">hemi</span> <span class="o">~</span> <span class="n">side</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_brain</span>(
+</span></span><span style="display:flex;"><span>    atlas <span style="color:#f92672">=</span> dk, 
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> <span style="color:#a6e22e">position_brain</span>(hemi <span style="color:#f92672">~</span> side)
+</span></span><span style="display:flex;"><span>  )
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 <p>See what&rsquo;s happened? By using the formula, we could now position the slices so that the hemispheres are in each row, and the lateral/medial side are in the columns.
 We could easily switch that up, though, so that the sides are in rows and hemisphere in columns</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_brain</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">side</span> <span class="o">~</span> <span class="n">hemi</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_brain</span>(
+</span></span><span style="display:flex;"><span>    atlas <span style="color:#f92672">=</span> dk, 
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> <span style="color:#a6e22e">position_brain</span>(side <span style="color:#f92672">~</span> hemi)
+</span></span><span style="display:flex;"><span>  )
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 <p>We could even alter their order in the default single row if we wanted.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_brain</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">. </span><span class="o">~</span> <span class="n">side</span>  <span class="o">+</span> <span class="n">hemi</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_brain</span>(
+</span></span><span style="display:flex;"><span>    atlas <span style="color:#f92672">=</span> dk, 
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> <span style="color:#a6e22e">position_brain</span>(. <span style="color:#f92672">~</span> side  <span style="color:#f92672">+</span> hemi)
+</span></span><span style="display:flex;"><span>  )
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 <p>or get them stacked in one single column.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_brain</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">atlas</span> <span class="o">=</span> <span class="n">dk</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">side</span>  <span class="o">+</span> <span class="n">hemi</span> <span class="o">~</span> <span class="n">.)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_brain</span>(
+</span></span><span style="display:flex;"><span>    atlas <span style="color:#f92672">=</span> dk, 
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> <span style="color:#a6e22e">position_brain</span>(side  <span style="color:#f92672">+</span> hemi <span style="color:#f92672">~</span> .)
+</span></span><span style="display:flex;"><span>  )
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 <p>As you can see, the flexibility here is just so much more, so people can get their plots into the shape they are after.
 I&rsquo;m pretty happy about that!
@@ -275,127 +466,75 @@ There are still some limitations to the position altering, but all-in-all there 
 <p>So do please explore the newer ggseg-package, I believe it&rsquo;s truly a step up from what we had before.
 It is also now filled with custom S3 classes for the atlases, meaning you&rsquo;ll have better print, plot and other methods related to the atlases.
 These should together give everyone a better experience with the package and all the atlases that are compatible with this plotting system we have created.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">plot</span><span class="p">(</span><span class="n">dk</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">     <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">     <span class="n">position</span> <span class="o">=</span> <span class="nf">position_brain</span><span class="p">(</span><span class="n">hemi</span> <span class="o">~</span> <span class="n">side</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">     <span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">theme_brain2</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(dk, 
+</span></span><span style="display:flex;"><span>     show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>     position <span style="color:#f92672">=</span> <span style="color:#a6e22e">position_brain</span>(hemi <span style="color:#f92672">~</span> side)
+</span></span><span style="display:flex;"><span>     ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_brain2</span>()
 </span></span></code></pre></div><img src="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1.png" width="672" />
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Dr. Mowinckel (Mar 14, 2021) New {ggseg} with Geom!. Retrieved from https://drmowinckels.io/blog/2021/new-ggseg-with-geom/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2021-new-ggseg-with-geom,<br>
-            &emsp;author = { Dr. Mowinckel },<br>
-            &emsp;title = { New {ggseg} with Geom! },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2021/new-ggseg-with-geom/ },<br>
-            &emsp;year = { 2021 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/new-year-s-wishes/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                New Year&rsquo;s Wishes
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/">
+                Using GitHub Actions to Build your Hugo Website
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

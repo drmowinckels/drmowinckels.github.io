@@ -1,193 +1,387 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Circular plots in R and adding images - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I’ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS!" />
+  <meta name="author" content="DrMowinckels" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Circular Plots in R and Adding Images - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Circular plots in R and adding images - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I’ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS!">
 
 
-
-            <meta property="og:title" content="Circular plots in R and adding images - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I’ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS!">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/brainSlices/single/0000_trans.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/brainSlices/single/0001_trans.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/brainSlices/single/0002_trans.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/brainSlices/single/0003_trans.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/brainSlices/single/0004_trans.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/index_files/figure-html/featured-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/index_files/figure-html/featured-1.png">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/index_files/figure-html/featured-1.png" alt="Circular plots in R and adding images" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/">Circular plots in R and adding images</a>
-    </h2>
-    <div class="post-data">
-        May 25, 2018 |
-        12 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Circular plots in R and adding images</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                May 25, 2018
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/plots/" class="uk-label uk-label-secondary tags" >
+                                Plots
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label uk-label-secondary tags" >
+                                Neuroimaging
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/plots">
-             Plots</a>,
-         
-           <a href="https://drmowinckels.io/tags/neuroimaging">
-             Neuroimaging</a>,
-         
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I&rsquo;ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS! because, brains make it better. Always.</p>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I&rsquo;ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS! because, brains make it better. Always.</p>
 <p>So here we go. Let&rsquo;s start out with the data from the last post I did. Reading in the images, giving them names, and some values.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">);</span> <span class="nf">library</span><span class="p">(</span><span class="n">png</span><span class="p">);</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">DATA</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">images</span> <span class="o">=</span> <span class="nf">list.files</span><span class="p">(</span><span class="s">&#34;brainSlices/single&#34;</span><span class="p">,</span> <span class="n">full.names</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">names</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[a-zA-Z]|[[:punct:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="n">images</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="n">values</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">100</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">head</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse); <span style="color:#a6e22e">library</span>(png);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>DATA <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(images <span style="color:#f92672">=</span> <span style="color:#a6e22e">list.files</span>(<span style="color:#e6db74">&#34;brainSlices/single&#34;</span>, full.names <span style="color:#f92672">=</span> T), stringsAsFactors <span style="color:#f92672">=</span> F) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    names <span style="color:#f92672">=</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;[a-zA-Z]|[[:punct:]]&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>, images),
+</span></span><span style="display:flex;"><span>    values <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, size<span style="color:#f92672">=</span><span style="color:#a6e22e">nrow</span>(.), replace <span style="color:#f92672">=</span> T)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(DATA)
 </span></span></code></pre></div><pre tabindex="0"><code>##                              images names values
 ## 1 brainSlices/single/0000_trans.png  0000     56
 ## 2 brainSlices/single/0001_trans.png  0001     77
@@ -196,15 +390,15 @@ Circular Plots in R and Adding Images - Dr. Mowinckel&rsquo;s
 ## 5 brainSlices/single/0004_trans.png  0004     10
 ## 6 brainSlices/single/0005_trans.png  0005     76
 </code></pre><p>Ok, so a circular plot is used to depict a relationship. So, a dataframe with one value per brain network (in this case) will not suffice. I will need values that way something about the relationship between pairs of brain networks. So, if we want pair-wise correlations between 40 networks, that is (40x40)/2 - 40, i.e. 40x40 gives us a matrix of correlations, but they are organized in top and bottom triangles that are identical. Since we just need the one triangle, ergo dividing by 2. And then we subtract 40, which is the diagnoal, that is each networks correlation with it self, which is obviouslye 1 and irrelevant.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="p">(</span><span class="m">40</span><span class="o">*</span><span class="m">40</span><span class="p">)</span><span class="o">/</span><span class="m">2-40</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span><span style="color:#ae81ff">40</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2-40</span>
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 760
 </code></pre><p>mmm 760 values is a biiiiit much for a tutorial. Lets grab 10 networks, and skip all the rest for the purpose of this tutorial.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="p">(</span><span class="m">10</span><span class="o">*</span><span class="m">10</span><span class="p">)</span><span class="o">/</span><span class="m">2-10</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>(<span style="color:#ae81ff">10</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2-10</span>
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 40
 </code></pre><p>40 pairwise correlations are a bit easier to work with. Let just get to creating the data. We&rsquo;ll be using the <code>combn</code> function that will generate the all pair-wise combinations of our shortlisted brain networks.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">PAIRS</span> <span class="o">=</span> <span class="nf">combn</span><span class="p">(</span><span class="n">DATA</span><span class="o">$</span><span class="n">names[1</span><span class="o">:</span><span class="m">10</span><span class="n">]</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="n">t</span> <span class="o">%&gt;%</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">)</span> <span class="o">=</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#34;Network&#34;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">head</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>PAIRS <span style="color:#f92672">=</span> <span style="color:#a6e22e">combn</span>(DATA<span style="color:#f92672">$</span>names[1<span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>], <span style="color:#ae81ff">2</span>) <span style="color:#f92672">%&gt;%</span> t <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.data.frame</span>(stringsAsFactors<span style="color:#f92672">=</span>F)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(PAIRS) <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;Network&#34;</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(PAIRS)
 </span></span></code></pre></div><pre tabindex="0"><code>##   Network1 Network2
 ## 1     0000     0001
 ## 2     0000     0002
@@ -213,8 +407,8 @@ Circular Plots in R and Adding Images - Dr. Mowinckel&rsquo;s
 ## 5     0000     0005
 ## 6     0000     0006
 </code></pre><p>and lets fabricate some correlations.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">PAIRS</span><span class="o">$</span><span class="n">cor</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">.01</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">),</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">head</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>PAIRS<span style="color:#f92672">$</span>cor <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">.01</span>), <span style="color:#a6e22e">nrow</span>(PAIRS), replace <span style="color:#f92672">=</span> T)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(PAIRS)
 </span></span></code></pre></div><pre tabindex="0"><code>##   Network1 Network2   cor
 ## 1     0000     0001 -0.77
 ## 2     0000     0002  0.73
@@ -224,24 +418,24 @@ Circular Plots in R and Adding Images - Dr. Mowinckel&rsquo;s
 ## 6     0000     0006 -0.55
 </code></pre><p>Alright, getting started with a circular plot (or a chord diagram) is not very hard. We&rsquo;ll be using the <code>circlize</code> package, which is what I have tampered with before. I did a quick search before this post and didn&rsquo;t find anything that stuck out more than this package, so I&rsquo;ll stick with it. If you have other chord diagram recommendations or requests, let me know in the comments and I&rsquo;ll have a look at it.</p>
 <p>Let&rsquo;s get to it! To plot a using <code>circlize</code> is farily easy. The first two columns need to contain the pairs that are connected, and the third column needs to be the value they are connected by. That is how we set it up: Netwok1, Network2, Correlation. I am pre-allocating the track heights for the outer walls <code>preAllocateTracks = list(track.height = 0.25))</code>. You can play around with what you like here.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">circlize</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.25</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(circlize)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS, preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>))
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
 <p>Boom! Chord diagram! Now, notice how the entire viewport has been set. <code>circlize</code> will create the enitre plot space, and I have not figured out how to override this (like adding transparent background etc.). But since I have <a href="www.imagemagick.org">ImageMagick</a> I have very easy ways of manipulating the images afterwards, so I don&rsquo;t really mind.</p>
 <p>Ok now, the plot is a little &ldquo;gritty&rdquo; for me. I don&rsquo;t really like the many text annotations, as I want to put in some of my own in stead. We can remove the text annotations with the call <code>annotationTrack = c(&quot;grid&quot;)</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span> <span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">),</span><span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.25</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS, annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>),preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>))
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-9-1.png" alt=""><!-- --></p>
 <p>Nice, it&rsquo;s a little cleaner for me to work with now. And notice how the colors changed!</p>
 <p><code>circlize</code> has pretty nice color palettes, and it will randomy select one of them each time it is called. This is convenient when you just want a fast plot, but if you want to use custom colors (because they might correspond to other plots you have, or groups etc.) you&rsquo;ll need to do some grunt work. I&rsquo;ll group our brain networks somewhat haphazarously into 3 groups (networks of networks), so we can assign colors by the groups in stead. I&rsquo;ll use <code>wesanderson</code> colours, for simplicity and fun!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">wesanderson</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Assign group in the original data frame</span>
-</span></span><span class="line"><span class="cl"><span class="n">DATA</span><span class="o">$</span><span class="n">Group</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;Attention&#34;</span><span class="p">,</span><span class="s">&#34;Memory&#34;</span><span class="p">,</span><span class="s">&#34;Executive&#34;</span><span class="p">),</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">DATA</span><span class="p">),</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">as.factor</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Get wesanderson colours, turn the vector into characters, and then use the factor numbers of DATA$Group to assign colour.</span>
-</span></span><span class="line"><span class="cl"><span class="n">DATA</span><span class="o">$</span><span class="n">gColor</span> <span class="o">=</span> <span class="nf">wes_palette</span><span class="p">(</span><span class="s">&#34;Moonrise2&#34;</span><span class="p">,</span><span class="m">3</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="n">as.character</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">.[as.numeric</span><span class="p">(</span><span class="n">DATA</span><span class="o">$</span><span class="n">Group</span><span class="p">)</span><span class="n">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">head</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(wesanderson)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Assign group in the original data frame</span>
+</span></span><span style="display:flex;"><span>DATA<span style="color:#f92672">$</span>Group <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Attention&#34;</span>,<span style="color:#e6db74">&#34;Memory&#34;</span>,<span style="color:#e6db74">&#34;Executive&#34;</span>), <span style="color:#a6e22e">nrow</span>(DATA), replace <span style="color:#f92672">=</span> T) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">as.factor</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get wesanderson colours, turn the vector into characters, and then use the factor numbers of DATA$Group to assign colour.</span>
+</span></span><span style="display:flex;"><span>DATA<span style="color:#f92672">$</span>gColor <span style="color:#f92672">=</span> <span style="color:#a6e22e">wes_palette</span>(<span style="color:#e6db74">&#34;Moonrise2&#34;</span>,<span style="color:#ae81ff">3</span>) <span style="color:#f92672">%&gt;%</span> as.character <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">.[as.numeric</span>(DATA<span style="color:#f92672">$</span>Group)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(DATA)
 </span></span></code></pre></div><pre tabindex="0"><code>##                              images names values     Group  gColor
 ## 1 brainSlices/single/0000_trans.png  0000     56 Executive #C27D38
 ## 2 brainSlices/single/0001_trans.png  0001     77    Memory #CCC591
@@ -250,275 +444,223 @@ Circular Plots in R and Adding Images - Dr. Mowinckel&rsquo;s
 ## 5 brainSlices/single/0004_trans.png  0004     10    Memory #CCC591
 ## 6 brainSlices/single/0005_trans.png  0005     76    Memory #CCC591
 </code></pre><p>Now, this might feel a little odd, but we need to use the original data to add the colours we want. This is because the data the chord diagram is using is pair-wise, so the data is just not ordered in a way that is convenient to work with when you want to set one colour per network. For instance, neither of the network columns in <code>PAIRS</code> contains <strong>all</strong> the networks, they&rsquo;re each -1, so there is no complete list of the networks in the file. Thus, we will also struggle to create a complete list of colours and groups. So we will provide the values from the original data file to provide the colours we want.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">DATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">DATA</span><span class="o">$</span><span class="n">gColor</span><span class="p">,</span> <span class="n">DATA</span><span class="o">$</span><span class="n">names</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>DATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(DATA<span style="color:#f92672">$</span>gColor, DATA<span style="color:#f92672">$</span>names))
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-12-1.png" alt=""><!-- --></p>
 <p>whoop! Now, you&rsquo;ll notice I used a command called <code>setNames</code> when adding the colours. This is because <code>circlize</code> wants a names vector for colours, so it know exactly which network should be which colour. In this way, it does not matter which order you provide the network names in (through the <code>order</code> call), the colours are always assigned correcly. Nice!</p>
 <p>Ok, notice how not all the networks in one group come after eachother in the wheel. For the wheel to make true sense, to me at least, all networks in a group should cluster together. This should be a farily easy task to manage. We order <code>DATA</code> by the group, and provide this new ordered list to the function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">oDATA</span> <span class="o">=</span> <span class="n">DATA</span> <span class="o">%&gt;%</span> <span class="nf">arrange</span><span class="p">(</span><span class="n">Group</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">,</span><span class="s">&#34;name&#34;</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColor</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>oDATA <span style="color:#f92672">=</span> DATA <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">arrange</span>(Group)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names))
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-13-1.png" alt=""><!-- --></p>
 <p>Now, we&rsquo;re cooking! Let&rsquo;s get some text annotations in there. Like in the previous tutorial, we&rsquo;ll need to do this through a loop. If I ever get around to learning to use <code>purr</code> I&rsquo;ll get back to this and probably make it more efficient and pretty. For now, loops are easy for my brain to work with.</p>
 <p>Time for some brains! Like in the last tutorial, the brain images need to be read in one by one and added sequentially to the plot. We&rsquo;ll use the same technique as for the text annotations. Notice how we here are not going to be adding the images to the plot like in <code>ggplot</code>. But circlize keeps the viewport open and continues to write to it untill a new <code>chordDiagram</code> is called, or the diagram is cleared with <code>circos.clear</code>.</p>
 <p>First, we need to get the coordinates of our different sections. <code>circlize</code> had functions to grb this, by their name. We&rsquo;ll start with the one names <code>0000</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">xplot</span><span class="o">=</span><span class="nf">get.cell.meta.data</span><span class="p">(</span><span class="s">&#34;xplot&#34;</span><span class="p">,</span><span class="s">&#34;0000&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>xplot<span style="color:#f92672">=</span><span style="color:#a6e22e">get.cell.meta.data</span>(<span style="color:#e6db74">&#34;xplot&#34;</span>,<span style="color:#e6db74">&#34;0000&#34;</span>)
 </span></span></code></pre></div><p>Now, this thing was new and I did not have to have it before. But the x coordinate for the first section should be 360, not 0. So we need to make a small adjustment.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Small workaround because coordinate 0 should be 360</span>
-</span></span><span class="line"><span class="cl"><span class="nf">if</span><span class="p">(</span><span class="n">xplot[1]</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">xplot[1]</span> <span class="o">=</span> <span class="m">360</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Small workaround because coordinate 0 should be 360</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(xplot[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) xplot[1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>
 </span></span></code></pre></div><p>We&rsquo;ll be using a package called <code>aspace</code> to create radial coordinates, which we need when working with a circle. I&rsquo;m not going to take credit for figuring this particular part out. At the time, I was collaborating with another lab and <a href="https://twitter.com/TobKaufmann">Tobias Kaufmann</a> generously shared this bit of code with me.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">aspace</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">x</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">y</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">sin</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">,</span><span class="s">&#34;name&#34;</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColor</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">DATA</span><span class="o">$</span><span class="n">images</span><span class="nf">[grep</span><span class="p">(</span><span class="s">&#34;0000&#34;</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">images</span><span class="p">)</span><span class="n">]</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">readPNG</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">rasterImage</span><span class="p">(</span><span class="n">x</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">x</span><span class="m">+0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">+0.09</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(aspace)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>x<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>y<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DATA<span style="color:#f92672">$</span>images<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;0000&#34;</span>, oDATA<span style="color:#f92672">$</span>images)] <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-18-1.png" alt=""><!-- --></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">,</span><span class="s">&#34;name&#34;</span><span class="p">),</span> <span class="n">annotationTrackHeight</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.05</span><span class="p">,</span> <span class="m">0.01</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColor</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">u</span><span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">si</span> <span class="n">in</span> <span class="nf">get.all.sector.index</span><span class="p">()){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">xplot</span><span class="o">=</span><span class="nf">get.cell.meta.data</span><span class="p">(</span><span class="s">&#34;xplot&#34;</span><span class="p">,</span><span class="n">si</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="n">u</span><span class="o">=</span><span class="n">u</span><span class="m">+1</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Small workaround because coordinate 0 should be 360</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="n">xplot[1]</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">xplot[1]</span> <span class="o">=</span> <span class="m">360</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">x</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">sin</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">DATA</span><span class="o">$</span><span class="n">images</span><span class="nf">[grep</span><span class="p">(</span><span class="n">si</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">images</span><span class="p">)</span><span class="n">]</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">readPNG</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">rasterImage</span><span class="p">(</span><span class="n">x</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">x</span><span class="m">+0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">+0.09</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), annotationTrackHeight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.01</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>u<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(si in <span style="color:#a6e22e">get.all.sector.index</span>()){
+</span></span><span style="display:flex;"><span>  xplot<span style="color:#f92672">=</span><span style="color:#a6e22e">get.cell.meta.data</span>(<span style="color:#e6db74">&#34;xplot&#34;</span>,si)
+</span></span><span style="display:flex;"><span>  u<span style="color:#f92672">=</span>u<span style="color:#ae81ff">+1</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Small workaround because coordinate 0 should be 360</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(xplot[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) xplot[1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  x<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  y<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  DATA<span style="color:#f92672">$</span>images<span style="color:#a6e22e">[grep</span>(si, oDATA<span style="color:#f92672">$</span>images)] <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
 <p>Brain chord diagram! (malapropos: check out my friend&rsquo;s consultancy page <a href="http://www.brainchord.co.uk/">BrainChord</a> - &ldquo;We help women to optimise their work performance while taking care of their brain health and wellbeing&rdquo;. She does some excellent work!).</p>
 <p>These plots tok a lot of time to get nice. Even with the help of Tobias&rsquo; radian script (which I would not have figured out on my own). The clue lies in the pre-allocation of track heights to get it working. <code>preAllocateTracks = list(track.height = 0.3)</code> creates space outside the rim of the plot for the brains to be plotted, without this there is not enough room in the viewspace to get them in. <code>annotationTrackHeight=c(0.05, 0.01)</code> sets the sizes of the section colour and name widths, here I scrunch them a bit together so the diagram does not become too large. It require quite some fiddling with to get it looking nice. But once done, it is easy enough to continue using the same code to get it working.</p>
 <p>I&rsquo;m going to do one more thing before I stop. I find it hard to see the connections nicely when there are so many in a single diagram. What we can to is to plot the chords for each group seperately, and make three plots instead of one. Now, you&rsquo;d think that just subsetting the data should suffice. Let have a look at that first.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Grab all the names of the networks in group &#34;Attention&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">networks</span> <span class="o">=</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names[oDATA</span><span class="o">$</span><span class="n">Group</span> <span class="o">%in%</span> <span class="s">&#34;Attention&#34;</span><span class="n">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Subset the PAIRS data frame to those networks only</span>
-</span></span><span class="line"><span class="cl"><span class="n">SubsetPairs</span> <span class="o">=</span> <span class="n">PAIRS</span> <span class="o">%&gt;%</span> <span class="nf">filter</span><span class="p">(</span><span class="n">Network1</span> <span class="o">%in%</span> <span class="n">networks</span> <span class="o">|</span> <span class="n">Network2</span> <span class="o">%in%</span> <span class="n">networks</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Plot it!</span>
-</span></span><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">SubsetPairs</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">,</span><span class="s">&#34;name&#34;</span><span class="p">),</span> <span class="n">annotationTrackHeight</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.05</span><span class="p">,</span> <span class="m">0.01</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColor</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">u</span><span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">si</span> <span class="n">in</span> <span class="nf">get.all.sector.index</span><span class="p">()){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">xplot</span><span class="o">=</span><span class="nf">get.cell.meta.data</span><span class="p">(</span><span class="s">&#34;xplot&#34;</span><span class="p">,</span><span class="n">si</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="n">u</span><span class="o">=</span><span class="n">u</span><span class="m">+1</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Small workaround because coordinate 0 should be 360</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="n">xplot[1]</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">xplot[1]</span> <span class="o">=</span> <span class="m">360</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">x</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">sin</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">DATA</span><span class="o">$</span><span class="n">images</span><span class="nf">[grep</span><span class="p">(</span><span class="n">si</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">images</span><span class="p">)</span><span class="n">]</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">readPNG</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">rasterImage</span><span class="p">(</span><span class="n">x</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">x</span><span class="m">+0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">+0.09</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Grab all the names of the networks in group &#34;Attention&#34;</span>
+</span></span><span style="display:flex;"><span>networks <span style="color:#f92672">=</span> oDATA<span style="color:#f92672">$</span>names[oDATA<span style="color:#f92672">$</span>Group <span style="color:#f92672">%in%</span> <span style="color:#e6db74">&#34;Attention&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Subset the PAIRS data frame to those networks only</span>
+</span></span><span style="display:flex;"><span>SubsetPairs <span style="color:#f92672">=</span> PAIRS <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(Network1 <span style="color:#f92672">%in%</span> networks <span style="color:#f92672">|</span> Network2 <span style="color:#f92672">%in%</span> networks)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot it!</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(SubsetPairs,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), annotationTrackHeight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.01</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>u<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(si in <span style="color:#a6e22e">get.all.sector.index</span>()){
+</span></span><span style="display:flex;"><span>  xplot<span style="color:#f92672">=</span><span style="color:#a6e22e">get.cell.meta.data</span>(<span style="color:#e6db74">&#34;xplot&#34;</span>,si)
+</span></span><span style="display:flex;"><span>  u<span style="color:#f92672">=</span>u<span style="color:#ae81ff">+1</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Small workaround because coordinate 0 should be 360</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(xplot[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) xplot[1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  x<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  y<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  DATA<span style="color:#f92672">$</span>images<span style="color:#a6e22e">[grep</span>(si, oDATA<span style="color:#f92672">$</span>images)] <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" alt=""><!-- --></p>
 <p>That does not look right. See how the networks in the group are made larger, while the others are bunched up in a corner? That&rsquo;s not what we want. We want all the networks plotted as before, but we want to highlight the chords from the network we are plotting. I&rsquo;ve found that using HEX alpha codes is the best way to go. Short intro to HEX colours, HEXs code for red, blue and green with pairs of digits succeeding a hash. Usually, most HEXs are only 6 digits, however, 8 digit HEXs also code for the opacity (or alpha/transparency) of the coded colour. You&rsquo;ll notice we have 6 digits in our HEX, and so we&rsquo;ll ass two more, to code for alpha. You can have a look at alpha-codes for HEX <a href="https://css-tricks.com/8-digit-hex-codes/">here</a></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">oDATA</span> <span class="o">=</span> <span class="n">oDATA</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">gColorA</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">Group</span> <span class="o">%in%</span> <span class="s">&#34;Attention&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                          <span class="nf">paste0</span><span class="p">(</span><span class="n">gColor</span><span class="p">,</span><span class="s">&#34;B3&#34;</span><span class="p">),</span> <span class="c1"># alpha=70%</span>
-</span></span><span class="line"><span class="cl">                          <span class="nf">paste0</span><span class="p">(</span><span class="n">gColor</span><span class="p">,</span><span class="s">&#34;00&#34;</span><span class="p">)))</span> <span class="c1"># alpha=0%</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Plot it!</span>
-</span></span><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">,</span><span class="s">&#34;name&#34;</span><span class="p">),</span> <span class="n">annotationTrackHeight</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.05</span><span class="p">,</span> <span class="m">0.01</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColorA</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">u</span><span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">si</span> <span class="n">in</span> <span class="nf">get.all.sector.index</span><span class="p">()){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">xplot</span><span class="o">=</span><span class="nf">get.cell.meta.data</span><span class="p">(</span><span class="s">&#34;xplot&#34;</span><span class="p">,</span><span class="n">si</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="n">u</span><span class="o">=</span><span class="n">u</span><span class="m">+1</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Small workaround because coordinate 0 should be 360</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="n">xplot[1]</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">xplot[1]</span> <span class="o">=</span> <span class="m">360</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">x</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">sin</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">DATA</span><span class="o">$</span><span class="n">images</span><span class="nf">[grep</span><span class="p">(</span><span class="n">si</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">images</span><span class="p">)</span><span class="n">]</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">readPNG</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">rasterImage</span><span class="p">(</span><span class="n">x</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">x</span><span class="m">+0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">+0.09</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>oDATA <span style="color:#f92672">=</span> oDATA <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(gColorA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(Group <span style="color:#f92672">%in%</span> <span style="color:#e6db74">&#34;Attention&#34;</span>, 
+</span></span><span style="display:flex;"><span>                          <span style="color:#a6e22e">paste0</span>(gColor,<span style="color:#e6db74">&#34;B3&#34;</span>), <span style="color:#75715e"># alpha=70%</span>
+</span></span><span style="display:flex;"><span>                          <span style="color:#a6e22e">paste0</span>(gColor,<span style="color:#e6db74">&#34;00&#34;</span>))) <span style="color:#75715e"># alpha=0%</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot it!</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), annotationTrackHeight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.01</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColorA, oDATA<span style="color:#f92672">$</span>names))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>u<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(si in <span style="color:#a6e22e">get.all.sector.index</span>()){
+</span></span><span style="display:flex;"><span>  xplot<span style="color:#f92672">=</span><span style="color:#a6e22e">get.cell.meta.data</span>(<span style="color:#e6db74">&#34;xplot&#34;</span>,si)
+</span></span><span style="display:flex;"><span>  u<span style="color:#f92672">=</span>u<span style="color:#ae81ff">+1</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Small workaround because coordinate 0 should be 360</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(xplot[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) xplot[1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  x<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  y<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  DATA<span style="color:#f92672">$</span>images<span style="color:#a6e22e">[grep</span>(si, oDATA<span style="color:#f92672">$</span>images)] <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-20-1.png" alt=""><!-- --></p>
 <p>We&rsquo;re getting there, but it&rsquo;s not what we are truly after. We want the sections to still show, but the chords to change colour. That is thankfully not so hard, you can spacify both the chord and the chord border colour in circlize if you want. We&rsquo;ll stick to the chord colour. We will assign the <code>grid.col</code> colours with the coloumn without the alpha set (which effectively means alpha is 100%), and then use the columns with the alpha set with the <code>col</code> specification.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">,</span><span class="s">&#34;name&#34;</span><span class="p">),</span> <span class="n">annotationTrackHeight</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.05</span><span class="p">,</span> <span class="m">0.01</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColor</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">),</span> <span class="n">col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColorA</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">u</span><span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">si</span> <span class="n">in</span> <span class="nf">get.all.sector.index</span><span class="p">()){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">xplot</span><span class="o">=</span><span class="nf">get.cell.meta.data</span><span class="p">(</span><span class="s">&#34;xplot&#34;</span><span class="p">,</span><span class="n">si</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="n">u</span><span class="o">=</span><span class="n">u</span><span class="m">+1</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Small workaround because coordinate 0 should be 360</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="n">xplot[1]</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">xplot[1]</span> <span class="o">=</span> <span class="m">360</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">x</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">sin</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">DATA</span><span class="o">$</span><span class="n">images</span><span class="nf">[grep</span><span class="p">(</span><span class="n">si</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">images</span><span class="p">)</span><span class="n">]</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">readPNG</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">rasterImage</span><span class="p">(</span><span class="n">x</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">x</span><span class="m">+0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">+0.09</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), annotationTrackHeight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.01</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names), col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColorA, oDATA<span style="color:#f92672">$</span>names))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>u<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(si in <span style="color:#a6e22e">get.all.sector.index</span>()){
+</span></span><span style="display:flex;"><span>  xplot<span style="color:#f92672">=</span><span style="color:#a6e22e">get.cell.meta.data</span>(<span style="color:#e6db74">&#34;xplot&#34;</span>,si)
+</span></span><span style="display:flex;"><span>  u<span style="color:#f92672">=</span>u<span style="color:#ae81ff">+1</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Small workaround because coordinate 0 should be 360</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(xplot[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) xplot[1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  x<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  y<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  DATA<span style="color:#f92672">$</span>images<span style="color:#a6e22e">[grep</span>(si, oDATA<span style="color:#f92672">$</span>images)] <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-21-1.png" alt=""><!-- --></p>
 <p>But what is this? Why are there suddenly coloured chords that are NOT part of the Attention group? Well, when colouring the chords only, you can&rsquo;t set the colour by the network (or section), because it will colour <strong>all</strong> chords connecting to the section. What we need, is to specity the colour of <strong>each</strong> chord. So instead of creating an hex alpha colour code in the original data, we should set it in the <code>PAIRS</code> dataframe, that has all the pair-wise connections.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Grab all the names of the networks in group &#34;Attention&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">networks</span> <span class="o">=</span> <span class="n">oDATA</span> <span class="o">%&gt;%</span> <span class="nf">filter</span><span class="p">(</span><span class="n">Group</span> <span class="o">%in%</span> <span class="s">&#34;Attention&#34;</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Subset the PAIRS data frame to those networks only</span>
-</span></span><span class="line"><span class="cl"><span class="n">SubsetPairs</span> <span class="o">=</span> <span class="n">PAIRS</span> <span class="o">%&gt;%</span> <span class="nf">filter</span><span class="p">(</span><span class="n">Network1</span> <span class="o">%in%</span> <span class="n">networks</span> <span class="o">|</span> <span class="n">Network2</span> <span class="o">%in%</span> <span class="n">networks</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">PAIRS</span> <span class="o">=</span> <span class="n">PAIRS</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">cColor</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">Network1</span> <span class="o">%in%</span> <span class="n">networks</span><span class="o">$</span><span class="n">names</span> <span class="o">|</span> <span class="n">Network2</span> <span class="o">%in%</span> <span class="n">networks</span><span class="o">$</span><span class="n">names</span> <span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                         <span class="n">networks</span><span class="o">$</span><span class="n">gColorA</span> <span class="o">%&gt;%</span> <span class="nf">unique</span><span class="p">(),</span> 
-</span></span><span class="line"><span class="cl">                         <span class="s">&#34;#00000000&#34;</span><span class="p">))</span> <span class="c1"># transparent black</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">chordDiagram</span><span class="p">(</span><span class="n">PAIRS</span><span class="p">,</span><span class="n">annotationTrack</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;grid&#34;</span><span class="p">,</span><span class="s">&#34;name&#34;</span><span class="p">),</span> <span class="n">annotationTrackHeight</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.05</span><span class="p">,</span> <span class="m">0.01</span><span class="p">),</span> <span class="n">preAllocateTracks</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">track.height</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">order</span><span class="o">=</span><span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">,</span> <span class="n">grid.col</span> <span class="o">=</span> <span class="nf">setNames</span><span class="p">(</span><span class="n">oDATA</span><span class="o">$</span><span class="n">gColor</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">names</span><span class="p">),</span> <span class="n">col</span> <span class="o">=</span> <span class="n">PAIRS</span><span class="o">$</span><span class="n">cColor</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">u</span><span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">si</span> <span class="n">in</span> <span class="nf">get.all.sector.index</span><span class="p">()){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">xplot</span><span class="o">=</span><span class="nf">get.cell.meta.data</span><span class="p">(</span><span class="s">&#34;xplot&#34;</span><span class="p">,</span><span class="n">si</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="n">u</span><span class="o">=</span><span class="n">u</span><span class="m">+1</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Small workaround because coordinate 0 should be 360</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">if</span><span class="p">(</span><span class="n">xplot[1]</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">xplot[1]</span> <span class="o">=</span> <span class="m">360</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">x</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span><span class="o">=</span><span class="m">.86</span><span class="o">*</span><span class="nf">sin</span><span class="p">(</span><span class="nf">as_radians</span><span class="p">((</span><span class="n">xplot[2]</span><span class="o">+</span><span class="n">xplot[1]</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">DATA</span><span class="o">$</span><span class="n">images</span><span class="nf">[grep</span><span class="p">(</span><span class="n">si</span><span class="p">,</span> <span class="n">oDATA</span><span class="o">$</span><span class="n">images</span><span class="p">)</span><span class="n">]</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">readPNG</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">rasterImage</span><span class="p">(</span><span class="n">x</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">-0.09</span><span class="p">,</span> <span class="n">x</span><span class="m">+0.09</span><span class="p">,</span> <span class="n">y</span><span class="m">+0.09</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Grab all the names of the networks in group &#34;Attention&#34;</span>
+</span></span><span style="display:flex;"><span>networks <span style="color:#f92672">=</span> oDATA <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(Group <span style="color:#f92672">%in%</span> <span style="color:#e6db74">&#34;Attention&#34;</span>) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Subset the PAIRS data frame to those networks only</span>
+</span></span><span style="display:flex;"><span>SubsetPairs <span style="color:#f92672">=</span> PAIRS <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(Network1 <span style="color:#f92672">%in%</span> networks <span style="color:#f92672">|</span> Network2 <span style="color:#f92672">%in%</span> networks)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PAIRS <span style="color:#f92672">=</span> PAIRS <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(cColor <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(Network1 <span style="color:#f92672">%in%</span> networks<span style="color:#f92672">$</span>names <span style="color:#f92672">|</span> Network2 <span style="color:#f92672">%in%</span> networks<span style="color:#f92672">$</span>names , 
+</span></span><span style="display:flex;"><span>                         networks<span style="color:#f92672">$</span>gColorA <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">unique</span>(), 
+</span></span><span style="display:flex;"><span>                         <span style="color:#e6db74">&#34;#00000000&#34;</span>)) <span style="color:#75715e"># transparent black</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), annotationTrackHeight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.01</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
+</span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names), col <span style="color:#f92672">=</span> PAIRS<span style="color:#f92672">$</span>cColor)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>u<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(si in <span style="color:#a6e22e">get.all.sector.index</span>()){
+</span></span><span style="display:flex;"><span>  xplot<span style="color:#f92672">=</span><span style="color:#a6e22e">get.cell.meta.data</span>(<span style="color:#e6db74">&#34;xplot&#34;</span>,si)
+</span></span><span style="display:flex;"><span>  u<span style="color:#f92672">=</span>u<span style="color:#ae81ff">+1</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Small workaround because coordinate 0 should be 360</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(xplot[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) xplot[1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  x<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  y<span style="color:#f92672">=</span><span style="color:#ae81ff">.86</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">as_radians</span>((xplot[2]<span style="color:#f92672">+</span>xplot[1])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  DATA<span style="color:#f92672">$</span>images<span style="color:#a6e22e">[grep</span>(si, oDATA<span style="color:#f92672">$</span>images)] <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-22-1.png" alt=""><!-- --></p>
 <p>That&rsquo;s what we want. Now, we can loop through the groups and make one for each if we want. Maybe even make a gif? I&rsquo;m not going to do that now, but there are loads of fun things one can do!</p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            DrMowinckels (May 25, 2018) Circular plots in R and adding images. Retrieved from https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2018-circular-plots-in-r-and-adding-images,<br>
-            &emsp;author = { DrMowinckels },<br>
-            &emsp;title = { Circular plots in R and adding images },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/ },<br>
-            &emsp;year = { 2018 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Adding external images to plots
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/">
+                Introducing the ggseg R-package for brain segmentations
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

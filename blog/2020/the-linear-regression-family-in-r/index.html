@@ -1,187 +1,382 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>The Linear Regression Family in R - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Let’s talk linear regression. It’s the thing we learn about first year in psychology at Uni, and it blows all our minds that we are doing math in psychology. An unfortunate effect of all high school student counsellors in Norway thinking all psychologists do is shrink people’s heads. And then here we come to Uni and first semester they stick us with math.
+I’m no statistician, I’m no mathematician. So I’ll be honest with you all, I am not the one to answer your most indepth and deep questions about stats." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-The Linear Regression Family in R - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Linear Regression Family in R - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="Let’s talk linear regression. It’s the thing we learn about first year in psychology at Uni, and it blows all our minds that we are doing math in psychology. An unfortunate effect of all high school student counsellors in Norway thinking all psychologists do is shrink people’s heads. And then here we come to Uni and first semester they stick us with math.
+I’m no statistician, I’m no mathematician. So I’ll be honest with you all, I am not the one to answer your most indepth and deep questions about stats.">
 
 
-
-            <meta property="og:title" content="The Linear Regression Family in R - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Let’s talk linear regression. It’s the thing we learn about first year in psychology at Uni, and it blows all our minds that we are doing math in psychology. An unfortunate effect of all high school student counsellors in Norway thinking all psychologists do is shrink people’s heads. And then here we come to Uni and first semester they stick us with math.
+I’m no statistician, I’m no mathematician. So I’ll be honest with you all, I am not the one to answer your most indepth and deep questions about stats.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/index_files/figure-html/featured-1.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/index_files/figure-html/featured-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/index_files/figure-html/featured-1.png">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/index_files/figure-html/featured-1.png" alt="The Linear Regression Family in R" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/">The Linear Regression Family in R</a>
-    </h2>
-    <div class="post-data">
-        Jun 24, 2020 |
-        21 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">The Linear Regression Family in R</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Jun 24, 2020
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/analysis/" class="uk-label uk-label-secondary tags" >
+                                Analysis
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/linear-regression/" class="uk-label uk-label-secondary tags" >
+                                Linear regression
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Categories:
-          
-        </p>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/analysis">
-             Analysis</a>,
-         
-           <a href="https://drmowinckels.io/tags/linear-regression">
-             Linear regression</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>Let&rsquo;s talk linear regression.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>Let&rsquo;s talk linear regression.
 It&rsquo;s the thing we learn about first year in psychology at Uni, and it blows all our minds that we are doing <em>math</em> in psychology.
 An unfortunate effect of all high school student counsellors in Norway thinking all psychologists do is shrink people&rsquo;s heads.
 And then here we come to Uni and first semester they stick us with <em>math</em>.</p>
@@ -203,8 +398,7 @@ But these things all depend on the data at hand, and as such I will focus on how
 This can be hard, I have almost daily discussions with co-workers regarding this point.</p>
 <p>I am no genious here, I got the inspiration for this post from this amazing sheet made by [Jonas Kristoffer Lindeløv](Jonas Kristoffer Lindeløv)</p>
 <iframe src="https://lindeloev.github.io/tests-as-linear/linear_tests_cheat_sheet.pdf" width ="100%" height="800px"></iframe>
-
-<h1 id="r-model-syntax" class="anchor-link"><a href="#r-model-syntax">R model syntax</a></h1>
+<h1 id="r-model-syntax">R model syntax</h1>
 <p>Before we get started, let&rsquo;s cover some R syntax regarding modelling.
 While there might be specific versions of this formula depending on the modelling you are doing, there are general rules in R on how we specify models.</p>
 <p>Running models in R, we use something we call a <code>formula</code>. This is an unquoted expression of your model specification.</p>
@@ -250,21 +444,21 @@ Notice that the two last rows are testing the same thing, the bottom rows is a s
 <li><a href="https://drmowinckels.io/blog/2018-11-09-r-just-dive-into-it/">R for Psychologists</a></li>
 <li><a href="https://drmowinckels.io/blog/2019-07-17-r-for-psychologists-part-ii/">R for Psychologists - pt. II</a></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">rio</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Start with importing the SPSS data</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># then recode sex to Male and Female</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># and make id a factor (categorical)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># then make group a factor</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">=</span> <span class="n">rio</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&#34;experim.sav&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sex</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">sex</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;Male&#34;</span><span class="p">,</span><span class="s">&#34;Female&#34;</span><span class="p">)),</span>
-</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="n">group</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Look at it</span>
-</span></span><span class="line"><span class="cl"><span class="nf">tibble</span><span class="p">(</span><span class="n">eData</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rio)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Start with importing the SPSS data</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># then recode sex to Male and Female</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># and make id a factor (categorical)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># then make group a factor</span>
+</span></span><span style="display:flex;"><span>eData <span style="color:#f92672">=</span> rio<span style="color:#f92672">::</span><span style="color:#a6e22e">import</span>(<span style="color:#e6db74">&#34;experim.sav&#34;</span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    sex <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(sex, labels<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Male&#34;</span>,<span style="color:#e6db74">&#34;Female&#34;</span>)),
+</span></span><span style="display:flex;"><span>    id <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(id),
+</span></span><span style="display:flex;"><span>    group <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(group)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Look at it</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tibble</span>(eData)
 </span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 30 x 18
 ##    id    sex     age group fost1 confid1 depress1 fost2 confid2 depress2 fost3
 ##    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
@@ -282,14 +476,13 @@ Notice that the two last rows are testing the same thing, the bottom rows is a s
 ## #   exam &lt;dbl&gt;, mah_1 &lt;dbl&gt;, DepT1gp2 &lt;dbl&gt;, DepT2Gp2 &lt;dbl&gt;, DepT3gp2 &lt;dbl&gt;
 </code></pre><p>To summarise the data quickly, we have an experimental dataset, with two groups. One group has been given an intervention for depression, and the other is a control group.
 We have depression scores from three time points, and each person has a single row of data, as would be expected from an SPSS file.</p>
-
-<h1 id="t-tests" class="anchor-link"><a href="#t-tests">T-tests</a></h1>
+<h1 id="t-tests">T-tests</h1>
 <p>The good old t-tests, tests your hypothesis against the null.
 In short, it tests whether your data deviates enough from a normal distribution around 0.
 R has a built in t-test version we can run, and we can test if depression scores at the first measurement deviates from null.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run t-test</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_1_t</span> <span class="o">&lt;-</span> <span class="nf">t.test</span><span class="p">(</span><span class="n">eData</span><span class="o">$</span><span class="n">depress1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_1_t</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run t-test</span>
+</span></span><span style="display:flex;"><span>model_1_t <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">t.test</span>(eData<span style="color:#f92672">$</span>depress1)
+</span></span><span style="display:flex;"><span>model_1_t
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## 	One Sample t-test
 ## 
@@ -303,9 +496,9 @@ R has a built in t-test version we can run, and we can test if depression scores
 ##  42.53333
 </code></pre><p>Unsurprisingly, it does.
 If we look at Jonas&rsquo; cheat sheet, we see that the equivalent linear model (<code>lm</code>) would be</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run equivalent linear model</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_1_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress1</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_1_lm</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run equivalent linear model</span>
+</span></span><span style="display:flex;"><span>model_1_lm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(depress1 <span style="color:#f92672">~</span> <span style="color:#ae81ff">1</span>, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_1_lm)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Call:
 ## lm(formula = depress1 ~ 1, data = eData)
@@ -326,15 +519,15 @@ This is a way in R we specify when we don&rsquo;t want to test against some othe
 <p>The print outs from the two versions are different, and so I needed to wrap <code>lm</code> in <code>summary</code> to get the values we needed to compare.
 If you look at them, you will see that both have a t-value of <code>50.73</code>, estimates of <code>42.53</code> and p-value of <code>2.2e-16</code>.
 If we create some tidy table outputs from them using broom, we can see the values are the same easily.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">broom</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># tidy() gets model outputs we usually use to report our results</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_1_t_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_1_t</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;t.test(y)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_1_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_1_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ 1)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_1_t_tidy</span><span class="p">,</span> <span class="n">model_1_lm_tidy</span><span class="p">)</span><span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(broom)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># tidy() gets model outputs we usually use to report our results</span>
+</span></span><span style="display:flex;"><span>model_1_t_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_1_t) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t.test(y)&#34;</span>)
+</span></span><span style="display:flex;"><span>model_1_lm_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_1_lm) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y ~ 1)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_1_t_tidy, model_1_lm_tidy)<span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -361,10 +554,10 @@ If we create some tidy table outputs from them using broom, we can see the value
 </table>
 <p>Here we can clearly see we have run the <em>exact</em> same test, in two different ways. In fact the <code>t.test()</code> function in R is just a direct call to the <code>lm()</code> function like we specified.</p>
 <p>Most likely we would want to know if the interevention has any effect, i.e. is there a difference between depression scores at baseline (depress1)  and at end-of-study (depress3). This would mean running a paired sample t-test, as each person is their own control.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># run paired t-test testing depression from g1 against g2</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_2_t</span> <span class="o">&lt;-</span> <span class="nf">t.test</span><span class="p">(</span><span class="n">eData</span><span class="o">$</span><span class="n">depress1</span><span class="p">,</span> <span class="n">eData</span><span class="o">$</span><span class="n">depress3</span><span class="p">,</span> <span class="n">paired</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_2_t_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_2_t</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;t.test(x, y, paired = TRUE&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_2_t</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># run paired t-test testing depression from g1 against g2</span>
+</span></span><span style="display:flex;"><span>model_2_t <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">t.test</span>(eData<span style="color:#f92672">$</span>depress1, eData<span style="color:#f92672">$</span>depress3, paired <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>model_2_t_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_2_t) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t.test(x, y, paired = TRUE&#34;</span>)
+</span></span><span style="display:flex;"><span>model_2_t
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## 	Paired t-test
 ## 
@@ -376,10 +569,10 @@ If we create some tidy table outputs from them using broom, we can see the value
 ## sample estimates:
 ## mean of the differences 
 ##                3.333333
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># run linear model</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_2_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress1</span> <span class="o">-</span> <span class="n">depress3</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_2_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_2_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y-x ~ 1)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_2_lm</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># run linear model</span>
+</span></span><span style="display:flex;"><span>model_2_lm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(depress1 <span style="color:#f92672">-</span> depress3 <span style="color:#f92672">~</span> <span style="color:#ae81ff">1</span>, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_2_lm_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_2_lm) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y-x ~ 1)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_2_lm)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Call:
 ## lm(formula = depress1 - depress3 ~ 1, data = eData)
@@ -395,10 +588,10 @@ If we create some tidy table outputs from them using broom, we can see the value
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 2.537 on 29 degrees of freedom
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we combine the two model outputs, rowwise</span>
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_2_t_tidy</span><span class="p">,</span> <span class="n">model_2_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># we combine the two model outputs, rowwise</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_2_t_tidy, model_2_lm_tidy) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -428,19 +621,19 @@ If we create some tidy table outputs from them using broom, we can see the value
 Then we are testing the difference distribution to the null distribution.
 That is what t-tests do (simplistically), they compare a distribution to the null (or another distribution).</p>
 <p>We could also do the same test by taking the difference between the two variables first, then doing a one-sample t-test on that.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># calculate the difference between baseline and tp3 depression</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">dep_slope</span> <span class="o">=</span> <span class="n">depress1</span> <span class="o">-</span> <span class="n">depress3</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">model_2_lm2</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_2_lm2_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_2_lm2</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ 1)&#34;</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we combine the three model outputs, rowwise</span>
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_2_t_tidy</span><span class="p">,</span> <span class="n">model_2_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_2_lm2_tidy</span><span class="p">)</span><span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># calculate the difference between baseline and tp3 depression</span>
+</span></span><span style="display:flex;"><span>eData <span style="color:#f92672">&lt;-</span> eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    dep_slope <span style="color:#f92672">=</span> depress1 <span style="color:#f92672">-</span> depress3
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model_2_lm2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(dep_slope <span style="color:#f92672">~</span> <span style="color:#ae81ff">1</span>, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_2_lm2_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_2_lm2) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y ~ 1)&#34;</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># we combine the three model outputs, rowwise</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_2_t_tidy, model_2_lm_tidy) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">bind_rows</span>(model_2_lm2_tidy)<span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -473,15 +666,14 @@ That is what t-tests do (simplistically), they compare a distribution to the nul
 </table>
 <p>See that all three models are giving us the same result?
 The third model does so because we have pre-calculated the difference scores, rather than doing it formulaically within the <code>lm</code> function.</p>
-
-<h1 id="correlations" class="anchor-link"><a href="#correlations">Correlations</a></h1>
+<h1 id="correlations">Correlations</h1>
 <p>It&rsquo;s quite common to test correlations of two variables.
 If you have two continuous (scalar) variables, you likely want to know the correlation between the two and if the correlation is significant (let&rsquo;s leave the significance debate aside during this post).
 We will do a Peasons R tests here, though there are also other options.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run correlation test</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_3_cor</span> <span class="o">&lt;-</span> <span class="nf">cor.test</span><span class="p">(</span><span class="n">eData</span><span class="o">$</span><span class="n">depress3</span><span class="p">,</span> <span class="n">eData</span><span class="o">$</span><span class="n">depress1</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&#34;pearson&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_3_cor_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_3_cor</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;cor.test(x, y)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_3_cor</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run correlation test</span>
+</span></span><span style="display:flex;"><span>model_3_cor <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cor.test</span>(eData<span style="color:#f92672">$</span>depress3, eData<span style="color:#f92672">$</span>depress1, method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pearson&#34;</span>)
+</span></span><span style="display:flex;"><span>model_3_cor_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_3_cor) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cor.test(x, y)&#34;</span>)
+</span></span><span style="display:flex;"><span>model_3_cor
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## 	Pearson&#39;s product-moment correlation
 ## 
@@ -493,10 +685,10 @@ We will do a Peasons R tests here, though there are also other options.</p>
 ## sample estimates:
 ##       cor 
 ## 0.8675231
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run equivalent linear model</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_3_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress3</span> <span class="o">~</span> <span class="n">depress1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_3_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_3_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_3_lm</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run equivalent linear model</span>
+</span></span><span style="display:flex;"><span>model_3_lm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(depress3 <span style="color:#f92672">~</span> depress1, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_3_lm_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_3_lm) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y ~ x)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_3_lm)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Call:
 ## lm(formula = depress3 ~ depress1, data = eData)
@@ -515,10 +707,10 @@ We will do a Peasons R tests here, though there are also other options.</p>
 ## Residual standard error: 2.576 on 28 degrees of freedom
 ## Multiple R-squared:  0.7526,	Adjusted R-squared:  0.7438 
 ## F-statistic: 85.18 on 1 and 28 DF,  p-value: 5.486e-10
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we combine the two model outputs, rowwise</span>
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_3_cor_tidy</span><span class="p">,</span> <span class="n">model_3_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># we combine the two model outputs, rowwise</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_3_cor_tidy, model_3_lm_tidy) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, term, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -555,23 +747,22 @@ We will do a Peasons R tests here, though there are also other options.</p>
 <p>Here we get slightly different tidies data tables out.
 This is because the linear model also will provide you with the intercept estimate (alpha, i.e. the value of <code>y</code> when <code>x == 0</code>).
 There is a slight deviation on the beta-coefficients between the two models, but they are almost identical, and both statistic and p-value for the correlation of <code>x</code> (here: depression score at end of study) with <code>y</code> (here: depression score at baseline) are the same.</p>
-
-<h1 id="one-way-anova" class="anchor-link"><a href="#one-way-anova">One-way ANOVA</a></h1>
+<h1 id="one-way-anova">One-way ANOVA</h1>
 <p>Analyses of variance, likely the most staple analysis in psychology, together with its cousin ANCOVA of course.
 The models become more complex now, as we have more than one predictor for the dependent variable.
 Let&rsquo;s say we want to know if there are differences between the two groups in terms of the baseline depression score.
 Then we have a model where we want to know if the categorical groups have different values.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run one-way anova</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_4_anova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">depress1</span> <span class="o">~</span> <span class="n">group</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_4_anova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_4_anova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ factor(x))&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_4_anova</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run one-way anova</span>
+</span></span><span style="display:flex;"><span>model_4_anova <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aov</span>(depress1 <span style="color:#f92672">~</span> group, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_4_anova_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_4_anova) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aov(y ~ factor(x))&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_4_anova)
 </span></span></code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## group        1    2.1   2.133   0.098  0.757
 ## Residuals   28  609.3  21.762
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run equivalent linear model</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_4_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">depress1</span> <span class="o">~</span> <span class="n">group</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_4_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_4_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ factor(x))&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_4_lm</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run equivalent linear model</span>
+</span></span><span style="display:flex;"><span>model_4_lm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(depress1 <span style="color:#f92672">~</span> group, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_4_lm_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_4_lm) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y ~ factor(x))&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_4_lm)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Call:
 ## lm(formula = depress1 ~ group, data = eData)
@@ -590,10 +781,10 @@ Then we have a model where we want to know if the categorical groups have differ
 ## Residual standard error: 4.665 on 28 degrees of freedom
 ## Multiple R-squared:  0.003489,	Adjusted R-squared:  -0.0321 
 ## F-statistic: 0.09803 on 1 and 28 DF,  p-value: 0.7565
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we combine the two model outputs, rowwise</span>
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_4_anova_tidy</span><span class="p">,</span> <span class="n">model_4_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># we combine the two model outputs, rowwise</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_4_anova_tidy, model_4_lm_tidy) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, term, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -644,37 +835,36 @@ In this case, we see that both models agree that there is no difference.</p>
 The approaches are mathematically solved slightly differently, but should produce the same conclusions in most instances (particularly when there are only two factor levels).
 Particularly notice how the <code>formula</code> are actually the same!</p>
 <p><strong>Edit June 26th 2020</strong>: it was pointed out to me by my esteemed colleague, Prof. Westerhausen, that actually the F-statistic for the <code>lm</code> model actually is the same as the squared t-statistic in the <code>aov</code> test! And because it&rsquo;s squared, it also has to be positive.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># take the square root of the anova stat</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sqrt</span><span class="p">(</span><span class="n">model_4_anova_tidy</span><span class="o">$</span><span class="n">statistic[1]</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># take the square root of the anova stat</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sqrt</span>(model_4_anova_tidy<span style="color:#f92672">$</span>statistic[1])
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 0.3130984
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># same as stat from lm</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_4_lm_tidy</span><span class="o">$</span><span class="n">statistic[2]</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># same as stat from lm</span>
+</span></span><span style="display:flex;"><span>model_4_lm_tidy<span style="color:#f92672">$</span>statistic[2]
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] -0.3130984
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># or, square the lm stat</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_4_lm_tidy</span><span class="o">$</span><span class="n">statistic[2]^2</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># or, square the lm stat</span>
+</span></span><span style="display:flex;"><span>model_4_lm_tidy<span style="color:#f92672">$</span>statistic[2]^2
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 0.09803063
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># same as anova stat</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_4_anova_tidy</span><span class="o">$</span><span class="n">statistic[1]</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># same as anova stat</span>
+</span></span><span style="display:flex;"><span>model_4_anova_tidy<span style="color:#f92672">$</span>statistic[1]
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 0.09803063
 </code></pre><p>that is so neat!</p>
-
-<h1 id="ancova" class="anchor-link"><a href="#ancova">ANCOVA</a></h1>
+<h1 id="ancova">ANCOVA</h1>
 <p>Analysis of covariance is something you would run if you had another continuous (scalar) variable you want to use as a predictor for your dependent variable.
 For instance, we have a measure of confidence, perhaps confidence levels at baseline affect the success of the intervention?</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run one-way anova</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_5_ancova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">+</span> <span class="n">confid1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_5_ancova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_5_ancova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ x + z)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_5_ancova</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run one-way anova</span>
+</span></span><span style="display:flex;"><span>model_5_ancova <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aov</span>(dep_slope <span style="color:#f92672">~</span> group <span style="color:#f92672">+</span> confid1, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_5_ancova_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_5_ancova) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aov(y ~ x + z)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_5_ancova)
 </span></span></code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
 ## group        1  19.20  19.200   3.134  0.088 .
 ## confid1      1   2.03   2.032   0.332  0.569  
 ## Residuals   27 165.43   6.127                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run equivalent linear model</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_5_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">+</span> <span class="n">confid1</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_5_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_5_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x + z)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_5_lm</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run equivalent linear model</span>
+</span></span><span style="display:flex;"><span>model_5_lm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(dep_slope <span style="color:#f92672">~</span> group <span style="color:#f92672">+</span> confid1, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_5_lm_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_5_lm) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y ~ x + z)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_5_lm)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Call:
 ## lm(formula = dep_slope ~ group + confid1, data = eData)
@@ -694,10 +884,10 @@ For instance, we have a measure of confidence, perhaps confidence levels at base
 ## Residual standard error: 2.475 on 27 degrees of freedom
 ## Multiple R-squared:  0.1137,	Adjusted R-squared:  0.04809 
 ## F-statistic: 1.733 on 2 and 27 DF,  p-value: 0.1959
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we combine the two model outputs, rowwise</span>
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_5_ancova_tidy</span><span class="p">,</span> <span class="n">model_5_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># we combine the two model outputs, rowwise</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_5_ancova_tidy, model_5_lm_tidy) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, term, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -756,19 +946,18 @@ The same goes for the confidence variable.
 Only difference that makes me surprised here is that the <code>aov</code> model has a positive statistic for confidence, while the <code>lm</code> has negative.
 But given that these are both so close to 0, likely even small differnce in mathematical solution could result in tipping from one side of 0 to the other.</p>
 <p><strong>Edit June 26th 2020</strong>: and just like in the anova, we can also compare the statistics by squaring the stats from the linear model to make them the same as the ones from the ancova.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># or, square the lm stat</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_5_lm_tidy</span><span class="o">$</span><span class="n">statistic[</span><span class="m">-1</span><span class="n">]^2</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># or, square the lm stat</span>
+</span></span><span style="display:flex;"><span>model_5_lm_tidy<span style="color:#f92672">$</span>statistic[<span style="color:#ae81ff">-1</span>]^2
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 3.1832469 0.3315903
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># same as anova stat</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_5_ancova_tidy</span><span class="o">$</span><span class="n">statistic</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># same as anova stat</span>
+</span></span><span style="display:flex;"><span>model_5_ancova_tidy<span style="color:#f92672">$</span>statistic
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 3.1335581 0.3315903        NA
-</code></pre>
-<h1 id="two-way-anova" class="anchor-link"><a href="#two-way-anova">Two-way ANOVA</a></h1>
+</code></pre><h1 id="two-way-anova">Two-way ANOVA</h1>
 <p>If we want to run a two-way anova, with two predictors having each their own main effect as well as an interaction term between them, we add them in the formula. Here we&rsquo;ll add a test for sex differences, and whether there is a sex difference within the groups on the depression change.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run anova</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_6_anova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_6_anova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_6_anova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ x * z)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_6_anova</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run anova</span>
+</span></span><span style="display:flex;"><span>model_6_anova <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aov</span>(dep_slope <span style="color:#f92672">~</span> group <span style="color:#f92672">*</span> sex, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_6_anova_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_6_anova) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aov(y ~ x * z)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_6_anova)
 </span></span></code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
 ## group        1  19.20  19.200   3.332 0.0794 .
 ## sex          1   5.15   5.148   0.894 0.3532  
@@ -776,10 +965,10 @@ But given that these are both so close to 0, likely even small differnce in math
 ## Residuals   26 149.80   5.762                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run equivalent linear model</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_6_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_6_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_6_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x * z)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_6_lm</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run equivalent linear model</span>
+</span></span><span style="display:flex;"><span>model_6_lm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(dep_slope <span style="color:#f92672">~</span> group <span style="color:#f92672">*</span> sex, data <span style="color:#f92672">=</span> eData)
+</span></span><span style="display:flex;"><span>model_6_lm_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_6_lm) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y ~ x * z)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_6_lm)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Call:
 ## lm(formula = dep_slope ~ group * sex, data = eData)
@@ -800,10 +989,10 @@ But given that these are both so close to 0, likely even small differnce in math
 ## Residual standard error: 2.4 on 26 degrees of freedom
 ## Multiple R-squared:  0.1975,	Adjusted R-squared:  0.1049 
 ## F-statistic: 2.133 on 3 and 26 DF,  p-value: 0.1204
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we combine the two model outputs, rowwise</span>
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_6_anova_tidy</span><span class="p">,</span> <span class="n">model_6_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># we combine the two model outputs, rowwise</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_6_anova_tidy, model_6_lm_tidy) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, term, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -873,18 +1062,18 @@ Again, these are solved slightly differently mathematically, but they should in 
 While in the <code>lm</code> model we get an evaluation of whether a specific level of a categorical variable deviates significantly from baseline level.
 Because this is hard to convey with only two groups, let&rsquo;s make a somewhat stupid example to show what happens when a factor has more than two levels.</p>
 <p>In this case, we are making another dataset we call <code>eData_mock</code> where we will combine the <code>eData</code> twice rowwise (doubling N), and in one set add 2 to group so that we now would have four groups.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_mock</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="c1"># Add 2 to numeric version of groups</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">group</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="m">+2</span><span class="p">)</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># bind this by row to the origincal eData (with group as numeric)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">bind_rows</span><span class="p">(</span><span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">              <span class="nf">mutate</span><span class="p">(</span><span class="n">group</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">group</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="c1"># make group a factor again so the correct test is applied</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">group</span> <span class="o">=</span> <span class="nf">as.factor</span><span class="p">(</span><span class="n">group</span><span class="p">))</span> 
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run  anova</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_7_anova</span> <span class="o">&lt;-</span> <span class="nf">aov</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData_mock</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_7_anova_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_7_anova</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;aov(y ~ x * z)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_7_anova</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_mock <span style="color:#f92672">&lt;-</span> eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Add 2 to numeric version of groups</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(group <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.numeric</span>(group)<span style="color:#ae81ff">+2</span>) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># bind this by row to the origincal eData (with group as numeric)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">bind_rows</span>(eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">mutate</span>(group <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.numeric</span>(group))) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># make group a factor again so the correct test is applied</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(group <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.factor</span>(group)) 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run  anova</span>
+</span></span><span style="display:flex;"><span>model_7_anova <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aov</span>(dep_slope <span style="color:#f92672">~</span> group <span style="color:#f92672">*</span> sex, data <span style="color:#f92672">=</span> eData_mock)
+</span></span><span style="display:flex;"><span>model_7_anova_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_7_anova) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aov(y ~ x * z)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_7_anova)
 </span></span></code></pre></div><pre tabindex="0"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
 ## group        3  38.40  12.800   2.222 0.0966 .
 ## sex          1  10.30  10.296   1.787 0.1871  
@@ -892,10 +1081,10 @@ Because this is hard to convey with only two groups, let&rsquo;s make a somewhat
 ## Residuals   52 299.61   5.762                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Run equivalent linear model</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_7_lm</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">dep_slope</span> <span class="o">~</span> <span class="n">group</span> <span class="o">*</span> <span class="n">sex</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">eData_mock</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">model_7_lm_tidy</span> <span class="o">&lt;-</span> <span class="nf">tidy</span><span class="p">(</span><span class="n">model_7_lm</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="s">&#34;lm(y ~ x * z)&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">model_7_lm</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Run equivalent linear model</span>
+</span></span><span style="display:flex;"><span>model_7_lm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(dep_slope <span style="color:#f92672">~</span> group <span style="color:#f92672">*</span> sex, data <span style="color:#f92672">=</span> eData_mock)
+</span></span><span style="display:flex;"><span>model_7_lm_tidy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tidy</span>(model_7_lm) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm(y ~ x * z)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(model_7_lm)
 </span></span></code></pre></div><pre tabindex="0"><code>## 
 ## Call:
 ## lm(formula = dep_slope ~ group * sex, data = eData_mock)
@@ -920,10 +1109,10 @@ Because this is hard to convey with only two groups, let&rsquo;s make a somewhat
 ## Residual standard error: 2.4 on 52 degrees of freedom
 ## Multiple R-squared:  0.1975,	Adjusted R-squared:  0.08945 
 ## F-statistic: 1.828 on 7 and 52 DF,  p-value: 0.1015
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we combine the two model outputs, rowwise</span>
-</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">model_7_anova_tidy</span><span class="p">,</span> <span class="n">model_7_lm_tidy</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">estimate</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">p.value</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">results</span> 
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># we combine the two model outputs, rowwise</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_rows</span>(model_7_anova_tidy, model_7_lm_tidy) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(model, term, estimate, statistic, p.value)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results 
 </span></span></code></pre></div><table>
  <thead>
   <tr>
@@ -1023,133 +1212,81 @@ Same goes for group2 and group4, which are the same groups, and their comaprison
 Rather than only getting an idea whether the variable as a whole has an effect, we would know which level of the factor is deviating from baseline.
 For instance, while we combined the data twice on purpose here to make a point, this could also have happened by accident in a <code>join</code> statement or the like, duplicating rows of data.
 Looking at the values for each level might give insight into something wrong having happened, like in this table. The probability of two gropus showing <em>identical</em> estimates is just so low.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">`sex:group`</span> <span class="o">=</span> <span class="nf">interaction</span><span class="p">(</span><span class="n">sex</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#34;:&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">sex</span><span class="o">:</span><span class="n">group</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">y</span> <span class="o">=</span> <span class="n">dep_slope</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">colour</span> <span class="o">=</span> <span class="n">sex</span><span class="o">:</span><span class="n">group</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_boxplot</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.3</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Depression difference&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Depression difference between baseline and EOS&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">subtitle</span> <span class="o">=</span> <span class="s">&#34;Divided by intervention group and sex&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="p">)</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(`sex:group` <span style="color:#f92672">=</span> <span style="color:#a6e22e">interaction</span>(sex, group, sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;:&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> sex<span style="color:#f92672">:</span>group, 
+</span></span><span style="display:flex;"><span>             y <span style="color:#f92672">=</span> dep_slope, 
+</span></span><span style="display:flex;"><span>             colour <span style="color:#f92672">=</span> sex<span style="color:#f92672">:</span>group)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>(width <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_boxplot</span>(width <span style="color:#f92672">=</span> <span style="color:#ae81ff">.3</span>, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Depression difference&#34;</span>,
+</span></span><span style="display:flex;"><span>       title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Depression difference between baseline and EOS&#34;</span>,
+</span></span><span style="display:flex;"><span>       subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Divided by intervention group and sex&#34;</span>
+</span></span><span style="display:flex;"><span>       ) 
 </span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Dr. Mowinckel (Jun 24, 2020) The Linear Regression Family in R. Retrieved from https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2020-the-linear-regression-family-in-r,<br>
-            &emsp;author = { Dr. Mowinckel },<br>
-            &emsp;title = { The Linear Regression Family in R },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/ },<br>
-            &emsp;year = { 2020 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Changing your Blogdown Workflow
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020/">
+                R-Package Advent Calendar 2020
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

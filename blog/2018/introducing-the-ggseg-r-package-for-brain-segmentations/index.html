@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Introducing the ggseg R-package for brain segmentations - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Edit: Though posted only a week ago, we have discovered another R package called ggBrain which has slightly different functions than what our package has. Because of this, we have altered the name of our package to ggseg short for ggsegmentation which is a better description of what our package does.
+I’ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work." />
+  <meta name="author" content="DrMowinckels" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introducing the ggseg R-package for brain segmentations - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="Edit: Though posted only a week ago, we have discovered another R package called ggBrain which has slightly different functions than what our package has. Because of this, we have altered the name of our package to ggseg short for ggsegmentation which is a better description of what our package does.
+I’ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Edit: Though posted only a week ago, we have discovered another R package called ggBrain which has slightly different functions than what our package has. Because of this, we have altered the name of our package to ggseg short for ggsegmentation which is a better description of what our package does.
+I’ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work.">
+
+
+
+    <meta property="og:image" content="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/index_files/figure-html/featured-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/index_files/figure-html/featured-1.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/index_files/figure-html/featured-1.png" alt="Introducing the ggseg R-package for brain segmentations" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Introducing the ggseg R-package for brain segmentations</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Aug 30, 2018
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/plots/" class="uk-label uk-label-secondary tags" >
+                                Plots
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/packages/" class="uk-label uk-label-secondary tags" >
+                                Packages
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label uk-label-secondary tags" >
+                                Neuroimaging
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p><strong>Edit</strong>: Though posted only a week ago, we have discovered another R package called <code>ggBrain</code> which has slightly different functions than what our package has. Because of this, we have altered the name of our package to <code>ggseg</code> short for <code>ggsegmentation</code> which is a better description of what our package does.</p>
+<p>I&rsquo;ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work.
+Fortunately, I got back to work with new gusto in August, and have something exciting to show you!</p>
+<p>A while a go, my co-worker Didac, approached me with an idea for creating the possibility to plot brain segmentations directly in R.
+I loved the idea, and went straight at it, though, overly complicated and the initial project I started is a little stalled.</p>
+<p>Before the summer, he showed me what he really intended, and it is brilliant! So, we worked a bit together, and have scambled together the first little package we have ever made.</p>
+<p>The <a href="https://github.com/LCBC-UiO/ggseg">ggseg</a> package is intended for those who need to easily plot results or overviews of segmentet data.
+In neuroimaging, we often run analyses that segment the brain into different regions, according to different types of classification atlases.
+We have, to begin with, focused on two atlases from the popular software <a href="https://surfer.nmr.mgh.harvard.edu/">Freesurfer</a>, the Desikan-Killany cortical atlas (dk), and the subcortical segmentation atlas (aseg).
+These two segmentation atlases are automatically run on any structural T1-weighted MRI image run through Freesurfers <code>recon-all</code> command, and such is data many people have.
+It can give you, per MRI image, mean values of region and thickness for each region in the atlas, that you can use with your hearts delight for analyses.</p>
+<p>But, once analysed, there is not particlarly easy way of plotting the results, and we couldn&rsquo;t have that!</p>
+<p>So, after some laborious manual work in tracing the segments from the atlases into scalable vector graphics (svg), transforming it to GIS data, and then fortifying this in R for ggplot&rsquo;ing, we finally have some good stuff.</p>
+<p>Now, this is the first time we are writing any type of package, or functions like this. I&rsquo;m sure we can improve the code quite a lot, and we are <em>very</em> happy to receive any pull requests for improvements and to learn more.
+But for now, the functions work well, and we&rsquo;d like to introduce it to you.</p>
+<p>This package is developed as part of our work in our lab <a href="www.oslobrains.no">The Center for Lifespan Changes in Brain and Cognition</a>, and is thus released on our lab-github.
+It is not a CRAN-package, but if we get some more assistance/experience we will considering releaseing it on CRAN at some point.</p>
+<p>So, you can install this using devtools, and we recommend building the vignette also.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>devtools<span style="color:#f92672">::</span><span style="color:#a6e22e">install_github</span>(<span style="color:#e6db74">&#34;LCBC-UiO/ggseg&#34;</span>, build_vignette<span style="color:#f92672">=</span>T)
+</span></span></code></pre></div><p>Once installed, you can have a look through the vignette with <code>vignette(ggseg)</code>, but I&rsquo;ll cover some basics here.</p>
+<p><code>ggseg</code> is made using <code>ggplot2</code>. Who doesn&rsquo;t love ggplot. It is sleek and beautiful, and we wanted these plots to be compatible with ggplot functions, like <code>facet_wrap</code> and <code>theme</code>.
+Out-of-the box, calling ggseg directly will plot the dk atlas.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggseg)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>()
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" alt=""><!-- --></p>
+<p>You can also choose to stack the hemispheres ontop of each other, if that works better for you.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>)
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt=""><!-- --></p>
+<p>Of course, this grey thing isn&rsquo;t particularly fun to look at, so we can do some colourings.
+The atlases all have a variable called <code>region</code>, which will colour different sections in meaningful ways.
+You do this with ggplot <code>aes</code> mapping.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>)
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-4-1.png" alt=""><!-- --></p>
+<p>But there are so many labels! We can&rsquo;t fit them all for this atlas. We can turn them off!.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Desikan-Killany cortical atlas&#34;</span>)
+</span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
+<p>The package currently has three atlases available. The default Desikan-Killany cortical atlas as shown above, and the Automatic subcortical segmentation (aseg), and the Yeo 2011 7 resting-state networks.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas<span style="color:#f92672">=</span>aseg,mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Automatic subcortical segmentation&#34;</span>)
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-5-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># remotes::install_github(&#34;LCBC-UiO/ggsegYeo2011&#34;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggsegYeo2011)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas<span style="color:#f92672">=</span>yeo7, position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region),) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Yeo 7 resting-state networks&#34;</span>)
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-5-2.png" alt=""><!-- --></p>
+<p>We are working on adding the Yeo 2011 17 resting-state networks, in addition to a sagittal view of the aseg atlas.
+We work on that when we need other more &ldquo;relaxing&rdquo; tasks than responding to reviewers every whims.</p>
+<p>Since this is a ggplot-based function, there are lots of ways you can manipulate how it looks.
+For instance by using different themes. The package comes with three themes:
+<code>theme_brain</code>, <code>theme_darkbrain</code>, and <code>theme_custombrain</code>, the latter is really just a simple convenience theme for those who don&rsquo;t want to or know how to customize simple things like the plot background and text colour.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>,show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Desikan-Killany cortical atlas&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_darkbrain</span>()
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-6-1.png" alt=""><!-- --></p>
+<p>There are several extra options you can add, like increasing the size of the contouring line and its colour</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>,
+</span></span><span style="display:flex;"><span>        colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>,size<span style="color:#f92672">=</span><span style="color:#ae81ff">.8</span>,show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Desikan-Killany cortical atlas&#34;</span>)
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-7-1.png" alt=""><!-- --></p>
+<p>wowsa, that&rsquo;s a bit too many labels. But It helps you get oriented.
+Now, in most cases, we think people will use this to plot some results. Like p-values, or estimated means.
+To do this, you can provide the function with some data. Importantly, the data must include some variables that will match the data to the atlas data.frame for merging.</p>
+<p>Lets for instance say you have found that the thickness of the insula and superior frontal cortex increase with age, and you want to plot the estimated means highlighting those two regions only.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(<span style="color:#a6e22e">cbind</span>(region<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;superior frontal&#34;</span>,<span style="color:#e6db74">&#34;insula&#34;</span>),em<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2.4</span>,<span style="color:#ae81ff">3.3</span>)),
+</span></span><span style="display:flex;"><span>                     stringsAsFactors<span style="color:#f92672">=</span>F)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span><span style="color:#a6e22e">as.numeric</span>(em)), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>) 
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
+<p>Neat-o. But maybe the results only pertained to the right insula, and left superior frontal? Just add a <code>hemi</code> variable indicating which hemisphere the results belong to.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(<span style="color:#a6e22e">cbind</span>(region<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;superior frontal&#34;</span>,<span style="color:#e6db74">&#34;insula&#34;</span>),
+</span></span><span style="display:flex;"><span>                           em<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2.4</span>,<span style="color:#ae81ff">3.3</span>),
+</span></span><span style="display:flex;"><span>                           hemi<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;left&#34;</span>,<span style="color:#e6db74">&#34;right&#34;</span>)),
+</span></span><span style="display:flex;"><span>                     stringsAsFactors<span style="color:#f92672">=</span>F)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span><span style="color:#a6e22e">as.numeric</span>(em)), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>) 
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-9-1.png" alt=""><!-- --></p>
+<p>If you keep your data in tall/long format, as ggplot likes it, you can also plot results from different groups using facets.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(region<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;superior frontal&#34;</span>,<span style="color:#e6db74">&#34;insula&#34;</span>, <span style="color:#e6db74">&#34;pars orbitalis&#34;</span>,<span style="color:#e6db74">&#34;precentral&#34;</span>),
+</span></span><span style="display:flex;"><span>                     em<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2.4</span>,<span style="color:#ae81ff">3.3</span>,<span style="color:#ae81ff">1.2</span>,<span style="color:#ae81ff">2.6</span>),
+</span></span><span style="display:flex;"><span>                     hemi<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;left&#34;</span>,<span style="color:#e6db74">&#34;right&#34;</span>,<span style="color:#e6db74">&#34;right&#34;</span>,<span style="color:#e6db74">&#34;right&#34;</span>),
+</span></span><span style="display:flex;"><span>                     AgeGroup <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;Young&#34;</span>,<span style="color:#ae81ff">2</span>),<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;Old&#34;</span>,<span style="color:#ae81ff">2</span>)),
+</span></span><span style="display:flex;"><span>                     stringsAsFactors<span style="color:#f92672">=</span>F) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(AgeGroup)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span><span style="color:#a6e22e">as.numeric</span>(em)), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>AgeGroup,ncol<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" alt=""><!-- --></p>
+<p>That&rsquo;s all for now. Or, there are more options, but that&rsquo;s what I&rsquo;ll be going through today.
+As mentioned, we are very new at making packages, and I&rsquo;m sure there are many ways to make this package more efficient.
+Drop us a line or pull request if you feel like contributing!</p>
+
+        </div>
+    </article>
+    
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Circular plots in R and adding images
+            </a>
+        
+    </div>
+    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/get-the-brain-animated/">
+                Get the brain animated!
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
+    </div>
+</div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

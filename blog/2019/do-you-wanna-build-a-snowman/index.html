@@ -1,188 +1,383 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Do you wanna build a snowman? - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="It’s time for another Christmas special. Last year I made a Christmas tree ggplot, and animated some snow and sparkling baubles. That was a lot of fun, and I decided I wanted to do something similar this year too. But this year we’re going to build a snowman.
+Body A snowman needs a body, so lets start with that! Let’s go for a two large body ball’s, and a head. First attempt is to specify the center of the circles we’re going to draw’s locations, and their radii." />
+  <meta name="author" content="DrMowinckels" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Do You Wanna Build a Snowman? - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Do you wanna build a snowman? - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="It’s time for another Christmas special. Last year I made a Christmas tree ggplot, and animated some snow and sparkling baubles. That was a lot of fun, and I decided I wanted to do something similar this year too. But this year we’re going to build a snowman.
+Body A snowman needs a body, so lets start with that! Let’s go for a two large body ball’s, and a head. First attempt is to specify the center of the circles we’re going to draw’s locations, and their radii.">
 
 
-
-            <meta property="og:title" content="Do you wanna build a snowman? - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="It’s time for another Christmas special. Last year I made a Christmas tree ggplot, and animated some snow and sparkling baubles. That was a lot of fun, and I decided I wanted to do something similar this year too. But this year we’re going to build a snowman.
+Body A snowman needs a body, so lets start with that! Let’s go for a two large body ball’s, and a head. First attempt is to specify the center of the circles we’re going to draw’s locations, and their radii.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/arms-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/background-1.gif"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/body-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/buttons-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/circles1-1.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/featured-1.gif" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/featured-1.gif">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/featured-1.gif" alt="Do you wanna build a snowman?" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/">Do you wanna build a snowman?</a>
-    </h2>
-    <div class="post-data">
-        Dec 11, 2019 |
-        12 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Do you wanna build a snowman?</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Dec 11, 2019
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/plots/" class="uk-label uk-label-secondary tags" >
+                                Plots
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/plots">
-             Plots</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>It&rsquo;s time for another Christmas special.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#body">Body</a></li>
+    <li><a href="#face">Face</a></li>
+    <li><a href="#accessories">Accessories</a></li>
+    <li><a href="#ambience">Ambience</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>It&rsquo;s time for another Christmas special.
 Last year I made a <a href="blog/christmas-tree-in-ggplot">Christmas tree ggplot</a>, and animated some snow and sparkling baubles.
 That was a lot of fun, and I decided I wanted to do something similar this year too.
 But this year we&rsquo;re going to build a snowman.</p>
 <p><img src="https://pics.me.me/do-you-wanna-build-a-snowman-13927884.png" alt=""><!-- --></p>
-
-<h2 id="body" class="anchor-link"><a href="#body">Body</a></h2>
+<h2 id="body">Body</h2>
 <p>A snowman needs a body, so lets start with that!
 Let&rsquo;s go for a two large body ball&rsquo;s, and a head.
 First attempt is to specify the center of the circles we&rsquo;re going to draw&rsquo;s locations,
@@ -192,7 +387,7 @@ This is a very convenient geom, because drawing circles is not arbitrary, and th
 That would mean a lot of code (at least for me), so {ggforce} is truly to the rescue here.
 <code>geom_circle</code> needs an x and y position of the <em>center</em> of the circle, and then the radius of that circle.
 Here we specify three circles, with different radii.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
 </span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ───────────────────────────────────────────────── tidyverse 1.3.0 ──
 </code></pre><pre tabindex="0"><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
@@ -201,49 +396,49 @@ Here we specify three circles, with different radii.</p>
 </code></pre><pre tabindex="0"><code>## ── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggforce</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">3</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggforce)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>snowman <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(snowman) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_circle</span>(<span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> x, y0 <span style="color:#f92672">=</span> y, r <span style="color:#f92672">=</span> r)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_fixed</span>()
 </span></span></code></pre></div><p><img src="index_files/figure-html/circles1-1.png" alt=""><!-- --></p>
 <p>So we have three circles, and while this is pretty, it&rsquo;s not what we wanted.
 We need the circles stacked on top of eachother, not within eachother.
 An easy way to do this, is to calculate the y position of the circle middle using the radius information.
 We will square the radius in a mutate (remember, a <code>mutate</code> can add or alter columns in the dataset in a row-wise fashion).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="m">3</span><span class="o">:</span><span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span>  <span class="n">r^2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">))</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>snowman <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  r <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(y <span style="color:#f92672">=</span>  r^2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(snowman) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_circle</span>(<span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> x, y0 <span style="color:#f92672">=</span> y, r <span style="color:#f92672">=</span> r)) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_fixed</span>()
 </span></span></code></pre></div><p><img src="index_files/figure-html/circles2-1.png" alt=""><!-- --></p>
 <p>Alright! Almost there.
 The body is up-side-down. Easy fix though, just multiply the y-axis with <code>-1</code> to flip it.
 This means we will be operating with negative numbers on the y-axis, but I don&rsquo;t really mind that.
 We save this plot to <code>p</code> so we can continue adding new layers of data as we build our snowman.
 This way we don&rsquo;t need to repeat the previous code all the time.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">snowman</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="m">3</span><span class="o">:</span><span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span>  <span class="p">(</span><span class="n">r^2</span><span class="p">)</span> <span class="o">*</span><span class="m">-1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">              <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;white&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">              <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;lightgrey&#34;</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>snowman <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  r <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(y <span style="color:#f92672">=</span>  (r^2) <span style="color:#f92672">*</span><span style="color:#ae81ff">-1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(snowman) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_circle</span>(<span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> x, y0 <span style="color:#f92672">=</span> y, r <span style="color:#f92672">=</span> r),
+</span></span><span style="display:flex;"><span>              fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>, 
+</span></span><span style="display:flex;"><span>              colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lightgrey&#34;</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_fixed</span>()
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><p><img src="index_files/figure-html/body-1.png" alt=""><!-- --></p>
 <p>Any snowman needs a face too.
 We&rsquo;re making a data frame (a tibble is a type of data frame), with x and y coordinates for eyes and nose, and also make a column specifying the colour for those elemens.
@@ -252,31 +447,30 @@ The very strange <code>I(colour)</code> is a little trick I learned last year.
 Some times it is easier to control the aesthetics of a plot with many layers (like our snowman will have), if you directly provide aesthetics, rather than the standard <code>scale</code> options to ggplot.
 In this case <code>I(colour)</code> will make sure that ggplot uses the <strong>identity</strong> (<code>I()</code>), meaning the actual value in the &lsquo;colour&rsquo; coloumn in the face dataset, to colour the points.
 So we do not need to tweak that more later.</p>
-
-<h2 id="face" class="anchor-link"><a href="#face">Face</a></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">face</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-0.5</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">.75</span><span class="p">,</span> <span class="m">.75</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span><span class="o">*</span><span class="m">-1</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="n">type</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;eye&#34;</span><span class="p">,</span> <span class="s">&#34;eye&#34;</span><span class="p">,</span> <span class="s">&#34;nose&#34;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">colour</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;black&#34;</span><span class="p">,</span><span class="s">&#34;black&#34;</span><span class="p">,</span> <span class="s">&#34;coral2&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">face</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="n">type</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">colour</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<h2 id="face">Face</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>face <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">.75</span>, <span style="color:#ae81ff">.75</span>, <span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">-1</span>,
+</span></span><span style="display:flex;"><span>  type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;eye&#34;</span>, <span style="color:#e6db74">&#34;eye&#34;</span>, <span style="color:#e6db74">&#34;nose&#34;</span>),
+</span></span><span style="display:flex;"><span>  colour <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;black&#34;</span>,<span style="color:#e6db74">&#34;black&#34;</span>, <span style="color:#e6db74">&#34;coral2&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> face, show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, 
+</span></span><span style="display:flex;"><span>                 shape <span style="color:#f92672">=</span> type, colour <span style="color:#f92672">=</span> <span style="color:#a6e22e">I</span>(colour)))
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><p><img src="index_files/figure-html/face-1.png" alt=""><!-- --></p>
 <p>What is a face without a mouth?
 The arc of a mouth again is not the easiest to make, but again {ggforce} comes to the rescue with <code>geom_arc</code>.
 I have to be honest, I don&rsquo;t really understand the mapping of the <code>start</code> and <code>end</code> points of the arc, but otherwise it is quite similar to <code>geom_circle</code>.
 In stead of plotting the <em>entire</em> circle, it plots parts of the circle, specified by the <code>start</code> and <code>end</code> arguments.
 We need to specify the x and y  coordinates for the middle of the arc, which we take from the first circle specification for the head of the snowman, and then I just did some random values for <code>start</code> and <code>end</code> untill the mouth was in the position I wanted.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_arc</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">x</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">               <span class="n">y0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">y</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">               <span class="n">start</span> <span class="o">=</span> <span class="m">2.2</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="m">.6</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_arc</span>(<span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> snowman<span style="color:#f92672">$</span>x<span style="color:#a6e22e">[nrow</span>(snowman)], 
+</span></span><span style="display:flex;"><span>               y0 <span style="color:#f92672">=</span> snowman<span style="color:#f92672">$</span>y<span style="color:#a6e22e">[nrow</span>(snowman)], 
+</span></span><span style="display:flex;"><span>               start <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.2</span>, end <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, r<span style="color:#f92672">=</span><span style="color:#ae81ff">.6</span>))
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/mouth-1.png" alt=""><!-- --></p>
@@ -286,55 +480,54 @@ This was again mostly trial and error or finding coordinates I liked for the arm
 and I wanted arms and fingers a little uneven, so they would look like snowmen often do.
 Each arm consists of an arm and two fingers, and in addition to coordinates for the end points of each of these in a dataset, we also give pairs of two points the same name, so we can connect them using <code>geom_line</code>.
 In <code>geom_line</code> using the <code>group</code> argument informs the geom which points belong together and should be connected with a line, else it will try to connect them all!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">arms</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3.5</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.4</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="m">2</span><span class="p">,</span> <span class="m">3.6</span><span class="p">,</span> <span class="m">3.1</span><span class="p">,</span> <span class="m">3.5</span><span class="p">,</span> <span class="m">3.1</span><span class="p">,</span> <span class="m">3.3</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3</span><span class="p">,</span> <span class="m">-3.7</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-3.5</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-2.8</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="m">-3.7</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-3.4</span><span class="p">,</span> <span class="m">-3.1</span><span class="p">,</span> <span class="m">-2.5</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">side</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left arm&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left finger1&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;left finger2&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right arm&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right finger1&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">rep</span><span class="p">(</span><span class="s">&#34;right finger2&#34;</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">arms</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">            <span class="n">size</span> <span class="o">=</span> <span class="m">1.5</span><span class="p">,</span> <span class="n">lineend</span> <span class="o">=</span> <span class="s">&#34;round&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">side</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>arms <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-3.5</span>, <span style="color:#ae81ff">-2</span>, <span style="color:#ae81ff">-3</span>, <span style="color:#ae81ff">-3.4</span>, <span style="color:#ae81ff">-3</span>, <span style="color:#ae81ff">-3.2</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3.6</span>, <span style="color:#ae81ff">3.1</span>, <span style="color:#ae81ff">3.5</span>, <span style="color:#ae81ff">3.1</span>, <span style="color:#ae81ff">3.3</span>),
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-3</span>, <span style="color:#ae81ff">-3.7</span>, <span style="color:#ae81ff">-3.2</span>, <span style="color:#ae81ff">-3.5</span>, <span style="color:#ae81ff">-3.2</span>, <span style="color:#ae81ff">-2.8</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">-3.7</span>, <span style="color:#ae81ff">-3</span>, <span style="color:#ae81ff">-3.2</span>, <span style="color:#ae81ff">-3.4</span>, <span style="color:#ae81ff">-3.1</span>, <span style="color:#ae81ff">-2.5</span>),
+</span></span><span style="display:flex;"><span>  side <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;left arm&#34;</span>, <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;left finger1&#34;</span>, <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;left finger2&#34;</span>, <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;right arm&#34;</span>, <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;right finger1&#34;</span>, <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;right finger2&#34;</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data <span style="color:#f92672">=</span> arms, 
+</span></span><span style="display:flex;"><span>            size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span>, lineend <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;round&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, group <span style="color:#f92672">=</span> side))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/arms-1.png" alt=""><!-- --></p>
 <p>He looks like a happy snowman!</p>
-
-<h2 id="accessories" class="anchor-link"><a href="#accessories">Accessories</a></h2>
+<h2 id="accessories">Accessories</h2>
 <p>Let&rsquo;s give him some accessories, it&rsquo;s all in the detailes.
 First up, some buttons.
 These are farily easy, we position all buttons at <code>x = 0</code> and then at <code>y = c(-3, -4, -5)</code> for nice even spacing.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-3</span><span class="o">:</span><span class="m">-5</span><span class="p">),</span> <span class="n">size</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">-3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">-5</span>), size <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/buttons-1.png" alt=""><!-- --></p>
 <p>And what is a snowman without a hat?
 We give him a tophat, &lsquo;cause he&rsquo;s a gentleman (and tophats are not particularly hard to draw with a polygon).
 Since we&rsquo;re making a polygon, we need x and y position for each polygon corner(breakpoint), and add an id column so we can tell <code>geom_polygon</code> that all these points belong to a single polygon.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">tophat</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span> <span class="m">-0.9</span><span class="p">,</span> <span class="m">-0.3</span><span class="p">,</span> <span class="m">-0.4</span><span class="p">,</span> <span class="m">1.1</span><span class="p">,</span> <span class="m">0.8</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1.4</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">.25</span><span class="p">,</span> <span class="m">.15</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">.75</span><span class="p">,</span> <span class="m">-0.04</span><span class="p">,</span> <span class="m">-.25</span><span class="p">,</span> <span class="m">-.5</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">id</span> <span class="o">=</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">tophat</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">               <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">id</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>tophat <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-1</span>, <span style="color:#ae81ff">-0.9</span>, <span style="color:#ae81ff">-0.3</span>, <span style="color:#ae81ff">-0.4</span>, <span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">1.4</span>),
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">.25</span>, <span style="color:#ae81ff">.15</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">.75</span>, <span style="color:#ae81ff">-0.04</span>, <span style="color:#ae81ff">-.25</span>, <span style="color:#ae81ff">-.5</span>),
+</span></span><span style="display:flex;"><span>  id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(data <span style="color:#f92672">=</span> tophat, 
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, group <span style="color:#f92672">=</span> id))
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/tophat-1.png" alt=""><!-- --></p>
@@ -342,22 +535,21 @@ Since we&rsquo;re making a polygon, we need x and y position for each polygon co
 But it looks a little chilly, he needs a scarf, and we&rsquo;ll use lines for that.
 For simplicitiy.
 And then make it red.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">scarf</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-0.5</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.5</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-2</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-3</span><span class="p">,</span> <span class="m">-2</span><span class="p">,</span> <span class="m">-2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">scarf</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">            <span class="n">lineend</span><span class="o">=</span><span class="s">&#34;round&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;firebrick4&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>scarf <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.5</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-2</span>, <span style="color:#ae81ff">-2</span>, <span style="color:#ae81ff">-3</span>, <span style="color:#ae81ff">-2</span>, <span style="color:#ae81ff">-2</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data <span style="color:#f92672">=</span> scarf, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, 
+</span></span><span style="display:flex;"><span>            lineend<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;round&#34;</span>,
+</span></span><span style="display:flex;"><span>            colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;firebrick4&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y))
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/scarf-1.png" alt=""><!-- --></p>
-
-<h2 id="ambience" class="anchor-link"><a href="#ambience">Ambience</a></h2>
+<h2 id="ambience">Ambience</h2>
 <p>So now we have a snowman, and we like the way he looks.
 He makes me happy at least.</p>
 <p>Next is doing some ambience.
@@ -371,42 +563,42 @@ This we are going to use to create where the snow appears, and also later when w
 Then we&rsquo;re going to use that data, and expand it so that we have a dataset that is time varying.
 So each snowflake is identified with the &lsquo;id&rsquo; column, and a new column &rsquo;time&rsquo; again is a random number indicating when the snowflake appears in the plot, and how it falls.</p>
 <p>Since last year, Thomas Lin Pedersen (yeah, the {ggforce} guy, he also maintains <a href="https://gganimate.com/">gganimate</a>, and lots of cool other plot-related packages. Seriously, follow him, you&rsquo;ll not regret it <a href="https://twitter.com/thomasp85">@thomasp85</a>) did a rewrite of the {gganimate} package, and so also controlling the animation became lots easier, and follows rules more familiar from general ggplot functions.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">gganimate</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">plot_window</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-5</span><span class="p">,</span> <span class="m">5</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">-12</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">falling_snow</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="m">1</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">yy</span> <span class="o">&lt;-</span> <span class="nf">unlist</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">yy</span> <span class="o">-</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="m">.5</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="n">dist</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">),</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">100</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">    <span class="nf">mutate</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">      <span class="n">time</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">.9</span><span class="p">,</span> <span class="m">.01</span><span class="p">),</span> <span class="m">1</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">      <span class="n">time</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="nf">unique</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="m">+.02</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">.)</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">snow</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[1]</span><span class="p">,</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[2]</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">1000</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="m">200</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[1]</span><span class="p">,</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[2]</span><span class="m">+2</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">1000</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="m">200</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">id</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">200</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">nest</span><span class="p">()</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span>  <span class="nf">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>  <span class="o">~</span> <span class="nf">falling_snow</span><span class="p">(</span><span class="n">.x</span><span class="o">$</span><span class="n">y</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">unnest</span><span class="p">(</span><span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5efff&#34;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(gganimate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot_window <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-5</span>, <span style="color:#ae81ff">5</span>),
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">-12</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>falling_snow <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(y, dist <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>  yy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unlist</span>(<span style="color:#a6e22e">as.numeric</span>(y))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(yy, yy <span style="color:#f92672">-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(from <span style="color:#f92672">=</span> <span style="color:#ae81ff">.5</span>, to <span style="color:#f92672">=</span> dist, by<span style="color:#f92672">=</span><span style="color:#ae81ff">.01</span>), <span style="color:#ae81ff">1</span>), length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>      time <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0.5</span>,<span style="color:#ae81ff">.9</span>, <span style="color:#ae81ff">.01</span>), <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>      time <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">unique</span>(time), <span style="color:#a6e22e">unique</span>(time)<span style="color:#ae81ff">+.02</span>, length.out <span style="color:#f92672">=</span> <span style="color:#a6e22e">nrow</span>(.))
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>snow <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(plot_window<span style="color:#f92672">$</span>x[1],plot_window<span style="color:#f92672">$</span>x[2], length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>), 
+</span></span><span style="display:flex;"><span>             <span style="color:#ae81ff">200</span>, replace <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>),
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(plot_window<span style="color:#f92672">$</span>y[1],plot_window<span style="color:#f92672">$</span>y[2]<span style="color:#ae81ff">+2</span>, length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>), 
+</span></span><span style="display:flex;"><span>             <span style="color:#ae81ff">200</span>, replace <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>),
+</span></span><span style="display:flex;"><span>  id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(id,x) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest</span>() <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(data <span style="color:#f92672">=</span>  <span style="color:#a6e22e">map</span>(data,  <span style="color:#f92672">~</span> <span style="color:#a6e22e">falling_snow</span>(.x<span style="color:#f92672">$</span>y))) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">unnest</span>(cols <span style="color:#f92672">=</span> data) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data<span style="color:#f92672">=</span>snow, <span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id, x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y), 
+</span></span><span style="display:flex;"><span>             colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#e5efff&#34;</span>, shape<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_time</span>(time)
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/snow-1.gif" alt=""><!-- --></p>
@@ -422,24 +614,24 @@ By providing <code>expand_grid</code> with all possible values for x and for y, 
 Then, we will group everything by x, and have a cumulative count of the occurance of each unique x value, using <code>row_number()</code> in a mutate.
 This will create a scalar numeric value, that increases as y increases, which is what a gradient is!
 By using this dataset in <code>geom_tile</code> and using the &lsquo;id&rsquo; column as the fill, we will get a heatplot, and then we alter the colour of the tiles so that we start with a soft dark blue, end end with a dark navy blue.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">background</span> <span class="o">&lt;-</span> <span class="nf">expand_grid</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">x[1]</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">plot_window</span><span class="o">$</span><span class="n">x[2]</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="n">plot_window</span><span class="o">$</span><span class="n">y[2]</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">plot_window</span><span class="o">$</span><span class="n">y[1]</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">          <span class="n">length.out</span> <span class="o">=</span> <span class="m">50</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="nf">row_number</span><span class="p">())</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ungroup</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_tile</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">background</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">id</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#463f94&#34;</span><span class="p">,</span> <span class="s">&#34;#2e2960&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>background <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">expand_grid</span>(
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(plot_window<span style="color:#f92672">$</span>x[1], 
+</span></span><span style="display:flex;"><span>          plot_window<span style="color:#f92672">$</span>x[2]),
+</span></span><span style="display:flex;"><span>  y <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(plot_window<span style="color:#f92672">$</span>y[2], 
+</span></span><span style="display:flex;"><span>          plot_window<span style="color:#f92672">$</span>y[1], 
+</span></span><span style="display:flex;"><span>          length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(x) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(id <span style="color:#f92672">=</span> <span style="color:#a6e22e">row_number</span>()) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ungroup</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_tile</span>(data <span style="color:#f92672">=</span> background, 
+</span></span><span style="display:flex;"><span>            show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, fill <span style="color:#f92672">=</span> id)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(
+</span></span><span style="display:flex;"><span>    colours <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#463f94&#34;</span>, <span style="color:#e6db74">&#34;#2e2960&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
 </code></pre><p><img src="index_files/figure-html/background-1.gif" alt=""><!-- -->
@@ -448,200 +640,148 @@ No worries, this was expected.
 Remember that ggplot layers are added in the sequence you provide them.
 Since the tiles are the last geom we add, it will be placed on top of the others.
 To fix this, we will remake the entire plot, and make sure things come in the other we want them to be, starting with the background.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Initiate plot</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># gradient background</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_tile</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">background</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">scale_fill_gradientn</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">colours</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;#463f94&#34;</span><span class="p">,</span> <span class="s">&#34;#2e2960&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Snowman body</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_circle</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">snowman</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">              <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;white&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">              <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;lightgrey&#34;</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Snowman face</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">face</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="n">size</span><span class="o">=</span><span class="m">2</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                 <span class="n">shape</span> <span class="o">=</span> <span class="n">type</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                 <span class="n">colour</span> <span class="o">=</span> <span class="nf">I</span><span class="p">(</span><span class="n">colour</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Snowman mouth</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_arc</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">aes</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">x</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">y0</span> <span class="o">=</span> <span class="n">snowman</span><span class="o">$</span><span class="n">y</span><span class="nf">[nrow</span><span class="p">(</span><span class="n">snowman</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="m">2.2</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="m">.6</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Body buttons</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-3</span><span class="o">:</span><span class="m">-5</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">size</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Body arms</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">arms</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1.5</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">            <span class="n">lineend</span> <span class="o">=</span> <span class="s">&#34;round&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">side</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Tophat</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">tophat</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;grey70&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">               <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Scarf</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">scarf</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="n">size</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">lineend</span><span class="o">=</span><span class="s">&#34;round&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;firebrick4&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Snow</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">snow</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">),</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">colour</span><span class="o">=</span><span class="s">&#34;#e5efff&#34;</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">             <span class="n">shape</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Fix coordinates for aspect ration preservance</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">coord_fixed</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Remove theme stuff (grey background, axes etc)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">theme_void</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># Animate the snow</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">transition_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">p</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Initiate plot</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># gradient background</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_tile</span>(data <span style="color:#f92672">=</span> background,
+</span></span><span style="display:flex;"><span>            show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">aes</span>(fill <span style="color:#f92672">=</span> id, x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(
+</span></span><span style="display:flex;"><span>    colours <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#463f94&#34;</span>, <span style="color:#e6db74">&#34;#2e2960&#34;</span>)
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Snowman body</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_circle</span>(data <span style="color:#f92672">=</span> snowman,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> x, y0 <span style="color:#f92672">=</span> y, r <span style="color:#f92672">=</span> r),
+</span></span><span style="display:flex;"><span>              fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>, 
+</span></span><span style="display:flex;"><span>              colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lightgrey&#34;</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Snowman face</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> face, 
+</span></span><span style="display:flex;"><span>             show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>             size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, 
+</span></span><span style="display:flex;"><span>                 shape <span style="color:#f92672">=</span> type, 
+</span></span><span style="display:flex;"><span>                 colour <span style="color:#f92672">=</span> <span style="color:#a6e22e">I</span>(colour))
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Snowman mouth</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_arc</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> snowman<span style="color:#f92672">$</span>x<span style="color:#a6e22e">[nrow</span>(snowman)], 
+</span></span><span style="display:flex;"><span>        y0 <span style="color:#f92672">=</span> snowman<span style="color:#f92672">$</span>y<span style="color:#a6e22e">[nrow</span>(snowman)], 
+</span></span><span style="display:flex;"><span>        start <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.2</span>, end <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, r<span style="color:#f92672">=</span><span style="color:#ae81ff">.6</span>)
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Body buttons</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">-3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">-5</span>), 
+</span></span><span style="display:flex;"><span>             size <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Body arms</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data <span style="color:#f92672">=</span> arms, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span>, 
+</span></span><span style="display:flex;"><span>            lineend <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;round&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, group <span style="color:#f92672">=</span> side)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Tophat</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(data <span style="color:#f92672">=</span> tophat, colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;grey70&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, group <span style="color:#f92672">=</span> id)
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Scarf</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data <span style="color:#f92672">=</span> scarf,
+</span></span><span style="display:flex;"><span>            size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, lineend<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;round&#34;</span>,
+</span></span><span style="display:flex;"><span>            colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;firebrick4&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Snow</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data<span style="color:#f92672">=</span>snow, 
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id, x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y), 
+</span></span><span style="display:flex;"><span>             colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#e5efff&#34;</span>, 
+</span></span><span style="display:flex;"><span>             shape<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Fix coordinates for aspect ration preservance</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_fixed</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Remove theme stuff (grey background, axes etc)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_void</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Animate the snow</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_time</span>(time)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" alt=""><!-- --></p>
 <p>Look at him! :) I&rsquo;m quite happy with this guy.
 Play around with it as you like, figure out what I did and how.
 Show me your snowmen too!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">-8</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&#34;Merry Christmas!&#34;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">            <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;goldenrod&#34;</span><span class="p">,</span> <span class="n">vjust</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">            <span class="n">angle</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">            <span class="n">family</span><span class="o">=</span><span class="s">&#34;Times&#34;</span><span class="p">,</span> <span class="n">fontface</span> <span class="o">=</span> <span class="s">&#34;italic&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_text</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">-8</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Merry Christmas!&#34;</span>),
+</span></span><span style="display:flex;"><span>            colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;goldenrod&#34;</span>, vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>            angle <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, 
+</span></span><span style="display:flex;"><span>            family<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Times&#34;</span>, fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;italic&#34;</span>)
 </span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""><!-- --></p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            DrMowinckels (Dec 11, 2019) Do you wanna build a snowman?. Retrieved from https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2019-do-you-wanna-build-a-snowman,<br>
-            &emsp;author = { DrMowinckels },<br>
-            &emsp;title = { Do you wanna build a snowman? },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/ },<br>
-            &emsp;year = { 2019 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                ggseg3d - creating interactive brain segmentation plots with plotly
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/">
+                Using Freesurfer annotation files to plot in R
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

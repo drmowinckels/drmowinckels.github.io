@@ -1,208 +1,404 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Let&rsquo;s Get Apply&rsquo;ing - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="When programming we want to write code that iterates well. In many languages, we do this through loops. I was introduced to loops both in MatLab and in the Bourne Again Shell (bash).
+So naturaly, when I started working in R, I was looping all over the place. Especially before I learned tidyverse, I was looping over columns and rows in data.frames to manipulate data into how I needed things to be." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Let&#39;s Get Apply&#39;ing - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Let&rsquo;s Get Apply&rsquo;ing - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="When programming we want to write code that iterates well. In many languages, we do this through loops. I was introduced to loops both in MatLab and in the Bourne Again Shell (bash).
+So naturaly, when I started working in R, I was looping all over the place. Especially before I learned tidyverse, I was looping over columns and rows in data.frames to manipulate data into how I needed things to be.">
 
 
-
-            <meta property="og:title" content="Let&rsquo;s Get Apply&rsquo;ing - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2022/lets-get-applying/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="When programming we want to write code that iterates well. In many languages, we do this through loops. I was introduced to loops both in MatLab and in the Bourne Again Shell (bash).
+So naturaly, when I started working in R, I was looping all over the place. Especially before I learned tidyverse, I was looping over columns and rows in data.frames to manipulate data into how I needed things to be.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2022/lets-get-applying/blobby_bricks_TradingCard.jpg"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2022/lets-get-applying/blobby_bricks_TradingCard.jpg" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2022/lets-get-applying/blobby_bricks_TradingCard.jpg">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2022/lets-get-applying/blobby_bricks_TradingCard.jpg" alt="Let&#39;s Get Apply&#39;ing" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2022/lets-get-applying/">Let&rsquo;s Get Apply&rsquo;ing</a>
-    </h2>
-    <div class="post-data">
-        Nov 7, 2022 |
-        18 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Let&rsquo;s Get Apply&rsquo;ing</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Nov 7, 2022
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/apply/" class="uk-label uk-label-secondary tags" >
+                                apply
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Categories:
-          
-        </p>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/apply">
-             apply</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>When programming we want to write code that iterates well.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#looptee-loopy-loop">Looptee loopy loop.</a></li>
+    <li><a href="#disclaimer">Disclaimer</a></li>
+    <li><a href="#applying">Applying</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>When programming we want to write code that iterates well.
 In many languages, we do this through loops.
 I was introduced to loops both in MatLab and in the Bourne Again Shell (bash).</p>
 <p>So naturaly, when I started working in R, I was looping all over the place.
 Especially before I learned <a href="https://www.tidyverse.org/">tidyverse</a>, I was looping over columns and rows in data.frames to manipulate data into how I needed things to be.
 I was looping through files to read them in, looping through list elements to grab or change their content.</p>
-
-<h2 id="looptee-loopy-loop" class="anchor-link"><a href="#looptee-loopy-loop">Looptee loopy loop.</a></h2>
+<h2 id="looptee-loopy-loop">Looptee loopy loop.</h2>
 <p>We can have a look an example of what that could look like.
 We can base it of the very well-known <code>mtcars</code> dataset built-in to R.
 We&rsquo;ll only use two columns, just to keep it simple.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span> <span class="o">&lt;-</span> <span class="n">mtcars[</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;cyl&#34;</span><span class="p">,</span> <span class="s">&#34;mpg&#34;</span><span class="p">)</span><span class="n">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>mtcars <span style="color:#f92672">&lt;-</span> mtcars[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;mpg&#34;</span>)]
 </span></span></code></pre></div><p>Let&rsquo;s say we want to demean the <em>miles per gallon</em>  to the <em>number of cylinders</em> the cars have.
 So we&rsquo;ll mean to calculate the mean <code>mpg</code> for the number of cylinders and subtract the mpg from the mean.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># Number of cylinders for this cars</span>
-</span></span><span class="line"><span class="cl">  <span class="n">cylinders</span> <span class="o">&lt;-</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl[i]</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># subset data to only cars with that cylinder</span>
-</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># mean of mpg for this cylinder type</span>
-</span></span><span class="line"><span class="cl">  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg_dm[i]</span> <span class="o">&lt;-</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg[i]</span> <span class="o">-</span> <span class="n">mcyl</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Look at the results</span>
-</span></span><span class="line"><span class="cl"><span class="n">mtcars</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(mtcars)){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Number of cylinders for this cars</span>
+</span></span><span style="display:flex;"><span>  cylinders <span style="color:#f92672">&lt;-</span> mtcars<span style="color:#f92672">$</span>cyl[i]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># subset data to only cars with that cylinder</span>
+</span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">subset</span>(mtcars, cyl <span style="color:#f92672">==</span> cylinders)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># mean of mpg for this cylinder type</span>
+</span></span><span style="display:flex;"><span>  mcyl <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(tmp<span style="color:#f92672">$</span>mpg)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  mtcars<span style="color:#f92672">$</span>mpg_dm[i] <span style="color:#f92672">&lt;-</span> mtcars<span style="color:#f92672">$</span>mpg[i] <span style="color:#f92672">-</span> mcyl
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Look at the results</span>
+</span></span><span style="display:flex;"><span>mtcars
 </span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm
 ## Mazda RX4             6 21.0  1.25714286
 ## Mazda RX4 Wag         6 21.0  1.25714286
@@ -243,14 +439,12 @@ We are indexing with the loop <code>i</code> in three places, so if we change th
 The whole loop also has access to the entire global R environment.
 The more complex your script gets, the more complex your loop gets, the more likely something is going to &ldquo;bleed&rdquo; into your loop and mess it up.</p>
 <p>It&rsquo;s happened to us all!</p>
-
-<h2 id="disclaimer" class="anchor-link"><a href="#disclaimer">Disclaimer</a></h2>
+<h2 id="disclaimer">Disclaimer</h2>
 <p>Some of you will be familiar with the <a href="https://purrr.tidyverse.org/">purrr</a> package, and use that to iterate over in a vectorised manner.
 I&rsquo;m not covering purrr here.
 I very often work on making tools that are in an environment where I can&rsquo;t control C++ compatibility and as such I tend to try to keep dependencies as low as possible.
 Keeping with the base R apply&rsquo;s are a way to run vectorised iterations without purrr.</p>
-
-<h2 id="applying" class="anchor-link"><a href="#applying">Applying</a></h2>
+<h2 id="applying">Applying</h2>
 <p>We could do an <code>apply</code> in stead, which can iterate without an indexing number, when we do it correctly.
 But to apply we also need to think <code>function</code>al.</p>
 <p>Functional programming means applying a function to every element of a vector (at least that&rsquo;s how my brain thinks of it).
@@ -258,10 +452,10 @@ Apply&rsquo;s tend to be faster than loops, but I&rsquo;m not going to spend tim
 <p>Let us start with a simpler example, just to get a feel for it.
 As a stupid thing to do, the data in our mtcars subset into characters with <code>as.character()</code>.</p>
 <p>We <code>apply</code> over the <code>mtcars</code> dataset, in a column-wise fashion (<code>MARGIN = 2</code> , margin <code>1</code> is over rows), and apply the function <code>as.character</code> on these vectors.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">MARGIN</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">FUN</span> <span class="o">=</span> <span class="n">as.character</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">cars</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(mtcars, 
+</span></span><span style="display:flex;"><span>      MARGIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, 
+</span></span><span style="display:flex;"><span>      FUN <span style="color:#f92672">=</span> as.character)
+</span></span><span style="display:flex;"><span>cars
 </span></span></code></pre></div><pre tabindex="0"><code>##       cyl mpg    mpg_dm               
 ##  [1,] &#34;6&#34; &#34;21&#34;   &#34;1.25714285714286&#34;   
 ##  [2,] &#34;6&#34; &#34;21&#34;   &#34;1.25714285714286&#34;   
@@ -296,7 +490,7 @@ As a stupid thing to do, the data in our mtcars subset into characters with <cod
 ## [31,] &#34;8&#34; &#34;15&#34;   &#34;-0.0999999999999996&#34;
 ## [32,] &#34;4&#34; &#34;21.4&#34; &#34;-5.26363636363637&#34;
 </code></pre><p>The output here is not a data.frame, so we would have to make it one later</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">as.data.frame</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">as.data.frame</span>(cars)
 </span></span></code></pre></div><pre tabindex="0"><code>##    cyl  mpg              mpg_dm
 ## 1    6   21    1.25714285714286
 ## 2    6   21    1.25714285714286
@@ -331,11 +525,11 @@ As a stupid thing to do, the data in our mtcars subset into characters with <cod
 ## 31   8   15 -0.0999999999999996
 ## 32   4 21.4   -5.26363636363637
 </code></pre><p>Doing this in a loop could look like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars2</span> <span class="o">&lt;-</span> <span class="n">mtcars</span>
-</span></span><span class="line"><span class="cl"><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="nf">seq_along</span><span class="p">(</span><span class="n">mtcars</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">  <span class="n">cars2[[i]]</span> <span class="o">&lt;-</span> <span class="nf">as.character</span><span class="p">(</span><span class="n">mtcars[[i]]</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">cars2</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cars2 <span style="color:#f92672">&lt;-</span> mtcars
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(i in <span style="color:#a6e22e">seq_along</span>(mtcars)){
+</span></span><span style="display:flex;"><span>  cars2[[i]] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.character</span>(mtcars[[i]])
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>cars2
 </span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg              mpg_dm
 ## Mazda RX4             6   21    1.25714285714286
 ## Mazda RX4 Wag         6   21    1.25714285714286
@@ -376,36 +570,36 @@ Avoiding the need of the indexes is a great thing.</p>
 we do quite a lot there, and we need to turn it into a funtion to make it work in apply.</p>
 <p>The loop needs two things, the <code>mtcars</code> data set it is based on, and the <code>element</code> it is demeaning.
 This means we need to make a function with two arguments, one for each.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>demean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, data){
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>When we create a function, the object name is the function&rsquo;s name, and we use the <code>function()</code> function to construct it.
 The arguments of  <em>your</em> function, are added in the function call, and what your function will <em>do</em> with these two arguments, is specified in the following section within the curly braces.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># Number of cylinders for this cars</span>
-</span></span><span class="line"><span class="cl">  <span class="n">cylinders</span> <span class="o">&lt;-</span> <span class="n">data</span><span class="o">$</span><span class="n">cyl[i]</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># subset data to only cars with that cylinder</span>
-</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># mean of mpg for this cylinder type</span>
-</span></span><span class="line"><span class="cl">  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="nf">return</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">mpg[i]</span> <span class="o">-</span> <span class="n">mcyl</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>demean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(i, data){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Number of cylinders for this cars</span>
+</span></span><span style="display:flex;"><span>  cylinders <span style="color:#f92672">&lt;-</span> data<span style="color:#f92672">$</span>cyl[i]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># subset data to only cars with that cylinder</span>
+</span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">subset</span>(data, cyl <span style="color:#f92672">==</span> cylinders)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># mean of mpg for this cylinder type</span>
+</span></span><span style="display:flex;"><span>  mcyl <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(tmp<span style="color:#f92672">$</span>mpg)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(data<span style="color:#f92672">$</span>mpg[i] <span style="color:#f92672">-</span> mcyl)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In our code, which was previously a loop, we have changed two things:</p>
 <ol>
 <li>we no longer refer to <code>mtcars</code> directly, but to <code>data</code>, which is the input data provided.</li>
 <li>in stead of assigning the output of the demeaned element into the data again, we return the demeaned value as the output of the function.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">demean</span>(<span style="color:#ae81ff">1</span>, mtcars)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 1.257143
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">demean</span>(<span style="color:#ae81ff">10</span>, mtcars)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] -0.5428571
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">demean</span>(<span style="color:#ae81ff">13</span>, mtcars)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 2.2
 </code></pre><p>We can then apply this to all the elements in an apply.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">apply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(mtcars), demean)
 </span></span></code></pre></div><pre tabindex="0"><code>## Error in match.fun(FUN): argument &#34;FUN&#34; is missing, with no default
 </code></pre><p>We get an error!
 why?
@@ -413,13 +607,13 @@ Because <code>apply()</code> expects an data.frame, and a <code>MARGIN</code> sp
 We are providing a single vector (of indices), there is no margin to provide and its failing.</p>
 <p>We need to switch to another in the apply family to get it working.
 We have some choose from, but in this case, we have a single vector , we&rsquo;ll use <code>sapply</code> which in my head means &ldquo;simple apply&rdquo;.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(mtcars), demean)
 </span></span></code></pre></div><pre tabindex="0"><code>## Error in FUN(X[[i]], ...): argument &#34;data&#34; is missing, with no default
 </code></pre><p>Its still erroring. This time we have another error.
 The error comes from <em>our</em> function, it doesn&rsquo;t know which data to use!
 We&rsquo;ve given <code>sapply</code> the <code>i</code> argument, and its missing something for the <code>data</code> argument.</p>
 <p>In <code>sapply</code> the first argument in is the vector your are applying over, the second is the function you are applying, and <em>after that</em> you can provide any single <em>named</em> argument into the applying function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(mtcars), demean, data <span style="color:#f92672">=</span> mtcars)
 </span></span></code></pre></div><pre tabindex="0"><code>##  [1]  1.25714286  1.25714286 -3.86363636  1.65714286  3.60000000 -1.64285714
 ##  [7] -0.80000000 -2.26363636 -3.86363636 -0.54285714 -1.94285714  1.30000000
 ## [13]  2.20000000  0.10000000 -4.70000000 -4.70000000 -0.40000000  5.73636364
@@ -428,8 +622,8 @@ We&rsquo;ve given <code>sapply</code> the <code>i</code> argument, and its missi
 ## [31] -0.10000000 -5.26363636
 </code></pre><p>It works!
 Since we are getting back a single vector as long as there are rows in mtcars, we can assign the vector straight into mtcars if we want.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span><span class="o">$</span><span class="n">dm</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">mtcars</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>mtcars<span style="color:#f92672">$</span>dm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(mtcars), demean, data <span style="color:#f92672">=</span> mtcars)
+</span></span><span style="display:flex;"><span>mtcars
 </span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm          dm
 ## Mazda RX4             6 21.0  1.25714286  1.25714286
 ## Mazda RX4 Wag         6 21.0  1.25714286  1.25714286
@@ -466,8 +660,8 @@ Since we are getting back a single vector as long as there are rows in mtcars, w
 </code></pre><p>And we can see its giving the exact same output as our loop.</p>
 <p>Now, lets say we want to do this on just a subsample of mtcars.
 We can give sapply the subset, and have it run it on that.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars</span> <span class="o">&lt;-</span> <span class="n">mtcars[1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="n">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">cars</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cars <span style="color:#f92672">&lt;-</span> mtcars[1<span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>, ]
+</span></span><span style="display:flex;"><span>cars
 </span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg     mpg_dm         dm
 ## Mazda RX4             6 21.0  1.2571429  1.2571429
 ## Mazda RX4 Wag         6 21.0  1.2571429  1.2571429
@@ -489,8 +683,8 @@ We can give sapply the subset, and have it run it on that.</p>
 ## Fiat 128              4 32.4  5.7363636  5.7363636
 ## Honda Civic           4 30.4  3.7363636  3.7363636
 ## Toyota Corolla        4 33.9  7.2363636  7.2363636
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">cars</span><span class="o">$</span><span class="n">dm_sub</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">cars</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">cars</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">cars</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cars<span style="color:#f92672">$</span>dm_sub <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(cars), demean, data <span style="color:#f92672">=</span> cars)
+</span></span><span style="display:flex;"><span>cars
 </span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg     mpg_dm         dm    dm_sub
 ## Mazda RX4             6 21.0  1.2571429  1.2571429  1.250000
 ## Mazda RX4 Wag         6 21.0  1.2571429  1.2571429  1.250000
@@ -528,28 +722,28 @@ If what you are doing does not depend on a previous iteration, you technically d
 In this case, we need to know how many cylinders a specific car has, so we can get the mean of mpg for those cars with that many cylinders.
 So we use the index to get that.
 But if we inputed the cylinder as a argument to our function, we could deal with it differently.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">demean</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cylinders</span><span class="p">,</span> <span class="n">data</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># subset data to only cars with that cylinder</span>
-</span></span><span class="line"><span class="cl">  <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cyl</span> <span class="o">==</span> <span class="n">cylinders</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="c1"># mean of mpg for this cylinder type</span>
-</span></span><span class="line"><span class="cl">  <span class="n">mcyl</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">tmp</span><span class="o">$</span><span class="n">mpg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="nf">return</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mcyl</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>demean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, cylinders, data){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># subset data to only cars with that cylinder</span>
+</span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">subset</span>(data, cyl <span style="color:#f92672">==</span> cylinders)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># mean of mpg for this cylinder type</span>
+</span></span><span style="display:flex;"><span>  mcyl <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(tmp<span style="color:#f92672">$</span>mpg)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(x <span style="color:#f92672">-</span> mcyl)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>ok, I&rsquo;ve changed several things here.
 Main input into our function is now <code>x</code> rather than <code>i</code>.
 The name does not really matter, but its more common to name an input element <code>x</code>, so we keep to that here.
 The difference being that <code>i</code> was the index of an element, while <code>x</code> is now the value it self.
 And we&rsquo;ve added the <code>cylinders</code> argument, so we can input how many cylinders the car has.
 We could then use it like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">21</span><span class="p">,</span> <span class="n">cylinders</span> <span class="o">=</span> <span class="m">6</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">demean</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">21</span>, cylinders <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>, data <span style="color:#f92672">=</span> mtcars)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] 1.257143
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">demean</span><span class="p">(</span><span class="m">10.4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="n">mtcars</span><span class="p">)</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">demean</span>(<span style="color:#ae81ff">10.4</span>, <span style="color:#ae81ff">4</span>, mtcars)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] -16.26364
 </code></pre><p>How can we use that in <code>sapply</code> then?
 Remember that any more arguments given to <code>sapply</code> have to be singular and named.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">sapply</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">21</span><span class="p">,</span> <span class="m">10.4</span><span class="p">),</span> <span class="n">demean</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span><span class="p">,</span> <span class="n">cylinders</span> <span class="o">=</span> <span class="m">6</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">10.4</span>), demean, data <span style="color:#f92672">=</span> mtcars, cylinders <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1]  1.257143 -9.342857
 </code></pre><p>But doing it like this, we cannot account for different cylinders of different cars.
 We _have set it up so we could run it several times, each for each cylinder type, but that is not as elegant as I&rsquo;d like, and harder to get back into its original form.</p>
@@ -558,12 +752,12 @@ What we want is <code>mapply</code>, which in my head stands for &ldquo;matrix a
 And I use this <em>a lot</em>!</p>
 <p><code>mapply</code> has a slightly different order of arguments, because of how it works.
 It first takes the function you can to apply, then all the vectors you want to apply over, and then you can add other named arguments.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">mapply</span><span class="p">(</span><span class="n">demean</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">x</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">cylinders</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">MoreArgs</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">         <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span>
-</span></span><span class="line"><span class="cl">       <span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">mapply</span>(demean,
+</span></span><span style="display:flex;"><span>       x <span style="color:#f92672">=</span> mtcars<span style="color:#f92672">$</span>mpg,
+</span></span><span style="display:flex;"><span>       cylinders <span style="color:#f92672">=</span> mtcars<span style="color:#f92672">$</span>cyl,
+</span></span><span style="display:flex;"><span>       MoreArgs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>         data <span style="color:#f92672">=</span> mtcars
+</span></span><span style="display:flex;"><span>       ))
 </span></span></code></pre></div><pre tabindex="0"><code>##  [1]  1.25714286  1.25714286 -3.86363636  1.65714286  3.60000000 -1.64285714
 ##  [7] -0.80000000 -2.26363636 -3.86363636 -0.54285714 -1.94285714  1.30000000
 ## [13]  2.20000000  0.10000000 -4.70000000 -4.70000000 -0.40000000  5.73636364
@@ -578,13 +772,13 @@ These have to be of equal length.
 The first <code>x</code> goes with the first <code>cylinders</code>, the second <code>x</code> with the second <code>cylinders</code> and so on.
 But we have a <em>single</em> data source.
 This is provided as a named list to the <code>MoreArgs</code> argument.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span><span class="o">$</span><span class="n">dm_m</span> <span class="o">&lt;-</span> <span class="nf">mapply</span><span class="p">(</span><span class="n">demean</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">x</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">mpg</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">cylinders</span> <span class="o">=</span> <span class="n">mtcars</span><span class="o">$</span><span class="n">cyl</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">       <span class="n">MoreArgs</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">         <span class="n">data</span> <span class="o">=</span> <span class="n">mtcars</span>
-</span></span><span class="line"><span class="cl">       <span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">mtcars</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>mtcars<span style="color:#f92672">$</span>dm_m <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mapply</span>(demean,
+</span></span><span style="display:flex;"><span>       x <span style="color:#f92672">=</span> mtcars<span style="color:#f92672">$</span>mpg,
+</span></span><span style="display:flex;"><span>       cylinders <span style="color:#f92672">=</span> mtcars<span style="color:#f92672">$</span>cyl,
+</span></span><span style="display:flex;"><span>       MoreArgs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>         data <span style="color:#f92672">=</span> mtcars
+</span></span><span style="display:flex;"><span>       ))
+</span></span><span style="display:flex;"><span>mtcars
 </span></span></code></pre></div><pre tabindex="0"><code>##                     cyl  mpg      mpg_dm          dm        dm_m
 ## Mazda RX4             6 21.0  1.25714286  1.25714286  1.25714286
 ## Mazda RX4 Wag         6 21.0  1.25714286  1.25714286  1.25714286
@@ -621,7 +815,7 @@ This is provided as a named list to the <code>MoreArgs</code> argument.</p>
 </code></pre><p>And now we can see we have the exact same output from all the different approaches, but the last one leaves somewhat less room for error in the long run.</p>
 <p>Of course, if you are tidyverseing, this is all void.
 There is a <em>much</em> neater way of doing it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
 </span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -630,9 +824,9 @@ There is a <em>much</em> neater way of doing it.</p>
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
-</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">mtcars</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">cyl</span><span class="p">)</span> <span class="o">|&gt;</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">dm_t</span> <span class="o">=</span> <span class="n">mpg</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">mpg</span><span class="p">))</span>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>mtcars <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(cyl) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(dm_t <span style="color:#f92672">=</span> mpg <span style="color:#f92672">-</span> <span style="color:#a6e22e">mean</span>(mpg))
 </span></span></code></pre></div><pre tabindex="0"><code>## # A tibble: 32 × 6
 ## # Groups:   cyl [3]
 ##      cyl   mpg mpg_dm     dm   dm_m   dm_t
@@ -654,120 +848,68 @@ I will quite often start development working with tidyverse, then slowly start s
 Next time I&rsquo;ll show a bit more about how I use apply to read in multiple files at once and start preparing them for merging.</p>
 <img src="blobby_bricks_TradingCard.jpg" alt="[Created with WOMBO Dream](https://www.wombo.art/listing/ff57e347-4214-4c9e-80b4-3b5ffd8cec6e)" width="540" />
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Dr. Mowinckel (Nov 7, 2022) Let&#39;s Get Apply&#39;ing. Retrieved from https://drmowinckels.io/blog/2022/lets-get-applying/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2022-lets-get-applying,<br>
-            &emsp;author = { Dr. Mowinckel },<br>
-            &emsp;title = { Let&#39;s Get Apply&#39;ing },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2022/lets-get-applying/ },<br>
-            &emsp;year = { 2022 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Rmarkdown Child Templates
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2022/advent-of-r-functions/">
+                Advent of R Functions
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

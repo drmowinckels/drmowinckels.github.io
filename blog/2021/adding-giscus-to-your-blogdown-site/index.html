@@ -1,181 +1,360 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Adding giscus to your blogdown site - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="This is going to be a short one. I have been wanting to change my comment section from disqus to utterances for a long while, but have been postponing. Or procrastinating… with me, its usually the latter. I’m not going to go into details of why I wanted to move away from disqus, others have written better about it that I ever could.
+I was procrastinating mainly because it felt like a little much to figure out utterances too, and the idea of using GitHub issues for comments felt awkward." />
+  <meta name="author" content="Athanasia M. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Adding Giscus to Your Blogdown Site - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Adding giscus to your blogdown site - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="This is going to be a short one. I have been wanting to change my comment section from disqus to utterances for a long while, but have been postponing. Or procrastinating… with me, its usually the latter. I’m not going to go into details of why I wanted to move away from disqus, others have written better about it that I ever could.
+I was procrastinating mainly because it felt like a little much to figure out utterances too, and the idea of using GitHub issues for comments felt awkward.">
 
 
-
-            <meta property="og:title" content="Adding giscus to your blogdown site - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="This is going to be a short one. I have been wanting to change my comment section from disqus to utterances for a long while, but have been postponing. Or procrastinating… with me, its usually the latter. I’m not going to go into details of why I wanted to move away from disqus, others have written better about it that I ever could.
+I was procrastinating mainly because it felt like a little much to figure out utterances too, and the idea of using GitHub issues for comments felt awkward.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg" alt="Adding giscus to your blogdown site" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/">Adding giscus to your blogdown site</a>
-    </h2>
-    <div class="post-data">
-        Dec 4, 2021 |
-        6 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Adding giscus to your blogdown site</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Dec 4, 2021
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/blogdown/" class="uk-label uk-label-secondary tags" >
+                                blogdown
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Categories:
-          
-        </p>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/blogdown">
-             blogdown</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>This is going to be a short one.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>This is going to be a short one.
 I have been wanting to change my comment section from disqus to utterances for a long while, but have been postponing. Or procrastinating… with me, its usually the latter.
 I’m not going to go into details of why I wanted to move away from disqus, <a href="https://fatfrogmedia.com/delete-disqus-comments-wordpress/">others</a> have written better about it that I ever could.</p>
 <p>I was procrastinating mainly because it felt like a little much to figure out <a href="https://utteranc.es/">utterances</a> too, and the idea of using GitHub issues for comments felt awkward.</p>
@@ -186,232 +365,177 @@ I’m not going to go into details of why I wanted to move away from disqus, <a 
 <p>Off I went to the blogpost she links to, an awesome post by <a href="https://www.joelnitta.com/posts/2021-11-24_using-giscus/">Joel Nitta</a>, that made the whole process super smooth.</p>
 <p>I followed all the steps he provides for getting giscus installed for your github repo, setting up GitHub discissions, and getting the information I needed to get it into my blog. I’m not going to re-iterate them, he does a great job describing it, so you should rather take a look there.</p>
 <p>The difference between Joel and me, is that I am not going to switch away from blogdown to distill. I love blogdown too much, and I love hugo too much. So where he starts describing how to get giscus working with distill, I’ll take you through getting it working with blogdown/hugo!</p>
-
-<h1 id="creating-a-new-layouts-file" class="anchor-link"><a href="#creating-a-new-layouts-file">Creating a new layouts file</a></h1>
+<h1 id="creating-a-new-layouts-file">Creating a new layouts file</h1>
 <p>This will require some navigation in your hugo theme’s folders.
 You will need to navigate to the html template for you blog/post sections or wherever your theme has the comments section defined.</p>
 <p><strong>Unfortunately, I cannot tell you exactly where that is! It depends entirely on the developer of your theme, how that has been organised.</strong></p>
 <p>In my case it was quite easy, I looked into the <code>themes/my-theme/layouts/blog/single.html</code> and found a line of code that said <code>{{ partial comments.html .}}</code> this is hugo-speak for inserting contents from another layout into the current file. So I navigated to <code>themes/my-theme/layouts/partials/comments.html</code> and found what I was looking for.</p>
 <p>In my case, the theme creator had a little piece of code that would enable disqus if the disqus shortname was set in the config toml.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{- if .Site.DisqusShortname }}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container disqus&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        {{ template &#34;_internal/disqus.html&#34; . }}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">{{- end }}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- if .Site.DisqusShortname }}
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container disqus&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        {{ template &#34;_internal/disqus.html&#34; . }}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>{{- end }}
 </span></span></code></pre></div><p>We dont really need to deal with that, it can just stay there, I’ll be removing my disqus shortname from the config, so it wont appear anymore.
 But I needed to add the giscus script that was provided to me following Joel’s instructions, below this.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container giscus my-4&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://giscus.app/client.js&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-repo</span><span class="o">=</span><span class="s">&#34;[YOUR REPO]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-repo-id</span><span class="o">=</span><span class="s">&#34;[YOUR REPO ID]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-category</span><span class="o">=</span><span class="s">&#34;[YOUR CATEGORY]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-category-id</span><span class="o">=</span><span class="s">&#34;[YOUR CATEGORY ID]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-mapping</span><span class="o">=</span><span class="s">&#34;pathname&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-reactions-enabled</span><span class="o">=</span><span class="s">&#34;1&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-emit-metadata</span><span class="o">=</span><span class="s">&#34;0&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-theme</span><span class="o">=</span><span class="s">&#34;light&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-lang</span><span class="o">=</span><span class="s">&#34;[YOUR LANGUAGE]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">async</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container giscus my-4&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[YOUR REPO]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-repo-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[YOUR REPO ID]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-category</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[YOUR CATEGORY]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-category-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[YOUR CATEGORY ID]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pathname&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-reactions-enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-emit-metadata</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;light&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[YOUR LANGUAGE]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">async</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
 </span></span></code></pre></div><p>But we cannot (should not) add this to the theme files!
 If you do this, it will break in the future when you update your theme. Don’t do it!</p>
 <p>You copy the entire file, and in your main blogdown folder create the same path to the file as if the <code>theme/my-theme</code> part of the path did not exist. For me, that meant creating a file under my main project folder <code>layouts/partials/comments.html</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">your_site/
-</span></span><span class="line"><span class="cl">  content/
-</span></span><span class="line"><span class="cl">  config.toml
-</span></span><span class="line"><span class="cl">  theme/
-</span></span><span class="line"><span class="cl">    my_theme/
-</span></span><span class="line"><span class="cl">      layouts/      --------
-</span></span><span class="line"><span class="cl">        partials/           <span class="p">|</span> mimmick this
-</span></span><span class="line"><span class="cl">          comments.html ----
-</span></span><span class="line"><span class="cl">  layouts/    --------------
-</span></span><span class="line"><span class="cl">    partials/               <span class="p">|</span> in your root project folder
-</span></span><span class="line"><span class="cl">      comments.html   ------           
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>your_site/
+</span></span><span style="display:flex;"><span>  content/
+</span></span><span style="display:flex;"><span>  config.toml
+</span></span><span style="display:flex;"><span>  theme/
+</span></span><span style="display:flex;"><span>    my_theme/
+</span></span><span style="display:flex;"><span>      layouts/      --------
+</span></span><span style="display:flex;"><span>        partials/           | mimmick this
+</span></span><span style="display:flex;"><span>          comments.html ----
+</span></span><span style="display:flex;"><span>  layouts/    --------------
+</span></span><span style="display:flex;"><span>    partials/               | in your root project folder
+</span></span><span style="display:flex;"><span>      comments.html   ------           
 </span></span></code></pre></div><p>What will happen, is that when hugo renders your site, it will use the layouts file in your folder rather than the theme’s folder. Its a way of customising hugo without disturbing the main theme.
 I saved it, rendered the site and it worked! I had giscus installed on my page.</p>
-
-<h1 id="adding-giscus-to-a-theme" class="anchor-link"><a href="#adding-giscus-to-a-theme">Adding giscus to a theme</a></h1>
+<h1 id="adding-giscus-to-a-theme">Adding giscus to a theme</h1>
 <p>The theme for my site, is actually my own adaptation of the hugo theme <a href="https://github.com/victoriadrake/hugo-theme-introduction">instoduction</a> by Victoria Drake. My version has a couple of extra features, like the options to have blogposts shown in a grid with images, rather than a simple list.</p>
 <p>I called the theme <a href="https://github.com/Athanasiamo/hugo-chairome?organization=Athanasiamo&amp;organization=Athanasiamo">hugo chairome</a>. “Chairome” is what we say in Greek when we make a new acquaintance.
 I wanted to make sure anyone using my theme might also get giscus working easily through the config file rather than having to make their own workaround like explained above.</p>
 <p>In the comments.html file in my theme, I added the following:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{- if .Site.Params.giscus.repo }}
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container giscus my-4&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://giscus.app/client.js&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-repo</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">repo</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-repo-id</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">repo_id</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-category</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">category</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-category-id</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">category_id</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-mapping</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">mapping</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-reactions-enabled</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">reactions_enabled</span> <span class="err">|</span> <span class="na">default</span> <span class="na">0</span><span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-emit-metadata</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">emit_metadata</span> <span class="err">|</span> <span class="na">default</span> <span class="na">0</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-theme</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">theme</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">data-lang</span><span class="o">=</span><span class="s">{{</span> <span class="err">.</span><span class="na">Site</span><span class="err">.</span><span class="na">Params</span><span class="err">.</span><span class="na">giscus</span><span class="err">.</span><span class="na">lang</span> <span class="err">}}</span>
-</span></span><span class="line"><span class="cl">        <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">async</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">{{- end }}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- if .Site.Params.giscus.repo }}
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container giscus my-4&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">repo</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-repo-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">repo_id</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-category</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">category</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-category-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">category_id</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">mapping</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-reactions-enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">reactions_enabled</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">default</span> <span style="color:#a6e22e">0</span><span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-emit-metadata</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">emit_metadata</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">default</span> <span style="color:#a6e22e">0</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">theme</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data-lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Params</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">giscus</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">lang</span> <span style="color:#960050;background-color:#1e0010">}}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">async</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>{{- end }}
 </span></span></code></pre></div><p>And in the example config.toml I added the following:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># To enable giscus, the github discussions based comment section,</span>
-</span></span><span class="line"><span class="cl"><span class="c"># Follow the steps described to enable giscus and get the values</span>
-</span></span><span class="line"><span class="cl"><span class="c"># needed to populate the below information.</span>
-</span></span><span class="line"><span class="cl"><span class="c"># https://www.joelnitta.com/posts/2021-11-24_using-giscus/</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">giscus</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># repo = &#34;github-user/github-repo&#34; # Entering repo will enable giscus</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">repo_id</span> <span class="p">=</span> <span class="s2">&#34;enter-repo-id&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">category</span> <span class="p">=</span> <span class="s2">&#34;Comments&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">category_id</span> <span class="p">=</span> <span class="s2">&#34;enter-category-id&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">mapping</span> <span class="p">=</span> <span class="s2">&#34;pathname&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">reactions-enabled</span> <span class="p">=</span> <span class="s2">&#34;1&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">emit-metadata</span> <span class="p">=</span> <span class="s2">&#34;0&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;light&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">lang</span> <span class="p">=</span> <span class="s2">&#34;en&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># To enable giscus, the github discussions based comment section,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Follow the steps described to enable giscus and get the values</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># needed to populate the below information.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://www.joelnitta.com/posts/2021-11-24_using-giscus/</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">giscus</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># repo = &#34;github-user/github-repo&#34; # Entering repo will enable giscus</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">repo_id</span> = <span style="color:#e6db74">&#34;enter-repo-id&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">category</span> = <span style="color:#e6db74">&#34;Comments&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">category_id</span> = <span style="color:#e6db74">&#34;enter-category-id&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mapping</span> = <span style="color:#e6db74">&#34;pathname&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">reactions-enabled</span> = <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">emit-metadata</span> = <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;light&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lang</span> = <span style="color:#e6db74">&#34;en&#34;</span>
 </span></span></code></pre></div><p>This connects the information placed in the config file with the information that the comments.html template needs to work.
 This way, users of my theme need only fill in the correct information in the config.toml to get giscus working on their blog.</p>
-
-<h1 id="using-a-custom-theme" class="anchor-link"><a href="#using-a-custom-theme">Using a custom theme.</a></h1>
+<h1 id="using-a-custom-theme">Using a custom theme.</h1>
 <p>Giscus also allows users to specify a custom theme to the comment section. I still want to tweak mine a little, but adding a custom theme was really a matter of making a css file that the “theme” part of the script wl poing to, rather than a pre-defined theme (like the default “light” theme).</p>
 <p>In my project folder I have extra css files that customise my website as I want it to look. Such files should always be placed in the <code>assets</code> folder of a hugo site. I added another file there <code>assets/css/giscus.css</code>, and entered the following:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/*! Custom CSS */</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">gsc-comments</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">gsc-comment-box</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">order</span><span class="p">:</span> <span class="mi">2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">gsc-comments</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">gsc-timeline</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">order</span><span class="p">:</span> <span class="mi">3</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">gsc-timeline</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column-reverse</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">gsc-header</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">padding-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#75715e">/*! Custom CSS */</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">gsc-comments</span> <span style="color:#f92672">&gt;</span> .<span style="color:#a6e22e">gsc-comment-box</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">order</span>: <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">gsc-comments</span> <span style="color:#f92672">&gt;</span> .<span style="color:#a6e22e">gsc-timeline</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">order</span>: <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">gsc-timeline</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">flex-direction</span>: <span style="color:#66d9ef">column-reverse</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">gsc-header</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding-bottom</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Then, I needed to change where the <code>data-theme</code> portion of the giscus scrit was pointing to. Before it was just specifying “light” theme, and now I wanted it to use a file.
 So I changed <code>data-theme=&quot;light&quot;</code> to <code>data-theme=&quot;css/giscus.css</code>, my newly created custom css file.</p>
 <p>For me, the theme for the giscus section magically tok on most of the colours from my site (because most things seem transparent!), even without specifying any colours in the css.
 It looks nice, but I’ll need to figure out how to customize it a little more, right now it fades away a little too much in the background.</p>
 <p>You can read more about the custom css options for giscus <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#data-theme">on their website</a>.</p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            Athanasia M. Mowinckel (Dec 4, 2021) Adding giscus to your blogdown site. Retrieved from https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2021-adding-giscus-to-your-blogdown-site,<br>
-            &emsp;author = { Athanasia M. Mowinckel },<br>
-            &emsp;title = { Adding giscus to your blogdown site },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/ },<br>
-            &emsp;year = { 2021 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Using GitHub Actions to Build your Hugo Website
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/">
+                Rmarkdown Child Templates
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

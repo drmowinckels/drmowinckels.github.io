@@ -1,528 +1,942 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-
-<title>
-Blog - Dr. Mowinckel&rsquo;s
-</title>
-
-<link href="https://drmowinckels.io/blog/index.xml" rel="alternate" type="application/rss+xml" title="Dr. Mowinckel&#39;s" />
-
-            <meta property="og:title" content="Blog - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
 
 
+<title>Blog - Dr. Mowinckel&#39;s</title>
 
 
-<meta property="og:image" content="https://drmowinckels.io/home/profile.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/home/profile_square.jpg"/>
+<meta name="hugo-igloo" />
 
 
-
-
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
 
 
   
+  <meta
+    name="description"
+    content="— all things R and neuroimaging —"
+  />
+  <meta name="author" content="Dr. Mowinckel&#39;s" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+<link
+  rel="alternate"
+  type="application/rss&#43;xml"
+  href="https://drmowinckels.io/blog/index.xml"
+  title="Dr. Mowinckel&rsquo;s"
+/>
+
+        
+
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="I blog mainly about R, with some neuroimaging in there. Most posts are set up as tutorials or walk-through’s, so I hope they are of value.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="I blog mainly about R, with some neuroimaging in there. Most posts are set up as tutorials or walk-through’s, so I hope they are of value.">
+
+
+
+    <meta property="og:image" content="https://drmowinckels.io/img/logo.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/img/logo.png">
+
+
+
+        
   
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
-                <h1 class="bold-title is-1" style="text-align: center;"> Blog</h1>
-                
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <div class="uk-container" uk-filter="target: .js-filter; duration: 650">
+        
+            
+            
+                <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                    <li>
+                        <a href="#">Filter tag <span uk-icon="icon: triangle-down"></span></a>
+                        <div uk-dropdown="mode: click;">
+                            <ul class="uk-nav uk-dropdown-nav uk-dropdown-scrollable">
+                                <li class="uk-active" uk-filter-control><a href="#">All</a></li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='advent-calendar']">
+                                        <a  class="dropd" href="#">
+                                            Advent calendar
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='analysis']">
+                                        <a  class="dropd" href="#">
+                                            Analysis
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='apply']">
+                                        <a  class="dropd" href="#">
+                                            Apply
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='bash']">
+                                        <a  class="dropd" href="#">
+                                            Bash
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='blogdown']">
+                                        <a  class="dropd" href="#">
+                                            Blogdown
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='carpentry']">
+                                        <a  class="dropd" href="#">
+                                            Carpentry
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='continuous-integration']">
+                                        <a  class="dropd" href="#">
+                                            Continuous integration
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='gamm']">
+                                        <a  class="dropd" href="#">
+                                            Gamm
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='ggseg']">
+                                        <a  class="dropd" href="#">
+                                            Ggseg
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='github-actions']">
+                                        <a  class="dropd" href="#">
+                                            Github actions
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='hugo']">
+                                        <a  class="dropd" href="#">
+                                            Hugo
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='knitr']">
+                                        <a  class="dropd" href="#">
+                                            Knitr
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='linear-regression']">
+                                        <a  class="dropd" href="#">
+                                            Linear regression
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='neuroimaging']">
+                                        <a  class="dropd" href="#">
+                                            Neuroimaging
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='packages']">
+                                        <a  class="dropd" href="#">
+                                            Packages
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='plot']">
+                                        <a  class="dropd" href="#">
+                                            Plot
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='plots']">
+                                        <a  class="dropd" href="#">
+                                            Plots
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='quarto']">
+                                        <a  class="dropd" href="#">
+                                            Quarto
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='r']">
+                                        <a  class="dropd" href="#">
+                                            R
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='r-for-psychologists']">
+                                        <a  class="dropd" href="#">
+                                            R for psychologists
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='r-functions-2022']">
+                                        <a  class="dropd" href="#">
+                                            R functions 2022
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='reflections']">
+                                        <a  class="dropd" href="#">
+                                            Reflections
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='rmarkdown']">
+                                        <a  class="dropd" href="#">
+                                            Rmarkdown
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='rstudio']">
+                                        <a  class="dropd" href="#">
+                                            Rstudio
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='tidyverse']">
+                                        <a  class="dropd" href="#">
+                                            Tidyverse
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='workshop']">
+                                        <a  class="dropd" href="#">
+                                            Workshop
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            
+        
+        <div class="list-grid">
+            <ul class="list-container list-container-hexagon js-filter">
+              
+    <li class="list-item hexagon"
+            data-tags="reflections hugo "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2024/newyear-newblog/image_hu6af3e96a490fa77a52efbcf78a125937_1981674_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2024/newyear-newblog/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>New year, New blog</h2>
+                    <p>Jan 1, 2024</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="blogdown hugo bash "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2023/reorganising-hugo/image_hud92fff9a48cff4ab8d7a2ade9e5bead8_702211_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2023/reorganising-hugo/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Reorganising Hugo Content and Aliasing</h2>
+                    <p>Nov 3, 2023</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2023/positconf-2023/speak_hue3067967e925385849243a2973897179_197048_250x289_fill_q75_box_center.jpeg);"
+        >
+        <a href="https://drmowinckels.io/blog/2023/positconf-2023/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Posit::conf 2023</h2>
+                    <p>Sep 26, 2023</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="advent-calendar r r-functions-2022 "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2022/advent-of-r-functions/featured_hu869f9109b6d302ad6f6c5939b2238924_4827188_250x289_fill_q75_box_center.jpg);"
+        >
+        <a href="https://drmowinckels.io/blog/2022/advent-of-r-functions/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Advent of R Functions</h2>
+                    <p>Dec 1, 2022</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r apply "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2022/lets-get-applying/blobby_bricks_TradingCard_hu866b331d5e3cd7f97fd8d7b9f0584fe0_312618_250x289_fill_q75_box_center.jpg);"
+        >
+        <a href="https://drmowinckels.io/blog/2022/lets-get-applying/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Let&rsquo;s Get Apply&rsquo;ing</h2>
+                    <p>Nov 7, 2022</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="knitr rmarkdown "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2021/rmarkdown-child-templates/parent-and-child-md_hu5118fb5ff963d8b9dec8009bd5089e73_21646_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Rmarkdown Child Templates</h2>
+                    <p>Dec 17, 2021</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="blogdown "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn_hue04613163f821dd2e5abd0ee4c53ed99_9651_250x289_fill_q75_box_center.jpeg);"
+        >
+        <a href="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Adding giscus to your blogdown site</h2>
+                    <p>Dec 4, 2021</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="hugo continuous-integration github-actions "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy_hu34f42678e0d22a8441eeae75fb5ee55d_174742_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Using GitHub Actions to Build your Hugo Website</h2>
+                    <p>Mar 23, 2021</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r neuroimaging ggseg "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1_huc1efe549c82d9d3cf15c6a7dc15867b5_384681_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>New {ggseg} with Geom!</h2>
+                    <p>Mar 14, 2021</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r plots "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2020/new-year-s-wishes/index_files/figure-html/featured-1_hu0a087b84cca80544f78e17377fdeb50c_340140_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2020/new-year-s-wishes/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>New Year&rsquo;s Wishes</h2>
+                    <p>Dec 31, 2020</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r advent-calendar packages "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020/featured_hu975e068512c4e4c27dd32b0710a67701_31220_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>R-Package Advent Calendar 2020</h2>
+                    <p>Dec 25, 2020</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r analysis linear-regression "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/index_files/figure-html/featured-1_hu134b77beb5d5a3bef4729c60165eba84_41241_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>The Linear Regression Family in R</h2>
+                    <p>Jun 24, 2020</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r hugo blogdown "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/lucille_sassy_hud623d3dbdccbdb7434ba399a95fdbffb_513224_250x289_fill_box_center_1.gif);"
+        >
+        <a href="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Changing your Blogdown Workflow</h2>
+                    <p>May 25, 2020</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r neuroimaging plots "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/index_files/figure-html/featured-1_hu43714c3b8d75b6d2dc1435c738e653f5_111247_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Using Freesurfer annotation files to plot in R</h2>
+                    <p>Apr 30, 2020</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r plots "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/featured-1_hu884bc875ef5c4e8a9eba17590c998501_3572720_250x289_fill_box_center_1.gif);"
+        >
+        <a href="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Do you wanna build a snowman?</h2>
+                    <p>Dec 11, 2019</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="packages neuroimaging plots r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still_hud770b6acbe8601236c9a3b25e8122310_160297_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>ggseg3d - creating interactive brain segmentation plots with plotly</h2>
+                    <p>Dec 6, 2019</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r gamm "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/index_files/figure-html/featured-1_hu93fd038e0188db45f03376482277097f_87012_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Plotting GAMM interactions with ggplot2</h2>
+                    <p>Nov 16, 2019</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r r-for-psychologists "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/featured-1_huf993915805006d5f7ecfec2790ebd2ac_106152_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>R for Psychologists - part II</h2>
+                    <p>Jul 17, 2019</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/check_1_hudae62bc3e93c9cc754ae1b9013244503_97756_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</h2>
+                    <p>Feb 2, 2019</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r rstudio "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf_hu1ce5979a122d0d9eb66c43199654fcf0_788793_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Why RStudio::conf is the best conference experience I have had</h2>
+                    <p>Jan 19, 2019</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r plot "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/featured-1_hub9dd8819e9e90210d3a3592aa7d9f4ca_872129_250x289_fill_box_center_1.gif);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Christmas tree in ggplot</h2>
+                    <p>Dec 13, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r-for-psychologists r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/r-just-dive-into-it/index_files/figure-html/featured-1_hucab4039f7899335a0b8b667c7bbe087a_73338_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/r-just-dive-into-it/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>R for psychologists - just dive into it!</h2>
+                    <p>Nov 9, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="packages neuroimaging r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1_hua8a8fb12b5d28408520494bde5800627_4073368_250x289_fill_box_center_1.gif);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/get-the-brain-animated/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Get the brain animated!</h2>
+                    <p>Oct 1, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="plots packages neuroimaging r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/index_files/figure-html/featured-1_hu9d40572cc162c465ce4eaf5737d04d42_78979_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Introducing the ggseg R-package for brain segmentations</h2>
+                    <p>Aug 30, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="plots neuroimaging r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/index_files/figure-html/featured-1_hua32e3dfec94332d2f2f974aaa481ce15_119306_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Circular plots in R and adding images</h2>
+                    <p>May 25, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/adding-external-images-to-plots/index_files/figure-html/unnamed-chunk-16-1_huea5557f839f59c40b9dab878a60642e1_62342_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>Adding external images to plots</h2>
+                    <p>May 7, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r gamm "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/gamm-random-effects/index_files/figure-html/unnamed-chunk-10-1_hu23e28175028eeb6823898dd859e20085_534891_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/gamm-random-effects/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>GAMM random effects</h2>
+                    <p>Apr 5, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags="r gamm "
+            
+            
+            style="background-image: url(https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1_hud9c9489046432c5232bac8ca9d30b447_133791_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>GAMM spaghetti plots in R with ggplot</h2>
+                    <p>Mar 8, 2018</p>
+                </div>
+            </div>
+        </a>
+    </li>
 
-                
-    <div class="container markdown top-pad">
-        <p>I blog mainly about R, with some neuroimaging in there. Most posts are set up as tutorials or walk-through&rsquo;s, so I hope they are of value.</p>
-
+            </ul>
+        </div>
     </div>
-    <div class="container">
-        
-        <h2 class="title is-2 top-pad">All Blog Posts</h2>
-        
-    <ul id="postGrid">
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2023/reorganising-hugo/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2023/reorganising-hugo//image.png'>
-                
-                <h1>Reorganising Hugo Content and Aliasing</h1>
-                 - <p>Nov 3, 2023</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2023/positconf-2023/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2023/positconf-2023//speak.jpeg'>
-                
-                <h1>Posit::conf 2023</h1>
-                 - <p>Sep 26, 2023</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2022/advent-of-r-functions/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2022/advent-of-r-functions//featured.jpg'>
-                
-                <h1>Advent of R Functions</h1>
-                 - <p>Dec 1, 2022</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2022/lets-get-applying/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2022/lets-get-applying//blobby_bricks_TradingCard.jpg'>
-                
-                <h1>Let&#39;s Get Apply&#39;ing</h1>
-                 - <p>Nov 7, 2022</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2021/12-17-rmarkdown-child-templates/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2021/12-17-rmarkdown-child-templates//parent-and-child-md.png'>
-                
-                <h1>Rmarkdown Child Templates</h1>
-                 - <p>Dec 17, 2021</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site//jackson_popcorn.jpeg'>
-                
-                <h1>Adding giscus to your blogdown site</h1>
-                 - <p>Dec 4, 2021</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website//gh-deploy.png'>
-                
-                <h1>Using GitHub Actions to Build your Hugo Website</h1>
-                 - <p>Mar 23, 2021</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2021/new-ggseg-with-geom//index_files/figure-html/featured-1.png'>
-                
-                <h1>New {ggseg} with Geom!</h1>
-                 - <p>Mar 14, 2021</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2020/new-year-s-wishes/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2020/new-year-s-wishes//index_files/figure-html/featured-1.png'>
-                
-                <h1>New Year&#39;s Wishes</h1>
-                 - <p>Dec 31, 2020</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020//featured.png'>
-                
-                <h1>R-Package Advent Calendar 2020</h1>
-                 - <p>Dec 25, 2020</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r//index_files/figure-html/featured-1.png'>
-                
-                <h1>The Linear Regression Family in R</h1>
-                 - <p>Jun 24, 2020</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2020/05-25-changing-you-blogdown-workflow/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2020/05-25-changing-you-blogdown-workflow//lucille_sassy.gif'>
-                
-                <h1>Changing your Blogdown Workflow</h1>
-                 - <p>May 25, 2020</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r//index_files/figure-html/featured-1.png'>
-                
-                <h1>Using Freesurfer annotation files to plot in R</h1>
-                 - <p>Apr 30, 2020</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman//index_files/figure-html/featured-1.gif'>
-                
-                <h1>Do you wanna build a snowman?</h1>
-                 - <p>Dec 11, 2019</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly//ggseg3d_still.png'>
-                
-                <h1>ggseg3d - creating interactive brain segmentation plots with plotly</h1>
-                 - <p>Dec 6, 2019</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2//index_files/figure-html/featured-1.png'>
-                
-                <h1>Plotting GAMM interactions with ggplot2</h1>
-                 - <p>Nov 16, 2019</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii//index_files/figure-html/featured-1.png'>
-                
-                <h1>R for Psychologists - part II</h1>
-                 - <p>Jul 17, 2019</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop//check_1.png'>
-                
-                <h1>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</h1>
-                 - <p>Feb 2, 2019</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had//rstudioconf.png'>
-                
-                <h1>Why RStudio::conf is the best conference experience I have had</h1>
-                 - <p>Jan 19, 2019</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot//index_files/figure-html/featured-1.gif'>
-                
-                <h1>Christmas tree in ggplot</h1>
-                 - <p>Dec 13, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/r-just-dive-into-it/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/r-just-dive-into-it//index_files/figure-html/featured-1.png'>
-                
-                <h1>R for psychologists - just dive into it!</h1>
-                 - <p>Nov 9, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/get-the-brain-animated/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/get-the-brain-animated//index_files/figure-html/featured-1.gif'>
-                
-                <h1>Get the brain animated!</h1>
-                 - <p>Oct 1, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/08-24-introducing-the-ggseg-r-package-for-brain-segmentations/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/08-24-introducing-the-ggseg-r-package-for-brain-segmentations//index_files/figure-html/featured-1.png'>
-                
-                <h1>Introducing the ggseg R-package for brain segmentations</h1>
-                 - <p>Aug 30, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images//index_files/figure-html/featured-1.png'>
-                
-                <h1>Circular plots in R and adding images</h1>
-                 - <p>May 25, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/adding-external-images-to-plots//index_files/figure-html/unnamed-chunk-16-1.png'>
-                
-                <h1>Adding external images to plots</h1>
-                 - <p>May 7, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/gamm-random-effects/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/gamm-random-effects//index_files/figure-html/unnamed-chunk-10-1.png'>
-                
-                <h1>GAMM random effects</h1>
-                 - <p>Apr 5, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-        <li class="hex">
-            <div class="hexIn">
-              <a class="hexLink" href="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/">
-                
-                    <img src = 'https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot//index_files/figure-html/unnamed-chunk-4-1.png'>
-                
-                <h1>GAMM spaghetti plots in R with ggplot</h1>
-                 - <p>Mar 8, 2018</p>
-              </a>
-            </div>
-        </li>
-    
-    </ul>
 
-        
-    </div>
-
-
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
-    
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
     </div>
 </div>
-
-                
-            </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+</body>
 </html>

@@ -1,333 +1,1065 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-
-<title>
-R - Dr. Mowinckel&rsquo;s
-</title>
-
-<link href="https://drmowinckels.io/tags/r/index.xml" rel="alternate" type="application/rss+xml" title="Dr. Mowinckel&#39;s" />
-
-            <meta property="og:title" content="R - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/tags/r/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
 
 
+<title>R - Dr. Mowinckel&#39;s</title>
 
 
-<meta property="og:image" content="https://drmowinckels.io/home/profile.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/home/profile_square.jpg"/>
+<meta name="hugo-igloo" />
 
 
-
-
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
 
 
   
+  <meta
+    name="description"
+    content="— all things R and neuroimaging —"
+  />
+  <meta name="author" content="Dr. Mowinckel&#39;s" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+<link
+  rel="alternate"
+  type="application/rss&#43;xml"
+  href="https://drmowinckels.io/tags/r/index.xml"
+  title="Dr. Mowinckel&rsquo;s"
+/>
+
+        
+
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="R - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="">
+
+
+
+    <meta property="og:image" content="https://drmowinckels.io/img/logo.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/img/logo.png">
+
+
+
+        
   
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
-    <h1 class="bold-title is-1">Tag: r</h1>
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>tags</h1>
+        </div>
+    
+</div>
 
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
-        </div>
-    </nav>
-    <hr>
-</div>
-
-
-
-                
-    <div class="container">
-        <ul>
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2023/positconf-2023/">Sep 26, 2023 | Posit::conf 2023</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2022/advent-of-r-functions/">Dec 1, 2022 | Advent of R Functions</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2022/lets-get-applying/">Nov 7, 2022 | Let&rsquo;s Get Apply&rsquo;ing</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/">Mar 14, 2021 | New {ggseg} with Geom!</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2020/new-year-s-wishes/">Dec 31, 2020 | New Year&rsquo;s Wishes</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020/">Dec 25, 2020 | R-Package Advent Calendar 2020</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/">Jun 24, 2020 | The Linear Regression Family in R</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2020/05-25-changing-you-blogdown-workflow/">May 25, 2020 | Changing your Blogdown Workflow</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/">Apr 30, 2020 | Using Freesurfer annotation files to plot in R</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/">Dec 11, 2019 | Do you wanna build a snowman?</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/">Dec 6, 2019 | ggseg3d - creating interactive brain segmentation plots with plotly</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/">Nov 16, 2019 | Plotting GAMM interactions with ggplot2</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/">Jul 17, 2019 | R for Psychologists - part II</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">Feb 2, 2019 | Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/">Jan 19, 2019 | Why RStudio::conf is the best conference experience I have had</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/">Dec 13, 2018 | Christmas tree in ggplot</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/r-just-dive-into-it/">Nov 9, 2018 | R for psychologists - just dive into it!</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/get-the-brain-animated/">Oct 1, 2018 | Get the brain animated!</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/08-24-introducing-the-ggseg-r-package-for-brain-segmentations/">Aug 30, 2018 | Introducing the ggseg R-package for brain segmentations</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/">May 25, 2018 | Circular plots in R and adding images</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/">May 7, 2018 | Adding external images to plots</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/gamm-random-effects/">Apr 5, 2018 | GAMM random effects</a>
-            </li>
-            
-            
-            
-            <li>
-                <a href="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/">Mar 8, 2018 | GAMM spaghetti plots in R with ggplot</a>
-            </li>
-            
-            
-        </ul>
-    </div>
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
-    
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
-    </div>
-</div>
-
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
                 
             </div>
-        </section>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <div class="uk-markdown">
         
-        
+    </div>
 
+    <div class="uk-container" uk-filter="target: .js-filter; duration: 650">
+    
+    <div class="uk-container-small">
+    <div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column js-filter">
+            <div class="card-post"
+    data-tags="r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2023/positconf-2023/speak_hue3067967e925385849243a2973897179_197048_250x289_fill_q75_box_center.jpeg);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2023/positconf-2023/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Posit::conf 2023</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Sep 26, 2023
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>It’s no secret that I have loved going to Posit::conf (then RStudio::conf) before. There is a general air of excitement, nerdiness and support I just rarely feel at any other conf I go to. It’s like it gathers all the best Data science and R geeks in one place and we just go bananas in each others company.
+Going to Chicago this year for the first ever Posit::conf was no exception to that.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
+            <div class="card-post"
+    data-tags="advent-calendar r r-functions-2022 ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2022/advent-of-r-functions/featured_hu869f9109b6d302ad6f6c5939b2238924_4827188_250x289_fill_q75_box_center.jpg);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2022/advent-of-r-functions/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Advent of R Functions</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Dec 01, 2022
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>It is advent! And we all know by now how much I LOVE advent and Christmas. Keeping true to who I am and that I finally have some extra energy for things like this, this advent brings you a series of 24 pieces of code I often use in my work, and that I hope can be of interest and help to you.
+1st of December - Creating a directory I often find myself doing quite some file handling in my work, often leading to many of the same things happening over and over in slightly different contexts.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r apply ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2022/lets-get-applying/blobby_bricks_TradingCard_hu866b331d5e3cd7f97fd8d7b9f0584fe0_312618_250x289_fill_q75_box_center.jpg);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2022/lets-get-applying/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Let&rsquo;s Get Apply&rsquo;ing</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Nov 07, 2022
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>When programming we want to write code that iterates well. In many languages, we do this through loops. I was introduced to loops both in MatLab and in the Bourne Again Shell (bash).
+So naturaly, when I started working in R, I was looping all over the place. Especially before I learned tidyverse, I was looping over columns and rows in data.frames to manipulate data into how I needed things to be.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r neuroimaging ggseg ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1_huc1efe549c82d9d3cf15c6a7dc15867b5_384681_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>New {ggseg} with Geom!</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Mar 14, 2021
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>A couple of months ago, we released a new version of our ggseg R-package for visualisations of brain atlases. I had been wanting to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult. Likely because I was trying to do too many things, but, hey… that’s me!
+One of the main things I wanted to get rid of, was this need to first group your data before sending it to ggplot if you want to facet.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r plots ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2020/new-year-s-wishes/index_files/figure-html/featured-1_hu0a087b84cca80544f78e17377fdeb50c_340140_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2020/new-year-s-wishes/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>New Year&rsquo;s Wishes</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Dec 31, 2020
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>It’s time for a new year, and I think we are all ready for it! At least I am.
+This is just a short post, with a ggplot2 holiday card wishing you all a better 2021 than 2020! Let’s face it, there not much needed for that to happen, and with vaccines being distributed I have hopes.
+I hope the New Year, at some point, makes it possible to start going to conferences again and that I can get to meet ore R-aficionados when the time allows.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+            <div class="card-post"
+    data-tags="r advent-calendar packages ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2020/r-package-advent-calendar-2020/featured_hu975e068512c4e4c27dd32b0710a67701_31220_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2020/r-package-advent-calendar-2020/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>R-Package Advent Calendar 2020</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Dec 25, 2020
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>This year has been truly something different for us all. Blogging has definitely taken a toll, as real life has been quite something to handle. So, in order to end the year with a bang, and something fun, I started a twitter advent calendar!
+One day late in starting my #rstats 📦 advent calendar, but better late than never!
+In this thread, I will every day of December until the 24th post a package I find useful and want you all to know about!</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r analysis linear-regression ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2020/the-linear-regression-family-in-r/index_files/figure-html/featured-1_hu134b77beb5d5a3bef4729c60165eba84_41241_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>The Linear Regression Family in R</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Jun 24, 2020
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>Let’s talk linear regression. It’s the thing we learn about first year in psychology at Uni, and it blows all our minds that we are doing math in psychology. An unfortunate effect of all high school student counsellors in Norway thinking all psychologists do is shrink people’s heads. And then here we come to Uni and first semester they stick us with math.
+I’m no statistician, I’m no mathematician. So I’ll be honest with you all, I am not the one to answer your most indepth and deep questions about stats.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r hugo blogdown ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2020/changing-you-blogdown-workflow/lucille_sassy_hud623d3dbdccbdb7434ba399a95fdbffb_513224_250x289_fill_box_center_1.gif);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Changing your Blogdown Workflow</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        May 25, 2020
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen. I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes.
+But last week I finally got working on it, and decided I would not stop until I had it done.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r neuroimaging plots ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/index_files/figure-html/featured-1_hu43714c3b8d75b6d2dc1435c738e653f5_111247_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Using Freesurfer annotation files to plot in R</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Apr 30, 2020
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise. For me, that is usually FSL or Freesurfer. Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together. For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r plots ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2019/do-you-wanna-build-a-snowman/index_files/figure-html/featured-1_hu884bc875ef5c4e8a9eba17590c998501_3572720_250x289_fill_box_center_1.gif);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Do you wanna build a snowman?</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Dec 11, 2019
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>It’s time for another Christmas special. Last year I made a Christmas tree ggplot, and animated some snow and sparkling baubles. That was a lot of fun, and I decided I wanted to do something similar this year too. But this year we’re going to build a snowman.
+Body A snowman needs a body, so lets start with that! Let’s go for a two large body ball’s, and a head. First attempt is to specify the center of the circles we’re going to draw’s locations, and their radii.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="packages neuroimaging plots r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still_hud770b6acbe8601236c9a3b25e8122310_160297_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>ggseg3d - creating interactive brain segmentation plots with plotly</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Dec 06, 2019
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>Looking through my blogposts, I realised I’ve never written about my colleague Didac and my package for 3d mesh plots of brain atlases using plotly. I’ve already showed some functionality from out {ggseg}-package, in the introductory blogpost and follow-up on animating it.
+I guess it’s extra timely to do it now, as we recently split the mesh-plot function off the main {ggseg}-package and into it’s own package, and also did some re-writing of core-functionality of the package.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r gamm ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2019/plotting-gamm-interactions-with-ggplot2/index_files/figure-html/featured-1_hu93fd038e0188db45f03376482277097f_87012_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Plotting GAMM interactions with ggplot2</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Nov 16, 2019
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>I’m full of making packages and unit testing these days, and I don’t feel particularly confident in my unit testing skills to be sharing those yet. But, thankfully, I am also back in the GAMM corner lately. There is something very satisfying to me about running appropriate models and seeing the results. But, plotting the results of GAMMs are not always so easy, especially if you have some interactions in there.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r r-for-psychologists ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/featured-1_huf993915805006d5f7ecfec2790ebd2ac_106152_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>R for Psychologists - part II</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Jul 17, 2019
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>It’s been a very long time since I wrote anything. Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on. I’m sitting in old town Fredrikstad while my cat is getting some tests at the vets’, so I finally get some time and want to write something here. And we will continue with some R for Psychologists.
+I my first R for Psychologists post we really dove into it.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
+            <div class="card-post"
+    data-tags="r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/check_1_hudae62bc3e93c9cc754ae1b9013244503_97756_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Feb 02, 2019
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>I’ve already posted about what I liked so much about RStudio::conf 2019, and while I could continue chanting that over and over without it ever being able to properly convey how lovely it was, I am going to continue into another report from the conference.
+There were several pre-conference workshops to attend, which I of course signed up for. After debating heavily with my self of what to choose, the cruelty was really that all the workshops looked amazing, I decided to go for “Building tidy tools” with Charlotte Wickham and Hadley Wickham.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r rstudio ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf_hu1ce5979a122d0d9eb66c43199654fcf0_788793_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Why RStudio::conf is the best conference experience I have had</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Jan 19, 2019
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>There is something to be said about the R-community. Actually, there is a lot to be said about the R-community, and I believe RStudio::conf is the empitamy of what this community actually is. While I’m in my hotel room as RStudio::conf Austin has just wrapped up, ending with an amazing Birds of a Feather session with RLadies, I’m having so many thoughts and feelings about this experience. I’m on a complete high, and cannot fathom that I just participated in something like this conference, which is quite something different than any other conference I have been to.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r plot ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/christmas-tree-in-ggplot/index_files/figure-html/featured-1_hub9dd8819e9e90210d3a3592aa7d9f4ca_872129_250x289_fill_box_center_1.gif);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Christmas tree in ggplot</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Dec 13, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>It’s Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It’s just filled with all times of lovely things.
+That also means… PLOTS! You might know from my previous posts that I love plotting. A bit too much, but it truly is a lovely thing to create a great plot.
+So, a while ago, the amazing RLadies network showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it!</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="r-for-psychologists r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/r-just-dive-into-it/index_files/figure-html/featured-1_hucab4039f7899335a0b8b667c7bbe087a_73338_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/r-just-dive-into-it/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>R for psychologists - just dive into it!</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Nov 09, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>I recently was talking with a good friend and brilliant researcher regarding the advantages of R. As you can guess, I was the advocate. Coming from psychology, we are mainly taught to use “simple” analysis tools, and mainly SPSS. I never liked SPSS, even as a student. not knowing of any possible alternatives or what could be improved, I just thought the whole thing felt too black-boxy. But it is a convenient tool, when the data is already in a relatively clean format, and the analyses you want to do are straight forward, and you don’t mind not knowing exactly the formula SPSS uses to calculate your results.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="packages neuroimaging r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1_hua8a8fb12b5d28408520494bde5800627_4073368_250x289_fill_box_center_1.gif);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/get-the-brain-animated/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Get the brain animated!</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Oct 01, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>I’m super delighted that our ggseg package was so well received! We almost immediately got it on Neuroconductor, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.
+In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+            <div class="card-post"
+    data-tags="plots packages neuroimaging r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/index_files/figure-html/featured-1_hu9d40572cc162c465ce4eaf5737d04d42_78979_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Introducing the ggseg R-package for brain segmentations</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Aug 30, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>Edit: Though posted only a week ago, we have discovered another R package called ggBrain which has slightly different functions than what our package has. Because of this, we have altered the name of our package to ggseg short for ggsegmentation which is a better description of what our package does.
+I’ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
-        
-        
-        
-        
-    </body>
+            <div class="card-post"
+    data-tags="plots neuroimaging r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/circluar-plots-in-r-and-adding-images/index_files/figure-html/featured-1_hua32e3dfec94332d2f2f974aaa481ce15_119306_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Circular plots in R and adding images</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        May 25, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I’ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS!</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+            <div class="card-post"
+    data-tags="r ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/adding-external-images-to-plots/index_files/figure-html/unnamed-chunk-16-1_huea5557f839f59c40b9dab878a60642e1_62342_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Adding external images to plots</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        May 07, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>Two weeks ago we had out first RLadies-Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks!
+And indeed it is true, I love plotting. Probably more than I love analysing data (and definately more than cleaning and wrangling :P). I can spend hours and hours creating my own custom plotting functions for whatever paper/output I am currently working on.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+            <div class="card-post"
+    data-tags="r gamm ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/gamm-random-effects/index_files/figure-html/unnamed-chunk-10-1_hu23e28175028eeb6823898dd859e20085_534891_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/gamm-random-effects/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>GAMM random effects</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Apr 05, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>I’m working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it here.
+For this part I’d like to talk about random effects in mgcv::gamm as they are a little different from what I am used to from, for instance lme4 or even a standard GAM.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+            <div class="card-post"
+    data-tags="r gamm ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/index_files/figure-html/unnamed-chunk-4-1_hud9c9489046432c5232bac8ca9d30b447_133791_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>GAMM spaghetti plots in R with ggplot</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Mar 08, 2018
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>Here we go! Stepping into the world of blogging through R and blogdown! This is both super exciting and slightly scary, I have not really shared code online like I plan here before. But I guess we start somewhere. And we start with plotting.
+A co-worker was working on some generalized additive mixed models (GAMM) through the R package mgcv. The analyses work very well, and results were as expected. There were also some built in plotting functions for the gamm output in R.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+    </div>
+</div>
+</div>
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

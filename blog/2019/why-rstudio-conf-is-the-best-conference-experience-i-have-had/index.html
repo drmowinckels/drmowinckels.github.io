@@ -1,331 +1,473 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Why RStudio::conf is the best conference experience I have had - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="There is something to be said about the R-community. Actually, there is a lot to be said about the R-community, and I believe RStudio::conf is the empitamy of what this community actually is. While I’m in my hotel room as RStudio::conf Austin has just wrapped up, ending with an amazing Birds of a Feather session with RLadies, I’m having so many thoughts and feelings about this experience. I’m on a complete high, and cannot fathom that I just participated in something like this conference, which is quite something different than any other conference I have been to." />
+  <meta name="author" content="DrMowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-Why Rstudio Conf Is the Best Conference Experience I Have Had - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Why RStudio::conf is the best conference experience I have had - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="There is something to be said about the R-community. Actually, there is a lot to be said about the R-community, and I believe RStudio::conf is the empitamy of what this community actually is. While I’m in my hotel room as RStudio::conf Austin has just wrapped up, ending with an amazing Birds of a Feather session with RLadies, I’m having so many thoughts and feelings about this experience. I’m on a complete high, and cannot fathom that I just participated in something like this conference, which is quite something different than any other conference I have been to.">
 
 
-
-            <meta property="og:title" content="Why RStudio::conf is the best conference experience I have had - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="There is something to be said about the R-community. Actually, there is a lot to be said about the R-community, and I believe RStudio::conf is the empitamy of what this community actually is. While I’m in my hotel room as RStudio::conf Austin has just wrapped up, ending with an amazing Birds of a Feather session with RLadies, I’m having so many thoughts and feelings about this experience. I’m on a complete high, and cannot fathom that I just participated in something like this conference, which is quite something different than any other conference I have been to.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/index_files/figure-html/unnamed-chunk-1-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf.png"/>
-
+    <meta property="og:image" content="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf.png">
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
 
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/rstudioconf.png" alt="Why RStudio::conf is the best conference experience I have had" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/">Why RStudio::conf is the best conference experience I have had</a>
-    </h2>
-    <div class="post-data">
-        Jan 19, 2019 |
-        6 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Why RStudio::conf is the best conference experience I have had</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Jan 19, 2019
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/rstudio/" class="uk-label uk-label-secondary tags" >
+                                RStudio
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/rstudio">
-             RStudio</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>There is something to be said about the R-community. Actually, there is a lot to be said about the R-community, and I believe RStudio::conf is the empitamy of what this community actually is. While I&rsquo;m in my hotel room as RStudio::conf Austin has just wrapped up, ending with an amazing Birds of a Feather session with <a href="www.rladies.org">RLadies</a>, I&rsquo;m having so many thoughts and feelings about this experience. I&rsquo;m on a complete high, and cannot fathom that I just participated in something like this conference, which is quite something different than any other conference I have been to.</p>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-all-talks-are-relevant">1. All talks are relevant</a></li>
+    <li><a href="#2-industry-academia-and-non-profit-combined">2. Industry, academia and non-profit combined</a></li>
+    <li><a href="#3-you-feel-the-love">3. You feel the love</a></li>
+    <li><a href="#4-support-for-each-speaker">4. Support for each speaker</a></li>
+    <li><a href="#5-the-organisers">5. The organisers</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>There is something to be said about the R-community. Actually, there is a lot to be said about the R-community, and I believe RStudio::conf is the empitamy of what this community actually is. While I&rsquo;m in my hotel room as RStudio::conf Austin has just wrapped up, ending with an amazing Birds of a Feather session with <a href="www.rladies.org">RLadies</a>, I&rsquo;m having so many thoughts and feelings about this experience. I&rsquo;m on a complete high, and cannot fathom that I just participated in something like this conference, which is quite something different than any other conference I have been to.</p>
 <p>As an academic, I have been more used to going to field-specific conferences, big and small. The smallest had about 500 attendees, and the largest about 30.000. Before RStudio::conf, I had already made up my mind that small conferences trump big ones, because big conferences are too hard to navigate, too hard to network, and are generally just overwhealming. While I am semi-comfortable networking and talking to people I don&rsquo;t know alot, too large conferences just make it impossible. You might disagree with me, but that has been my general experience.</p>
 <p>I am also kind of used to conferences being a little hard to network. I don&rsquo;t know who is approachable, who is off-limits, and how do I do this network thing in general? Coming from Norway, it does not come very natural to me to just put my head into a circle of people and introduce myself, or to even have small-talk with people I don&rsquo;t know. Norwegians tend to be comfortable being silent around strangers (or among friends&hellip; like awkward silences in Norway are a complete different thing than what I believe most other cultures experience).</p>
 <p>RStudio::conf was my second, non-field specific conference. The first being <a href="https://mc-stan.org/events/stancon2018Helsinki/">StanCon</a> in Helsinki in August. I thoroughly enjoyed StanCon, and got to meet some awesome new people and learn some nice new MCMC stuff. And while people in general were friendly, it was quite a different vibe than RStudio::conf.</p>
 <p>So, to the point of this post, the reasons why RStudio::conf has far surpassed any conference experience I have had. There are quite some reasons, but I will try to keep it to the main points; what I believe are the key reasons that make RStudio::conf such an amazing conference to attend.</p>
 <p><img src="rstudioconf.png" alt=""></p>
-
-<h2 id="1-all-talks-are-relevant" class="anchor-link"><a href="#1-all-talks-are-relevant">1. All talks are relevant</a></h2>
+<h2 id="1-all-talks-are-relevant">1. All talks are relevant</h2>
 <p>I had a genuinely difficult task of finding which sessions I wanted to attend. Of course, this can also be seen as the negative (actually what I said in the survey, sorry RStudio folks, its useless feedback &lsquo;cause you obviously need parallel sessions). There were so many cool things to learn about, hear about, and so many properly good speakers.</p>
-
-<h2 id="2-industry-academia-and-non-profit-combined" class="anchor-link"><a href="#2-industry-academia-and-non-profit-combined">2. Industry, academia and non-profit combined</a></h2>
+<h2 id="2-industry-academia-and-non-profit-combined">2. Industry, academia and non-profit combined</h2>
 <p>I have never been to a conference with such a diverse set of atttendees and speakers. Not only did people from all around the globe, of all colours, genders and what-nots attend, but also all different fields and industries. It was really interesting talking to people in industry on how they apply the same tools I use in research to solve &ldquo;real-life&rdquo; industry problems. It was thoroughly enjoyable and educational to see the different ways the same tools were applied. Which also sparked my own imagination as to how I could be more creative in what I do.</p>
-
-<h2 id="3-you-feel-the-love" class="anchor-link"><a href="#3-you-feel-the-love">3. You feel the love</a></h2>
+<h2 id="3-you-feel-the-love">3. You feel the love</h2>
 <p>This might seem like a silly thing to you, if you have not been to RStudio::conf, but this thing is real. There is a real <em>love</em> for all things R. There is a real <em>love</em> for all people who love R. There is a real <em>love</em> for the community we have. This love is actually palpable when you are at RStudio::conf. I have never met a friendlier bunch of people, and it is epitomized by the conference host reminding everyone to be inclusive and friendly as the very first thing said on stage at the conference. That it in self is amazing, but with this bunch of people that thought is already so ingrained that I am unsure whether is was necessary to even say it! If I ever looked lost in the hallway, looking for familiar faces or anything like that, I was just osmosised into groups of people I didn&rsquo;t know. Every single person I met was super friendly, and in a natural and really genuine way.</p>
-
-<h2 id="4-support-for-each-speaker" class="anchor-link"><a href="#4-support-for-each-speaker">4. Support for each speaker</a></h2>
+<h2 id="4-support-for-each-speaker">4. Support for each speaker</h2>
 <p>In every session I went, speakers recieved amazing support from the audience. People were excited to hear about what other were doing with R. I remember particularly well the talk on the <a href="https://github.com/tylermorganwall/rayshader">rayshader</a> package by Tyler Morgan-Wall, where people just started clapping and cheering and he showcased the amazing things his package can do! There was this genuine apprication and amazement by what people are doing with this tool we all love, and real support and community cheer for everything.</p>
-
-<h2 id="5-the-organisers" class="anchor-link"><a href="#5-the-organisers">5. The organisers</a></h2>
+<h2 id="5-the-organisers">5. The organisers</h2>
 <p>The last point I want to make is regarding the organisers. As a company, you would expect RStudio to be pushing their enterprise solutions a lot, and heavily advocating the need to use them. You would expect them to be stingy on the topics and talks people <em>outside</em> of RStudio were giving. You would epxect them to prioritise everything corporate and to omit all the open source and community stuff. They don&rsquo;t do any of that. Yes, there were showcases for their product, of course. But nothing intrusive, nothing during the days of the conference made me in any way feel like they had an agenda, other than making an awesome conference with an amazing, inclusive vibe. The fact that everyone was taking pictures with developers, CEO&rsquo;s, sponsors, eachother, anyone, just goes to show how available they are making them selves, and how much they <em>want</em> the community to network and thrive and grow. It really is impressive to see how they balance the support of the open source community, while also creating enterprise solutions. I really have a lot of respect and appreciation for what they are doing. And they are streaming it all, and everything will be posted online so you can watch sessions you missed, or watch them all if you could not attend for any reason.</p>
-
-<h1 id="the-take-home" class="anchor-link"><a href="#the-take-home">The take home</a></h1>
+<h1 id="the-take-home">The take home</h1>
 <p>I really really really recommend this experience to anyone. Even if you dont necessarily code a lot in R, if you are organizing conferences, or doing community meetups, or hosting consortia of researchers, experiencing RStudio::conf will give you ideas on how to build and support a community that lifts eachother up and that show genuine appreciation for eachother and eachothers achievements. I have never been so inspired to do good work, and to help others, and to engage even more in this amazing community than I do right now.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">yhrt</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="m">13</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="m">-5</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="m">-2</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="m">3</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="nf">cos</span><span class="p">(</span><span class="m">4</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">xhrt</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="m">16</span><span class="o">*</span><span class="nf">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="n">^3</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">png</span> <span class="o">&lt;-</span> <span class="n">RCurl</span><span class="o">::</span><span class="nf">getURLContent</span><span class="p">(</span><span class="s">&#34;https://le-datascientist.fr/wp-content/uploads/2019/03/cropped-rstudio.png&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="n">png</span><span class="o">::</span><span class="nf">readPNG</span><span class="p">()</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="n">grid</span><span class="o">::</span><span class="nf">rasterGrob</span><span class="p">(</span><span class="n">interpolate</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">data.frame</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="o">*</span><span class="kc">pi</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">0.1</span><span class="p">))</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="nf">yhrt</span><span class="p">(</span><span class="n">t</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">x</span><span class="o">=</span><span class="nf">xhrt</span><span class="p">(</span><span class="n">t</span><span class="p">))</span> <span class="o">%&gt;%</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s">&#34;firebrick&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">annotation_custom</span><span class="p">(</span><span class="n">grob</span><span class="o">=</span><span class="n">png</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="m">-5</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="m">-10</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="m">4</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">theme_void</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
+</span></span><span style="display:flex;"><span>yhrt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(t) <span style="color:#ae81ff">13</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(t)<span style="color:#ae81ff">-5</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>t)<span style="color:#ae81ff">-2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cos</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>t)<span style="color:#f92672">-</span><span style="color:#a6e22e">cos</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>t)
+</span></span><span style="display:flex;"><span>xhrt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(t) <span style="color:#ae81ff">16</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sin</span>(t)^3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>png <span style="color:#f92672">&lt;-</span> RCurl<span style="color:#f92672">::</span><span style="color:#a6e22e">getURLContent</span>(<span style="color:#e6db74">&#34;https://le-datascientist.fr/wp-content/uploads/2019/03/cropped-rstudio.png&#34;</span>) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  png<span style="color:#f92672">::</span><span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  grid<span style="color:#f92672">::</span><span style="color:#a6e22e">rasterGrob</span>(interpolate<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data.frame</span>(t<span style="color:#f92672">=</span><span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#66d9ef">pi</span>, by<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(y<span style="color:#f92672">=</span><span style="color:#a6e22e">yhrt</span>(t),
+</span></span><span style="display:flex;"><span>         x<span style="color:#f92672">=</span><span style="color:#a6e22e">xhrt</span>(t)) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;firebrick&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotation_custom</span>(grob<span style="color:#f92672">=</span>png, xmin<span style="color:#f92672">=</span><span style="color:#ae81ff">-5</span>, xmax<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, ymin<span style="color:#f92672">=</span><span style="color:#ae81ff">-10</span>, ymax<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_void</span>()
 </span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" alt=""><!-- --></p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            DrMowinckel (Jan 19, 2019) Why RStudio::conf is the best conference experience I have had. Retrieved from https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2019-why-rstudioconf-is-the-best-conference-experience-i-have-had,<br>
-            &emsp;author = { DrMowinckel },<br>
-            &emsp;title = { Why RStudio::conf is the best conference experience I have had },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/ },<br>
-            &emsp;year = { 2019 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Christmas tree in ggplot
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">
+                Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>

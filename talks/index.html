@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Talks - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  
+  <meta
+    name="description"
+    content="— all things R and neuroimaging —"
+  />
+  <meta name="author" content="Dr. Mowinckel&#39;s" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+<link
+  rel="alternate"
+  type="application/rss&#43;xml"
+  href="https://drmowinckels.io/talks/index.xml"
+  title="Dr. Mowinckel&rsquo;s"
+/>
+
+        
+
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Talks - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="While I am a scientist and have lost of research projects ongoing, here I’d rather showcase the wonderful world of development I have started exploring. Most of my projects are still in early phases, but it is so much fun developing things people actually find useful!">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="While I am a scientist and have lost of research projects ongoing, here I’d rather showcase the wonderful world of development I have started exploring. Most of my projects are still in early phases, but it is so much fun developing things people actually find useful!">
+
+
+
+    <meta property="og:image" content="https://drmowinckels.io/img/logo.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/img/logo.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>talks</h1>
+        </div>
+    
+</div>
+
+        
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+  <article class="uk-article uk-margin-bottom">
+    <p>While I am a scientist and have lost of research projects ongoing, here I&rsquo;d rather showcase the wonderful world of development I have started exploring.
+Most of my projects are still in early phases, but it is so much fun developing things people actually find useful!</p>
+
+  </article>
+  <section class="timeline">
+    <div class="container">
+    
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Dec 01, 2023
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/yeo.out-2_10444631239538216265_huf4d7fdc186bdab7483bfcc91194e1668_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Visualizing brain data</h2>
+      <p><ul>
+<li>the ggseg-suite of R-packages -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2023.12.01-ggseg-pia/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Oct 03, 2023
+        </div>
+      
+        
+        
+
+        
+        
+        <p></p>
+        
+          
+              <p>No Local Image Found</p>
+          
+        
+        
+        
+        
+      <h2>cli - Helpers for Developing Command Line Interfaces</h2>
+      <p><ul>
+<li>rOpenSci co-working session -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2023.10.03-ropensci-cli/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Aug 25, 2023
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/ggseg_3169408721279471356_hu750ec4e8ae075f161668ad37e108404e_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Visualizing brain data</h2>
+      <p><ul>
+<li>Improving speed and flexibility of the ggseg-suite -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2023.08.25-intpart-ggseg/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Mar 28, 2023
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/unnamed-chunk-5-1_1342056484942872495_hu478e80242c1972ecac8129b7e01256c4_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Mind your data</h2>
+      <p><ul>
+<li>Creating Organised Research Projects -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2023.03.28-promenta-fileorg/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Jan 16, 2023
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/image-676945535_16405300778363372330_hu0c16dbba52e8f4344eb3245aab06b4ab_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Custom MRI processing status overview</h2>
+      <p>&ndash; Keeping track of LCBC&rsquo;s MRI pipeline &ndash;</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2023.01.16-lcbc-mri-proc-status/">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            MRI, LCBC, psych
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Oct 14, 2022
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/paste-8B1E9E23_15279538729511080290_huc2f75a1f5b6d7086052a30d7a5bc625b_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Working on TSD</h2>
+      <p>&ndash; LCBC general TSD tools &ndash;</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2022.10.14-lcbc-tsd/">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            TSD, LCBC
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Jun 02, 2022
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/nettquick_9332141051561780280_hu697240b1d3b761f0540de610357c689f_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Nettskjema TSD Pipeline</h2>
+      
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2022.06.02-nettskjema_pipeline/">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            Nettskjema, TSD, LCBC
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Apr 28, 2022
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/Git_icon.svg_4960460600724541390_hudb4b50cbba5c7134db6371c02b8f444c_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Part IV: git and GitHub</h2>
+      <p><ul>
+<li>R project management series -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2022.04.28-git-github/">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            git, R projects, LCBC
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Mar 31, 2022
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/unnamed-chunk-3-1_9127775727475366717_hu9f1f3a334f83d34c5a11d99b30477080_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Part III: Package management</h2>
+      <p><ul>
+<li>R project management series -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2022.03.31-pkg-management/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Mar 03, 2022
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/unnamed-chunk-5-1_8103376979671361725_hu478e80242c1972ecac8129b7e01256c4_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Part II: Organising your files and workflow</h2>
+      <p><ul>
+<li>R project management series -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2022.03.03-fileorg/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Feb 03, 2022
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/unnamed-chunk-5-1_891703768933567719_hu478e80242c1972ecac8129b7e01256c4_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Part I: RStudio projects</h2>
+      <p><ul>
+<li>R project management series -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2022.02.03-rproj/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Jan 20, 2022
+        </div>
+      
+        
+        
+
+        
+        
+        <p></p>
+        
+          
+              <p>No Local Image Found</p>
+          
+        
+        
+        
+        
+      <h2>R package development</h2>
+      <p><ul>
+<li>creating and distributing -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2022.01.20-rse-pgk/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Nov 25, 2021
+        </div>
+      
+        
+        
+
+        
+        
+        <p></p>
+        
+          
+              <p>No Local Image Found</p>
+          
+        
+        
+        
+        
+      <h2>LCBC Wiki</h2>
+      <p><ul>
+<li>What, When &amp; How -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.11.25-lcbc-wiki/">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            LCBC, Wiki
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Oct 07, 2021
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/chapters-world_15462032404081280935_hu8c6af3a1d5490a726d1271f07d778a21_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Building resources for an international organisation</h2>
+      <p><ul>
+<li>Multilingual websites &amp; YouTube channels -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.10.07-wids-rladies-panel/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Sep 07, 2021
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/noas_with_software_trimmed_17322115724804244037_hu50fa65f730f191e30551a3cbff4a907f_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>A different kind of data base</h2>
+      <p><ul>
+<li>creating a custom data storage, management and user export tool for a research lab -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.09.07-usit-noas/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Sep 07, 2021
+        </div>
+      
+        
+        
+
+        
+        
+        <p></p>
+        
+          
+              <p>No Local Image Found</p>
+          
+        
+        
+        
+        
+      <h2>Advanced use of R</h2>
+      <p><ul>
+<li>creating and distributing R packages for internal and public use -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.09.07-usit-nettskjemar/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Jun 03, 2021
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/unnamed-chunk-5-1_3070678731521352779_hu478e80242c1972ecac8129b7e01256c4_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Using nettskjemar</h2>
+      <p><ul>
+<li>for transparent data flows -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.06.03-nettskjemar/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          May 12, 2021
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/plot31-output2-1_12079663041713227699_hue601c742c9f1043c63c017a512110667_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Zhoozh up your ggplots!</h2>
+      <p><ul>
+<li>customizing your plots -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.05.12-rladies-edinburgh-ggplot/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Apr 20, 2021
+        </div>
+      
+        
+        
+
+        
+        
+        <p></p>
+        
+          
+              <p>No Local Image Found</p>
+          
+        
+        
+        
+        
+      <h2>Visualizing brain data</h2>
+      <p><ul>
+<li>the ggseg-suite of R-packages -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.04.20-princeton-ggseg/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Apr 19, 2021
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/mri_oven_12118994930216977854_hu236be59a5e489dbcdf6bfc87c36883ff_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>MRI</h2>
+      <p><ul>
+<li>a quick introduction -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.04.19-princeton-mri-overview/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Apr 12, 2021
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/ggplot2_1028003708659007415_hu69294cff76dfdfc06b81ac1568ca7fb5_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>R for visualisation</h2>
+      <p><ul>
+<li>the ggplot2 way -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.04.12-bna2021-ggplot2/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Mar 10, 2021
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/david-tip-u_yzZGO1WeY-unsplash_2472193646645210059_hu17a63a818aa1b79d71cb2353de238d44_0_400x400_fit_q75_box.jpg') center no-repeat;"
+          ></div>
+        
+      <h2>Make something random</h2>
+      <p><ul>
+<li>learn something useful -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2021.03.10-rladies-helsinki-colorhex/">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            R, R-Ladies, R-dev
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Nov 27, 2020
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+          <div class="timeline-img-header" 
+              style="background: url('https://drmowinckels.io/aseg_new_5363835830004032780_huafb722267ec6d2b94d9962c4cd3e47a8_0_400x400_fit_box_3.png') center no-repeat;"
+          ></div>
+        
+      <h2>Visualizing brain data</h2>
+      <p><ul>
+<li>the ggseg-suite of R-packages -</li>
+</ul>
+</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/talks/slides/2020.11.27-norment-ggseg/">
+            Slides
+          </a>
+        
+      
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Nov 10, 2020
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+      <h2>NHS-R: Visualizing brain data</h2>
+      
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/nhsr-2020/#1">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            visualisation, ggseg
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          May 11, 2020
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+      <h2>Reports to impress your boss</h2>
+      <p>Rmarkdown magic</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://rladies.org/meetup-presentations_oslo/2020-05-11-rmarkdown_like_a_boss/presentation.html#1">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            R, Rmarkdown, R-Ladies
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Jan 20, 2020
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+      <h2>Longitudinal mixed models</h2>
+      
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://drmowinckels.io/CPH_presentation/">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            visualisation, ggseg
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Sep 30, 2019
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+      <h2>Data tidying</h2>
+      <p>with dplyr and tidyr</p>
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://rladies.org/meetup-presentations_oslo/2019-09-30-data_tidying_Mo/data_tidying-Mo.html#1">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            R, data science
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+        <div class="timeline-item">
+    <div class="timeline-img"></div>
+    <div class="timeline-content js--fadeInLeft">
+      
+      
+        
+        <div class="date">
+          Apr 23, 2018
+        </div>
+      
+        
+        
+
+        
+          
+        
+        
+        
+        
+      <h2>Adding external images to plots</h2>
+      
+      <div class="uk-flex uk-flex-between uk-flex-middle ">
+        
+          <a class="bnt-more" href="https://rladies.org/meetup-presentations_oslo/2018-04-23-external-images-to-plots/AddingExternalImages.html">
+            Slides
+          </a>
+        
+      
+        
+          <span class="uk-text-right">
+            visualization, R
+          </span>
+        
+      </div>
+      
+    </div>
+</div> 
+      
+     
+  </div>
+</section>
+
+<script>
+  $(function(){
+
+    window.sr = ScrollReveal();
+  
+    if ($(window).width() < 768) {
+  
+      if ($('.timeline-content').hasClass('js--fadeInLeft')) {
+        $('.timeline-content').removeClass('js--fadeInLeft').addClass('js--fadeInRight');
+      }
+  
+      sr.reveal('.js--fadeInRight', {
+        origin: 'right',
+        distance: '300px',
+        easing: 'ease-in-out',
+        duration: 800,
+      });
+  
+    } else {
+      
+      sr.reveal('.js--fadeInLeft', {
+        origin: 'left',
+        distance: '300px',
+        easing: 'ease-in-out',
+        duration: 800,
+      });
+  
+      sr.reveal('.js--fadeInRight', {
+        origin: 'right',
+        distance: '300px',
+        easing: 'ease-in-out',
+        duration: 800,
+      });
+  
+    }
+    
+    sr.reveal('.js--fadeInLeft', {
+        origin: 'left',
+        distance: '300px',
+        easing: 'ease-in-out',
+        duration: 800,
+      });
+  
+      sr.reveal('.js--fadeInRight', {
+        origin: 'right',
+        distance: '300px',
+        easing: 'ease-in-out',
+        duration: 800,
+      });
+  });
+</script>
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

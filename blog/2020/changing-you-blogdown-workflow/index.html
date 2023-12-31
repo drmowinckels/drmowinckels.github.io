@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Changing your Blogdown Workflow - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen. I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes.
+But last week I finally got working on it, and decided I would not stop until I had it done." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Changing your Blogdown Workflow - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen. I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes.
+But last week I finally got working on it, and decided I would not stop until I had it done.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen. I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes.
+But last week I finally got working on it, and decided I would not stop until I had it done.">
+
+
+
+    <meta property="og:image" content="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/lucille_sassy.gif" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/lucille_sassy.gif">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/lucille_sassy.gif" alt="Changing your Blogdown Workflow" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">Changing your Blogdown Workflow</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                May 25, 2020
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label uk-label-secondary tags" >
+                                hugo
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/blogdown/" class="uk-label uk-label-secondary tags" >
+                                blogdown
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-alter-my-workflow-from-knitting-html-to-knitting-md">1. alter my workflow from knitting <code>.html</code> to knitting <code>.md</code></a>
+      <ul>
+        <li><a href="#so-what-does-the-change-_mean_">So what does the change <em>mean</em>?</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-locate-theme-changes-breaking-the-webpage">2. locate theme changes breaking the webpage</a></li>
+    <li><a href="#3-figuring-out-why-local-rendering-was-fine-while-netlify-was-not-implementing-css">3. figuring out why local rendering was fine, while netlify was not implementing css</a></li>
+    <li><a href="#webpage-updated">Webpage updated!</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was <em>a lot</em> of work that needed to be done to make that happen.
+I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes.</p>
+<p>But last week I finally got working on it, and decided I would not stop until I had it done.
+I hoped this would take a day or two, my <a href="https://toggl.com/">toggl</a> tells me I did almost 5 days of work to get it working.
+OK, some of that was also preparing for contributing some changes to my theme, but still.
+I hit <em>a lot</em> of extra hurdles, and I&rsquo;ll try to document them all here, so that others might benefit from my struggles and avoid having to spend so much time in getting their blogdown updated.</p>
+<p><strong>Changes I did in short:</strong></p>
+<ol>
+<li>alter my workflow from knitting <code>.html</code> to knitting <code>.md</code></li>
+<li>locate theme changes breaking the webpage</li>
+<li>figuring out why local rendering was fine, while netlify was not implementing css</li>
+</ol>
+<p>These things might not look like much, but figuring out what needed to be done was quite a toil.
+So let&rsquo;s get to it!</p>
+<h2 id="1-alter-my-workflow-from-knitting-html-to-knitting-md">1. alter my workflow from knitting <code>.html</code> to knitting <code>.md</code></h2>
+<p><img src="https://media.giphy.com/media/3o7TKtZ6eYyq506j04/giphy.gif" alt=""><!-- --></p>
+<p>This was a major change to how I work.
+After discussions with <a href="https://twitter.com/ma_salmon">Maëlle Salmon</a> and <a href="https://twitter.com/TheStephLocke">Steph Locke</a> about the caveats of blogdown rendering directly from <code>.Rmd</code> to <code>.html</code>, I decided to follow their advice and change the way I make content for my webpage.</p>
+<p>To be concise, blogdown is usually used with <a href="https://gohugo.io/">go hugo</a> a static webpage builder.
+Hugo renders markdown <code>.md</code> to <code>html</code> (plus some extra things, we will see some later), and basically sets up all the internal logics of your webpage as long as you theme is correctly set up.
+This is super convenient, and is one of the things that makes it popular.
+Blogdown renders directly from <code>.Rmd</code> to <code>.html</code>, meaning it circumvents hugo&rsquo;s processing of <code>md</code> to <code>html</code>.
+This can cause some unwanted issues when rendering pages, all depending on your theme.
+It can also make it difficult to maintain your webpage over time, as small changes might prompt or make it necessary to re-knit old posts, and we all know how difficult it can be with R-versions and package-versions over time.</p>
+<p>Furthermore, blogdown does not take <em>real</em> advantage of hugo <a href="https://gohugo.io/content-management/page-bundles/">page bundles</a>.
+Page bundles are great as instead of making a single file for a post, you create a <code>subfolder</code> for the post (i.e. sub-folder is the posts slug), and the document file is simply called <code>index.Rmd</code>.
+Bundles will have all files within the sub-folder copied over to <code>public</code> (where hugo by default places all rendered website), meaning your post can work with relative file paths.
+Previously, you needed to have an awkward workflow having (for instance) data or image files in a location for your <code>.Rmd</code> to access, and <em>also</em> in <code>static</code> for it to be copied over to the website resources.
+such a pain, using bundles makes all this a thing of the past!</p>
+<p>Lastly, in my case my theme relied on using the code fencing in the <code>md</code>s (i.e. the back-ticks used in <code>md</code>&rsquo;s to indicate that there piece of text is code) for it to format the code with code highlighting.
+Because blogdown renders directly to <code>html</code> there is not code fencing and all my code just looked like the normal blog text.
+This made for pretty hard to read posts.</p>
+<p>function(s) s*100</p>
+<p>That does not look as good or understandable as</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">function</span>(s) s<span style="color:#f92672">*</span><span style="color:#ae81ff">100</span>
+</span></span></code></pre></div><p>I was not the only blogdowner using this theme that met this <a href="https://github.com/victoriadrake/hugo-theme-introduction/issues/127">issue</a>.
+To get syntax highlighting working again, meant circumventing blogdowns html, and letting hugo do the <code>md -&gt; html</code></p>
+<p>So what we are trying to do is to make <code>Rmd -&gt; md</code> in R, so we can work with code chunks, then let hugo do the <code>md -&gt; html</code>.</p>
+<h3 id="so-what-does-the-change-_mean_">So what does the change <em>mean</em>?</h3>
+<p>a) start using page bundles<br>
+b) force <code>.Rmd</code> to knit to <code>.md</code><br>
+c) stop using <code>blogdown::serve_site()</code><br>
+d) apply small changes to <code>config.toml</code></p>
+<p>Both of these are things we want to do to make sure that we make <code>.md</code>&rsquo;s that hugo will convert to <code>.html</code> rather than having blogdown make the <code>.html</code>.
+This means we take advantage of lots of brilliant hugo features, that we are missing out of when using blogdown.</p>
+<h4 id="a-start-using-page-bundles">a) start using page bundles</h4>
+<p>I&rsquo;ve already hinted as some of the brilliance of page bundles, but a great explanation of it can be found in <a href="https://alison.rbind.io/post/2019-02-21-hugo-page-bundles/">Alison Hill&rsquo;s post on page bundles</a>, where also I got the information on how to switch to page bundles.</p>
+<p>To enable page bundles for blogdown you need to do some alteration in your <code>.Rprofile</code>, so that when you start a new post through the addin some information is already pre-chosen for you.
+That way you won&rsquo;t need to set it <em>each time</em> your self.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># install.packages(&#34;usethis&#34;) </span>
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">edit_r_profile</span>(scope <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;project&#34;</span>)
+</span></span></code></pre></div><p>Mine looks like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># in .Rprofile of the website project</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">file.exists</span>(<span style="color:#e6db74">&#34;~/.Rprofile&#34;</span>)) {
+</span></span><span style="display:flex;"><span>  base<span style="color:#f92672">::</span><span style="color:#a6e22e">sys.source</span>(<span style="color:#e6db74">&#34;~/.Rprofile&#34;</span>, envir <span style="color:#f92672">=</span> <span style="color:#a6e22e">environment</span>())
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(blogdown.new_bundle <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,        <span style="color:#75715e"># force making page bundle (i.e folder instead of single file)</span>
+</span></span><span style="display:flex;"><span>        blogdown.author <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Dr. Mowinckel&#34;</span>, <span style="color:#75715e"># Who the author of posts is</span>
+</span></span><span style="display:flex;"><span>        blogdown.ext <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;.Rmd&#39;</span>,             <span style="color:#75715e"># File extension for posts</span>
+</span></span><span style="display:flex;"><span>        blogdown.subdir	 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blog&#34;</span>)         <span style="color:#75715e"># subfolder for posts to be placed in</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Make sure to end the file in an empty line</span>
+</span></span></code></pre></div><p>You&rsquo;ll need to restart R for the profile to be implemented, and from then on you will be working with page bundles instead of single files.
+Just put your data and extra images, whatever you need, inside the post folder and they will be ported together with the post it self.</p>
+<p><strong>What about all my old posts</strong>?
+Good question.
+In my case I needed to re-knit everything, so that I would get the files created correctly for the bundle.
+Thankfully last year was unfruitful blog-wise due to a pretty abyssal personal year.
+So the poor blogging was a saviour when doing this, as there was not too much to redo.</p>
+<p>Before going through each individual post and making sure it was knitting as expected, I prepared things for bundling using a bash loop.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd content/blog
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> f in <span style="color:#66d9ef">$(</span>ls *Rmd<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span>     <span style="color:#75715e"># loop through all Rmd</span>
+</span></span><span style="display:flex;"><span>  mkdir -p <span style="color:#e6db74">${</span>f%.*<span style="color:#e6db74">}</span>/;        <span style="color:#75715e"># takes way the extension, and makes the folder</span>
+</span></span><span style="display:flex;"><span>  mv $f <span style="color:#e6db74">${</span>f%.*<span style="color:#e6db74">}</span>/index.Rmd;  <span style="color:#75715e"># moved file into folder and renames it to index.Rmd</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><p>Now all folders and files were placed in correct bundles.
+I &ldquo;just&rdquo; had to go through each and make sure I could knit them, while also applying <strong>b)</strong> below.</p>
+<h4 id="b-force-rmd-to-knit-to-md">b) force <code>.Rmd</code> to knit to <code>.md</code></h4>
+<p>Second thing is to make sure you get an <code>.md</code> file of your post.
+Blogdown actually does render an <code>.md</code> before rendering the <code>.html</code> but that intermediary file is discarded once the <code>.html</code> is done.
+We want to keep it, and thankfully we can tell blogdown to <em>not</em> delete it.</p>
+<p>in the <code>yaml</code> of the post, you should replace <code>output: html_document</code> with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">output</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">html_document</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">keep_md</span>: <span style="color:#66d9ef">yes</span>
+</span></span></code></pre></div><p>This will make the <code>md</code> remain after the <code>html</code> is rendered.</p>
+<p>Since we want this to happen to every post we make, we should make sure it ends up in each yaml.
+To do so we should alter or create an archetype for the blogpost.</p>
+<p>Alison has also written a great post about <a href="https://alison.rbind.io/post/2019-02-19-hugo-archetypes/">hugo archetypes</a>, where you can get some great information about it.
+Archetypes depend on your theme, so really you should look at the archetypes already existing in your theme and see what your options are.</p>
+<p>In this case, we are adding something to the archetype which does not already exist, we want to add the yaml bit above, so that is ends up in every new post.</p>
+<p>If your project does not already have an <code>archetypes</code> folder, make one, and create a file within that folder again with the name of your archetype.
+You can have several archetypes, maybe you have a series of posts with some specific yaml content or the like, and you should therefore name them something that makes it obvious to you what the archetype contains.</p>
+<p>In my archetype for blogpost, it looks like so:</p>
+<pre tabindex="0"><code></code></pre><p>where I have made sure that I am the author, that date and title are auto-filled, and a reminder to me to add an <code>image</code> for my post, which is important to the adjustment I made to my theme (the grid of posts with the images).
+I&rsquo;ll get to <code>always_allow_html: true</code> later.</p>
+<p>Notice also I have added the snippet of <code>yaml</code> from above.
+This means that every post based on this archetype will have a yaml containing the information I need to make sure it is keeping the <code>md</code> made.</p>
+<h4 id="c-stop-using-blogdownserve_site">c) stop using <code>blogdown::serve_site()</code></h4>
+<p>now, we need to stop using <code>blogdown::serve_site()</code> because it messes up with the above workflow.
+If you have knit an <code>.Rmd</code> before you will have noticed that it makes a folder called <code>[title]_files/</code>.
+In this folder, all images, widgets etc. from your code chunks in the <code>.Rmd</code> are stored, so that the end document has access to what the code has made.
+Blogdown has a pipeline that takes this folder, renames it and places in static, and also alters come pieces in the <code>html</code> to access the files from this renames and relocated folder.
+We don&rsquo;t want this any more.
+Since we are bundling the page, the folder made for the post is within the bundled folder, meaning it will be ported with all other files and all paths are already working.
+If you run <code>blogdown::serve_site()</code> it will mess up the nice changes we have made!</p>
+<p>The new way I work now is that I run <code>hugo serve</code> in the terminal tab of Rstudio,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo serve
+</span></span></code></pre></div><pre tabindex="0"><code>Watching for changes in /Users/athanasm/R-stuff/DrMowinckels/{archetypes,assets,content,i18n,layouts,static,themes}
+Watching for config changes in /Users/athanasm/R-stuff/DrMowinckels/config.toml
+Environment: &#34;development&#34;
+Serving pages from memory
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
+Press Ctrl+C to stop
+</code></pre><p>Then I can have the <code>http://localhost:1313/</code> page open in my browser, to watch the changes I make to my posts render.
+In Rstudio, I work with the <code>.Rmd</code> files, and when I want to see how things look, I render the page (i.e. knit it with <code>cmd/ctrl</code>+ <code>shift</code> <code>k</code>).
+After the page knits, the changes will appear in the browser.</p>
+<p>I find this to be just as convenient as before, actually a little more convenient that <code>serve_site</code>, because it will not do loops of doom when something is wrong in the code chunks, it will just fail to knit, and I can see the error message clearly.</p>
+<h4 id="d-apply-small-changes-to-configtoml">d) apply small changes to <code>config.toml</code></h4>
+<p>If you already have a blogdown page, or have started tinkering with one, you will have seen the <code>config.toml</code> already.
+It is the main source for easily changing certain parameters for your page, personalizing it.
+When you start a webpage using blogdown, this file will already have some small changes to it, so that it works well with blogdown.
+If you change your workflow like I have, you will need to do some more changes.</p>
+<p>The <code>ignoreFiles</code> list must be expanded.
+Because our posts are making <code>html</code> we have to tell hugo to ignore them, or else they will prevent hugo from turning the  <code>md</code>&rsquo;s to <code>html</code>!
+Hugo is smart, it will not render something already rendered, but in our case we want it to!
+Since our posts are bundled we add <code>index\\.html</code> to the ignore list, and then it will not port those with the bundles pages, leaving the rendering to hugo.</p>
+<p>You might also need to add some more, depending on your theme and other pages.
+In my case, I want hugo to ignore the <code>about.html</code> also, to ignore some files in the static folder if they are made (i.e. this would happen if I ran serve_site by accident), and to ignore the <code>README</code> files which are just repository information.</p>
+<pre tabindex="0"><code>ignoreFiles = [&#34;\\.Rmd$&#34;, &#34;\\.Rmarkdown$&#34;, &#34;_cache$&#34;, &#34;index\\.html&#34;, &#34;about\\.html&#34;, &#34;static/blog/\\*_files/&#34;, &#34;README&#34;] 
+</code></pre><p>Another thing for the toml is to make sure that html within the <code>md</code>s are rendered.
+By default, hugo will not render things written in html.
+While plain markdown (<code>md</code>) does render it, hugo will omit it.</p>
+<p>If you look into the <code>html</code> made by hugo, you will suddenly see a bit looking like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- raw html omitted --&gt;</span>
+</span></span></code></pre></div><p>This was madness to me. I had no idea where this was coming from.
+I first thought it was a blogdown thing, and was frantically searching around in blogdown forums and github issues to figure it out.
+I found many people saying I needed <code>always_allow_html: true</code> in the yaml to make it work.
+Which I did, and it did not really work, I say really because it worked for most but not all cases (I could not get html widgets to work).</p>
+<p>Then i finally understood it was hugo!
+In addition to adding <code>always_allow_html: true</code> to the yaml of the post (which is why it is now in my archetype), I also needed hugo to compile in a specific way!
+I needed to tell hugo which markup (hugo&rsquo;s name for markdown) handler to use!
+I found <a href="https://jdhao.github.io/2019/12/29/hugo_html_not_shown/">this post</a> on jdhaos blog on this exact issue.
+In my <code>config.toml</code> I added:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">markup</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">defaultMarkdownHandler</span> = <span style="color:#e6db74">&#34;blackfriday&#34;</span>
+</span></span></code></pre></div><p>and presto! site was also rendering html content and widgets!</p>
+<p><img src="https://media.giphy.com/media/l8XYZYdlOHSrS/giphy.gif" alt=""><!-- --></p>
+<h2 id="2-locate-theme-changes-breaking-the-webpage">2. locate theme changes breaking the webpage</h2>
+<p>Then once I had that in place, I needed to figure out what in my theme had changed, to work with newer hugo.
+This was a bit of a pain, a lot of internal logic in my theme had changed, and I needed to find them to get it fixed.
+One main thing was that projects, blog etc. were altered to work with page bundles. Once I understood this it became more clear what I needed to do.
+Rather than have <code>content/projects/ggseg.Rmd</code> I needed to have <code>content/projects/ggseg/index.Rmd</code> just like the blogposts.
+I did this for my projects, but they were still not displaying.</p>
+<p>Then I realised that my theme needed another special index file within <code>contect/projects</code> for it to be rendered on the home page:</p>
+<p><code>content/projects/_index.Rmd</code></p>
+<p>This contains minimal information in my case:</p>
+<pre tabindex="0"><code>
+Projects featured here are R-package development.
+While I am a scientist and have lost of research projects ongoing, here I&#39;d rather showcase the wonderful world of development I have started exploring.
+</code></pre><p>This was also necessary for <code>contents/blog</code>. Once those were in place, the main bulk of my page was working again.
+The remainder is very theme specific and a result of me tweaking my theme a lot within the <code>layouts</code> folder.
+I don&rsquo;t recommend doing many <code>layouts</code> changes, keep them minimal. In the new version I have now I have few extra layouts.</p>
+<h2 id="3-figuring-out-why-local-rendering-was-fine-while-netlify-was-not-implementing-css">3. figuring out why local rendering was fine, while netlify was not implementing css</h2>
+<p>After all this, <code>hudo serve</code> was rendering fine locally, and I started pushing a development branch to github so I could preview it on netlify.
+Thank you for this option!
+Again, Alison Hill has an <a href="https://alison.rbind.io/post/2019-03-04-hugo-troubleshooting/">amazing post</a>  on troubleshooting your build.
+I was seeing the problem she points to in #2, my page on netlify was not implementing the css, making the page look like some joke of a webpage from the early 90s (sans colours).
+I tried everything in that post, to no avail.
+My css was not being applied.</p>
+<p><a href="https://twitter.com/ma_salmon">Maëlle Salmon</a>  to the rescue again, telling me to have a look in my developers console.
+I am no developer, at least I don&rsquo;t&rsquo; think of myself as one, so I forget about this.
+In the rendered netlify page, I right clicked, chose <code>Inspect</code> and in the pane that opened chose the <code>console</code>.
+I have used the <code>elements</code> page a lot, to figure out where I could tweak my css to look like I wanted, and do find where other issues might arise, but I&rsquo;ve not really ever used the console!</p>
+<p>and in the console was this beauty of an error:</p>
+<pre tabindex="0"><code>blocked by CORS policy: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource
+</code></pre><p>I had (and still have) no idea what that meant, but goggling an error is easy, so I did.
+And up popped <a href="https://community.netlify.com/t/access-control-allow-origin-policy/1813">this post</a> on the netlify forums providing an answer.
+Put a bit of information in your <code>netlify.toml</code>(not the <code>config.toml</code>!):</p>
+<pre tabindex="0"><code>[[headers]]
+  for = &#34;/*&#34;
+  [headers.values]
+    Access-Control-Allow-Origin = &#34;*&#34;
+</code></pre><p>I&rsquo;m really unsure what it does, or why it is needed.
+I know quite some bloggers using blogdown, hugo and netlify that have not had this issue.
+If you encounter it, I hope this pops up for you and you get it solved!</p>
+<h2 id="webpage-updated">Webpage updated!</h2>
+<p>Then finally, the webpage was up and running again.
+On a newer hugo, with an updated theme, and new theme tweaks I&rsquo;m really fond of.</p>
+<p><img src="lucille_sassy.gif" alt=""><!-- --></p>
+<p>In the future, perhaps we don&rsquo;t need to do a lot of this cumbersome stuff, if <a href="https://github.com/r-lib/hugodown">hugodown</a> gets developed and matures. I have high hopes for this package!</p>
+
+        </div>
+    </article>
+    
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Using Freesurfer annotation files to plot in R
+            </a>
+        
+    </div>
+    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/">
+                The Linear Regression Family in R
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
+    </div>
+</div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

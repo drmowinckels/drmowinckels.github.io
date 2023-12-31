@@ -1,184 +1,378 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>R for Psychologists - part II - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="It’s been a very long time since I wrote anything. Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on. I’m sitting in old town Fredrikstad while my cat is getting some tests at the vets’, so I finally get some time and want to write something here. And we will continue with some R for Psychologists.
+I my first R for Psychologists post we really dove into it." />
+  <meta name="author" content="DrMowinckels" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
         
-            <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
 
-<title>
-R for Psychologists Part Ii - Dr. Mowinckel&rsquo;s
-</title>
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="R for Psychologists - part II - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="It’s been a very long time since I wrote anything. Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on. I’m sitting in old town Fredrikstad while my cat is getting some tests at the vets’, so I finally get some time and want to write something here. And we will continue with some R for Psychologists.
+I my first R for Psychologists post we really dove into it.">
 
 
-
-            <meta property="og:title" content="R for Psychologists - part II - Dr. Mowinckel&rsquo;s" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content=""/>
-<meta property="og:url" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/"/>
-<meta property="og:site_name" content="Dr. Mowinckel&rsquo;s"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="It’s been a very long time since I wrote anything. Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on. I’m sitting in old town Fredrikstad while my cat is getting some tests at the vets’, so I finally get some time and want to write something here. And we will continue with some R for Psychologists.
+I my first R for Psychologists post we really dove into it.">
 
 
 
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/featured-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/unnamed-chunk-10-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/unnamed-chunk-11-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/unnamed-chunk-12-1.png"/>
-
-<meta property="og:image" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/unnamed-chunk-13-1.png"/>
+    <meta property="og:image" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/featured-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/featured-1.png">
 
 
 
-            
-<link rel="shortcut icon" href="https://drmowinckels.io/img/fav.ico.png">
-
-
-            
-
-
+        
   
-  
-  
-  <link rel="stylesheet" href="https://drmowinckels.io/css/main.min.8235b6920080e0a7f838f3272dcefed35808d4bd218e9f51f867612e95cab156.css" integrity="sha256-gjW2kgCA4Kf4OPMnLc7&#43;01gI1L0hjp9R&#43;GdhLpXKsVY=" crossorigin="anonymous" media="screen">
 
 
 
 
-    <link rel="stylesheet" href="https://drmowinckels.io/css/syntax.css" integrity="" crossorigin="anonymous" media="screen">
-    <link rel="stylesheet" href="https://drmowinckels.io/css/custom-style.css" integrity="" crossorigin="anonymous" media="screen">
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f56f1ea7e3941ea9813cf2db64e3f2414fb6840de5982a65a87fde99c0c23160.css" 
+    integrity="sha256-9W8ep&#43;OUHqmBPPLbZOPyQU&#43;2hA3lmCplqH/emcDCMWA=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
         
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
         
-        
-        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
     </head>
-    <body> 
-        <section id="top" class="section">
+    <body>
             
-            <div class="container hero  fade-in one " style="background-image: url(/img/logo_large.svg);">
-                
-                
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
 
-<h1 class="bold-title is-1">Blog</h1>
-
-
-            </div>
-            
-            <div class="section  fade-in two ">
-                
-<div class="container">
-    <hr>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
         
-        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-        <div class="navbar-menu " id="navMenu">
-            
-            
+
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container ">
+        <div uk-navbar>
+            <div class="uk-navbar-center">
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/">
-                            
-                            Home
-                            
-                        </a>
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
                     
-                
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/about">
-                            
+                    <li>
+                        <a href="https://drmowinckels.io/about">
                             About
                             
                         </a>
+                        
+                    </li>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#blog">
-                            
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
                             Blog
                             
                         </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
                     
                 
                     
-                        <a class="navbar-item" href="https://drmowinckels.io/#contact">
-                            
-                            Contact
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
                             
                         </a>
+                        
+                    </li>
                     
                 
-            
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
         </div>
     </nav>
-    <hr>
 </div>
 
 
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/index_files/figure-html/featured-1.png" alt="R for Psychologists - part II" class="uk-border-rounded">
+              
+            </div>
 
-                
-<div class="container">
-    <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/">R for Psychologists - part II</a>
-    </h2>
-    <div class="post-data">
-        Jul 17, 2019 |
-        52 minutes read
+        <div class="uk-width-3-4@s">   
+        <h1 class="uk-article-title">R for Psychologists - part II</h1>
+        <h3 class="uk-heading-line">
+            <span>ggplotting and long data</span></h3>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Jul 17, 2019
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r-for-psychologists/" class="uk-label uk-label-secondary tags" >
+                                R for psychologists
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
     </div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-      
-     <p>
-         Tags:
-          
-           <a href="https://drmowinckels.io/tags/r">
-             R</a>,
-         
-           <a href="https://drmowinckels.io/tags/r-for-psychologists">
-             R for psychologists</a>
-         
-        </p>
-      
-    
-      
-    
-
-    
-</div>
-
-<div class="container markdown top-pad">
-    <p>It&rsquo;s been a very long time since I wrote anything.
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ggplotting">Ggplotting</a></li>
+    <li><a href="#reshape-the-data">Reshape the data</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <div>
+            <p>It&rsquo;s been a very long time since I wrote anything.
 Life has been unexpectedly overwhelming for a period, still is I guess, but one musters on.
 I&rsquo;m sitting in old town Fredrikstad while my cat is getting some tests at the vets&rsquo;, so I finally get some time and want to write something here.
 And we will continue with some R for Psychologists.</p>
@@ -195,35 +389,34 @@ Just as in SPSS, data need to have the correct <code>types</code> or <code>class
 If you have not been working in R since the last tutorial, you should be able to open RStudio, and our project will open immediately, and your script from last time should already be ready for you to work with.
 Otherwise, either navigate to the folder where your project was made and click on the <code>Rproj</code>-file, or in the top right corner of RStudio, click the drop-down menu next to the R-project icon and select the <code>R-start</code> project.</p>
 <p>Our script from last time should look something like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">rio</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Start with importing the data</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">=</span> <span class="n">rio</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&#34;SPSS/experim.sav&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="c1"># then recode sex to Male and Female</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sex</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">sex</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;Male&#34;</span><span class="p">,</span><span class="s">&#34;Female&#34;</span><span class="p">)),</span>
-</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Gather depression variables into a tall depression data format.</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">=</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">depress</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;depress1&#34;</span><span class="p">,</span> <span class="s">&#34;depress2&#34;</span><span class="p">,</span> <span class="s">&#34;depress3&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">as.integer</span><span class="p">(</span><span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:alpha:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">time</span><span class="p">)))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">arrange</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Do a linear regression on depression over time</span>
-</span></span><span class="line"><span class="cl"><span class="nf">lm</span><span class="p">(</span><span class="n">depress</span><span class="o">~</span><span class="n">time</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">eData_tall</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="n">broom</span><span class="o">::</span><span class="nf">tidy</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># plot the regression</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">depress</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;lm&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rio)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Start with importing the data</span>
+</span></span><span style="display:flex;"><span>eData <span style="color:#f92672">=</span> rio<span style="color:#f92672">::</span><span style="color:#a6e22e">import</span>(<span style="color:#e6db74">&#34;SPSS/experim.sav&#34;</span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># then recode sex to Male and Female</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    sex <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(sex, labels<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Male&#34;</span>,<span style="color:#e6db74">&#34;Female&#34;</span>)),
+</span></span><span style="display:flex;"><span>    id <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gather depression variables into a tall depression data format.</span>
+</span></span><span style="display:flex;"><span>eData_tall <span style="color:#f92672">=</span> eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(time, depress, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;depress1&#34;</span>, <span style="color:#e6db74">&#34;depress2&#34;</span>, <span style="color:#e6db74">&#34;depress3&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(time <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.integer</span>(<span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;[[:alpha:]]&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,time))) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Do a linear regression on depression over time</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">lm</span>(depress<span style="color:#f92672">~</span>time, data<span style="color:#f92672">=</span>eData_tall) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  broom<span style="color:#f92672">::</span><span style="color:#a6e22e">tidy</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># plot the regression</span>
+</span></span><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>depress)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lm&#34;</span>)
 </span></span></code></pre></div><p>In this script we have already some both a plot (<code>ggplot</code>) and some data
 wrangling (<code>mutate</code>).</p>
-
-<h2 id="ggplotting" class="anchor-link"><a href="#ggplotting">Ggplotting</a></h2>
+<h2 id="ggplotting">Ggplotting</h2>
 <p><code>ggplot2</code> is a very powerful package for making plots.
 People who are used to plotting in SPSS or in base-R, find it hard to understand.
 I did to in the beginning, and it tok me some time before I understood how it works and how to make my data into the shape that it needs for the plots to end up just as I like them.
@@ -234,18 +427,18 @@ So much time spent fixing.</p>
 <p>But as I said last time, it takes time to get good enough in R to not need that step, and making the scripts also takes time.
 There are no quick-fix solutions, but I believe R makes the fixes faster, as they will be minor tweaks, or if new data comes in, just load the new data, and rerun, and presto all the plots are updated.</p>
 <p>Anyway, let&rsquo;s get into it. Lets have a look at the plot from last time, at the end of our script.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># plot the regression</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">depress</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#34;lm&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># plot the regression</span>
+</span></span><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>depress)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lm&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" alt=""><!-- --></p>
 <p>Alrighty, we have the individual data points for depression (y-axis) at each timepoint (x-axis) for all individuals as the scatter plot, and a regression-line fitted to that data.
 To reiterate what the code is doing: <em>&ldquo;Take <code>eData_tall</code>, plot with time on the x-axis, depress on the y-axis, create a scatter plot with a little bit of random noise, and add a regression line using a linear model.&rdquo;</em>
 Let&rsquo;s break that down a little bit by looking at the data again.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">glimpse</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">glimpse</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## Rows: 90
 ## Columns: 17
 ## $ id       &lt;fct&gt; 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, …
@@ -272,10 +465,9 @@ When you have data repeating over time, the <em>same data</em> repeated over tim
 <p>Now,last time, we only made <em>depress</em> into long format.
 But techincally, most of the data in this dataset is repeated, and thankfully named in such a way that it is quite easy for us to reshape the data.
 When we have done this, we can make some really nice plots too!</p>
-
-<h2 id="reshape-the-data" class="anchor-link"><a href="#reshape-the-data">Reshape the data</a></h2>
+<h2 id="reshape-the-data">Reshape the data</h2>
 <p>We&rsquo;ll go back to the original <code>eData</code> file for this.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">%&gt;%</span> <span class="nf">glimpse</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">glimpse</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## Rows: 30
 ## Columns: 18
 ## $ id       &lt;fct&gt; 4, 10, 9, 3, 12, 11, 6, 5, 8, 13, 14, 1, 15, 7, 2, 27, 25, 1…
@@ -299,8 +491,8 @@ When we have done this, we can make some really nice plots too!</p>
 </code></pre><p>Notice that in the dataset, all variables that are repeated have a number in their variable name, except <code>mah_1</code> which is not repeated, but we can work with that.
 This logic helps us a lot, as it will make it possible for us to wrangle the data into shape using that logic.</p>
 <p>As we did last time, we will use the <code>gather</code> function from <code>tidyverse</code> to make the data long, and use the logic of numbers in the column names to helps to get the data into shape.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(colName, value, <span style="color:#a6e22e">matches</span>(<span style="color:#e6db74">&#34;[123]&#34;</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><pre tabindex="0"><code>##     id    sex age group exam  colName      value
@@ -699,10 +891,10 @@ Let&rsquo;s face it, we&rsquo;ll never be computers, you will rarely write a com
 <p>In this case I said <em>&ldquo;Take <code>eData</code>, gather all variables that matches with 1,2 or 3 in their variable name, and place all the variable names into a column named <code>colName</code> and the values of those columns into a variable called <code>value</code>&rdquo;</em></p>
 <p>That was step one, now we want to make sure we have one column with the names of the columns <em>without</em> the numbers in one variable, and the numbers into a column named <code>time</code>.
 We are going to use <code>mutate</code> for that in this case.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(colName, value, <span style="color:#a6e22e">matches</span>(<span style="color:#e6db74">&#34;[123]&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(time <span style="color:#f92672">=</span> <span style="color:#a6e22e">parse_number</span>(colName),
+</span></span><span style="display:flex;"><span>         colName <span style="color:#f92672">=</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;[[:digit:]]&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,colName))
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><pre tabindex="0"><code>##     id    sex age group exam colName      value time
@@ -1099,54 +1291,54 @@ We are going to use <code>mutate</code> for that in this case.</p>
 </code></pre><p>We are mutating two variables.
 Firstly, we are extracting any numder from the <code>colName</code> variable and placing that into a new variable called <code>time</code> wuth <code>parse_number</code>, then we are removing all digits from <code>colName</code> and overwriting it using <code>gsub</code>.
 I like this output for now, so we are going to save it, since this data is more like the data I want, I&rsquo;m overwriting <code>eData_tall</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">&lt;-</span> eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(colName, value, <span style="color:#a6e22e">matches</span>(<span style="color:#e6db74">&#34;[123]&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(time <span style="color:#f92672">=</span> <span style="color:#a6e22e">parse_number</span>(colName),
+</span></span><span style="display:flex;"><span>         colName <span style="color:#f92672">=</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;[[:digit:]]&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,colName))
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><p>Because the data are in such a long format now, such that even different types of observations are in one column (<code>value</code>), made distinct by the information in the <code>colName</code> variable, we can actually plot them all in one <code>ggplot</code> command!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
 <p>Look at that, suddenly we have a histogram for each of the variables!
 What we did there was <em>&ldquo;Take the data in <code>eData_tall</code> and plot <code>value</code> on the x-axis, make histograms of that, and create different facets (panels) using the information in <code>colName</code>&rdquo;</em>.
 Now we also see that apparently there was a naming inconsistency with the <code>DepTgp</code> variables, where one was typed as <code>Gp</code> instead of <code>gp</code>.
 We will fix that before we continue.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">&lt;-</span> <span class="n">eData</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">gather</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nf">matches</span><span class="p">(</span><span class="s">&#34;[123]&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="nf">parse_number</span><span class="p">(</span><span class="n">colName</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;[[:digit:]]&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="n">colName</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">         <span class="n">colName</span> <span class="o">=</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#34;Gp&#34;</span><span class="p">,</span> <span class="s">&#34;gp&#34;</span><span class="p">,</span> <span class="n">colName</span><span class="p">,</span> <span class="n">ignore.case</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">&lt;-</span> eData <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">gather</span>(colName, value, <span style="color:#a6e22e">matches</span>(<span style="color:#e6db74">&#34;[123]&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(time <span style="color:#f92672">=</span> <span style="color:#a6e22e">parse_number</span>(colName),
+</span></span><span style="display:flex;"><span>         colName <span style="color:#f92672">=</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;[[:digit:]]&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,colName),
+</span></span><span style="display:flex;"><span>         colName <span style="color:#f92672">=</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;Gp&#34;</span>, <span style="color:#e6db74">&#34;gp&#34;</span>, colName, ignore.case <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><p>I&rsquo;ve added another line to our <code>mutate</code> function, saying to replace any instance of &ldquo;Gp&rdquo;, and &ldquo;gp&rdquo; and to make sure to do this as case sensitive.
 Let&rsquo;s see if our plot looks better now:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" alt=""><!-- --></p>
 <p>We can build more on that, because we also have the <code>time</code> variable, we can create a facet grid with histograms for each variable at each timepoint very easily</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_histogram</span><span class="p">()</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_grid</span><span class="p">(</span><span class="n">colName</span><span class="o">~</span><span class="n">time</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_grid</span>(colName<span style="color:#f92672">~</span>time)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-11-1.png" alt=""><!-- --></p>
 <p>I think that&rsquo;s pretty neat.
 We can do that because the data is in long format, and everything is contained in just some few columns, and ggplot can therefore make some nice plots out of, rather than having to tell it about the 5 different columns the data would otherwise be in (one for each variable).
 Distribution plots might not be the most interesting though, let&rsquo;s look at a plot more similar like the one we did before, scatter plot with a regression line.</p>
 <p>The basic&rsquo;s are pretty much the same as above:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-12-1.png" alt=""><!-- --></p>
 <p>That&rsquo;s looking much as expected!
@@ -1154,12 +1346,12 @@ And we can see that <code>mah_</code> only has observations at <em>one</em> time
 It&rsquo;s no matter for us now.
 Since we are interested to have a look across time, we might as well omit <code>mah_</code> from the plot.
 We want the data to remain in the main data, but just not to plot it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="n">colName</span> <span class="o">!=</span> <span class="s">&#34;mah_&#34;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( colName <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;mah_&#34;</span>) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-13-1.png" alt=""><!-- --></p>
 <p>Now, we added a <code>filter</code> before we did <code>ggplot</code>.
@@ -1169,12 +1361,12 @@ It only has values of 0 and 1, and here indicates belonging to a treatment group
 In R, we would call that variable a logical, i.e. it is a variable indicating if some statement is TRUE (1)  or FALSE (0).
 A standard regression makes no sense in this case.
 Let&rsquo;s also filter away these, as they are not interesting here, just like we did with <code>mah_</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( <span style="color:#f92672">!</span> colName <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mah_&#34;</span>, <span style="color:#e6db74">&#34;DepTgp&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-14-1.png" alt=""><!-- --></p>
 <p>The <code>filter</code> now looks a little different than before.
@@ -1186,13 +1378,13 @@ In this case we are going <em>&ldquo;Take <code>eData_tall</code> and filter awa
 Let us also add some spaghetti in the background.
 By that I mean,let&rsquo;s connect the subject data points with lines, so we can see the individual trends in the background of the refression.
 This should also give us an idea whether there are datapoints that behave oddly over time.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( <span style="color:#f92672">!</span> colName <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mah_&#34;</span>, <span style="color:#e6db74">&#34;DepTgp&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-15-1.png" alt=""><!-- --></p>
 <p>That is looking very odd.
@@ -1201,13 +1393,13 @@ That is beause we are using <code>geom_jitter</code>, which generates a little r
 But this happens independently from <code>geom_line</code>, so the dots and lines dont know where they should connect.</p>
 <p>We can fix that,and I&rsquo;ll break the process down, hopefully to make it understandable.
 First, let&rsquo;s replace <code>geom_jitter</code> with <code>geom_point</code> and see what happens.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">()</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( <span style="color:#f92672">!</span> colName <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mah_&#34;</span>, <span style="color:#e6db74">&#34;DepTgp&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-16-1.png" alt=""><!-- --></p>
 <p>The dots and lines are connecting, good.
@@ -1215,173 +1407,121 @@ Overplotting in this case is actally not too bad, in many cases like this, I&rsq
 But, I mostly have data with many more points, and so I need to find a way to reduce overplotting.</p>
 <p>We will be using the <code>ggplot2</code>&rsquo;s function <code>position_dodge</code> to introduce noise to both the lines and the points.
 We will also need to make sure both the lines and the dots have the correct group setting, letting ggplot know that lines and dots are grouped by <code>id</code>, meaning that data with the same values in <code>id</code> belong together.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">.5</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">.5</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( <span style="color:#f92672">!</span> colName <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mah_&#34;</span>, <span style="color:#e6db74">&#34;DepTgp&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id), position <span style="color:#f92672">=</span> <span style="color:#a6e22e">position_dodge</span>(width<span style="color:#f92672">=</span><span style="color:#ae81ff">.5</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id), position <span style="color:#f92672">=</span> <span style="color:#a6e22e">position_dodge</span>(width<span style="color:#f92672">=</span><span style="color:#ae81ff">.5</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-17-1.png" alt=""><!-- --></p>
 <p>See, now there is a little more space between the points so you can see them all, but everything still connects correctly.
 The lines and points are a little too domineering , so let&rsquo;s reduve their opacity/transparency, byt reducing the àlpha` setting for those two geoms.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dodge <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">position_dodge</span>(width <span style="color:#f92672">=</span> <span style="color:#ae81ff">.5</span>)
+</span></span><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( <span style="color:#f92672">!</span> colName <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mah_&#34;</span>, <span style="color:#e6db74">&#34;DepTgp&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id), position <span style="color:#f92672">=</span> dodge, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id),position <span style="color:#f92672">=</span> dodge, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-18-1.png" alt=""><!-- --></p>
 <p>When we adjust the <code>alpa</code>, we can also see that there still is some overplotting.
 This is because we cannot create noise in the y-axis, that would be akin to data-manipulation, we should not enter noise in the obsvered measurements.
 But the alpa helps us see that, and now the regression line is a little more obious too.</p>
 <p>The last thing for today, is changing the regression lines and CI band colour, to make it &ldquo;pop&rdquo; more.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;forestgreen&#34;</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;forestgreen&#34;</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dodge <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">position_dodge</span>(width <span style="color:#f92672">=</span> <span style="color:#ae81ff">.5</span>)
+</span></span><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( <span style="color:#f92672">!</span> colName <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mah_&#34;</span>, <span style="color:#e6db74">&#34;DepTgp&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id), position <span style="color:#f92672">=</span> dodge, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id),position <span style="color:#f92672">=</span> dodge, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>, colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;forestgreen&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;forestgreen&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" alt=""><!-- --></p>
 <p>In this case, altering the colour is very easy, because we set the colour (line)  and fill (CI band)  to be a single value (not within aes).
 By setting the colour like this, all panels get the same.
 We could also use the <code>colName</code> variable to give each panel it&rsquo;s own colour.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">dodge</span> <span class="o">&lt;-</span> <span class="nf">position_dodge</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">.5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">eData_tall</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">filter</span><span class="p">(</span> <span class="o">!</span> <span class="n">colName</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;mah_&#34;</span><span class="p">,</span> <span class="s">&#34;DepTgp&#34;</span><span class="p">))</span> <span class="o">%&gt;%</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span> <span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span> 
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">id</span><span class="p">),</span><span class="n">position</span> <span class="o">=</span> <span class="n">dodge</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">.2</span><span class="p">)</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">geom_smooth</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#34;lm&#34;</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="n">colName</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">colName</span><span class="p">))</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">colName</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dodge <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">position_dodge</span>(width <span style="color:#f92672">=</span> <span style="color:#ae81ff">.5</span>)
+</span></span><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>( <span style="color:#f92672">!</span> colName <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mah_&#34;</span>, <span style="color:#e6db74">&#34;DepTgp&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id), position <span style="color:#f92672">=</span> dodge, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id),position <span style="color:#f92672">=</span> dodge, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>, show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span>colName, fill<span style="color:#f92672">=</span>colName)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
 </code></pre><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
 <p>that is pretty neat, right?</p>
 <p>That&rsquo;s all for this time. We&rsquo;re explored more plots, and ways to change the data, so it becomes easy to plot in this faceted way.</p>
 <p>Next time, we will be working on changing factors and factor levels both to make the data correctly portray what it should, and also to help us make our plots meaningful.</p>
 
-
+        </div>
+    </article>
     
-    <h3>Citation</h3>
-    <div class="columns">
-      <div class="column is-half">
-        For attribution, please cite this work as
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            DrMowinckels (Jul 17, 2019) R for Psychologists - part II. Retrieved from https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/
-          </p>
-        </div>
-      </div>
-      <div class="column is-half">
-        <b>BibTeX citation</b>
-        <div class="highlight" style="border: 1px solid grey">
-          <p style="padding: 1em;font-family: 'monospace">
-            @misc{ 2019-r-for-psychologists-part-ii,<br>
-            &emsp;author = { DrMowinckels },<br>
-            &emsp;title = { R for Psychologists - part II },<br>
-            &emsp;url = { https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/ },<br>
-            &emsp;year = { 2019 }<br>
-            &emsp;updated = { Nov 7, 2023 }<br>
-            }
-          </p>
-        </div>
-      </div>
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration
+            </a>
+        
     </div>
-  
-
-</div>
-
-
-<div class="container giscus my-4">
-    <script src="https://giscus.app/client.js"
-        data-repo=DrMowinckels/DrMowinckels.github.io
-        data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
-        data-category=Comments
-        data-category-id=DIC_kwDOB1wEpM4CAG0c
-        data-mapping=pathname
-        data-reactions-enabled=1
-        data-emit-metadata=0
-        data-theme=light
-        data-lang=en
-        crossorigin="anonymous"
-        async>
-    </script>
-</div>
-
-
-
-                
-                <div class="container">
-    <hr>
-</div>
-<div class="container has-text-centered top-pad">
-    <a href="#top">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-
-<div class="container">
-    <hr>
-</div>
-
-                <div class="section" id="footer">
-    <div class="container has-text-centered">
     
-        <span class="footer-text">
-            Athanasia Monika Mowinckel <i class="fab fa-creative-commons" aria-hidden="true"></i>-<i class="fab fa-creative-commons-by"></i>-<i class="fab fa-creative-commons-sa"></i>-2020. Feeding to <a href="https://rweekly.org'">R weekly</a>. View source code on <a href="https://github.com/Athanasiamo/DrMowinckels"><i class="fab fa-github"></i></a>.
-        </span>
-    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/">
+                Plotting GAMM interactions with ggplot2
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
     </div>
 </div>
+     
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
 
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
                 
+              </div>
             </div>
-        </section>
-        
-        
-
-
-<script src="https://drmowinckels.io/js/bundle.5c23c0437f001a469ca373a465a6f7487203d18e10cdff76d86a60af66d5ee28.js" integrity="sha256-XCPAQ38AGkaco3OkZab3SHID0Y4Qzf922Gpgr2bV7ig=" crossorigin="anonymous">></script>
-
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-115545202-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-
-  <script defer data-domain=drmowinckels.io src="https://plausible.io/js/plausible.js"></script>
-
-
-
-
-
-
-        
-        
-        
-        
-    </body>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
 </html>
