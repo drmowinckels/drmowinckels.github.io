@@ -6,7 +6,6 @@ categories: []
 tags:
   - reflections
   - hugo
-#image: "lucille_sassy.gif"
 slug: "newyear-newblog"
 summary: "A new year, a new blog, and some reflections on the past year"
 ---
