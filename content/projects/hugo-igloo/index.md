@@ -3,9 +3,7 @@ title: "Hugo Igloo theme"
 image: "https://drmowinckels.io/hugo-igloo/theme.png"
 date: 2024-01-01
 tags:
-    - workshop
-    - tidyverse
-    - carpentry
+    - hugo
 social_media:
     - icon: github
       link: https://github.com/drmowinckels/hugo-igloo
