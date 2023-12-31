@@ -11,13 +11,6 @@ output:
     keep_md: yes
 always_allow_html: yes
 image: parent-and-child-md.png
----
----
-title: "main document"
-output: pdf_document
----
----
-output: pdf_document
 slug: "rmarkdown-child-templates"
 aliases:
   - '/blog/2021-12-17-rmarkdown-child-templates'

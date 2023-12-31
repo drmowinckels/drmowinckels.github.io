@@ -1,21 +1,36 @@
 ---
-title: "About"
+title: "Athanasia Mo Mowinckel"
 date: '2022-08-04'
 weight: 1
 allow_html: yes
 type: about
 image: profile.png
+home: true
+social_media: # see icons in https://getuikit.com/docs/icon
+    - link  : "https://fosstodon.org/web/@Drmowinckels"
+      icon  : "mastodon" # icon name without the 'fa-'
+      icon_pack : "fab"
+    - link  : "https://github.com/drmowinckels"
+      icon  : "github" # icon name without the 'fa-'
+    - link  : "https://www.linkedin.com/in/drmowinckels/"
+      icon  : "linkedin" # no icon pack, mean uikit icons
+    - link  : "https://stackoverflow.com/users/8003165/athanasia-mowinckel"
+      icon  : "stack-overflow" # icon name without the 'fa-'
+      icon_pack : "fab"
+    - link  : "https://orcid.org/0000-0002-5756-0223"
+      icon  : "orcid" # icon name without the 'fa-'
+      icon_pack : "fa-brands"
+    - url: "https://www.researchgate.net/profile/Athanasia_Mowinckel"
+      icon  : "researchgate" # icon name without the 'fa-'
+      icon_pack : "fab"
+summary: |
+  I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no). I'm passionate about cognitive neuroscience, using R and teaching the world the wonders of R. Doing all I can to improve gender diversity and equity in the R-community though [R-Ladies Oslo](https://twitter.com/RLadies_Oslo) and on the [R-Ladies Global Team](https://rladies.org/about-us/team/). 
 ---
- 
 
 
-### In short
+<!-- Download my [CV in pdf](/about/resume/am_mowinckel_cv.pdf) -->
 
-I am a cognitive neuroscientist based in Oslo, Norway, and works at the [Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no). I'm passionate about cognitive neuroscience, using R and teaching the world the wonders of R. Doing all I can to improve gender diversity and equity in the R-community though [R-Ladies Oslo](https://twitter.com/RLadies_Oslo) and on the [R-Ladies Global Team](https://rladies.org/about-us/team/). 
-
-Download my [CV in pdf](/about/resume/am_mowinckel_cv.pdf)
-
-<!--more-->
+<br><br>
 
 ### Education  
 

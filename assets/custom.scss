@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300 !default;0,400 !default;0,500 !default;0,600 !default;0,700 !default;1,300 !default;1,400 !default;1,500 !default;1,600 !default;1,700&family=Karla:ital,wght@0,200 !default;0,300 !default;0,400 !default;1,200 !default;1,300 !default;1,400&family=Space+Mono:wght@400 !default;700&display=swap');
+
+$base-body-font-family: 'Karla', sans-serif;
+$base-heading-font-family: 'Cormorant Garamond', serif;
+$base-code-font-family: 'Space Mono', monospace;
+$navbar-nav-item-font-family: $base-heading-font-family;
+$global-font-size: 20px;
+
+.banner { 
+    h1 {
+      margin-top: 5px !important;
+    }
+}
+
+.home{
+    h1 {
+      color: desaturate(lighten($primary, 60%), 30%) !important;
+    }
+    h2 {
+        color: desaturate(lighten($primary, 60%), 30%) !important;
+    }
+}
+

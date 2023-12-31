@@ -7,7 +7,6 @@ output:
     keep_md: yes
 tags: [R, plot]
 image: 'index_files/figure-html/featured-1.gif' 
-
 slug: "christmas-tree-in-ggplot"
 aliases:
   - '/blog/2018-12-13-christmas-tree-in-ggplot'

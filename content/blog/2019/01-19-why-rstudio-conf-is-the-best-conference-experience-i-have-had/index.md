@@ -7,7 +7,6 @@ output:
     keep_md: yes
 tags: [R, RStudio]
 image: 'rstudioconf.png' 
-
 slug: "why-rstudio-conf-is-the-best-conference-experience-i-have-had"
 aliases:
   - '/blog/2019-01-19-why-rstudio-conf-is-the-best-conference-experience-i-have-had'

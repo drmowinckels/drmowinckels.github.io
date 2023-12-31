@@ -7,6 +7,9 @@ output:
     keep_md: yes
 tags: [Plots, Packages, Neuroimaging, R]
 image: 'index_files/figure-html/featured-1.png'
+slug: "introducing-the-ggseg-r-package-for-brain-segmentations"
+aliases:
+  - '/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations'
 --- 
 
 **Edit**: Though posted only a week ago, we have discovered another R package called `ggBrain` which has slightly different functions than what our package has. Because of this, we have altered the name of our package to `ggseg` short for `ggsegmentation` which is a better description of what our package does.
@@ -186,8 +189,4 @@ That's all for now. Or, there are more options, but that's what I'll be going th
 As mentioned, we are very new at making packages, and I'm sure there are many ways to make this package more efficient.
 Drop us a line or pull request if you feel like contributing!
 
-### Edits
-slug: "introducing-the-ggseg-r-package-for-brain-segmentations"
-aliases:
-  - '/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations'
----
+

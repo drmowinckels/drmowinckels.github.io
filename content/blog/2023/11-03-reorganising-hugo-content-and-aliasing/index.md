@@ -9,6 +9,7 @@ tags:
   - hugo
   - bash
 image: image.png
+citation: true
 ---
 
 I'm working on a little website revamp, and on that occasion I have been thinking through some reorganisation of the file content of my website.

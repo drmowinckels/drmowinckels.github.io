@@ -12,27 +12,6 @@ output:
     keep_md: yes
 draft: false
 image: "lucille_sassy.gif"
----
----
-title: "{{ replace .TranslationBaseName "-" " " | title }}"
-author: Dr. Mowinckel
-date: {{ .Date }}
-
-draft: true
-output:
-  html_document:
-    keep_md: yes
-always_allow_html: true
-
-tags: []
-image: index_files/
----
----
-title: "R-package Projects"
-weight: 10
-output:
-  html_document:
-    keep_md: yes
 slug: "changing-you-blogdown-workflow"
 aliases:
   - '/blog/2020-05-25-changing-you-blogdown-workflow'
