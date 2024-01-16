@@ -76,7 +76,7 @@ The level 1 heading for this css, places the heading in the middle of the slide,
 And there **is** more slide content, because the level three heading is not triggering another slide.
 
 So, then it made perfect sense to me that I would not have experienced this myself.
-I'm so comfortable making slides like this, that I naturally know that I need to add a level 2 heading or a horizontal rule to trigger a new slide.
+I'm so comfortable making slides like this, that I instinctively know that I need to add a level 2 heading or a horizontal rule to trigger a new slide.
 With this information clear to me, I could also explain it to the learners, and we all were happy understanding more.
 We added a horizontal rule and all was well.
 
