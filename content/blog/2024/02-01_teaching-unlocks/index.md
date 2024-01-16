@@ -103,7 +103,7 @@ We added a horizontal rule and all was well.
 ### Horizontal rule or horizontal line?
 
 So, when you have a whole line that spans an entire page in HTML, we call that a "Horizontal Rule", and its made by the HTML `<hr>` tag. 
-Quarto rendering markdown, obviously also supports this, but what is it called?
+Quarto rendering Markdown, obviously also supports this, but what is it called?
 
 After giving my learner's an exercise to add a horizontal rule to their slides, I got a question about what this was. 
 Some finished within minutes, others' could not locate it at all.
