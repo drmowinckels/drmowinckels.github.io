@@ -42,7 +42,7 @@ This short post is just some small notes to myself, and maybe others, about what
 
 ### When your slides superimpose on eachother
 
-I make _alot_ of slides in Quarto (and in Xaringan before that), and somehow I never managed to toggle this very very fun thing before.
+I make _a lot_ of slides in Quarto (and in Xaringan before that), and somehow I never managed to toggle this very very fun thing before.
 Once we understood **why** it was happening, which wasn't my discovery, we had a good laugh about it, and the world made sense to me again.
 
 Basically what we experiences was that this qmd text
