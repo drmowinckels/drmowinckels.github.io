@@ -28,7 +28,7 @@ My university hosts an annual event called [Digital Scholarship Days](https://ww
 This is a volunteer effort on the instructor's part, and organised by the University Library.
 Its a great way to get to know other researchers, and to learn about new tools and methods.
 
-It is also one of those events I make sure I have time for both for instructing, but also to attend. 
+It is also one of those events I make sure I have time for both for instructing, but also for attending. 
 I always learn something new, and I get to meet new people.
 
 This year, I did two workshops:
