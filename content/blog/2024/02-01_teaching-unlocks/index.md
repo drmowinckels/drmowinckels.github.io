@@ -34,7 +34,7 @@ I always learn something new, and I get to meet new people.
 This year, I did two workshops:
 
 - [Quartaki](https://drmowinckels.io/quartaki/) -- my introduction to Quarto
-- [R Project Management](https://www.capro.dev/workshop_rproj/) - (heavily) based on the [WTF workshop](https://github.com/rstats-wtf/wtf-workshop)
+- [R Project Management](https://www.capro.dev/workshop_rproj/) -- (heavily) based on the [WTF workshop](https://github.com/rstats-wtf/wtf-workshop)
 
 This short post is just some small notes to myself, and maybe others, about what the learners taught me about the things I was teaching them.
 
