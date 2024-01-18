@@ -13,12 +13,14 @@ summary: |
   I can always trust that my learners either know something I don't yet
   know myself, or they will ask a question that will make me think about
   something in a new way. It is also the best debugging I know, as I've 
-  never held a workshop without finding some strangeness.
+  never held a workshop without finding some strangeness. In this post
+  I share some of the things I learned from my learners at the 
+  [Digital Scholarship Days](https://www.ub.uio.no/english/courses-events/events/dsc/2024/digital-scholarship-days/00-mainpage.html) at the University of Oslo.
 ---
 
 Teaching can be extremely rewarding.
 I love teaching coding and programming, and helping scientists unlock a new way of working.
-But while most learners go into my workshops think they will be completely on the receiving end, 
+But while most learners go into [my workshops](/tags/workshop/) think they will be completely on the receiving end, 
 I know that I will also learn something new from them.
 This, I think, is the beauty of teaching.
 
@@ -26,21 +28,21 @@ This, I think, is the beauty of teaching.
 
 My university hosts an annual event called [Digital Scholarship Days](https://www.ub.uio.no/english/courses-events/events/dsc/2024/digital-scholarship-days/00-mainpage.html), where we showcase digital tools and methods for research.
 This is a volunteer effort on the instructor's part, and organised by the University Library.
-Its a great way to get to know other researchers, and to learn about new tools and methods.
+It's a great way to get to know other researchers, and to learn about new tools and methods.
 
 It is also one of those events I make sure I have time for both for instructing, but also for attending. 
 I always learn something new, and I get to meet new people.
 
-This year, I did two workshops:
+This year, I instructed two workshops:
 
-- [Quartaki](https://drmowinckels.io/quartaki/) -- my introduction to Quarto
+- [Quartaki](/quartaki/) -- my introduction to Quarto
 - [R Project Management](https://www.capro.dev/workshop_rproj/) -- (heavily) based on the [WTF workshop](https://github.com/rstats-wtf/wtf-workshop)
 
 This short post is just some small notes to myself, and maybe others, about what the learners taught me about the things I was teaching them.
 
-## Quartaki
+## Quartaki (Quarto learnings)
 
-### When your slides superimpose on eachother
+### When your slides superimpose on each other
 
 I make _a lot_ of slides in Quarto (and in Xaringan before that), and somehow I never managed to toggle this very very fun thing before.
 Once we understood **why** it was happening, which wasn't my discovery, we had a good laugh about it, and the world made sense to me again.
@@ -69,7 +71,7 @@ produced a slide looking like this:
 ![](images/reveal_superimposed.png)
 
 In the stress and responsibility of hosting a workshop, I could not get my head calm enough to see what was happening. 
-But my learners payed more attention to what I was saying than myself, and one noted that level three headings (`###`) do no toggle new slides.
+But my learners payed more attention to what I was saying than myself, and one noted that level three headings (`###`) do not toggle new slides.
 And then I could understand.
 
 The level 1 heading for this css, places the heading in the middle of the slide, vertically, and as such, it will superimpose on the remaining content of the slide.
@@ -116,9 +118,9 @@ Adding horizontal rule through insert
 ![Adding horizontal line through `/`](images/hr_shortcut.png)
 Adding horizontal line through `/`
 
-So what's its name? I made an [issue](https://github.com/quarto-dev/quarto/issues/350) in a Quarto repo, so I guess the developers will figure it out.
+So what's its name? I made an [issue](https://github.com/quarto-dev/quarto/issues/350) in a Quarto repo, so I guess the developers will figure it out. And they did!
+My issue was closed with a fix, and according to the RStudio developers, it's called a "horizontal line" in the IDE.
 Consistency is key!
-
 
 
 ## Project Management
@@ -127,17 +129,19 @@ Consistency is key!
 
 This is maybe not so much my learner's teaching me, but about IT making my teaching life harder.
 
-So, there I am, talking about the do's and dont's of naming files and folder.
+So, there I am, talking about the 'do's and 'don't's of naming files and folders.
 
 > "Don't use spaces in your file names, because it will make your life harder".
 
-And there they are, on institutional computers, where IT creates folder for them that have spaces in them. 
+> "Modern computers tolerate spaces, but they don't like them."
+
+And there the learner's are, on institutional computers, where IT creates folders for them that have spaces in them. 
 Thanks, dudes. That's not helping me.
 
-Obviously, my first thing is I jot this down to have a stern talking to IT later.
+Obviously, my first thing is I jot this down to have a stern talking to IT later (you can guess IT loves it when I do that :P).
 I don't know why they do this, it's not the first time, and likely not the last either. 
-I try not to be a jerk about this, but this seriously makes me real miffed. 
-I'm trying to teach people good IT practices, and then IT comes along and just ignores those.
+I try not to be a jerk about this, but this seriously makes me miffed. 
+I'm trying to teach people good IT practices, and it would help me a great deal to have IT in my corner on this one.
 
 Now, our IT has some awesome people and they do do some great stuff for us. 
 I just think they forget that among the University as a whole, there are a lot of us using complex tools and programming to solve our scientific questions. 
@@ -146,7 +150,7 @@ Its a balance between making a system that works for us **and** the people who j
 Anyway, e-mail to IT sent. Let's see what they say.
 
 
-Coincidentally, Heidi Seibold wrote something about this on mastodon just a couple of days after this, which was lovely and validating to me.
+Coincidentally, [Heidi Seibold](https://heidiseibold.com/) wrote something about this on mastodon just a couple of days after this, which was lovely and validating to me.
 
 <iframe src="https://fosstodon.org/@HeidiSeibold/111725444131565682>/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" height="400" allowfullscreen="allowfullscreen"></iframe>
 
