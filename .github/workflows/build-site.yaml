@@ -88,6 +88,11 @@ jobs:
 #         env:
 #          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
 
+      - name: Get talks
+        rub: |
+          cd content/talks
+          sh get_talks.sh
+
       - name: Build
         run: |
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
