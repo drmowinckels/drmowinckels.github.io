@@ -89,7 +89,7 @@ jobs:
 #          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
 
       - name: Get talks
-        rub: |
+        run: |
           cd content/talks
           sh get_talks.sh
 
