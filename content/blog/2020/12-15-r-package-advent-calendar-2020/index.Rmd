@@ -1,8 +1,7 @@
 ---
-title: R-Package Advent Calendar 2020
+title: 'R-Package Advent Calendar 2020'
 author: Dr. Mowinckel
 date: '2020-12-25'
-slug: r-package-advent-calendar-2020
 categories: []
 tags:
   - R
@@ -14,15 +13,15 @@ output:
 always_allow_html: yes
 image: "featured.png"
 type: blog
+slug: "r-package-advent-calendar"
+aliases:
+  - '/blog/2020-12-15-r-package-advent-calendar-2020'
+  - '/blog/r-package-advent-calendar-2020'
 ---
-
-
 
 This year has been truly something different for us all. 
 Blogging has definitely taken a toll, as real life has been quite something to handle.
 So, in order to end the year with a bang, and something fun, I started a twitter advent calendar!
-
-{{< tweet user="DrMowinckels" id="1334052850037645314" >}}
 
 
 The advent calendar is one R-package per day that I personally use and find very useful in my work. 
@@ -79,28 +78,29 @@ dt <- tribble(
   mutate(rows = row_number(),
          rows = ifelse(weekday == "Mon", rows+1, rows)) %>% 
   mutate(
-    type = "square",
-    grid = glue::glue(
-      '<li class="{type}">
-          <div class="{type}In">
-            <a class="{type}Link" href="https://twitter.com/DrMowinckels/status/{twitter}">
-              <img src="hex/{title}.png">
-              <h1>{title}</h1>
-              <p style="padding-top: 5%">{date}</p>
-            </a>
-          </div>
-      </li>'
+    grid = glue::glue('
+       <li class="list-item" style="background-image: url(hex/{title}.png);">
+        <a href="https://twitter.com/DrMowinckels/status/{twitter}" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>{title}</h2>
+                    <p>{date}</p>
+                </div>
+            </div>
+        </a>
+    </li>
+    '
     )
   )
 ```
 
 
-<div class="container">
-  <ul id="postGrid">
+<div class="list-grid">
+    <ul class="list-container list-container-hexagon">
 ```{r, results='asis', echo = FALSE, out.width="100%"}
 dt$grid  
 ```
-  </ul>
+    </ul>
 </div>
 
 

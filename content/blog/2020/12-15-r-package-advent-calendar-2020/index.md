@@ -1,5 +1,5 @@
 ---
-title: R-Package Advent Calendar 2020
+title: 'R-Package Advent Calendar 2020'
 author: Dr. Mowinckel
 date: '2020-12-25'
 categories: []
@@ -13,18 +13,15 @@ output:
 always_allow_html: yes
 image: "featured.png"
 type: blog
-slug: "r-package-advent-calendar-2020"
+slug: "r-package-advent-calendar"
 aliases:
   - '/blog/2020-12-15-r-package-advent-calendar-2020'
+  - '/blog/r-package-advent-calendar-2020'
 ---
-
-
 
 This year has been truly something different for us all. 
 Blogging has definitely taken a toll, as real life has been quite something to handle.
 So, in order to end the year with a bang, and something fun, I started a twitter advent calendar!
-
-{{< tweet user="DrMowinckels" id="1334052850037645314" >}}
 
 
 The advent calendar is one R-package per day that I personally use and find very useful in my work. 
@@ -37,225 +34,249 @@ There are other packages that could cover some or all of the same functionality 
 
 
 
-<div class="container">
-  <ul id="postGrid">
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1334054102905593861">
-        <img src="hex/distill.png">
-        <h1>distill</h1>
-        <p style="padding-top: 5%">2020-12-01</p>
-      </a>
-    </div>
+<div class="list-grid">
+    <ul class="list-container list-container-hexagon">
+   <li class="list-item" style="background-image: url(hex/distill.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1334054102905593861" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>distill</h2>
+                <p>2020-12-01</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1334055725644058624">
-        <img src="hex/here.png">
-        <h1>here</h1>
-        <p style="padding-top: 5%">2020-12-02</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/here.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1334055725644058624" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>here</h2>
+                <p>2020-12-02</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1334404923564437504">
-        <img src="hex/glue.png">
-        <h1>glue</h1>
-        <p style="padding-top: 5%">2020-12-03</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/glue.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1334404923564437504" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>glue</h2>
+                <p>2020-12-03</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1334770520953417729">
-        <img src="hex/holepunch.png">
-        <h1>holepunch</h1>
-        <p style="padding-top: 5%">2020-12-04</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/holepunch.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1334770520953417729" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>holepunch</h2>
+                <p>2020-12-04</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1335302958989398016">
-        <img src="hex/xaringan.png">
-        <h1>xaringan</h1>
-        <p style="padding-top: 5%">2020-12-05</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/xaringan.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1335302958989398016" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>xaringan</h2>
+                <p>2020-12-05</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1335691689764204544">
-        <img src="hex/usethis.png">
-        <h1>usethis</h1>
-        <p style="padding-top: 5%">2020-12-06</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/usethis.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1335691689764204544" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>usethis</h2>
+                <p>2020-12-06</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1335858603891232768">
-        <img src="hex/nettskjemar.png">
-        <h1>nettskjemar</h1>
-        <p style="padding-top: 5%">2020-12-07</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/nettskjemar.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1335858603891232768" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>nettskjemar</h2>
+                <p>2020-12-07</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1336215088089493504">
-        <img src="hex/stringr.png">
-        <h1>stringr</h1>
-        <p style="padding-top: 5%">2020-12-08</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/stringr.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1336215088089493504" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>stringr</h2>
+                <p>2020-12-08</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1336575636324954113">
-        <img src="hex/kableExtra.png">
-        <h1>kableExtra</h1>
-        <p style="padding-top: 5%">2020-12-09</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/kableExtra.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1336575636324954113" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>kableExtra</h2>
+                <p>2020-12-09</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1336943011389992961">
-        <img src="hex/patchwork.png">
-        <h1>patchwork</h1>
-        <p style="padding-top: 5%">2020-12-10</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/patchwork.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1336943011389992961" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>patchwork</h2>
+                <p>2020-12-10</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1337305681385414656">
-        <img src="hex/rticles.png">
-        <h1>rticles</h1>
-        <p style="padding-top: 5%">2020-12-11</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/rticles.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1337305681385414656" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>rticles</h2>
+                <p>2020-12-11</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1337869018129195012">
-        <img src="hex/forcats.png">
-        <h1>forcats</h1>
-        <p style="padding-top: 5%">2020-12-12</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/forcats.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1337869018129195012" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>forcats</h2>
+                <p>2020-12-12</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1338028973708677120">
-        <img src="hex/vitae.png">
-        <h1>vitae</h1>
-        <p style="padding-top: 5%">2020-12-13</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/vitae.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1338028973708677120" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>vitae</h2>
+                <p>2020-12-13</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1338400483229261824">
-        <img src="hex/pbmcapply.png">
-        <h1>pbmcapply</h1>
-        <p style="padding-top: 5%">2020-12-14</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/pbmcapply.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1338400483229261824" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>pbmcapply</h2>
+                <p>2020-12-14</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1338802526955728896">
-        <img src="hex/lubridate.png">
-        <h1>lubridate</h1>
-        <p style="padding-top: 5%">2020-12-15</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/lubridate.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1338802526955728896" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>lubridate</h2>
+                <p>2020-12-15</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1339110009427423233">
-        <img src="hex/magick.png">
-        <h1>magick</h1>
-        <p style="padding-top: 5%">2020-12-16</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/magick.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1339110009427423233" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>magick</h2>
+                <p>2020-12-16</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1339491287003783169">
-        <img src="hex/papayar.png">
-        <h1>papayar</h1>
-        <p style="padding-top: 5%">2020-12-17</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/papayar.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1339491287003783169" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>papayar</h2>
+                <p>2020-12-17</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1339902456382296064">
-        <img src="hex/learnr.png">
-        <h1>learnr</h1>
-        <p style="padding-top: 5%">2020-12-18</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/learnr.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1339902456382296064" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>learnr</h2>
+                <p>2020-12-18</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1340205260317581312">
-        <img src="hex/janitor.png">
-        <h1>janitor</h1>
-        <p style="padding-top: 5%">2020-12-19</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/janitor.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1340205260317581312" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>janitor</h2>
+                <p>2020-12-19</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1340566661712257030">
-        <img src="hex/xaringanExtra.png">
-        <h1>xaringanExtra</h1>
-        <p style="padding-top: 5%">2020-12-20</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/xaringanExtra.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1340566661712257030" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>xaringanExtra</h2>
+                <p>2020-12-20</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1340938927734222848">
-        <img src="hex/reactable.png">
-        <h1>reactable</h1>
-        <p style="padding-top: 5%">2020-12-21</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/reactable.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1340938927734222848" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>reactable</h2>
+                <p>2020-12-21</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1341293669001932805">
-        <img src="hex/broom.png">
-        <h1>broom</h1>
-        <p style="padding-top: 5%">2020-12-22</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/broom.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1341293669001932805" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>broom</h2>
+                <p>2020-12-22</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/1341655830337302531">
-        <img src="hex/rio.png">
-        <h1>rio</h1>
-        <p style="padding-top: 5%">2020-12-23</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/rio.png);">
+    <a href="https://twitter.com/DrMowinckels/status/1341655830337302531" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>rio</h2>
+                <p>2020-12-23</p>
+            </div>
+        </div>
+    </a>
 </li>
-<li class="square">
-    <div class="squareIn">
-      <a class="squareLink" href="https://twitter.com/DrMowinckels/status/">
-        <img src="hex/pkgdown.png">
-        <h1>pkgdown</h1>
-        <p style="padding-top: 5%">2020-12-24</p>
-      </a>
-    </div>
+   <li class="list-item" style="background-image: url(hex/pkgdown.png);">
+    <a href="https://twitter.com/DrMowinckels/status/" >
+        <div class="list-overlay list-overlay-hexagon">
+            <div class="list-item-content ">
+                <h2>pkgdown</h2>
+                <p>2020-12-24</p>
+            </div>
+        </div>
+    </a>
 </li>
-  </ul>
+    </ul>
 </div>
 
 
@@ -315,11 +336,11 @@ get_todays(completed, pks)
 ```
 
 ```
-## xaringanExtra
+## rticles
 ```
 
 ```
-## [1] 15
+## [1] 13
 ```
 
 Now, there is a slight problem with my function.
