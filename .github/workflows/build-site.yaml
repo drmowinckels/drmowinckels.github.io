@@ -86,7 +86,6 @@ jobs:
 #         env:
 #          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
 
-
       - name: Build
         run: |
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
