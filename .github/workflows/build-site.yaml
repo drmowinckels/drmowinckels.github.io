@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '0 0 * * 0'
 
 name: Build site
 
@@ -92,8 +90,8 @@ jobs:
       #   env:
       #     GH_TOKEN: ${{ github.token }}
       #   run: |
-      #     cd content/talks
-      #     sh get_talks.sh
+      #     cd content/talks && \
+      #       sh get_talks.sh
 
       - name: Build
         run: |

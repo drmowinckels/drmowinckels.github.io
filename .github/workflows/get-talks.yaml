@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'
+
+name: Get Talks
+
+jobs:
+  fetch:
+    name: Get talks
+    runs-on: macos-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Get talks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd content/talks && \
+            sh get_talks.sh
+
+      - name: Commit and push if changed
+        run: |
+          git diff --quiet || git commit -am "Update talks" && git push
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
