@@ -88,12 +88,12 @@ jobs:
 #         env:
 #          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
 
-      - name: Get talks
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          cd content/talks && \
-            sh get_talks.sh
+      # - name: Get talks
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     cd content/talks && \
+      #       sh get_talks.sh
 
       - name: Build
         run: |
