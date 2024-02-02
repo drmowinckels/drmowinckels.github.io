@@ -1,7 +1,8 @@
-repo=drmowinckels/talks
+owner=drmowinckels
+repo=talks_repo
 
 # Fetch the list of folders in the "slides" directory
-folders=$(gh api repos/$repo/contents/slides --jq '.[] | select(.type == "dir") | .name' | tac)
+folders=$(gh api repos/$owner/$repo/contents/slides --jq '.[] | select(.type == "dir") | .name' | tac)
 
 # Initialize an empty array to store JSON objects
 json_array=()
@@ -19,8 +20,8 @@ for folder in $folders; do
     echo $folder ----
 
     # Fetch the content from the index file in the folder
-    rmd_content=$(gh api repos/$repo/contents/slides/$folder/index.Rmd --jq '.download_url' 2>/dev/null )
-    qmd_content=$(gh api repos/$repo/contents/slides/$folder/index.qmd --jq '.download_url' 2>/dev/null )
+    rmd_content=$(gh api repos/$owner/$repo/contents/slides/$folder/index.Rmd --jq '.download_url' 2>/dev/null )
+    qmd_content=$(gh api repos/$owner/$repo/contents/slides/$folder/index.qmd --jq '.download_url' 2>/dev/null )
 
     # Check if both files are not found
     if [ -z "$rmd_content" ] && [ -z "$qmd_content" ]; then
@@ -29,10 +30,12 @@ for folder in $folders; do
     fi
 
     # Check if the content is not found
-    if [[ $(echo "$rmd_content" | jq -r '.message') == "Not Found" ]]; then
-        file="$qmd_content"
+    if echo "$rmd_content" | grep -q "Not Found"; then
+      echo "qmd found"
+      file="$qmd_content"
     else
-        file="$rmd_content"
+      echo "rmd found"
+      file="$rmd_content"
     fi
 
     file_content=$(curl -sL "$file")
@@ -44,7 +47,7 @@ for folder in $folders; do
     link=$(convert_to_null "$(echo "$file_content" | grep '^link:' | sed 's/^link: //' | sed 's/^\"//;s/\"$//')")
 
     if [[ $link == null ]]; then
-        link=\"https://drmowinckels.io/talks/slides/$folder/\"
+        link=\"https://drmowinckels.io/$repo/slides/$folder/\"
     fi
 
     # Extract tags from YAML front matter
@@ -59,13 +62,13 @@ for folder in $folders; do
 
     thumbnail=$(convert_to_null "$(echo "$file_content" | grep '^image:' | sed 's/^image: //' | sed 's/^\"//;s/\"$//')")
     if [[ $thumbnail != null ]]; then
-        thumbnail=\"https://raw.githubusercontent.com/drmowinckels/talks/main/slides/$folder/$(echo $thumbnail | sed s/\"//g)\"
+        thumbnail=\"https://raw.githubusercontent.com/$owner/$repo/main/slides/$folder/$(echo $thumbnail | sed s/\"//g)\"
     fi
 
     # Construct a JSON object with null values
-    json_object="{ 
-        \"title\":   $title, 
-        \"summary\": $subtitle, 
+    json_object="{
+        \"title\":   $title,
+        \"summary\": $subtitle,
         \"date\":    $date,
         \"image\":   $thumbnail,
         \"button\":  \"Slides\",
