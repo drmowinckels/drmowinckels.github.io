@@ -17,6 +17,17 @@ convert_to_null() {
     fi
 }
 
+yaml_value() {
+  local string="$1"
+  local pattern="$2"
+  echo "$string" | \
+    grep "^$pattern:" | \
+    sed "s/^$pattern: //" | \
+    sed 's/^"//;s/"$//' | \
+    sed 's/^-//;s/-$//' | \
+    sed 's/^ *//;s/ *$//'
+}
+
 # Iterate over each folder
 for folder in $folders; do
     echo $folder ----
@@ -43,10 +54,12 @@ for folder in $folders; do
     file_content=$(curl -sL "$file")
 
     # Remove leading and trailing quotes and convert empty strings to null
-    title=$(convert_to_null "$(echo "$file_content" | grep '^title:' | sed 's/^title: //' | sed 's/^\"//;s/\"$//')")
-    subtitle=$(convert_to_null "$(echo "$file_content" | grep '^subtitle:' | sed 's/^subtitle: //' | sed 's/^\"//;s/\"$//')")
+    title=$(convert_to_null "$(yaml_value "$file_content" 'title')")
     date=\"$(echo $folder | cut -d'-' -f1 | sed 's/\./-/g')\"
-    link=$(convert_to_null "$(echo "$file_content" | grep '^link:' | sed 's/^link: //' | sed 's/^\"//;s/\"$//')")
+    link=$(convert_to_null "$(yaml_value "$file_content" 'link')")
+
+    subtitle=$(convert_to_null "$(yaml_value "$file_content" 'subtitle')")
+    subtitle=$(echo $subtitle | sed 's/^-*//;s/-*$//')
 
     if [[ $link == null ]]; then
         link=\"https://drmowinckels.io/$repo/slides/$folder/\"
@@ -62,12 +75,12 @@ for folder in $folders; do
         tags="[$(echo "$tags" | sed 's/"/\\"/g' | awk 'NF { print "\"" $0 "\"" }' | tr '\n' ',' | sed 's/,$//')]"
     fi
 
-    thumbnail=$(convert_to_null "$(echo "$file_content" | grep '^image:' | sed 's/^image: //' | sed 's/^\"//;s/\"$//')")
+    thumbnail=$(convert_to_null "$(yaml_value "$file_content" 'image')")
     if [[ $thumbnail != null ]]; then
         thumbnail=\"https://raw.githubusercontent.com/$owner/$repo/main/slides/$folder/$(echo $thumbnail | sed s/\"//g)\"
     fi
 
-    button=$(convert_to_null "$(echo "$file_content" | grep '^button:' | sed 's/^button: //' | sed 's/^\"//;s/\"$//')")
+    button=$(convert_to_null "$(yaml_value "$file_content" 'button')")
     if [[ $button == null ]]; then
         button=\"Slides\"
     fi
@@ -85,9 +98,9 @@ for folder in $folders; do
     json_array+=("$json_object")
 done
 
+
 # Convert the array to a JSON array
 json_output="[ $(IFS=,; echo "${json_array[*]}") ]"
-
 json_output=$(echo $json_output | jq '.')
 
 # only save if the json array is not empty
