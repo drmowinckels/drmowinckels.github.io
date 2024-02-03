@@ -1,6 +1,8 @@
 owner=drmowinckels
 repo=talks_repo
 
+alias tac='tail -r'
+
 # Fetch the list of folders in the "slides" directory
 folders=$(gh api repos/$owner/$repo/contents/slides --jq '.[] | select(.type == "dir") | .name' | tac)
 
