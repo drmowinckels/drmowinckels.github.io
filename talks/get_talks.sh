@@ -83,5 +83,13 @@ json_output="[ $(IFS=,; echo "${json_array[*]}") ]"
 
 json_output=$(echo $json_output | jq '.')
 
-# Write the formatted JSON to a file
-echo "$json_output" > talks.json
+# only save if the json array is not empty
+if [[ $json_output != "[]" ]]; then
+  # Write the formatted JSON to a file
+  echo "$json_output" > talks.json
+else
+    echo "No talks found"
+    exit 1
+fi
+
+
