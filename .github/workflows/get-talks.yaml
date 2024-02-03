@@ -9,15 +9,14 @@ jobs:
   fetch:
     name: Get talks
     runs-on: macos-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Get talks
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd content/talks && \
             sh get_talks.sh
