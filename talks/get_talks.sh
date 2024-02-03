@@ -67,13 +67,18 @@ for folder in $folders; do
         thumbnail=\"https://raw.githubusercontent.com/$owner/$repo/main/slides/$folder/$(echo $thumbnail | sed s/\"//g)\"
     fi
 
+    button=$(convert_to_null "$(echo "$file_content" | grep '^button:' | sed 's/^button: //' | sed 's/^\"//;s/\"$//')")
+    if [[ $button == null ]]; then
+        button=\"Slides\"
+    fi
+
     # Construct a JSON object with null values
     json_object="{
         \"title\":   $title,
         \"summary\": $subtitle,
         \"date\":    $date,
         \"image\":   $thumbnail,
-        \"button\":  \"Slides\",
+        \"button\":  $button,
         \"url\":     $link,
         \"tags\":    $tags
     }"
