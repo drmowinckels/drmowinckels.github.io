@@ -76,7 +76,7 @@ for folder in $folders; do
     fi
 
     thumbnail=$(convert_to_null "$(yaml_value "$file_content" 'image')")
-    if [[ $thumbnail != null ]]; then
+    if [[ $thumbnail != null && ! $(echo $thumbnail | grep -p "^http") ]]; then
         thumbnail=\"https://raw.githubusercontent.com/$owner/$repo/main/slides/$folder/$(echo $thumbnail | sed s/\"//g)\"
     fi
 
