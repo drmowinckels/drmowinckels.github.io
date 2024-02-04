@@ -76,8 +76,11 @@ for folder in $folders; do
     fi
 
     thumbnail=$(convert_to_null "$(yaml_value "$file_content" 'image')")
-    if [[ $thumbnail != null && ! $(echo $thumbnail | grep -p "^http") ]]; then
-        thumbnail=\"https://raw.githubusercontent.com/$owner/$repo/main/slides/$folder/$(echo $thumbnail | sed s/\"//g)\"
+    if [[ $thumbnail != null ]]; then
+      thumbnail_strip=$(echo $thumbnail | sed s/\"//g)
+      if [[ $thumbnail_strip != http* ]]; then
+        thumbnail=\"https://raw.githubusercontent.com/$owner/$repo/main/slides/$folder/$thumbnail_strip\"
+      fi
     fi
 
     button=$(convert_to_null "$(yaml_value "$file_content" 'button')")
@@ -98,6 +101,7 @@ for folder in $folders; do
     json_array+=("$json_object")
 done
 
+echo $json_array
 
 # Convert the array to a JSON array
 json_output="[ $(IFS=,; echo "${json_array[*]}") ]"
