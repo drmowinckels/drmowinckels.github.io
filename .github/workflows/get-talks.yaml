@@ -26,3 +26,16 @@ jobs:
           git diff --quiet || git commit -am "Update talks" && git push
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger build
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'DrMowinckels',
+              repo: 'drmowinckels.github.io',
+              workflow_id: 'build-site.yaml',
+              ref: 'main'
+            })
+
