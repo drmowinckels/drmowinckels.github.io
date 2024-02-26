@@ -13,7 +13,6 @@ summary: |
   popular way of capturing more advanced statistical models in
   neuroimaging. In this post I highlight how you can prepare your 
   data in R for Freesurfer LMMs.
-draft: true
 ---
 
 
@@ -825,8 +824,5 @@ and you can have a look at the currently very minimal docs
 
 I hope you find it useful, and if you have any feedback,
 please let me know!
-
-
-
 
 
