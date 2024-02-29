@@ -806,7 +806,7 @@ learning to write R functions for things like this is much.
 I have two solutions:
 
 1. Copy paste my last function and use that
-2. Give my mini-package, freesurfer.lme a try
+2. Give my mini-package, neuromat a try
 
 It's the tiniest package I ever made, but it's a package,
 and I hope it can ease your vertex-wise Freesurfer LMM journey!
@@ -815,12 +815,12 @@ You can install it from my team's R-Universe with:
 
 ```r
 # Install from Capro R-universe
-install.packages('freesurfer.lme', 
+install.packages('neuromat', 
   repos = 'https://capro-uio.r-universe.dev')
 ```
 
 and you can have a look at the currently very minimal docs 
-[online](https://www.capro.dev/freesurfer.lme/).
+[online](https://www.capro.dev/neuromat/).
 
 I hope you find it useful, and if you have any feedback,
 please let me know!
