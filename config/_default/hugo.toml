@@ -1,15 +1,20 @@
-baseURL                 = "." 
-theme                   = "hugo-igloo"
-title                   = "Dr. Mowinckel's"
-enforce_ssl             = true
-builddrafts             = true               # Include pages with draft status of true
-buildFuture             = true
-canonifyurls            = true                # Turns relative urls into absolute urls
-DefaultContentLanguage  = "en"                # Default language for multilingual sites
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html", "static/blog/\\*_files/", "README", "\\.knit\\.md$", "\\.utf8\\.md$"]
+baseURL  = ""
+theme    = "hugo-igloo"
+title    = "Dr. Mowinckel's"
 
+buildDrafts     = true    # Include pages with draft status of true
+buildFuture     = true    # Include content with publishdate in the future
+
+canonifyurls    = true    # Turns relative urls into absolute urls
 enableRobotsTXT = true
 enableGitInfo   = true
+enforce_ssl     = true
+
+
+DefaultContentLanguage  = "en"    # Default language for multilingual sites
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html",
+    "static/blog/\\*_files/", "README", "\\.knit\\.md$", "\\.utf8\\.md$",
+    "\\.qmd$", "\\.ipynb$", "\\.py$"]
 
 # Getting raw html to render
 [markup]
