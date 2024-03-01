@@ -14,7 +14,7 @@ summary: |
   neuroimaging. In this post I highlight how you can prepare your 
   data in R for Freesurfer LMMs.
 ---
-
+  
 
 
 
@@ -139,7 +139,7 @@ I could do like so:
 
 ```r
 cars_std <- cars |>
-   #transmute manipulates variables, and only returns what has been manipulated
+  #transmute manipulates variables, and only returns what has been manipulated
   transmute(
     mpg  = mpg,
     cyl  = cyl,
@@ -480,7 +480,7 @@ all.vars(mpg ~ cyl + hp)
 
 ```r
 make_qdec <- function(data, formula){
-    # extract variable names from formula
+  # extract variable names from formula
   vars <- all.vars(formula)
   
   
@@ -496,7 +496,7 @@ Since we are already using tidyverse, that seems reasonable.
 
 ```r
 make_qdec <- function(data, formula){
-    # extract variable names from formula
+  # extract variable names from formula
   vars <- all.vars(formula)
   
   # reduce data 
@@ -511,7 +511,7 @@ Additionally, we'll remove the unscaled continuous variables from the data.
 
 ```r
 make_qdec <- function(data, formula){
-    # extract variable names from formula
+  # extract variable names from formula
   vars <- all.vars(formula)
   
   # reduce data 
@@ -543,7 +543,7 @@ cars |>
       .cols  = where(is.numeric), 
       # and apply the scale_vec function
       .fns   = scale_vec,
-       # suffix orig col name with z
+      # suffix orig col name with z
       .names = "{col}z"
     ))
 ```
@@ -590,7 +590,7 @@ make_qdec <- function(data, formula, path = NULL) {
   mm <- model.matrix(formula, data) |> 
     as_tibble()
   mm <- select(mm, which(!names(mm) %in% names(data)))
-
+  
   # scale continuous variables
   dataz <- data |> 
     transmute(
@@ -724,7 +724,7 @@ make_qdec <- function(data, formula, path = NULL) {
   mm <- model.matrix(formula, data) |> 
     as_tibble()
   mm <- select(mm, which(!names(mm) %in% names(data)))
-
+  
   # scale continuous variables
   dataz <- data |> 
     transmute(
@@ -816,11 +816,55 @@ You can install it from my team's R-Universe with:
 ```r
 # Install from Capro R-universe
 install.packages('neuromat', 
-  repos = 'https://capro-uio.r-universe.dev')
+                 repos = 'https://capro-uio.r-universe.dev')
 ```
 
 and you can have a look at the currently very minimal docs 
 [online](https://www.capro.dev/neuromat/).
+
+
+```r
+library(neuromat)
+```
+
+```
+## 
+## Attaching package: 'neuromat'
+```
+
+```
+## The following object is masked _by_ '.GlobalEnv':
+## 
+##     scale_vec
+```
+
+```r
+qdec <- make_fs_qdec(
+  cars, 
+  mpg ~ -1 +  cyl + hp + disp + gear,
+  # Keep original data columns, for comparison
+  keep = c("mpg", "cyl", "hp", "disp", "gear")
+)
+qdec
+```
+
+```
+##   cyl4 cyl6 cyl8 gear4 gear5      mpgz        hpz      dispz  mpg cyl  hp disp
+## 1    0    1    0     1     0 0.1508848 -0.5350928 -0.5706198 21.0   6 110  160
+## 2    0    1    0     1     0 0.1508848 -0.5350928 -0.5706198 21.0   6 110  160
+## 3    1    0    0     1     0 0.4495434 -0.7830405 -0.9901821 22.8   4  93  108
+##   gear
+## 1    4
+## 2    4
+## 3    4
+##  [ reached 'max' / getOption("max.print") -- omitted 29 rows ]
+```
+
+```r
+plot(qdec)
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 I hope you find it useful, and if you have any feedback,
 please let me know!
