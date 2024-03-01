@@ -824,28 +824,15 @@ and you can have a look at the currently very minimal docs
 
 
 ```r
+rm(make_qdec, scale_vec)
 library(neuromat)
-```
 
-```
-## 
-## Attaching package: 'neuromat'
-```
-
-```
-## The following object is masked _by_ '.GlobalEnv':
-## 
-##     scale_vec
-```
-
-```r
-qdec <- make_fs_qdec(
+make_fs_qdec(
   cars, 
   mpg ~ -1 +  cyl + hp + disp + gear,
   # Keep original data columns, for comparison
   keep = c("mpg", "cyl", "hp", "disp", "gear")
 )
-qdec
 ```
 
 ```
@@ -859,12 +846,6 @@ qdec
 ## 3    4
 ##  [ reached 'max' / getOption("max.print") -- omitted 29 rows ]
 ```
-
-```r
-plot(qdec)
-```
-
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 I hope you find it useful, and if you have any feedback,
 please let me know!

@@ -511,16 +511,15 @@ and you can have a look at the currently very minimal docs
 [online](https://www.capro.dev/neuromat/).
 
 ```{r}
+rm(make_qdec, scale_vec)
 library(neuromat)
 
-qdec <- make_fs_qdec(
+make_fs_qdec(
   cars, 
   mpg ~ -1 +  cyl + hp + disp + gear,
   # Keep original data columns, for comparison
   keep = c("mpg", "cyl", "hp", "disp", "gear")
 )
-qdec
-plot(qdec)
 ```
 
 I hope you find it useful, and if you have any feedback,
