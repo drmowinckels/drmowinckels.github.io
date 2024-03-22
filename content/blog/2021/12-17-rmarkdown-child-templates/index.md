@@ -221,4 +221,4 @@ Now, we can copy and paste that code chunk for all three species, and have a nea
 You can have a look at the documents in the github repo of this post, and hopefully it will make some sense.
 
 -   [Main document](https://github.com/Athanasiamo/DrMowinckels/tree/master/content/blog/2021-12-17-rmarkdown-child-templates/main-document.Rmd)
--   [Child document](https://github.com/Athanasiamo/DrMowinckels/tree/master/content/blog/2021-12-17-rmarkdown-child-templates/species-child.Rmd)
+-   [Child document](https://github.com/Athanasiamo/DrMowinckels/tree/master/static/blog/2021-12-17-rmarkdown-child-templates/species-child.Rmd)
