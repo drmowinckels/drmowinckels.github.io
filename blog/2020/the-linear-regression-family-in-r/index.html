@@ -65,8 +65,8 @@ I’m no statistician, I’m no mathematician. So I’ll be honest with you all,
 
  
 
-    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.2938e16ea756dbce21614a07a54e80a5d3aac86969f71a9f38c13ec2ba2add15.css" 
-    integrity="sha256-KTjhbqdW284hYUoHpU6ApdOqyGlp9xqfOME&#43;wroq3RU=" 
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.5ff54d5b17af015540643257a474931e0baeedd4f3e9aaf42abd99283687ae38.css" 
+    integrity="sha256-X/VNWxevAVVAZDJXpHSTHguu7dTz6ar0Kr2ZKDaHrjg=" 
     crossorigin="anonymous">
 
 
@@ -236,9 +236,56 @@ I’m no statistician, I’m no mathematician. So I’ll be honest with you all,
         
 
 
-<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-    <nav class="uk-navbar-container ">
-        <div uk-navbar>
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
             <div class="uk-navbar-center">
                 
                     
