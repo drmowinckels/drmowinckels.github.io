@@ -92,7 +92,10 @@ jobs:
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
             hugo -e production
           else
-            hugo -b https://${{ github.head_ref }}--drmowinckels.netlify.app/
+            hugo \
+              --buildDrafts \
+              --buildFuture \
+              -b https://${{ github.head_ref }}--drmowinckels.netlify.app/
           fi
 
       - name: Deploy production 🚀
