@@ -2,13 +2,15 @@
 title: Too much git cleaning
 author: Dr. Mowinckel
 date: '2024-04-01'
-image: ''
+image: 'confused-kitten.png'
 tags:
   - git
   - fail
 slug: "git-clean-woes"
 summary: |
-  
+  Version control is great, but sometimes it can trip you up!
+  In this post I recount my rather stupid mistake of using `git clean` when I shouldn't have, 
+  and how I got out of it.
 ---
   
 
@@ -44,6 +46,11 @@ In my fury over my git mistakes, I forgot that such a simple solution could exis
 Presto, I could just "undo" myself back to the state I wanted to be in.
 Ok, so I did lose somethings that I had done, but they were rather small and easy to fix.
 
+I felt rather stupid.
+Both for the mistake, and not thinking of the fairly simple solution.
+
+Thankfully, other more experienced and advanced developers than me also make such mistakes.
+
 {{< toot user="Patricia" server="social.vivaldi.net" toot="112094753393319808" >}}
 
-
+It's always nice to know that you're not alone in your mistakes.
