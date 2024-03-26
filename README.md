@@ -16,13 +16,13 @@ code for my content.
 📅 That’s a post roughly every **71** days, or about **0.42** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **7** days ago ([Too much git
-cleaning](https://drmowinckels.io/blog/git-clean-woes)).
+✍️ The last post was published **5** days ago ([Too much git
+cleaning](https://drmowinckels.io/blog/2024/git-clean-woes)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
 
-<img src="man/figures/README-plot-1.png" width="100%" />
+<img src="README-files/plot-1.png" width="100%" />
 
 <details>
 <summary>
@@ -31,7 +31,7 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2024-04-01 | [Too much git cleaning](https://drmowinckels.io/blog/git-clean-woes)                                                                                                                     |
+| 2024-04-01 | [Too much git cleaning](https://drmowinckels.io/blog/2024/git-clean-woes)                                                                                                                |
 | 2024-03-01 | [Setting up a Freesurfer LMM through R](https://drmowinckels.io/blog/freesurfer-lmm-r)                                                                                                   |
 | 2024-02-01 | [Teaching you - teaching me](https://drmowinckels.io/blog/teaching-unlocks)                                                                                                              |
 | 2024-01-01 | [New year, New blog](https://drmowinckels.io/blog/newyear-newblog)                                                                                                                       |
@@ -71,4 +71,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-03-25 21:26:26.433078*
+*Updated 2024-03-27 00:57:01.937857*
