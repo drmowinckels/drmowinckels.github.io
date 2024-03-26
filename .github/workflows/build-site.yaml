@@ -90,6 +90,7 @@ jobs:
           # Extract the URL from the slug
           slug=$(grep "^slug:" "${latest_post}" | sed 's/^slug: //' | sed 's/["'\'']//g')
           url="https://drmowinckels.io/blog/${slug}"
+          echo "URL=${url}" >> $GITHUB_ENV
 
           # Extract image
           image=$(grep "^image:" "${latest_post}" | sed 's/^image: //' | sed 's/["'\'']//g')
@@ -98,15 +99,19 @@ jobs:
 
           # Extract the title from yaml
           title=$(grep "^title:" "${latest_post}" | sed 's/^title: //' | sed 's/["'\'']//g')
+          echo "TITLE=${title}" >> $GITHUB_ENV
 
           # Extract summary using yml
           summary=$(awk '/summary:/ {getline; while ($0 !~ /^$/) {gsub(/^[[:blank:]]+/,"",$0); print $0; getline}}' ${latest_post})
+          echo "SUMMARY=${summary}" >> $GITHUB_ENV
 
           # Extract tags
           tags=$(awk '/tags:/ {getline; while ($0 ~ /^  - /) {printf "#%s ", $2; getline}}' ${latest_post})
           hastags=$(echo $tags| sed -e 's/#r /#rstats /')
+          echo "TAGS=${hastags}" >> $GITHUB_ENV
 
-          # Insert random fun emoji
+       - name: 🦹 Insert random fun emoji 🦲
+         run: |
           emojis=("🦄" "🦜" "🦣" "🦥" "🦦" "🦧" "🦨" "🦩" "🦪" \
               "🦫" "🦬" "🦭" "🦮" "🦯" "🦰" "🦱" "🦲" "🦳" "🦴" \
               "🦵" "🦶" "🦷" "🦸" "🦹" "🦺" "🦻" "🦼" "🦽" "🦾" \
@@ -118,15 +123,7 @@ jobs:
               "🧱" "🧲" "🧳" "🧴" "🧵" "🧶" "🧷" "🧸" "🧹" "🧺" \
               "🧻" "🧼" "🧽" "🧾" "🧿")
           random_emoji=${emojis[$RANDOM % ${#emojis[@]}]}
-
-          # Compose message
-          message=$'📝 New blog post 📝\n'
-          message+=$'\n'"'${title}'"
-          message+=$'\n\n'"${random_emoji}  ${summary}"
-          message+=$'\n\n'"👀  Read more at ${url}"
-          message+=$'\n\n'"${hastags}"
-
-          echo "MESSAGE=${message}" | tee -a "$GITHUB_ENV"
+          echo "EMOJI=${random_emoji}" >> $GITHUB_ENV
 
 
       - name: 🦣 Toot it! 🦣
@@ -141,10 +138,16 @@ jobs:
             -F "file=@./${{ env.IMAGE }}" \
             https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
 
+          message="📝 New blog post 📝
+            \n\n '${{ env.TITLE }}' \
+            \n\n ${{ env.EMOJI }}  ${{ env.SUMMARY }} \
+            \n\n 👀  Read more at ${{ env.URL }} \
+            \n\n ${{ env.TAGS }}"
+
           # Then, create a new status with the media attached
           toot=$(curl -X POST \
             -H "Authorization: Bearer ${MASTO_KEY}" \
-            -F "status=${{ env.MESSAGE }}" \
+            -F "status=${message}" \
             -F "media_ids[]=${MEDIA_ID}" \
             https://${MASTODON_INSTANCE}/api/v1/statuses | jq -r '.id')
 
