@@ -120,12 +120,13 @@ jobs:
           random_emoji=${emojis[$RANDOM % ${#emojis[@]}]}
 
           # Compose message
-          message="📝 New blog post 📝
-            \n\n '${title}' \
-            \n\n ${random_emoji}  ${summary} \
-            \n\n 👀  Read more at ${url} \
-            \n\n ${hastags}"
-          echo "MESSAGE=${message}" >> $GITHUB_ENV
+          message=$'📝 New blog post 📝\n'
+          message+=$'\n'"'${title}'"
+          message+=$'\n\n'"${random_emoji}  ${summary}"
+          message+=$'\n\n'"👀  Read more at ${url}"
+          message+=$'\n\n'"${hastags}"
+
+          echo "MESSAGE=${message}" | tee -a "$GITHUB_ENV"
 
 
       - name: 🦣 Toot it! 🦣
