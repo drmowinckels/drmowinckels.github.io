@@ -96,7 +96,7 @@ jobs:
 
           # Extract image
           image=$(grep "^image:" "${latest_post}" | sed 's/^image: //' | sed 's/["'\'']//g')
-          image=$(printf 'content/blog/%s/%s' ${slug} ${image})
+          image=$(printf 'content/blog/%s/%s' ${latest_post} ${image})
           echo "IMAGE=${image}" >> $GITHUB_ENV
 
           # Extract the title from yaml
@@ -141,15 +141,16 @@ jobs:
 
 
       - name: 🦣 Toot it! 🦣
-        if: ${{ env.TOOT == "true" }}
+        if: ${{ env.TOOT }} == "true"
         env:
           MASTODON_INSTANCE: fosstodon.org
           MASTO_KEY: ${{ secrets.MASTO_KEY }}
         run:  |
+          img_path=$(${IMAGE}
           # First, upload the media and get the media ID
           MEDIA_ID=$(curl -X POST \
             -H "Authorization: Bearer ${MASTO_KEY}" \
-            -F "file=@${{ env.IMAGE }}" \
+            -F "file=@${img_path}" \
             https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
 
           message=$(echo -e "📝 New blog post 📝
