@@ -10,9 +10,8 @@ on:
 name: Build site
 
 jobs:
-  render:
+  build:
     name: Build site
-    id: build
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -40,54 +39,6 @@ jobs:
           hugo-version: ${{ env.hugo_v }}
           extended: true
 
-      - name: Install npm dependencies
-        run: npm install
-
-#
-#       - name: Setup R
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-r@v2
-#         timeout-minutes: 60
-#
-#       - name: Get R packages
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-renv@v2
-#
-#       - name: Setup pandoc
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-pandoc@v2
-#         with:
-#           pandoc-version: '2.12'
-#
-#       - name: Install tinytex
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-tinytex@v2
-#
-#       - name: Cache node modules
-#         id: cache-npm
-#         uses: actions/cache@v3
-#         env:
-#           cache-name: cache-node-modules
-#         with:
-#           path: ~/.npm
-#           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             ${{ runner.os }}-build-${{ env.cache-name }}-
-#             ${{ runner.os }}-build-
-#             ${{ runner.os }}-
-#
-#
-#       - name: Render about me & cv
-#         if: github.ref == 'refs/heads/main'
-#         run: |
-#           blogdown::build_site(local = FALSE,
-#                                run_hugo = FALSE,
-#                                build_rmd = "content/about/_index.Rmd")
-#           rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")
-#         shell: Rscript {0}
-#         env:
-#          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
-
       - name: Build
         run: |
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
@@ -113,17 +64,16 @@ jobs:
             netlify deploy --alias ${{ github.head_ref }}
         shell: sh
 
-  announce:
+  check-post:
+    name: Check post date
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: build
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Get curl and jq
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq curl
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: 📝 Get latest blog post 📝
         run: |
@@ -131,31 +81,69 @@ jobs:
 
           # Find the latest blog post
           latest_post=$(find "${BLOG_PATH}" | grep /index.md$ | grep -v "XX-XX" |sort | tail -n1)
+          echo "POST_PATH=${latest_post}" >> $GITHUB_ENV
 
           # extract date
           date=$(grep "^date:" "${latest_post}" | sed 's/^date: //' | sed 's/["'\'']//g')
           echo "POST_DATE=${date}" >> $GITHUB_ENV
 
+      - name: Check post date
+        run: |
+          post_date=$(date -d "${{ env.POST_DATE }}" +%Y%m%d)
+          two_days_ago=$(date -d "-2 days" +%Y%m%d)
+          if (( post_date > two_days_ago )); then
+            echo "Post date is within the last 2 days"
+            echo "TOOT=true" >> $GITHUB_ENV
+          else
+            echo "Post date is older than 2 days"
+            echo "TOOT=false" >> $GITHUB_ENV
+          fi
+
+  announce:
+    name: Announce new blog post
+    runs-on: ubuntu-latest
+    needs: check-post
+    if: ${{ needs.check-post.outputs.TOOT == 'true' }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Get curl and jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl
+
+      - name: Get yaml information
+        env:
+          latest_post: ${{ env.POST_PATH }}
+        run: |
           # Extract the URL from the slug
           slug=$(grep "^slug:" "${latest_post}" | sed 's/^slug: //' | sed 's/["'\'']//g')
           url="https://drmowinckels.io/blog/${slug}"
+          echo "URL=${url}" >> $GITHUB_ENV
 
           # Extract image
           image=$(grep "^image:" "${latest_post}" | sed 's/^image: //' | sed 's/["'\'']//g')
-          image=$(printf 'content/blog/%s/%s' ${slug} ${image})
+          image=$(dirname ${latest_post})/${image}
           echo "IMAGE=${image}" >> $GITHUB_ENV
 
           # Extract the title from yaml
           title=$(grep "^title:" "${latest_post}" | sed 's/^title: //' | sed 's/["'\'']//g')
+          echo "TITLE=${title}" >> $GITHUB_ENV
 
           # Extract summary using yml
-          summary=$(awk '/summary:/ {getline; while ($0 !~ /^$/) {gsub(/^[[:blank:]]+/,"",$0); print $0; getline}}' ${latest_post})
+          summary=$(awk '/summary:/ {getline; while ($0 !~ /^$/) {gsub(/^[[:blank:]]+/,"",$0); summary = summary $0 " "; getline}} END {gsub(/[[:blank:]]+$/,"",summary); print summary}' "${latest_post}")
+          echo "SUMMARY=${summary}" >> $GITHUB_ENV
 
           # Extract tags
           tags=$(awk '/tags:/ {getline; while ($0 ~ /^  - /) {printf "#%s ", $2; getline}}' ${latest_post})
           hastags=$(echo $tags| sed -e 's/#r /#rstats /')
+          echo "TAGS=${hastags}" >> $GITHUB_ENV
 
-          # Insert random fun emoji
+      - name: 🦹 Insert random fun emoji 🦲
+        run: |
           emojis=("🦄" "🦜" "🦣" "🦥" "🦦" "🦧" "🦨" "🦩" "🦪" \
               "🦫" "🦬" "🦭" "🦮" "🦯" "🦰" "🦱" "🦲" "🦳" "🦴" \
               "🦵" "🦶" "🦷" "🦸" "🦹" "🦺" "🦻" "🦼" "🦽" "🦾" \
@@ -167,18 +155,10 @@ jobs:
               "🧱" "🧲" "🧳" "🧴" "🧵" "🧶" "🧷" "🧸" "🧹" "🧺" \
               "🧻" "🧼" "🧽" "🧾" "🧿")
           random_emoji=${emojis[$RANDOM % ${#emojis[@]}]}
-
-          # Compose message
-          message="📝 New blog post 📝
-            \n\n '${title}' \
-            \n\n ${random_emoji}  ${summary} \
-            \n\n 👀  Read more at ${url} \
-            \n\n ${hastags}"
-          echo "MESSAGE=${message}" >> $GITHUB_ENV
+          echo "EMOJI=${random_emoji}" >> $GITHUB_ENV
 
 
       - name: 🦣 Toot it! 🦣
-        if: ${{ env.POST_DATE }} > (date -d "-2 days" +%Y-%m-%d)
         env:
           MASTODON_INSTANCE: fosstodon.org
           MASTO_KEY: ${{ secrets.MASTO_KEY }}
@@ -189,10 +169,16 @@ jobs:
             -F "file=@./${{ env.IMAGE }}" \
             https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
 
+          message=$(echo -e "📝 New blog post 📝
+            \n '${{ env.TITLE }}' \
+            \n\n ${{ env.EMOJI }}  ${{ env.SUMMARY }} \
+            \n\n 👀  Read more at ${{ env.URL }} \
+            \n\n ${{ env.TAGS }}")
+
           # Then, create a new status with the media attached
           toot=$(curl -X POST \
             -H "Authorization: Bearer ${MASTO_KEY}" \
-            -F "status=${{ env.MESSAGE }}" \
+            -F "status=${message}" \
             -F "media_ids[]=${MEDIA_ID}" \
             https://${MASTODON_INSTANCE}/api/v1/statuses | jq -r '.id')
 
