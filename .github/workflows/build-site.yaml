@@ -110,8 +110,8 @@ jobs:
           hastags=$(echo $tags| sed -e 's/#r /#rstats /')
           echo "TAGS=${hastags}" >> $GITHUB_ENV
 
-       - name: 🦹 Insert random fun emoji 🦲
-         run: |
+      - name: 🦹 Insert random fun emoji 🦲
+        run: |
           emojis=("🦄" "🦜" "🦣" "🦥" "🦦" "🦧" "🦨" "🦩" "🦪" \
               "🦫" "🦬" "🦭" "🦮" "🦯" "🦰" "🦱" "🦲" "🦳" "🦴" \
               "🦵" "🦶" "🦷" "🦸" "🦹" "🦺" "🦻" "🦼" "🦽" "🦾" \
