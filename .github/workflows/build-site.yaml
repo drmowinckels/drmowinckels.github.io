@@ -70,7 +70,9 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Get curl and jq
         run: |
           sudo apt-get update
@@ -94,7 +96,7 @@ jobs:
 
           # Extract image
           image=$(grep "^image:" "${latest_post}" | sed 's/^image: //' | sed 's/["'\'']//g')
-          image=$(printf 'content/blog/%s/%s' ${slug} ${image})
+          image=$(printf './content/blog/%s/%s' ${slug} ${image})
           echo "IMAGE=${image}" >> $GITHUB_ENV
 
           # Extract the title from yaml
@@ -135,7 +137,7 @@ jobs:
           # First, upload the media and get the media ID
           MEDIA_ID=$(curl -X POST \
             -H "Authorization: Bearer ${MASTO_KEY}" \
-            -F "file=@./${{ env.IMAGE }}" \
+            -F "file=@${{ env.IMAGE }}" \
             https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
 
           message="📝 New blog post 📝
