@@ -10,9 +10,8 @@ on:
 name: Build site
 
 jobs:
-  render:
+  build:
     name: Build site
-    id: build
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -39,54 +38,6 @@ jobs:
         with:
           hugo-version: ${{ env.hugo_v }}
           extended: true
-
-      - name: Install npm dependencies
-        run: npm install
-
-#
-#       - name: Setup R
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-r@v2
-#         timeout-minutes: 60
-#
-#       - name: Get R packages
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-renv@v2
-#
-#       - name: Setup pandoc
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-pandoc@v2
-#         with:
-#           pandoc-version: '2.12'
-#
-#       - name: Install tinytex
-#         if: github.ref == 'refs/heads/main'
-#         uses: r-lib/actions/setup-tinytex@v2
-#
-#       - name: Cache node modules
-#         id: cache-npm
-#         uses: actions/cache@v3
-#         env:
-#           cache-name: cache-node-modules
-#         with:
-#           path: ~/.npm
-#           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             ${{ runner.os }}-build-${{ env.cache-name }}-
-#             ${{ runner.os }}-build-
-#             ${{ runner.os }}-
-#
-#
-#       - name: Render about me & cv
-#         if: github.ref == 'refs/heads/main'
-#         run: |
-#           blogdown::build_site(local = FALSE,
-#                                run_hugo = FALSE,
-#                                build_rmd = "content/about/_index.Rmd")
-#           rmarkdown::render("content/about/resume/am_mowinckel_cv.Rmd")
-#         shell: Rscript {0}
-#         env:
-#          ORCID_TOKEN: ${{ secrets.ORCID_TOKEN }}
 
       - name: Build
         run: |
