@@ -96,7 +96,7 @@ jobs:
 
           # Extract image
           image=$(grep "^image:" "${latest_post}" | sed 's/^image: //' | sed 's/["'\'']//g')
-          image=$(printf './content/blog/%s/%s' ${slug} ${image})
+          image=$(printf 'content/blog/%s/%s' ${slug} ${image})
           echo "IMAGE=${image}" >> $GITHUB_ENV
 
           # Extract the title from yaml
