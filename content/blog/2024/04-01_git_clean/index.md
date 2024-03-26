@@ -8,7 +8,7 @@ tags:
   - fail
   - rstudio
   - r
-slug: "git-clean-woes"
+slug: "2024/git-clean-woes"
 summary: |
   Version control is great, but sometimes it can trip you up!
   In this post I recount my rather stupid mistake of using `git clean` when I shouldn't have, 
