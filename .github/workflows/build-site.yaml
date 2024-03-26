@@ -12,7 +12,6 @@ name: Build site
 jobs:
   build:
     name: Build site
-    id: build
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -67,6 +66,11 @@ jobs:
 
   check-post:
     name: Check post date
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -77,7 +81,6 @@ jobs:
           # Find the latest blog post
           latest_post=$(find "${BLOG_PATH}" | grep /index.md$ | grep -v "XX-XX" |sort | tail -n1)
           echo "POST_PATH=${latest_post}" >> $GITHUB_ENV
-
 
           # extract date
           date=$(grep "^date:" "${latest_post}" | sed 's/^date: //' | sed 's/["'\'']//g')
@@ -153,7 +156,18 @@ jobs:
           random_emoji=${emojis[$RANDOM % ${#emojis[@]}]}
           echo "EMOJI=${random_emoji}" >> $GITHUB_ENV
 
+
       - name: 🦣 Toot it! 🦣
+        env:
+          MASTODON_INSTANCE: fosstodon.org
+          MASTO_KEY: ${{ secrets.MASTO_KEY }}
+        run:  |
+          # First, upload the media and get the media ID
+          MEDIA_ID=$(curl -X POST \
+            -H "Authorization: Bearer ${MASTO_KEY}" \
+            -F "file=@./${{ env.IMAGE }}" \
+            https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
+
           message=$(echo -e "📝 New blog post 📝
             \n '${{ env.TITLE }}' \
             \n\n ${{ env.EMOJI }}  ${{ env.SUMMARY }} \
@@ -170,4 +184,8 @@ jobs:
           # Display clickable url
           echo "🦣 Tooted! 🦣"
           echo "https://${MASTODON_INSTANCE}/web/statuses/${toot}"
+
+
+
+
 
