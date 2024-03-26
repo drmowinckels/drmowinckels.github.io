@@ -65,6 +65,7 @@ jobs:
         shell: sh
 
   check-post:
+    name: Check post date
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -98,6 +99,7 @@ jobs:
           fi
 
   announce:
+    name: Announce new blog post
     runs-on: ubuntu-latest
     needs: check-post
     if: ${{ needs.check-post.outputs.TOOT == 'true' }}
@@ -167,7 +169,7 @@ jobs:
             https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
 
           message=$(echo -e "📝 New blog post 📝
-            \n\n '${{ env.TITLE }}' \
+            \n '${{ env.TITLE }}' \
             \n\n ${{ env.EMOJI }}  ${{ env.SUMMARY }} \
             \n\n 👀  Read more at ${{ env.URL }} \
             \n\n ${{ env.TAGS }}")
