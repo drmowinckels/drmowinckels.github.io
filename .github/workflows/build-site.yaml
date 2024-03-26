@@ -102,7 +102,7 @@ jobs:
           echo "TITLE=${title}" >> $GITHUB_ENV
 
           # Extract summary using yml
-          summary=$(awk '/summary:/ {getline; while ($0 !~ /^$/) {gsub(/^[[:blank:]]+/,"",$0); print $0; getline}}' ${latest_post})
+          summary=$(awk '/summary:/ {getline; while ($0 !~ /^$/) {gsub(/^[[:blank:]]+/,"",$0); summary = summary $0 " "; getline}} END {gsub(/[[:blank:]]+$/,"",summary); print summary}' "${latest_post}")
           echo "SUMMARY=${summary}" >> $GITHUB_ENV
 
           # Extract tags
