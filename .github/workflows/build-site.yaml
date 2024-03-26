@@ -66,6 +66,7 @@ jobs:
 
   check-post:
     name: Check post date
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: build
     env:
