@@ -100,7 +100,7 @@ jobs:
   announce:
     runs-on: ubuntu-latest
     needs: check-post
-    if: ${{ env.TOOT == 'true' }}
+    if: ${{ needs.check-post.outputs.TOOT == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
