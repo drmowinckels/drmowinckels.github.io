@@ -140,15 +140,11 @@ jobs:
             -F "file=@${{ env.IMAGE }}" \
             https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
 
-          message="📝 New blog post 📝
-
-'${{ env.TITLE }}'
-
-${{ env.EMOJI }}  ${{ env.SUMMARY }}
-
-👀  Read more at ${{ env.URL }}
-
-${{ env.TAGS }}"
+          message=$(echo -e "📝 New blog post 📝
+            \n\n '${{ env.TITLE }}' \
+            \n\n ${{ env.EMOJI }}  ${{ env.SUMMARY }} \
+            \n\n 👀  Read more at ${{ env.URL }} \
+            \n\n ${{ env.TAGS }}")
 
           # Then, create a new status with the media attached
           toot=$(curl -X POST \
