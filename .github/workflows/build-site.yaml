@@ -149,7 +149,7 @@ jobs:
           # First, upload the media and get the media ID
           MEDIA_ID=$(curl -X POST \
             -H "Authorization: Bearer ${MASTO_KEY}" \
-            -F "file=@${{ env.IMAGE }} \
+            -F "file=@${{ env.IMAGE }}" \
             https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
 
           message=$(echo -e "📝 New blog post 📝
