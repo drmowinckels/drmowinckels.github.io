@@ -1,20 +1,74 @@
-### Hi there 👋
 
-- Pronouns: She/Her
-- How to reach me: 
-  - mastodon: [@DrMowinckels@fosstodon.org](https://fosstodon.org/web/@Drmowinckels)
-  - website:  [DrMowinckels](https://drmowinckels.io/)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<center>
+<img src="assets/img/logo.png" style="width:50.0%" />
+</center>
 
-I'm part of the [R-Ladies](https://rladies.org/) global team, where I particularly focus on the website development and maintenance, as well as the YouTube channel. 
-I am a Certified [Sorftware Carpentry](https://software-carpentry.org/) Instructor, where I am able to teach git, bash and R lessons, and a Certified [Posit Tidyverse instructor](https://education.rstudio.com/trainers/people/mowinckel+athanasia/).
+# DrMowinckels website repo!
 
-I work as a staff scientist at [the Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no) at the University of Oslo.
+Welcome to the repository for my website. This repository contains the
+code for my content.
 
-- 🌱 I’m currently learning
-  - javascript
-  - make
-  
+## Some stats
 
-This repository contains the source code for my website [drmowinckels.io/](https://drmowinckels.io/).
+🎉 DrMowinckels has **31** posts since **2018-03-08**!
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/50e45b32-809c-429b-8fa9-16fd1fb67ee3/deploy-status)](https://app.netlify.com/sites/drmowinckels/deploys)
+📅 That’s a post roughly every **71** days, or about **0.42** posts per
+month, since 2018-03-08.
+
+✍️ The last post was published **5** days ago ([Too much git
+cleaning](https://drmowinckels.io/blog/2024/git-clean-woes)).
+
+😉 I’ll post as often as I am able, and hope people find it interesting.
+I’d love your feedback in the comments!
+
+<img src="README-files/plot-1.png" width="100%" />
+
+<details>
+<summary>
+📂 Click to expand a full list of posts
+</summary>
+
+| Date       | Title                                                                                                                                                                                    |
+|:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2024-04-01 | [Too much git cleaning](https://drmowinckels.io/blog/2024/git-clean-woes)                                                                                                                |
+| 2024-03-01 | [Setting up a Freesurfer LMM through R](https://drmowinckels.io/blog/freesurfer-lmm-r)                                                                                                   |
+| 2024-02-01 | [Teaching you - teaching me](https://drmowinckels.io/blog/teaching-unlocks)                                                                                                              |
+| 2024-01-01 | [New year, New blog](https://drmowinckels.io/blog/newyear-newblog)                                                                                                                       |
+| 2023-11-03 | [Reorganising Hugo Content and Aliasing](https://drmowinckels.io/blog/reorganising-hugo)                                                                                                 |
+| 2023-09-26 | [Posit::conf 2023](https://drmowinckels.io/blog/positconf-2023)                                                                                                                          |
+| 2022-12-01 | [Advent of R Functions](https://drmowinckels.io/blog/advent-of-r-functions)                                                                                                              |
+| 2022-11-07 | [Lets Get Applying](https://drmowinckels.io/blog/lets-get-applying)                                                                                                                      |
+| 2021-12-17 | [Rmarkdown Child Templates](https://drmowinckels.io/blog/rmarkdown-child-templates)                                                                                                      |
+| 2021-12-04 | [Adding giscus to your blogdown site](https://drmowinckels.io/blog/adding-giscus-to-your-blogdown-site)                                                                                  |
+| 2021-03-23 | [Using GitHub Actions to Build your Hugo Website](https://drmowinckels.io/blog/using-github-actions-to-build-your-hugo-website)                                                          |
+| 2021-03-14 | [New {ggseg} with Geom!](https://drmowinckels.io/blog/new-ggseg-with-geom)                                                                                                               |
+| 2020-12-31 | [New Years Wishes](https://drmowinckels.io/blog/new-year-s-wishes)                                                                                                                       |
+| 2020-12-25 | [R-Package Advent Calendar 2020](https://drmowinckels.io/blog/r-package-advent-calendar)                                                                                                 |
+| 2020-06-24 | [The Linear Regression Family in R](https://drmowinckels.io/blog/the-linear-regression-family-in-r)                                                                                      |
+| 2020-05-25 | [Changing your Blogdown Workflow](https://drmowinckels.io/blog/changing-you-blogdown-workflow)                                                                                           |
+| 2020-04-30 | [Using Freesurfer annotation files to plot in R](https://drmowinckels.io/blog/using-freesurfer-annotation-files-to-plot-in-r)                                                            |
+| 2019-12-11 | [Do you wanna build a snowman?](https://drmowinckels.io/blog/do-you-wanna-build-a-snowman)                                                                                               |
+| 2019-12-06 | [ggseg3d - creating interactive brain segmentation plots with plotly](https://drmowinckels.io/blog/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly)                    |
+| 2019-11-16 | [Plotting GAMM interactions with ggplot2](https://drmowinckels.io/blog/plotting-gamm-interactions-with-ggplot2)                                                                          |
+| 2019-07-17 | [“R for Psychologists - part II”](https://drmowinckels.io/blog/r-for-psychologists-part-ii)                                                                                              |
+| 2019-02-02 | [Building tidy tools - a quick recap of RStudio::conf 2019 workshop & teeny demonstration](https://drmowinckels.io/blog/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop) |
+| 2019-01-19 | [Why RStudio::conf is the best conference experience I have had](https://drmowinckels.io/blog/why-rstudio-conf-is-the-best-conference-experience-i-have-had)                             |
+| 2018-12-13 | [Christmas tree in ggplot](https://drmowinckels.io/blog/christmas-tree-in-ggplot)                                                                                                        |
+| 2018-11-09 | [R for psychologists - just dive into it!](https://drmowinckels.io/blog/r-just-dive-into-it)                                                                                             |
+| 2018-10-01 | [Get the brain animated!](https://drmowinckels.io/blog/get-the-brain-animated)                                                                                                           |
+| 2018-08-30 | [Introducing the ggseg R-package for brain segmentations](https://drmowinckels.io/blog/introducing-the-ggseg-r-package-for-brain-segmentations)                                          |
+| 2018-05-25 | [Circular plots in R and adding images](https://drmowinckels.io/blog/circluar-plots-in-r-and-adding-images)                                                                              |
+| 2018-05-07 | [Adding external images to plots](https://drmowinckels.io/blog/adding-external-images-to-plots)                                                                                          |
+| 2018-04-05 | [GAMM random effects](https://drmowinckels.io/blog/gamm-random-effects)                                                                                                                  |
+| 2018-03-08 | [GAMM spaghetti plots in R with ggplot](https://drmowinckels.io/blog/gamm-spaghetti-plots-in-r-with-ggplot)                                                                              |
+
+</details>
+
+------------------------------------------------------------------------
+
+*The automatically rendered readme was inspired by [Matt
+Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
+Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
+
+*Updated 2024-03-27 00:57:01.937857*

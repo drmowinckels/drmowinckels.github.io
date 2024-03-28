@@ -1,0 +1,70 @@
+---
+title: Too much git cleaning
+author: Dr. Mowinckel
+date: '2024-04-01'
+image: 'confused-kitten.png'
+tags:
+  - git
+  - fail
+  - rstudio
+  - r
+slug: "2024/git-clean-woes"
+summary: |
+  Version control is great, but sometimes it can trip you up!
+  In this post I recount my rather stupid mistake of using `git clean` when I shouldn't have, 
+  and how I got out of it.
+---
+  
+
+
+I have a type of love-hate relationship with git.
+While I love the idea of version control, I often find myself in a situation where I have to clean up my git history.
+Maybe I have committed a file that I shouldn't have, or I have made a mistake in my commit message, or I went down a path that just didn't work out.
+In these cases, I find myself using `git clean` or `git checkout` quite a bit.
+In the worst case, I'll even do a `git reset --hard` to go back to a previous commit.
+What all these do, is enable me to go back in time and start over.
+`reset` will let you go back in time even after committing, and deciding that the commit is not what you wanted.
+The other two help more if you haven't committed yet, but have made changes that you want to get rid of.
+
+I have found that the more I use these commands, the more I get used to them.
+But that doesn't mean that I actually do them correctly. 
+I have had my fair share of mistakes, where I have lost work that I didn't want to lose.
+I had one when preparing my [previous post](/blog/2024/freesurfer-lmm-r/)!
+
+I was working on the {neuromat} package, and I had made some changes to the code that just wasn't what i was after.
+I decided I wanted to ditch the changes, and go back to what I had before.
+
+`git clean -f`
+
+`git clean -f` removes any untracked files, poof, gone are they. 
+And one of the main things I had done was rename and create new files and re-arrange my code.
+So, that quickly deleted all of that work. 
+Which I kind of wanted, it just went further back in time than I expected.
+
+To my horror... I had forgotten to commit the changes I wanted to keep.
+The majority of the good things I had done, went away with the stuff I didn't like. 
+I felt... defeated.
+
+I had to start over, and redo the work I had done.
+[Maëlle Salmon](https://masalmon.eu/) to the rescue!
+I had a chat with her, mostly ranting about how stupid I was, and she suggested I could try to just "undo" in any of my open documents.
+In this instance, I was using RStudio IDE, which is my go-to IDE for R work, especially R package dev work (lookout for a future post on my IDE preferences).
+"Undo" here meant hitting `ctrl`+ `z`.
+In my fury over my git mistakes, I forgot that such a simple solution could exist!
+
+Presto, I could just "undo" myself back to the state I wanted to be in.
+Ok, so I did lose some things that I had done, but they were rather small and easy to fix.
+
+Both for the mistake, and not thinking of the fairly simple solution.
+
+Thankfully, other more experienced and advanced developers than me also make such mistakes.
+
+{{< toot user="Patricia" server="social.vivaldi.net" toot="112094753393319808" >}}
+
+It's always nice to know that you're not alone in your mistakes.
+
+And trust that the awesome [Julia Evans](https://fosstodon.org/@b0rk@jvns.ca) of course has [a zine](https://wizardzines.com/comics/losing-your-work/) for this!
+And if she has a zine for it, I know I'm in good company.
+
+And if you, like me (and so many others), need help on your git journey, Maëlle also has an amazing R package to help you practice!
+Read her [Instroduction to {saperlipopette}](https://masalmon.eu/2024/01/18/saperlipopette-package-practice-git/) to get started!
