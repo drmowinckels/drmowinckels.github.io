@@ -10,7 +10,14 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 Imports: 
-    blogdown,
+    blogdown
+Config/renv/profiles/readme/dependencies: 
+    knitr, 
+    rmarkdown
+Config/renv/profiles/aboutme/dependencies: 
+    ggplot2, 
+    knitr, 
+    rmarkdown,
     dplyr,
     ggplot2,
     glue,
@@ -20,3 +27,4 @@ Imports:
     stringr,
     tidyr,
     vitae
+
