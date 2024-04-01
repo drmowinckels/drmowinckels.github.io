@@ -124,7 +124,8 @@ jobs:
         run: |
           # Extract the URL from the slug
           slug=$(grep "^slug:" "${latest_post}" | sed 's/^slug: //' | sed 's/["'\'']//g')
-          url="https://drmowinckels.io/blog/${slug}"
+          year=$(echo ${latest_post} | cut -d"/" -f3)
+          url="https://drmowinckels.io/blog/${year}/${slug}"
           echo "URL=${url}" >> $GITHUB_ENV
 
           # Extract image
