@@ -74,6 +74,7 @@ jobs:
     needs: build
     outputs:
       TOOT: ${{ steps.check_date.outputs.TOOT }}
+      POST: ${{ steps.check_post.outputs.POST }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -81,12 +82,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 📝 Get latest blog post 📝
+        id: check_post
         run: |
           BLOG_PATH="content/blog"
 
           # Find the latest blog post
           latest_post=$(find "${BLOG_PATH}" | grep /index.md$ | grep -v "XX-XX" |sort | tail -n1)
-          echo "POST_PATH=${latest_post}" >> $GITHUB_ENV
+          echo "POST=${latest_post}" > $GITHUB_OUTPUT
 
           # extract date
           date=$(grep "^date:" "${latest_post}" | sed 's/^date: //' | sed 's/["'\'']//g')
@@ -112,6 +114,7 @@ jobs:
     if: needs.check-post.outputs.TOOT == 'true'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      latest_post: ${{ needs.check-post.outputs.POST }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -122,8 +125,6 @@ jobs:
           sudo apt-get install -y jq curl
 
       - name: Get yaml information
-        env:
-          latest_post: ${{ env.POST_PATH }}
         run: |
           # Extract the URL from the slug
           slug=$(grep "^slug:" "${latest_post}" | sed 's/^slug: //' | sed 's/["'\'']//g')
