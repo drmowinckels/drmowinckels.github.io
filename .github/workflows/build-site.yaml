@@ -104,9 +104,9 @@ jobs:
             echo "TOOT=false" > $GITHUB_OUTPUT
           fi
   what:
+    needs: check-post
     steps:
       - name: Check output
-        needs: check-post
         id: check_date
         run: echo "${{ needs.check-post.outputs.TOOT }}"
 
