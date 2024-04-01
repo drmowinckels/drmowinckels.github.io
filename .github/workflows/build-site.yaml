@@ -93,6 +93,7 @@ jobs:
           echo "POST_DATE=${date}" >> $GITHUB_ENV
 
       - name: Check post date
+        id: check_date
         run: |
           post_date=$(date -d "${{ env.POST_DATE }}" +%Y%m%d)
           two_days_ago=$(date -d "-2 days" +%Y%m%d)
