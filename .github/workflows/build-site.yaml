@@ -104,13 +104,6 @@ jobs:
             echo "Post date is older than 2 days"
             echo "TOOT=false" > $GITHUB_OUTPUT
           fi
-  what:
-    needs: check-post
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check output
-        id: check_date
-        run: echo "${{ needs.check-post.outputs.TOOT }}"
 
   announce:
     name: Announce new blog post
