@@ -105,6 +105,7 @@ jobs:
           fi
   what:
     needs: check-post
+    runs-on: ubuntu-latest
     steps:
       - name: Check output
         id: check_date
