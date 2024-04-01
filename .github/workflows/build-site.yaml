@@ -106,7 +106,7 @@ jobs:
     name: Announce new blog post
     runs-on: ubuntu-latest
     needs: check-post
-    if: ${{ needs.check-post.outputs.TOOT & github.ref == 'refs/heads/main'}}
+    if: needs.check-post.outputs.TOOT & github.ref == 'refs/heads/main'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
