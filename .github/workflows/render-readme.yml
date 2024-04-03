@@ -12,7 +12,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PROFILE: readme
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install cURL Headers
         run: |
           sudo apt-get update
