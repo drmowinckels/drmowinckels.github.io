@@ -208,6 +208,8 @@ jobs:
             -F "media_ids[]=${MEDIA_ID}" \
             https://${MASTODON_INSTANCE}/api/v1/statuses | jq -r '.id')
 
+          echo $toot
+
           # Display clickable url
           echo "🦣 Tooted! 🦣"
           echo "https://${MASTODON_INSTANCE}/web/statuses/${toot}"
