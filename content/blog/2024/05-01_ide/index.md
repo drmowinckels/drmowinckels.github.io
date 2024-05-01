@@ -13,9 +13,6 @@ slug: "ide"
 image: vscode.png
 summary: |
   People who code have a tendency to spend a lot of time in various IDEs (Integrated Development Environments). These are the tools that help you write, test, and debug your code. They can be as simple as a text editor or as complex as a full-blown development environment. In this post, I'll go through my two go-to IDE's, RStudio and VScode, and why I switch between them rather than sticking to a single one.
-editor_options: 
-  markdown: 
-    wrap: sentence
 ---
 
 ## My previous experience with programming IDEs
