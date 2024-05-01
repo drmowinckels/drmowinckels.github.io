@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>The IDEs I use - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="People who code have a tendency to spend a lot of time in various IDEs (Integrated Development Environments). These are the tools that help you write, test, and debug your code. They can be as simple as a text editor or as complex as a full-blown development environment. In this post, I’ll go through my two go-to IDE’s, RStudio and VScode, and why I switch between them rather than sticking to a single one." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The IDEs I use - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="People who code have a tendency to spend a lot of time in various IDEs (Integrated Development Environments). These are the tools that help you write, test, and debug your code. They can be as simple as a text editor or as complex as a full-blown development environment. In this post, I’ll go through my two go-to IDE’s, RStudio and VScode, and why I switch between them rather than sticking to a single one.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="People who code have a tendency to spend a lot of time in various IDEs (Integrated Development Environments). These are the tools that help you write, test, and debug your code. They can be as simple as a text editor or as complex as a full-blown development environment. In this post, I’ll go through my two go-to IDE’s, RStudio and VScode, and why I switch between them rather than sticking to a single one.">
+
+
+
+    <meta property="og:image" content="https://drmowinckels.io/blog/2024/ide/vscode.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/ide/vscode.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.3cdff7ce1f8712cc2abaa472ae3373e0cc7af64bb118437ad3e005775d7a8d3f.css" 
+    integrity="sha256-PN/3zh&#43;HEswquqRyrjNz4Mx69kuxGEN60&#43;AFd116jT8=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2024/ide/vscode.png" alt="The IDEs I use" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">The IDEs I use</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                May 1, 2024
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/programming/" class="uk-label uk-label-secondary tags" >
+                                programming
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/ide/" class="uk-label uk-label-secondary tags" >
+                                IDE
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/rstudio/" class="uk-label uk-label-secondary tags" >
+                                RStudio
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/vscode/" class="uk-label uk-label-secondary tags" >
+                                VScode
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#my-previous-experience-with-programming-ides">My previous experience with programming IDEs</a>
+      <ul>
+        <li><a href="#matlab">MATLAB</a></li>
+        <li><a href="#gnu-editor-gedit">GNU editor (<code>gedit</code>)</a></li>
+        <li><a href="#vi--vim">vi / vim</a></li>
+      </ul>
+    </li>
+    <li><a href="#my-current-preferred-ides">My current preferred IDEs</a>
+      <ul>
+        <li><a href="#rstudio">RStudio</a></li>
+        <li><a href="#vscode">VScode</a></li>
+      </ul>
+    </li>
+    <li><a href="#comparison">Comparison</a></li>
+    <li><a href="#when-do-i-use-which-and-why">When do I use which and why</a>
+      <ul>
+        <li><a href="#r">R</a></li>
+        <li><a href="#git-conflicts-and-other-git-issues">git conflicts and other git issues</a></li>
+        <li><a href="#hugo">hugo</a></li>
+        <li><a href="#all-other-projects-and-languages">All other projects and languages</a></li>
+      </ul>
+    </li>
+    <li><a href="#end-thoughts">End thoughts</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">People who code have a tendency to spend a lot of time in various IDEs (Integrated Development Environments). These are the tools that help you write, test, and debug your code. They can be as simple as a text editor or as complex as a full-blown development environment. In this post, I&rsquo;ll go through my two go-to IDE&rsquo;s, RStudio and VScode, and why I switch between them rather than sticking to a single one.</p>
+        
+        <div class="uk-markdown uk-width">
+            <h2 id="my-previous-experience-with-programming-ides">My previous experience with programming IDEs</h2>
+<p>I thought it would be nice to start this post with a little history of my experience with IDEs.
+Which, to be honest, is not that long, but I have used a few different ones.
+I&rsquo;ve probably tried several more that I can&rsquo;t even remember much of, but these are the ones that have stuck with me.</p>
+<h3 id="matlab">MATLAB</h3>
+<p>While R is my language of choice currently, it was not the first language I learned.
+I started with MATLAB really, which has its own IDE.</p>
+<p><img src="matlab_r2015.jpeg" alt="Image from /www.cs.uic.edu"></p>
+<p>I enjoyed my time working with MATLAB, and found the IDE satisfactory.
+Though, this was the very beginning of my programming journey and I did not really have any other IDE to compare it to.
+It had a lot of functionality I never used.</p>
+<p>But all the general components of what I now found to be a good IDE is there: - A script editor - A console - A workspace - A file browser - A command history - Windows to view graphics</p>
+<h3 id="gnu-editor-gedit">GNU editor (<code>gedit</code>)</h3>
+<p>Simultaneously, I was also using a simple text editor called <code>gedit</code> to write my bash shell code.
+Being in neuroscience, MATLAB was not all I needed.
+Yes, it was good for some stats and plots etc, but I also needed to run programs like <code>FSL</code> and <code>Freesurfer</code> which are most efficiently called from command line.</p>
+<p>While I still do quite a bit of shell scripting, I no longer rely on the simple GNU editor.
+<code>gedit</code> is nice because its simple and comes with every Linux distribution.
+But its not an IDE in the sense I think of IDEs now.</p>
+<p>It is a simple text editor, nothing else.
+It does not have a console, a workspace, a file browser, a command history, or windows to view graphics.
+Its just for writing and saving text, that can be executed later.</p>
+<p>It&rsquo;s harder to debug in <code>gedit</code> because you have to run your code in the terminal, and then go back to the editor to make changes.
+It does it&rsquo;s job, and I still revert to it for simple stuff, but generally, it&rsquo;s not something I do anymore.</p>
+<ul>
+<li>A script editor</li>
+</ul>
+<h3 id="vi--vim">vi / vim</h3>
+<p>I also used <code>vi</code> and <code>vim</code> quite a bit.
+Mostly not on purpose, but because that&rsquo;s what you get when you log into a server without a GUI.
+I never really got the hang of it, and I still don&rsquo;t.
+At this moment, I know the keystrokes for saving, closing and searching in vim, and that&rsquo;s about it.
+To be honest, that does get you most of the way, but it is a rather tedious bit of software to use, in my opinion.
+I know some people swear by it, but I&rsquo;m not one of them.</p>
+<p>It&rsquo;s especially the whole workflow of it that bothers me.
+Since its a console IDE, it means that there&rsquo;s this continuous open vi, do edits, save, exit, try, repeat.
+There&rsquo;s no console to run your code in, no workspace to keep track of your variables, no file browser to navigate your project, no command history to see what you&rsquo;ve done before, and no windows to view graphics.
+It&rsquo;s just a text editor, and a very powerful one at that, but it&rsquo;s not an IDE in how I think of it.</p>
+<ul>
+<li>A script editor</li>
+</ul>
+<h2 id="my-current-preferred-ides">My current preferred IDEs</h2>
+<p>Ok, so at this point I have a bit more experience coding and working full-time with code.
+That means I also get to have opinions on what is the most efficient way for me to work.</p>
+<h3 id="rstudio">RStudio</h3>
+<p>When I began my R journey, RStudio was already available and I have been using it ever since.
+In the beginning, coming from MATLAB, I found it to be a very similar environment.
+It was easy enough to navigate and had all the components I needed.
+Workspace, console, script editor, file browser, command history, and windows to view graphics, and more.
+I could re-arrange windows to how I&rsquo;d like them (mostly), and I could customize the appearance to my liking, and since its open source there are also addins people make that can be very useful.</p>
+<p><img src="rstudio.png" alt=""></p>
+<p>RStudio is still my go-to IDE, and I use it for most of my R coding.
+In particular, it is completely unbeaten when it comes to working on an R-package.
+The integration of devtools and usethis, and so many development tools, makes it a breeze to work on packages.
+It has lots of lovely keystroke shortcuts to make your life easier while developing.</p>
+<p>In fact, even as I was progressing in learning more languages, like js, css, html and hugo, I still used RStudio, and it was still good.
+Not as good as for R, but still good.</p>
+<ul>
+<li>A script editor</li>
+<li>A console</li>
+<li>A workspace</li>
+<li>A file browser</li>
+<li>A command history</li>
+<li>Windows to view graphics</li>
+</ul>
+<h3 id="vscode">VScode</h3>
+<p>I got introduced to vscode around 2019, and I have been using it more and more since then.
+I started using it mostly because of the developers I work with, who are not R users.
+Most of them are work in shell and python, with some make and other tools.
+RStudio is not the best for these languages (good support for python now, though), and I saw how great vscode was working for them.</p>
+<p>I started using it for my non-R projects, and I found it to be very good.
+It was somewhat daunting, because it has so many features.
+To be honest, I still somewhat find the amount of features and extensions to be a bit overwhelming.
+Choosing the right ones, setting them up, customizing keystrokes etc.
+Like, you can make vscode be exactly what you need it to be, but you have to put in the work to get there.
+The majority of the functionality comes through the extensions, so that is really what needs to be done to make it work for you.</p>
+<p>Through those, depending on language, you can get syntax highlighting, code completion, linting, debugging, and more.
+You can also get git integration, terminal, and a lot of other things that are not language specific.
+The file browser is excellent, and it&rsquo;s git integration is one of the main reasons I use it even for certain R projects.
+It highlights what is changed, if its edited, deleted, added, conflicting etc.
+Its so excellent and intuitive.</p>
+<p><img src="vscode.png" alt=""></p>
+<ul>
+<li>A script editor</li>
+<li>A console</li>
+<li>A workspace</li>
+<li>A file browser</li>
+<li>A command history</li>
+<li>Windows to view graphics</li>
+</ul>
+<h2 id="comparison">Comparison</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Feature</th>
+<th style="text-align:center">RStudio</th>
+<th style="text-align:center">VScode</th>
+<th style="text-align:center">MATLAB</th>
+<th style="text-align:center">vi</th>
+<th style="text-align:center">gedit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Script editor</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">Console</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Workspace</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">File browser</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">Command history</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">View graphics</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Git integration</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Terminal</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Customization</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">Extensions</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Linting</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Code completion</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Debugging</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+</tr>
+<tr>
+<td style="text-align:left">Multi-language</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">Open source</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">Free</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">Cross-platform</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">Learning curve</td>
+<td style="text-align:center">Low</td>
+<td style="text-align:center">Medium</td>
+<td style="text-align:center">Low</td>
+<td style="text-align:center">High</td>
+<td style="text-align:center">Low</td>
+</tr>
+</tbody>
+</table>
+<p>It&rsquo;s difficult to make a hard comparison between all, and provide a definitive answers on WHY I like one over the over.
+I think a lot of this in personal preference, and what you are used to.
+I think the best way to find out what you like is to try them all out, and see what works for you.
+I m just giving my points of view on it, and maybe it can help you think through what you like and why.</p>
+<p>One thing I can say, is that I find the file browser in vscode to be the best of all.
+It&rsquo;s so intuitive and easy to use.
+The fact that is shows the file tree, rather than jumps between folders is a big plus for me.
+It makes it easier to jump between files and folders, and I find it to be a big time saver.
+It also helps me get a better overview of the project I&rsquo;m working on.
+The fact that the file browser is integrated with git, and highlights changes, is also a big plus for me.
+The fact that it happens in the same place, makes it much simpler and intuitive to use than the one in RStudio.</p>
+<p>Since RStudio does not show the file tree, I often find myself using the terminal to navigate between files and folders.
+While I like the terminal, I find it to be a bit cumbersome to use for this purpose.
+There is also a specific git pane in RStudio, but I&rsquo;ve never liked how it worked.
+I much prefer git in the terminal than RStudio&rsquo;s git pane.</p>
+<h2 id="when-do-i-use-which-and-why">When do I use which and why</h2>
+<h3 id="r">R</h3>
+<p>RStudio is my go-to for anything R-related.
+It&rsquo;s just so good for that.
+While I do some times use vscode for R, it&rsquo;s mostly if I&rsquo;m in environments or projects where vscode is better integrated or multi-lingual.</p>
+<p>I also need to mention here, that I am an avid user of the terminal pane in RStudio.
+I use it for running shell commands, git commands, and hugo servers, among other things.
+I know most RStudio users will use the built in tools in RStudio for these things, but my personal preference (due to my familiarity with the terminal) is to rather do these operations through the terminal.</p>
+<h3 id="git-conflicts-and-other-git-issues">git conflicts and other git issues</h3>
+<p>However, if I get git conflicts etc, I will have a vscode window open in the same project, and resolve the issues in vscode.
+Its just so much better for that, in my opinion.
+As I mentioned, it highlights changed files and conflicted files in very intuitive ways.
+Additionally, it has super convenient ways to accept incoming or current changes, rather than manually finding all of the <code>&gt;&gt;&gt;&gt; HEAD</code> instances and fix things.</p>
+<h3 id="hugo">hugo</h3>
+<p>Now, depending on the hugo projects, I use either!
+For hugo projects I have that create website content with Rmarkdown, I use RStudio.
+For projects that do not have Rmarkdown, I use vscode.
+I could easily use RStudio for both, but again, vscode just has so many extensions and great features, its lovely to work in.
+And again, the file explorer is superior to RStudio, in my opinion.</p>
+<h3 id="all-other-projects-and-languages">All other projects and languages</h3>
+<p>For everything else I use vscode.
+It&rsquo;s just so good.
+Again, I have not figured out all extensions and customization yet, but I&rsquo;m getting there.
+For instance, I work on a rather large project for work which integrates R, php, SQL, js, css, html, and shell.
+It&rsquo;s a massive thing, and I use vscode for it.
+It helps me by, through extensions, I can get overview of the SQL database when its populated and queried, I can get linting and code completion for php, js, css, and html, and I can get git integration for all of it.</p>
+<h2 id="end-thoughts">End thoughts</h2>
+<p>There it is, my IDE journey.
+While I&rsquo;m quite happy with where I am now, how about you?
+What do you use and why?
+Do you have other suggestions for me to give a go?</p>
+
+        </div>
+    </article>
+    
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/2024/git-clean-woes/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Too much git cleaning
+            </a>
+        
+    </div>
+    
+    <div class="uk-width-auto">
+        
+    </div>
+</div>
+
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>
