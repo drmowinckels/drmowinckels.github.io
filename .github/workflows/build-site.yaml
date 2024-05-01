@@ -32,6 +32,8 @@ jobs:
           ver=$(cat .Rprofile | grep hugo.version | cut -d'"' -f2 )
           echo ".Rprofile sets hugo version to $ver"
           echo "hugo_v=${ver}" >> $GITHUB_ENV
+          nalias=$(echo ${{ github.head_ref }} | sed 's/_/-/g')
+          echo "nalias=${nalias}" >> $GITHUB_ENV
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -47,7 +49,7 @@ jobs:
             hugo \
               --buildDrafts \
               --buildFuture \
-              -b https://${{ github.head_ref }}--drmowinckels.netlify.app/
+              -b https://${{ env.nalias }}--drmowinckels.netlify.app/
           fi
 
       - name: Deploy production 🚀
@@ -58,14 +60,28 @@ jobs:
           folder: public
 
       - name: Deploy to Netlify
+        id: netlify
         if: github.event_name == 'pull_request'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
             npm install netlify-cli -g
-            netlify deploy --alias ${{ github.head_ref }}
+            netlify deploy --alias ${{ env.nalias  }}
         shell: sh
+
+      - uses: actions/github-script@v7
+        if: steps.netlify.outcome == 'success'
+        name: "Notify about build preview"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: ${{ github.event.pull_request.number }},
+              owner: 'drmowinckels',
+              repo: 'drmowinckels.github.io',
+              body: ':tada: The preview is built! [Check it out :eyes:](https://${{ env.nalias }}--drmowinckels.netlify.app/)'
+            })
 
   check-post:
     name: Check post date
