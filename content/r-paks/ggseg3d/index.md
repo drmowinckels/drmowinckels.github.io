@@ -3,9 +3,6 @@ title: "ggseg3d"
 subtitle: "3d mesh visualisation of brain segmentations"
 type: slider
 image: "logo.png"
-output:
-  html_document:
-    keep_md: yes
 weight: 1
 draft: false
 color: "#222222"

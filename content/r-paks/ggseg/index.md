@@ -3,9 +3,6 @@ title: ggseg
 subtitle: "polygon visualisation of brain segmentations"
 image: "logo.png"
 type: slider
-output:
-  html_document:
-    keep_md: yes
 external_link: ""
 weight: 1
 color: "#333333"
