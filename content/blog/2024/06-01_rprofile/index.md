@@ -4,7 +4,7 @@ author: Dr. Mowinckel
 date: '2024-06-01'
 categories: []
 tags:
-  - R
+  - r
   - startup
   - pride
 slug: "rproject"
@@ -128,7 +128,7 @@ The {praise} package contains a list of praises that you can use to get a random
 praise::praise()
 ```
 
-    [1] "You are perfect!"
+    [1] "You are finest!"
 
 See? Isn't that nice? And it will be a different phrase every time you start R, it's a nice little boost.
 
