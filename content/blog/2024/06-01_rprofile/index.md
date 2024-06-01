@@ -6,6 +6,7 @@ categories: []
 tags:
   - R
   - startup
+  - pride
 slug: "rproject"
 image: "startup.png"
 format: hugo-md
@@ -127,7 +128,7 @@ The {praise} package contains a list of praises that you can use to get a random
 praise::praise()
 ```
 
-    [1] "You are shining!"
+    [1] "You are perfect!"
 
 See? Isn't that nice? And it will be a different phrase every time you start R, it's a nice little boost.
 
@@ -432,13 +433,13 @@ We can use this logic in the `grepl` function, which will return `TRUE` if the p
 Sys.Date() 
 ```
 
-    [1] "2024-05-21"
+    [1] "2024-06-01"
 
 ``` r
 grepl("-06-", Sys.Date() )
 ```
 
-    [1] FALSE
+    [1] TRUE
 
 Putting it all together as chunk together, we get a piece of code that will create our custom colourbar.
 
@@ -511,6 +512,46 @@ if(interactive()){
   rm(instl, thick_bar, colour)
 }
 ```
+
+``` r
+instl <- utils::installed.packages()
+if("cli" %in% instl){
+  cli::cli_text(R.version.string)
+  cli::cli_text("Running under {utils::osVersion}")
+  cli::cli_text("System time is {Sys.time()}")
+  cli::cli_text("Library paths set to")
+  cli::cli_bullets(
+    stats::setNames(.libPaths(),
+                    rep("*", length(.libPaths())
+                    )))
+  thick_bar <- paste0(rep("\u2583", 6), collapse = "")
+  (function(){
+    colour <- rep("#88398a", 10)
+    if(grepl("-06-", Sys.Date() )){
+      colour <- c("#e50000", "#ff8d00", "#ffee00",
+                  "#028121", "#004cff", "#770088",
+                  "#ffffff", "#ffafc7", "#73D7EE",
+                  "#613915", "#000000")
+    }
+    invisible(
+      lapply(colour, cli::make_ansi_style) |>
+        lapply(\(x){
+          cat(x(thick_bar))
+        })
+    )
+  })()
+}
+cat("\n")
+if("praise" %in% instl){
+  cat(
+    "\nHey Mo!",
+    praise::praise(),
+    sep = "\n"
+  )
+}
+```
+
+<img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-23.svg" width="768" />
 
 There you have it!
 The piece of (rather long) code that customised my R startup to something shorter, more informative and also that makes me smile every time.

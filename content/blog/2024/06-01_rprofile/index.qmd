@@ -6,6 +6,7 @@ categories: []
 tags:
   - R
   - startup
+  - pride
 slug: "rproject"
 image: "startup.png"
 format: hugo-md
@@ -479,6 +480,45 @@ if(interactive()){
 }
 
 ```
+
+```{asciicast, verbose=FALSE}
+instl <- utils::installed.packages()
+if("cli" %in% instl){
+  cli::cli_text(R.version.string)
+  cli::cli_text("Running under {utils::osVersion}")
+  cli::cli_text("System time is {Sys.time()}")
+  cli::cli_text("Library paths set to")
+  cli::cli_bullets(
+    stats::setNames(.libPaths(),
+                    rep("*", length(.libPaths())
+                    )))
+  thick_bar <- paste0(rep("\u2583", 6), collapse = "")
+  (function(){
+    colour <- rep("#88398a", 10)
+    if(grepl("-06-", Sys.Date() )){
+      colour <- c("#e50000", "#ff8d00", "#ffee00",
+                  "#028121", "#004cff", "#770088",
+                  "#ffffff", "#ffafc7", "#73D7EE",
+                  "#613915", "#000000")
+    }
+    invisible(
+      lapply(colour, cli::make_ansi_style) |>
+        lapply(\(x){
+          cat(x(thick_bar))
+        })
+    )
+  })()
+}
+cat("\n")
+if("praise" %in% instl){
+  cat(
+    "\nHey Mo!",
+    praise::praise(),
+    sep = "\n"
+  )
+}
+```
+
 
 
 There you have it!
