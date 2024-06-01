@@ -128,7 +128,7 @@ The {praise} package contains a list of praises that you can use to get a random
 praise::praise()
 ```
 
-    [1] "You are finest!"
+    [1] "You are sublime!"
 
 See? Isn't that nice? And it will be a different phrase every time you start R, it's a nice little boost.
 
