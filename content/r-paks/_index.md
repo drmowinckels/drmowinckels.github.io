@@ -2,11 +2,9 @@
 title: "R-paks"
 subtitle: "Projects featured here are R-package development. Project summaries, links to source code and demos can be found by clicking each."
 weight: 2
-type: slider
+type: grid
 home: true
-height: 
-    slider: "250"
-    image: "500"
+n_posts: 4
 ---
 
 While I am a scientist and have lost of research projects ongoing, here I'd rather showcase the wonderful world of development I have started exploring.
