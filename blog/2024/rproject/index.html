@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Customise your R startup message - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="We all know the R startup message. It tells us the version
+of R we are running, the date, the platform we are running
+on, and some informative tips on using R.
+When you’ve been using R a while, though, it get old.
+Let me show you how you can customise your startup message!" />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta property="og:url" content="https://drmowinckels.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Customise your R startup message - Dr. Mowinckel&rsquo;s">
+<meta property="og:description" content="We all know the R startup message. It tells us the version
+of R we are running, the date, the platform we are running
+on, and some informative tips on using R.
+When you’ve been using R a while, though, it get old.
+Let me show you how you can customise your startup message!">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="We all know the R startup message. It tells us the version
+of R we are running, the date, the platform we are running
+on, and some informative tips on using R.
+When you’ve been using R a while, though, it get old.
+Let me show you how you can customise your startup message!">
+
+
+
+    <meta property="og:image" content="https://drmowinckels.io/blog/2024/rproject/startup.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/rproject/startup.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.3cdff7ce1f8712cc2abaa472ae3373e0cc7af64bb118437ad3e005775d7a8d3f.css" 
+    integrity="sha256-PN/3zh&#43;HEswquqRyrjNz4Mx69kuxGEN60&#43;AFd116jT8=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2024/rproject/startup.png" alt="Customise your R startup message" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Customise your R startup message</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Jun 1, 2024
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/startup/" class="uk-label uk-label-secondary tags" >
+                                startup
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/pride/" class="uk-label uk-label-secondary tags" >
+                                pride
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-user-rprofile">The user <code>.Rprofile</code></a></li>
+    <li><a href="#the-common-problem---cran-mirror">The common problem - CRAN mirror</a></li>
+    <li><a href="#your-daily-praise">Your daily praise.</a></li>
+    <li><a href="#clearing-the-console">Clearing the console</a></li>
+    <li><a href="#print-some-system-information">Print some system information</a></li>
+    <li><a href="#a-colour-bar-because-we-can">A colour bar, because we can!</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">We all know the R startup message. It tells us the version
+of R we are running, the date, the platform we are running
+on, and some informative tips on using R.
+When you&rsquo;ve been using R a while, though, it get old.
+Let me show you how you can customise your startup message!</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I love customizing things.
+I seem to never let anything I work with that can be customized, not be customized.
+Colours of the software, websites I work on.
+I just like having things the way <em>I</em> like having things.</p>
+<p>This ofcourse, also extends to R.
+The R startup message is just, so much!
+And when you have been working with it so long, it&rsquo;s just noise.</p>
+<p>I mean, look at this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>R version <span style="color:#ae81ff">4.3.3</span> (<span style="color:#ae81ff">2024-02-29</span>) <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;Angel Food Cake&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Copyright </span>(C) <span style="color:#ae81ff">2024</span> The R Foundation for Statistical Computing
+</span></span><span style="display:flex;"><span>Platform<span style="color:#f92672">:</span> aarch64<span style="color:#f92672">-</span>apple<span style="color:#f92672">-</span><span style="color:#a6e22e">darwin20 </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>R is free software and comes with ABSOLUTELY NO WARRANTY.
+</span></span><span style="display:flex;"><span>You are welcome to redistribute it under certain conditions.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;license()&#39;</span> or <span style="color:#e6db74">&#39;licence()&#39;</span> for distribution details.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Natural language support but running in an English locale
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>R is a collaborative project with many contributors.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;contributors()&#39;</span> for more information and
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;citation()&#39;</span> on how to cite R or R packages in publications.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;demo()&#39;</span> for some demos, <span style="color:#e6db74">&#39;help()&#39;</span> for on<span style="color:#f92672">-</span>line help, or
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;help.start()&#39;</span> for an HTML browser interface to help.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;q()&#39;</span> to quit R.
+</span></span></code></pre></div><p>Ok, it&rsquo;s all informative and meaningful information.
+You just don&rsquo;t need that information every time, and wouldn&rsquo;t it be fun if we could make it more personal?</p>
+<p>I had wanted to do this for a while, but never really got around to it.
+Mostly because I tried finding ways of clearing the startup message, but just couldn&rsquo;t figure it out.</p>
+<p>Enter Danielle Navarro and her amazingness.
+Danielle is amazing in a multitude of ways, I respect and look up to her for so many reasons, coding and not.
+She had a post on mastodon with a custom startup message, and I was like, &ldquo;I need to do that!&rdquo;.</p>
+<iframe
+    src="https://fosstodon.org/@djnavarro/110541882131342960/embed"
+    width="400"
+    allowfullscreen="allowfullscreen"
+    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
+></iframe>
+<h2 id="the-user-rprofile">The user <code>.Rprofile</code></h2>
+<p>The way to customise this is through the <code>.Rprofile</code> file. This file is a script that is run every time you start R.
+It can be used to set up your environment, load packages, and do whatever you want to do every time you start R.</p>
+<blockquote>
+<p>Be cautious!
+Don&rsquo;t load packages in the <code>.Rprofile</code> if you want to work reproducibly.
+It&rsquo;s better to load packages in your script, so it&rsquo;s transparent to anyone wanting to run it what it need.</p>
+</blockquote>
+<p>If you&rsquo;ve used R a while, you have likely already tampered a little with this file.
+Most commonly, we use it to set the default CRAN mirror, or to set the default options for R with the <code>options()</code> function.</p>
+<p>There are two <code>.Rprofile</code> files you can use.
+One is in your home directory, and one is in the R project directory.
+The one in your home directory is the one you should use for anything you want to always apply to your R session.
+The project <code>.Rprofile</code> is for things you want to apply only to that project.</p>
+<blockquote>
+<p>Note! If you have a project Rprofile, the home Rprofile will not be executed.
+This is to avoid conflicts between the two.
+There are ways around this, but I&rsquo;m not going to recommend them here.
+Mostly because it&rsquo;s an advanced thing and you aught to have a good reason for doing it.</p>
+</blockquote>
+<p>You can access these files easily with the {usethis} package.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># default opens user profile</span>
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">edit_r_profile</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># opens the project profile</span>
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">edit_r_profile</span>(scope <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;project&#34;</span>)
+</span></span></code></pre></div><h2 id="the-common-problem---cran-mirror">The common problem - CRAN mirror</h2>
+<p>For instance, in my <code>.Rprofile</code> I set not only CRAN mirror, but also the <code>ggseg</code> and <code>lcbc</code> repositories, from the <a href="https://ggseg.r-universe.dev/builds">R-universe</a> which contain important packages for me that don&rsquo;t exist on CRAN.
+Those settings can be set with the <code>options</code> function in R, in the <code>repos</code> argument.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Set the default CRAN mirror</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  repos <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    ggseg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://ggseg.r-universe.dev&#39;</span>,
+</span></span><span style="display:flex;"><span>    lcbc <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://lcbc-uio.r-universe.dev&#39;</span>,
+</span></span><span style="display:flex;"><span>    CRAN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://cloud.r-project.org/&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Having this set means I don&rsquo;t have to set the repositories every time I install a package.
+I can just use <code>install.packages</code> and it will know where to look.
+It will look for the package I ask for in the order the repositories are listed.
+Which is super convenient, and saves me a lot of time.</p>
+<h2 id="your-daily-praise">Your daily praise.</h2>
+<p>But that was not the fun customisation I was talking about. That was just a useful customisation.</p>
+<p>Let us maybe have a little praise every time we start R!
+Days can be long and hard, and a little praise can go a long way.</p>
+<p>We can do this with the {praise} package.
+The {praise} package contains a list of praises that you can use to get a random praise every time you run the function <code>praise()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>()
+</span></span></code></pre></div><pre><code>[1] &quot;You are perfect!&quot;
+</code></pre>
+<p>See? Isn&rsquo;t that nice? And it will be a different phrase every time you start R, it&rsquo;s a nice little boost.</p>
+<p>To make this happen, we can add the following code to our <code>.Rprofile</code> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;paise&#34;</span> <span style="color:#f92672">%in%</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
+</span></span><span style="display:flex;"><span>    praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
+</span></span><span style="display:flex;"><span>    sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\n&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There is a little to unpack in this code.
+Firstly, we check if the package <code>praise</code> is installed.
+I do this because R will error on startup if it is not and we don&rsquo;t want that.
+So if you are doing this on a new computer etc, you will need to install the package first to actually get your little piece of daily praise.</p>
+<p>We then use the <code>cat</code> function to print out the praise.
+Because we want it to print in the console, not be returned as a value <code>## [1] &quot;praise&quot;</code>.
+We use the <code>sep</code> argument to separate the praise from the &ldquo;Hey Mo!&rdquo; string, and we want it to be a new line, which is indicated with the <code>\n</code> character.</p>
+<p>That is our first piece of fun customisation!
+But that will still print the normal startup message, and then append our own praise at the end.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>R version <span style="color:#ae81ff">4.3.3</span> (<span style="color:#ae81ff">2024-02-29</span>) <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;Angel Food Cake&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Copyright </span>(C) <span style="color:#ae81ff">2024</span> The R Foundation for Statistical Computing
+</span></span><span style="display:flex;"><span>Platform<span style="color:#f92672">:</span> aarch64<span style="color:#f92672">-</span>apple<span style="color:#f92672">-</span><span style="color:#a6e22e">darwin20 </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>R is free software and comes with ABSOLUTELY NO WARRANTY.
+</span></span><span style="display:flex;"><span>You are welcome to redistribute it under certain conditions.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;license()&#39;</span> or <span style="color:#e6db74">&#39;licence()&#39;</span> for distribution details.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Natural language support but running in an English locale
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>R is a collaborative project with many contributors.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;contributors()&#39;</span> for more information and
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;citation()&#39;</span> on how to cite R or R packages in publications.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;demo()&#39;</span> for some demos, <span style="color:#e6db74">&#39;help()&#39;</span> for on<span style="color:#f92672">-</span>line help, or
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;help.start()&#39;</span> for an HTML browser interface to help.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;q()&#39;</span> to quit R.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hey Mo<span style="color:#f92672">!</span>
+</span></span><span style="display:flex;"><span>You are awesome<span style="color:#f92672">!</span>
+</span></span></code></pre></div><h2 id="clearing-the-console">Clearing the console</h2>
+<p>We need a bit of code that clears the console before we print our praise.
+This will remove the old message before printing the new one.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Clear if running in terminal</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;clear&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Clear if running in RStudio</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\014&#34;</span>)
+</span></span></code></pre></div><p>Here we have two different ways to clear the console, because I interact with R in several ways.
+I use RStudio, but I also use the terminal (and vscode), and I want the console to be cleared in both cases.
+These two lines of code will clear the console in both cases.</p>
+<h2 id="print-some-system-information">Print some system information</h2>
+<p>Now that we have cleared the console, we can print some system information.
+This information is useful to have, and it&rsquo;s nice to see it every time you start R.
+It can be useful to know what version of R you are running, what operating system you are on, and what time it is.
+This can be useful for debugging, and it&rsquo;s just nice to know.</p>
+<p>To do this, I&rsquo;m going to use the {cli} package, which can print nice colours, bullet points and all sorts of fun things!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()){
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-5.svg" width="768" />
+<p>As with praise, we start with checking if the package is installed.
+Just to be sure we don&rsquo;t get an error on startup.</p>
+<p>Then we&rsquo;ll print the R version, the operating system version, and the system time.</p>
+<p>Now that we have some meaningful system information, I also like to print my library paths as shown in the <code>.libPaths()</code> function.
+This is useful to know where your packages are installed.
+In particular, this will also help expose if you are in an {renv} project, as the library paths will be different.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Exposes where library paths are set to</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.libPaths</span>()
+</span></span></code></pre></div><pre><code>[1] &quot;/Users/athanasm/Library/Caches/org.R-project.R/R/renv/library/profiles/readme/renv/drmowinckels-45df6871/R-4.3/aarch64-apple-darwin20&quot;
+[2] &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library&quot;                                                                 
+</code></pre>
+<p>Now that we know where out libraries are set to, we can print this information in a nice way using the {cli} package, with <code>cli_bullets</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_bullets</span>(<span style="color:#a6e22e">.libPaths</span>())
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-7.svg" width="768" />
+<p>Now, I can keep it to that, but I&rsquo;m gonna over-think it.
+I want my bullets to actually start with bullets!
+In {cli} we can accomplish this having each element in the vector have an asterisk as its name.
+This will make the bullets appear as bullets in the console.
+To accomplish this, I&rsquo;m going to use the <code>setNames</code> function from the {stats} package.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>stats<span style="color:#f92672">::</span><span style="color:#a6e22e">setNames</span>(<span style="color:#a6e22e">.libPaths</span>(),
+</span></span><span style="display:flex;"><span>                  <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">.libPaths</span>())
+</span></span><span style="display:flex;"><span>                  ))
+</span></span></code></pre></div><pre><code>                                                                                                                                      * 
+&quot;/Users/athanasm/Library/Caches/org.R-project.R/R/renv/library/profiles/readme/renv/drmowinckels-45df6871/R-4.3/aarch64-apple-darwin20&quot; 
+                                                                                                                                      * 
+                                                                 &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library&quot; 
+</code></pre>
+<p>Now that we have all the pieces, we can feed them to cli_bullets.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_bullets</span>(
+</span></span><span style="display:flex;"><span>  stats<span style="color:#f92672">::</span><span style="color:#a6e22e">setNames</span>(<span style="color:#a6e22e">.libPaths</span>(),
+</span></span><span style="display:flex;"><span>                  <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">.libPaths</span>())
+</span></span><span style="display:flex;"><span>                  )))
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-9.svg" width="768" />
+<p>Now we have a nice list of library paths, with bullets, in the console.
+Let&rsquo;s put all we have for now together in our <code>.Rprofile</code> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;clear&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\014&#34;</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>instl <span style="color:#f92672">&lt;-</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Library paths set to&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_bullets</span>(
+</span></span><span style="display:flex;"><span>    stats<span style="color:#f92672">::</span><span style="color:#a6e22e">setNames</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">.libPaths</span>(),
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">.libPaths</span>())
+</span></span><span style="display:flex;"><span>      )))
+</span></span><span style="display:flex;"><span>} <span style="color:#75715e"># end if cli installed</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
+</span></span><span style="display:flex;"><span>    praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
+</span></span><span style="display:flex;"><span>    sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\n&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>} <span style="color:#75715e"># end if praise installed</span>
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-10.svg" width="768" />
+<h2 id="a-colour-bar-because-we-can">A colour bar, because we can!</h2>
+<p>The last bits of magic in my profile are a colour bar.
+My colourbar is R-Ladies purple, except for June, when its rainbow pride colours.
+It just makes my Pride month happier to see a rainbow in my console.</p>
+<p>But getting there is a little chore!
+Let us start with the single colour purple bar, then expand to the pride bar later.
+We first make a vector of 10 purple colours.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>colour
+</span></span></code></pre></div><pre><code> [1] &quot;#88398a&quot; &quot;#88398a&quot; &quot;#88398a&quot; &quot;#88398a&quot; &quot;#88398a&quot; &quot;#88398a&quot; &quot;#88398a&quot;
+ [8] &quot;#88398a&quot; &quot;#88398a&quot; &quot;#88398a&quot;
+</code></pre>
+<p>Now, we have to do some fancy work to make this into a colour bar.
+We have to convert the hex colours to ANSI colours.
+This is done using the <code>cli::make_ansi_style</code> function.
+We can use <code>sapply</code> to apply this function to each element in the vector.
+If you don&rsquo;t know about the <code>apply</code> functions, then <a href="blog/2022/lets-get-applying">I have a post on that</a>.
+In short, its a type of loop, that applies the same function to all values of a vector.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">lapply</span>(colour, cli<span style="color:#f92672">::</span>make_ansi_style) 
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-12.svg" width="768" />
+<p>Now we have a vector of ANSI colours, next we need to apply them to a character.
+To make a colourbar, I&rsquo;m going to use the ANSI character for &lsquo;LOWER THREE EIGHTHS BLOCK&rsquo;, which is a thick underscore, and I&rsquo;m going to make it 6 characters long for each colour.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>)
+</span></span></code></pre></div><pre><code>[1] &quot;▃&quot; &quot;▃&quot; &quot;▃&quot; &quot;▃&quot; &quot;▃&quot; &quot;▃&quot;
+</code></pre>
+<p>To make a single line colour bar, we can use <code>paste0</code> to paste the colour and the block together.
+We can use <code>collapse = &quot;&quot;</code> to make it a single string.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>thick_bar
+</span></span></code></pre></div><pre><code>[1] &quot;▃▃▃▃▃▃&quot;
+</code></pre>
+<p>Here is the true tricky part.
+The ansi-colour style we have is actually a list of functions that can be applied to a string.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>style <span style="color:#f92672">&lt;-</span> cli<span style="color:#f92672">::</span><span style="color:#a6e22e">make_ansi_style</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>) 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">style</span>(thick_bar)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-15.svg" width="768" />
+<p>Lastly, we need to <code>cat</code> this again, to print it nicely to the console.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>style <span style="color:#f92672">&lt;-</span> cli<span style="color:#f92672">::</span><span style="color:#a6e22e">make_ansi_style</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>) 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">style</span>(thick_bar))
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-16.svg" width="768" />
+<p>Now, since we want a longer bar, we need to apply across all the 10 colours specified.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">lapply</span>(colour, cli<span style="color:#f92672">::</span>make_ansi_style) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">\</span>(x){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">x</span>(thick_bar))
+</span></span><span style="display:flex;"><span>  })
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-17.svg" width="768" />
+<p>The colourbar looks great. But all those NULLs, Ack!
+We can use <code>invisible</code> to suppress the output of the <code>cat</code> function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">invisible</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(colour, cli<span style="color:#f92672">::</span>make_ansi_style) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">\</span>(x){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">x</span>(thick_bar))
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-18.svg" width="768" />
+<p>Now we have a nice purple colour bar.
+We are going to make the pride bar now.
+We need to make a vector of the pride colours.
+I&rsquo;m going to use the hex codes for the pride flag colours.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e50000&#34;</span>, <span style="color:#e6db74">&#34;#ff8d00&#34;</span>, <span style="color:#e6db74">&#34;#ffee00&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#028121&#34;</span>, <span style="color:#e6db74">&#34;#004cff&#34;</span>, <span style="color:#e6db74">&#34;#770088&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#ffffff&#34;</span>, <span style="color:#e6db74">&#34;#ffafc7&#34;</span>, <span style="color:#e6db74">&#34;#73D7EE&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#613915&#34;</span>, <span style="color:#e6db74">&#34;#000000&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">invisible</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(colour, cli<span style="color:#f92672">::</span>make_ansi_style) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">\</span>(x){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">x</span>(thick_bar))
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-19.svg" width="768" />
+<p>Now, we need something that will detect that we are in the month of June, so we can toggle the pride colours rather than the purple.</p>
+<p>The <code>Sys.Date()</code> function will give us the current date, and we can discern that its June by looking for &ldquo;-06-&rdquo; in the date.
+We can use this logic in the <code>grepl</code> function, which will return <code>TRUE</code> if the pattern is found in the string.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">Sys.Date</span>() 
+</span></span></code></pre></div><pre><code>[1] &quot;2024-06-01&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )
+</span></span></code></pre></div><pre><code>[1] TRUE
+</code></pre>
+<p>Putting it all together as chunk together, we get a piece of code that will create our custom colourbar.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
+</span></span><span style="display:flex;"><span>  colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e50000&#34;</span>, <span style="color:#e6db74">&#34;#ff8d00&#34;</span>, <span style="color:#e6db74">&#34;#ffee00&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;#028121&#34;</span>, <span style="color:#e6db74">&#34;#004cff&#34;</span>, <span style="color:#e6db74">&#34;#770088&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;#ffffff&#34;</span>, <span style="color:#e6db74">&#34;#ffafc7&#34;</span>, <span style="color:#e6db74">&#34;#73D7EE&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;#613915&#34;</span>, <span style="color:#e6db74">&#34;#000000&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">invisible</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(colour, cli<span style="color:#f92672">::</span>make_ansi_style) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">\</span>(x){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">x</span>(thick_bar))
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-21.svg" width="768" />
+<p>Alrighty!
+We now have can make a file that:</p>
+<ol>
+<li>Clears the console</li>
+<li>Prints system info in a nice consise way</li>
+<li>Prints a fun colourbar</li>
+<li>Gives a random praise</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">interactive</span>()){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;clear&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\014&#34;</span>)
+</span></span><span style="display:flex;"><span>  instl <span style="color:#f92672">&lt;-</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Library paths set to&#34;</span>)
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_bullets</span>(
+</span></span><span style="display:flex;"><span>      stats<span style="color:#f92672">::</span><span style="color:#a6e22e">setNames</span>(<span style="color:#a6e22e">.libPaths</span>(),
+</span></span><span style="display:flex;"><span>                      <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">.libPaths</span>())
+</span></span><span style="display:flex;"><span>                      )))
+</span></span><span style="display:flex;"><span>    thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#a6e22e">function</span>(){
+</span></span><span style="display:flex;"><span>      colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
+</span></span><span style="display:flex;"><span>        colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e50000&#34;</span>, <span style="color:#e6db74">&#34;#ff8d00&#34;</span>, <span style="color:#e6db74">&#34;#ffee00&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#028121&#34;</span>, <span style="color:#e6db74">&#34;#004cff&#34;</span>, <span style="color:#e6db74">&#34;#770088&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#ffffff&#34;</span>, <span style="color:#e6db74">&#34;#ffafc7&#34;</span>, <span style="color:#e6db74">&#34;#73D7EE&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#613915&#34;</span>, <span style="color:#e6db74">&#34;#000000&#34;</span>)
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">invisible</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">lapply</span>(colour, cli<span style="color:#f92672">::</span>make_ansi_style) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">\</span>(x){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">x</span>(thick_bar))
+</span></span><span style="display:flex;"><span>          })
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    })()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cat</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
+</span></span><span style="display:flex;"><span>      praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
+</span></span><span style="display:flex;"><span>      sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\n&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rm</span>(instl, thick_bar, colour)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>instl <span style="color:#f92672">&lt;-</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Library paths set to&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_bullets</span>(
+</span></span><span style="display:flex;"><span>    stats<span style="color:#f92672">::</span><span style="color:#a6e22e">setNames</span>(<span style="color:#a6e22e">.libPaths</span>(),
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">.libPaths</span>())
+</span></span><span style="display:flex;"><span>                    )))
+</span></span><span style="display:flex;"><span>  thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">function</span>(){
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
+</span></span><span style="display:flex;"><span>      colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e50000&#34;</span>, <span style="color:#e6db74">&#34;#ff8d00&#34;</span>, <span style="color:#e6db74">&#34;#ffee00&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;#028121&#34;</span>, <span style="color:#e6db74">&#34;#004cff&#34;</span>, <span style="color:#e6db74">&#34;#770088&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;#ffffff&#34;</span>, <span style="color:#e6db74">&#34;#ffafc7&#34;</span>, <span style="color:#e6db74">&#34;#73D7EE&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;#613915&#34;</span>, <span style="color:#e6db74">&#34;#000000&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">invisible</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">lapply</span>(colour, cli<span style="color:#f92672">::</span>make_ansi_style) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">\</span>(x){
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">cat</span>(<span style="color:#a6e22e">x</span>(thick_bar))
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  })()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
+</span></span><span style="display:flex;"><span>    praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
+</span></span><span style="display:flex;"><span>    sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\n&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict//unnamed-chunk-23.svg" width="768" />
+<p>There you have it!
+The piece of (rather long) code that customised my R startup to something shorter, more informative and also that makes me smile every time.</p>
+<p>Do you customise your startup in any way, or put anything in particular in your <code>.Rprofile</code>?</p>
+
+        </div>
+    </article>
+    
+    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/ide/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                The IDEs I use
+            </a>
+        
+    </div>
+    
+    <div class="uk-width-auto">
+        
+    </div>
+</div>
+
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -82,7 +82,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/foundation.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 
@@ -364,212 +364,300 @@
 
 
         <div id="content" class="uk-container uk-container-small uk-margin-large-top">
-    <div class="uk-markdown uk-width">
-        <p>While I am a scientist and have lost of research projects ongoing, here I&rsquo;d rather showcase the wonderful world of development I have started exploring.
-Most of my projects are still in early phases, but it is so much fun developing things people actually find useful!</p>
-
-    </div>
-
-    <div class="card-container uk-container uk-container-small">
-        <div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column js-filter">
-                
-<a href="https://drmowinckels.io/r-paks/ggseg/" style="text-decoration: none;">
-    <div class="uk-card uk-card-secondary uk-grid-collapse uk-child-width-1-2@s uk-margin uk-flex uk-flex-center uk-flex-middle" uk-grid
-    style="background-color: #333333;" 
-    >
-        <div class="uk-flex-last@s uk-card-media-right uk-cover-container ">
+    <div class="uk-container" uk-filter="target: .js-filter; duration: 650">
+        
             
             
-            <img src="https://drmowinckels.io/r-paks/ggseg/logo_hub0e4740d42a62a08b23a1641fc10959d_201076_0x660_resize_box_3.png" alt="" uk-cover>
-            <canvas height="330"></canvas>
-        </div>
-        <div>
-            <div class="uk-card-body">
-                <h3 class="uk-card-title uk-heading-bullet">
-                    ggseg
-                </h3>
-                <p>This package is developed with co-worker Didac Vidal Pineiro, whose had the whole idea.
-This package is meant to use for visualizing brain segmentations, often referred to as brain atlases. Click the eye below to see a demonstration of the package.
-It is also ready to install using devtools in R, directly from github.</p>
+                <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                    <li>
+                        <a href="#">Filter tag <span uk-icon="icon: triangle-down"></span></a>
+                        <div uk-dropdown="mode: click;">
+                            <ul class="uk-nav uk-dropdown-nav uk-dropdown-scrollable">
+                                <li class="uk-active" uk-filter-control><a href="#">All</a></li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='advent-calendar']">
+                                        <a  class="dropd" href="#">
+                                            Advent calendar
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='analysis']">
+                                        <a  class="dropd" href="#">
+                                            Analysis
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='apply']">
+                                        <a  class="dropd" href="#">
+                                            Apply
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='bash']">
+                                        <a  class="dropd" href="#">
+                                            Bash
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='blogdown']">
+                                        <a  class="dropd" href="#">
+                                            Blogdown
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='carpentry']">
+                                        <a  class="dropd" href="#">
+                                            Carpentry
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='continuous-integration']">
+                                        <a  class="dropd" href="#">
+                                            Continuous integration
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='fail']">
+                                        <a  class="dropd" href="#">
+                                            Fail
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='freesurfer']">
+                                        <a  class="dropd" href="#">
+                                            Freesurfer
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='gamm']">
+                                        <a  class="dropd" href="#">
+                                            Gamm
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='ggseg']">
+                                        <a  class="dropd" href="#">
+                                            Ggseg
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='git']">
+                                        <a  class="dropd" href="#">
+                                            Git
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='github-actions']">
+                                        <a  class="dropd" href="#">
+                                            Github actions
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='hugo']">
+                                        <a  class="dropd" href="#">
+                                            Hugo
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='ide']">
+                                        <a  class="dropd" href="#">
+                                            Ide
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='knitr']">
+                                        <a  class="dropd" href="#">
+                                            Knitr
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='linear-regression']">
+                                        <a  class="dropd" href="#">
+                                            Linear regression
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='neuroimaging']">
+                                        <a  class="dropd" href="#">
+                                            Neuroimaging
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='packages']">
+                                        <a  class="dropd" href="#">
+                                            Packages
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='plot']">
+                                        <a  class="dropd" href="#">
+                                            Plot
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='plots']">
+                                        <a  class="dropd" href="#">
+                                            Plots
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='pride']">
+                                        <a  class="dropd" href="#">
+                                            Pride
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='programming']">
+                                        <a  class="dropd" href="#">
+                                            Programming
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='quarto']">
+                                        <a  class="dropd" href="#">
+                                            Quarto
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='r']">
+                                        <a  class="dropd" href="#">
+                                            R
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='r-for-psychologists']">
+                                        <a  class="dropd" href="#">
+                                            R for psychologists
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='r-functions-2022']">
+                                        <a  class="dropd" href="#">
+                                            R functions 2022
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='reciprocal']">
+                                        <a  class="dropd" href="#">
+                                            Reciprocal
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='reflections']">
+                                        <a  class="dropd" href="#">
+                                            Reflections
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='rmarkdown']">
+                                        <a  class="dropd" href="#">
+                                            Rmarkdown
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='rstudio']">
+                                        <a  class="dropd" href="#">
+                                            Rstudio
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='startup']">
+                                        <a  class="dropd" href="#">
+                                            Startup
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='teaching']">
+                                        <a  class="dropd" href="#">
+                                            Teaching
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='tidyverse']">
+                                        <a  class="dropd" href="#">
+                                            Tidyverse
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='vscode']">
+                                        <a  class="dropd" href="#">
+                                            Vscode
+                                        </a>
+                                    </li>
+                                
+                                    <li uk-filter-control="filter: [data-tags*='workshop']">
+                                        <a  class="dropd" href="#">
+                                            Workshop
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            
+        
+        <div class="list-grid">
+            <ul class="list-container list-container-hexagon js-filter">
+              
+    <li class="list-item hexagon"
+            data-tags=""
+            
+            
+            style="background-image: url(https://drmowinckels.io/r-paks/ggseg/logo_hub0e4740d42a62a08b23a1641fc10959d_201076_250x289_fill_box_center_3.png);"
+        >
+        <a href="https://drmowinckels.io/r-paks/ggseg/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>ggseg</h2>
+                </div>
             </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags=""
             
-                <div class="uk-card-footer uk-text-right">
-                    
-                        <a href="https://github.com/LCBC-UiO/ggseg/" 
-    target="_blank" 
-    class="uk-icon-button" 
-    
-    
-        uk-icon="github" 
+            
+            style="background-image: url(https://drmowinckels.io/r-paks/ggseg3d/logo_hu9e52b2faa25b45ecd1f806658043c6d0_256833_250x289_fill_box_center_3.png);"
         >
-    
-</a>
-
-                    
-                        <a href="https://athanasiamo.shinyapps.io/ggsegDemo/" 
-    target="_blank" 
-    class="uk-icon-button" 
-     aria-label="View demonstration" 
-    
-        uk-icon="eye" 
-        >
-    
-</a>
-
-                    
-                </div>  
-            
-        </div>
-    </div>
-</a>
-                
-<a href="https://drmowinckels.io/r-paks/ggseg3d/" style="text-decoration: none;">
-    <div class="uk-card uk-card-secondary uk-grid-collapse uk-child-width-1-2@s uk-margin uk-flex uk-flex-center uk-flex-middle" uk-grid
-    style="background-color: #222222;" 
-    >
-        <div class="uk-flex-last@s uk-card-media-right uk-cover-container ">
-            
-            
-            <img src="https://drmowinckels.io/r-paks/ggseg3d/logo_hu9e52b2faa25b45ecd1f806658043c6d0_256833_0x660_resize_box_3.png" alt="" uk-cover>
-            <canvas height="330"></canvas>
-        </div>
-        <div>
-            <div class="uk-card-body">
-                <h3 class="uk-card-title uk-heading-bullet">
-                    ggseg3d
-                </h3>
-                <p>This package is based on my initial idea, and developed with co-worker Didac Vidal Piñeiro.
-This package is meant to use for visualizing brain segmentations, often referred to as brain atlases. Click the eye below to see a demonstration of the package.
-It is also ready to install using devtools in R, directly from github.</p>
+        <a href="https://drmowinckels.io/r-paks/ggseg3d/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>ggseg3d</h2>
+                </div>
             </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags=""
             
-                <div class="uk-card-footer uk-text-right">
-                    
-                        <a href="https://github.com/LCBC-UiO/ggseg3d/" 
-    target="_blank" 
-    class="uk-icon-button" 
-    
-    
-        uk-icon="github" 
+            
+            style="background-image: url(https://drmowinckels.io/r-paks/ggsegextra/logo_hu727cb06a2792d39accfac6a218a3b84b_192536_250x289_fill_box_center_3.png);"
         >
-    
-</a>
-
-                    
-                        <a href="https://athanasiamo.shinyapps.io/ggsegDemo/" 
-    target="_blank" 
-    class="uk-icon-button" 
-     aria-label="View demonstration" 
-    
-        uk-icon="eye" 
-        >
-    
-</a>
-
-                    
-                </div>  
-            
-        </div>
-    </div>
-</a>
-                
-<a href="https://drmowinckels.io/r-paks/ggsegextra/" style="text-decoration: none;">
-    <div class="uk-card uk-card-secondary uk-grid-collapse uk-child-width-1-2@s uk-margin uk-flex uk-flex-center uk-flex-middle" uk-grid
-    style="background-color: #333333;" 
-    >
-        <div class="uk-flex-last@s uk-card-media-right uk-cover-container ">
-            
-            
-            <img src="https://drmowinckels.io/r-paks/ggsegextra/logo_hu727cb06a2792d39accfac6a218a3b84b_192536_0x660_resize_box_3.png" alt="" uk-cover>
-            <canvas height="330"></canvas>
-        </div>
-        <div>
-            <div class="uk-card-body">
-                <h3 class="uk-card-title uk-heading-bullet">
-                    ggsegExtra
-                </h3>
-                <p>This package is an addon-package to the ggseg-suite of packages. It contains functions to create your own atlases compatible with the ggseg-packages, and includes a curated list of repositories with ggseg compatible atlases.
-It is also ready to install using devtools in R, directly from github.</p>
+        <a href="https://drmowinckels.io/r-paks/ggsegextra/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>ggsegExtra</h2>
+                </div>
             </div>
+        </a>
+    </li> 
+    <li class="list-item hexagon"
+            data-tags=""
             
-                <div class="uk-card-footer uk-text-right">
-                    
-                        <a href="https://github.com/LCBC-UiO/ggsegExtra/" 
-    target="_blank" 
-    class="uk-icon-button" 
-    
-    
-        uk-icon="github" 
+            
+            style="background-image: url(https://drmowinckels.io/r-paks/nettskjemar/logo_hub692e2fca4d775ce0e41c87848e952ce_95345_250x289_fill_box_center_3.png);"
         >
-    
-</a>
-
-                    
-                        <a href="https://athanasiamo.shinyapps.io/ggsegDemo/" 
-    target="_blank" 
-    class="uk-icon-button" 
-     aria-label="View demonstration" 
-    
-        uk-icon="eye" 
-        >
-    
-</a>
-
-                    
-                </div>  
-            
-        </div>
-    </div>
-</a>
-                
-<a href="https://drmowinckels.io/r-paks/nettskjemar/" style="text-decoration: none;">
-    <div class="uk-card uk-card-secondary uk-grid-collapse uk-child-width-1-2@s uk-margin uk-flex uk-flex-center uk-flex-middle" uk-grid
-    style="background-color: #222222;" 
-    >
-        <div class="uk-flex-last@s uk-card-media-right uk-cover-container ">
-            
-            
-            <img src="https://drmowinckels.io/r-paks/nettskjemar/logo_hub692e2fca4d775ce0e41c87848e952ce_95345_0x660_resize_box_3.png" alt="" uk-cover>
-            <canvas height="330"></canvas>
-        </div>
-        <div>
-            <div class="uk-card-body">
-                <h3 class="uk-card-title uk-heading-bullet">
-                    nettskjemar
-                </h3>
-                <p>This package uses the nettskjema API developed by the University of Oslo IT, making it possible to communicate with the University of Oslo specialized survey platform ’nettskjema’. Currently the package is geared towards downloading and creating data.frames in R from answers to surveys. This is an easy and convenient way for people to access data they have stored in the survey platform into R and ready for analyses.
-It is also ready to install using devtools in R, directly from github.</p>
+        <a href="https://drmowinckels.io/r-paks/nettskjemar/" >
+            <div class="list-overlay list-overlay-hexagon">
+                <div class="list-item-content ">
+                    <h2>nettskjemar</h2>
+                </div>
             </div>
-            
-                <div class="uk-card-footer uk-text-right">
-                    
-                        <a href="https://github.com/LCBC-UiO/nettskjemar/" 
-    target="_blank" 
-    class="uk-icon-button" 
-    
-    
-        uk-icon="github" 
-        >
-    
-</a>
+        </a>
+    </li>
 
-                    
-                        <a href="https://athanasiamo.shinyapps.io/ggsegDemo/" 
-    target="_blank" 
-    class="uk-icon-button" 
-     aria-label="View demonstration" 
-    
-        uk-icon="eye" 
-        >
-    
-</a>
-
-                    
-                </div>  
-            
-        </div>
-    </div>
-</a>
+            </ul>
         </div>
     </div>
 
