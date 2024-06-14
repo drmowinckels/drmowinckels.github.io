@@ -9,7 +9,8 @@ tags:
   - GitHub Actions
 slug: "github-profile"
 summary: |
-  How I vamped up my GitHub profile, and how you can too.
+  GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
+  This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I'm learning.
 draft: true
 ---
 
@@ -137,6 +138,9 @@ But I really would love to add badges for carpentry, ballet, gardening, and cook
 I really want to add some stats from my blog too, like number of posts and post frequency.
 But that means accessing information in another repo, and I didn't feel like working on that just yet.
 But I hope to get that in there soon too.
+
+
+![](github_profile.png)
 
 ## Conclusion
 
