@@ -10,6 +10,8 @@ tags:
 slug: "github-profile"
 summary: |
   GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
+  Since it is such a large platform, this is also where other developers and future employers might look to see your work.
+  Your GitHub profile should then showcase who you are, what you know and what you're learning.
   This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I'm learning.
 draft: true
 ---
@@ -80,7 +82,7 @@ So I ended up using a combination of [Image Shield](https://img.shields.io/badge
 
 That created the following table:
 
-<table border="0">
+<table border="1px solid black" style="margin: 5px">
  <tr>
     <td><b style="font-size:30px">I have</b></td>
     <td><b style="font-size:30px">I'm learning</b></td>
@@ -133,11 +135,107 @@ So I decided to stick to tech stuff.
 
 But I really would love to add badges for carpentry, ballet, gardening, and cooking.
 
-### What is missing
+### Blog post stats
 
-I really want to add some stats from my blog too, like number of posts and post frequency.
-But that means accessing information in another repo, and I didn't feel like working on that just yet.
-But I hope to get that in there soon too.
+I have a blog on my website, and I wanted to showcase some stats from that.
+I already have a [README workflow](https://github.com/drmowinckels/drmowinckels.github.io/blob/main/.github/workflows/render-readme.yml) on my website repository, where a github action renders a `README.Rmd` file to a `README.md` file, which includes some information regarding my blog posts.
+
+Here's where the R stuff comes in!
+The Rmd file includes R code that lists blogpost files,
+and summarises some stats based on that.
+The full file can be seen on [the github repo](https://github.com/drmowinckels/DrMowinckels/blob/main/README.Rmd), but I will highlight the part that is relevant for this post.
+
+````
+```{r, echo = FALSE}
+posts <- list.files("website/content/blog", 
+           "^index.md",
+           recursive = TRUE, 
+           full.names = TRUE)
+posts <- lapply(posts, readLines)
+
+find_key <- function(x, key){
+  j <- lapply(x, function(x){
+    k <- grep(sprintf("^%s:", key), 
+            x, value = TRUE)
+    k <- gsub(sprintf("^%s: |'", key), "", k)
+    k[1] 
+  })
+  unlist(j)
+}
+
+postdf <- data.frame(
+  n = seq_along(posts),
+  draft = find_key(posts, "draft") |> 
+    grepl(pattern = "true", x = _),
+  date = as.Date(find_key(posts, "date")),
+  slug = find_key(posts, "slug") |> 
+    gsub('\\"', "", x = _),
+  title = find_key(posts, "title")
+) |> 
+  subset(subset = !draft)
+postdf$link <-  sprintf("[%s](https://drmowinckels.io/blog/%s)", 
+                  postdf$title,
+                  postdf$slug)
+
+today    <- Sys.Date()
+min_date <- min(postdf$date)
+last_post <- as.numeric(max(postdf$date) - today)
+
+postavg <- nrow(postdf)/as.numeric(today - min_date) * 30
+postavg <- sprintf("%0.2f", postavg)
+
+postbtw <- as.numeric(today - min_date) / nrow(postdf)
+postbtw <- sprintf("%s", round(postbtw, digits = 0))
+
+```
+
+
+🎉 [DrMowinckels.io](https://drmowinckels.io/) has **`r nrow(postdf)`** posts since **`r min_date`**!
+
+📅 That's a post roughly every **`r postbtw`** days, or about **`r postavg`** posts per month, since `r min_date`.
+
+✍️ The last post was published **`r last_post`** days ago (`r tail(postdf, 1)$link`).
+
+```{r 'plot', echo = FALSE,  fig.width=10, fig.height=2.5}
+library(lattice)
+
+postdf$ones <- 1
+
+# Assuming postdf is loaded and has a 'date' column
+xyplot(ones ~ date, data = postdf,
+       type = 'p',
+       pch = "|",  
+       cex = 5,   
+       col = "cyan3",
+       xlab = "",
+       ylab = "",
+       main = "Published posts",
+       scales = list(x = list(cex = 1.4), y = list(draw = FALSE)),
+       strip = FALSE,  # Removes strip labels
+       axis.line = list(col = "transparent"),
+       layout = c(1, 1),  # Single panel
+       par.settings = list(
+         strip.border = list(col = "transparent"), #making the border transparent
+         axis.line = list(col = "transparent") #making the axes transparent
+       )
+      )
+
+```
+
+<details><summary>📂 Click to expand a full list of posts</summary>
+
+```{r posts-table, results='asis', echo = FALSE}
+data.frame(
+  Date = rev(postdf$date),
+  Title = rev(postdf$link)
+) |> 
+  knitr::kable()
+```
+</details>
+
+````
+
+
 
 
 ![](github_profile.png)
