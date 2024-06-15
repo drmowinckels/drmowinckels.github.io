@@ -1,7 +1,7 @@
 ---
 title: Improving your GitHub Profile
 author: Dr. Mowinckel
-date: '2025-03-01'
+date: '2025-07-01'
 categories: []
 tags:
   - R
@@ -52,9 +52,9 @@ After that, I kind of went on down a rabbit hole of GitHub profile READMEs and f
 ### Github stats
 
 I started by adding my GitHub stats to my profile.
-There are several options, but I went with [anuraghazra/github-readme-stats]((https://github.com/anuraghazra/github-readme-stats).
+There are several options, but I went with [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats).
 
-It's somewhat customizable, and it's easy to use, customizations basically happen by adding query parameters to the URL.
+It's somewhat customizable, and it's easy to use, customization basically happen by adding query parameters to the URL.
 
 [![GitHub stats](https://github-readme-stats.vercel.app/api?username=drmowinckels&show_icons=true&theme=transparent)](https://github.com/anuraghazra/github-readme-stats)
 
