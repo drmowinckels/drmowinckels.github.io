@@ -4,7 +4,7 @@ author: Dr. Mowinckel
 date: '2025-07-01'
 categories: []
 tags:
-  - R
+  - r
   - GitHub
   - GitHub Actions
 slug: "github-profile"
