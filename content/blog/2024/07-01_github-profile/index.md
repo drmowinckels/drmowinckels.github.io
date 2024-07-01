@@ -10,7 +10,6 @@ tags:
 slug: "github-profile"
 summary: |
   GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
-  Since it is such a large platform, this is also where other developers and future employers might look to see your work.
   Your GitHub profile should then showcase who you are, what you know and what you're learning.
   This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I'm learning.
 draft: true
