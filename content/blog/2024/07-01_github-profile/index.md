@@ -1,7 +1,7 @@
 ---
 title: Improving your GitHub Profile
 author: Dr. Mowinckel
-date: '2025-07-01'
+date: '2024-07-01'
 categories: []
 tags:
   - r
