@@ -11,13 +11,13 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **31** posts since **2018-03-08**!
+🎉 DrMowinckels has **34** posts since **2018-03-08**!
 
-📅 That’s a post roughly every **71** days, or about **0.42** posts per
+📅 That’s a post roughly every **68** days, or about **0.44** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **5** days ago ([Too much git
-cleaning](https://drmowinckels.io/blog/2024/git-clean-woes)).
+✍️ The last post was published **-2** days ago ([Improving your GitHub
+Profile](https://drmowinckels.io/blog/github-profile)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -31,6 +31,9 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2024-07-01 | [Improving your GitHub Profile](https://drmowinckels.io/blog/github-profile)                                                                                                             |
+| 2024-06-01 | [Customise your R startup message](https://drmowinckels.io/blog/rproject)                                                                                                                |
+| 2024-05-01 | [The IDEs I use](https://drmowinckels.io/blog/ide)                                                                                                                                       |
 | 2024-04-01 | [Too much git cleaning](https://drmowinckels.io/blog/2024/git-clean-woes)                                                                                                                |
 | 2024-03-01 | [Setting up a Freesurfer LMM through R](https://drmowinckels.io/blog/freesurfer-lmm-r)                                                                                                   |
 | 2024-02-01 | [Teaching you - teaching me](https://drmowinckels.io/blog/teaching-unlocks)                                                                                                              |
@@ -71,4 +74,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-03-27 00:57:01.937857*
+*Updated 2024-07-03 01:05:03.166582*
