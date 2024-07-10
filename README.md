@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **68** days, or about **0.44** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-2** days ago ([Improving your GitHub
+✍️ The last post was published **-9** days ago ([Improving your GitHub
 Profile](https://drmowinckels.io/blog/github-profile)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -74,4 +74,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-07-03 01:05:03.166582*
+*Updated 2024-07-10 01:06:47.615204*
