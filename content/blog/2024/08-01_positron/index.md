@@ -14,17 +14,16 @@ image: images/positron-logo.png
 summary: |
   In May I wrote about my favorite IDE's.
   As a result of that post, I was asked to join Posits private beta-testers for their new IDE, Positron.
-  Despite being on sick leave, I could not say no, I really wanted to try it out.
-  Now Positron is out of private beta, so go on a ride with me as I explore Positron, and see if it can replace my current favorite IDE's.
+  Now Positron is out of private beta, so let's see if it can replace my current favorite IDE's.
 editor_options: 
   markdown: 
     wrap: sentence
 ---
 
-[Positron](images/https://github.com/posit-dev/positron?tab=readme-ov-file) is a clone of Visual Studio Code (VScode), but with a focus on data science.
+[Positron](images/https://github.com/posit-dev/positron?tab=readme-ov-file) is a clone of Visual Studio Code (VScode), but tweaks for data science.
 I think this was a smart move by Posit's team.
 VScode is a great IDE, and it's free, open-source, and cross-platform, and it has so many developers on board already, and has an extensive library of extensions.
-Most of these extensions are also available to Positron, which is a huge advantage!
+Many of these extensions are also available to Positron, which is a huge advantage!
 
 ## Comparison
 
@@ -63,22 +62,22 @@ That comes mostly from the fact that things need to be customised in Positron, w
 This is both good and bad, and kind of depends on what you are after.
 
 I think RStudio is more beginner friendly if you are starting out with R, and want to just get into it.
-But, if you are in a multilingual environment, or want to use the same IDE for all your coding, Positron is the way to go.
+But, if you are in a multi-lingual environment and want to use the same IDE for all your coding, Positron may be the way to go.
 
 ## Quick Overview of Positron
 
 Let's get an idea of the default setup of Positron.
 There are a lot of similarities to RStudio, in that its divided into various quadrants.
-But it is arranged differently that RStudio, which makes sense since it is something else.
+But it is arranged differently than RStudio, which makes sense since it is, afterall, something else.
 The default setup is as follows:
 
 ![](images/positron-02.svg)
 
 Anyone who has used VScode will notice how similar it is, but with a couple of changes.
 Now we also have an environment pane, and plots pane etc, things that make it easier to work with data and visualization.
-Really really nice. 
-It also has a specific place at the top right where you choose you interpreter.
-Since its made for polyglots and data science in general, its super nice for it to actually search through your system and detect what you have installed and give you the option to choose what you want to use.
+Really, really nice. 
+It also has a specific place at the top right where you choose your interpreter.
+Since it's made for polyglots and data science in general, it's super nice for it to actually search through your system and detect what you have installed and give you the option to choose what you want to use.
 
 Let us have a look at what it looks like when you have a file and project open, and have run some code.
 
@@ -104,12 +103,13 @@ I'll go through some of the things I've done to make Positron work for me.
 
 With all the possible extensions, you can also make sure it works the way *you* want it to work.
 *Most* of the extensions for VScode work in Positron, but not all.
-It all depends if the developer of the extension also made it available on [Open VSX](images/https://open-vsx.org/). I'll go through some of the extensions I'm using.
+It all depends if the developer of the extension also made it available on [Open VSX](images/https://open-vsx.org/). 
+I'll go through some of the extensions I'm using.
 
 #### [Raindbow CSV](images/https://open-vsx.org/extension/mechatroner/rainbow-csv)
 
 This extension is great for viewing CSV files in a more readable way.
-This is a must have extensions for anyone who works with CSV files.
+It is a must have extensions for anyone who works with CSV files.
 It's a great way to quickly see what's in the file, and it's much easier to read than the default CSV viewer.
 Each column's content is colored differently, which makes it easier to read.
 Very convenient!
@@ -142,22 +142,25 @@ I don't use it often, but it's great to have when you need it to review what's g
 
 This extension is great for working with GitHub Actions.
 I like continuous integration with GitHub Actions very much, and this extension makes it easier to see what's going on with your actions.
-It helps with syntax highlighting and autocompletion, which is very convenient.
+It helps with syntax highlighting and auto-completion, which is very convenient.
 Additionally, you can see the status of your actions in the bottom bar, review the logs and failures, and that makes debugging them so much easier!
 
 #### [GitHub Pull Requests](images/https://open-vsx.org/extension/GitHub/vscode-pull-request-github)
 
 Another great GitHub integration feature.
 This extension makes it easier to work with pull requests.
-I always seem to bungle working with PR's locally, and this extension just makes the process so much smoother.
+I always seem to bungle working with PR's locally, and this extension just makes the process so much smoother when I need to do code changes to another person's PR.
 
 ### Command Palette / Keybindings / Keystrokes
 
 The command palette is a great way to find commands, and you can also assign keystrokes to them.
+We can all agree that it's much easier to use a keystroke than to use the mouse, 
+and a good keystroke setup can really make you very much more efficient.
+
 Now, why have I combined all these three things together?
 Because, I don't really understand the difference between them and how they are stored.
 And when [looking into it](images/https://github.com/posit-dev/positron/wiki/Keyboard-Shortcuts), I still don't know the difference.
-No matter, no matter, I will still the little changes I've made.
+No matter, no matter, I will still show the little changes I've made.
 That being said, I've only made two changes, and they are both for rendering quarto documents.
 I've made the following changes to the `keybindings.json` file:
 
@@ -176,28 +179,29 @@ I've made the following changes to the `keybindings.json` file:
 ```
 
 In this case, I've made a change to the standard keybindings for rending quarto, which also creates a preview of the document.
+I don't want to default to also starting up a server to preview quarto changes.
 Now, most people will like this as the default, but given my work with Hugo websites, it's just not for me.
 I usually have my hugo server running, and want to see the rendered website, not the rendered stand-alone document.
 
-You can also access the command palette from the botom left corner, where you have the option to edit keystrokes directly.
+You can also access the command palette from the bottom left corner, where you have the option to edit keystrokes directly.
 You can search terms and edit as you like.
 
 ![](images/cmd-palette-1.png) ![](images/cmd-palette-2.png)
 
 Be aware though!
-One of VScode's gotcha's is it's many keybindings.
+One of VScode's (and therefore Positron's) gotcha's is its many keybindings.
 You will very likely quickly run into issues with overwriting existing keybindings.
 
 ### Profiles
 
 Now, the last thing I will mention is the profiles.
 For those of us with _opinions_ and very idiosyncratic ways of working, this is a great feature.
-You can create different profiles for different projects, and have different settings for each (even different command palette, but I have not really tried this, and I think that might confuse my fingers a lot).
+You can create different profiles for different projects, and have different settings for each.
 
 ![](images/positron-profile.png)
 
-Why do I love profiles so much, I can just customise RStudio to exactly what I want?
-True, but when I need to switch to the default setup when teaching, I need to _redo all my settings for one day_ and reapply them later.
+Why do I love profiles so much, I can just customize RStudio to exactly what I want?
+True, but when I need to switch to the default setup when teaching, I need to _redo all my settings for one day_ and re-apply them later.
 I've always found that super annoying.
 
 Novice learners get easily confused when they have a different setup than the instructor.
@@ -206,7 +210,7 @@ Having something that can easily switch between a default teaching profile and m
 Now, this all only really applies if I ever decide to start teaching with Positron rather than RStudio.
 Right now, that is not going to happen.
 Since I mainly teach novice R users, I think RStudio is very much the most beginner friendly.
-Also, Positron is still in beta, so switching to is for teaching in my opinion is quite premature.
+Also, Positron is still in beta, so switching to it for teaching is quite premature.
 
 That being said, I think it does have a lot of potential, and I'm excited to see where it goes.
 And I'm quite certain it will become my preferred IDE over time.
@@ -214,19 +218,50 @@ And I'm quite certain it will become my preferred IDE over time.
 ## When does Positron not work for me?
 
 As I've said, I'm on long term sick leave, so my testing has not been super extensive.
+There are a couple of things I have noticed though, that I'd like to point out.
+
+### Rmd rendering
+
 But I have found that working with `Rmd` files is not as smooth as I would like.
 Positron will use Quarto to render `Rmd` files, which is not as great at it as you would think. 
 There is front matter differences and it's not been the greatest.
-If you need a excuse to switch all your `Rmd` to `qmd`, starting to use Positron might give you a kick in the right direction.
+If you need an excuse to switch all your `Rmd` to `qmd`, starting to use Positron might give you a kick in the right direction.
+
+### Hugo websites (blogdown)
 
 For me, it has not yet managed to get to a point where I am very fond of using Positron for my Hugo website projects.
 Mainly because of `qmd` files also starting a server when knitting them, and I really don't want that.
 My keybinding changes noted above are a workaround for this, but it's not really doing it for me yet.
 I'm sure I'll figure it out over time, but right now, its not the best for that.
 
+And if you are using blogdown, that does not integrate with Positron.
+So you will need to alter the way you work with hugo websites if you want to use Positron.
+[I don't use blogdown](/blog/2020/changing-you-blogdown-workflow/), so this is not a problem for me, but it might be for you.
+
+### RStudio projects and the {here}-package
+
+The second this just not working for me are all my RStudio projects.
+Not that things don't work, but I have all my projects set up with the `{here}`-package, 
+and Positron does not seem to adhere to this.
+Now, Positron uses workspaces, which are fairly similar to RStudio projects.
+When you open positron in a folder, your working directory in R is set in that folder.
+So far, working with files from that folder is all fine. 
+
+The problem arises if you open a sub-directory of your project,
+then {here} will start from that sub-directory, not the main directory of your RStudio project.
+This can create some issues depending on how you work and how your project is set up.
+
+That being said, I think there will likely be a way to make magic happen even if this is the case.
+We just need to explore more and see what we can do.
+
+## Conclusion
+
 And as mentioned several times, Positron is still in beta, so anyone who is trying it out needs to also have that in mind.
 It will have some bugs and issues, and it's not going to be perfect.
 But the team developing it are very resposive and seem genuinely happy for feedback and ideas, so I'm absolutely sure it will become a brilliant product.
 It's already half way there.
+
+If you want to learn more about Positron, there is a [session](https://reg.conf.posit.co/flow/posit/positconf24/publiccatalog/page/publiccatalog/session/1712707493462001KPj8) at this year's posit::conf about it, and I'm sure it will be very interesting.
+You can even attend [virtually](https://posit.co/blog/posit-conf-2024-virtual-experience-registration/) for really good prices (or even free given the right circumstances).
 
 Now we need to convince VScode extension developers to make their extensions also published on Open VSX, so we can have all the extensions we need in Positron as well.
