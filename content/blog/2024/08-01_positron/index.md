@@ -264,4 +264,7 @@ It's already half way there.
 If you want to learn more about Positron, there is a [session](https://reg.conf.posit.co/flow/posit/positconf24/publiccatalog/page/publiccatalog/session/1712707493462001KPj8) at this year's posit::conf about it, and I'm sure it will be very interesting.
 You can even attend [virtually](https://posit.co/blog/posit-conf-2024-virtual-experience-registration/) for really good prices (or even free given the right circumstances).
 
+And there are several others who have written about this new IDE already, so you can read more about it from [Appsilon](https://www.appsilon.com/post/introducing-positron), [Andrew Heiss](https://www.andrewheiss.com/blog/2024/07/08/fun-with-positron/), and [InfoWorld](https://www.infoworld.com/article/2510428/maker-of-rstudio-launches-new-r-and-python-ide.html).
+There are also lots of [youtube](https://www.youtube.com/results?search_query=positron+IDE) videos already, so you have lots of options to learn more.
+
 Now we need to convince VScode extension developers to make their extensions also published on Open VSX, so we can have all the extensions we need in Positron as well.
