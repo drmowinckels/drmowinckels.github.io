@@ -268,3 +268,5 @@ And there are several others who have written about this new IDE already, so you
 There are also lots of [youtube](https://www.youtube.com/results?search_query=positron+IDE) videos already, so you have lots of options to learn more.
 
 Now we need to convince VScode extension developers to make their extensions also published on Open VSX, so we can have all the extensions we need in Positron as well.
+What do you think? 
+Will you give Positron a go?
