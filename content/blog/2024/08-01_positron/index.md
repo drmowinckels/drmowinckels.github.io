@@ -20,7 +20,7 @@ editor_options:
     wrap: sentence
 ---
 
-[Positron](images/https://github.com/posit-dev/positron?tab=readme-ov-file) is a clone of Visual Studio Code (VScode), but tweaks for data science.
+[Positron](https://github.com/posit-dev/positron?tab=readme-ov-file) is a clone of Visual Studio Code (VScode), but tweaks for data science.
 I think this was a smart move by Posit's team.
 VScode is a great IDE, and it's free, open-source, and cross-platform, and it has so many developers on board already, and has an extensive library of extensions.
 Many of these extensions are also available to Positron, which is a huge advantage!
@@ -96,17 +96,17 @@ Truly, it's a much easier IDE for data science out-of-the-box than VScode, in my
 
 ## Making Positron work for you
 
-Firstly, you might want to have a peak at the [documentation](images/https://github.com/posit-dev/positron/wiki), which has some excellent information on how to get started.
+Firstly, you might want to have a peak at the [documentation](https://github.com/posit-dev/positron/wiki), which has some excellent information on how to get started.
 I'll go through some of the things I've done to make Positron work for me.
 
 ### Extensions
 
 With all the possible extensions, you can also make sure it works the way *you* want it to work.
 *Most* of the extensions for VScode work in Positron, but not all.
-It all depends if the developer of the extension also made it available on [Open VSX](images/https://open-vsx.org/). 
+It all depends if the developer of the extension also made it available on [Open VSX](https://open-vsx.org/). 
 I'll go through some of the extensions I'm using.
 
-#### [Raindbow CSV](images/https://open-vsx.org/extension/mechatroner/rainbow-csv)
+#### [Raindbow CSV](https://open-vsx.org/extension/mechatroner/rainbow-csv)
 
 This extension is great for viewing CSV files in a more readable way.
 It is a must have extensions for anyone who works with CSV files.
@@ -116,7 +116,7 @@ Very convenient!
 
 ![Preview of rainbow csv](images/rainbow-csv.png)
 
-#### [Prettier - Code formatter](images/https://open-vsx.org/extension/esbenp/prettier-vscode)
+#### [Prettier - Code formatter](https://open-vsx.org/extension/esbenp/prettier-vscode)
 
 This extension is great for formatting your code.
 Of course, it's opinionated and whatnot, but it does help!
@@ -124,28 +124,28 @@ This won't help with R or Python, you'll need your own linters for that if you d
 But for JavaScript, TypeScript, HTML, CSS, Yaml, etc., it's great!
 While I don't use these languages very often, it's great to have when you need it.
 
-#### [TODO Highlight](images/https://open-vsx.org/extension/wayou/vscode-todo-highlight)
+#### [TODO Highlight](https://open-vsx.org/extension/wayou/vscode-todo-highlight)
 
 This extension is great for highlighting TODO and FIXME in your code.
 While I don't often add this to my code, I have colleagues that do and it helps me when looking at a project that has this type of setup.
 
 ![Todo highligh example](images/todo.png)
 
-#### [Git Graph](images/https://open-vsx.org/extension/mhutchie/git-graph)
+#### [Git Graph](https://open-vsx.org/extension/mhutchie/git-graph)
 
 This extension is great for visualizing your git history.
 I don't use it often, but it's great to have when you need it to review what's going on in a project or when you need to you need to backtrace an issue.
 
 ![Git graph example](images/git-graph.png)
 
-#### [Git Actions](images/https://open-vsx.org/extension/GitHub/vscode-pull-request-github)
+#### [Git Actions](https://open-vsx.org/extension/GitHub/vscode-pull-request-github)
 
 This extension is great for working with GitHub Actions.
 I like continuous integration with GitHub Actions very much, and this extension makes it easier to see what's going on with your actions.
 It helps with syntax highlighting and auto-completion, which is very convenient.
 Additionally, you can see the status of your actions in the bottom bar, review the logs and failures, and that makes debugging them so much easier!
 
-#### [GitHub Pull Requests](images/https://open-vsx.org/extension/GitHub/vscode-pull-request-github)
+#### [GitHub Pull Requests](https://open-vsx.org/extension/GitHub/vscode-pull-request-github)
 
 Another great GitHub integration feature.
 This extension makes it easier to work with pull requests.
@@ -159,7 +159,7 @@ and a good keystroke setup can really make you very much more efficient.
 
 Now, why have I combined all these three things together?
 Because, I don't really understand the difference between them and how they are stored.
-And when [looking into it](images/https://github.com/posit-dev/positron/wiki/Keyboard-Shortcuts), I still don't know the difference.
+And when [looking into it](https://github.com/posit-dev/positron/wiki/Keyboard-Shortcuts), I still don't know the difference.
 No matter, no matter, I will still show the little changes I've made.
 That being said, I've only made two changes, and they are both for rendering quarto documents.
 I've made the following changes to the `keybindings.json` file:
