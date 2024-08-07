@@ -11,13 +11,13 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **34** posts since **2018-03-08**!
+🎉 DrMowinckels has **35** posts since **2018-03-08**!
 
-📅 That’s a post roughly every **69** days, or about **0.44** posts per
+📅 That’s a post roughly every **67** days, or about **0.45** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-30** days ago ([Improving your GitHub
-Profile](https://drmowinckels.io/blog/github-profile)).
+✍️ The last post was published **-6** days ago ([Positron IDE - A new
+IDE for data science](https://drmowinckels.io/blog/positron)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -31,6 +31,7 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2024-08-01 | [Positron IDE - A new IDE for data science](https://drmowinckels.io/blog/positron)                                                                                                       |
 | 2024-07-01 | [Improving your GitHub Profile](https://drmowinckels.io/blog/github-profile)                                                                                                             |
 | 2024-06-01 | [Customise your R startup message](https://drmowinckels.io/blog/rproject)                                                                                                                |
 | 2024-05-01 | [The IDEs I use](https://drmowinckels.io/blog/ide)                                                                                                                                       |
@@ -74,4 +75,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-07-31 00:55:47.713552*
+*Updated 2024-08-07 01:07:53.090039*
