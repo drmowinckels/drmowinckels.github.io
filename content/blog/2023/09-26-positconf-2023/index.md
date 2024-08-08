@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273529
 title: Posit::conf 2023
 author: Dr. Mowinckel
 date: '2023-09-26'

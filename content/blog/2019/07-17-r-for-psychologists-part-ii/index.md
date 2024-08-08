@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273492
 title: "R for Psychologists - part II"
 subtitle: "ggplotting and long data"
 author: DrMowinckels

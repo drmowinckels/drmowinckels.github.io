@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273504
 title: Changing your Blogdown Workflow
 author: Dr. Mowinckel
 date: '2020-05-25'

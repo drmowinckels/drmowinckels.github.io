@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273510
 title: New Year's Wishes
 author: Dr. Mowinckel
 date: '2020-12-31'

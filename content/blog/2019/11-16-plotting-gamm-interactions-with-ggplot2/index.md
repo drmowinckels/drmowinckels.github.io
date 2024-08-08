@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273494
 title: Plotting GAMM interactions with ggplot2
 author: DrMowinckels
 date: '2019-11-16'

@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273527
 title: Advent of R Functions
 author: Dr. Mowinckel
 date: '2022-12-01'

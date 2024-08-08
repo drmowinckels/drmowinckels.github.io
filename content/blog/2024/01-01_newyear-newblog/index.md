@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273533
 title: New year, New blog
 author: Dr. Mowinckel
 date: '2024-01-01'

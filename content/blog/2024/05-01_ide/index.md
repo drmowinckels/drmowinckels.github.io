@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273562
 title: The IDEs I use
 author: Dr. Mowinckel
 date: '2024-05-01'

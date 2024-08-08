@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273479
 title: R for psychologists - just dive into it!
 author: DrMowinckels
 date: '2018-11-09'

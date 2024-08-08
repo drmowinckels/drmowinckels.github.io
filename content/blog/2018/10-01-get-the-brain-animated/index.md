@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273462
 title: Get the brain animated!
 author: DrMowinckels
 date: '2018-10-01'
