@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273566
 title: Customise your R startup message
 author: Dr. Mowinckel
 date: '2024-06-01'

@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273535
 title: Teaching you - teaching me
 author: Dr. Mowinckel
 date: '2024-02-01'

@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13274239
 title: Improving your GitHub Profile
 author: Dr. Mowinckel
 date: '2024-07-01'

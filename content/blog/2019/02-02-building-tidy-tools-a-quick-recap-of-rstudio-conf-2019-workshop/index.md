@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273490
 title: Building tidy tools - a quick recap of RStudio::conf 2019 workshop & teeny demonstration
 author: DrMowinckels
 date: '2019-02-02'

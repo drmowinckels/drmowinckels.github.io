@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273487
 title: Why RStudio::conf is the best conference experience I have had
 author: DrMowinckel
 date: '2019-01-19'

@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273496
 title: ggseg3d - creating interactive brain segmentation plots with plotly
 author: DrMowinckels
 date: '2019-12-06'

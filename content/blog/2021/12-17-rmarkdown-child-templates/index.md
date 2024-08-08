@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273520
 title: Rmarkdown Child Templates
 author: Athanasia M. Mowinckel
 date: '2021-12-17'

@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273512
 title: New {ggseg} with Geom!
 author: Dr. Mowinckel
 date: '2021-03-14'
