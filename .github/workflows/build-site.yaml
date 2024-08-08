@@ -21,10 +21,26 @@ jobs:
         with:
           submodules: true
 
+      - name: Setup R
+        if: github.ref == 'refs/heads/main'
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Setup Pandoc
+        if: github.ref == 'refs/heads/main'
+        uses: r-lib/actions/setup-pandoc@v2
+    
+      - name: Setup tinytex
+        if: github.ref == 'refs/heads/main'
+        uses: r-lib/actions/setup-tinytex@v2
+
       - name: Install cURL Headers
         run: |
           sudo apt-get update
           sudo apt-get install libcurl4-openssl-dev
+
+      - name: Install pdf svg handler
+        if: github.ref == 'refs/heads/main'
+        run: sudo apt-get install librsvg2-dev
 
       - name: Get Hugo version
         id: hugo_vr
@@ -40,6 +56,13 @@ jobs:
         with:
           hugo-version: ${{ env.hugo_v }}
           extended: true
+
+      - name: Add doi
+        if: github.ref == 'refs/heads/main'
+        run: |
+          install.packages(c('rmarkdown', 'httr2', 'yaml'))
+          source(".github/scripts/add_doi.R")
+        shell: Rscript {0}
 
       - name: Build
         run: |
@@ -82,6 +105,13 @@ jobs:
               repo: 'drmowinckels.github.io',
               body: ':tada: The preview is built! [Check it out :eyes:](https://${{ env.nalias }}--drmowinckels.netlify.app/)'
             })
+
+      - name: Commit content with doi
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git commit content/blog -m 'Add doi' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
+
 
   check-post:
     name: Check post date
