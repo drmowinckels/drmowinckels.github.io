@@ -13,7 +13,7 @@ tags:
   - IDE
   - positron
   - vscode
-slug: "positron"
+slug: "positronmm"
 image: images/positron-logo.png
 summary: |
   In May I wrote about my favorite IDE's.
