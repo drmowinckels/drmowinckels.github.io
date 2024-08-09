@@ -6,6 +6,7 @@ allow_html: yes
 type: about
 image: profile.png
 home: true
+home_title: false
 social_media: # see icons in https://getuikit.com/docs/icon
     - link  : "https://fosstodon.org/web/@Drmowinckels"
       icon  : "mastodon" # icon name without the 'fa-'
