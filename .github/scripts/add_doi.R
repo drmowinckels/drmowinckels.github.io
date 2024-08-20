@@ -1,7 +1,15 @@
 library(httr2)
 library(yaml)
-library(rmarkdown)
+library(quarto)
 
+#' Find line index where first post paragraph ends
+#' 
+#' Looks for the indeces of empty lines surrounding 
+#' paragraphs. Specifically looking for the index that
+#' ends the first paragraph, using this as the post
+#' summary for Zenodo meta-data.
+#' 
+#' @param x path to content .md
 find_end <- function(x){
   char <- grep("^$", x, invert = TRUE)
   char_lag <- c(char[2:length(char)], NA)
@@ -9,6 +17,16 @@ find_end <- function(x){
   char[start_index[1]]
 }
 
+#' Check if post needs DOI
+#' 
+#' Will check if the post frontmatter
+#' indicates the post needs DOI.
+#' The post date needs to be in the past or 
+#' today, it cannot be listed as a draft, and
+#' it should not already have a DOI.
+#' 
+#' @param x path to content .md
+#' 
 needs_doi <- function(x){
   frontmatter <- readLines(x, 30)
 
@@ -34,10 +52,20 @@ needs_doi <- function(x){
   return(TRUE)
 }
 
-
-publish_to_zenodo <- function(post, pdf_dir = tempdir()){
+#' Publish blogpost to Zenodo
+#' 
+#' Function will read in meta-data from yaml,
+#' and create pdf for archiving to Zenodo.
+#' If run with \code{uplad = FALSE} will prepare
+#' meta-data and create the pdf, without submitting
+#' to Zenodo.
+#' 
+#' @param post character. path to the post .md
+#' @param upload logical. If the information should be uploaded
+#' 
+publish_to_zenodo <- function(post, upload = FALSE){
   post_content <- readLines(post)
-  
+
   # Extract YAML front matter
   yaml_delimiters <- grep("^---", post_content)
   yaml_content <- post_content[(yaml_delimiters[1] + 1):(yaml_delimiters[2] - 1)]
@@ -46,14 +74,17 @@ publish_to_zenodo <- function(post, pdf_dir = tempdir()){
   if(is.null(metadata$summmary)){
     post_summary <- post_content[(yaml_delimiters[2]+2):length(post_content)]
     metadata$summary <- post_summary[1:find_end(post_summary)]
+    metadata$summary <- sprintf(
+      "Dr. Mowinckel's blog: %s", 
+      paste0(metadata$summary, collapse = " ")
+    )
   }
 
   # Create Zenodo deposition metadata
   zenodo_metadata <- list(
     metadata = list(
       title = metadata$title,
-      description = sprintf("Dr. Mowinckel's blog: %s", 
-        paste0(metadata$summary, collapse = " ")),
+      description = metadata$summary,
       creators = list(list(
         name = "Athanasia Monika Mowinckel",
         orcid = "0000-0002-5756-0223"
@@ -61,7 +92,7 @@ publish_to_zenodo <- function(post, pdf_dir = tempdir()){
       upload_type = "publication",
       publication_type = "other",
       publication_date = metadata$date, 
-      url = sprintf("https://drmowinckels.io/%s", metadata$slug),
+      url = sprintf("https://drmowinckels.io/blog/%s/%s", substr(metadata$date, 1, 4), metadata$slug),
       access_right = "open",
       license = "cc-by",
       keywords = metadata$tags,
@@ -69,83 +100,98 @@ publish_to_zenodo <- function(post, pdf_dir = tempdir()){
     )
   )
   
-  # Mint the DOI
-  response <- request(zenodo_api_endpoint) |> 
-    req_auth_bearer_token(zenodo_api_token) |> 
-    req_body_json(zenodo_metadata, auto_unbox = TRUE) |> 
-    req_perform()
-    
-  if (resp_status(response) %in% c(200, 201)) {
-    deposition <- resp_body_json(response)
-    pdf_file <- sprintf(
-      "drmowinckels_%s_%s.pdf",
-      metadata$date,
-      metadata$slug
-    )
-    
-    # generate pdf for archiving
-    render(
+  pdf_file <- sprintf(
+    "drmowinckels_%s_%s.pdf",
+    metadata$date,
+    metadata$slug
+  )
+
+  # Try rendering pdf, if errors returns FALSE so we can abort.
+  render_status <- tryCatch({
+    quarto_render(
       post, 
-      output_format = pdf_document(latex_engine = "lualatex"), 
-      output_file = pdf_file,
-      output_dir = pdf_dir
+      output_format = "pdf", 
+      output_file = pdf_file, 
+      as_job = FALSE
     )
+    TRUE
+  }, 
+  error = function(e) {FALSE}
+  )
+
+  if(!render_status)
+    stop(
+      sprintf("Error during PDF conversion: %s\n", e$message),
+      call. = FALSE
+    )
+  
+  if(upload){
+    # Upload metadata to initiate DOI
+    response <- request(zenodo_api_endpoint) |> 
+      req_auth_bearer_token(zenodo_api_token) |> 
+      req_body_json(zenodo_metadata, auto_unbox = TRUE) |> 
+      req_perform()
+      
+    if (!resp_status(response) %in% c(200, 201)) {
+      stop(sprintf(
+        "Failed to create DOI for %s: %s", post, resp_status(response)),
+        call. = FALSE
+        )
+    }
+
+    deposition <- resp_body_json(response)
 
     # Upload the pdf file
     upload_response <- request(deposition$links$bucket) |> 
-      req_url_path_append(sprintf(
-        "drmowinckels_%s_%s.pdf",
-        metadata$date,
-        metadata$slug
-      )) |> 
+      req_url_path_append(pdf_file) |> 
       req_auth_bearer_token(zenodo_api_token) |> 
       req_method("PUT") |> 
-      req_body_file(file.path(pdf_dir, pdf_file)) |> 
+      req_body_file(pdf_file) |> 
       req_perform()
-        
-      if (resp_status(upload_response) %in% c(200, 201)) {
-        message(sprintf("Successfully uploaded %s to Zenodo", post))
-
-        # Publish the deposition (optional)
-        publish_response <- request(zenodo_api_endpoint) |> 
-          req_url_path_append(deposition$id, "actions", "publish") |> 
-          req_auth_bearer_token(zenodo_api_token) |> 
-          req_method("POST") |> 
-          req_perform()
-      
-        if (resp_status(publish_response) %in% c(200, 201, 202)) {
-          message(sprintf("Successfully published %s on Zenodo", pdf_file))
-          pub_deposition <- resp_body_json(publish_response)
           
-          # Update YAML front matter with DOI
-          post_content <- c(
-            post_content[1],
-            sprintf("doi: %s", pub_deposition$metadata$doi),
-            post_content[2:length(post_content)]
-          )
-          writeLines(post_content, post)
-        } else {
-          message(sprintf("Failed to publish %s on Zenodo: %s", pdf_file, resp_status(publish_response)))
-        }
-        
-      } else {
-        message(sprintf("Failed to upload %s to Zenodo: %s", post, resp_status(upload_response)))
-      }
-      
-  } else {
-      message(sprintf(
-        "Failed to create DOI for %s: %s", post, resp_status(response)))
+    if (!resp_status(upload_response) %in% c(200, 201)) {
+      stop(sprintf("Failed to upload %s to Zenodo: %s", post, resp_status(upload_response)),
+      call. = FALSE
+      )
     }
+
+    message(sprintf("Successfully uploaded %s to Zenodo", post))
+
+    # Publish the deposition
+    pub_response <- request(zenodo_api_endpoint) |> 
+      req_url_path_append(deposition$id, "actions", "publish") |> 
+      req_auth_bearer_token(zenodo_api_token) |> 
+      req_method("POST") |> 
+      req_perform()
+      
+    if (!resp_status(pub_response) %in% c(200, 201, 202)) {
+      stop(sprintf("Failed to publish %s on Zenodo: %s", pdf_file, resp_status(pub_response)),
+      call. = FALSE)
+    }
+
+    message(sprintf("Successfully published %s on Zenodo", pdf_file))
+    pub_deposition <- resp_body_json(pub_response)
+
+    # Update YAML front matter with DOI
+    post_content <- c(
+      post_content[1],
+      sprintf("doi: %s", pub_deposition$metadata$doi),
+      post_content[2:length(post_content)]
+    )
+  
+    writeLines(post_content, post)
   }
+
+  return(pdf_file)
+}
 
 # Zenodo API settings
 zenodo_api_endpoint <- "https://zenodo.org/api/deposit/depositions"
 zenodo_api_token <- Sys.getenv("ZENODO_API_TOKEN")
 
 # Read Hugo content files
-content_dir <- "content/blog"
 posts <- list.files(
-  content_dir, 
+  "content/blog", 
   pattern = "^index\\.md$", 
   recursive = TRUE,
   full.names = TRUE
@@ -154,7 +200,8 @@ posts <- list.files(
 # Only process files without doi and that are published
 posts <- posts[sapply(posts, needs_doi)]
 
-sapply(posts,
+# Run thorugh all posts that need a doi.
+sapply(posts[36],
   publish_to_zenodo, 
-  pdf_dir = tempdir()
+  upload = FALSE
 )
