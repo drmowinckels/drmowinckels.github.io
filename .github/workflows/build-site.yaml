@@ -25,14 +25,14 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: r-lib/actions/setup-r@v2
 
-      - name: Setup Pandoc
+      - name: Setuo Quarto
         if: github.ref == 'refs/heads/main'
-        uses: r-lib/actions/setup-pandoc@v2
-    
-      - name: Setup tinytex
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Setup Tinytex
         if: github.ref == 'refs/heads/main'
         uses: r-lib/actions/setup-tinytex@v2
-
+        
       - name: Install cURL Headers
         run: |
           sudo apt-get update
@@ -41,6 +41,12 @@ jobs:
       - name: Install pdf svg handler
         if: github.ref == 'refs/heads/main'
         run: sudo apt-get install librsvg2-dev
+
+      - name: Add doi
+        if: github.ref == 'refs/heads/main'
+        env:
+          RENV_PROFILE: zenodo
+        run: RScript .github/scripts/add_doi.R
 
       - name: Get Hugo version
         id: hugo_vr
@@ -56,13 +62,6 @@ jobs:
         with:
           hugo-version: ${{ env.hugo_v }}
           extended: true
-
-      - name: Add doi
-        if: github.ref == 'refs/heads/main'
-        run: |
-          install.packages(c('rmarkdown', 'httr2', 'yaml'))
-          source(".github/scripts/add_doi.R")
-        shell: Rscript {0}
 
       - name: Build
         run: |
@@ -243,8 +242,4 @@ jobs:
           # Display clickable url
           echo "🦣 Tooted! 🦣"
           echo "https://${MASTODON_INSTANCE}/web/statuses/${toot}"
-
-
-
-
 
