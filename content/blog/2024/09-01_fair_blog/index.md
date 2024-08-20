@@ -69,7 +69,7 @@ Hugo, by default, will make a minimal RSS feed with just some simple meta-data o
 While I am fully able to adapt the Hugo template to what Rogue Scholar requires, I did not like this idea.
 That RSS feed will just be a monster of a thing, so I descided to explore other avenues.
 
-For this process we are going to need 3 packages: httr2 to access the Zenodo API, yaml to extract metadata for Zenodo from the markdown frontmatter, and rmarkdown to generate pdf's of the content for archiving.
+For this process we are going to need 3 packages: httr2 to access the Zenodo API, yaml to extract metadata for Zenodo from the markdown frontmatter, and Quarto to generate pdf's of the content for archiving.
 My first attempts I archived the pure markdown content, but this did not go so well, as it did not display content output etc and looked messy.
 While the pdf's are not perfect, they at least contain the most important aspects of the posts in a much better way than did the markdown data alone.
 
@@ -426,7 +426,7 @@ render_status <- tryCatch({
       entering extended mode
       
 
-    Output created: ../../2024/09-01_post/drmowinckels_2018-04-05_gamm-random-effects.pdf
+    Output created: ../../2024/09-01_fair_blog/drmowinckels_2018-04-05_gamm-random-effects.pdf
 
 ``` r
 render_status
@@ -464,13 +464,13 @@ In stead, we add this token also in the [Secrets section](https://docs.github.co
 This first thing we will do, is upload the meta-data to Zenodo.
 This initiates an archive, and we can add the pdf to it later.
 Using {httr2} we can build a curl request to the Zenodo API so that our archive is initiated.
-There are (usually) three main parts of most quaries to API's,
+There are (usually) three main parts of most queries to API's,
 
 1.  the API URL to query
 2.  an authenticating part
 3.  something we sent to the API (the body)
 
-In {httr2} this process is done through a series of steps that we usually will pipe into eachother like below.
+In {httr2} this process is done through a series of steps that we usually will pipe into each other like below.
 Here we initiate a curl `request` to the Zenodo API, we add a `BEARER TOKEN` which is a common authentication step for APIs,
 and then we add the Zenodo meta-data to the body of the request.
 
@@ -674,11 +674,11 @@ upload_response <- request(deposition$links$bucket) |>
 We are looking for another positive result of that, like a 201 again.
 Once we have that, our last piece for httr2 code is to actually publish the archive.
 Everything we have done untill now can still be undone.
-Meaning we can delete the entire archive, becise it has not been published yet.
-Once we publish thuogh, we have a DOI, which is persistent and we can't take it back.
+Meaning we can delete the entire archive, because it has not been published yet.
+Once we publish though, we have a DOI, which is persistent and we can't take it back.
 Something I am painfullly aware of in that I have a post that was published twice under two different DOIs as I was working on the pipeline.
 
-I feel silly that happened, but now that it's done it's done. I can't take it back, it's there for perpetuity... or untill interwebs are no longer a thing.
+I feel silly that happened, but now that it's done it's done. I can't take it back, it's there for perpetuity... or until interwebs are no longer a thing.
 
 Ok, back to the process.
 We want to actually publish the results.
@@ -955,7 +955,7 @@ Wish me luck!!
 I'm happy now that I can archive all my posts in perpetuity like this, making it easier for people in the future to find them again even if my website goes down.
 I don't know how useful they will be for long, but they are there at least!
 Also, they are not possible to find through other means than just search engines like google.
-Being archived on a platform that is for science output of verious types means more people may be able to find them.
+Being archived on a platform that is for science output of various types means more people may be able to find them.
 
 ## Newsletter
 
