@@ -160,39 +160,12 @@ post_content[1:20]
 Now we will have the entire content of the markdown file stored as a vector of strings in the `post_content` object.
 In this object, each line in the markdown file is an element, so we can capture the frontmatter with some more regexp magic.
 
-I always use three dashes `---` to indicate the start and end of my yaml frontmatter.
-It is also possible to use three plus-signs `+++`, so if you use this, you should adapt the regexp below to that in stead.
+We need to extract the yaml frontmatter from the markdown file to populate Zenodo with the necessary information it needs.
+I used to have a really long, complicated and convoluted way to do this, untill my good friend [Maëlle](https://masalmon.eu/) told me about a *very* convenient function from the {rmarkdown} package.
 
 ``` r
-# Look for line indexes where the yaml separators are
-yaml_delimiters <- grep("^---", post_content)
-yaml_delimiters
-```
-
-    [1]  1 14
-
-``` r
-# capture the lines betwee those two indexes
-yaml_content <- post_content[(yaml_delimiters[1] + 1):(yaml_delimiters[2] - 1)]
-yaml_content
-```
-
-     [1] "doi: 10.5281/zenodo.13256615"                           
-     [2] "title: GAMM random effects"                             
-     [3] "author: DrMowinckels"                                   
-     [4] "date: '2018-04-05'"                                     
-     [5] "output:"                                                
-     [6] "  html_document:"                                       
-     [7] "    keep_md: yes"                                       
-     [8] "tags: [R, GAMM]"                                        
-     [9] "image: 'index_files/figure-html/unnamed-chunk-10-1.png'"
-    [10] "slug: \"gamm-random-effects\""                          
-    [11] "aliases:"                                               
-    [12] "  - '/blog/2018-04-05-gamm-random-effects'"             
-
-``` r
-# Turn yaml into an R list
-metadata <- yaml::yaml.load(paste(yaml_content, collapse = "\n"))
+# Extract YAML front matter
+metadata <- rmarkdown::yaml_front_matter(post)
 metadata
 ```
 
@@ -229,7 +202,7 @@ metadata
 
 Ok, now we have the majority of the meta-data we need.
 The last piece we need is a description of the content.
-Zenodo reuires this piece of information for a deposition to be valid, so we need to figure something out.
+Zenodo requires this piece of information for a deposition to be valid, so we need to figure something out.
 
 The majority of my post are old, and don't include a summary in the yaml.
 This means I need to create a summary for all the old posts!
@@ -259,15 +232,19 @@ find_end <- function(x){
 Now that we have that, I can use it to grab the first paragraph and add it to the metadata.
 
 ``` r
-if(is.null(metadata$summmary)){
-  post_summary <- post_content[(yaml_delimiters[2]+2):length(post_content)]
-  metadata$summary <- post_summary[1:find_end(post_summary)]
-  metadata$summary <- paste0(metadata$summary , collapse=" ")
-}
+  if(is.null(metadata$summmary)){
+    end_yaml <- grep("---", post_content)[2]+2
+    post_summary <- post_content[end_yaml:length(post_content)]
+    metadata$summary <- post_summary[1:find_end(post_summary)]
+    metadata$summary <- sprintf(
+      "Dr. Mowinckel's blog: %s", 
+      paste0(metadata$summary, collapse = " ")
+    )
+  }
 metadata$summary
 ```
 
-    [1] "  I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). "
+    [1] "Dr. Mowinckel's blog:   I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). "
 
 I believe we have all the meta-data we need to create the deposition, i.e. to initiate an archive on Zenodo.
 We will create a list that has all the information Zenodo requires for an archive to be valid.
@@ -301,7 +278,7 @@ zenodo_metadata
     [1] "GAMM random effects"
 
     $metadata$description
-    [1] "  I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). "
+    [1] "Dr. Mowinckel's blog:   I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). "
 
     $metadata$creators
     $metadata$creators[[1]]
@@ -494,9 +471,9 @@ req_dry_run(query)
     Accept-Encoding: deflate, gzip
     Authorization: <REDACTED>
     Content-Type: application/json
-    Content-Length: 701
+    Content-Length: 723
 
-    {"metadata":{"title":"GAMM random effects","description":"  I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). ","creators":[{"name":"Athanasia Monika Mowinckel","orcid":"0000-0002-5756-0223"}],"upload_type":"publication","publication_type":"other","publication_date":"2018-04-05","url":"https://drmowinckels.io/blog/2018/gamm-random-effects","access_right":"open","license":"cc-by","keywords":["R","GAMM"],"language":"eng"}}
+    {"metadata":{"title":"GAMM random effects","description":"Dr. Mowinckel's blog:   I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). ","creators":[{"name":"Athanasia Monika Mowinckel","orcid":"0000-0002-5756-0223"}],"upload_type":"publication","publication_type":"other","publication_date":"2018-04-05","url":"https://drmowinckels.io/blog/2018/gamm-random-effects","access_right":"open","license":"cc-by","keywords":["R","GAMM"],"language":"eng"}}
 
 If we are happy with how the request looks, we go ahead and perform it, meaning we actually send the request to Zenodo.
 
@@ -808,12 +785,11 @@ publish_to_zenodo <- function(post, upload = FALSE){
   post_content <- readLines(post)
 
   # Extract YAML front matter
-  yaml_delimiters <- grep("^---", post_content)
-  yaml_content <- post_content[(yaml_delimiters[1] + 1):(yaml_delimiters[2] - 1)]
-  metadata <- yaml::yaml.load(paste(yaml_content, collapse = "\n"))
+  metadata <- rmarkdown::yaml_front_matter(post)
 
   if(is.null(metadata$summmary)){
-    post_summary <- post_content[(yaml_delimiters[2]+2):length(post_content)]
+    end_yaml <- grep("---", post_content)[2]+2
+    post_summary <- post_content[end_yaml:length(post_content)]
     metadata$summary <- post_summary[1:find_end(post_summary)]
     metadata$summary <- sprintf(
       "Dr. Mowinckel's blog: %s", 
