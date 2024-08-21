@@ -70,7 +70,8 @@ publish_to_zenodo <- function(post, upload = FALSE){
   metadata <- rmarkdown::yaml_front_matter(post)
 
   if(is.null(metadata$summmary)){
-    post_summary <- post_content[(yaml_delimiters[2]+2):length(post_content)]
+    end_yaml <- grep("---", post_content)[2]+2
+    post_summary <- post_content[end_yaml:length(post_content)]
     metadata$summary <- post_summary[1:find_end(post_summary)]
     metadata$summary <- sprintf(
       "Dr. Mowinckel's blog: %s", 
