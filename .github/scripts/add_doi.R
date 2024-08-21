@@ -67,9 +67,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
   post_content <- readLines(post)
 
   # Extract YAML front matter
-  yaml_delimiters <- grep("^---", post_content)
-  yaml_content <- post_content[(yaml_delimiters[1] + 1):(yaml_delimiters[2] - 1)]
-  metadata <- yaml::yaml.load(paste(yaml_content, collapse = "\n"))
+  metadata <- rmarkdown::yaml_front_matter(post)
 
   if(is.null(metadata$summmary)){
     post_summary <- post_content[(yaml_delimiters[2]+2):length(post_content)]
