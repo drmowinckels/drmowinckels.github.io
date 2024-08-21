@@ -146,28 +146,20 @@ post_content[1:20]
 Now we will have the entire content of the markdown file stored as a vector of strings in the `post_content` object.
 In this object, each line in the markdown file is an element, so we can capture the frontmatter with some more regexp magic.
 
-I always use three dashes `---` to indicate the start and end of my yaml frontmatter.
-It is also possible to use three plus-signs `+++`, so if you use this, you should adapt the regexp below to that in stead.
+We need to extract the yaml frontmatter from the markdown file to populate Zenodo with the necessary information it needs.
+I used to have a really long, complicated and convoluted way to do this, untill my good friend [Maëlle](https://masalmon.eu/) told me about a _very_ convenient function from the {rmarkdown} package.
 
 ```{r}
 #| name: yaml
 
-# Look for line indexes where the yaml separators are
-yaml_delimiters <- grep("^---", post_content)
-yaml_delimiters
-
-# capture the lines betwee those two indexes
-yaml_content <- post_content[(yaml_delimiters[1] + 1):(yaml_delimiters[2] - 1)]
-yaml_content
-
-# Turn yaml into an R list
-metadata <- yaml::yaml.load(paste(yaml_content, collapse = "\n"))
+# Extract YAML front matter
+metadata <- rmarkdown::yaml_front_matter(post)
 metadata
 ```
 
 Ok, now we have the majority of the meta-data we need.
 The last piece we need is a description of the content.
-Zenodo reuires this piece of information for a deposition to be valid, so we need to figure something out.
+Zenodo requires this piece of information for a deposition to be valid, so we need to figure something out.
 
 The majority of my post are old, and don't include a summary in the yaml.
 This means I need to create a summary for all the old posts!
@@ -564,9 +556,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
   post_content <- readLines(post)
 
   # Extract YAML front matter
-  yaml_delimiters <- grep("^---", post_content)
-  yaml_content <- post_content[(yaml_delimiters[1] + 1):(yaml_delimiters[2] - 1)]
-  metadata <- yaml::yaml.load(paste(yaml_content, collapse = "\n"))
+  metadata <- rmarkdown::yaml_front_matter(post)
 
   if(is.null(metadata$summmary)){
     post_summary <- post_content[(yaml_delimiters[2]+2):length(post_content)]
