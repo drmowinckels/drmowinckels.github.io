@@ -5,6 +5,7 @@ weight: 2
 type: grid
 home: true
 n_posts: 4
+overlay: false
 ---
 
 While I am a scientist and have lost of research projects ongoing, here I'd rather showcase the wonderful world of development I have started exploring.
