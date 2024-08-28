@@ -13,10 +13,10 @@ code for my content.
 
 🎉 DrMowinckels has **35** posts since **2018-03-08**!
 
-📅 That’s a post roughly every **67** days, or about **0.45** posts per
+📅 That’s a post roughly every **68** days, or about **0.44** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-20** days ago ([Positron IDE - A new
+✍️ The last post was published **-27** days ago ([Positron IDE - A new
 IDE for data science](https://drmowinckels.io/blog/positron)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -75,4 +75,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-08-21 01:07:45.833812*
+*Updated 2024-08-28 01:10:22.479751*
