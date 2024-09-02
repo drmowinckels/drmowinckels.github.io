@@ -6,7 +6,6 @@ format: hugo-md
 title: Making your blog FAIR
 author: Dr. Mowinckel
 date: '2024-09-02'
-draft: true
 categories: []
 tags:
   - r
@@ -195,15 +194,15 @@ find_end <- function(x){
 Now that we have that, I can use it to grab the first paragraph and add it to the metadata.
 
 ```{r}
-  if(is.null(metadata$summmary)){
-    end_yaml <- grep("---", post_content)[2]+2
-    post_summary <- post_content[end_yaml:length(post_content)]
-    metadata$summary <- post_summary[1:find_end(post_summary)]
-    metadata$summary <- sprintf(
-      "Dr. Mowinckel's blog: %s", 
-      paste0(metadata$summary, collapse = " ")
-    )
-  }
+if(is.null(metadata$summmary)){
+  end_yaml <- grep("---", post_content)[2]+2
+  post_summary <- post_content[end_yaml:length(post_content)]
+  metadata$summary <- post_summary[1:find_end(post_summary)]
+  metadata$summary <- sprintf(
+    "Dr. Mowinckel's blog: %s", 
+    paste0(metadata$summary, collapse = " ")
+  )
+}
 metadata$summary
 ```
 
@@ -224,7 +223,9 @@ zenodo_metadata <- list(
     upload_type = "publication",
     publication_type = "other",
     publication_date = metadata$date, 
-    url = sprintf("https://drmowinckels.io/blog/%s/%s", substr(metadata$date, 1, 4), metadata$slug),
+    url = sprintf("https://drmowinckels.io/blog/%s/%s", 
+      substr(metadata$date, 1, 4),
+      metadata$slug),
     access_right = "open",
     license = "cc-by",
     keywords = metadata$tags,
@@ -262,6 +263,10 @@ pdf_file <- sprintf(
   metadata$slug
 )
 pdf_file
+```
+
+```{r}
+#| output: false
 
 # Try rendering pdf, if errors returns FALSE so we can abort.
 render_status <- tryCatch({
@@ -275,6 +280,9 @@ render_status <- tryCatch({
   }, 
   error = function(e) {FALSE}
 )
+```
+
+```{r}
 render_status
 ```
 

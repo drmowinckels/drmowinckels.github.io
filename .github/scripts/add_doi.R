@@ -203,6 +203,6 @@ if( length(posts) > 0){
   # Run thorugh all posts that need a doi.
   sapply(posts,
     publish_to_zenodo, 
-    upload = FALSE
+    upload = TRUE
   )
 }

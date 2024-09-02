@@ -233,15 +233,15 @@ find_end <- function(x){
 Now that we have that, I can use it to grab the first paragraph and add it to the metadata.
 
 ``` r
-  if(is.null(metadata$summmary)){
-    end_yaml <- grep("---", post_content)[2]+2
-    post_summary <- post_content[end_yaml:length(post_content)]
-    metadata$summary <- post_summary[1:find_end(post_summary)]
-    metadata$summary <- sprintf(
-      "Dr. Mowinckel's blog: %s", 
-      paste0(metadata$summary, collapse = " ")
-    )
-  }
+if(is.null(metadata$summmary)){
+  end_yaml <- grep("---", post_content)[2]+2
+  post_summary <- post_content[end_yaml:length(post_content)]
+  metadata$summary <- post_summary[1:find_end(post_summary)]
+  metadata$summary <- sprintf(
+    "Dr. Mowinckel's blog: %s", 
+    paste0(metadata$summary, collapse = " ")
+  )
+}
 metadata$summary
 ```
 
@@ -264,7 +264,9 @@ zenodo_metadata <- list(
     upload_type = "publication",
     publication_type = "other",
     publication_date = metadata$date, 
-    url = sprintf("https://drmowinckels.io/blog/%s/%s", substr(metadata$date, 1, 4), metadata$slug),
+    url = sprintf("https://drmowinckels.io/blog/%s/%s", 
+      substr(metadata$date, 1, 4),
+      metadata$slug),
     access_right = "open",
     license = "cc-by",
     keywords = metadata$tags,
@@ -360,51 +362,6 @@ render_status <- tryCatch({
   error = function(e) {FALSE}
 )
 ```
-
-    [1mpandoc --output index.tex[22m
-      to: latex
-      standalone: true
-      pdf-engine: xelatex
-      variables:
-        graphics: true
-        tables: true
-      default-image-extension: pdf
-      
-    [1mmetadata[22m
-      documentclass: scrartcl
-      classoption:
-        - DIV=11
-        - numbers=noendperiod
-      papersize: letter
-      header-includes:
-        - '\KOMAoption{captions}{tableheading}'
-      block-headings: true
-      doi: 10.5281/zenodo.13256615
-      title: GAMM random effects
-      author: DrMowinckels
-      date: '2018-04-05'
-      tags:
-        - R
-        - GAMM
-      image: index_files/figure-html/unnamed-chunk-10-1.png
-      slug: gamm-random-effects
-      aliases:
-        - /blog/2018-04-05-gamm-random-effects
-      
-    [1m[34m
-    Rendering PDF[39m[22m
-    [1m[34mrunning xelatex - 1[39m[22m
-      This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex)
-       restricted \write18 enabled.
-      entering extended mode
-      
-    [1m[34mrunning xelatex - 2[39m[22m
-      This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex)
-       restricted \write18 enabled.
-      entering extended mode
-      
-
-    Output created: ../../2024/09-02_fair_blog/drmowinckels_2018-04-05_gamm-random-effects.pdf
 
 ``` r
 render_status
