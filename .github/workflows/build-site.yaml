@@ -22,6 +22,15 @@ jobs:
         with:
           submodules: true
 
+      - name: Install cURL Headers
+        run: |
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev
+  
+      - name: Install pdf svg handler
+        if: github.ref == 'refs/heads/main'
+        run: sudo apt-get install librsvg2-dev
+
       - name: Setup R
         if: github.ref == 'refs/heads/main'
         uses: r-lib/actions/setup-r@v2
@@ -37,15 +46,6 @@ jobs:
       - name: Setup Tinytex
         if: github.ref == 'refs/heads/main'
         uses: r-lib/actions/setup-tinytex@v2
-        
-      - name: Install cURL Headers
-        run: |
-          sudo apt-get update
-          sudo apt-get install libcurl4-openssl-dev
-
-      - name: Install pdf svg handler
-        if: github.ref == 'refs/heads/main'
-        run: sudo apt-get install librsvg2-dev
 
       - name: Add doi
         if: github.ref == 'refs/heads/main'
