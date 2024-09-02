@@ -1,5 +1,5 @@
 ---
-title: "R-paks"
+title: "R-packages"
 subtitle: "Projects featured here are R-package development. Project summaries, links to source code and demos can be found by clicking each."
 weight: 2
 type: grid
