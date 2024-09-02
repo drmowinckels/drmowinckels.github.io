@@ -138,7 +138,13 @@ post <- here::here(post)
 
 # Read in the entire content of the file
 post_content <- readLines(post)
+```
 
+```{r include = FALSE}
+post_content <- post_content[-2]
+```
+
+```{r}
 # Preview the first 20 lines in the file
 post_content[1:20]
 ```
