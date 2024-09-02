@@ -6,7 +6,6 @@ format: hugo-md
 title: Making your blog FAIR
 author: Dr. Mowinckel
 date: '2024-09-02'
-draft: true
 categories: []
 tags:
   - r

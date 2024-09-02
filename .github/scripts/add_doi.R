@@ -199,8 +199,10 @@ posts <- list.files(
 # Only process files without doi and that are published
 posts <- posts[sapply(posts, needs_doi)]
 
-# Run thorugh all posts that need a doi.
-sapply(posts[36],
-  publish_to_zenodo, 
-  upload = FALSE
-)
+if( length(posts) > 0){
+  # Run thorugh all posts that need a doi.
+  sapply(posts,
+    publish_to_zenodo, 
+    upload = FALSE
+  )
+}
