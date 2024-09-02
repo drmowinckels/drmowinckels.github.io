@@ -46,6 +46,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         env:
           RENV_PROFILE: zenodo
+          ZENODO_API_TOKEN: ${{ secrets.ZENODO_API_TOKEN }}
         run: RScript .github/scripts/add_doi.R
 
       - name: Get Hugo version
