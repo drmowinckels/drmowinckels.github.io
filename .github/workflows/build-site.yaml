@@ -47,7 +47,9 @@ jobs:
         env:
           RENV_PROFILE: zenodo
           ZENODO_API_TOKEN: ${{ secrets.ZENODO_API_TOKEN }}
-        run: Rscript .github/scripts/add_doi.R
+        run: |
+          Rscript 'renv::restore()'
+          Rscript .github/scripts/add_doi.R
 
       - name: Get Hugo version
         id: hugo_vr
