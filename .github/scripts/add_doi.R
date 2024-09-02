@@ -64,6 +64,11 @@ needs_doi <- function(x){
 #' @param upload logical. If the information should be uploaded
 #' 
 publish_to_zenodo <- function(post, upload = FALSE){
+  cli::cli_h1(sprintf(
+    "Starting Zenodo process for %s",
+    basename(dirname(post))
+  ))
+
   post_content <- readLines(post)
 
   # Extract YAML front matter
@@ -79,6 +84,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
     )
   }
 
+  cli::cli_bullets(list("*" = "Fixing meta-data"))
   # Create Zenodo deposition metadata
   zenodo_metadata <- list(
     metadata = list(
@@ -98,7 +104,8 @@ publish_to_zenodo <- function(post, upload = FALSE){
       language = "eng"
     )
   )
-  
+
+  cli::cli_bullets(list("*" = "Generating PDF"))
   pdf_file <- sprintf(
     "drmowinckels_%s_%s.pdf",
     metadata$date,
@@ -125,6 +132,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
     )
   
   if(upload){
+    cli::cli_bullets(list("*" = "Initiating deposition"))
     # Upload metadata to initiate DOI
     response <- request(zenodo_api_endpoint) |> 
       req_auth_bearer_token(zenodo_api_token) |> 
@@ -141,6 +149,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
     deposition <- resp_body_json(response)
 
     # Upload the pdf file
+    cli::cli_bullets(list("*" = "Uploading file"))
     upload_response <- request(deposition$links$bucket) |> 
       req_url_path_append(pdf_file) |> 
       req_auth_bearer_token(zenodo_api_token) |> 
@@ -154,7 +163,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
       )
     }
 
-    message(sprintf("Successfully uploaded %s to Zenodo", post))
+    cli::cli_bullets(list("*" = "Publishing deposition"))
 
     # Publish the deposition
     pub_response <- request(zenodo_api_endpoint) |> 
@@ -168,7 +177,8 @@ publish_to_zenodo <- function(post, upload = FALSE){
       call. = FALSE)
     }
 
-    message(sprintf("Successfully published %s on Zenodo", pdf_file))
+    cli::cli_alert_success("Successfully publishe")
+
     pub_deposition <- resp_body_json(pub_response)
 
     # Update YAML front matter with DOI

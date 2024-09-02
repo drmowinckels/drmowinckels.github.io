@@ -4,7 +4,6 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Athanasia Mo", "Mowinckel", , "a.m.mowinckel@psykologi.uio.no", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-5756-0223"))
-Description: What the package does (one paragraph).
 License: CC BY 4.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -13,11 +12,12 @@ Config/renv/profiles/default/dependencies:
     blogdown,
     rmarkdown
 Config/renv/profiles/zenodo/dependencies: 
-    quarto,
-    yaml,
-    httr2,
+    cli,
     httpuv,
-    rmarkdown
+    httr2,
+    rmarkdown,
+    quarto,
+    yaml
 Config/renv/profiles/readme/dependencies: 
     rmarkdown
 Config/renv/profiles/aboutme/dependencies: 
