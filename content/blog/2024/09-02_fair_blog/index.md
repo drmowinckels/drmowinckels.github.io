@@ -131,31 +131,33 @@ post
 ``` r
 # Read in the entire content of the file
 post_content <- readLines(post)
+```
 
+``` r
 # Preview the first 20 lines in the file
 post_content[1:20]
 ```
 
      [1] "---"                                                                                                                                                                                                                                                                                                                                    
-     [2] "doi: 10.5281/zenodo.13256615"                                                                                                                                                                                                                                                                                                           
-     [3] "title: GAMM random effects"                                                                                                                                                                                                                                                                                                             
-     [4] "author: DrMowinckels"                                                                                                                                                                                                                                                                                                                   
-     [5] "date: '2018-04-05'"                                                                                                                                                                                                                                                                                                                     
-     [6] "output:"                                                                                                                                                                                                                                                                                                                                
-     [7] "  html_document:"                                                                                                                                                                                                                                                                                                                       
-     [8] "    keep_md: yes"                                                                                                                                                                                                                                                                                                                       
-     [9] "tags: [R, GAMM]"                                                                                                                                                                                                                                                                                                                        
-    [10] "image: 'index_files/figure-html/unnamed-chunk-10-1.png'"                                                                                                                                                                                                                                                                                
-    [11] "slug: \"gamm-random-effects\""                                                                                                                                                                                                                                                                                                          
-    [12] "aliases:"                                                                                                                                                                                                                                                                                                                               
-    [13] "  - '/blog/2018-04-05-gamm-random-effects'"                                                                                                                                                                                                                                                                                             
-    [14] "---"                                                                                                                                                                                                                                                                                                                                    
+     [2] "title: GAMM random effects"                                                                                                                                                                                                                                                                                                             
+     [3] "author: DrMowinckels"                                                                                                                                                                                                                                                                                                                   
+     [4] "date: '2018-04-05'"                                                                                                                                                                                                                                                                                                                     
+     [5] "output:"                                                                                                                                                                                                                                                                                                                                
+     [6] "  html_document:"                                                                                                                                                                                                                                                                                                                       
+     [7] "    keep_md: yes"                                                                                                                                                                                                                                                                                                                       
+     [8] "tags: [R, GAMM]"                                                                                                                                                                                                                                                                                                                        
+     [9] "image: 'index_files/figure-html/unnamed-chunk-10-1.png'"                                                                                                                                                                                                                                                                                
+    [10] "slug: \"gamm-random-effects\""                                                                                                                                                                                                                                                                                                          
+    [11] "aliases:"                                                                                                                                                                                                                                                                                                                               
+    [12] "  - '/blog/2018-04-05-gamm-random-effects'"                                                                                                                                                                                                                                                                                             
+    [13] "---"                                                                                                                                                                                                                                                                                                                                    
+    [14] ""                                                                                                                                                                                                                                                                                                                                       
     [15] ""                                                                                                                                                                                                                                                                                                                                       
     [16] ""                                                                                                                                                                                                                                                                                                                                       
-    [17] ""                                                                                                                                                                                                                                                                                                                                       
-    [18] "I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). "
-    [19] ""                                                                                                                                                                                                                                                                                                                                       
-    [20] "For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM."                                                                                                                                                            
+    [17] "I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). "
+    [18] ""                                                                                                                                                                                                                                                                                                                                       
+    [19] "For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM."                                                                                                                                                            
+    [20] ""                                                                                                                                                                                                                                                                                                                                       
 
 Now we will have the entire content of the markdown file stored as a vector of strings in the `post_content` object.
 In this object, each line in the markdown file is an element, so we can capture the frontmatter with some more regexp magic.
@@ -403,7 +405,7 @@ render_status <- tryCatch({
       entering extended mode
       
 
-    Output created: ../../2024/09-01_fair_blog/drmowinckels_2018-04-05_gamm-random-effects.pdf
+    Output created: ../../2024/09-02_fair_blog/drmowinckels_2018-04-05_gamm-random-effects.pdf
 
 ``` r
 render_status
@@ -466,9 +468,9 @@ req_dry_run(query)
 
     POST /api/deposit/depositions HTTP/1.1
     Host: zenodo.org
-    User-Agent: httr2/1.0.2 r-curl/5.2.1 libcurl/8.6.0
+    User-Agent: httr2/1.0.3 r-curl/5.2.2 libcurl/8.7.1
     Accept: */*
-    Accept-Encoding: deflate, gzip
+    Accept-Encoding: gzip
     Authorization: <REDACTED>
     Content-Type: application/json
     Content-Length: 723
@@ -690,11 +692,16 @@ post_content <- c(
 post_content[1:10]
 ```
 
-     [1] "---"                          "doi: 10.5281/zenodo.13344546"
-     [3] "doi: 10.5281/zenodo.13256615" "title: GAMM random effects"  
-     [5] "author: DrMowinckels"         "date: '2018-04-05'"          
-     [7] "output:"                      "  html_document:"            
-     [9] "    keep_md: yes"             "tags: [R, GAMM]"             
+     [1] "---"                                                    
+     [2] "doi: 10.5281/zenodo.13344546"                           
+     [3] "title: GAMM random effects"                             
+     [4] "author: DrMowinckels"                                   
+     [5] "date: '2018-04-05'"                                     
+     [6] "output:"                                                
+     [7] "  html_document:"                                       
+     [8] "    keep_md: yes"                                       
+     [9] "tags: [R, GAMM]"                                        
+    [10] "image: 'index_files/figure-html/unnamed-chunk-10-1.png'"
 
 I'm taking a simple approach here.
 I add the DOI to the top of the yaml, meaning I don't need lots of complicated code to find the bottom of the yaml etc.
