@@ -64,10 +64,12 @@ needs_doi <- function(x){
 #' @param upload logical. If the information should be uploaded
 #' 
 publish_to_zenodo <- function(post, upload = FALSE){
-  cli::cli_h1(sprintf(
-    "Starting Zenodo process for %s",
-    basename(dirname(post))
-  ))
+  message(
+    sprintf(
+      "Starting Zenodo process for %s \n ------ \n ",
+      basename(dirname(post))
+    )
+  )
 
   post_content <- readLines(post)
 
@@ -84,7 +86,8 @@ publish_to_zenodo <- function(post, upload = FALSE){
     )
   }
 
-  cli::cli_bullets(list("*" = "Fixing meta-data"))
+  message("- Fixing meta-data \n")
+
   # Create Zenodo deposition metadata
   zenodo_metadata <- list(
     metadata = list(
@@ -105,7 +108,8 @@ publish_to_zenodo <- function(post, upload = FALSE){
     )
   )
 
-  cli::cli_bullets(list("*" = "Generating PDF"))
+  message("- Generating PDF \n")
+
   pdf_file <- sprintf(
     "drmowinckels_%s_%s.pdf",
     metadata$date,
@@ -132,7 +136,8 @@ publish_to_zenodo <- function(post, upload = FALSE){
     )
   
   if(upload){
-    cli::cli_bullets(list("*" = "Initiating deposition"))
+    message("- Initiating deposition \n")
+
     # Upload metadata to initiate DOI
     response <- request(zenodo_api_endpoint) |> 
       req_auth_bearer_token(zenodo_api_token) |> 
@@ -149,7 +154,8 @@ publish_to_zenodo <- function(post, upload = FALSE){
     deposition <- resp_body_json(response)
 
     # Upload the pdf file
-    cli::cli_bullets(list("*" = "Uploading file"))
+    message("- Uploading file \n")
+
     upload_response <- request(deposition$links$bucket) |> 
       req_url_path_append(pdf_file) |> 
       req_auth_bearer_token(zenodo_api_token) |> 
@@ -170,7 +176,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
     }
 
     browser()
-    cli::cli_bullets(list("*" = "Publishing deposition"))
+    message("- Publishing deposition \n")
 
     # Publish the deposition
     pub_response <- request(zenodo_api_endpoint) |> 
@@ -184,7 +190,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
       call. = FALSE)
     }
 
-    cli::cli_alert_success("Successfully publishe")
+    message("- Successfully published \n")
 
     pub_deposition <- resp_body_json(pub_response)
 
