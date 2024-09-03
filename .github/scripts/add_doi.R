@@ -155,6 +155,12 @@ publish_to_zenodo <- function(post, upload = FALSE){
       req_auth_bearer_token(zenodo_api_token) |> 
       req_method("PUT") |> 
       req_body_file(pdf_file) |> 
+      req_timeout(5*60) |>
+      req_retry(
+          max_tries = 5,
+          max_seconds = 5*60,
+        ) |>
+      req_throttle(rate = 30 / 60) |>
       req_perform()
           
     if (!resp_status(upload_response) %in% c(200, 201)) {
@@ -163,6 +169,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
       )
     }
 
+    browser()
     cli::cli_bullets(list("*" = "Publishing deposition"))
 
     # Publish the deposition
