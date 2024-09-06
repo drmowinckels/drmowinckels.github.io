@@ -32,10 +32,10 @@ theme is the theme of my website and created using UIkit 3." />
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hugo Igloo theme - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="This is a theme for creating a website theme for the Hugo static site generator. The Hugo Igloo
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Hugo Igloo theme - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="This is a theme for creating a website theme for the Hugo static site generator. The Hugo Igloo
 theme is the theme of my website and created using UIkit 3.">
 
 
@@ -47,7 +47,7 @@ theme is the theme of my website and created using UIkit 3.">
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/theme_16789241478324139137.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/theme_16789241478324139137.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/theme_16789241478324139137.png">
 
 
@@ -440,9 +440,39 @@ I love webdev, and I love creating websites.</p>
 I hope others will like it as much as I do!</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    
+                    (Jan 1, 2024) 
+                    Hugo Igloo theme. 
+                    Retrieved from https://drmowinckels.io/projects/hugo-igloo/.
+                    
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-hugo-igloo-theme,<br>
+                        &emsp;author =  "Dr. Mowinckel&#39;s",<br>
+                        &emsp;title = "Hugo Igloo theme",<br>
+                        &emsp;url = "https://drmowinckels.io/projects/hugo-igloo/",<br>
+                        &emsp;year = 2024,<br>
+                        
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/projects/tidyverse_carpentry/">

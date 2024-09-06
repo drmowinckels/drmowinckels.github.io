@@ -32,10 +32,10 @@ I was doing a lot of copy and paste of code, with whole code chunks and text for
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Rmarkdown Child Templates - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="I have recently been working on a set of analyses from a survey at work. This has been really fun, but also a little tedious. The survey has two basic type of questions, likert-scale questions and binary yes/no questions. For each of these two types of questions, I’ve needed to generate a set of descriptive plots and tables, as well as run a particular set of statistical models.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Rmarkdown Child Templates - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="I have recently been working on a set of analyses from a survey at work. This has been really fun, but also a little tedious. The survey has two basic type of questions, likert-scale questions and binary yes/no questions. For each of these two types of questions, I’ve needed to generate a set of descriptive plots and tables, as well as run a particular set of statistical models.
 I was doing a lot of copy and paste of code, with whole code chunks and text for each of the questions, then doing simple search and replace of data and strings.">
 
 
@@ -47,7 +47,7 @@ I was doing a lot of copy and paste of code, with whole code chunks and text for
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/parent-and-child-md.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/parent-and-child-md.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/parent-and-child-md.png">
 
 
@@ -576,9 +576,39 @@ You can have a look at the documents in the github repo of this post, and hopefu
 </ul>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Athanasia M. Mowinckel 
+                    (Dec 17, 2021) 
+                    Rmarkdown Child Templates. 
+                    Retrieved from https://drmowinckels.io/blog/2021/rmarkdown-child-templates/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273520
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2021-rmarkdown-child-templates,<br>
+                        &emsp;author =  "Athanasia M. Mowinckel",<br>
+                        &emsp;title = "Rmarkdown Child Templates",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2021/rmarkdown-child-templates/",<br>
+                        &emsp;year = 2021,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273520",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/">

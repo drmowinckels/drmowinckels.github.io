@@ -32,10 +32,10 @@ For this part I’d like to talk about random effects in mgcv::gamm as they are 
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="GAMM random effects - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="I’m working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it here.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="GAMM random effects - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="I’m working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it here.
 For this part I’d like to talk about random effects in mgcv::gamm as they are a little different from what I am used to from, for instance lme4 or even a standard GAM.">
 
 
@@ -47,7 +47,7 @@ For this part I’d like to talk about random effects in mgcv::gamm as they are 
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2018/gamm-random-effects/index_files/figure-html/unnamed-chunk-10-1.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2018/gamm-random-effects/index_files/figure-html/unnamed-chunk-10-1.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/gamm-random-effects/index_files/figure-html/unnamed-chunk-10-1.png">
 
 
@@ -928,9 +928,39 @@ For this part I’d like to talk about random effects in mgcv::gamm as they are 
 <p>So, through my tests, I&rsquo;ve become quite confident that the approaches are both <em>valid</em>. There is nothing statistically <em>wrong</em> in doing either. However, if you want a conservative approach, the second option, with random effects as a spline is the way to go. Just make sure your subject identifier is a factor, it might impact your inference more than you think.</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    DrMowinckels 
+                    (Apr 5, 2018) 
+                    GAMM random effects. 
+                    Retrieved from https://drmowinckels.io/blog/2018/gamm-random-effects/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13256615
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2018-gamm-random-effects,<br>
+                        &emsp;author =  "DrMowinckels",<br>
+                        &emsp;title = "GAMM random effects",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2018/gamm-random-effects/",<br>
+                        &emsp;year = 2018,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13256615",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/">

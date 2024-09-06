@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Too much git cleaning - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Version control is great, but sometimes it can trip you up!
+In this post I recount my rather stupid mistake of using git clean when I shouldn’t have,
+and how I got out of it." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Too much git cleaning - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Version control is great, but sometimes it can trip you up!
+In this post I recount my rather stupid mistake of using git clean when I shouldn’t have,
+and how I got out of it.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Version control is great, but sometimes it can trip you up!
+In this post I recount my rather stupid mistake of using git clean when I shouldn’t have,
+and how I got out of it.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2024/git-clean-woes/confused-kitten.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/git-clean-woes/confused-kitten.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.b949f82ef13ab020c09cc9a01a06b5c35de205c6382cde6ed472ebf5efc8e9d2.css" 
+    integrity="sha256-uUn4LvE6sCDAnMmgGga1w13iBcY4LN5u1HLr9e/I6dI=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2024/git-clean-woes/confused-kitten.png" alt="Too much git cleaning" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Too much git cleaning</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Apr 1, 2024
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/git/" class="uk-label uk-label-secondary tags" >
+                                git
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/fail/" class="uk-label uk-label-secondary tags" >
+                                fail
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/rstudio/" class="uk-label uk-label-secondary tags" >
+                                RStudio
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">Version control is great, but sometimes it can trip you up!
+In this post I recount my rather stupid mistake of using <code>git clean</code> when I shouldn&rsquo;t have,
+and how I got out of it.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I have a type of love-hate relationship with git.
+While I love the idea of version control, I often find myself in a situation where I have to clean up my git history.
+Maybe I have committed a file that I shouldn&rsquo;t have, or I have made a mistake in my commit message, or I went down a path that just didn&rsquo;t work out.
+In these cases, I find myself using <code>git clean</code> or <code>git checkout</code> quite a bit.
+In the worst case, I&rsquo;ll even do a <code>git reset --hard</code> to go back to a previous commit.
+What all these do, is enable me to go back in time and start over.
+<code>reset</code> will let you go back in time even after committing, and deciding that the commit is not what you wanted.
+The other two help more if you haven&rsquo;t committed yet, but have made changes that you want to get rid of.</p>
+<p>I have found that the more I use these commands, the more I get used to them.
+But that doesn&rsquo;t mean that I actually do them correctly.
+I have had my fair share of mistakes, where I have lost work that I didn&rsquo;t want to lose.
+I had one when preparing my <a href="https://drmowinckels.io/blog/2024/freesurfer-lmm-r/">previous post</a>!</p>
+<p>I was working on the {neuromat} package, and I had made some changes to the code that just wasn&rsquo;t what i was after.
+I decided I wanted to ditch the changes, and go back to what I had before.</p>
+<p><code>git clean -f</code></p>
+<p><code>git clean -f</code> removes any untracked files, poof, gone are they.
+And one of the main things I had done was rename and create new files and re-arrange my code.
+So, that quickly deleted all of that work.
+Which I kind of wanted, it just went further back in time than I expected.</p>
+<p>To my horror&hellip; I had forgotten to commit the changes I wanted to keep.
+The majority of the good things I had done, went away with the stuff I didn&rsquo;t like.
+I felt&hellip; defeated.</p>
+<p>I had to start over, and redo the work I had done.
+<a href="https://masalmon.eu/">Maëlle Salmon</a> to the rescue!
+I had a chat with her, mostly ranting about how stupid I was, and she suggested I could try to just &ldquo;undo&rdquo; in any of my open documents.
+In this instance, I was using RStudio IDE, which is my go-to IDE for R work, especially R package dev work (lookout for a future post on my IDE preferences).
+&ldquo;Undo&rdquo; here meant hitting <code>ctrl</code>+ <code>z</code>.
+In my fury over my git mistakes, I forgot that such a simple solution could exist!</p>
+<p>Presto, I could just &ldquo;undo&rdquo; myself back to the state I wanted to be in.
+Ok, so I did lose some things that I had done, but they were rather small and easy to fix.</p>
+<p>Both for the mistake, and not thinking of the fairly simple solution.</p>
+<p>Thankfully, other more experienced and advanced developers than me also make such mistakes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<iframe
+    src="https://social.vivaldi.net/@Patricia/112094753393319808/embed"
+    width="400"
+    allowfullscreen="allowfullscreen"
+    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
+></iframe>
+
+<p>It&rsquo;s always nice to know that you&rsquo;re not alone in your mistakes.</p>
+<p>And trust that the awesome <a href="https://fosstodon.org/@b0rk@jvns.ca">Julia Evans</a> of course has <a href="https://wizardzines.com/comics/losing-your-work/">a zine</a> for this!
+And if she has a zine for it, I know I&rsquo;m in good company.</p>
+<p>And if you, like me (and so many others), need help on your git journey, Maëlle also has an amazing R package to help you practice!
+Read her <a href="https://masalmon.eu/2024/01/18/saperlipopette-package-practice-git/">Instroduction to {saperlipopette}</a> to get started!</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Apr 1, 2024) 
+                    Too much git cleaning. 
+                    Retrieved from https://drmowinckels.io/blog/2024/git-clean-woes/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273843
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-too-much-git-cleaning,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Too much git cleaning",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2024/git-clean-woes/",<br>
+                        &emsp;year = 2024,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273843",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/freesurfer-lmm-r/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Setting up a Freesurfer LMM through R
+            </a>
+        
+    </div>
+    
+    <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/ide/">
+                The IDEs I use
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
+        
+    </div>
+</div>
+
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

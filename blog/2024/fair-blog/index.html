@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Making your blog FAIR - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
+This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
+Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Making your blog FAIR - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
+This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
+Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
+This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
+Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2024/fair-blog/images/fair.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/fair-blog/images/fair.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.b949f82ef13ab020c09cc9a01a06b5c35de205c6382cde6ed472ebf5efc8e9d2.css" 
+    integrity="sha256-uUn4LvE6sCDAnMmgGga1w13iBcY4LN5u1HLr9e/I6dI=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2024/fair-blog/images/fair.png" alt="Making your blog FAIR" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Making your blog FAIR</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Sep 6, 2024
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/fair/" class="uk-label uk-label-secondary tags" >
+                                FAIR
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/zenodo/" class="uk-label uk-label-secondary tags" >
+                                Zenodo
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/doi/" class="uk-label uk-label-secondary tags" >
+                                DOI
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/github/" class="uk-label uk-label-secondary tags" >
+                                GitHub
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heidis-approach">Heidi&rsquo;s approach</a></li>
+    <li><a href="#my-approach">My approach</a>
+      <ul>
+        <li><a href="#preparing-content-to-archive">Preparing content to archive</a></li>
+        <li><a href="#extracting-metadata-from-frontmatter">Extracting metadata from frontmatter</a></li>
+        <li><a href="#preparing-the-full-content-for-archiving">Preparing the full content for archiving</a></li>
+        <li><a href="#using-the-zenodo-api-with-httr2">Using the Zenodo API with {httr2}</a></li>
+        <li><a href="#adding-the-doi-to-the-post-yaml">Adding the DOI to the post yaml</a></li>
+        <li><a href="#the-entire-pipeline">The entire pipeline</a></li>
+      </ul>
+    </li>
+    <li><a href="#newsletter">Newsletter</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
+This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
+Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I have subscribed to <a href="https://heidiseibold.com/">Heidi Seibold</a>&rsquo;s newsletter for a good while, she has some really great reflections on data, data literacy, programming and open-science.
+Reading her <a href="https://heidiseibold.ck.page/posts/making-my-newsletter-fair">August newsletter</a> about making it FAIR ((Findable, Accessible, Interoperable, and Reusable)) she it was really an eye-opener about my own content and archiving it.
+Reading her <a href="https://heidiseibold.ck.page/posts/making-my-newsletter-fair">August newsletter</a> about making it FAIR was really an eye-opener about my own content and archiving it.
+I know there are old links to my posts that are broken.
+I have used Hugo&rsquo;s internal way of making sure this does not happen, but this needs me to actually remember all links I might have used&hellip;
+I might not have detected all the broken links.
+And, I might change my home-page url at some point, and that will be really hard to do anything about.</p>
+<figure>
+<img src="images/fair.png" alt="FAIR data wheel" />
+<figcaption aria-hidden="true">FAIR data wheel</figcaption>
+</figure>
+<p>So, setting up a pipeline for making sure my posts are archived, given a persistent identigier (DOI, digital object identifier), is a way of making sure what I write is actually around even if my website dies.
+I prepach about making research as <a href="https://faircookbook.elixir-europe.org/content/recipes/introduction/brief-FAIR-principles.html">FAIR</a> as possible, so I should really make sure I also do as I say.
+Even if it&rsquo;s &ldquo;just&rdquo; my own blog.</p>
+<h2 id="heidis-approach">Heidi&rsquo;s approach</h2>
+<p>First, let us just have a quick look at Heidi&rsquo;s setup.</p>
+<ul>
+<li>​Jekyll website (hosted via GitLab pages), that allows me to write Markdown posts and creates an Atom feed.</li>
+<li>Kit newsletter service that can turn an Atom feed into newsletter posts automatically.</li>
+<li>Add blog to <a href="https://rogue-scholar.org/">Rogue Scholar</a>, an archive for scholarly blogs, which provides long-term archiving, DOIs and metadata.</li>
+</ul>
+<p>This is nice an very streamlined, I think.
+Now, I&rsquo;m not making my Newletter FAIR, but my blog, so step 2 we can omit.
+It&rsquo;s very easy for me to adapt the remaining to the tools I use myself.</p>
+<h2 id="my-approach">My approach</h2>
+<p>The run-down of my approach is</p>
+<ul>
+<li><strong>Hugo</strong> website (hosted via <strong>GitHub</strong> pages), that allows me to write Markdown posts and creates an RSS feed.</li>
+<li>Run GitHub action that registeres a new post to Zenodo using the Zenodo API, and also adds this DOI to the markdown frontmatter.</li>
+</ul>
+<p><img src="images/pipeline.png" alt=""></p>
+<p>There are some reasons my approach ended up differently than Heidi&rsquo;s.
+Firstly, since I primarily use GitHub, it made sense staying there.
+I never really liked Jekyll, but Hugo does the same purpose for what we are talking about here (mostly).
+While Rogue Scholar seems like a very excellent resource, it was not something I could ultimately use unless I changed how my Hugo website creates RSS feeds.
+Rogue scholar requires that the <em>entire content</em> of the post is in the RSS feed.
+Hugo, by default, will make a minimal RSS feed with just some simple meta-data on title, author, date, link and summary of the content.
+While I am fully able to adapt the Hugo template to what Rogue Scholar requires, I did not like this idea.
+That RSS feed will just be a monster of a thing, so I descided to explore other avenues.</p>
+<p>For this process we are going to need 3 packages: httr2 to access the Zenodo API, yaml to extract metadata for Zenodo from the markdown frontmatter, and Quarto to generate pdf&rsquo;s of the content for archiving.
+My first attempts I archived the pure markdown content, but this did not go so well, as it did not display content output etc and looked messy.
+While the pdf&rsquo;s are not perfect, they at least contain the most important aspects of the posts in a much better way than did the markdown data alone.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Connecting to API</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(httr2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Dealing with yaml frontmatter</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(yaml)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Creating pdf for archiving</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(quarto)
+</span></span></code></pre></div><p>Now that we have the libraries loaded, we can prepare some information</p>
+<h3 id="preparing-content-to-archive">Preparing content to archive</h3>
+<p>Before I continue with describing how to arvhive on Zenodo, we need to prepare the data for archiving.
+We need two basic pieces of information:</p>
+<ul>
+<li>post meta-data</li>
+<li>the post itself</li>
+</ul>
+<p>In my Hugo setup, I have all my blogposts as page bundles, meaning that every post is stored in an <code>index.md</code> within its own directory.
+I need to find all these files so I can process them.
+The <code>list.files</code> function is great for this, and we will use a couple extra arguments to make sure we capture the correct files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Read Hugo content files</span>
+</span></span><span style="display:flex;"><span>content_dir <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;content/blog&#34;</span>
+</span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(
+</span></span><span style="display:flex;"><span>  content_dir, 
+</span></span><span style="display:flex;"><span>  pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;^index\\.md$&#34;</span>, <span style="color:#75715e"># search for index.md</span>
+</span></span><span style="display:flex;"><span>  recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, <span style="color:#75715e"># Look through all subdirectories</span>
+</span></span><span style="display:flex;"><span>  full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span> <span style="color:#75715e"># return the entire path</span>
+</span></span><span style="display:flex;"><span>) 
+</span></span></code></pre></div><p>The most difficult part here is the pattern matching.
+This is something called <a href="https://omni.wikiwand.com/en/articles/Regular_expression">regular expression</a> (regexp for short) and can be really tricky.
+In this case, I&rsquo;m looking for files inside directories that are called <code>index.md</code> and nothing else.
+I also have some files called <code>_index.md</code> (its a Hugo section file), and these are not blogposts for archiving.
+But the regexp is specific enough here that those files will not be listed.</p>
+<h3 id="extracting-metadata-from-frontmatter">Extracting metadata from frontmatter</h3>
+<p>To start off a Zenodo archive, we&rsquo;ll need to have some metadata about what we are archiving.
+This metadata we will capture from the yaml frontmatter of the markdown files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Select a single post to process</span>
+</span></span><span style="display:flex;"><span>post <span style="color:#f92672">&lt;-</span> posts[1]
+</span></span><span style="display:flex;"><span>post
+</span></span></code></pre></div><pre><code>[1] &quot;content/blog/2018/04-05-gamm-random-effects/index.md&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Read in the entire content of the file</span>
+</span></span><span style="display:flex;"><span>post_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(post)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Preview the first 20 lines in the file</span>
+</span></span><span style="display:flex;"><span>post_content[1<span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>]
+</span></span></code></pre></div><pre><code> [1] &quot;---&quot;                                                                                                                                                                                                                                                                                                                                    
+ [2] &quot;title: GAMM random effects&quot;                                                                                                                                                                                                                                                                                                             
+ [3] &quot;author: DrMowinckels&quot;                                                                                                                                                                                                                                                                                                                   
+ [4] &quot;date: '2018-04-05'&quot;                                                                                                                                                                                                                                                                                                                     
+ [5] &quot;output:&quot;                                                                                                                                                                                                                                                                                                                                
+ [6] &quot;  html_document:&quot;                                                                                                                                                                                                                                                                                                                       
+ [7] &quot;    keep_md: yes&quot;                                                                                                                                                                                                                                                                                                                       
+ [8] &quot;tags: [R, GAMM]&quot;                                                                                                                                                                                                                                                                                                                        
+ [9] &quot;image: 'index_files/figure-html/unnamed-chunk-10-1.png'&quot;                                                                                                                                                                                                                                                                                
+[10] &quot;slug: \&quot;gamm-random-effects\&quot;&quot;                                                                                                                                                                                                                                                                                                          
+[11] &quot;aliases:&quot;                                                                                                                                                                                                                                                                                                                               
+[12] &quot;  - '/blog/2018-04-05-gamm-random-effects'&quot;                                                                                                                                                                                                                                                                                             
+[13] &quot;---&quot;                                                                                                                                                                                                                                                                                                                                    
+[14] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
+[15] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
+[16] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
+[17] &quot;I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). &quot;
+[18] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
+[19] &quot;For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM.&quot;                                                                                                                                                            
+[20] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
+</code></pre>
+<p>Now we will have the entire content of the markdown file stored as a vector of strings in the <code>post_content</code> object.
+In this object, each line in the markdown file is an element, so we can capture the frontmatter with some more regexp magic.</p>
+<p>We need to extract the yaml frontmatter from the markdown file to populate Zenodo with the necessary information it needs.
+I used to have a really long, complicated and convoluted way to do this, untill my good friend <a href="https://masalmon.eu/">Maëlle</a> told me about a <em>very</em> convenient function from the {rmarkdown} package.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Extract YAML front matter</span>
+</span></span><span style="display:flex;"><span>metadata <span style="color:#f92672">&lt;-</span> rmarkdown<span style="color:#f92672">::</span><span style="color:#a6e22e">yaml_front_matter</span>(post)
+</span></span><span style="display:flex;"><span>metadata
+</span></span></code></pre></div><pre><code>$doi
+[1] &quot;10.5281/zenodo.13256615&quot;
+
+$title
+[1] &quot;GAMM random effects&quot;
+
+$author
+[1] &quot;DrMowinckels&quot;
+
+$date
+[1] &quot;2018-04-05&quot;
+
+$output
+$output$html_document
+$output$html_document$keep_md
+[1] TRUE
+
+
+
+$tags
+[1] &quot;R&quot;    &quot;GAMM&quot;
+
+$image
+[1] &quot;index_files/figure-html/unnamed-chunk-10-1.png&quot;
+
+$slug
+[1] &quot;gamm-random-effects&quot;
+
+$aliases
+[1] &quot;/blog/2018-04-05-gamm-random-effects&quot;
+</code></pre>
+<p>Ok, now we have the majority of the meta-data we need.
+The last piece we need is a description of the content.
+Zenodo requires this piece of information for a deposition to be valid, so we need to figure something out.</p>
+<p>The majority of my post are old, and don&rsquo;t include a summary in the yaml.
+This means I need to create a summary for all the old posts!
+Now, I am lazy, it&rsquo;s why I program :P</p>
+<p>So, I made a piece of code that will detect where the first empty line in the markdown content is, assuming that the first paragraph of my post outlines what the post is about.</p>
+<p>The following function will look for this empty line, and return that index so I can use it to create the summary I need.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Find line index where first post paragraph ends</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Looks for the indeces of empty lines surrounding </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; paragraphs. Specifically looking for the index that</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; ends the first paragraph, using this as the post</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; summary for Zenodo meta-data.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
+</span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  char <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^$&#34;</span>, x, invert <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  char_lag <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(char[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(char)], <span style="color:#66d9ef">NA</span>)
+</span></span><span style="display:flex;"><span>  start_index <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">which</span>(<span style="color:#a6e22e">abs</span>(char <span style="color:#f92672">-</span> char_lag) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>  char[start_index[1]]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now that we have that, I can use it to grab the first paragraph and add it to the metadata.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is.null</span>(metadata<span style="color:#f92672">$</span>summmary)){
+</span></span><span style="display:flex;"><span>  end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;---&#34;</span>, post_content)[2]<span style="color:#ae81ff">+2</span>
+</span></span><span style="display:flex;"><span>  post_summary <span style="color:#f92672">&lt;-</span> post_content[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
+</span></span><span style="display:flex;"><span>  metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> post_summary[1<span style="color:#f92672">:</span><span style="color:#a6e22e">find_end</span>(post_summary)]
+</span></span><span style="display:flex;"><span>  metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Dr. Mowinckel&#39;s blog: %s&#34;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">paste0</span>(metadata<span style="color:#f92672">$</span>summary, collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>metadata<span style="color:#f92672">$</span>summary
+</span></span></code></pre></div><pre><code>[1] &quot;Dr. Mowinckel's blog:   I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). &quot;
+</code></pre>
+<p>I believe we have all the meta-data we need to create the deposition, i.e. to initiate an archive on Zenodo.
+We will create a list that has all the information Zenodo requires for an archive to be valid.
+The following list I created after lots of trial and error, looking at the API documentation and other&rsquo;s code who successfully archived on Zenodo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Create Zenodo deposition metadata</span>
+</span></span><span style="display:flex;"><span>zenodo_metadata <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  metadata <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>title,
+</span></span><span style="display:flex;"><span>    description <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>summary,
+</span></span><span style="display:flex;"><span>    creators <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Athanasia Monika Mowinckel&#34;</span>,
+</span></span><span style="display:flex;"><span>      orcid <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0000-0002-5756-0223&#34;</span>
+</span></span><span style="display:flex;"><span>    )),
+</span></span><span style="display:flex;"><span>    upload_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;publication&#34;</span>,
+</span></span><span style="display:flex;"><span>    publication_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;other&#34;</span>,
+</span></span><span style="display:flex;"><span>    publication_date <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>date, 
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;https://drmowinckels.io/blog/%s/%s&#34;</span>, 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">substr</span>(metadata<span style="color:#f92672">$</span>date, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>),
+</span></span><span style="display:flex;"><span>      metadata<span style="color:#f92672">$</span>slug),
+</span></span><span style="display:flex;"><span>    access_right <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;open&#34;</span>,
+</span></span><span style="display:flex;"><span>    license <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cc-by&#34;</span>,
+</span></span><span style="display:flex;"><span>    keywords <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>tags,
+</span></span><span style="display:flex;"><span>    language <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;eng&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>zenodo_metadata
+</span></span></code></pre></div><pre><code>$metadata
+$metadata$title
+[1] &quot;GAMM random effects&quot;
+
+$metadata$description
+[1] &quot;Dr. Mowinckel's blog:   I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). &quot;
+
+$metadata$creators
+$metadata$creators[[1]]
+$metadata$creators[[1]]$name
+[1] &quot;Athanasia Monika Mowinckel&quot;
+
+$metadata$creators[[1]]$orcid
+[1] &quot;0000-0002-5756-0223&quot;
+
+
+
+$metadata$upload_type
+[1] &quot;publication&quot;
+
+$metadata$publication_type
+[1] &quot;other&quot;
+
+$metadata$publication_date
+[1] &quot;2018-04-05&quot;
+
+$metadata$url
+[1] &quot;https://drmowinckels.io/blog/2018/gamm-random-effects&quot;
+
+$metadata$access_right
+[1] &quot;open&quot;
+
+$metadata$license
+[1] &quot;cc-by&quot;
+
+$metadata$keywords
+[1] &quot;R&quot;    &quot;GAMM&quot;
+
+$metadata$language
+[1] &quot;eng&quot;
+</code></pre>
+<h3 id="preparing-the-full-content-for-archiving">Preparing the full content for archiving</h3>
+<p>Next step is to get the entire content prepared for archiving.
+My first attempt at this process passed the markdown file it self to Zenodo, but that was quite unsatisfactory.
+Submitting the markdown would mean also submitting all the extra files needed (image files etc) separately too.
+I didn&rsquo;t really like the idea of that.
+Additionally, it meant that the file on Zenodo would it self not actually show all the content (just relative paths to images etc).</p>
+<p>So, the next bit is all about rendering the content to pdf, so that it can be easily read on Zenodo it self.
+A pdf will necessarily include all the images etc that are needed, so that the content should be understandable without any extra files needed.</p>
+<p>To do this, I&rsquo;m going to use <a href="https://quarto.org/">Quarto</a> as it renders Rmd and qmd nicely to pdf.
+Again, I needed a couple of attempts to get it working as I wanted, as my first idea was to use Quarto&rsquo;s typst format, to render to pdf without needing a LaTeX compiler to do so.
+Since my idea is to have GitHub actions do this for me, not having to install LaTeX would make the process faster.</p>
+<p>However, I found that images were not being resized nicely to fit the pdf-pages with typst.
+So you could not see all my content as you&rsquo;d need this way.
+This was very unfortunate, and meant I had to switch to the standard latex-to-pdf formatting.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Create a meaningful filename</span>
+</span></span><span style="display:flex;"><span>pdf_file <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;drmowinckels_%s_%s.pdf&#34;</span>,
+</span></span><span style="display:flex;"><span>  metadata<span style="color:#f92672">$</span>date,
+</span></span><span style="display:flex;"><span>  metadata<span style="color:#f92672">$</span>slug
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>pdf_file
+</span></span></code></pre></div><pre><code>[1] &quot;drmowinckels_2018-04-05_gamm-random-effects.pdf&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Try rendering pdf, if errors returns FALSE so we can abort.</span>
+</span></span><span style="display:flex;"><span>render_status <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tryCatch</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">quarto_render</span>(
+</span></span><span style="display:flex;"><span>      post, 
+</span></span><span style="display:flex;"><span>      output_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pdf&#34;</span>, 
+</span></span><span style="display:flex;"><span>      output_file <span style="color:#f92672">=</span> pdf_file, 
+</span></span><span style="display:flex;"><span>      as_job <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>  }, 
+</span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>render_status
+</span></span></code></pre></div><pre><code>[1] TRUE
+</code></pre>
+<p>The pdf is rendering and returning <code>TRUE</code>,
+so, my <code>tryCatch</code> is doing exactly what I want.
+This is important when we create a full pipeline, so that we can abort the process if the pdf is not being generated.</p>
+<p>Now that all the meta-data and the content pdf we need to initiate an archive is ready in our list, we need to start talking to Zenodo.</p>
+<h3 id="using-the-zenodo-api-with-httr2">Using the Zenodo API with {httr2}</h3>
+<p>I already have a Zenodo account, as I have several software projects linked between GitHub and Zenodo for arhiving and version-tracking.
+I also know Zenodo has a strong API, so I could programatically figure out a way to create an automatic way of archiving my posts there to retrieve a DOI.
+This could also allow me to get the doi directly into the post front-matter, so I could display it on my blog, along with information on how to cite the content.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Zenodo API settings</span>
+</span></span><span style="display:flex;"><span>zenodo_api_endpoint <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;https://zenodo.org/api/deposit/depositions&#34;</span>
+</span></span><span style="display:flex;"><span>zenodo_api_token <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;ZENODO_API_TOKEN&#34;</span>)
+</span></span></code></pre></div><p>The Zenodo api endpoint is where you connect to all the funcionality of Zenodo you can access programatically.
+This is the base URL for any other URL we will construct.</p>
+<p>The <code>ZENODO_API_TOKEN</code> is a token you can grab from your Zenodo profile that allows you to use their API by authenticating you.
+I have this stored in my <code>.Renviron</code> file, which I <strong>do not</strong> commit to git.
+Now, make <strong>very sure</strong> you do not commit a plain-text file with an API token in it to git, as it exposes your personal token to the world.
+It&rsquo;s like telling people your credit card number, anyone can use it, and you don&rsquo;t want that.
+In stead, we add this token also in the <a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions">Secrets section</a> of Github settings for the repository in question, and the script will be able to pick it up from there.</p>
+<p>This first thing we will do, is upload the meta-data to Zenodo.
+This initiates an archive, and we can add the pdf to it later.
+Using {httr2} we can build a curl request to the Zenodo API so that our archive is initiated.
+There are (usually) three main parts of most queries to API&rsquo;s,</p>
+<ol>
+<li>the API URL to query</li>
+<li>an authenticating part</li>
+<li>something we sent to the API (the body)</li>
+</ol>
+<p>In {httr2} this process is done through a series of steps that we usually will pipe into each other like below.
+Here we initiate a curl <code>request</code> to the Zenodo API, we add a <code>BEARER TOKEN</code> which is a common authentication step for APIs,
+and then we add the Zenodo meta-data to the body of the request.</p>
+<p>Once our request looks like we want to, we finish with <code>performing</code> the request.
+Notice how all these functions start with the <code>req_</code> prefix, indicating that these are functions to building a request.
+Soon, we will see the other part of the {httr2} functions, which are the response <code>resp_</code> functions for dealing with the responses from the API.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>query <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_body_json</span>(zenodo_metadata, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Show the query without performing it</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">req_dry_run</span>(query)
+</span></span></code></pre></div><pre><code>POST /api/deposit/depositions HTTP/1.1
+Host: zenodo.org
+User-Agent: httr2/1.0.2 r-curl/5.2.1 libcurl/8.7.1
+Accept: */*
+Accept-Encoding: deflate, gzip
+Authorization: &lt;REDACTED&gt;
+Content-Type: application/json
+Content-Length: 723
+
+{&quot;metadata&quot;:{&quot;title&quot;:&quot;GAMM random effects&quot;,&quot;description&quot;:&quot;Dr. Mowinckel's blog:   I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). &quot;,&quot;creators&quot;:[{&quot;name&quot;:&quot;Athanasia Monika Mowinckel&quot;,&quot;orcid&quot;:&quot;0000-0002-5756-0223&quot;}],&quot;upload_type&quot;:&quot;publication&quot;,&quot;publication_type&quot;:&quot;other&quot;,&quot;publication_date&quot;:&quot;2018-04-05&quot;,&quot;url&quot;:&quot;https://drmowinckels.io/blog/2018/gamm-random-effects&quot;,&quot;access_right&quot;:&quot;open&quot;,&quot;license&quot;:&quot;cc-by&quot;,&quot;keywords&quot;:[&quot;R&quot;,&quot;GAMM&quot;],&quot;language&quot;:&quot;eng&quot;}}
+</code></pre>
+<p>If we are happy with how the request looks, we go ahead and perform it, meaning we actually send the request to Zenodo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Upload metadata to initiate DOI</span>
+</span></span><span style="display:flex;"><span>response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">req_perform</span>(query)
+</span></span><span style="display:flex;"><span>response
+</span></span></code></pre></div><pre><code>&lt;httr2_response&gt;
+POST https://zenodo.org/api/deposit/depositions
+Status: 201 Created
+Content-Type: application/json
+Body: In memory (1935 bytes)
+</code></pre>
+<p>What we get back is a curl response indicating that the request had been accepted and an archive has been initiated.
+Status says <code>201 Created</code>, which is what we are after.
+Now, that is <strong>not</strong> the response I got for many attempts while I figured out which meta-data components were necessary for the deposition (what Zenodo calls an initiated archive) to be accepted.</p>
+<p>Now, the deposition actually contains information we need for the next step in our process: a link to where we can upload the pdf to accompany all the meta-data.
+Zenodo returns this information in a json, which we can have a look at using one of the <code>resp_</code> functions.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>deposition <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">resp_body_json</span>(response)
+</span></span><span style="display:flex;"><span>deposition
+</span></span></code></pre></div><pre><code>$created
+[1] &quot;2024-08-19T17:25:45.834974+00:00&quot;
+
+$modified
+[1] &quot;2024-08-19T17:25:45.886678+00:00&quot;
+
+$id
+[1] 13344546
+
+$conceptrecid
+[1] &quot;13344545&quot;
+
+$metadata
+$metadata$title
+[1] &quot;GAMM random effects&quot;
+
+$metadata$publication_date
+[1] &quot;2018-04-05&quot;
+
+$metadata$description
+[1] &quot;I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/).&quot;
+
+$metadata$access_right
+[1] &quot;open&quot;
+
+$metadata$creators
+$metadata$creators[[1]]
+$metadata$creators[[1]]$name
+[1] &quot;Athanasia Monika Mowinckel&quot;
+
+$metadata$creators[[1]]$affiliation
+NULL
+
+$metadata$creators[[1]]$orcid
+[1] &quot;0000-0002-5756-0223&quot;
+
+
+
+$metadata$keywords
+$metadata$keywords[[1]]
+[1] &quot;R&quot;
+
+$metadata$keywords[[2]]
+[1] &quot;GAMM&quot;
+
+
+$metadata$language
+[1] &quot;eng&quot;
+
+$metadata$license
+[1] &quot;cc-by-4.0&quot;
+
+$metadata$imprint_publisher
+[1] &quot;Zenodo&quot;
+
+$metadata$upload_type
+[1] &quot;publication&quot;
+
+$metadata$publication_type
+[1] &quot;other&quot;
+
+$metadata$prereserve_doi
+$metadata$prereserve_doi$doi
+[1] &quot;10.5281/zenodo.13344546&quot;
+
+$metadata$prereserve_doi$recid
+[1] 13344546
+
+
+
+$title
+[1] &quot;GAMM random effects&quot;
+
+$links
+$links$self
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546&quot;
+
+$links$html
+[1] &quot;https://zenodo.org/deposit/13344546&quot;
+
+$links$badge
+[1] &quot;https://zenodo.org/badge/doi/.svg&quot;
+
+$links$files
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546/files&quot;
+
+$links$bucket
+[1] &quot;https://zenodo.org/api/files/42fcbc54-55cd-4579-a56d-37a42344a41e&quot;
+
+$links$latest_draft
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546&quot;
+
+$links$latest_draft_html
+[1] &quot;https://zenodo.org/deposit/13344546&quot;
+
+$links$publish
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546/actions/publish&quot;
+
+$links$edit
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546/actions/edit&quot;
+
+$links$discard
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546/actions/discard&quot;
+
+$links$newversion
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546/actions/newversion&quot;
+
+$links$registerconceptdoi
+[1] &quot;https://zenodo.org/api/deposit/depositions/13344546/actions/registerconceptdoi&quot;
+
+
+$record_id
+[1] 13344546
+
+$owner
+[1] 87533
+
+$files
+list()
+
+$state
+[1] &quot;unsubmitted&quot;
+
+$submitted
+[1] FALSE
+</code></pre>
+<p>Lots and lots and lots of information there.
+Just for future reference, this is all a deposition I have deleted, I&rsquo;m just using it for an example here.
+As part of the deposition response, there are lots of links, of those links there is a <code>bucket</code> we can upload files to.
+This time, we will build a request using the URL from the deposition, addint the file name we want to create as an extra path argument to the url, which is what Zenodo uses to create new files.
+We need to provide our token as before, and provide the actual file we want to upload with <code>req_body_file</code>.
+I did this for so many attempts and could not get the API to accept my request.</p>
+<p>I turned to the rOpenSci folks for help, I can always trust someone in there has tried what I&rsquo;m trying before.
+The last piece of the puzzle was switching to the <code>PUT</code> curl method, rather than the default <code>POST</code> method.
+I had been looking at the curl commands needed as stated on the Zenodo docs, and just completely missed the fact that it was a <code>PUT</code> method rather than a <code>POST</code> method.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Upload the pdf file</span>
+</span></span><span style="display:flex;"><span>upload_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(deposition<span style="color:#f92672">$</span>links<span style="color:#f92672">$</span>bucket) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_url_path_append</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_body_file</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;PUT&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_perform</span>()
+</span></span></code></pre></div><p>We are looking for another positive result of that, like a 201 again.
+Once we have that, our last piece for httr2 code is to actually publish the archive.
+Everything we have done untill now can still be undone.
+Meaning we can delete the entire archive, because it has not been published yet.
+Once we publish though, we have a DOI, which is persistent and we can&rsquo;t take it back.
+Something I am painfullly aware of in that I have a post that was published twice under two different DOIs as I was working on the pipeline.</p>
+<p>I feel silly that happened, but now that it&rsquo;s done it&rsquo;s done. I can&rsquo;t take it back, it&rsquo;s there for perpetuity&hellip; or until interwebs are no longer a thing.</p>
+<p>Ok, back to the process.
+We want to actually publish the results.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>pub_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_url_path_append</span>(deposition<span style="color:#f92672">$</span>id, <span style="color:#e6db74">&#34;actions&#34;</span>, <span style="color:#e6db74">&#34;publish&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pub_deposition <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">resp_body_json</span>(pub_response)
+</span></span></code></pre></div><p>We are back to using the standard Zenodo API url, and this time we are using the deposition id to indicate we want to publish the results.
+This time, we want a <code>202</code> response from the server, indicating that the deposition has been published.</p>
+<h3 id="adding-the-doi-to-the-post-yaml">Adding the DOI to the post yaml</h3>
+<p>The very last thing we are doing, is adding the doi to the post yaml frontmatter.
+We want to make sure we know which posts have a DOI, and what that DOI is.
+Let&rsquo;s face it, I will forget.
+I also have a section on my blog about citing information, and I want the DOI to be shown there.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Update YAML front matter with DOI</span>
+</span></span><span style="display:flex;"><span>post_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>  post_content[1],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;doi: %s&#34;</span>, pub_deposition<span style="color:#f92672">$</span>metadata<span style="color:#f92672">$</span>doi),
+</span></span><span style="display:flex;"><span>  post_content[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>post_content[1<span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>]
+</span></span></code></pre></div><pre><code> [1] &quot;---&quot;                                                    
+ [2] &quot;doi: 10.5281/zenodo.13344546&quot;                           
+ [3] &quot;title: GAMM random effects&quot;                             
+ [4] &quot;author: DrMowinckels&quot;                                   
+ [5] &quot;date: '2018-04-05'&quot;                                     
+ [6] &quot;output:&quot;                                                
+ [7] &quot;  html_document:&quot;                                       
+ [8] &quot;    keep_md: yes&quot;                                       
+ [9] &quot;tags: [R, GAMM]&quot;                                        
+[10] &quot;image: 'index_files/figure-html/unnamed-chunk-10-1.png'&quot;
+</code></pre>
+<p>I&rsquo;m taking a simple approach here.
+I add the DOI to the top of the yaml, meaning I don&rsquo;t need lots of complicated code to find the bottom of the yaml etc.
+I&rsquo;ll add the DOI to the second line of the file (after the starting <code>---</code>), and then just add the remaining post after that.</p>
+<p>We write the content back to the file, and now we have the post updated with DOI!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">writeLines</span>(post_content, post)
+</span></span></code></pre></div><h3 id="the-entire-pipeline">The entire pipeline</h3>
+<p>Just to have it clearly, I&rsquo;m adding the entire pipeline here.
+There are some things here that are different from what I&rsquo;ve shown so far, that is because as the pipeline is made, I also needed to make sure that it aborts when needed, i.e. when things are not right.</p>
+<p>The best way to do this, is to make sure your critical parts are in a function.
+There is no way to abort a <code>script</code> in R (that I know of), but we can error inside a function.
+So, my approach is to put the entire process of submitting to Zenodo in a function, so I can abort if the status codes returned from the API are not what I am after.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(httr2)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(yaml)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(quarto)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Find line index where first post paragraph ends</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Looks for the indeces of empty lines surrounding </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; paragraphs. Specifically looking for the index that</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; ends the first paragraph, using this as the post</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; summary for Zenodo meta-data.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
+</span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  char <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^$&#34;</span>, x, invert <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  char_lag <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(char[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(char)], <span style="color:#66d9ef">NA</span>)
+</span></span><span style="display:flex;"><span>  start_index <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">which</span>(<span style="color:#a6e22e">abs</span>(char <span style="color:#f92672">-</span> char_lag) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>  char[start_index[1]]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Check if post needs DOI</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Will check if the post frontmatter</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; indicates the post needs DOI.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; The post date needs to be in the past or </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; today, it cannot be listed as a draft, and</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; it should not already have a DOI.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span>needs_doi <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(x, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if draft</span>
+</span></span><span style="display:flex;"><span>  draft <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^draft:&#34;</span>, frontmatter)]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(draft) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;true&#34;</span>, draft))
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if already has DOI</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">any</span>(<span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^doi:&#34;</span>, frontmatter))){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if date is in future</span>
+</span></span><span style="display:flex;"><span>  date <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^date:&#34;</span>, frontmatter)]
+</span></span><span style="display:flex;"><span>  date <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">yaml.load</span>(date)<span style="color:#f92672">$</span>date
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">as.Date</span>(date) <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">Sys.Date</span>()){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Publish blogpost to Zenodo</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function will read in meta-data from yaml,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; and create pdf for archiving to Zenodo.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; If run with \code{uplad = FALSE} will prepare</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; meta-data and create the pdf, without submitting</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; to Zenodo.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param post character. path to the post .md</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param upload logical. If the information should be uploaded</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span>publish_to_zenodo <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(post, upload <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>){
+</span></span><span style="display:flex;"><span>  post_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(post)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Extract YAML front matter</span>
+</span></span><span style="display:flex;"><span>  metadata <span style="color:#f92672">&lt;-</span> rmarkdown<span style="color:#f92672">::</span><span style="color:#a6e22e">yaml_front_matter</span>(post)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is.null</span>(metadata<span style="color:#f92672">$</span>summmary)){
+</span></span><span style="display:flex;"><span>    end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;---&#34;</span>, post_content)[2]<span style="color:#ae81ff">+2</span>
+</span></span><span style="display:flex;"><span>    post_summary <span style="color:#f92672">&lt;-</span> post_content[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
+</span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> post_summary[1<span style="color:#f92672">:</span><span style="color:#a6e22e">find_end</span>(post_summary)]
+</span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Dr. Mowinckel&#39;s blog: %s&#34;</span>, 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">paste0</span>(metadata<span style="color:#f92672">$</span>summary, collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Create Zenodo deposition metadata</span>
+</span></span><span style="display:flex;"><span>  zenodo_metadata <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    metadata <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      title <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>title,
+</span></span><span style="display:flex;"><span>      description <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>summary,
+</span></span><span style="display:flex;"><span>      creators <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>        name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Athanasia Monika Mowinckel&#34;</span>,
+</span></span><span style="display:flex;"><span>        orcid <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0000-0002-5756-0223&#34;</span>
+</span></span><span style="display:flex;"><span>      )),
+</span></span><span style="display:flex;"><span>      upload_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;publication&#34;</span>,
+</span></span><span style="display:flex;"><span>      publication_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;other&#34;</span>,
+</span></span><span style="display:flex;"><span>      publication_date <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>date, 
+</span></span><span style="display:flex;"><span>      url <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;https://drmowinckels.io/blog/%s/%s&#34;</span>, <span style="color:#a6e22e">substr</span>(metadata<span style="color:#f92672">$</span>date, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>), metadata<span style="color:#f92672">$</span>slug),
+</span></span><span style="display:flex;"><span>      access_right <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;open&#34;</span>,
+</span></span><span style="display:flex;"><span>      license <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cc-by&#34;</span>,
+</span></span><span style="display:flex;"><span>      keywords <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>tags,
+</span></span><span style="display:flex;"><span>      language <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;eng&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  pdf_file <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;drmowinckels_%s_%s.pdf&#34;</span>,
+</span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>date,
+</span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>slug
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Try rendering pdf, if errors returns FALSE so we can abort.</span>
+</span></span><span style="display:flex;"><span>  render_status <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tryCatch</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">quarto_render</span>(
+</span></span><span style="display:flex;"><span>      post, 
+</span></span><span style="display:flex;"><span>      output_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pdf&#34;</span>, 
+</span></span><span style="display:flex;"><span>      output_file <span style="color:#f92672">=</span> pdf_file, 
+</span></span><span style="display:flex;"><span>      as_job <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>  }, 
+</span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span>render_status)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Error during PDF conversion: %s\n&#34;</span>, e<span style="color:#f92672">$</span>message),
+</span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(upload){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Upload metadata to initiate DOI</span>
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_json</span>(zenodo_metadata, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Failed to create DOI for %s: %s&#34;</span>, post, <span style="color:#a6e22e">resp_status</span>(response)),
+</span></span><span style="display:flex;"><span>        call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    deposition <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">resp_body_json</span>(response)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Upload the pdf file</span>
+</span></span><span style="display:flex;"><span>    upload_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(deposition<span style="color:#f92672">$</span>links<span style="color:#f92672">$</span>bucket) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_url_path_append</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;PUT&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_file</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(upload_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Failed to upload %s to Zenodo: %s&#34;</span>, post, <span style="color:#a6e22e">resp_status</span>(upload_response)),
+</span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">message</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Successfully uploaded %s to Zenodo&#34;</span>, post))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Publish the deposition</span>
+</span></span><span style="display:flex;"><span>    pub_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_url_path_append</span>(deposition<span style="color:#f92672">$</span>id, <span style="color:#e6db74">&#34;actions&#34;</span>, <span style="color:#e6db74">&#34;publish&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(pub_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>, <span style="color:#ae81ff">202</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Failed to publish %s on Zenodo: %s&#34;</span>, pdf_file, <span style="color:#a6e22e">resp_status</span>(pub_response)),
+</span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">message</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Successfully published %s on Zenodo&#34;</span>, pdf_file))
+</span></span><span style="display:flex;"><span>    pub_deposition <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">resp_body_json</span>(pub_response)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update YAML front matter with DOI</span>
+</span></span><span style="display:flex;"><span>    post_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      post_content[1],
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;doi: %s&#34;</span>, pub_deposition<span style="color:#f92672">$</span>metadata<span style="color:#f92672">$</span>doi),
+</span></span><span style="display:flex;"><span>      post_content[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">writeLines</span>(post_content, post)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(pdf_file)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Zenodo API settings</span>
+</span></span><span style="display:flex;"><span>zenodo_api_endpoint <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;https://zenodo.org/api/deposit/depositions&#34;</span>
+</span></span><span style="display:flex;"><span>zenodo_api_token <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;ZENODO_API_TOKEN&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Read Hugo content files</span>
+</span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;content/blog&#34;</span>, 
+</span></span><span style="display:flex;"><span>  pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;^index\\.md$&#34;</span>, 
+</span></span><span style="display:flex;"><span>  recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>  full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Only process files without doi and that are published</span>
+</span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> posts<span style="color:#a6e22e">[sapply</span>(posts, needs_doi)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run thorugh all posts that need a doi.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(posts,
+</span></span><span style="display:flex;"><span>  publish_to_zenodo, 
+</span></span><span style="display:flex;"><span>  upload <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>That is the entire process.
+Now, I just need to have it working on GitHub Actions, which I won&rsquo;t be able to truly test before this post goes live.
+Wish me luck!!</p>
+<p>I&rsquo;m happy now that I can archive all my posts in perpetuity like this, making it easier for people in the future to find them again even if my website goes down.
+I don&rsquo;t know how useful they will be for long, but they are there at least!
+Also, they are not possible to find through other means than just search engines like google.
+Being archived on a platform that is for science output of various types means more people may be able to find them.</p>
+<h2 id="newsletter">Newsletter</h2>
+<p>While this entire post is about making my blog posts FAIR, I did also get very inspired my Heidi having a Newsletter, so I am launching my own!</p>
+<p>It&rsquo;s not anything fancy, it&rsquo;s basically just a way to get notified in your e-mail when I have a new post.
+In the future, I might also post regarding upcoming talks etc, but I promise I won&rsquo;t spam you!</p>
+<center>
+<script async data-uid="f8d3131d6d" src="https://drmowinckels.ck.page/f8d3131d6d/index.js"></script>
+</center>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Sep 6, 2024) 
+                    Making your blog FAIR. 
+                    Retrieved from https://drmowinckels.io/blog/2024/fair-blog/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13710616
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-making-your-blog-fair,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Making your blog FAIR",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2024/fair-blog/",<br>
+                        &emsp;year = 2024,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13710616",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/positron/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Positron IDE - A new IDE for data science
+            </a>
+        
+    </div>
+    
+    <div class="uk-width-auto">
+        
+    </div>
+</div>
+
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

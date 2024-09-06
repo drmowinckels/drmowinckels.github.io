@@ -33,10 +33,10 @@ Now Positron is out of private beta, so let’s see if it can replace my current
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Positron IDE - A new IDE for data science - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="In May I wrote about my favorite IDE’s.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Positron IDE - A new IDE for data science - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="In May I wrote about my favorite IDE’s.
 As a result of that post, I was asked to join Posits private beta-testers for their new IDE, Positron.
 Now Positron is out of private beta, so let’s see if it can replace my current favorite IDE’s.">
 
@@ -50,7 +50,7 @@ Now Positron is out of private beta, so let’s see if it can replace my current
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2024/positron/images/positron-logo.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2024/positron/images/positron-logo.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/positron/images/positron-logo.png">
 
 
@@ -823,9 +823,39 @@ What do you think?
 Will you give Positron a go?</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Aug 1, 2024) 
+                    Positron IDE - A new IDE for data science. 
+                    Retrieved from https://drmowinckels.io/blog/2024/positron/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13274245
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-positron-ide-a-new-ide-for-data-science,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Positron IDE - A new IDE for data science",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2024/positron/",<br>
+                        &emsp;year = 2024,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13274245",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/github-profile/">
@@ -836,6 +866,11 @@ Will you give Positron a go?</p>
     </div>
     
     <div class="uk-width-auto">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/fair-blog/">
+                Making your blog FAIR
+                <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>
+            </a>
         
     </div>
 </div>

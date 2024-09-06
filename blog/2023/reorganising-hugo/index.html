@@ -32,10 +32,10 @@ I’m a stickler for good organisation of content, and I was feeling that my blo
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Reorganising Hugo Content and Aliasing - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="I’m working on a little website revamp, and on that occasion I have been thinking through some reorganisation of the file content of my website.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Reorganising Hugo Content and Aliasing - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="I’m working on a little website revamp, and on that occasion I have been thinking through some reorganisation of the file content of my website.
 I’m a stickler for good organisation of content, and I was feeling that my blog folder was turning unruly. While it was nice machine readable and sorting well etc, it was just not… nice for a human in the long run. I needed something different, something to soothe my organisatory heart.">
 
 
@@ -47,7 +47,7 @@ I’m a stickler for good organisation of content, and I was feeling that my blo
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2023/reorganising-hugo/image.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2023/reorganising-hugo/image.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2023/reorganising-hugo/image.png">
 
 
@@ -701,41 +701,39 @@ For one, this will <em>not</em> work for a multilingual site, it would need quit
 <p><img src="image.png" alt=""></p>
 
         </div>
-    </article>
-    
-        <div class="uk-margin">
+    </article><div class="uk-margin">
     <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
-        Cite
+        Cite me!
     </button>
     <div id="citation" hidden class="uk-margin">
         <div uk-grid class="uk-child-width-1-2@s">
             <div>
                 For attribution, please cite this work as
-                <div class="uk-card uk-card-default uk-card-body">
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
                     Dr. Mowinckel 
-                        (Nov 3, 2023) 
-                        Reorganising Hugo Content and Aliasing. 
-                        Retrieved from https://drmowinckels.io/blog/2023/reorganising-hugo/
+                    (Nov 3, 2023) 
+                    Reorganising Hugo Content and Aliasing. 
+                    Retrieved from https://drmowinckels.io/blog/2023/reorganising-hugo/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273531
                 </div>
             </div>
             <div>
                 <b>BibTeX citation</b>
-                <div class="uk-card uk-card-default uk-card-body">
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
                     @misc{ <br>
                         2023-reorganising-hugo-content-and-aliasing,<br>
                         &emsp;author =  "Dr. Mowinckel",<br>
                         &emsp;title = "Reorganising Hugo Content and Aliasing",<br>
                         &emsp;url = "https://drmowinckels.io/blog/2023/reorganising-hugo/",<br>
                         &emsp;year = 2023,<br>
-                        &emsp;updated = "Aug 28, 2024"<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273531",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
                     }
                 </div>
             </div>
         </div>
     </div>
-</div>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2023/positconf-2023/">

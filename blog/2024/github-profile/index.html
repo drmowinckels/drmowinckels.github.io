@@ -33,10 +33,10 @@ This is how I vamped up my GitHub profile, to showcase who I am, what I know and
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Improving your GitHub Profile - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Improving your GitHub Profile - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
 Your GitHub profile should then showcase who you are, what you know and what you’re learning.
 This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I’m learning.">
 
@@ -50,7 +50,7 @@ This is how I vamped up my GitHub profile, to showcase who I am, what I know and
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2024/github-profile/github_profile.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2024/github-profile/github_profile.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/github-profile/github_profile.png">
 
 
@@ -641,9 +641,39 @@ Since GitHub is such a massive platform, it&rsquo;s a great place to showcase yo
 How about your own?</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Jul 1, 2024) 
+                    Improving your GitHub Profile. 
+                    Retrieved from https://drmowinckels.io/blog/2024/github-profile/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13274239
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-improving-your-github-profile,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Improving your GitHub Profile",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2024/github-profile/",<br>
+                        &emsp;year = 2024,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13274239",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/rproject/">

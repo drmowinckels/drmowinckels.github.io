@@ -32,10 +32,10 @@ Why build with GitHub actions and not let Netlify do all the job? Well, there is
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Using GitHub Actions to Build your Hugo Website - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="Lately, I’ve been doing some work in getting Hugo websites building through Github actions, and then have them deployed with Netlify. Of course, once we are building with GitHub actions we could also just use GitHub pages to deploy, and I’ll show how you can do that too, even if I will keep using Netlify.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Using GitHub Actions to Build your Hugo Website - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Lately, I’ve been doing some work in getting Hugo websites building through Github actions, and then have them deployed with Netlify. Of course, once we are building with GitHub actions we could also just use GitHub pages to deploy, and I’ll show how you can do that too, even if I will keep using Netlify.
 Why build with GitHub actions and not let Netlify do all the job? Well, there is definitely good reasons to let Netlify do all the work for you.">
 
 
@@ -47,7 +47,7 @@ Why build with GitHub actions and not let Netlify do all the job? Well, there is
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy.png">
 
 
@@ -738,9 +738,39 @@ Don&rsquo;t be discouraged, you can do it!</p>
 <p>Now you have a neat action building your site without increasing its size needlessly :)</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Mar 23, 2021) 
+                    Using GitHub Actions to Build your Hugo Website. 
+                    Retrieved from https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273514
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2021-using-github-actions-to-build-your-hugo-website,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Using GitHub Actions to Build your Hugo Website",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/",<br>
+                        &emsp;year = 2021,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273514",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/">

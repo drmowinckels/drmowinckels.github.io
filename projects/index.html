@@ -42,10 +42,10 @@
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Projects - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="">
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Projects - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="">
 
 
 <meta name="twitter:card" content="summary_large_image">
@@ -55,7 +55,7 @@
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/img/logo.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/img/logo.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/img/logo.png">
 
 
@@ -427,9 +427,21 @@
                                     </a>
                                 </li>
                             
+                                <li uk-filter-control="filter: [data-tags*='doi']">
+                                    <a  class="dropd" href="#">
+                                        Doi
+                                    </a>
+                                </li>
+                            
                                 <li uk-filter-control="filter: [data-tags*='fail']">
                                     <a  class="dropd" href="#">
                                         Fail
+                                    </a>
+                                </li>
+                            
+                                <li uk-filter-control="filter: [data-tags*='fair']">
+                                    <a  class="dropd" href="#">
+                                        Fair
                                     </a>
                                 </li>
                             
@@ -613,6 +625,12 @@
                                     </a>
                                 </li>
                             
+                                <li uk-filter-control="filter: [data-tags*='zenodo']">
+                                    <a  class="dropd" href="#">
+                                        Zenodo
+                                    </a>
+                                </li>
+                            
                         </ul>
                     </div>
                 </li>
@@ -621,7 +639,8 @@
     
     <div class="uk-container-small">
     <div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column js-filter">
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="">
     
     <div class="image image-shape uk-position-z-index">
@@ -653,7 +672,8 @@ They are intended to create easier workflows for researchers working in R and ne
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="hugo ">
     
     <div class="image image-shape uk-position-z-index">
@@ -684,7 +704,8 @@ theme is the theme of my website and created using UIkit 3.</p>
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="workshop tidyverse carpentry ">
     
     <div class="image image-shape uk-position-z-index">
@@ -717,7 +738,8 @@ At the end of the workshop you will have a grasp of the Tidyverse way of working
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="workshop quarto ">
     
     <div class="image image-shape uk-position-z-index">

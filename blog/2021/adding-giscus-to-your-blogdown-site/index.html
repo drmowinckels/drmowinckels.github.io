@@ -32,10 +32,10 @@ I was procrastinating mainly because it felt like a little much to figure out ut
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Adding giscus to your blogdown site - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="This is going to be a short one. I have been wanting to change my comment section from disqus to utterances for a long while, but have been postponing. Or procrastinating… with me, its usually the latter. I’m not going to go into details of why I wanted to move away from disqus, others have written better about it that I ever could.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Adding giscus to your blogdown site - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="This is going to be a short one. I have been wanting to change my comment section from disqus to utterances for a long while, but have been postponing. Or procrastinating… with me, its usually the latter. I’m not going to go into details of why I wanted to move away from disqus, others have written better about it that I ever could.
 I was procrastinating mainly because it felt like a little much to figure out utterances too, and the idea of using GitHub issues for comments felt awkward.">
 
 
@@ -47,7 +47,7 @@ I was procrastinating mainly because it felt like a little much to figure out ut
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/jackson_popcorn.jpeg">
 
 
@@ -522,9 +522,39 @@ It looks nice, but I’ll need to figure out how to customize it a little more, 
 <p>You can read more about the custom css options for giscus <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#data-theme">on their website</a>.</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Athanasia M. Mowinckel 
+                    (Dec 4, 2021) 
+                    Adding giscus to your blogdown site. 
+                    Retrieved from https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273518
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2021-adding-giscus-to-your-blogdown-site,<br>
+                        &emsp;author =  "Athanasia M. Mowinckel",<br>
+                        &emsp;title = "Adding giscus to your blogdown site",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/",<br>
+                        &emsp;year = 2021,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273518",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/">

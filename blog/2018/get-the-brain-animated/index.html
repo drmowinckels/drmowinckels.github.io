@@ -32,10 +32,10 @@ In all of this, I learned so much about creating packages, and ended up making q
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Get the brain animated! - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="I’m super delighted that our ggseg package was so well received! We almost immediately got it on Neuroconductor, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Get the brain animated! - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="I’m super delighted that our ggseg package was so well received! We almost immediately got it on Neuroconductor, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.
 In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package.">
 
 
@@ -47,7 +47,7 @@ In all of this, I learned so much about creating packages, and ended up making q
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1.gif" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1.gif" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/index_files/figure-html/featured-1.gif">
 
 
@@ -537,9 +537,39 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
 <p><em>Edit: This post was edited May 1st 2020 to reflect newer package changes</em></p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    DrMowinckels 
+                    (Oct 1, 2018) 
+                    Get the brain animated!. 
+                    Retrieved from https://drmowinckels.io/blog/2018/get-the-brain-animated/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273462
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2018-get-the-brain-animated,<br>
+                        &emsp;author =  "DrMowinckels",<br>
+                        &emsp;title = "Get the brain animated!",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2018/get-the-brain-animated/",<br>
+                        &emsp;year = 2018,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273462",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/">

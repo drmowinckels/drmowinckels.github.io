@@ -42,10 +42,10 @@
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Blog - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="I blog mainly about R, with some neuroimaging in there. Most posts are set up as tutorials or walk-through’s, so I hope they are of value.">
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Blog - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="I blog mainly about R, with some neuroimaging in there. Most posts are set up as tutorials or walk-through’s, so I hope they are of value.">
 
 
 <meta name="twitter:card" content="summary_large_image">
@@ -55,7 +55,7 @@
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/img/logo.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/img/logo.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/img/logo.png">
 
 
@@ -366,7 +366,11 @@
         <div id="content" class="uk-container uk-container-small uk-margin-large-top">
     <div class="uk-markdown uk-width">
         <p>I blog mainly about R, with some neuroimaging in there. Most posts are set up as tutorials or walk-through&rsquo;s, so I hope they are of value.</p>
-
+<div class="uk-container uk-container-center uk-container-margin-bottom">
+<center>
+<script async data-uid="f8d3131d6d" src="https://drmowinckels.ck.page/f8d3131d6d/index.js"></script>
+</center>
+ </div>
     </div>
 
     <div class="uk-container" uk-filter="target: .js-filter; duration: 650">
@@ -428,9 +432,21 @@
                                     </a>
                                 </li>
                             
+                                <li uk-filter-control="filter: [data-tags*='doi']">
+                                    <a  class="dropd" href="#">
+                                        Doi
+                                    </a>
+                                </li>
+                            
                                 <li uk-filter-control="filter: [data-tags*='fail']">
                                     <a  class="dropd" href="#">
                                         Fail
+                                    </a>
+                                </li>
+                            
+                                <li uk-filter-control="filter: [data-tags*='fair']">
+                                    <a  class="dropd" href="#">
+                                        Fair
                                     </a>
                                 </li>
                             
@@ -614,6 +630,12 @@
                                     </a>
                                 </li>
                             
+                                <li uk-filter-control="filter: [data-tags*='zenodo']">
+                                    <a  class="dropd" href="#">
+                                        Zenodo
+                                    </a>
+                                </li>
+                            
                         </ul>
                     </div>
                 </li>
@@ -622,7 +644,41 @@
     
     <div class="uk-container-small">
     <div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column js-filter">
-            <div class="card-post"
+            
+<div class="card-post"
+    data-tags="r fair zenodo doi github ">
+    
+    <div class="image image-shape uk-position-z-index">
+        <div class="border hexagon">
+            <div class="shape hexagon" 
+                
+                style="background-image: url(/blog/2024/fair-blog/images/fair_hu8b131eeedb863624caf3ee3e6e475c50_48250_250x289_fill_box_center_3.png);">
+            </div> 
+        </div> 
+    </div>
+    <div class="content uk-align-right uk-padding uk-box-shadow-large">
+        <a href="https://drmowinckels.io/blog/2024/fair-blog/" style="text-decoration: none;">
+            <h1 class="uk-heading-line uk-text-right">
+                <span>Making your blog FAIR</span>
+            </h1>
+            <div class="uk-grid">
+                
+                    <div class="uk-width-1-4 uk-text-right">
+                        Sep 06, 2024
+                    </div>
+                
+                <div class="uk-width-expand">
+                    <p>In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
+This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
+Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+            
+<div class="card-post"
     data-tags="r data-science ide positron vscode ">
     
     <div class="image image-shape uk-position-z-index">
@@ -654,7 +710,8 @@ Now Positron is out of private beta, so let’s see if it can replace my current
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r github github-actions ">
     
     <div class="image image-shape uk-position-z-index">
@@ -686,7 +743,8 @@ This is how I vamped up my GitHub profile, to showcase who I am, what I know and
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r startup pride ">
     
     <div class="image image-shape uk-position-z-index">
@@ -720,7 +778,8 @@ Let me show you how you can customise your startup message!</p>
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r programming ide rstudio vscode ">
     
     <div class="image image-shape uk-position-z-index">
@@ -750,19 +809,20 @@ Let me show you how you can customise your startup message!</p>
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="git fail rstudio r ">
     
     <div class="image image-shape uk-position-z-index">
         <div class="border hexagon">
             <div class="shape hexagon" 
                 
-                style="background-image: url(/blog/2024/2024/git-clean-woes/confused-kitten_hu7a6289775ddf1f231ea3fda571cc6277_1509917_250x289_fill_box_center_3.png);">
+                style="background-image: url(/blog/2024/git-clean-woes/confused-kitten_hu7a6289775ddf1f231ea3fda571cc6277_1509917_250x289_fill_box_center_3.png);">
             </div> 
         </div> 
     </div>
     <div class="content uk-align-right uk-padding uk-box-shadow-large">
-        <a href="https://drmowinckels.io/blog/2024/2024/git-clean-woes/" style="text-decoration: none;">
+        <a href="https://drmowinckels.io/blog/2024/git-clean-woes/" style="text-decoration: none;">
             <h1 class="uk-heading-line uk-text-right">
                 <span>Too much git cleaning</span>
             </h1>
@@ -782,7 +842,8 @@ and how I got out of it.</p>
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r freesurfer neuroimaging ">
     
     <div class="image image-shape uk-position-z-index">
@@ -815,7 +876,8 @@ data in R for Freesurfer LMMs.</p>
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r teaching reciprocal ">
     
     <div class="image image-shape uk-position-z-index">
@@ -851,7 +913,8 @@ I share some of the things I learned from my learners at the
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="reflections hugo ">
     
     <div class="image image-shape uk-position-z-index">
@@ -881,7 +944,8 @@ I share some of the things I learned from my learners at the
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="blogdown hugo bash ">
     
     <div class="image image-shape uk-position-z-index">
@@ -912,7 +976,8 @@ I’m a stickler for good organisation of content, and I was feeling that my blo
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -943,7 +1008,8 @@ Going to Chicago this year for the first ever Posit::conf was no exception to th
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="advent-calendar r r-functions-2022 ">
     
     <div class="image image-shape uk-position-z-index">
@@ -974,7 +1040,8 @@ Going to Chicago this year for the first ever Posit::conf was no exception to th
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r apply ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1005,7 +1072,8 @@ So naturaly, when I started working in R, I was looping all over the place. Espe
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="knitr rmarkdown ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1036,7 +1104,8 @@ I was doing a lot of copy and paste of code, with whole code chunks and text for
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="blogdown ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1067,7 +1136,8 @@ I was procrastinating mainly because it felt like a little much to figure out ut
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="hugo continuous-integration github-actions ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1098,7 +1168,8 @@ Why build with GitHub actions and not let Netlify do all the job? Well, there is
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r neuroimaging ggseg ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1129,7 +1200,8 @@ One of the main things I wanted to get rid of, was this need to first group your
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r plots ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1161,7 +1233,8 @@ I hope the New Year, at some point, makes it possible to start going to conferen
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r advent-calendar packages ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1192,7 +1265,8 @@ The advent calendar is one R-package per day that I personally use and find very
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r analysis linear-regression ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1223,7 +1297,8 @@ I’m no statistician, I’m no mathematician. So I’ll be honest with you all,
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r hugo blogdown ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1254,7 +1329,8 @@ But last week I finally got working on it, and decided I would not stop until I 
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r neuroimaging plots ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1284,7 +1360,8 @@ But last week I finally got working on it, and decided I would not stop until I 
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r plots ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1315,7 +1392,8 @@ Body A snowman needs a body, so lets start with that! Let’s go for a two large
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="packages neuroimaging plots r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1346,7 +1424,8 @@ I guess it’s extra timely to do it now, as we recently split the mesh-plot fun
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r gamm ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1376,7 +1455,8 @@ I guess it’s extra timely to do it now, as we recently split the mesh-plot fun
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r r-for-psychologists ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1407,7 +1487,8 @@ I my first R for Psychologists post we really dove into it.</p>
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1438,7 +1519,8 @@ There were several pre-conference workshops to attend, which I of course signed 
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r rstudio ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1468,7 +1550,8 @@ There were several pre-conference workshops to attend, which I of course signed 
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r plot ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1500,7 +1583,8 @@ So, a while ago, the amazing RLadies network showed me this cool thing a stats p
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r-for-psychologists r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1530,7 +1614,8 @@ So, a while ago, the amazing RLadies network showed me this cool thing a stats p
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="packages neuroimaging r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1561,7 +1646,8 @@ In all of this, I learned so much about creating packages, and ended up making q
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="plots packages neuroimaging r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1592,7 +1678,8 @@ I’ve not written a post in a while. Mostly because of summer vacation, and als
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="plots neuroimaging r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1622,7 +1709,8 @@ I’ve not written a post in a while. Mostly because of summer vacation, and als
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1653,7 +1741,8 @@ And indeed it is true, I love plotting. Probably more than I love analysing data
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r gamm ">
     
     <div class="image image-shape uk-position-z-index">
@@ -1684,7 +1773,8 @@ For this part I’d like to talk about random effects in mgcv::gamm as they are 
     </div>
 </div>
 
-            <div class="card-post"
+            
+<div class="card-post"
     data-tags="r gamm ">
     
     <div class="image image-shape uk-position-z-index">

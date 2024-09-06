@@ -32,10 +32,10 @@ And indeed it is true, I love plotting. Probably more than I love analysing data
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Adding external images to plots - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="Two weeks ago we had out first RLadies-Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks!
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Adding external images to plots - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Two weeks ago we had out first RLadies-Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks!
 And indeed it is true, I love plotting. Probably more than I love analysing data (and definately more than cleaning and wrangling :P). I can spend hours and hours creating my own custom plotting functions for whatever paper/output I am currently working on.">
 
 
@@ -47,7 +47,7 @@ And indeed it is true, I love plotting. Probably more than I love analysing data
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/index_files/figure-html/unnamed-chunk-16-1.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/index_files/figure-html/unnamed-chunk-16-1.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2018/adding-external-images-to-plots/index_files/figure-html/unnamed-chunk-16-1.png">
 
 
@@ -566,9 +566,39 @@ First, save the base plot to an object in your environment, one of the lovely th
 <p>And if you have suggestions for improvement of this procedure, don&rsquo;t hesitate to let me know!</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    DrMowinckels 
+                    (May 7, 2018) 
+                    Adding external images to plots. 
+                    Retrieved from https://drmowinckels.io/blog/2018/adding-external-images-to-plots/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13271538
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2018-adding-external-images-to-plots,<br>
+                        &emsp;author =  "DrMowinckels",<br>
+                        &emsp;title = "Adding external images to plots",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2018/adding-external-images-to-plots/",<br>
+                        &emsp;year = 2018,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13271538",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2018/gamm-random-effects/">

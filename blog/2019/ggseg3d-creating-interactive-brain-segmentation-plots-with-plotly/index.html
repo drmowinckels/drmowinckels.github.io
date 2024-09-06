@@ -32,10 +32,10 @@ I guess it’s extra timely to do it now, as we recently split the mesh-plot fun
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ggseg3d - creating interactive brain segmentation plots with plotly - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="Looking through my blogposts, I realised I’ve never written about my colleague Didac and my package for 3d mesh plots of brain atlases using plotly. I’ve already showed some functionality from out {ggseg}-package, in the introductory blogpost and follow-up on animating it.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="ggseg3d - creating interactive brain segmentation plots with plotly - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Looking through my blogposts, I realised I’ve never written about my colleague Didac and my package for 3d mesh plots of brain atlases using plotly. I’ve already showed some functionality from out {ggseg}-package, in the introductory blogpost and follow-up on animating it.
 I guess it’s extra timely to do it now, as we recently split the mesh-plot function off the main {ggseg}-package and into it’s own package, and also did some re-writing of core-functionality of the package.">
 
 
@@ -47,7 +47,7 @@ I guess it’s extra timely to do it now, as we recently split the mesh-plot fun
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still.png" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still.png" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/ggseg3d_still.png">
 
 
@@ -490,9 +490,39 @@ Logical. Toggle legend if colour is numeric.
 </code></pre><p><img src="ggseg3d_still.png" alt=""></p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    DrMowinckels 
+                    (Dec 6, 2019) 
+                    ggseg3d - creating interactive brain segmentation plots with plotly. 
+                    Retrieved from https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273496
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2019-ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly,<br>
+                        &emsp;author =  "DrMowinckels",<br>
+                        &emsp;title = "ggseg3d - creating interactive brain segmentation plots with plotly",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/",<br>
+                        &emsp;year = 2019,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273496",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/">

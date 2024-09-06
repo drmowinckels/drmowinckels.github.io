@@ -32,10 +32,10 @@ But last week I finally got working on it, and decided I would not stop until I 
 
         
 
-<meta property="og:url" content="https://drmowinckels.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Changing your Blogdown Workflow - Dr. Mowinckel&rsquo;s">
-<meta property="og:description" content="For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen. I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes.
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Changing your Blogdown Workflow - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="For more than a year now I have avoided updating my hugo-version on netlify and updating my theme because there was a lot of work that needed to be done to make that happen. I did not really have enough time or motivation to actually get it sorted, as it involved understanding theme changes and hugo changes.
 But last week I finally got working on it, and decided I would not stop until I had it done.">
 
 
@@ -47,7 +47,7 @@ But last week I finally got working on it, and decided I would not stop until I 
 
 
 
-    <meta property="og:image" content="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/lucille_sassy.gif" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/lucille_sassy.gif" />
     <meta name="twitter:image" content="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/lucille_sassy.gif">
 
 
@@ -630,9 +630,39 @@ On a newer hugo, with an updated theme, and new theme tweaks I&rsquo;m really fo
 <p>In the future, perhaps we don&rsquo;t need to do a lot of this cumbersome stuff, if <a href="https://github.com/r-lib/hugodown">hugodown</a> gets developed and matures. I have high hopes for this package!</p>
 
         </div>
-    </article>
-    
-    <div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (May 25, 2020) 
+                    Changing your Blogdown Workflow. 
+                    Retrieved from https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13273504
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2020-changing-your-blogdown-workflow,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Changing your Blogdown Workflow",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/",<br>
+                        &emsp;year = 2020,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273504",<br> 
+                        &emsp;updated = "Sep 6, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
     <div class="uk-width-expand">
         
             <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/">
