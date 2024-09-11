@@ -11,13 +11,13 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **35** posts since **2018-03-08**!
+🎉 DrMowinckels has **36** posts since **2018-03-08**!
 
-📅 That’s a post roughly every **68** days, or about **0.44** posts per
+📅 That’s a post roughly every **66** days, or about **0.45** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-27** days ago ([Positron IDE - A new
-IDE for data science](https://drmowinckels.io/blog/positron)).
+✍️ The last post was published **-5** days ago ([Making your blog
+FAIR](https://drmowinckels.io/blog/fair-blog)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -31,11 +31,12 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2024-09-06 | [Making your blog FAIR](https://drmowinckels.io/blog/fair-blog)                                                                                                                          |
 | 2024-08-01 | [Positron IDE - A new IDE for data science](https://drmowinckels.io/blog/positron)                                                                                                       |
 | 2024-07-01 | [Improving your GitHub Profile](https://drmowinckels.io/blog/github-profile)                                                                                                             |
 | 2024-06-01 | [Customise your R startup message](https://drmowinckels.io/blog/rproject)                                                                                                                |
 | 2024-05-01 | [The IDEs I use](https://drmowinckels.io/blog/ide)                                                                                                                                       |
-| 2024-04-01 | [Too much git cleaning](https://drmowinckels.io/blog/2024/git-clean-woes)                                                                                                                |
+| 2024-04-01 | [Too much git cleaning](https://drmowinckels.io/blog/git-clean-woes)                                                                                                                     |
 | 2024-03-01 | [Setting up a Freesurfer LMM through R](https://drmowinckels.io/blog/freesurfer-lmm-r)                                                                                                   |
 | 2024-02-01 | [Teaching you - teaching me](https://drmowinckels.io/blog/teaching-unlocks)                                                                                                              |
 | 2024-01-01 | [New year, New blog](https://drmowinckels.io/blog/newyear-newblog)                                                                                                                       |
@@ -75,4 +76,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-08-28 01:10:22.479751*
+*Updated 2024-09-11 01:12:00.215451*
