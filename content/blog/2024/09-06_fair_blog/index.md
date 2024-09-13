@@ -22,6 +22,8 @@ summary: |
   Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.
 ---
 
+*This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/178) hosted by Eric Nantz and Mike Thomas.*
+
 I have subscribed to [Heidi Seibold](https://heidiseibold.com/)'s newsletter for a good while, she has some really great reflections on data, data literacy, programming and open-science.
 Reading her [August newsletter](https://heidiseibold.ck.page/posts/making-my-newsletter-fair) about making it FAIR ((Findable, Accessible, Interoperable, and Reusable)) she it was really an eye-opener about my own content and archiving it.
 Reading her [August newsletter](https://heidiseibold.ck.page/posts/making-my-newsletter-fair) about making it FAIR was really an eye-opener about my own content and archiving it.
