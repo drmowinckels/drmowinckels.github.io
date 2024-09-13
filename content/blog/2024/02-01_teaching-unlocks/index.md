@@ -19,6 +19,8 @@ summary: |
   [Digital Scholarship Days](https://www.ub.uio.no/english/courses-events/events/dsc/2024/digital-scholarship-days/00-mainpage.html) at the University of Oslo.
 ---
 
+*This post was featured on the [R Weekly highlights podcast](https://share.fireside.fm/episode/87RSVeFz+Wtk1siKa) hosted by Eric Nantz and Mike Thomas.*
+
 Teaching can be extremely rewarding.
 I love teaching coding and programming, and helping scientists unlock a new way of working.
 But while most learners go into [my workshops](/tags/workshop/) think they will be completely on the receiving end, 
