@@ -15,6 +15,7 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "new-year-s-wishes"
 aliases:
   - '/blog/2020-12-31-new-year-s-wishes'
+summary:  New Year's Wishes is a ggplot2 holiday card wishing you all a better 2021 than 2020! I find these holiday cards help me understand and explore how data need to look to create a certain output . I wanted to use `ggforce::geom_circle` for this, which would need x and y coordinates for the center of the circle and the radius .
 ---
 
 

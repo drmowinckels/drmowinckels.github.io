@@ -12,6 +12,8 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "r-for-psychologists-part-ii"
 aliases:
   - '/blog/2019-07-17-r-for-psychologists-part-ii'
+summary:  |
+  R for Psychologists - part III: Getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model . Part II: Plotting in R through `ggplot2` really is a way to understand how to organise and alter data in R to suit your needs .
 ---
 
 

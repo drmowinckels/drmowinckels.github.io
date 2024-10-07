@@ -15,7 +15,7 @@ summary: |
   We all know the R startup message. It tells us the version
   of R we are running, the date, the platform we are running
   on, and some informative tips on using R.
-  When you've been using R a while, though, it get old.
+  When you've been using R a while, though, it gets old.
   Let me show you how you can customise your startup message!
 ---
 

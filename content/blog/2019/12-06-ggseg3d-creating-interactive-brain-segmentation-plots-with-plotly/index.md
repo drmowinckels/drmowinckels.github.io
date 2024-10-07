@@ -12,6 +12,7 @@ image: "ggseg3d_still.png"
 slug: "ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly"
 aliases:
   - '/blog/2019-12-06-ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly'
+summary: ggseg3d is a package for 3d mesh plots of brain atlases using plotly . It is made to plot brain atlas data . It should be fairly easy to use or atlele to make the first plot . It can be installed from our works GitHub account using remotes .
 ---
 
 

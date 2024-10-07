@@ -11,6 +11,7 @@ tags:
   - bash
 image: image.png
 citation: true
+summary:  Hugo Aliasing is a stickler for good organisation of content . Reorganising Hugo Content and Aliasing has a nice way of dealing with that, which they call [gohugoioio] Reorganisation concept is that people should redirect to the specific page that they should be using .
 ---
 
 I'm working on a little website revamp, and on that occasion I have been thinking through some reorganisation of the file content of my website.

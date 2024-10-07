@@ -11,6 +11,7 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "r-just-dive-into-it"
 aliases:
   - '/blog/2018-11-09-r-just-dive-into-it'
+summary:  R requires you to be proficient in R in a different way than SPSS . Once you are proficient enough in R, you have a gazillion tools to do more or less anything you want to do, be it analysing complex data, a simple linear regression, writing a blog or making interactive data portals . RStudio is a completely blank slate, no data, no fancy stuff, just a program .
 ---
 
 

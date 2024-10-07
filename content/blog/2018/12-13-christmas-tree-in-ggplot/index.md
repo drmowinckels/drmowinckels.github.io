@@ -11,6 +11,7 @@ image: 'index_files/figure-html/featured-1.gif'
 slug: "christmas-tree-in-ggplot"
 aliases:
   - '/blog/2018-12-13-christmas-tree-in-ggplot'
+summary:  Rladies.org showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it! You can see all the lovely submissions he has [here](http://smarterpoland.pl/index.php/2017/12/christmas-trees/).
 ---
 
 It's Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It's just filled with all times of lovely things. 

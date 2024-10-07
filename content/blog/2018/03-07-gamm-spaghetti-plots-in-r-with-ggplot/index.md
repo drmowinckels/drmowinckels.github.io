@@ -12,6 +12,8 @@ draft: false
 slug: "gamm-spaghetti-plots-in-r-with-ggplot"
 aliases:
   - '/blog/2018-03-07-gamm-spaghetti-plots-in-r-with-ggplot'
+summary:  A co-worker was working on some generalized additive mixed models (GAMM) through the R package [mgcv] The analyses work very well, and results were as expected . There were also some built in plotting functions for the gamm output in R . However, they were with base-r, and we all know base r is not the most beautiful .
+summary:  A co-worker was working on some generalized additive mixed models (GAMM) through the R package [mgcv] The analyses work very well, and results were as expected . There were also some built in plotting functions for the gamm output in R . However, they were with base-r, and we all know base r is not the most beautiful .
 ---
 
 

@@ -13,6 +13,7 @@ toc: true
 slug: "advent-of-r-functions"
 aliases:
   - '/blog/2022-12-01-advent-of-r-functions'
+summary:  Advent of R Functions is a series of 24 pieces of code I often use in my work . This advent brings you 24 code examples that I hope can be of interest and help to you . I'll continue using the calendar as for this first part of the first day of the month .
 ---
 
 

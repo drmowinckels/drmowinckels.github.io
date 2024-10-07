@@ -9,14 +9,7 @@ tags:
   - teaching
   - reciprocal
 slug: "teaching-unlocks"
-summary: |
-  Whenever I teach someone something, I learn something new myself.
-  I can always trust that my learners either know something I don't yet
-  know myself, or they will ask a question that will make me think about
-  something in a new way. It is also the best debugging I know, as I've 
-  never held a workshop without finding some strangeness. In this post
-  I share some of the things I learned from my learners at the 
-  [Digital Scholarship Days](https://www.ub.uio.no/english/courses-events/events/dsc/2024/digital-scholarship-days/00-mainpage.html) at the University of Oslo.
+summary:  Teaching can be extremely rewarding, and teaching can be rewarding . Teaching you - teaching me is the beauty of teaching . I love teaching coding and programming, and helping scientists unlock a new way of working . My university hosts an annual event called [Digital Scholarship Days] This year, I taught two workshops at the Universtity of Oslo .
 ---
 
 Teaching can be extremely rewarding.

@@ -11,6 +11,8 @@ image: 'index_files/figure-html/unnamed-chunk-16-1.png'
 slug: "adding-external-images-to-plots"
 aliases:
   - '/blog/2018-05-02-adding-external-images-to-plots'
+summary:  Adding external images to plots is a good way to showcase results, and make it easier for me and my reader to understand what the findings are . I use [ImageMagick] for this, but there are R-packages to help, like [imager] and [imaging] software .
+summary:  Adding external images to plots is a good way to showcase results, and make it easier for me and my reader to understand what the findings are . I use [ImageMagick] for this, but there are R-packages to help, like [imager] and [imaging] software .
 ---
 
 Two weeks ago we had out first RLadies-Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks! 

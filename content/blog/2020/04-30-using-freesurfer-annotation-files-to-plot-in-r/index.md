@@ -11,6 +11,7 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "using-freesurfer-annotation-files-to-plot-in-r"
 aliases:
   - '/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r'
+summary:  Using Freesurfer, the Desikan Killany coortical atlas (aparc) is an atlas that consist of 36 segments, which are well-defined [Automatically Parcellating the Human Cerebral Cortex](https://surfer.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&do=get&target=annot-desikan-m.jpg) Using Freisurfer annotation files to plot in R is our package where you can render the proper 3d version using ggplot2 .
 ---
 
 

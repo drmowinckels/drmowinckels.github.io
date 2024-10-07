@@ -11,6 +11,7 @@ image: 'index_files/figure-html/featured-1.gif'
 slug: "do-you-wanna-build-a-snowman"
 aliases:
   - '/blog/2019-12-11-do-you-wanna-build-a-snowman'
+summary:  Do you wanna build a snowman? Do you want to build a Christmas tree? We're going to use [ggforce] from the [gg force] package by Thomas Lin Pedersen . We need to specify the center of the circles we're drawing's locations and their radii . We use 'geom_circle' and 'tidyr' to create the snowman .
 ---
 
 

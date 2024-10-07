@@ -9,6 +9,7 @@ image: speak.jpeg
 slug: "positconf-2023"
 aliases:
   - '/blog/2023-09-26-positconf-2023'
+summary:  There is a general air of excitement, nerdiness and support I just rarely feel at any other conf I go to. Posit::conf is like it gathers all the best Data science and R geeks in one place and we just go bananas in each others company. I'd like to share some thoughts and joys I had in the 4 days of the conf .
 ---
 
 

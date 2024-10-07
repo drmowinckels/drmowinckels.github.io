@@ -15,8 +15,6 @@ summary: |
   neuroimaging. In this post I highlight how you can prepare your 
   data in R for Freesurfer LMMs.
 ---
-  
-
 
 
 It's been a while since I've been running models, I must admit.

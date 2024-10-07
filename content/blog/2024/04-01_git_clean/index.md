@@ -15,8 +15,7 @@ aliases:
   - '/blog/2024/2024/git-clean-woes/'
 summary: |
   Version control is great, but sometimes it can trip you up!
-  In this post I recount my rather stupid mistake of using `git clean` when I shouldn't have, 
-  and how I got out of it.
+  In this post I recount my rather stupid mistake of using `git clean` when I shouldn't have, and how I got out of it.
 ---
   
 

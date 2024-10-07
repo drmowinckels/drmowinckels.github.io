@@ -11,6 +11,7 @@ image: 'check_1.png'
 slug: "building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop"
 aliases:
   - '/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop'
+summary:  Building tidy tools - a quick recap of RStudio::conf 2019 workshop & teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way .
 ---
 
 

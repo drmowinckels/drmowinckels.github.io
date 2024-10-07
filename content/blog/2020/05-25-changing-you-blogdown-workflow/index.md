@@ -16,6 +16,7 @@ image: "lucille_sassy.gif"
 slug: "changing-you-blogdown-workflow"
 aliases:
   - '/blog/2020-05-25-changing-you-blogdown-workflow'
+summary:  Blogdown is usually used with [go hugo], a static webpage builder . Blogdown renders directly from `Rmd` to `html, meaning it circumvents hugo's processing of `md` . This can cause some unwanted issues depending on your theme . It can also make it difficult to maintain your webpage over time .
 ---
 
 

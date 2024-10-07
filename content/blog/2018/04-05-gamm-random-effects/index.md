@@ -11,6 +11,8 @@ image: 'index_files/figure-html/unnamed-chunk-10-1.png'
 slug: "gamm-random-effects"
 aliases:
   - '/blog/2018-04-05-gamm-random-effects'
+summary:  I'm working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .
+summary:  I'm working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .
 ---
 
 
