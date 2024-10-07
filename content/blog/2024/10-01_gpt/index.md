@@ -35,7 +35,7 @@ I will give this a go through R and using [Hugging Face](https://huggingface.co/
 
 Hugging Face is a leading company in the field of artificial intelligence and natural language processing (NLP).
 It provides an open-source platform and extensive libraries known as "Transformers" that enables developers and researchers to utilize pre-trained language models for various applications.
-I heard about Hugging Face for the first time through a Posit blogpost about [them releaseing Hugging Face integrations](https://blogs.rstudio.com/ai/posts/2023-07-12-hugging-face-integrations/).
+I heard about Hugging Face for the first time through a Posit blogpost about [them releasing Hugging Face integrations](https://blogs.rstudio.com/ai/posts/2023-07-12-hugging-face-integrations/).
 
 I had a peak, and saw that Hugging Face has a nice API, that seemed quite simple to deal with.
 It also is free, at least for my needs (just summarising a post once in a while).
