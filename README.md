@@ -13,10 +13,10 @@ code for my content.
 
 🎉 DrMowinckels has **36** posts since **2018-03-08**!
 
-📅 That’s a post roughly every **66** days, or about **0.45** posts per
+📅 That’s a post roughly every **67** days, or about **0.45** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-12** days ago ([Making your blog
+✍️ The last post was published **-26** days ago ([Making your blog
 FAIR](https://drmowinckels.io/blog/fair-blog)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -76,4 +76,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-09-18 01:13:54.616328*
+*Updated 2024-10-02 01:18:45.123373*
