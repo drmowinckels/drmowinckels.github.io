@@ -11,6 +11,7 @@ image: blobby_bricks_TradingCard.jpg
 slug: "lets-get-applying"
 aliases:
   - '/blog/2022-11-07-lets-get-applying'
+summary:  When programming we want to write code that iterates well, we do this through loops . Let's Get Apply'ing is based on the very well-known `mtcars` dataset built-in to R . We'll only use two columns, just to keep it simple .
 ---
 
 When programming we want to write code that iterates well.

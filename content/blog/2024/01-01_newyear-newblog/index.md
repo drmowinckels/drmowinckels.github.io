@@ -8,8 +8,10 @@ tags:
   - reflections
   - hugo
 slug: "newyear-newblog"
-summary: "A new year, a new blog, and some reflections on the past year"
+summary:  New year, a new blog, and some reflections on the past year that has passed . I'm taking the lead for a new Core Facility at the University of Oslo . I also got funding from my university to establish a Hub/Node network, which is an initiative from University IT to facilitate exchange of knowledhe between University staff .
 ---
+
+A new year, a new blog, and some reflections on the past year
 
 There was not much blogging going on in 2022 or 2023. 
 Things are busy and I have not have much energy for blogging with all the other things going on. 

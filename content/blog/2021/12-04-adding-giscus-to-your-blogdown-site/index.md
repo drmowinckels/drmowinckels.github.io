@@ -14,6 +14,7 @@ image: jackson_popcorn.jpeg
 slug: "adding-giscus-to-your-blogdown-site"
 aliases:
   - '/blog/2021-12-04-adding-giscus-to-your-blogdown-site'
+summary:  Adding giscus to your blogdown site is an easy way to get your comment section working with blogdown/hugo . The following steps are outlined in the guide to getting it working with hugo and blogdown . The steps include creating a new layout file and setting up GitHub discissions .
 ---
 
 This is going to be a short one.

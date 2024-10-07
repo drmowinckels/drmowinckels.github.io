@@ -18,6 +18,7 @@ slug: "r-package-advent-calendar"
 aliases:
   - '/blog/2020-12-15-r-package-advent-calendar-2020'
   - '/blog/r-package-advent-calendar-2020'
+summary:  The advent calendar is one R-package per day that I personally use and find very useful in my work . The hope is that it would give people a mix of familiar and less familiar packages that might help their work too . R-Package Advent Calendar 2020 is one package per day .
 ---
 
 This year has been truly something different for us all. 

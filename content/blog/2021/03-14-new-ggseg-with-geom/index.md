@@ -12,6 +12,7 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "new-ggseg-with-geom"
 aliases:
   - '/blog/2021-03-14-new-ggseg-with-geom'
+summary:  A new version of ggseg R-package for visualisations of brain atlases was released a couple of months ago . I wanted to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult . New {ggseg} with Geom! The position is what I'm truly happy about!
 ---
 
 

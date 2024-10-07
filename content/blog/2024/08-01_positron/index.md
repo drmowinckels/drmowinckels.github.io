@@ -1,5 +1,8 @@
 ---
 doi: 10.5281/zenodo.13274245
+editor_options: 
+  markdown: 
+    wrap: sentence
 title: Positron IDE - A new IDE for data science
 author: Dr. Mowinckel
 date: '2024-08-01'
@@ -16,9 +19,6 @@ summary: |
   In May I wrote about my favorite IDE's.
   As a result of that post, I was asked to join Posits private beta-testers for their new IDE, Positron.
   Now Positron is out of private beta, so let's see if it can replace my current favorite IDE's.
-editor_options: 
-  markdown: 
-    wrap: sentence
 ---
 
 [Positron](https://github.com/posit-dev/positron?tab=readme-ov-file) is a clone of Visual Studio Code (VScode), but tweaks for data science.

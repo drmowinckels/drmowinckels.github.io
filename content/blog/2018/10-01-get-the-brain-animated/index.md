@@ -11,6 +11,7 @@ image: 'index_files/figure-html/featured-1.gif'
 slug: "get-the-brain-animated"
 aliases:
   - '/blog/2018-10-01-get-the-brain-animated'
+summary:  The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .
 ---
 
 
