@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Creating post summary with AI from Hugging Face - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="When you have lots of old blog posts, writing good summaries for SEO can be very tedious. Using AI, we can get summaries for our posts easily. Using httr2 we can access models through the Hugging Face API." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Creating post summary with AI from Hugging Face - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="When you have lots of old blog posts, writing good summaries for SEO can be very tedious. Using AI, we can get summaries for our posts easily. Using httr2 we can access models through the Hugging Face API.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="When you have lots of old blog posts, writing good summaries for SEO can be very tedious. Using AI, we can get summaries for our posts easily. Using httr2 we can access models through the Hugging Face API.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2024/ai-blog-summary/images/hf-logo.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/ai-blog-summary/images/hf-logo.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.b949f82ef13ab020c09cc9a01a06b5c35de205c6382cde6ed472ebf5efc8e9d2.css" 
+    integrity="sha256-uUn4LvE6sCDAnMmgGga1w13iBcY4LN5u1HLr9e/I6dI=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2024/ai-blog-summary/images/hf-logo.png" alt="Creating post summary with AI from Hugging Face" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Creating post summary with AI from Hugging Face</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Oct 7, 2024
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/llm/" class="uk-label uk-label-secondary tags" >
+                                LLM
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/ai/" class="uk-label uk-label-secondary tags" >
+                                AI
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/api/" class="uk-label uk-label-secondary tags" >
+                                API
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hugging-face-community">Hugging Face Community</a></li>
+    <li><a href="#using-the-hugging-face-api">Using the Hugging Face API</a></li>
+    <li><a href="#preparing-content-for-summarising">Preparing content for summarising</a></li>
+    <li><a href="#writing-summary-to-file">Writing summary to file</a></li>
+    <li><a href="#the-entire-process">The entire process</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">When you have lots of old blog posts, writing good summaries for SEO can be very tedious. Using AI, we can get summaries for our posts easily. Using httr2 we can access models through the Hugging Face API.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>After my last post, I got to thinking about the summaries of my posts.
+I am not the best at summarising what my posts are about, and also my post summaries are used for SEO.
+&ldquo;What is SEO&rdquo;, you ask?
+It stands for Search Enginge Optimization, and it one of the major factors for what gets listed first in search engine results.
+And, I really would like my stuff to have good results there.
+Furthermore, as my last post was about archiving my posts on Zenodo, I realise that having a good description of the post is also very important for the Zenodo meta-data.
+Currently, for all posts that I haven&rsquo;t provided a (poor) summary, the first paragraph of the post is used.
+And I don&rsquo;t think that usually reflects what the post is actually about.</p>
+<p>I saw a colleague at my University post about him <a href="https://www.arj.no/2024/07/13/blog-descriptions/">creating summaries for his blog using OpenAI API</a>, and I thought that sounded like a cool idea!
+Now, he uses python, and openAI, which is not what I am going to do.
+I will give this a go through R and using <a href="https://huggingface.co/">Hugging Face</a> as my model server.</p>
+<h2 id="hugging-face-community">Hugging Face Community</h2>
+<p>Hugging Face is a leading company in the field of artificial intelligence and natural language processing (NLP).
+It provides an open-source platform and extensive libraries known as &ldquo;Transformers&rdquo; that enables developers and researchers to utilize pre-trained language models for various applications.
+I heard about Hugging Face for the first time through a Posit blogpost about <a href="https://blogs.rstudio.com/ai/posts/2023-07-12-hugging-face-integrations/">them releaseing Hugging Face integrations</a>.</p>
+<p>I had a peak, and saw that Hugging Face has a nice API, that seemed quite simple to deal with.
+It also is free, at least for my needs (just summarising a post once in a while).
+I signed up, and dived into it!</p>
+<h2 id="using-the-hugging-face-api">Using the Hugging Face API</h2>
+<p>First step was to just manage to connect to the API and get some data back as expected.
+We&rsquo;ll proceede much like we did in the Zenodo post, grabbing the API key for Hugging Face API (that I retrieved from my account), and putting that in the <code>.Renvion</code> file for secure and easy access.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Get API key</span>
+</span></span><span style="display:flex;"><span>api_key <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;HUGGING_KEY&#34;</span>)
+</span></span></code></pre></div><p>Then we need to define what to send to the model to process.
+It needs at minimum <code>inputs</code> which is the text we want summarised.
+Then, I&rsquo;ll add a minimum and maximum length ot the summary.
+SEO is usually best limited to 155 characters, which is what Google will preview for you when you search.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Define the API request body</span>
+</span></span><span style="display:flex;"><span>body <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  inputs <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&#34;</span>,
+</span></span><span style="display:flex;"><span>  max_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">155</span>, 
+</span></span><span style="display:flex;"><span>  min_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">140</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Creating the request again is also really similar to what we&rsquo;ve seen for the Zenodo post.
+We start defining the main URL of the API, then that we want to send it to a model, which I chose as <a href="https://huggingface.co/facebook/bart-large-cnn">facebook/bart-large-cnn</a>, which is well-known and used text-summariser.
+We make sure we use the &ldquo;POST&rdquo; method, and that we send the data as json, which is what the API expects.
+You likely <em>always</em> want <code>auto_unbox = TRUE</code> in this, as it makes sure the data is more likely to be formatted correctly.
+Lastly, we add <code>req_retry</code> because when I was testing this, I periodically hit <code>503 service unavailable</code> back from the API.
+After a little digging, I learned that that could happen where there when there no servers available to run the model.
+This is something you have to learn to live with when you want free tier stuff.
+So, I set up the code to retry 10 times before giving up, just so I can make sure I actually get a response back.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Make the API request using httr2</span>
+</span></span><span style="display:flex;"><span>response <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(<span style="color:#e6db74">&#34;https://api-inference.huggingface.co/&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;models&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;facebook/bart-large-cnn&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_auth_bearer_token</span>(api_key) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_body_json</span>(body, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_retry</span>(max_tries <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>(response)
+</span></span></code></pre></div><pre><code>[[1]]
+[[1]]$summary_text
+[1] &quot;Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. It has survived not only five centuries, but also the leap into electronic typesetting. It was popularised in the 1960s with the release of Letraset sheets. More recently with desktop publishing software like Aldus PageMaker.&quot;
+</code></pre>
+<p>A summary!
+Now, you&rsquo;ll notice its more than 155 characters.
+I can&rsquo;t say that I understand why, but I&rsquo;ve tried several iterations and still get more back than I ask for.
+But it&rsquo;s a summary so I&rsquo;ll take it :P</p>
+<h2 id="preparing-content-for-summarising">Preparing content for summarising</h2>
+<p>As in the <a href="https://drmowinckels.io/blog/2024/fair-blog">last post</a>, we need to figure out which posts needs a summary.
+Now, while I won&rsquo;t set this up to run on Github Actions (I can make sure to write my summaries from now own), I was thinking about making sure the code can be used for several things.
+Like abstracting it a little so I could reuse the code for the Zenodo process too (and maybe other things in the future too).</p>
+<p>First thing is to figure out what posts need a summary.
+It should not be a draft, and not have a summary from before.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Check if post is draft</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params x path to markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return logical true if needs summary, false if not</span>
+</span></span><span style="display:flex;"><span>is_draft <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(x, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  draft <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^draft:&#34;</span>, frontmatter)]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(draft) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;true&#34;</span>, draft))
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">TRUE</span>) 
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Check if post needs summary</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Checks if post does not have a summary</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; and is no longer a draft.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params x path to markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return logical true if needs summary, false if not</span>
+</span></span><span style="display:flex;"><span>needs_summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(x, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if draft</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is_draft</span>(x)){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if already has summary</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">any</span>(<span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^summary:&#34;</span>, frontmatter))){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>With those functions in place, we can make sure we can find the posts that need processing.
+For convenience, and for possible use in other cases, I&rsquo;ll also set up a function to find the posts I&rsquo;m after.
+This one is a fun one though, because one of the arguments we will pass to out function, is the <code>needs_summary</code> function we just made!
+This is much like the <code>apply</code>-family of functions do, or <a href="https://purrr.tidyverse.org/">purrr</a>-functions.</p>
+<p>In this function, we pass the path we want to search for index files in, and the function that will be applied on the found files to check if they are what we are after.
+Using this means I can write any function to check if a file is what we are after for any other condition I am interested in.
+So it&rsquo;s really nice and flexible.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Find all posts without summaries</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Searches the given path for index.md files</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params x path to search in</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params fun function to apply that returns TRUE</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    or FALSE for whether posts should be included.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return vector of paths to files</span>
+</span></span><span style="display:flex;"><span>find_posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, fun){
+</span></span><span style="display:flex;"><span>  posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(x, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;^index.md&#34;</span>, 
+</span></span><span style="display:flex;"><span>    recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>    full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Only return wanted posts</span>
+</span></span><span style="display:flex;"><span>  posts<span style="color:#a6e22e">[sapply</span>(posts, fun)]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">find_posts</span>(
+</span></span><span style="display:flex;"><span>  here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;content/blog/&#34;</span>),
+</span></span><span style="display:flex;"><span>  needs_summary
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>posts
+</span></span></code></pre></div><pre><code>character(0)
+</code></pre>
+<p>Now that we have found all the files that need a summary, we need to prepare the content for generating that summary.
+I found that the yaml frontmatter usually made some pretty weird summaries, so I made a function that would return the content of the file without the yaml, just with the remaning post content.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Read the contents of file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Turns the content of a text file into a single</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; character object.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params path path to file to read in</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return single character object with markdown content.</span>
+</span></span><span style="display:flex;"><span>get_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(path){
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(path, warn <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>  end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^---&#34;</span>, x)[2]
+</span></span><span style="display:flex;"><span>  title <span style="color:#f92672">&lt;-</span> rmarkdown<span style="color:#f92672">::</span><span style="color:#a6e22e">yaml_front_matter</span>(path)<span style="color:#f92672">$</span>title
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">paste0</span>(title, x[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(x)], collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="writing-summary-to-file">Writing summary to file</h2>
+<p>Once we have the summary, we&rsquo;ll want to write them to the markdown file&rsquo;s frontmatter.
+To do that, we need another convenience function to help us get it in the right spot.
+I&rsquo;ll again make it more general, so that if I want I can use it for more in the future.
+This little function will place any key: value information at the bottom of the frontmatter of a markdown file, and write it back to the path it came from.
+I&rsquo;m pretty content with this little snippet.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Add key value pair to yaml frontmatter</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Adds a key-value pair to the frontmatter</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; of a markdown file. Both reads and writes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; from the path specified.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params path path to markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params key parameter name</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params value value of the parameter</span>
+</span></span><span style="display:flex;"><span>add_frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(path, key, value){
+</span></span><span style="display:flex;"><span>  post <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(path)
+</span></span><span style="display:flex;"><span>  end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^---&#34;</span>, post)[2]
+</span></span><span style="display:flex;"><span>  new_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    post[1<span style="color:#f92672">:</span>(end_yaml<span style="color:#ae81ff">-1</span>)],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;%s: %s&#34;</span>, key, value),
+</span></span><span style="display:flex;"><span>    post[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post)]
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">writeLines</span>(new_content, path)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And then we of course need the actual function to do it all!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to get a summary from Hugging Face</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Reads in a markdown file and passes the content to </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; the set model on Hugging Face to get a summary of </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; the text</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params paths path to a markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params model model on Hugging Face to summarise</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   a text</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return Summary text</span>
+</span></span><span style="display:flex;"><span>add_summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(paths, model) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">missing</span>(model))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;You need to specify a model to summarise the text.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">missing</span>(paths))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;You need to specify markdown file to summarise.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Make sure path is expanded and readable</span>
+</span></span><span style="display:flex;"><span>  paths <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">normalizePath</span>(paths)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get API key</span>
+</span></span><span style="display:flex;"><span>  api_key <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;HUGGING_KEY&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  contents <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(paths, get_content)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#contents &lt;- paste(&#34;make an SEO summary of the following text:&#34;, contents)</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Define the API request body</span>
+</span></span><span style="display:flex;"><span>  body <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    inputs     <span style="color:#f92672">=</span> contents,
+</span></span><span style="display:flex;"><span>    max_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">130</span>, 
+</span></span><span style="display:flex;"><span>    min_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  cache <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tempdir</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">print</span>(cache)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Make the API request using httr2</span>
+</span></span><span style="display:flex;"><span>  response <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(<span style="color:#e6db74">&#34;https://api-inference.huggingface.co/&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;models&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(model) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_auth_bearer_token</span>(api_key) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_body_json</span>(body, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_retry</span>(max_tries <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_cache</span>(cache, max_age <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Parse the response</span>
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>(response) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">unlist</span>()
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;&lt;n&gt;&#34;</span>, <span style="color:#e6db74">&#34; &#34;</span>, result)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(result) <span style="color:#f92672">&lt;-</span> paths
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mapply</span>(add_frontmatter,
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> paths,
+</span></span><span style="display:flex;"><span>    value <span style="color:#f92672">=</span> result,
+</span></span><span style="display:flex;"><span>    MoreArgs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;summary&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(result)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>What is neat here is that the model accepts several inputs at once, meaning I don&rsquo;t have to call the API a bunch of times.
+Just a single time with all the posts I want summarised.
+The function takes two arguments, the paths to the posts, and which model I want to use.
+I added this last bit because there are <a href="https://huggingface.co/models?pipeline_tag=summarization">quite some summarising models</a> to choose from and they don&rsquo;t give equal results (duh!).</p>
+<p>I started out trying with the facebook model, but it had a cap on the number of characters that was just too little for my use.
+So I played around until I found a model that seemed to do the jobs nicely.</p>
+<h2 id="the-entire-process">The entire process</h2>
+<p>So, now I will have summaries for all my posts!
+They might not be the absolute best (nothing made with AI ever is), but at least there are summaries there.
+I just need to remember to always write my own post summaries from now on,
+which should be easy enough :P
+And I also need to figure out how to update all those Zenodo descriptions, with these new summaries.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Check if post is draft</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params x path to markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return logical true if needs summary, false if not</span>
+</span></span><span style="display:flex;"><span>is_draft <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(x, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  draft <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^draft:&#34;</span>, frontmatter)]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(draft) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;true&#34;</span>, draft))
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">TRUE</span>) 
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Check if post needs summary</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Checks if post does not have a summary</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; and is no longer a draft.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params x path to markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return logical true if needs summary, false if not</span>
+</span></span><span style="display:flex;"><span>needs_summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(x, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if draft</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is_draft</span>(x)){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if already has summary</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">any</span>(<span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^summary:&#34;</span>, frontmatter))){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Find all posts without summaries</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Searches the given path for index.md files</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params x path to search in</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params fun function to apply that returns TRUE</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    or FALSE for whether posts should be included.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return vector of paths to files</span>
+</span></span><span style="display:flex;"><span>find_posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, fun){
+</span></span><span style="display:flex;"><span>  posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(x, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;^index.md&#34;</span>, 
+</span></span><span style="display:flex;"><span>    recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>    full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Only return wanted posts</span>
+</span></span><span style="display:flex;"><span>  posts<span style="color:#a6e22e">[sapply</span>(posts, fun)]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Read the contents of file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Turns the content of a text file into a single</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; character object.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params path path to file to read in</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return single character object with markdown content.</span>
+</span></span><span style="display:flex;"><span>get_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(path){
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(path, warn <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>  end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^---&#34;</span>, x)[2]
+</span></span><span style="display:flex;"><span>  title <span style="color:#f92672">&lt;-</span> rmarkdown<span style="color:#f92672">::</span><span style="color:#a6e22e">yaml_front_matter</span>(path)<span style="color:#f92672">$</span>title
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">paste0</span>(title, x[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(x)], collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Add key value pair to yaml frontmatter</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Adds a key-value pair to the frontmatter</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; of a markdown file. Both reads and writes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; from the path specified.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params path path to markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params key parameter name</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params value value of the parameter</span>
+</span></span><span style="display:flex;"><span>add_frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(path, key, value){
+</span></span><span style="display:flex;"><span>  post <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(path)
+</span></span><span style="display:flex;"><span>  end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^---&#34;</span>, post)[2]
+</span></span><span style="display:flex;"><span>  new_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    post[1<span style="color:#f92672">:</span>(end_yaml<span style="color:#ae81ff">-1</span>)],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;%s: %s&#34;</span>, key, value),
+</span></span><span style="display:flex;"><span>    post[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post)]
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">writeLines</span>(new_content, path)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to get a summary from Hugging Face</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Reads in a markdown file and passes the content to </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; the set model on Hugging Face to get a summary of </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; the text</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params paths path to a markdown file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params model model on Hugging Face to summarise</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   a text</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return Summary text</span>
+</span></span><span style="display:flex;"><span>add_summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(paths, model) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">missing</span>(model))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;You need to specify a model to summarise the text.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">missing</span>(paths))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;You need to specify markdown file to summarise.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Make sure path is expanded and readable</span>
+</span></span><span style="display:flex;"><span>  paths <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">normalizePath</span>(paths)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get API key</span>
+</span></span><span style="display:flex;"><span>  api_key <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;HUGGING_KEY&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  contents <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(paths, get_content)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#contents &lt;- paste(&#34;make an SEO summary of the following text:&#34;, contents)</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Define the API request body</span>
+</span></span><span style="display:flex;"><span>  body <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    inputs     <span style="color:#f92672">=</span> contents,
+</span></span><span style="display:flex;"><span>    max_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">130</span>, 
+</span></span><span style="display:flex;"><span>    min_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  cache <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tempdir</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">print</span>(cache)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Make the API request using httr2</span>
+</span></span><span style="display:flex;"><span>  response <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(<span style="color:#e6db74">&#34;https://api-inference.huggingface.co/&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;models&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(model) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_auth_bearer_token</span>(api_key) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_body_json</span>(body, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_retry</span>(max_tries <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_cache</span>(cache, max_age <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Parse the response</span>
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>(response) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">unlist</span>()
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;&lt;n&gt;&#34;</span>, <span style="color:#e6db74">&#34; &#34;</span>, result)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(result) <span style="color:#f92672">&lt;-</span> paths
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mapply</span>(add_frontmatter,
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> paths,
+</span></span><span style="display:flex;"><span>    value <span style="color:#f92672">=</span> result,
+</span></span><span style="display:flex;"><span>    MoreArgs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;summary&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(result)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">find_posts</span>(
+</span></span><span style="display:flex;"><span>  here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;content/blog/&#34;</span>),
+</span></span><span style="display:flex;"><span>  needs_summary
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#summaries &lt;- lapply(posts, get_seo_summary, model = &#34;Falconsai/text_summarization&#34;)</span>
+</span></span><span style="display:flex;"><span>summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">add_summary</span>(posts, model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sshleifer/distilbart-cnn-12-6&#34;</span>)
+</span></span><span style="display:flex;"><span>summary
+</span></span></code></pre></div>
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Oct 7, 2024) 
+                    Creating post summary with AI from Hugging Face. 
+                    Retrieved from https://drmowinckels.io/blog/2024/ai-blog-summary/.
+                     DOI: https://www.doi.org/10.5281/zenodo.13897972
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-creating-post-summary-with-ai-from-hugging-face,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Creating post summary with AI from Hugging Face",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2024/ai-blog-summary/",<br>
+                        &emsp;year = 2024,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.13897972",<br> 
+                        &emsp;updated = "Oct 7, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-grid uk-child-width-expand@s uk-margin-top" uk-grid>
+    <div class="uk-width-expand">
+        
+            <a class="uk-button uk-button-default" href="https://drmowinckels.io/blog/2024/fair-blog/">
+                <span class="uk-margin-small-left" uk-icon="chevron-double-left"></span>
+                Making your blog FAIR
+            </a>
+        
+    </div>
+    
+    <div class="uk-width-auto">
+        
+    </div>
+</div>
+
+    
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

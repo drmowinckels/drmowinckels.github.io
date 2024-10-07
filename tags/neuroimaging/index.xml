@@ -25,8 +25,7 @@ data in R for Freesurfer LMMs.</description>
       <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2021/new-ggseg-with-geom/</guid>
-      <description>A couple of months ago, we released a new version of our ggseg R-package for visualisations of brain atlases. I had been wanting to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult. Likely because I was trying to do too many things, but, hey&amp;hellip; that&amp;rsquo;s me!
-One of the main things I wanted to get rid of, was this need to first group your data before sending it to ggplot if you want to facet.</description>
+      <description>A new version of ggseg R-package for visualisations of brain atlases was released a couple of months ago . I wanted to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult . New {ggseg} with Geom! The position is what I&amp;rsquo;m truly happy about!</description>
     </item>
     
     <item>
@@ -35,7 +34,7 @@ One of the main things I wanted to get rid of, was this need to first group your
       <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/</guid>
-      <description>When you work with neuroimaging data like I do, you often find your self swapping back and forth between R and the imaging software of your choise. For me, that is usually FSL or Freesurfer. Since the resolution of the brain we have is quite large and 3 dimensional, we often reduce the data to segments that meaningfully go together. For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.</description>
+      <description>Using Freesurfer, the Desikan Killany coortical atlas (aparc) is an atlas that consist of 36 segments, which are well-defined &lt;a href=&#34;https://surfer.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;amp;do=get&amp;amp;target=annot-desikan-m.jpg&#34;&gt;Automatically Parcellating the Human Cerebral Cortex&lt;/a&gt; Using Freisurfer annotation files to plot in R is our package where you can render the proper 3d version using ggplot2 .</description>
     </item>
     
     <item>
@@ -44,8 +43,7 @@ One of the main things I wanted to get rid of, was this need to first group your
       <pubDate>Fri, 06 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2019/ggseg3d-creating-interactive-brain-segmentation-plots-with-plotly/</guid>
-      <description>Looking through my blogposts, I realised I&amp;rsquo;ve never written about my colleague Didac and my package for 3d mesh plots of brain atlases using plotly. I&amp;rsquo;ve already showed some functionality from out {ggseg}-package, in the introductory blogpost and follow-up on animating it.
-I guess it&amp;rsquo;s extra timely to do it now, as we recently split the mesh-plot function off the main {ggseg}-package and into it&amp;rsquo;s own package, and also did some re-writing of core-functionality of the package.</description>
+      <description>ggseg3d is a package for 3d mesh plots of brain atlases using plotly . It is made to plot brain atlas data . It should be fairly easy to use or atlele to make the first plot . It can be installed from our works GitHub account using remotes .</description>
     </item>
     
     <item>
@@ -54,8 +52,7 @@ I guess it&amp;rsquo;s extra timely to do it now, as we recently split the mesh-
       <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2018/get-the-brain-animated/</guid>
-      <description>I&amp;rsquo;m super delighted that our ggseg package was so well received! We almost immediately got it on Neuroconductor, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.
-In all of this, I learned so much about creating packages, and ended up making quite a major alteration to the base-functions of the package.</description>
+      <description>The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .</description>
     </item>
     
     <item>
@@ -64,8 +61,7 @@ In all of this, I learned so much about creating packages, and ended up making q
       <pubDate>Thu, 30 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/</guid>
-      <description>Edit: Though posted only a week ago, we have discovered another R package called ggBrain which has slightly different functions than what our package has. Because of this, we have altered the name of our package to ggseg short for ggsegmentation which is a better description of what our package does.
-I&amp;rsquo;ve not written a post in a while. Mostly because of summer vacation, and also because I have been a little swamped at work.</description>
+      <description>The ggseg R-package for brain segmentations is intended for those who need to easily plot results or overviews of segmentet data . The package is developed as part of our lab [The Center for Lifespanism and Cognition [LCBC-UiO]</description>
     </item>
     
     <item>
@@ -74,7 +70,7 @@ I&amp;rsquo;ve not written a post in a while. Mostly because of summer vacation,
       <pubDate>Fri, 25 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/</guid>
-      <description>Last post was definately my most succesful (and I have so much experience :P). But it was fun with all the feedback and appreciation. So I&amp;rsquo;ll continue with a little more plotting. Circular plots are becoming more and more popular in for visualising associatetions between different phenomena. I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it, with BRAINS!</description>
+      <description>Circular plots are becoming more and more popular in for visualising associatetions between different phenomena . I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it .</description>
     </item>
     
   </channel>
