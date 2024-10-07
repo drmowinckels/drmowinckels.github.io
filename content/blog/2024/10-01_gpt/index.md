@@ -44,7 +44,7 @@ I signed up, and dived into it!
 ## Using the Hugging Face API
 
 First step was to just manage to connect to the API and get some data back as expected.
-We'll proceede much like we did in the Zenodo post, grabbing the API key for Hugging Face API (that I retrieved from my account), and putting that in the `.Renvion` file for secure and easy access.
+We'll proceede much like we did in the Zenodo post, grabbing the API key for Hugging Face API (that I retrieved from my account), and putting that in the `.Renviron` file for secure and easy access.
 
 ``` r
 # Get API key
