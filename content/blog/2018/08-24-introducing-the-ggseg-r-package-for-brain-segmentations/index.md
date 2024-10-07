@@ -38,7 +38,7 @@ Now, this is the first time we are writing any type of package, or functions lik
 But for now, the functions work well, and we'd like to introduce it to you.
 
 This package is developed as part of our work in our lab [The Center for Lifespan Changes in Brain and Cognition](www.oslobrains.no), and is thus released on our lab-github. 
-It is not a CRAN-package, but if we get some more assistance/experience we will considering releaseing it on CRAN at some point.
+It is not a CRAN-package, but if we get some more assistance/experience we will considering releasing it on CRAN at some point.
 
 So, you can install this using devtools, and we recommend building the vignette also. 
 

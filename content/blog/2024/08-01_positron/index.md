@@ -97,7 +97,7 @@ Truly, it's a much easier IDE for data science out-of-the-box than VScode, in my
 
 ## Making Positron work for you
 
-Firstly, you might want to have a peak at the [documentation](https://github.com/posit-dev/positron/wiki), which has some excellent information on how to get started.
+Firstly, you might want to have a peek at the [documentation](https://github.com/posit-dev/positron/wiki), which has some excellent information on how to get started.
 I'll go through some of the things I've done to make Positron work for me.
 
 ### Extensions
