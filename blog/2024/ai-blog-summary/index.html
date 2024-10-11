@@ -455,13 +455,13 @@ I will give this a go through R and using <a href="https://huggingface.co/">Hugg
 <h2 id="hugging-face-community">Hugging Face Community</h2>
 <p>Hugging Face is a leading company in the field of artificial intelligence and natural language processing (NLP).
 It provides an open-source platform and extensive libraries known as &ldquo;Transformers&rdquo; that enables developers and researchers to utilize pre-trained language models for various applications.
-I heard about Hugging Face for the first time through a Posit blogpost about <a href="https://blogs.rstudio.com/ai/posts/2023-07-12-hugging-face-integrations/">them releaseing Hugging Face integrations</a>.</p>
-<p>I had a peak, and saw that Hugging Face has a nice API, that seemed quite simple to deal with.
+I heard about Hugging Face for the first time through a Posit blogpost about <a href="https://blogs.rstudio.com/ai/posts/2023-07-12-hugging-face-integrations/">them releasing Hugging Face integrations</a>.</p>
+<p>I had a peek, and saw that Hugging Face has a nice API, that seemed quite simple to deal with.
 It also is free, at least for my needs (just summarising a post once in a while).
 I signed up, and dived into it!</p>
 <h2 id="using-the-hugging-face-api">Using the Hugging Face API</h2>
 <p>First step was to just manage to connect to the API and get some data back as expected.
-We&rsquo;ll proceede much like we did in the Zenodo post, grabbing the API key for Hugging Face API (that I retrieved from my account), and putting that in the <code>.Renvion</code> file for secure and easy access.</p>
+We&rsquo;ll proceede much like we did in the Zenodo post, grabbing the API key for Hugging Face API (that I retrieved from my account), and putting that in the <code>.Renviron</code> file for secure and easy access.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Get API key</span>
 </span></span><span style="display:flex;"><span>api_key <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;HUGGING_KEY&#34;</span>)
 </span></span></code></pre></div><p>Then we need to define what to send to the model to process.
@@ -502,7 +502,7 @@ I can&rsquo;t say that I understand why, but I&rsquo;ve tried several iterations
 But it&rsquo;s a summary so I&rsquo;ll take it :P</p>
 <h2 id="preparing-content-for-summarising">Preparing content for summarising</h2>
 <p>As in the <a href="https://drmowinckels.io/blog/2024/fair-blog">last post</a>, we need to figure out which posts needs a summary.
-Now, while I won&rsquo;t set this up to run on Github Actions (I can make sure to write my summaries from now own), I was thinking about making sure the code can be used for several things.
+Now, while I won&rsquo;t set this up to run on Github Actions (I can make sure to write my summaries from now on), I was thinking about making sure the code can be used for several things.
 Like abstracting it a little so I could reuse the code for the Zenodo process too (and maybe other things in the future too).</p>
 <p>First thing is to figure out what posts need a summary.
 It should not be a draft, and not have a summary from before.</p>
@@ -882,7 +882,7 @@ And I also need to figure out how to update all those Zenodo descriptions, with 
                         &emsp;url = "https://drmowinckels.io/blog/2024/ai-blog-summary/",<br>
                         &emsp;year = 2024,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13897972",<br> 
-                        &emsp;updated = "Oct 11, 2024"<br>
+                        &emsp;updated = "Oct 7, 2024"<br>
                     }
                 </div>
             </div>
