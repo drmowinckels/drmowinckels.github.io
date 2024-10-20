@@ -1,0 +1,209 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+format: hugo-md
+title: Reading in multiple files without loops
+author: Dr. Mowinckel
+date: '2024-11-01'
+categories: 
+  - apply-series
+tags:
+  - r
+slug: lapply-files
+image: index.markdown_strict_files/figure-markdown_strict/featured-1.png 
+summary: |
+  
+---
+
+I've written about how to use [apply-functions](/blog/2022/11-07-lets-get-applying) before, and did promise to expand on this topic.
+Next on the list is how to use apply to read in multiple files without needing to loop to iterate over the files.
+
+Let me tell you, looking at my old scripts from my PhD I did this in a very very cumbersome way.
+To start exploring my journey of reading in files, we'll need some data files to work with. 
+
+I'm not gonna explain the code too much, I hope the comments and naming will be fairly straight forward.
+The data is of an imaginary experiment on participants, where we have one data set (file) per participant.
+The participants are shown on a computer screen a coloured shape, where they have already learned to associate a positive number with the shape, and a negative number with the colour.
+Seeing the coloured shape, they are asked to accumulate as many points as possible by rejecting net negative objects and accept net positive objects.
+They are asked to be as quick as possible, as we also log in milliseconds how long they take to respond.
+
+```{r}
+#| execute: false
+
+#' Function to generate random data
+#' @params n_rows how many rows the data should have
+generate_data <- function(n_rows) {
+  shapes <- c("square", "triangle", "circle", "rhombus", "diamond", "squiggle")
+  shapes <- factor(1:length(shapes), labels = shapes)
+  colours <- c("red", "blue", "green", "yellow", "purple", "orange")
+  colours <- factor(1:length(colours), labels = colours)
+
+  data <- data.frame(
+    # Random age between 18 and 80
+    age    = sample(18:80, 1), 
+    trial  = 1:n_rows,
+    shape  = sample(shapes, n_rows, replace = TRUE),
+    colour = sample(colours, n_rows, replace = TRUE)
+  )
+
+  data$shape_value  <- as.numeric(data$shape)
+  data$colour_value <- as.numeric(data$colour) * -1
+  data$value  <- data$shape_value + data$colour_value
+  data$choice <- ifelse(0 < rnorm(data$value, mean = 1, sd = 2), "accept", "reject")
+
+  data$accuracy <- dplyr::case_when(
+    data$value == 0 ~ 1,
+    data$value > 0 & data$choice == "accept" ~ 1,
+    data$value < 0 & data$choice == "reject" ~ 1,
+    TRUE ~ 0
+  )
+  data$rt <- ceiling(rgamma(n_rows, shape = 2, scale = 600) + 300 )
+
+  data
+}
+
+#' Generate files with data
+#' @params i number to append to file name
+generate_files <- function(i){
+  # Generate a random number of rows between 10 and 15
+  num_rows <- sample(75:100, 1)
+  
+  # Generate the data
+  data <- generate_data(num_rows)
+  
+  # Construct the file name
+  file_name <- sprintf(
+    "%s/data_%02d.csv", 
+    here::here("content/blog/2024/11-01_lapply_files/data"),
+    i 
+  )
+  
+  # Write the data to a CSV file, silentlyº
+  invisible(write.csv(data, file = file_name, row.names = FALSE))
+}
+
+# Set the number of files
+num_files <- 5
+
+# iterate through sequence of file numbers to generate the files
+sapply(1:num_files, generate_files)
+
+```
+
+Ok, now we have some files to work with!
+And notice how I used an `apply` variant to generate the files?
+Just to recap, that an `sapply` will iterate through the vector given as the first argument (`1:num_files`), and pass those values to the first argument of the given function (`generate_files`).
+
+```{r}
+files <- list.files(here::here("content/blog/2024/11-01_lapply_files/data"), full.names = TRUE)
+files
+```
+
+## The loopy version
+
+So during my PhD, which was early in my R learning, I would loop through to read in the files and append them together.
+Let us start with noticing that in this specific example, the files are organised in the same way.
+While containing different number of rows, the columns are named the same and contain the same type of data.
+This makes them easy to combine so we can analyse it all together.
+
+So how do we do that?
+We want to combine the data **row-wise**, meaning we get a really **tall** dataset.
+
+The way I used to do it with loops, would be something like this:
+
+```{r}
+# initiate data with only headers
+data <- read.csv(files[[1]], nrows=1)
+data <- data[0, ]
+for(file in files){
+  # Read in the file
+  tmp <- read.csv(file)
+  # Add file name as src column
+  tmp$src <- basename(file)
+  # Bind rows together
+  data <- rbind(data, tmp)
+}
+
+# Check thow the data look
+str(data)
+```
+
+See how our data is 443 rows and 11 columns?
+This means all the data is appended together, exactly what I was wanting.
+
+## The apply version
+
+Let's explore how we can do this with apply!
+
+```{r}
+data <- lapply(files, read.csv)
+
+# Inspect what the data object contains
+str(data)
+```
+
+Ok.
+So this is very different.
+All the data is now in a _list_, where each data set is an element in the list.
+So we have a _list_ with 5 data.frames in them.
+Cool, but how do we combine them?
+Keeping to base R, we are going to use a function called `do.call`. 
+Now, I really struggle to explain `do.call` because it can do several things depending on what function you profide and what the list you give it is.
+In all honestly, the only scenario I can use the function is this exact one.
+How it works in my head is that it takes all the elements in the list you provide and applies the function you provide it to them all.
+
+```{r}
+data <- do.call(rbind, data)
+str(data)
+```
+
+The only thing we are missing now, is the src column!
+We'll need to do some adaptations to make that work.
+
+```{r}
+data <- lapply(files, function(x){
+  tmp <- read.csv(x)
+  tmp$src <- basename(x)
+  tmp
+})
+data <- do.call(rbind, data)
+str(data)
+```
+
+Here we did some magick straight in the `lapply`.
+Because I wasn't expecting to use the reading function that adds the source file in any other instance, so I defined it straight in the `lapply`. 
+
+I think this code is so much more consise and clear than the for loop.
+I also found that it iterates faster through a large number of files.
+
+## The really pretty version
+
+While this post is all about the `lapply`, I would be amiss if I didn't mention the most elegant solution of all.
+I've mentioned lots of times that I work in an environment where sticking to base R can make life and reproducibility much easier.
+But, when I can, I use the tidyverse version, which is just soo good.
+
+```{r}
+library(readr)
+library(dplyr)
+data <- read_csv(files, id = "src") |>
+  mutate(src = basename(src))
+str(data)
+```
+
+Look at that! 
+So clean, so fast!
+It really is the absolutely best version in my opinion.
+But the `lapply` variation I find to be just as satisfying when I need it. 
+
+Do you have any particular hacks for reading in this type of data?
+
+```{r}
+#| label: featured
+library(ggplot2)
+data |>
+  ggplot() +
+  geom_density(aes(x = rt, group = src, colour = src)) +
+  scale_colour_viridis_d() + 
+  theme_minimal()
+```
