@@ -12,6 +12,8 @@ slug: "teaching-unlocks"
 summary:  Teaching can be extremely rewarding, and teaching can be rewarding . Teaching you - teaching me is the beauty of teaching . I love teaching coding and programming, and helping scientists unlock a new way of working . My university hosts an annual event called [Digital Scholarship Days] This year, I taught two workshops at the Universtity of Oslo .
 ---
 
+*This post was featured on the [R Weekly highlights podcast](https://share.fireside.fm/episode/87RSVeFz+Wtk1siKa) hosted by Eric Nantz and Mike Thomas.*
+
 Teaching can be extremely rewarding.
 I love teaching coding and programming, and helping scientists unlock a new way of working.
 But while most learners go into [my workshops](/tags/workshop/) think they will be completely on the receiving end, 

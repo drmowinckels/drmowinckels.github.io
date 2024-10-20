@@ -34,16 +34,16 @@ I will give this a go through R and using [Hugging Face](https://huggingface.co/
 
 Hugging Face is a leading company in the field of artificial intelligence and natural language processing (NLP). 
 It provides an open-source platform and extensive libraries known as "Transformers" that enables developers and researchers to utilize pre-trained language models for various applications. 
-I heard about Hugging Face for the first time through a Posit blogpost about [them releaseing Hugging Face integrations](https://blogs.rstudio.com/ai/posts/2023-07-12-hugging-face-integrations/).
+I heard about Hugging Face for the first time through a Posit blogpost about [them releasing Hugging Face integrations](https://blogs.rstudio.com/ai/posts/2023-07-12-hugging-face-integrations/).
 
-I had a peak, and saw that Hugging Face has a nice API, that seemed quite simple to deal with. 
+I had a peek, and saw that Hugging Face has a nice API, that seemed quite simple to deal with. 
 It also is free, at least for my needs (just summarising a post once in a while).
 I signed up, and dived into it!
 
 ## Using the Hugging Face API
 
 First step was to just manage to connect to the API and get some data back as expected.
-We'll proceede much like we did in the Zenodo post, grabbing the API key for Hugging Face API (that I retrieved from my account), and putting that in the `.Renvion` file for secure and easy access.
+We'll proceede much like we did in the Zenodo post, grabbing the API key for Hugging Face API (that I retrieved from my account), and putting that in the `.Renviron` file for secure and easy access.
 
 ```{r}
 # Get API key
@@ -94,7 +94,7 @@ But it's a summary so I'll take it :P
 ## Preparing content for summarising
 
 As in the [last post](/blog/2024/fair-blog), we need to figure out which posts needs a summary.
-Now, while I won't set this up to run on Github Actions (I can make sure to write my summaries from now own), I was thinking about making sure the code can be used for several things.
+Now, while I won't set this up to run on Github Actions (I can make sure to write my summaries from now on), I was thinking about making sure the code can be used for several things.
 Like abstracting it a little so I could reuse the code for the Zenodo process too (and maybe other things in the future too). 
 
 First thing is to figure out what posts need a summary.
