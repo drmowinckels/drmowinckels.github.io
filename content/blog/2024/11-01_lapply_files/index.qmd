@@ -28,37 +28,65 @@ The participants are shown on a computer screen a coloured shape, where they hav
 Seeing the coloured shape, they are asked to accumulate as many points as possible by rejecting net negative objects and accept net positive objects.
 They are asked to be as quick as possible, as we also log in milliseconds how long they take to respond.
 
+First, I'm creating a function that will generate stimuli values as named vectors.
+This is a nice way to store the stimuli information.
+
 ```{r}
-#| execute: false
+#' Function to generate stimuli
+#' @param stimuli string vector
+#' @param sign either 1 or -1, depending if the associated 
+#'    values should be positive or negative
+#' @return named vector of values
+generate_stimuli <- function(stimuli, sign = 1){
+  setNames(1:length(stimuli), stimuli) * sign
+}
+
+generate_stimuli(c("triangle", "diamond", "circle", "square"))
+generate_stimuli(c("red", "blue", "green", "orange"), -1)
+```
+
+
+Then I'm going to generate the mock response files. 
+
+```{r}
+#| eval: false
 
 #' Function to generate random data
 #' @params n_rows how many rows the data should have
 generate_data <- function(n_rows) {
-  shapes <- c("square", "triangle", "circle", "rhombus", "diamond", "squiggle")
-  shapes <- factor(1:length(shapes), labels = shapes)
-  colours <- c("red", "blue", "green", "yellow", "purple", "orange")
-  colours <- factor(1:length(colours), labels = colours)
-
-  data <- data.frame(
-    # Random age between 18 and 80
-    age    = sample(18:80, 1), 
-    trial  = 1:n_rows,
-    shape  = sample(shapes, n_rows, replace = TRUE),
-    colour = sample(colours, n_rows, replace = TRUE)
+  shapes <- generate_stimuli(
+    c("square", "triangle", "circle", "rhombus", "diamond", "squiggle")
+  )
+  colours <- generate_stimuli(
+    c("red", "blue", "green", "yellow", "purple", "orange"),
+    -1
   )
 
-  data$shape_value  <- as.numeric(data$shape)
-  data$colour_value <- as.numeric(data$colour) * -1
-  data$value  <- data$shape_value + data$colour_value
-  data$choice <- ifelse(0 < rnorm(data$value, mean = 1, sd = 2), "accept", "reject")
+  # Initiate data
+  data <- data.frame(
+    trial  = 1:n_rows,
+    shape  = sample(names(shapes), n_rows, replace = TRUE),
+    colour = sample(names(colours), n_rows, replace = TRUE)
+  )
 
+  # Get corresponding value of the stimuli
+  data$shape_value  <- shapes[match(data$shape, names(shapes))]
+  data$colour_value <- colours[match(data$colour, names(colours))]
+
+  # Get total value of stimuli
+  data$value  <- data$shape_value + data$colour_value
+
+  # Generate mock response
+  data$choice <- ifelse(0 < rnorm(data$value, mean = 1, sd = 2), "accept", "reject")
+  data$rt <- ceiling(rgamma(n_rows, shape = 2, scale = 600) + 300 )
+
+  # Calculate accuracy based on value and coice
   data$accuracy <- dplyr::case_when(
     data$value == 0 ~ 1,
     data$value > 0 & data$choice == "accept" ~ 1,
     data$value < 0 & data$choice == "reject" ~ 1,
     TRUE ~ 0
   )
-  data$rt <- ceiling(rgamma(n_rows, shape = 2, scale = 600) + 300 )
 
   data
 }
@@ -66,7 +94,7 @@ generate_data <- function(n_rows) {
 #' Generate files with data
 #' @params i number to append to file name
 generate_files <- function(i){
-  # Generate a random number of rows between 10 and 15
+  # Generate a random number of rows between 75 and 100
   num_rows <- sample(75:100, 1)
   
   # Generate the data
@@ -79,15 +107,12 @@ generate_files <- function(i){
     i 
   )
   
-  # Write the data to a CSV file, silentlyº
+  # Write the data to a CSV file, silently
   invisible(write.csv(data, file = file_name, row.names = FALSE))
 }
 
-# Set the number of files
-num_files <- 5
-
 # iterate through sequence of file numbers to generate the files
-sapply(1:num_files, generate_files)
+sapply(1:5, generate_files)
 
 ```
 
@@ -99,6 +124,11 @@ Just to recap, that an `sapply` will iterate through the vector given as the fir
 files <- list.files(here::here("content/blog/2024/11-01_lapply_files/data"), full.names = TRUE)
 files
 ```
+
+Now, I'm also gonna input here that I am using base R's function to explore files I am looking for. 
+If you want a really nice and consistent interface towards the file system, you should really be looking into the [fs](https://fs.r-lib.org/) package.
+It has some dependencies, so if you struggle with that, like me, then it could be tricky, but it's an excellent package.
+I'm not going to go into that here, because frankly, Danielle Navarro has such an [excellent post](https://blog.djnavarro.net/posts/2024-10-06_fs/) on it that it would be completely redundant!
 
 ## The loopy version
 
@@ -116,6 +146,9 @@ The way I used to do it with loops, would be something like this:
 # initiate data with only headers
 data <- read.csv(files[[1]], nrows=1)
 data <- data[0, ]
+data
+
+# Read in all files
 for(file in files){
   # Read in the file
   tmp <- read.csv(file)
@@ -153,6 +186,8 @@ Now, I really struggle to explain `do.call` because it can do several things dep
 In all honestly, the only scenario I can use the function is this exact one.
 How it works in my head is that it takes all the elements in the list you provide and applies the function you provide it to them all.
 
+Out of curiousity, my friend [Maëlle](https://masalmon.eu/) had a [search on GitHub](https://github.com/search?q=+language%3AR+do.call%28&type=code&ref=advsearch) and found that at least on public repos on GitHub, my usecase is quite common.
+
 ```{r}
 data <- do.call(rbind, data)
 str(data)
@@ -163,9 +198,9 @@ We'll need to do some adaptations to make that work.
 
 ```{r}
 data <- lapply(files, function(x){
-  tmp <- read.csv(x)
-  tmp$src <- basename(x)
-  tmp
+  dt <- read.csv(x)
+  dt$src <- basename(x)
+  dt
 })
 data <- do.call(rbind, data)
 str(data)
