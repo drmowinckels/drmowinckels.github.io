@@ -28,6 +28,11 @@ The participants are shown on a computer screen a coloured shape, where they hav
 Seeing the coloured shape, they are asked to accumulate as many points as possible by rejecting net negative objects and accept net positive objects.
 They are asked to be as quick as possible, as we also log in milliseconds how long they take to respond.
 
+<figure>
+<img src="images/experiment.png" alt="Experiment setup" />
+<figcaption aria-hidden="true">Experiment setup</figcaption>
+</figure>
+
 First, I'm creating a function that will generate stimuli values as named vectors.
 This is a nice way to store the stimuli information.
 
@@ -38,6 +43,10 @@ This is a nice way to store the stimuli information.
 #'    values should be positive or negative
 #' @return named vector of values
 generate_stimuli <- function(stimuli, sign = 1){
+  # make sure sign either 1 or 1
+  if(!sign %in% c(1, -1)){
+    stop("argument 'sign' can only be 1 or -1.", call. = FALSE)
+  }
   setNames(1:length(stimuli), stimuli) * sign
 }
 
@@ -48,7 +57,7 @@ generate_stimuli(c("triangle", "diamond", "circle", "square"))
            1        2        3        4 
 
 ``` r
-generate_stimuli(c("red", "blue", "green", "orange"), -1)
+generate_stimuli(c("red", "blue", "green", "orange"), sign = -1)
 ```
 
        red   blue  green orange 
@@ -61,11 +70,12 @@ Then I'm going to generate the mock response files.
 #' @params n_rows how many rows the data should have
 generate_data <- function(n_rows) {
   shapes <- generate_stimuli(
-    c("square", "triangle", "circle", "rhombus", "diamond", "squiggle")
+    c("square", "triangle", "circle", "rhombus", "diamond", "squiggle"),
+    sign = 1
   )
   colours <- generate_stimuli(
     c("red", "blue", "green", "yellow", "purple", "orange"),
-    -1
+    sign = -1
   )
 
   # Initiate data
@@ -86,7 +96,7 @@ generate_data <- function(n_rows) {
   data$choice <- ifelse(0 < rnorm(data$value, mean = 1, sd = 2), "accept", "reject")
   data$rt <- ceiling(rgamma(n_rows, shape = 2, scale = 600) + 300 )
 
-  # Calculate accuracy based on value and coice
+  # Calculate accuracy based on value and choice
   data$accuracy <- dplyr::case_when(
     data$value == 0 ~ 1,
     data$value > 0 & data$choice == "accept" ~ 1,
