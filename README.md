@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **65** days, or about **0.46** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-9** days ago ([Creating post summary
+✍️ The last post was published **-16** days ago ([Creating post summary
 with AI from Hugging
 Face](https://drmowinckels.io/blog/ai-blog-summary)).
 
@@ -78,4 +78,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-10-16 01:19:50.93066*
+*Updated 2024-10-23 01:18:29.186139*
