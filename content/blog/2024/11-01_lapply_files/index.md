@@ -10,10 +10,11 @@ categories:
   - apply-series
 tags:
   - r
+  - iterating
 slug: lapply-files
 image: index.markdown_strict_files/figure-markdown_strict/featured-1.png 
 summary: |
-  
+  Reading in multiple files to append them is quite common in muy field. Let's go through a couple ways you can do that in R.
 ---
 
 I've written about how to use [apply-functions](/blog/2022/11-07-lets-get-applying) before, and did promise to expand on this topic.
