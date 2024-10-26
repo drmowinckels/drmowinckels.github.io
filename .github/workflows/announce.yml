@@ -135,7 +135,7 @@ jobs:
               "collection": "app.bsky.feed.post", 
               "record": {
                 "$type": "app.bsky.feed.post",
-                "text": "${{ env.MESSAGE }}", 
+                "text": "'${{ env.MESSAGE }}'", 
                 "createdAt": "'${DATE}'",
                 "embed": {
                   "$type": "app.bsky.embed.images",
