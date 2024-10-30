@@ -125,7 +125,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     outputs:
-      TOOT: ${{ steps.check_date.outputs.TOOT }}
+      ANNOUNCE: ${{ steps.check_date.outputs.ANNOUNCE }}
       POST: ${{ steps.check_post.outputs.POST }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -153,17 +153,17 @@ jobs:
           two_days_ago=$(date -d "-2 days" +%Y%m%d)
           if (( post_date > two_days_ago )); then
             echo "Post date is within the last 2 days"
-            echo "TOOT=true" > $GITHUB_OUTPUT
+            echo "ANNOUNCE=true" > $GITHUB_OUTPUT
           else
             echo "Post date is older than 2 days"
-            echo "TOOT=false" > $GITHUB_OUTPUT
+            echo "ANNOUNCE=false" > $GITHUB_OUTPUT
           fi
 
   announce:
     name: Announce new blog post
     runs-on: ubuntu-latest
     needs: check-post
-    if: needs.check-post.outputs.TOOT == 'true'
+    if: needs.check-post.outputs.ANNOUNCE == 'true'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       latest_post: ${{ needs.check-post.outputs.POST }}
