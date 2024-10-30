@@ -183,8 +183,8 @@ jobs:
             -d '{ 
                 "public": false,
                 "api_secret": "'${{ secrets.KIT_SECRET }}'",
-                "description": "'${summary}'",
+                "description": "'${{ env.SUMMARY }}'",
                 "thumbnail_url": "'${{ env.URL }}/${{ env.IMAGE }}'",
-                "subject": "'${title}'",
+                "subject": "'${{ env.TITLE }}'",
                 "content": "'${escaped_content}'" 
             }'
