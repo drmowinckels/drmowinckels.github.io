@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Reading in multiple files without loops - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Reading in multiple files to append them is quite common in muy field. Let’s go through a couple ways you can do that in R." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0">
+
+
+
+        
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2024/lapply-files/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Reading in multiple files without loops - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Reading in multiple files to append them is quite common in muy field. Let’s go through a couple ways you can do that in R.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2024/lapply-files/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Reading in multiple files to append them is quite common in muy field. Let’s go through a couple ways you can do that in R.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2024/lapply-files/index.markdown_strict_files/figure-markdown_strict/featured-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/lapply-files/index.markdown_strict_files/figure-markdown_strict/featured-1.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.b949f82ef13ab020c09cc9a01a06b5c35de205c6382cde6ed472ebf5efc8e9d2.css" 
+    integrity="sha256-uUn4LvE6sCDAnMmgGga1w13iBcY4LN5u1HLr9e/I6dI=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2024/lapply-files/index.markdown_strict_files/figure-markdown_strict/featured-1.png" alt="Reading in multiple files without loops" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Reading in multiple files without loops</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Nov 1, 2024
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/iterating/" class="uk-label uk-label-secondary tags" >
+                                iterating
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-loopy-version">The loopy version</a></li>
+    <li><a href="#the-apply-version">The apply version</a></li>
+    <li><a href="#the-really-pretty-version">The really pretty version</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">Reading in multiple files to append them is quite common in muy field. Let&rsquo;s go through a couple ways you can do that in R.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I&rsquo;ve written about how to use <a href="https://drmowinckels.io/blog/2022/11-07-lets-get-applying">apply-functions</a> before, and did promise to expand on this topic.
+Next on the list is how to use apply to read in multiple files without needing to loop to iterate over the files.</p>
+<p>Let me tell you, looking at my old scripts from my PhD I did this in a very very cumbersome way.
+To start exploring my journey of reading in files, we&rsquo;ll need some data files to work with.</p>
+<p>I&rsquo;m not gonna explain the code too much, I hope the comments and naming will be fairly straight forward.
+The data is of an imaginary experiment on participants, where we have one data set (file) per participant.
+The participants are shown on a computer screen a coloured shape, where they have already learned to associate a positive number with the shape, and a negative number with the colour.
+Seeing the coloured shape, they are asked to accumulate as many points as possible by rejecting net negative objects and accept net positive objects.
+They are asked to be as quick as possible, as we also log in milliseconds how long they take to respond.</p>
+<figure>
+<img src="images/experiment.png" alt="Experiment setup" />
+<figcaption aria-hidden="true">Experiment setup</figcaption>
+</figure>
+<p>First, I&rsquo;m creating a function that will generate stimuli values as named vectors.
+This is a nice way to store the stimuli information.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to generate stimuli</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param stimuli string vector</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param sign either 1 or -1, depending if the associated </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    values should be positive or negative</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return named vector of values</span>
+</span></span><span style="display:flex;"><span>generate_stimuli <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(stimuli, sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># make sure sign either 1 or 1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span>sign <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">-1</span>)){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;argument &#39;sign&#39; can only be 1 or -1.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setNames</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(stimuli), stimuli) <span style="color:#f92672">*</span> sign
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">generate_stimuli</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;triangle&#34;</span>, <span style="color:#e6db74">&#34;diamond&#34;</span>, <span style="color:#e6db74">&#34;circle&#34;</span>, <span style="color:#e6db74">&#34;square&#34;</span>))
+</span></span></code></pre></div><pre><code>triangle  diamond   circle   square 
+       1        2        3        4 
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">generate_stimuli</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>, <span style="color:#e6db74">&#34;orange&#34;</span>), sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>)
+</span></span></code></pre></div><pre><code>   red   blue  green orange 
+    -1     -2     -3     -4 
+</code></pre>
+<p>Then I&rsquo;m going to generate the mock response files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to generate random data</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params n_rows how many rows the data should have</span>
+</span></span><span style="display:flex;"><span>generate_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(n_rows) {
+</span></span><span style="display:flex;"><span>  shapes <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">generate_stimuli</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;square&#34;</span>, <span style="color:#e6db74">&#34;triangle&#34;</span>, <span style="color:#e6db74">&#34;circle&#34;</span>, <span style="color:#e6db74">&#34;rhombus&#34;</span>, <span style="color:#e6db74">&#34;diamond&#34;</span>, <span style="color:#e6db74">&#34;squiggle&#34;</span>),
+</span></span><span style="display:flex;"><span>    sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  colours <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">generate_stimuli</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>, <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#e6db74">&#34;purple&#34;</span>, <span style="color:#e6db74">&#34;orange&#34;</span>),
+</span></span><span style="display:flex;"><span>    sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Initiate data</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(
+</span></span><span style="display:flex;"><span>    trial  <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n_rows,
+</span></span><span style="display:flex;"><span>    shape  <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">names</span>(shapes), n_rows, replace <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>),
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">names</span>(colours), n_rows, replace <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get corresponding value of the stimuli</span>
+</span></span><span style="display:flex;"><span>  data<span style="color:#f92672">$</span>shape_value  <span style="color:#f92672">&lt;-</span> shapes<span style="color:#a6e22e">[match</span>(data<span style="color:#f92672">$</span>shape, <span style="color:#a6e22e">names</span>(shapes))]
+</span></span><span style="display:flex;"><span>  data<span style="color:#f92672">$</span>colour_value <span style="color:#f92672">&lt;-</span> colours<span style="color:#a6e22e">[match</span>(data<span style="color:#f92672">$</span>colour, <span style="color:#a6e22e">names</span>(colours))]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get total value of stimuli</span>
+</span></span><span style="display:flex;"><span>  data<span style="color:#f92672">$</span>value  <span style="color:#f92672">&lt;-</span> data<span style="color:#f92672">$</span>shape_value <span style="color:#f92672">+</span> data<span style="color:#f92672">$</span>colour_value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Generate mock response</span>
+</span></span><span style="display:flex;"><span>  data<span style="color:#f92672">$</span>choice <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ifelse</span>(<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rnorm</span>(data<span style="color:#f92672">$</span>value, mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>), <span style="color:#e6db74">&#34;accept&#34;</span>, <span style="color:#e6db74">&#34;reject&#34;</span>)
+</span></span><span style="display:flex;"><span>  data<span style="color:#f92672">$</span>rt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ceiling</span>(<span style="color:#a6e22e">rgamma</span>(n_rows, shape <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">600</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">300</span> )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Calculate accuracy based on value and choice</span>
+</span></span><span style="display:flex;"><span>  data<span style="color:#f92672">$</span>accuracy <span style="color:#f92672">&lt;-</span> dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">case_when</span>(
+</span></span><span style="display:flex;"><span>    data<span style="color:#f92672">$</span>value <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">~</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    data<span style="color:#f92672">$</span>value <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;</span> data<span style="color:#f92672">$</span>choice <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;accept&#34;</span> <span style="color:#f92672">~</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    data<span style="color:#f92672">$</span>value <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;</span> data<span style="color:#f92672">$</span>choice <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;reject&#34;</span> <span style="color:#f92672">~</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">TRUE</span> <span style="color:#f92672">~</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  data
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Generate files with data</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params i number to append to file name</span>
+</span></span><span style="display:flex;"><span>generate_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(i){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Generate a random number of rows between 75 and 100</span>
+</span></span><span style="display:flex;"><span>  num_rows <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">75</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Generate the data</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">generate_data</span>(num_rows)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Construct the file name</span>
+</span></span><span style="display:flex;"><span>  file_name <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;%s/data_%02d.csv&#34;</span>, 
+</span></span><span style="display:flex;"><span>    here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;content/blog/2024/11-01_lapply_files/data&#34;</span>),
+</span></span><span style="display:flex;"><span>    i 
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Write the data to a CSV file, silently</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">invisible</span>(<span style="color:#a6e22e">write.csv</span>(data, file <span style="color:#f92672">=</span> file_name, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># iterate through sequence of file numbers to generate the files</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>, generate_files)
+</span></span></code></pre></div><p>Ok, now we have some files to work with!
+And notice how I used an <code>apply</code> variant to generate the files?
+Just to recap, that an <code>sapply</code> will iterate through the vector given as the first argument (<code>1:num_files</code>), and pass those values to the first argument of the given function (<code>generate_files</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;content/blog/2024/11-01_lapply_files/data&#34;</span>), full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>files
+</span></span></code></pre></div><pre><code>[1] &quot;/Users/athanasm/workspace/r-stuff/drmowinckels/content/blog/2024/11-01_lapply_files/data/data_01.csv&quot;
+[2] &quot;/Users/athanasm/workspace/r-stuff/drmowinckels/content/blog/2024/11-01_lapply_files/data/data_02.csv&quot;
+[3] &quot;/Users/athanasm/workspace/r-stuff/drmowinckels/content/blog/2024/11-01_lapply_files/data/data_03.csv&quot;
+[4] &quot;/Users/athanasm/workspace/r-stuff/drmowinckels/content/blog/2024/11-01_lapply_files/data/data_04.csv&quot;
+[5] &quot;/Users/athanasm/workspace/r-stuff/drmowinckels/content/blog/2024/11-01_lapply_files/data/data_05.csv&quot;
+</code></pre>
+<p>Now, I&rsquo;m also gonna input here that I am using base R&rsquo;s function to explore files I am looking for.
+If you want a really nice and consistent interface towards the file system, you should really be looking into the <a href="https://fs.r-lib.org/">fs</a> package.
+It has some dependencies, so if you struggle with that, like me, then it could be tricky, but it&rsquo;s an excellent package.
+I&rsquo;m not going to go into that here, because frankly, Danielle Navarro has such an <a href="https://blog.djnavarro.net/posts/2024-10-06_fs/">excellent post</a> on it that it would be completely redundant!</p>
+<h2 id="the-loopy-version">The loopy version</h2>
+<p>So during my PhD, which was early in my R learning, I would loop through to read in the files and append them together.
+Let us start with noticing that in this specific example, the files are organised in the same way.
+While containing different number of rows, the columns are named the same and contain the same type of data.
+This makes them easy to combine so we can analyse it all together.</p>
+<p>So how do we do that?
+We want to combine the data <strong>row-wise</strong>, meaning we get a really <strong>tall</strong> dataset.</p>
+<p>The way I used to do it with loops, would be something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># initiate data with only headers</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(files[[1]], nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> data[0, ]
+</span></span><span style="display:flex;"><span>data
+</span></span></code></pre></div><pre><code>[1] trial        shape        colour       shape_value  colour_value
+[6] value        choice       rt           accuracy    
+&lt;0 rows&gt; (or 0-length row.names)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Read in all files</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(file in files){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Read in the file</span>
+</span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(file)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Add file name as src column</span>
+</span></span><span style="display:flex;"><span>  tmp<span style="color:#f92672">$</span>src <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">basename</span>(file)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Bind rows together</span>
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rbind</span>(data, tmp)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check thow the data look</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(data)
+</span></span></code></pre></div><pre><code>'data.frame':   418 obs. of  10 variables:
+ $ trial       : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ shape       : chr  &quot;triangle&quot; &quot;squiggle&quot; &quot;triangle&quot; &quot;square&quot; ...
+ $ colour      : chr  &quot;green&quot; &quot;purple&quot; &quot;yellow&quot; &quot;yellow&quot; ...
+ $ shape_value : int  2 6 2 1 1 5 2 1 3 5 ...
+ $ colour_value: int  -3 -5 -4 -4 -6 -4 -5 -1 -5 -6 ...
+ $ value       : int  -1 1 -2 -3 -5 1 -3 0 -2 -1 ...
+ $ choice      : chr  &quot;accept&quot; &quot;reject&quot; &quot;accept&quot; &quot;accept&quot; ...
+ $ rt          : int  1003 631 556 2832 432 757 2126 1240 2240 1842 ...
+ $ accuracy    : int  0 0 0 0 0 1 0 1 1 1 ...
+ $ src         : chr  &quot;data_01.csv&quot; &quot;data_01.csv&quot; &quot;data_01.csv&quot; &quot;data_01.csv&quot; ...
+</code></pre>
+<p>See how our data is 443 rows and 11 columns?
+This means all the data is appended together, exactly what I was wanting.</p>
+<h2 id="the-apply-version">The apply version</h2>
+<p>Let&rsquo;s explore how we can do this with apply!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(files, read.csv)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Inspect what the data object contains</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(data)
+</span></span></code></pre></div><pre><code>List of 5
+ $ :'data.frame':   79 obs. of  9 variables:
+  ..$ trial       : int [1:79] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ shape       : chr [1:79] &quot;triangle&quot; &quot;squiggle&quot; &quot;triangle&quot; &quot;square&quot; ...
+  ..$ colour      : chr [1:79] &quot;green&quot; &quot;purple&quot; &quot;yellow&quot; &quot;yellow&quot; ...
+  ..$ shape_value : int [1:79] 2 6 2 1 1 5 2 1 3 5 ...
+  ..$ colour_value: int [1:79] -3 -5 -4 -4 -6 -4 -5 -1 -5 -6 ...
+  ..$ value       : int [1:79] -1 1 -2 -3 -5 1 -3 0 -2 -1 ...
+  ..$ choice      : chr [1:79] &quot;accept&quot; &quot;reject&quot; &quot;accept&quot; &quot;accept&quot; ...
+  ..$ rt          : int [1:79] 1003 631 556 2832 432 757 2126 1240 2240 1842 ...
+  ..$ accuracy    : int [1:79] 0 0 0 0 0 1 0 1 1 1 ...
+ $ :'data.frame':   81 obs. of  9 variables:
+  ..$ trial       : int [1:81] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ shape       : chr [1:81] &quot;circle&quot; &quot;rhombus&quot; &quot;diamond&quot; &quot;circle&quot; ...
+  ..$ colour      : chr [1:81] &quot;orange&quot; &quot;red&quot; &quot;yellow&quot; &quot;orange&quot; ...
+  ..$ shape_value : int [1:81] 3 4 5 3 3 4 3 4 5 2 ...
+  ..$ colour_value: int [1:81] -6 -1 -4 -6 -6 -2 -2 -3 -4 -2 ...
+  ..$ value       : int [1:81] -3 3 1 -3 -3 2 1 1 1 0 ...
+  ..$ choice      : chr [1:81] &quot;reject&quot; &quot;accept&quot; &quot;accept&quot; &quot;accept&quot; ...
+  ..$ rt          : int [1:81] 1318 1779 1228 1130 2062 2523 1431 661 545 912 ...
+  ..$ accuracy    : int [1:81] 1 1 1 0 0 0 1 0 0 1 ...
+ $ :'data.frame':   91 obs. of  9 variables:
+  ..$ trial       : int [1:91] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ shape       : chr [1:91] &quot;squiggle&quot; &quot;circle&quot; &quot;squiggle&quot; &quot;rhombus&quot; ...
+  ..$ colour      : chr [1:91] &quot;orange&quot; &quot;blue&quot; &quot;green&quot; &quot;red&quot; ...
+  ..$ shape_value : int [1:91] 6 3 6 4 1 6 2 4 2 4 ...
+  ..$ colour_value: int [1:91] -6 -2 -3 -1 -4 -2 -3 -5 -2 -4 ...
+  ..$ value       : int [1:91] 0 1 3 3 -3 4 -1 -1 0 0 ...
+  ..$ choice      : chr [1:91] &quot;accept&quot; &quot;accept&quot; &quot;accept&quot; &quot;accept&quot; ...
+  ..$ rt          : int [1:91] 1764 1006 1826 2715 1979 792 944 1527 1176 3731 ...
+  ..$ accuracy    : int [1:91] 1 1 1 1 0 1 1 0 1 1 ...
+ $ :'data.frame':   80 obs. of  9 variables:
+  ..$ trial       : int [1:80] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ shape       : chr [1:80] &quot;rhombus&quot; &quot;diamond&quot; &quot;rhombus&quot; &quot;diamond&quot; ...
+  ..$ colour      : chr [1:80] &quot;blue&quot; &quot;orange&quot; &quot;purple&quot; &quot;purple&quot; ...
+  ..$ shape_value : int [1:80] 4 5 4 5 6 5 2 6 3 5 ...
+  ..$ colour_value: int [1:80] -2 -6 -5 -5 -5 -1 -5 -4 -1 -4 ...
+  ..$ value       : int [1:80] 2 -1 -1 0 1 4 -3 2 2 1 ...
+  ..$ choice      : chr [1:80] &quot;accept&quot; &quot;accept&quot; &quot;accept&quot; &quot;accept&quot; ...
+  ..$ rt          : int [1:80] 713 726 391 2212 1118 1153 2956 1047 966 1357 ...
+  ..$ accuracy    : int [1:80] 1 0 0 1 0 1 1 1 1 1 ...
+ $ :'data.frame':   87 obs. of  9 variables:
+  ..$ trial       : int [1:87] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ shape       : chr [1:87] &quot;diamond&quot; &quot;squiggle&quot; &quot;triangle&quot; &quot;square&quot; ...
+  ..$ colour      : chr [1:87] &quot;red&quot; &quot;blue&quot; &quot;yellow&quot; &quot;orange&quot; ...
+  ..$ shape_value : int [1:87] 5 6 2 1 6 6 4 5 5 1 ...
+  ..$ colour_value: int [1:87] -1 -2 -4 -6 -2 -4 -3 -6 -1 -3 ...
+  ..$ value       : int [1:87] 4 4 -2 -5 4 2 1 -1 4 -2 ...
+  ..$ choice      : chr [1:87] &quot;accept&quot; &quot;reject&quot; &quot;reject&quot; &quot;accept&quot; ...
+  ..$ rt          : int [1:87] 509 542 516 1909 1434 825 1129 915 1392 1454 ...
+  ..$ accuracy    : int [1:87] 1 0 1 0 1 1 1 0 1 0 ...
+</code></pre>
+<p>Ok.
+So this is very different.
+All the data is now in a <em>list</em>, where each data set is an element in the list.
+So we have a <em>list</em> with 5 data.frames in them.
+Cool, but how do we combine them?
+Keeping to base R, we are going to use a function called <code>do.call</code>.
+Now, I really struggle to explain <code>do.call</code> because it can do several things depending on what function you profide and what the list you give it is.
+In all honestly, the only scenario I can use the function is this exact one.
+How it works in my head is that it takes all the elements in the list you provide and applies the function you provide it to them all.</p>
+<p>Out of curiousity, my friend <a href="https://masalmon.eu/">Maëlle</a> had a <a href="https://github.com/search?q=+language%3AR+do.call%28&amp;type=code&amp;ref=advsearch">search on GitHub</a> and found that at least on public repos on GitHub, my usecase is quite common.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">do.call</span>(rbind, data)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(data)
+</span></span></code></pre></div><pre><code>'data.frame':   418 obs. of  9 variables:
+ $ trial       : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ shape       : chr  &quot;triangle&quot; &quot;squiggle&quot; &quot;triangle&quot; &quot;square&quot; ...
+ $ colour      : chr  &quot;green&quot; &quot;purple&quot; &quot;yellow&quot; &quot;yellow&quot; ...
+ $ shape_value : int  2 6 2 1 1 5 2 1 3 5 ...
+ $ colour_value: int  -3 -5 -4 -4 -6 -4 -5 -1 -5 -6 ...
+ $ value       : int  -1 1 -2 -3 -5 1 -3 0 -2 -1 ...
+ $ choice      : chr  &quot;accept&quot; &quot;reject&quot; &quot;accept&quot; &quot;accept&quot; ...
+ $ rt          : int  1003 631 556 2832 432 757 2126 1240 2240 1842 ...
+ $ accuracy    : int  0 0 0 0 0 1 0 1 1 1 ...
+</code></pre>
+<p>The only thing we are missing now, is the src column!
+We&rsquo;ll need to do some adaptations to make that work.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(files, <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  dt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(x)
+</span></span><span style="display:flex;"><span>  dt<span style="color:#f92672">$</span>src <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">basename</span>(x)
+</span></span><span style="display:flex;"><span>  dt
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">do.call</span>(rbind, data)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(data)
+</span></span></code></pre></div><pre><code>'data.frame':   418 obs. of  10 variables:
+ $ trial       : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ shape       : chr  &quot;triangle&quot; &quot;squiggle&quot; &quot;triangle&quot; &quot;square&quot; ...
+ $ colour      : chr  &quot;green&quot; &quot;purple&quot; &quot;yellow&quot; &quot;yellow&quot; ...
+ $ shape_value : int  2 6 2 1 1 5 2 1 3 5 ...
+ $ colour_value: int  -3 -5 -4 -4 -6 -4 -5 -1 -5 -6 ...
+ $ value       : int  -1 1 -2 -3 -5 1 -3 0 -2 -1 ...
+ $ choice      : chr  &quot;accept&quot; &quot;reject&quot; &quot;accept&quot; &quot;accept&quot; ...
+ $ rt          : int  1003 631 556 2832 432 757 2126 1240 2240 1842 ...
+ $ accuracy    : int  0 0 0 0 0 1 0 1 1 1 ...
+ $ src         : chr  &quot;data_01.csv&quot; &quot;data_01.csv&quot; &quot;data_01.csv&quot; &quot;data_01.csv&quot; ...
+</code></pre>
+<p>Here we did some magick straight in the <code>lapply</code>.
+Because I wasn&rsquo;t expecting to use the reading function that adds the source file in any other instance, so I defined it straight in the <code>lapply</code>.</p>
+<p>I think this code is so much more consise and clear than the for loop.
+I also found that it iterates faster through a large number of files.</p>
+<h2 id="the-really-pretty-version">The really pretty version</h2>
+<p>While this post is all about the <code>lapply</code>, I would be amiss if I didn&rsquo;t mention the most elegant solution of all.
+I&rsquo;ve mentioned lots of times that I work in an environment where sticking to base R can make life and reproducibility much easier.
+But, when I can, I use the tidyverse version, which is just soo good.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(readr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dplyr)
+</span></span></code></pre></div><pre><code>Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read_csv</span>(files, id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;src&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(src <span style="color:#f92672">=</span> <span style="color:#a6e22e">basename</span>(src))
+</span></span></code></pre></div><pre><code>Rows: 418 Columns: 10
+
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (3): shape, colour, choice
+dbl (6): trial, shape_value, colour_value, value, rt, accuracy
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(data)
+</span></span></code></pre></div><pre><code>tibble [418 × 10] (S3: tbl_df/tbl/data.frame)
+ $ src         : chr [1:418] &quot;data_01.csv&quot; &quot;data_01.csv&quot; &quot;data_01.csv&quot; &quot;data_01.csv&quot; ...
+ $ trial       : num [1:418] 1 2 3 4 5 6 7 8 9 10 ...
+ $ shape       : chr [1:418] &quot;triangle&quot; &quot;squiggle&quot; &quot;triangle&quot; &quot;square&quot; ...
+ $ colour      : chr [1:418] &quot;green&quot; &quot;purple&quot; &quot;yellow&quot; &quot;yellow&quot; ...
+ $ shape_value : num [1:418] 2 6 2 1 1 5 2 1 3 5 ...
+ $ colour_value: num [1:418] -3 -5 -4 -4 -6 -4 -5 -1 -5 -6 ...
+ $ value       : num [1:418] -1 1 -2 -3 -5 1 -3 0 -2 -1 ...
+ $ choice      : chr [1:418] &quot;accept&quot; &quot;reject&quot; &quot;accept&quot; &quot;accept&quot; ...
+ $ rt          : num [1:418] 1003 631 556 2832 432 ...
+ $ accuracy    : num [1:418] 0 0 0 0 0 1 0 1 1 1 ...
+</code></pre>
+<p>Look at that!
+So clean, so fast!
+It really is the absolutely best version in my opinion.
+But the <code>lapply</code> variation I find to be just as satisfying when I need it.</p>
+<p>Do you have any particular hacks for reading in this type of data?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_density</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> rt, group <span style="color:#f92672">=</span> src, colour <span style="color:#f92672">=</span> src)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_viridis_d</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_minimal</span>()
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/featured-1.png" width="768" />
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Nov 1, 2024) 
+                    Reading in multiple files without loops. 
+                    Retrieved from https://drmowinckels.io/blog/2024/lapply-files/.
+                     DOI: https://www.doi.org/10.5281/zenodo.14024550
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-reading-in-multiple-files-without-loops,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Reading in multiple files without loops",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2024/lapply-files/",<br>
+                        &emsp;year = 2024,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.14024550",<br> 
+                        &emsp;updated = "Nov 1, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-section">
+        
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid" >
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 07, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Creating post summary with AI from Hugging Face</h2>
+    
+      <p>When you have lots of old blog posts, writing good summaries for SEO can be very tedious. Using AI, we can get summaries for our posts easily. Using httr2 we can access models through the Hugging Face API.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ai-blog-summary/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ai</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 06, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Making your blog FAIR</h2>
+    
+      <p>In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
+This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
+Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/fair-blog/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">fair</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">zenodo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">doi</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Positron IDE - A new IDE for data science</h2>
+    
+      <p>In May I wrote about my favorite IDE&rsquo;s.
+As a result of that post, I was asked to join Posits private beta-testers for their new IDE, Positron.
+Now Positron is out of private beta, so let&rsquo;s see if it can replace my current favorite IDE&rsquo;s.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/positron/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">data-science</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">positron</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">vscode</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jul 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Improving your GitHub Profile</h2>
+    
+      <p>GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
+Your GitHub profile should then showcase who you are, what you know and what you&rsquo;re learning.
+This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I&rsquo;m learning.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/github-profile/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github-actions</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jun 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Customise your R startup message</h2>
+    
+      <p>We all know the R startup message. It tells us the version
+of R we are running, the date, the platform we are running
+on, and some informative tips on using R.
+When you&rsquo;ve been using R a while, though, it gets old.
+Let me show you how you can customise your startup message!</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/rproject/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">startup</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">pride</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+            </ul>
+        
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+        
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>
