@@ -6,7 +6,10 @@ date: '2018-11-09'
 output:
   html_document:
     keep_md: yes
-tags: [R for psychologists,  R]
+categories:
+  - R for psychologists
+tags: 
+  - R
 image: 'index_files/figure-html/featured-1.png'
 slug: "r-just-dive-into-it"
 aliases:
