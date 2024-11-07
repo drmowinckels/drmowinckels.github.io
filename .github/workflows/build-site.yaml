@@ -35,17 +35,16 @@ jobs:
           latest_post=$(find "${BLOG_PATH}" | grep /index.md$ | grep -v "XX-XX" | sort | tail -n1)
           echo "POST=${latest_post}" >> $GITHUB_OUTPUT
 
-          # extract date
-          date=$(grep "^date:" "${latest_post}" | sed 's/^date: //' | sed 's/["'\'']//g')
-          echo "POST_DATE=${date}" >> $GITHUB_OUTPUT
 
       - name: Check post date
         id: check-date
         run: |
-          post_date=$(date -d "${{ steps.check-post.outputs.POST_DATE }}" +%Y%m%d)
-          one_day_ago=$(date -d "-1 days" +%Y%m%d)
+          post_date=$(grep "^date:" "${{ steps.check-post.outputs.POST}}" | sed 's/^date: //' | sed 's/["'\'']//g')
+          echo "POST_DATE=${post_date}" >> $GITHUB_OUTPUT
+
+          one_day_ago=$(date -d "-1 days" +%Y-%m-%d)
           echo "ANNOUNCE=false" >> $GITHUB_OUTPUT
-          if (( post_date > one_day_ago )); then
+          if (( ${post_date} > ${one_day_ago} )); then
             echo "ANNOUNCE=true" >> $GITHUB_OUTPUT
           fi
 
@@ -53,8 +52,8 @@ jobs:
         id: check-doi
         run: |
           # Does the post need a DOI?
-          echo "DOI=true" > $GITHUB_OUTPUT
-          if head -n 10 "${{ steps.check-post.outputs.POST }} " | grep -q "doi:"; then
+          echo "DOI=true" >> $GITHUB_OUTPUT
+          if head -n 10 "${{ steps.check-post.outputs.POST }}" | grep -q "doi:"; then
             echo "DOI=false" >> $GITHUB_OUTPUT
           fi
 
