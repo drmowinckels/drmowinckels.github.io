@@ -35,14 +35,14 @@ jobs:
           latest_post=$(find "${BLOG_PATH}" | grep /index.md$ | grep -v "XX-XX" | sort | tail -n1)
           echo "POST=${latest_post}" >> $GITHUB_OUTPUT
 
-
       - name: Check post date
         id: check-date
         run: |
-          post_date=$(grep "^date:" "${{ steps.check-post.outputs.POST}}" | sed 's/^date: //' | sed 's/["'\'']//g')
+          post_date=$(grep "^date:" "${{ steps.check-post.outputs.POST }}" | sed 's/^date: //' | sed 's/["'\'']//g')
           echo "POST_DATE=${post_date}" >> $GITHUB_OUTPUT
 
           one_day_ago=$(date -d "-1 days" +%Y-%m-%d)
+          echo ${{ steps.check-post.outputs.POST }} ${post_date}  ${one_day_ago}
           echo "ANNOUNCE=false" >> $GITHUB_OUTPUT
           if (( ${post_date} > ${one_day_ago} )); then
             echo "ANNOUNCE=true" >> $GITHUB_OUTPUT
