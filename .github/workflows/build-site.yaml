@@ -10,17 +10,96 @@ on:
 name: Update website
 
 jobs:
+  checks:
+    name: Set-up build params
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      ANNOUNCE:  ${{ steps.check-date.outputs.ANNOUNCE }}
+      POST:      ${{ steps.post.outputs.POST }}
+      POST_DATE: ${{ steps.post.outputs.POST_DATE }}
+      DOI:       ${{ steps.check-doi.outputs.DOI }}
+      RVER:      ${{ steps.check-rver.outputs.RVER }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 📝 Get latest blog post 📝
+        id: post
+        env:
+          BLOG_PATH: "content/blog"
+        run: |
+          # Find the latest blog post
+          latest_post=$(find "${BLOG_PATH}" | grep /index.md$ | grep -v "XX-XX" | sort | tail -n1)
+          echo "POST=${latest_post}" >> $GITHUB_OUTPUT
+          echo "POST=${latest_post}" >> $GITHUB_ENV
+
+          # extract date
+          date=$(grep "^date:" "${latest_post}" | sed 's/^date: //' | sed 's/["'\'']//g')
+          echo "POST_DATE=${date}"  >> $GITHUB_OUTPUT
+
+      - name: Check post date
+        id: check-date
+        run: |
+          post_date=$(date -d "${{ env.POST_DATE }}" +%Y%m%d)
+          one_day_ago=$(date -d "-1 days" +%Y%m%d)
+          echo "ANNOUNCE=false" >> $GITHUB_OUTPUT
+          if (( post_date > one_day_ago )); then
+            echo "ANNOUNCE=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if needs DOI
+        id: check-doi
+        run: |
+          # Does the post need a DOI?
+          echo "DOI=true" > $GITHUB_OUTPUT
+          if head -n 10 "${{ env.POST }}" | grep -q "doi:"; then
+            echo "DOI=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get R versions
+        id: check-rver
+        run: |
+          rver=$(cat renv.lock | jq '.R.Version' | tr -d '"')
+          echo "RVER=${rver}" >> $GITHUB_OUTPUT
+
+  check-output:
+    name: check github output
+    runs-on: ubuntu-latest
+    needs: checks
+    steps:
+      - name: Debug Outputs
+        run: |
+          echo "ANNOUNCE: ${{ needs.checks.outputs.ANNOUNCE }}"
+          echo "DOI: ${{ needs.checks.outputs.DOI }}"
+          echo "RVER: ${{ needs.checks.outputs.RVER }}"
+          echo "POST: ${{ needs.checks.outputs.POST }}"
+          echo "POST_DATE: ${{ needs.checks.outputs.POST_DATE }}"
+
   build:
     name: Build site
     runs-on: ubuntu-latest
+    needs: checks
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PROFILE: zenodo
+      RUN_DOI: ${{ github.ref == 'refs/heads/main' && needs.checks.outputs.DOI == 'true' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           submodules: true
+
+      - name: Setup variables
+        id: version
+        run: |
+          ver=$(cat .Rprofile | grep hugo.version | cut -d'"' -f2 )
+          echo "hugo_v=${ver}" >> $GITHUB_ENV
+          nalias=$(echo ${{ github.head_ref }} | sed 's/_/-/g')
+          echo "nalias=${nalias}" >> $GITHUB_ENV
+          echo ${{ env.RUN_DOI }}
 
       - name: Install cURL Headers
         run: |
@@ -28,41 +107,34 @@ jobs:
           sudo apt-get install libcurl4-openssl-dev
   
       - name: Install pdf svg handler
-        if: github.ref == 'refs/heads/main'
+        if: ${{ env.RUN_DOI == 'true' }}
         run: sudo apt-get install librsvg2-dev
 
       - name: Setup R
-        if: github.ref == 'refs/heads/main'
+        if: ${{ env.RUN_DOI == 'true' }}
         uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ needs.checks.outputs.RVER }}
 
       - name: Setup renv
-        if: github.ref == 'refs/heads/main'
+        if: ${{ env.RUN_DOI == 'true' }}
         uses: r-lib/actions/setup-renv@v2
 
       - name: Setuo Quarto
-        if: github.ref == 'refs/heads/main'
+        if: ${{ env.RUN_DOI == 'true' }}
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Setup Tinytex
-        if: github.ref == 'refs/heads/main'
+        if: ${{ env.RUN_DOI == 'true' }}
         uses: r-lib/actions/setup-tinytex@v2
 
       - name: Add doi
-        if: github.ref == 'refs/heads/main'
+        if: ${{ env.RUN_DOI == 'true' }}
         env:
           ZENODO_API_TOKEN: ${{ secrets.ZENODO_API_TOKEN }}
         run: |
           Rscript -e 'renv::restore()'
           Rscript .github/scripts/add_doi.R
-
-      - name: Get Hugo version
-        id: hugo_vr
-        run: |
-          ver=$(cat .Rprofile | grep hugo.version | cut -d'"' -f2 )
-          echo ".Rprofile sets hugo version to $ver"
-          echo "hugo_v=${ver}" >> $GITHUB_ENV
-          nalias=$(echo ${{ github.head_ref }} | sed 's/_/-/g')
-          echo "nalias=${nalias}" >> $GITHUB_ENV
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -118,135 +190,35 @@ jobs:
           git commit content/blog -m 'Add doi' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
 
-
-  check-post:
-    name: Check post date
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    needs: build
-    outputs:
-      ANNOUNCE: ${{ steps.check_date.outputs.ANNOUNCE }}
-      POST: ${{ steps.check_post.outputs.POST }}
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: 📝 Get latest blog post 📝
-        id: check_post
-        run: |
-          BLOG_PATH="content/blog"
-
-          # Find the latest blog post
-          latest_post=$(find "${BLOG_PATH}" | grep /index.md$ | grep -v "XX-XX" |sort | tail -n1)
-          echo "POST=${latest_post}" > $GITHUB_OUTPUT
-
-          # extract date
-          date=$(grep "^date:" "${latest_post}" | sed 's/^date: //' | sed 's/["'\'']//g')
-          echo "POST_DATE=${date}" >> $GITHUB_ENV
-
-      - name: Check post date
-        id: check_date
-        run: |
-          post_date=$(date -d "${{ env.POST_DATE }}" +%Y%m%d)
-          two_days_ago=$(date -d "-2 days" +%Y%m%d)
-          if (( post_date > two_days_ago )); then
-            echo "Post date is within the last 2 days"
-            echo "ANNOUNCE=true" > $GITHUB_OUTPUT
-          else
-            echo "Post date is older than 2 days"
-            echo "ANNOUNCE=false" > $GITHUB_OUTPUT
-          fi
-
   announce:
     name: Announce new blog post
     runs-on: ubuntu-latest
-    needs: check-post
-    if: needs.check-post.outputs.ANNOUNCE == 'true'
+    needs: [build, checks]
+    if: needs.checks.outputs.ANNOUNCE == 'true'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      latest_post: ${{ needs.check-post.outputs.POST }}
+      RENV_PROFILE: social_media
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Get curl and jq
+      - name: Install cURL Headers
         run: |
           sudo apt-get update
-          sudo apt-get install -y jq curl
+          sudo apt-get install libcurl4-openssl-dev
+          
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ needs.checks.outputs.RVER }}
 
-      - name: Get yaml information
-        run: |
-          # Extract the URL from the slug
-          slug=$(grep "^slug:" "${latest_post}" | sed 's/^slug: //' | sed 's/["'\'']//g')
-          year=$(echo ${latest_post} | cut -d"/" -f3)
-          url="https://drmowinckels.io/blog/${year}/${slug}"
-          echo "URL=${url}" >> $GITHUB_ENV
+      - name: Setup renv
+        uses: r-lib/actions/setup-renv@v2
 
-          # Extract image
-          image=$(grep "^image:" "${latest_post}" | sed 's/^image: //' | sed 's/["'\'']//g')
-          image=$(dirname ${latest_post})/${image}
-          echo "IMAGE=${image}" >> $GITHUB_ENV
-
-          # Extract the title from yaml
-          title=$(grep "^title:" "${latest_post}" | sed 's/^title: //' | sed 's/["'\'']//g')
-          echo "TITLE=${title}" >> $GITHUB_ENV
-
-          # Extract summary using yml
-          summary=$(awk '/summary:/ {getline; while ($0 !~ /^$/) {gsub(/^[[:blank:]]+/,"",$0); summary = summary $0 " "; getline}} END {gsub(/[[:blank:]]+$/,"",summary); print summary}' "${latest_post}")
-          # escape backtics
-          summary=$(echo $summary | sed -e 's/`/\\`/g')
-          echo "SUMMARY=${summary}" >> $GITHUB_ENV
-
-          # Extract tags
-          tags=$(awk '/tags:/ {getline; while ($0 ~ /^  - /) {printf "#%s ", $2; getline}}' ${latest_post})
-          hastags=$(echo $tags| sed -e 's/#r /#rstats /')
-          echo "TAGS=${hastags}" >> $GITHUB_ENV
-
-      - name: 🦹 Insert random fun emoji 🦲
-        run: |
-          emojis=("🦄" "🦜" "🦣" "🦥" "🦦" "🦧" "🦨" "🦩" "🦪" \
-              "🦫" "🦬" "🦭" "🦮" "🦯" "🦰" "🦱" "🦲" "🦳" "🦴" \
-              "🦵" "🦶" "🦷" "🦸" "🦹" "🦺" "🦻" "🦼" "🦽" "🦾" \
-              "🦿" "🧀" "🧁" "🧂" "🧃" "🧄" "🧅" "🧆" "🧇" "🧈" \
-              "🧉" "🧊" "🧋" "🧌" "🧍" "🧎" "🧏" "🧐" "🧑" "🧒" \
-              "🧓" "🧔" "🧕" "🧖" "🧗" "🧘" "🧙" "🧚" "🧛" "🧜" \
-              "🧝" "🧞" "🧟" "🧠" "🧡" "🧢" "🧣" "🧤" "🧥" "🧦" \
-              "🧧" "🧨" "🧩" "🧪" "🧫" "🧬" "🧭" "🧮" "🧯" "🧰" \
-              "🧱" "🧲" "🧳" "🧴" "🧵" "🧶" "🧷" "🧸" "🧹" "🧺" \
-              "🧻" "🧼" "🧽" "🧾" "🧿")
-          random_emoji=${emojis[$RANDOM % ${#emojis[@]}]}
-          echo "EMOJI=${random_emoji}" >> $GITHUB_ENV
-
-
-      - name: 🦣 Toot it! 🦣
+      - name: Announce the post
         env:
-          MASTODON_INSTANCE: fosstodon.org
-          MASTO_KEY: ${{ secrets.MASTO_KEY }}
-        run:  |
-          # First, upload the media and get the media ID
-          MEDIA_ID=$(curl -X POST \
-            -H "Authorization: Bearer ${MASTO_KEY}" \
-            -F "file=@./${{ env.IMAGE }}" \
-            https://${MASTODON_INSTANCE}/api/v1/media | jq -r '.id')
-
-          message=$(echo -e "📝 New blog post 📝
-            \n '${{ env.TITLE }}' \
-            \n\n ${{ env.EMOJI }}  ${{ env.SUMMARY }} \
-            \n\n 👀  Read more at ${{ env.URL }} \
-            \n\n ${{ env.TAGS }}")
-
-          # Then, create a new status with the media attached
-          toot=$(curl -X POST \
-            -H "Authorization: Bearer ${MASTO_KEY}" \
-            -F "status=${message}" \
-            -F "media_ids[]=${MEDIA_ID}" \
-            https://${MASTODON_INSTANCE}/api/v1/statuses | jq -r '.id')
-
-          echo $toot
-
-          # Display clickable url
-          echo "🦣 Tooted! 🦣"
-          echo "https://${MASTODON_INSTANCE}/web/statuses/${toot}"
+          BLUESKY_APP_PASS: ${{ secrets.BLUESKY_PWD }}
+        run: |
+          echo RTOOT_DEFAULT_TOKEN="${{ secrets.RTOOT_TOKEN }}" >> .Renviron
+          echo KIT_SECRET="${{ secrets.KIT_KEY }}" >> .Renviron
+          Rscript .github/scripts/announce.R ${{ needs.checks.outputs.POST }}
 
