@@ -93,7 +93,7 @@ newsletter <- glue::glue('
 resp <- httr2::request("https://api.convertkit.com/v3/broadcasts") |> 
   httr2::req_body_json(
     list(
-      public        = FALSE,
+      public        = TRUE,
       api_secret    = Sys.getenv("KIT_SECRET"),
       description   = frontmatter$summary,
       thumbnail_url = file.path(uri, frontmatter$image),
