@@ -15,9 +15,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
-      ANNOUNCE:  ${{ steps.check-date.outputs.ANNOUNCE }}
       POST:      ${{ steps.check-post.outputs.POST }}
-      POST_DATE: ${{ steps.check-post.outputs.POST_DATE }}
+      POST_DATE: ${{ steps.check-date.outputs.POST_DATE }}
+      ANNOUNCE:  ${{ steps.check-date.outputs.ANNOUNCE }}
       DOI:       ${{ steps.check-doi.outputs.DOI }}
       RVER:      ${{ steps.check-rver.outputs.RVER }}
     env:
@@ -42,7 +42,6 @@ jobs:
           echo "POST_DATE=${post_date}" >> $GITHUB_OUTPUT
 
           one_day_ago=$(date -d "-1 days" +%Y-%m-%d)
-          echo ${{ steps.check-post.outputs.POST }} ${post_date}  ${one_day_ago}
           echo "ANNOUNCE=false" >> $GITHUB_OUTPUT
           if (( ${post_date} > ${one_day_ago} )); then
             echo "ANNOUNCE=true" >> $GITHUB_OUTPUT
