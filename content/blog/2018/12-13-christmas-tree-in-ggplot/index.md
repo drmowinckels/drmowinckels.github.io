@@ -11,7 +11,8 @@ image: 'index_files/figure-html/featured-1.gif'
 slug: "christmas-tree-in-ggplot"
 aliases:
   - '/blog/2018-12-13-christmas-tree-in-ggplot'
-summary:  Rladies.org showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it! You can see all the lovely submissions he has [here](http://smarterpoland.pl/index.php/2017/12/christmas-trees/).
+summary: Celebrate Christmas with a fun and festive Christmas tree plot in ggplot2! Follow this tutorial to create your own animated Christmas tree in R, complete with baubles, a tree topper, and falling snow using gganimate. Learn how to use ggplot2 and gganimate for creative data visualizations.
+seo: Create an animated Christmas tree plot in R using ggplot2 and gganimate. Follow this fun tutorial to make your own festive plot with baubles and falling snow.
 ---
 
 It's Christmas! And I love Christmas! Pretty snow, cozy fires, fairy lights, family, friends and love. It's just filled with all times of lovely things. 

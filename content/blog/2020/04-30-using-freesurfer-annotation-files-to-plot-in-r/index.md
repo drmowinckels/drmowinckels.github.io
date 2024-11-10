@@ -11,7 +11,8 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "using-freesurfer-annotation-files-to-plot-in-r"
 aliases:
   - '/blog/2020-04-30-using-freesurfer-annotation-files-to-plot-in-r'
-summary:  Using Freesurfer, the Desikan Killany coortical atlas (aparc) is an atlas that consist of 36 segments, which are well-defined [Automatically Parcellating the Human Cerebral Cortex](https://surfer.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&do=get&target=annot-desikan-m.jpg) Using Freisurfer annotation files to plot in R is our package where you can render the proper 3d version using ggplot2 .
+summary: For neuroimaging, toggling between R and imaging software like FSL or Freesurfer is common. We segment large 3D brain data into meaningful regions. Our ggseg and ggseg3d packages visualize the brain's Desikan-Killany atlas in 2D and 3D. Learn the steps to convert Freesurfer annotation files to mesh files using the ggsegExtra package for enhanced brain data visualization.
+seo: Convert Freesurfer annotation files to mesh files with ggsegExtra for enhanced brain visualization in R. Visualize brain data in 3D with ggseg3d.
 ---
 
 

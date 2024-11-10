@@ -14,8 +14,8 @@ tags:
   - API
 slug: ai-blog-summary
 image: images/hf-logo.png
-summary: |
-  When you have lots of old blog posts, writing good summaries for SEO can be very tedious. Using AI, we can get summaries for our posts easily. Using httr2 we can access models through the Hugging Face API.
+summary: Optimize your blog's SEO and Zenodo metadata with automated summaries using Hugging Face's text summarization models. Learn how to connect to the Hugging Face API, prepare content, and integrate summaries into your markdown files using R and the httr2 package.
+seo: Enhance your blog's SEO and Zenodo metadata with automated summaries via Hugging Face API. Step-by-step guide using R and httr2.
 ---
 
 After my last post, I got to thinking about the summaries of my posts.

@@ -14,7 +14,8 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "r-just-dive-into-it"
 aliases:
   - '/blog/2018-11-09-r-just-dive-into-it'
-summary:  R requires you to be proficient in R in a different way than SPSS . Once you are proficient enough in R, you have a gazillion tools to do more or less anything you want to do, be it analysing complex data, a simple linear regression, writing a blog or making interactive data portals . RStudio is a completely blank slate, no data, no fancy stuff, just a program .
+summary: Learn the basics of using R and RStudio for psychologists. This tutorial covers reading SPSS data, recoding variables, using pipes, creating simple plots, transforming data to a tall format, and running linear models. Discover how to transition from SPSS to R and take advantage of its powerful data analysis capabilities.
+seo: Transition from SPSS to R for psychology research. Learn to read SPSS data, recode variables, create plots, transform data, and run linear models in R and RStudio.
 ---
 
 

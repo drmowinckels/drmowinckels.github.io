@@ -9,7 +9,8 @@ image: speak.jpeg
 slug: "positconf-2023"
 aliases:
   - '/blog/2023-09-26-positconf-2023'
-summary:  There is a general air of excitement, nerdiness and support I just rarely feel at any other conf I go to. Posit::conf is like it gathers all the best Data science and R geeks in one place and we just go bananas in each others company. I'd like to share some thoughts and joys I had in the 4 days of the conf .
+summary: Attending Posit::conf (formerly RStudio::conf) in Chicago was an exhilarating experience filled with learning, speaking engagements, insightful workshops, and connecting with the R and Data Science communities. Highlights included workshops on R fundamentals and package development, exciting updates on Quarto, and invaluable networking opportunities.
+seo: Dive into the highlights of Posit::conf in Chicago, featuring workshops, Quarto updates, package development insights, and vibrant community connections.
 ---
 
 

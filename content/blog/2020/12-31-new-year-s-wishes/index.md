@@ -15,7 +15,8 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "new-year-s-wishes"
 aliases:
   - '/blog/2020-12-31-new-year-s-wishes'
-summary:  New Year's Wishes is a ggplot2 holiday card wishing you all a better 2021 than 2020! I find these holiday cards help me understand and explore how data need to look to create a certain output . I wanted to use `ggforce::geom_circle` for this, which would need x and y coordinates for the center of the circle and the radius .
+summary: Here's a ggplot2 holiday card wishing you a better 2021! Explore how to create a festive holiday plot in R with ggplot2. Understanding the preparation of data for plotting, using `geom_circle`, adding blur effects, and customizing text. This exercise enhances your skills in working with ggplot2 and thinking critically about data structures and visual outputs.
+seo: Create a festive holiday card with ggplot2 in R. Learn to plot with `geom_circle`, add blur effects, and customize text for a fun and visually appealing plot.
 ---
 
 

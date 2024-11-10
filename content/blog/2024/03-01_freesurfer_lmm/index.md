@@ -9,11 +9,8 @@ tags:
   - Freesurfer
   - Neuroimaging
 slug: "freesurfer-lmm-r"
-summary: |
-  Running Freesurfer Linear Mixed Models on vertex-vise data is a
-  popular way of capturing more advanced statistical models in
-  neuroimaging. In this post I highlight how you can prepare your 
-  data in R for Freesurfer LMMs.
+summary: Learn to create model matrices for Freesurfer Linear Mixed Models (LMM) in R using built-in functions. This guide walks you through manually creating model matrices, utilizing the `model.matrix` function, and standardizing variables. Includes creating a function to streamline the process, making neuroimaging data analysis more efficient.
+seo: Create model matrices for Freesurfer LMM in R. Guide includes manually creating matrices, using `model.matrix`, and standardizing variables.
 ---
 
 

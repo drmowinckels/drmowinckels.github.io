@@ -11,7 +11,8 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "circluar-plots-in-r-and-adding-images"
 aliases:
   - '/blog/2018-05-25-circluar-plots-in-r-and-adding-images'
-summary:  Circular plots are becoming more and more popular in for visualising associatetions between different phenomena . I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it .
+ssummary: Create visually appealing circular plots (chord diagrams) in R using the circlize package. Learn to integrate brain images with your data to showcase relationships between different brain networks. Step-by-step guide on setting up pairs of data, customizing colors, and adding external images to your plots.
+seo: Create circular plots in R with circlize. Integrate brain images to visualize relationships between brain networks. Step-by-step guide on data setup, color customization, and image integration.
 ---
 
 

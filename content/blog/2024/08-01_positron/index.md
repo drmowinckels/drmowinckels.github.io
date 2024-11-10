@@ -15,10 +15,8 @@ tags:
   - vscode
 slug: "positron"
 image: images/positron-logo.png
-summary: |
-  In May I wrote about my favorite IDE's.
-  As a result of that post, I was asked to join Posits private beta-testers for their new IDE, Positron.
-  Now Positron is out of private beta, so let's see if it can replace my current favorite IDE's.
+summary: Positron, an IDE developed for data science, combines the best features of RStudio and Visual Studio Code. Learn about its features, customization options, and extensions. Discover how Positron compares to other popular IDEs and why it's a promising tool for data scientists.
+seo: Discover Positron, the new IDE for data science. Compare its features with VSCode and RStudio. Learn how to customize Positron and make it work for your projects.
 ---
 
 [Positron](https://github.com/posit-dev/positron?tab=readme-ov-file) is a clone of Visual Studio Code (VScode), but tweaks for data science.

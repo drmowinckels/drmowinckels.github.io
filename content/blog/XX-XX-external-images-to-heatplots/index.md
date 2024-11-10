@@ -11,6 +11,8 @@ tags:
 slug: "external-images-to-heatplots"
 aliases:
   - '/blog/2021-04-02-external-images-to-heatplots'
+summary: Enhance your ggplot heatmaps with images using the {ggimage} package. This guide explores adding neuroimaging pictures to heatplots, replacing tedious custom annotations with a more efficient method. Learn how to integrate {ggimage} to visualize correlation matrices alongside network images.
+seo: Improve your ggplot heatmaps with images using {ggimage} in R. Add neuroimaging pictures to heatplots for better visualization.
 ---
 
 I've written posts before about adding images to ggplot, but in those cases I used the `annotate_custom` function, and loops. This procedure works pretty well, and its been a life saver for me in many places where I do this sort of plotting.

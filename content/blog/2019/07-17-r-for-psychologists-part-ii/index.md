@@ -15,11 +15,9 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "r-for-psychologists-part-ii"
 aliases:
   - '/blog/2019-07-17-r-for-psychologists-part-ii'
-summary:  |
-  R for Psychologists - part III: Getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model . Part II: Plotting in R through `ggplot2` really is a way to understand how to organise and alter data in R to suit your needs .
+summary: Improve your data visualization skills in R with this comprehensive guide on creating plots using ggplot2. Learn to wrangle data, create long-format datasets, and produce various types of plots, including histograms, scatter plots, and regression lines. Ideal for psychologists transitioning from SPSS to R.
+seo: Enhance your R data visualization with ggplot2. Learn to wrangle data and create histograms, scatter plots, and regression lines. Perfect for psychologists moving from SPSS to R.
 ---
-
-
 
 
 It's been a very long time since I wrote anything. 

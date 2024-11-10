@@ -11,7 +11,8 @@ image: 'index_files/figure-html/featured-1.gif'
 slug: "do-you-wanna-build-a-snowman"
 aliases:
   - '/blog/2019-12-11-do-you-wanna-build-a-snowman'
-summary:  Do you wanna build a snowman? Do you want to build a Christmas tree? We're going to use [ggforce] from the [gg force] package by Thomas Lin Pedersen . We need to specify the center of the circles we're drawing's locations and their radii . We use 'geom_circle' and 'tidyr' to create the snowman .
+summary: Celebrate with another Christmas special! Following last year's festive ggplot tree, build an interactive snowman using R, ggplot2, ggforce, and gganimate. Learn to create a snowman from circles, add features like a face, arms, and accessories, and animate falling snow. Enhance your R skills and holiday spirit with this detailed tutorial, ending with a personalized "Merry Christmas!" message.
+seo: Create an interactive Christmas snowman in R with ggplot2, ggforce, and gganimate. Build, decorate, and animate it with falling snow.
 ---
 
 

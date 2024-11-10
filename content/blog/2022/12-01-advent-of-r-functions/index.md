@@ -13,7 +13,8 @@ toc: true
 slug: "advent-of-r-functions"
 aliases:
   - '/blog/2022-12-01-advent-of-r-functions'
-summary:  Advent of R Functions is a series of 24 pieces of code I often use in my work . This advent brings you 24 code examples that I hope can be of interest and help to you . I'll continue using the calendar as for this first part of the first day of the month .
+summary: Explore 15 essential pieces of R code to streamline your data analysis and visualization workflow. From creating directories and handling files to customizing ggplot and working with logit scales, these snippets can help you enhance your programming efficiency and maintain cleaner scripts.
+seo: Boost your R programming efficiency with 15 essential code snippets. Learn to handle files, customize ggplot, and more.
 ---
 
 

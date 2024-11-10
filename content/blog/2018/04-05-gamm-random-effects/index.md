@@ -11,8 +11,8 @@ image: 'index_files/figure-html/unnamed-chunk-10-1.png'
 slug: "gamm-random-effects"
 aliases:
   - '/blog/2018-04-05-gamm-random-effects'
-summary:  I'm working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .
-summary:  I'm working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .
+summary: Explore the use of Generalized Additive Mixed Models (GAMMs) with random effects using `mgcv` in R. This blog post covers the differences between specifying random effects in `mgcv` compared to other packages like `lme4` and walks through a detailed example with simulated data. Learn about `gamm` model output, interpreting random effects, and plot comparisons of different model specifications.
+seo: Learn to specify and interpret random effects in Generalized Additive Mixed Models (GAMMs) using `mgcv` in R. Detailed example with simulated data and model comparisons.
 ---
 
 

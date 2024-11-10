@@ -13,9 +13,8 @@ tags:
 slug: "git-clean-woes"
 aliases:
   - '/blog/2024/2024/git-clean-woes/'
-summary: |
-  Version control is great, but sometimes it can trip you up!
-  In this post I recount my rather stupid mistake of using `git clean` when I shouldn't have, and how I got out of it.
+summary: Learn how to handle git mistakes and recover lost work with simple solutions. Explore commands like `git clean` and `git reset`, and discover how to undo mistakes using `ctrl + z` in RStudio. Gain confidence in your git journey with tips from experienced developers and helpful resources.
+seo: Recover from git mistakes and learn to undo lost work in RStudio. Tips and resources for git commands like `git clean` and `git reset`.
 ---
   
 

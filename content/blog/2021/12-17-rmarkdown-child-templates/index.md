@@ -15,7 +15,8 @@ image: parent-and-child-md.png
 slug: "rmarkdown-child-templates"
 aliases:
   - '/blog/2021-12-17-rmarkdown-child-templates'
-summary:  Rmarkdown has been working on a set of analyses from a survey at work . The survey has two basic type of questions, likert-scale questions and binary yes/no questions . For each of these two types of . questions, I’ve needed to generate a . set of descriptive plots and tables, as well as run a particular set of statistical models . I know how to make Rmark down parametrised reports, and I kind of wanted something similar, but in a nested fashion .
+summary: Generate automated reports in Rmarkdown by creating reusable child templates. Learn to call child documents from a main Rmd using knitr and environment variables, enabling efficient and flexible report generation for survey data analysis. Follow this guide to streamline your workflow and reduce repetitive code.
+seo: Automate Rmarkdown reports with reusable child templates. Learn to use knitr for efficient and flexible report generation.
 ---
 
 I have recently been working on a set of analyses from a survey at work.

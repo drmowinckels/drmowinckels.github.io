@@ -11,7 +11,8 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "introducing-the-ggseg-r-package-for-brain-segmentations"
 aliases:
   - '/blog/2018-08-24-introducing-the-ggseg-r-package-for-brain-segmentations'
-summary:  The ggseg R-package for brain segmentations is intended for those who need to easily plot results or overviews of segmentet data . The package is developed as part of our lab [The Center for Lifespanism and Cognition [LCBC-UiO]
+summary: Discover ggseg, an R package designed for plotting brain segmentations directly in R with ggplot2. Learn how to visualize results from different brain atlases, customize plots, and integrate your own data. Ideal for neuroimaging researchers needing to plot segmented brain data efficiently.
+seo: Learn to plot brain segmentations in R using ggseg and ggplot2. Visualize neuroimaging results with customizable plots from different brain atlases.
 --- 
 
 **Edit**: Though posted only a week ago, we have discovered another R package called `ggBrain` which has slightly different functions than what our package has. Because of this, we have altered the name of our package to `ggseg` short for `ggsegmentation` which is a better description of what our package does.

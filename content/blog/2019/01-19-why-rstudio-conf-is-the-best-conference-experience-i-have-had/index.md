@@ -11,7 +11,8 @@ image: 'rstudioconf.png'
 slug: "why-rstudio-conf-is-the-best-conference-experience-i-have-had"
 aliases:
   - '/blog/2019-01-19-why-rstudio-conf-is-the-best-conference-experience-i-have-had'
-summary:  RStudio::conf Austin is the best conference experience I have had . It was thoroughly enjoyable and educational to see the different ways the same tools were applied to solve "real life-life problems" It was also enjoyable to see how they applied to problems in industry to solve real life problems . It is the empitamy of what this community actually is .
+summary: Reflecting on the unique experience of RStudio::conf, this blog post highlights the community-driven atmosphere, inclusivity, diverse attendance, and the genuine support for speakers. Discover why RStudio::conf stands out among other conferences and how it fosters an inspiring environment for R enthusiasts.
+seo: Learn why RStudio::conf is a unique and inspiring experience. Explore the inclusive community, diverse attendance, and genuine support for R enthusiasts that makes this conference special.
 ---
 
 There is something to be said about the R-community. Actually, there is a lot to be said about the R-community, and I believe RStudio::conf is the empitamy of what this community actually is. While I'm in my hotel room as RStudio::conf Austin has just wrapped up, ending with an amazing Birds of a Feather session with [RLadies](www.rladies.org), I'm having so many thoughts and feelings about this experience. I'm on a complete high, and cannot fathom that I just participated in something like this conference, which is quite something different than any other conference I have been to. 

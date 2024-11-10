@@ -16,7 +16,8 @@ image: "index_files/figure-html/featured-1.png"
 slug: "the-linear-regression-family-in-r"
 aliases:
   - '/blog/2020-06-24-the-linear-regression-family-in-r'
-summary:  In this post we will go through examples of how we can specify different linear models (linear regressions) in R . The Linear Regression Family in RI will focus on how you can run models in R, and it will be up to you to try to translate your hypothesis into a model .
+summary: Linear regression is essential in psychology, often disguised as t-tests or ANOVAs. This guide explains running linear models in R, comparing t-tests, Pearson correlations, ANOVAs, ANCOVAs, and more. Understand how to specify models, run tests, and interpret them with real data examples. Gain confidence in translating your hypotheses into linear models and applying statistical methods effectively.
+seo: Learn linear regression for psychology. Compare t-tests, ANOVAs, and more in R. Translate hypotheses into models and apply stats effectively.
 ---
 
 
