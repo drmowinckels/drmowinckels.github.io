@@ -11,14 +11,13 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **37** posts since **2018-03-08**!
+🎉 DrMowinckels has **38** posts since **2018-03-08**!
 
-📅 That’s a post roughly every **66** days, or about **0.46** posts per
+📅 That’s a post roughly every **64** days, or about **0.47** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-23** days ago ([Creating post summary
-with AI from Hugging
-Face](https://drmowinckels.io/blog/ai-blog-summary)).
+✍️ The last post was published **-12** days ago ([Reading in multiple
+files without loops](https://drmowinckels.io/blog/lapply-files)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -32,6 +31,7 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2024-11-01 | [Reading in multiple files without loops](https://drmowinckels.io/blog/lapply-files)                                                                                                     |
 | 2024-10-07 | [Creating post summary with AI from Hugging Face](https://drmowinckels.io/blog/ai-blog-summary)                                                                                          |
 | 2024-09-06 | [Making your blog FAIR](https://drmowinckels.io/blog/fair-blog)                                                                                                                          |
 | 2024-08-01 | [Positron IDE - A new IDE for data science](https://drmowinckels.io/blog/positron)                                                                                                       |
@@ -78,4 +78,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-10-30 01:20:03.339604*
+*Updated 2024-11-13 01:15:04.700044*
