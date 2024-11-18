@@ -48,7 +48,7 @@ In my case it was quite easy, I looked into the `themes/my-theme/layouts/blog/si
 In my case, the theme creator had a little piece of code that would enable disqus if the disqus shortname was set in the config toml.
 
 ``` html
-{{- if .Site.DisqusShortname }}
+{{- if .Site.Config.Services.Disqus.Shortname }}
     <div class="container disqus">
         {{ template "_internal/disqus.html" . }}
     </div>
