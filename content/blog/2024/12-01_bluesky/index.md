@@ -14,7 +14,6 @@ tags:
   - Bluesky
 slug: bluesky
 image: images/butterfly.png
-```yaml
 summary: With the recent mass exodus from Xitter, Bluesky has emerged as a new home for the R community. Discover how to join the community with starter packs and automate posting to Bluesky from R using GitHub Actions. Explore detailed steps for setup and automation, making it easy to share your latest blog posts on social media platforms.
 seo: Learn to automate posting to Bluesky from R using GitHub Actions. Join the R community on Bluesky and discover starter packs for easy connections.
 ---
