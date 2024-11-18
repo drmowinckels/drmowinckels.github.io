@@ -69,7 +69,7 @@ bskyr::bs_post(
   images = image,
   images_alt = "Blogpost featured image",
   langs = "US-en",
-  user = "drmowinckels.bsky.social"
+  user = "drmowinckels.io"
 )
 
 
