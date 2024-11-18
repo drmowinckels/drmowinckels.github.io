@@ -77,6 +77,15 @@ Certainly! Here is the markdown table with the categories bolded:
 
 That should get you more than started!
 
+## Get your custom domain as your handle
+
+When I first signed up on Bluesky, I had the standard `drmowinckels.bsky.social` handle, most people have a variant of this type.
+But I started noticing that people had their domains as their handles, and I got very curious how that worked.
+I found the Bluesky documentation on [how to set your custom domains as your handle](https://bsky.social/about/blog/4-28-2023-domain-handle-tutorial) and followed the _very_ easy steps to do so.
+Presto!
+I became [drmowinckels.io](https://bsky.app/profile/drmowinckels.io) on Bluesky.
+I think this is a very neat and easy way to verify if a person is who they say they are, if the already have a clear online presense like their own website domain.
+
 ## Posting to Bluesky from R
 
 While I have been on somewhat of an API spree with [httr2](https://httr2.r-lib.org/) lately, this time I think we will stick to using a package.
