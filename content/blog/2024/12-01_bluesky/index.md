@@ -51,26 +51,27 @@ Sure, here is the markdown table with only the photo column and the hyperlinked 
 
 Certainly! Here is the markdown table with the categories bolded:
 
-| Category     | Pack | Preview |
-| :------      | ----: | ------- |
-| **R**        | My Rstats picks       | [![](images/drmowinckels_rstats.png)](https://bsky.app/starter-pack/drmowinckels.io/3l76bq6sdms2z) |
-| **R**        | R-Ladies Starter Pack     | [![](images/rladies.png)](https://bsky.app/starter-pack/rladies.org/3lawoimij4m2e) |
-| **R**        | Jeremy Allen's Rstats Starter Pack | [![](images/rstats.png)](https://bsky.app/starter-pack/jeremy-data.bsky.social/3l6x3agttsg2r) |
-| **R**        | Ansgar Wolsing ggplot2 Starter Pack | [![](images/ggplot2.png)](https://bsky.app/starter-pack/ansgarw.bsky.social/3l6xrq3f4fe24) |
-| **R**        | Noam Ross' rOpenSci Starter Pack | [![](images/ropensci.png)](https://bsky.app/starter-pack/noamross.net/3land3z3fez2z) |
-| **R/Neuro**  | My Neuro Rstats Starter Pack | [![](images/neurorstats.png)](https://bsky.app/starter-pack/drmowinckels.io/3larl2jajog2o) |
-| **R/python** | Garrick Aden-Buie's Shiny Dev | [![](images/shiny.png)](https://bsky.app/starter-pack/grrrck.xyz/3lahi4wmmkq2h) |
-| **python**   | Cosima Meyer's PyLadies | [![](images/pyladies.png)](https://bsky.app/starter-pack/cosima.bsky.social/3l7zmdn5tsp26) |
-| **Coding**   | Milos' Free Tutorials Starter Pack | [![](images/tutorials.png)](https://bsky.app/starter-pack/milos-makes-maps.bsky.social/3lau5bzm53p2j) |
-| **UiO**      | Dan Quintana's UiO Community Starter Pack | [![](images/uio.png)](https://bsky.app/starter-pack/dsquintana.bsky.social/3lalcn3lzo72f) |
-| **Data**     | Christian Minich's Data People Starter Pack | [![](images/data.png)](https://bsky.app/starter-pack-short/8TdEfdK) |
-| **AI**       | Catherine Breslin's Women in AI | [![](images/wai.png)](https://bsky.app/starter-pack-short/LaGDpqg) |
-| **Viz**      | Francis Gagnon's Data visualization community | [![](images/datavis.png)](https://go.bsky.app/R3nSyyy) |
-| **Cog/Neuro**      | Micah Allen's Cognitive neuroscience 1 | [![](images/cogneuro1.png)](https://go.bsky.app/2n84SRM) |
-| **Cog/Neuro**      | Micah Allen's Cognitive neuroscience 2 | [![](images/cogneuro2.png)](https://go.bsky.app/HQeoP7D) |
-| **Cog/Psy**      | Allie Sinclair's Cognitive Psychology | [![](images/cog.png)](https://go.bsky.app/NsFhnV) |
-| **EEG**      | Maëlan Menétrey's EEG Research | [![](images/eeg.png)](https://go.bsky.app/H2URVjv) |
-| **MRI**      | Todd Woodward's Task-based fMRI | [![](images/fmri.png)](https://go.bsky.app/Ai1f67H) |
+| Category      | Pack | Preview |
+| :------       | ----: | ------- |
+| **R**         | My Rstats picks       | [![](images/drmowinckels_rstats.png)](https://bsky.app/starter-pack/drmowinckels.io/3l76bq6sdms2z) |
+| **R**         | R-Ladies Starter Pack     | [![](images/rladies.png)](https://bsky.app/starter-pack/rladies.org/3lawoimij4m2e) |
+| **R**         | Jeremy Allen's Rstats Starter Pack | [![](images/rstats.png)](https://bsky.app/starter-pack/jeremy-data.bsky.social/3l6x3agttsg2r) |
+| **R**         | Ansgar Wolsing ggplot2 Starter Pack | [![](images/ggplot2.png)](https://bsky.app/starter-pack/ansgarw.bsky.social/3l6xrq3f4fe24) |
+| **R**         | Noam Ross' rOpenSci Starter Pack | [![](images/ropensci.png)](https://bsky.app/starter-pack/noamross.net/3land3z3fez2z) |
+| **R/Neuro**   | My Neuro Rstats Starter Pack | [![](images/neurorstats.png)](https://bsky.app/starter-pack/drmowinckels.io/3larl2jajog2o) |
+| **R/python**  | Garrick Aden-Buie's Shiny Dev | [![](images/shiny.png)](https://bsky.app/starter-pack/grrrck.xyz/3lahi4wmmkq2h) |
+| **python**    | Cosima Meyer's PyLadies | [![](images/pyladies.png)](https://bsky.app/starter-pack/cosima.bsky.social/3l7zmdn5tsp26) |
+| **Coding**    | Milos' Free Tutorials Starter Pack | [![](images/tutorials.png)](https://bsky.app/starter-pack/milos-makes-maps.bsky.social/3lau5bzm53p2j)  |
+| **RSE**       | Milos' Free Tutorials Starter Pack | [![](images/tutorials.png)](https://bsky.app/starter-pack/milos-makes-maps.bsky.social/3lau5bzm53p2j)  |
+| **UiO**       | Dan Quintana's UiO Community Starter Pack | [![](images/uio.png)](https://bsky.app/starter-pack/dsquintana.bsky.social/3lalcn3lzo72f)  |
+| **Data**      | Christian Minich's Data People Starter Pack | [![](images/data.png)](https://bsky.app/starter-pack-short/8TdEfdK) |
+| **AI**        | Catherine Breslin's Women in AI | [![](images/wai.png)](https://bsky.app/starter-pack-short/LaGDpqg) |
+| **Viz**       | Francis Gagnon's Data visualization community | [![](images/datavis.png)](https://go.bsky.app/R3nSyyy) |
+| **Cog/Neuro** | Micah Allen's Cognitive neuroscience 1 | [![](images/cogneuro1.png)](https://go.bsky.app/2n84SRM) |
+| **Cog/Neuro** | Micah Allen's Cognitive neuroscience 2 | [![](images/cogneuro2.png)](https://go.bsky.app/HQeoP7D) |
+| **Cog/Psy**   | Allie Sinclair's Cognitive Psychology | [![](images/cog.png)](https://go.bsky.app/NsFhnV) |
+| **EEG**       | Maëlan Menétrey's EEG Research | [![](images/eeg.png)](https://go.bsky.app/H2URVjv) |
+| **MRI**       | Todd Woodward's Task-based fMRI | [![](images/fmri.png)](https://go.bsky.app/Ai1f67H) |
 
 
 
