@@ -92,12 +92,6 @@ The documentation was really very easy to follow, so I don't really have lots mo
 I have set this up as a script that will be called from a Github action, and the script takes an argument, which is the path to the new post's `index.md`
 
 The first lines are all about catching this input, and making sure its actually provided and singular.
-Then we read in the posts frontmatter, cleanup the tags, and build the complete URL to the post.
-Because this is going on social media, I also have a selection of emoji's that I randomly select from each time, just for fun.
-Then I construct the message I want, using all these bits, and a frontmatter parameter I call "seo". 
-I have previously used "summary" here, but have now decided I both want a longer summary of my post (400-500 characters) and a simpler 155 character SEO. 
-Because social media have strict character limits, I use the SEO for that.
-Lastly, I make sure I have the complete path to the post image I want to use.
 
 ```r
 #!/usr/bin/env Rscript
@@ -115,6 +109,11 @@ if (length(post) == 0) {
   post <- post[1]
 }
 
+```
+
+Then we read in the posts frontmatter, cleanup the tags, and build the complete URL to the post.
+
+```r
 frontmatter <- rmarkdown::yaml_front_matter(post)
 
 # fix tags
@@ -127,7 +126,11 @@ uri <- sprintf("https://drmowinckels.io/blog/%s/%s",
   basename(dirname(dirname(post))),
   frontmatter$slug
 )
+```
 
+Because this is going on social media, I also have a selection of emoji's that I randomly select from each time, just for fun.
+
+```r
 emojis <- c("🦄", "🦜", "🦣", "🦥", "🦦", "🦧", "🦨", "🦩", "🦪", 
 "🦫", "🦬", "🦭", "🦮", "🦯", "🦰", "🦱", "🦲", "🦳", "🦴", 
 "🦵", "🦶", "🦷", "🦸", "🦹", "🦺", "🦻", "🦼", "🦽", "🦾",
@@ -139,7 +142,13 @@ emojis <- c("🦄", "🦜", "🦣", "🦥", "🦦", "🦧", "🦨", "🦩", "�
 "🧱", "🧲", "🧳", "🧴", "🧵", "🧶", "🧷", "🧸", "🧹", "🧺",
 "🧻", "🧼", "🧽", "🧾", "🧿")
 emoji <- sample(emojis, 1)
+```
 
+Then I construct the message I want, using all these bits, and a frontmatter parameter I call "seo". 
+I have previously used "summary" here, but have now decided I both want a longer summary of my post (400-500 characters) and a simpler 155 character SEO. 
+Because social media have strict character limits, I use the SEO for that.
+
+```r
 # Create message
 message <- glue::glue(
   "📝 New blog post 📝 
@@ -152,7 +161,11 @@ message <- glue::glue(
   
   {tags}"
 )
+```
 
+Lastly, I make sure I have the complete path to the post image I want to use.
+
+```r
 # Add image
 image <- here::here(dirname(post), frontmatter$image)
 
@@ -173,6 +186,7 @@ bskyr::bs_post(
 
 and that's it! 
 It's so short and simple. 
+Assuming you have followed the documentation on getting you [authentication right](https://christophertkenny.com/bskyr/#authentication), that really is all you need.
 I really love it when package creators make life this easy.
 And all the links and tags are correctly formatted like bluesky wants, and it even preserves linesbreaks (which I've found Bluesky to be a little tricky with!)
 
@@ -198,9 +212,9 @@ and very specific to my setup.
 
 First I set up that the workflow should run when I push or PR to main, or manually by triggering it.
 Then I have three jobs:
-  - check: sets up build parameters. Bash commands to figure out the post path, and date, the r-version in the renv-lock file etc.
-  - build: builds and pushes the website to the gh-pages branch
-  - announce: send social media announcements if its the same day as a new blogpost is published.
+  - `check`: sets up build parameters. Bash commands to figure out the post path, and date, the r-version in the renv-lock file etc.
+  - `build`: builds and pushes the website to the gh-pages branch
+  - `announce`: send social media announcements if its the same day as a new blogpost is published.
 
 I hope the code comments give you the general idea of what is going on.
 
