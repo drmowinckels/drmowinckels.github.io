@@ -46,11 +46,6 @@ If you are thinking of giving it a go, here are some starter packs that might be
 You can easily "follow all" or cherry pick whoever you want from each pack.
 Remember to also check out if they have any recommended Feeds!
 
-Sure, here is the markdown table with only the photo column and the hyperlinked text column:
-
-
-Certainly! Here is the markdown table with the categories bolded:
-
 | Category      | Pack | Preview |
 | :------       | ----: | ------- |
 | **R**         | My Rstats picks       | [![](images/drmowinckels_rstats.png)](https://bsky.app/starter-pack/drmowinckels.io/3l76bq6sdms2z) |
