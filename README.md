@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **64** days, or about **0.47** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-12** days ago ([Reading in multiple
+✍️ The last post was published **-19** days ago ([Reading in multiple
 files without loops](https://drmowinckels.io/blog/lapply-files)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -78,4 +78,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-11-13 01:15:04.700044*
+*Updated 2024-11-20 01:18:53.035192*
