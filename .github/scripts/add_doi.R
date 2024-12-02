@@ -261,7 +261,7 @@ update_post <- function(path, doi){
     post_content[2:length(post_content)]
   )
 
-  writeLines(post_content, post)
+  writeLines(post_content, path)
 }
 
 #' Publish blogpost to Zenodo
@@ -276,10 +276,10 @@ update_post <- function(path, doi){
 #' @param upload logical. If the information should be uploaded
 #' 
 publish_to_zenodo <- function(post, upload = TRUE){
-  sprintf(
+  message(sprintf(
     "Starting Zenodo process for %s \n ------ \n ",
     basename(dirname(post))
-  )
+  ))
   zenodo_metadata <- get_metadata(post)
   pdf_file <- generate_pdf(
     post, 
