@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="R for Psychologists - part III: Getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model . Part II: Plotting in R through ggplot2 really is a way to understand how to organise and alter data in R to suit your needs ." />
+  <meta name="description" content="Improve your data visualization skills in R with this comprehensive guide on creating plots using ggplot2. Learn to wrangle data, create long-format datasets, and produce various types of plots, including histograms, scatter plots, and regression lines. Ideal for psychologists transitioning from SPSS to R." />
   <meta name="author" content="DrMowinckels" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Enhance your R data visualization with ggplot2. Learn to wrangle data and create histograms, scatter plots, and regression lines. Perfect for psychologists moving from SPSS to R.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="R for Psychologists - part II - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="R for Psychologists - part III: Getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model . Part II: Plotting in R through ggplot2 really is a way to understand how to organise and alter data in R to suit your needs .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Enhance your R data visualization with ggplot2. Learn to wrangle data and create histograms, scatter plots, and regression lines. Perfect for psychologists moving from SPSS to R.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="R for Psychologists - part III: Getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model . Part II: Plotting in R through ggplot2 really is a way to understand how to organise and alter data in R to suit your needs .">
+<meta name="twitter:description" content="Enhance your R data visualization with ggplot2. Learn to wrangle data and create histograms, scatter plots, and regression lines. Perfect for psychologists moving from SPSS to R.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -404,7 +408,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">R for Psychologists - part III: Getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model . Part II: Plotting in R through <code>ggplot2</code> really is a way to understand how to organise and alter data in R to suit your needs .</p>
+            <p class="uk-text-lead">Improve your data visualization skills in R with this comprehensive guide on creating plots using ggplot2. Learn to wrangle data, create long-format datasets, and produce various types of plots, including histograms, scatter plots, and regression lines. Ideal for psychologists transitioning from SPSS to R.</p>
         
         <div class="uk-markdown uk-width">
             <p>It&rsquo;s been a very long time since I wrote anything.
@@ -1522,7 +1526,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
                         &emsp;url = "https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/",<br>
                         &emsp;year = 2019,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273492",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -1561,7 +1565,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
       
     <h2>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</h2>
     
-      <p>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way .</p>
+      <p>Discover the key steps to building R packages effectively with insights from the &ldquo;Building tidy tools&rdquo; workshop at RStudio::conf. Learn about package setup, unit testing, documentation, naming conventions, and using essential tools like <code>usethis</code>, <code>testthat</code>, and <code>pkgdown</code>. Create your first package with practical examples and improve your package development workflow.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1612,7 +1616,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
       
     <h2>Why RStudio::conf is the best conference experience I have had</h2>
     
-      <p>RStudio::conf Austin is the best conference experience I have had . It was thoroughly enjoyable and educational to see the different ways the same tools were applied to solve &ldquo;real life-life problems&rdquo; It was also enjoyable to see how they applied to problems in industry to solve real life problems . It is the empitamy of what this community actually is .</p>
+      <p>Reflecting on the unique experience of RStudio::conf, this blog post highlights the community-driven atmosphere, inclusivity, diverse attendance, and the genuine support for speakers. Discover why RStudio::conf stands out among other conferences and how it fosters an inspiring environment for R enthusiasts.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1668,7 +1672,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
       
     <h2>Christmas tree in ggplot</h2>
     
-      <p>Rladies.org showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it! You can see all the lovely submissions he has <a href="http://smarterpoland.pl/index.php/2017/12/christmas-trees/">here</a>.</p>
+      <p>Celebrate Christmas with a fun and festive Christmas tree plot in ggplot2! Follow this tutorial to create your own animated Christmas tree in R, complete with baubles, a tree topper, and falling snow using gganimate. Learn how to use ggplot2 and gganimate for creative data visualizations.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1724,7 +1728,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
       
     <h2>R for psychologists - just dive into it!</h2>
     
-      <p>R requires you to be proficient in R in a different way than SPSS . Once you are proficient enough in R, you have a gazillion tools to do more or less anything you want to do, be it analysing complex data, a simple linear regression, writing a blog or making interactive data portals . RStudio is a completely blank slate, no data, no fancy stuff, just a program .</p>
+      <p>Learn the basics of using R and RStudio for psychologists. This tutorial covers reading SPSS data, recoding variables, using pipes, creating simple plots, transforming data to a tall format, and running linear models. Discover how to transition from SPSS to R and take advantage of its powerful data analysis capabilities.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1775,7 +1779,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
       
     <h2>Get the brain animated!</h2>
     
-      <p>The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .</p>
+      <p>Explore how to create animated visualizations of brain data using the ggseg and gganimate packages in R. Learn to prepare data for animations, customize plots, and generate smooth transitions to visualize changes across different conditions such as age.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

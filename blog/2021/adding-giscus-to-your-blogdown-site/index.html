@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="Adding giscus to your blogdown site is an easy way to get your comment section working with blogdown/hugo . The following steps are outlined in the guide to getting it working with hugo and blogdown . The steps include creating a new layout file and setting up GitHub discissions ." />
+  <meta name="description" content="Switch from Disqus to Giscus for comments on your Hugo site using blogdown. This guide shows how to integrate Giscus, a GitHub discussions-based comment section, into your blog seamlessly. Learn how to set up Giscus, modify your theme, and customize the comment section for a streamlined experience." />
   <meta name="author" content="Athanasia M. Mowinckel" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Switch from Disqus to Giscus on Hugo with blogdown. Integrate GitHub discussions for comments and customize your theme.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Adding giscus to your blogdown site - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Adding giscus to your blogdown site is an easy way to get your comment section working with blogdown/hugo . The following steps are outlined in the guide to getting it working with hugo and blogdown . The steps include creating a new layout file and setting up GitHub discissions .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Switch from Disqus to Giscus on Hugo with blogdown. Integrate GitHub discussions for comments and customize your theme.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="Adding giscus to your blogdown site is an easy way to get your comment section working with blogdown/hugo . The following steps are outlined in the guide to getting it working with hugo and blogdown . The steps include creating a new layout file and setting up GitHub discissions .">
+<meta name="twitter:description" content="Switch from Disqus to Giscus on Hugo with blogdown. Integrate GitHub discussions for comments and customize your theme.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -381,7 +385,7 @@
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/blogdown/" class="uk-label uk-label-secondary tags" >
-                                blogdown
+                                Blogdown
                             </a>
                         </div>
                     
@@ -397,7 +401,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">Adding giscus to your blogdown site is an easy way to get your comment section working with blogdown/hugo . The following steps are outlined in the guide to getting it working with hugo and blogdown . The steps include creating a new layout file and setting up GitHub discissions .</p>
+            <p class="uk-text-lead">Switch from Disqus to Giscus for comments on your Hugo site using blogdown. This guide shows how to integrate Giscus, a GitHub discussions-based comment section, into your blog seamlessly. Learn how to set up Giscus, modify your theme, and customize the comment section for a streamlined experience.</p>
         
         <div class="uk-markdown uk-width">
             <p>This is going to be a short one.
@@ -417,7 +421,7 @@ You will need to navigate to the html template for you blog/post sections or whe
 <p><strong>Unfortunately, I cannot tell you exactly where that is! It depends entirely on the developer of your theme, how that has been organised.</strong></p>
 <p>In my case it was quite easy, I looked into the <code>themes/my-theme/layouts/blog/single.html</code> and found a line of code that said <code>{{ partial comments.html .}}</code> this is hugo-speak for inserting contents from another layout into the current file. So I navigated to <code>themes/my-theme/layouts/partials/comments.html</code> and found what I was looking for.</p>
 <p>In my case, the theme creator had a little piece of code that would enable disqus if the disqus shortname was set in the config toml.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- if .Site.DisqusShortname }}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- if .Site.Config.Services.Disqus.Shortname }}
 </span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container disqus&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>        {{ template &#34;_internal/disqus.html&#34; . }}
 </span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
@@ -547,7 +551,7 @@ It looks nice, but I’ll need to figure out how to customize it a little more, 
                         &emsp;url = "https://drmowinckels.io/blog/2021/adding-giscus-to-your-blogdown-site/",<br>
                         &emsp;year = 2021,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273518",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -586,7 +590,7 @@ It looks nice, but I’ll need to figure out how to customize it a little more, 
       
     <h2>Changing your Blogdown Workflow</h2>
     
-      <p>Blogdown is usually used with [go hugo], a static webpage builder . Blogdown renders directly from <code>Rmd</code> to <code>html, meaning it circumvents hugo's processing of </code>md` . This can cause some unwanted issues depending on your theme . It can also make it difficult to maintain your webpage over time .</p>
+      <p>Updating my hugo setup on netlify took over a year of delays due to complexities. After extensive work, I transitioned from knitting <code>.html</code> to <code>.md</code>, fixed theme issues, and resolved netlify CSS problems. Follow my step-by-step guide to smoothly update your blogdown website. Learn to make use of hugo&rsquo;s page bundles, adjust configurations, and ensure seamless rendering both locally and on netlify. This guide addresses key changes you might face, from altering your workflow to understanding theme changes and troubleshooting rendering issues.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

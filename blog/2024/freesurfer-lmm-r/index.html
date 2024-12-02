@@ -17,10 +17,7 @@
 
 
 
-  <meta name="description" content="Running Freesurfer Linear Mixed Models on vertex-vise data is a
-popular way of capturing more advanced statistical models in
-neuroimaging. In this post I highlight how you can prepare your
-data in R for Freesurfer LMMs." />
+  <meta name="description" content="Learn to create model matrices for Freesurfer Linear Mixed Models (LMM) in R using built-in functions. This guide walks you through manually creating model matrices, utilizing the model.matrix function, and standardizing variables. Includes creating a function to streamline the process, making neuroimaging data analysis more efficient." />
   <meta name="author" content="Dr. Mowinckel" />
 
 
@@ -28,28 +25,26 @@ data in R for Freesurfer LMMs." />
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Create model matrices for Freesurfer LMM in R. Guide includes manually creating matrices, using model.matrix, and standardizing variables.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2024/freesurfer-lmm-r/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Setting up a Freesurfer LMM through R - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Running Freesurfer Linear Mixed Models on vertex-vise data is a
-popular way of capturing more advanced statistical models in
-neuroimaging. In this post I highlight how you can prepare your
-data in R for Freesurfer LMMs.">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Create model matrices for Freesurfer LMM in R. Guide includes manually creating matrices, using model.matrix, and standardizing variables.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2024/freesurfer-lmm-r/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="Running Freesurfer Linear Mixed Models on vertex-vise data is a
-popular way of capturing more advanced statistical models in
-neuroimaging. In this post I highlight how you can prepare your
-data in R for Freesurfer LMMs.">
+<meta name="twitter:description" content="Create model matrices for Freesurfer LMM in R. Guide includes manually creating matrices, using model.matrix, and standardizing variables.">
 
 
 
@@ -106,7 +101,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -118,7 +113,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -127,7 +122,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -136,7 +131,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -145,7 +140,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -154,7 +149,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -163,7 +158,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -172,7 +167,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -181,7 +176,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -189,11 +184,11 @@ data in R for Freesurfer LMMs.">
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -202,7 +197,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -211,7 +206,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -220,7 +215,7 @@ data in R for Freesurfer LMMs.">
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -442,10 +437,7 @@ data in R for Freesurfer LMMs.">
             </div>
         </div>
         
-            <p class="uk-text-lead">Running Freesurfer Linear Mixed Models on vertex-vise data is a
-popular way of capturing more advanced statistical models in
-neuroimaging. In this post I highlight how you can prepare your
-data in R for Freesurfer LMMs.</p>
+            <p class="uk-text-lead">Learn to create model matrices for Freesurfer Linear Mixed Models (LMM) in R using built-in functions. This guide walks you through manually creating model matrices, utilizing the <code>model.matrix</code> function, and standardizing variables. Includes creating a function to streamline the process, making neuroimaging data analysis more efficient.</p>
         
         <div class="uk-markdown uk-width">
             <p>It&rsquo;s been a while since I&rsquo;ve been running models, I must admit.
@@ -682,7 +674,7 @@ every bit of help in making it more efficient is welcome.</p>
 It has this weird <code>[,1]</code> at the end, what is that?
 Well, if you have a look at the docs for the <code>scale()</code> function, it actually takes a matrix and returns a matrix, and we are using it on a single vector.
 There are some ways around this, what I do, is make a simple wrapper function that does the same thing, but returns a vector instead of a matrix.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>scale_vec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, <span style="color:#66d9ef">...</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>scale_vec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x, <span style="color:#66d9ef">...</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Error if x has more than one dimension</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stopifnot</span>(<span style="color:#a6e22e">is.null</span>(<span style="color:#a6e22e">dim</span>(x)))
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># scale it</span>
@@ -770,7 +762,7 @@ In this case, I&rsquo;d want a function with two arguments, like we did for mode
 <li><code>formula</code> the formula we are using</li>
 </ul>
 <p>I&rsquo;m gonna call the function <code>make_qdec</code> as qdec is what the Freesurfer LME docs call these files.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, formula){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, formula){
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>We&rsquo;ve started our function, but we need to fill it in.
@@ -778,7 +770,7 @@ First, we need to find all the columns used in the formula, so we can build on t
 The <code>all.vars()</code> function can help us with that.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">all.vars</span>(mpg <span style="color:#f92672">~</span> cyl <span style="color:#f92672">+</span> hp)
 </span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;mpg&#34; &#34;cyl&#34; &#34;hp&#34;
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, formula){
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, formula){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># extract variable names from formula</span>
 </span></span><span style="display:flex;"><span>  vars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">all.vars</span>(formula)
 </span></span><span style="display:flex;"><span>  
@@ -788,7 +780,7 @@ The <code>all.vars()</code> function can help us with that.</p>
 so we have a neater bit of dataframe to work with.
 Since <code>all.vars</code> returns a character vector, we can use the tidyselector <code>all_of</code> function from <code>dplyr</code> to select those columns.
 Since we are already using tidyverse, that seems reasonable.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, formula){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, formula){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># extract variable names from formula</span>
 </span></span><span style="display:flex;"><span>  vars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">all.vars</span>(formula)
 </span></span><span style="display:flex;"><span>  
@@ -798,7 +790,7 @@ Since we are already using tidyverse, that seems reasonable.</p>
 </span></span></code></pre></div><p>After that, we can go ahead and make the model matrix,
 and turn it into a tibble (dplyr special data.frame).
 Additionally, we&rsquo;ll remove the unscaled continuous variables from the data.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, formula){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, formula){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># extract variable names from formula</span>
 </span></span><span style="display:flex;"><span>  vars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">all.vars</span>(formula)
 </span></span><span style="display:flex;"><span>  
@@ -852,7 +844,7 @@ and then name the new columns with the original name, but with a <code>z</code> 
 This is a lot in a single function,
 but you can see how it so nicely can do exactly what we are after!</p>
 <p>Putting that in our function, we get:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, formula, path <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, formula, path <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># extract variable names from formula</span>
 </span></span><span style="display:flex;"><span>  vars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">all.vars</span>(formula)
 </span></span><span style="display:flex;"><span>  
@@ -875,7 +867,7 @@ but you can see how it so nicely can do exactly what we are after!</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Now, we have the model matrix, and scaled variables, we need to combine them.
 Since we are already using <code>dplyr</code> let&rsquo;s stick with that, and use <code>bind_cols()</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, formula, path <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, formula, path <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># extract variable names from formula</span>
 </span></span><span style="display:flex;"><span>  vars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">all.vars</span>(formula)
 </span></span><span style="display:flex;"><span>  
@@ -898,7 +890,7 @@ Since we are already using <code>dplyr</code> let&rsquo;s stick with that, and u
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># combine model matrix and scaled data</span>
 </span></span><span style="display:flex;"><span>  qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_cols</span>(mm, dataz)
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(qdec)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>(qdec)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And at the end we return the qdec.
 Let&rsquo;s take it for a spin!</p>
@@ -954,7 +946,7 @@ we need to write them to file so we can use them.</p>
 <p>In this case, since this is basically what you want to do with the function,
 adding a <code>path</code> argument to the function, and then writing the file to that path,
 seems like a good idea.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, formula, path <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>make_qdec <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, formula, path <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># extract variable names from formula</span>
 </span></span><span style="display:flex;"><span>  vars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">all.vars</span>(formula)
 </span></span><span style="display:flex;"><span>  
@@ -979,11 +971,11 @@ seems like a good idea.</p>
 </span></span><span style="display:flex;"><span>  qdec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind_cols</span>(mm, dataz)
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># write to path if requested</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is.null</span>(path)){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is.null</span>(path)){
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">write.csv</span>(qdec, path, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(qdec)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>(qdec)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And there we have an entire function to use for making our Freesurfer qdec files from R, using R&rsquo;s built-in stats power to help us.</p>
 <h2 id="plot-the-qdec">Plot the qdec</h2>
@@ -1087,7 +1079,7 @@ please let me know!</p>
                         &emsp;url = "https://drmowinckels.io/blog/2024/freesurfer-lmm-r/",<br>
                         &emsp;year = 2024,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273543",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -1126,7 +1118,7 @@ please let me know!</p>
       
     <h2>New {ggseg} with Geom!</h2>
     
-      <p>A new version of ggseg R-package for visualisations of brain atlases was released a couple of months ago . I wanted to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult . New {ggseg} with Geom! The position is what I&rsquo;m truly happy about!</p>
+      <p>We released a new version of the ggseg R-package for visualizing brain atlases. It features a <code>geom_brain</code> function and <code>position_brain</code> for flexible brain slice positioning in ggplot2. This update enhances atlas plotting, offering more customization and improved visuals.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1187,7 +1179,7 @@ please let me know!</p>
       
     <h2>Using Freesurfer annotation files to plot in R</h2>
     
-      <p>Using Freesurfer, the Desikan Killany coortical atlas (aparc) is an atlas that consist of 36 segments, which are well-defined <a href="https://surfer.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=get&amp;target=annot-desikan-m.jpg">Automatically Parcellating the Human Cerebral Cortex</a> Using Freisurfer annotation files to plot in R is our package where you can render the proper 3d version using ggplot2 .</p>
+      <p>For neuroimaging, toggling between R and imaging software like FSL or Freesurfer is common. We segment large 3D brain data into meaningful regions. Our ggseg and ggseg3d packages visualize the brain&rsquo;s Desikan-Killany atlas in 2D and 3D. Learn the steps to convert Freesurfer annotation files to mesh files using the ggsegExtra package for enhanced brain data visualization.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1248,7 +1240,7 @@ please let me know!</p>
       
     <h2>ggseg3d - creating interactive brain segmentation plots with plotly</h2>
     
-      <p>ggseg3d is a package for 3d mesh plots of brain atlases using plotly . It is made to plot brain atlas data . It should be fairly easy to use or atlele to make the first plot . It can be installed from our works GitHub account using remotes .</p>
+      <p>Discover how to create interactive 3D brain atlas plots using the ggseg3d package in R. Learn to visualize neuroimaging data with plotly, including setting up and customizing brain atlas plots. Ideal for neuroscientists and data scientists working with brain segmentation data.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1314,7 +1306,7 @@ please let me know!</p>
       
     <h2>Get the brain animated!</h2>
     
-      <p>The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .</p>
+      <p>Explore how to create animated visualizations of brain data using the ggseg and gganimate packages in R. Learn to prepare data for animations, customize plots, and generate smooth transitions to visualize changes across different conditions such as age.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1375,7 +1367,7 @@ please let me know!</p>
       
     <h2>Introducing the ggseg R-package for brain segmentations</h2>
     
-      <p>The ggseg R-package for brain segmentations is intended for those who need to easily plot results or overviews of segmentet data . The package is developed as part of our lab [The Center for Lifespanism and Cognition [LCBC-UiO]</p>
+      <p>Discover ggseg, an R package designed for plotting brain segmentations directly in R with ggplot2. Learn how to visualize results from different brain atlases, customize plots, and integrate your own data. Ideal for neuroimaging researchers needing to plot segmented brain data efficiently.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

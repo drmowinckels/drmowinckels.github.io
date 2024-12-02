@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting ." />
+  <meta name="description" content="Explore how to create animated visualizations of brain data using the ggseg and gganimate packages in R. Learn to prepare data for animations, customize plots, and generate smooth transitions to visualize changes across different conditions such as age." />
   <meta name="author" content="DrMowinckels" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Create animated brain data visualizations in R using ggseg and gganimate. Learn data preparation, plot customization, and generating animations with smooth transitions.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Get the brain animated! - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Create animated brain data visualizations in R using ggseg and gganimate. Learn data preparation, plot customization, and generating animations with smooth transitions.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2018/get-the-brain-animated/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .">
+<meta name="twitter:description" content="Create animated brain data visualizations in R using ggseg and gganimate. Learn data preparation, plot customization, and generating animations with smooth transitions.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -419,7 +423,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .</p>
+            <p class="uk-text-lead">Explore how to create animated visualizations of brain data using the ggseg and gganimate packages in R. Learn to prepare data for animations, customize plots, and generate smooth transitions to visualize changes across different conditions such as age.</p>
         
         <div class="uk-markdown uk-width">
             <p>I&rsquo;m super delighted that our ggseg package was so well received! We almost immediately got it on <a href="https://neuroconductor.org/">Neuroconductor</a>, which is a neuroimaging equivalent to Bioconductor. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there.</p>
@@ -459,7 +463,7 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># apply through the list to fabricate data per age.</span>
 </span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(full_data, 
-</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">function</span>(x)  
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">function</span>(x)  
 </span></span><span style="display:flex;"><span>         base_atlas <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">mutate</span>(Age<span style="color:#f92672">=</span>x[1],
 </span></span><span style="display:flex;"><span>                thickness <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.001</span>), <span style="color:#a6e22e">nrow</span>(.))))
@@ -483,7 +487,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># apply through the list to fabricate data per age, and add dk atlas</span>
 </span></span><span style="display:flex;"><span>full_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">lapply</span>(full_data, 
-</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">function</span>(x)  
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">function</span>(x)  
 </span></span><span style="display:flex;"><span>         base_atlas <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">mutate</span>(thickness <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">.001</span>), <span style="color:#a6e22e">nrow</span>(.))) <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">full_join</span>(dk) <span style="color:#f92672">%&gt;%</span> 
@@ -562,7 +566,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
                         &emsp;url = "https://drmowinckels.io/blog/2018/get-the-brain-animated/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273462",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -601,7 +605,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
       
     <h2>Introducing the ggseg R-package for brain segmentations</h2>
     
-      <p>The ggseg R-package for brain segmentations is intended for those who need to easily plot results or overviews of segmentet data . The package is developed as part of our lab [The Center for Lifespanism and Cognition [LCBC-UiO]</p>
+      <p>Discover ggseg, an R package designed for plotting brain segmentations directly in R with ggplot2. Learn how to visualize results from different brain atlases, customize plots, and integrate your own data. Ideal for neuroimaging researchers needing to plot segmented brain data efficiently.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -667,8 +671,6 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
       
     <h2>Circular plots in R and adding images</h2>
     
-      <p>Circular plots are becoming more and more popular in for visualising associatetions between different phenomena . I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it .</p>
-    
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
         <a class="btn-more" href="https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/">
@@ -728,7 +730,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
       
     <h2>Adding external images to plots</h2>
     
-      <p>Adding external images to plots is a good way to showcase results, and make it easier for me and my reader to understand what the findings are . I use [ImageMagick] for this, but there are R-packages to help, like [imager] and [imaging] software .</p>
+      <p>Learn how to add external images to your ggplot visualizations in R. This tutorial covers steps to read images and plot them alongside your data, useful for enhancing interpretation and presentation in fields like neuroimaging. Discover how to use functions like <code>readPNG</code>, <code>rasterGrob</code>, and <code>annotation_custom</code> for integrating images with your plots.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -779,7 +781,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
       
     <h2>GAMM random effects</h2>
     
-      <p>I&rsquo;m working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .</p>
+      <p>Explore the use of Generalized Additive Mixed Models (GAMMs) with random effects using <code>mgcv</code> in R. This blog post covers the differences between specifying random effects in <code>mgcv</code> compared to other packages like <code>lme4</code> and walks through a detailed example with simulated data. Learn about <code>gamm</code> model output, interpreting random effects, and plot comparisons of different model specifications.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -835,7 +837,7 @@ This is expected behaviour as of the new <code>ggseg</code> version.</p>
       
     <h2>GAMM spaghetti plots in R with ggplot</h2>
     
-      <p>A co-worker was working on some generalized additive mixed models (GAMM) through the R package [mgcv] The analyses work very well, and results were as expected . There were also some built in plotting functions for the gamm output in R . However, they were with base-r, and we all know base r is not the most beautiful .</p>
+      <p>Discover how to plot Generalized Additive Mixed Models (GAMMs) using ggplot2 in R. This tutorial covers generating simulated data, creating GAMM models with mgcv, predicting single predictor effects, and using the itsadug package for smooth predictions. Learn the steps to visualize complex models and create informative plots.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

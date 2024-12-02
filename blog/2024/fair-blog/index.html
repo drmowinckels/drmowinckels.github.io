@@ -17,9 +17,7 @@
 
 
 
-  <meta name="description" content="In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
-This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
-Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts." />
+  <meta name="description" content="Making your blog FAIR (Findable, Accessible, Interoperable, and Reusable) by archiving posts on Zenodo and adding DOIs. Learn how to use Hugo, GitHub actions, and the Zenodo API to ensure your content is preserved. Enhance your blog’s visibility and reliability." />
   <meta name="author" content="Dr. Mowinckel" />
 
 
@@ -27,26 +25,26 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Make your blog FAIR by archiving posts on Zenodo and adding DOIs. Learn to use Hugo, GitHub actions, and the Zenodo API for content preservation.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2024/fair-blog/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Making your blog FAIR - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
-This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
-Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Make your blog FAIR by archiving posts on Zenodo and adding DOIs. Learn to use Hugo, GitHub actions, and the Zenodo API for content preservation.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2024/fair-blog/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
-This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
-Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.">
+<meta name="twitter:description" content="Make your blog FAIR by archiving posts on Zenodo and adding DOIs. Learn to use Hugo, GitHub actions, and the Zenodo API for content preservation.">
 
 
 
@@ -103,7 +101,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -115,7 +113,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -124,7 +122,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -133,7 +131,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -142,7 +140,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -151,7 +149,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -160,7 +158,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -169,7 +167,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -178,7 +176,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -186,11 +184,11 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -199,7 +197,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -208,7 +206,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -217,7 +215,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -462,9 +460,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
             </div>
         </div>
         
-            <p class="uk-text-lead">In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
-This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
-Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.</p>
+            <p class="uk-text-lead">Making your blog FAIR (Findable, Accessible, Interoperable, and Reusable) by archiving posts on Zenodo and adding DOIs. Learn how to use Hugo, GitHub actions, and the Zenodo API to ensure your content is preserved. Enhance your blog&rsquo;s visibility and reliability.</p>
         
         <div class="uk-markdown uk-width">
             <p><em>This post was featured on the <a href="https://serve.podhome.fm/episodepage/r-weekly-highlights/178">R Weekly highlights podcast</a> hosted by Eric Nantz and Mike Thomas.</em></p>
@@ -629,14 +625,14 @@ Now, I am lazy, it&rsquo;s why I program :P</p>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; summary for Zenodo meta-data.</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
-</span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  char <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^$&#34;</span>, x, invert <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span><span style="display:flex;"><span>  char_lag <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(char[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(char)], <span style="color:#66d9ef">NA</span>)
 </span></span><span style="display:flex;"><span>  start_index <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">which</span>(<span style="color:#a6e22e">abs</span>(char <span style="color:#f92672">-</span> char_lag) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>)
 </span></span><span style="display:flex;"><span>  char[start_index[1]]
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Now that we have that, I can use it to grab the first paragraph and add it to the metadata.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is.null</span>(metadata<span style="color:#f92672">$</span>summmary)){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">is.null</span>(metadata<span style="color:#f92672">$</span>summmary)){
 </span></span><span style="display:flex;"><span>  end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;---&#34;</span>, post_content)[2]<span style="color:#ae81ff">+2</span>
 </span></span><span style="display:flex;"><span>  post_summary <span style="color:#f92672">&lt;-</span> post_content[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
 </span></span><span style="display:flex;"><span>  metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> post_summary[1<span style="color:#f92672">:</span><span style="color:#a6e22e">find_end</span>(post_summary)]
@@ -747,7 +743,7 @@ This was very unfortunate, and meant I had to switch to the standard latex-to-pd
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">TRUE</span>
 </span></span><span style="display:flex;"><span>  }, 
-</span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
+</span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>render_status
 </span></span></code></pre></div><pre><code>[1] TRUE
@@ -1025,7 +1021,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; summary for Zenodo meta-data.</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
-</span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  char <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^$&#34;</span>, x, invert <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span><span style="display:flex;"><span>  char_lag <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(char[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(char)], <span style="color:#66d9ef">NA</span>)
 </span></span><span style="display:flex;"><span>  start_index <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">which</span>(<span style="color:#a6e22e">abs</span>(char <span style="color:#f92672">-</span> char_lag) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>)
@@ -1042,29 +1038,29 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
-</span></span><span style="display:flex;"><span>needs_doi <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>needs_doi <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(x, <span style="color:#ae81ff">30</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if draft</span>
 </span></span><span style="display:flex;"><span>  draft <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^draft:&#34;</span>, frontmatter)]
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(draft) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;true&#34;</span>, draft))
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">length</span>(draft) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;true&#34;</span>, draft))
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">FALSE</span>) 
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if already has DOI</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">any</span>(<span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^doi:&#34;</span>, frontmatter))){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">any</span>(<span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^doi:&#34;</span>, frontmatter))){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if date is in future</span>
 </span></span><span style="display:flex;"><span>  date <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^date:&#34;</span>, frontmatter)]
 </span></span><span style="display:flex;"><span>  date <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">yaml.load</span>(date)<span style="color:#f92672">$</span>date
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">as.Date</span>(date) <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">Sys.Date</span>()){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">as.Date</span>(date) <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">Sys.Date</span>()){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">TRUE</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Publish blogpost to Zenodo</span>
@@ -1078,13 +1074,13 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param post character. path to the post .md</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param upload logical. If the information should be uploaded</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
-</span></span><span style="display:flex;"><span>publish_to_zenodo <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(post, upload <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>){
+</span></span><span style="display:flex;"><span>publish_to_zenodo <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(post, upload <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>){
 </span></span><span style="display:flex;"><span>  post_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(post)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Extract YAML front matter</span>
 </span></span><span style="display:flex;"><span>  metadata <span style="color:#f92672">&lt;-</span> rmarkdown<span style="color:#f92672">::</span><span style="color:#a6e22e">yaml_front_matter</span>(post)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is.null</span>(metadata<span style="color:#f92672">$</span>summmary)){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">is.null</span>(metadata<span style="color:#f92672">$</span>summmary)){
 </span></span><span style="display:flex;"><span>    end_yaml <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;---&#34;</span>, post_content)[2]<span style="color:#ae81ff">+2</span>
 </span></span><span style="display:flex;"><span>    post_summary <span style="color:#f92672">&lt;-</span> post_content[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
 </span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> post_summary[1<span style="color:#f92672">:</span><span style="color:#a6e22e">find_end</span>(post_summary)]
@@ -1130,23 +1126,23 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">TRUE</span>
 </span></span><span style="display:flex;"><span>  }, 
-</span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
+</span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
 </span></span><span style="display:flex;"><span>  )
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span>render_status)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>render_status)
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Error during PDF conversion: %s\n&#34;</span>, e<span style="color:#f92672">$</span>message),
 </span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(upload){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(upload){
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Upload metadata to initiate DOI</span>
 </span></span><span style="display:flex;"><span>    response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_json</span>(zenodo_metadata, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
 </span></span><span style="display:flex;"><span>      
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(
 </span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Failed to create DOI for %s: %s&#34;</span>, post, <span style="color:#a6e22e">resp_status</span>(response)),
 </span></span><span style="display:flex;"><span>        call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
@@ -1163,7 +1159,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_file</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
 </span></span><span style="display:flex;"><span>          
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(upload_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(upload_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Failed to upload %s to Zenodo: %s&#34;</span>, post, <span style="color:#a6e22e">resp_status</span>(upload_response)),
 </span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
 </span></span><span style="display:flex;"><span>      )
@@ -1178,7 +1174,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
 </span></span><span style="display:flex;"><span>      
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(pub_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>, <span style="color:#ae81ff">202</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(pub_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>, <span style="color:#ae81ff">202</span>)) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Failed to publish %s on Zenodo: %s&#34;</span>, pdf_file, <span style="color:#a6e22e">resp_status</span>(pub_response)),
 </span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>    }
@@ -1196,7 +1192,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">writeLines</span>(post_content, post)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(pdf_file)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>(pdf_file)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Zenodo API settings</span>
@@ -1261,7 +1257,7 @@ In the future, I might also post regarding upcoming talks etc, but I promise I w
                         &emsp;url = "https://drmowinckels.io/blog/2024/fair-blog/",<br>
                         &emsp;year = 2024,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13710616",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -1300,9 +1296,7 @@ In the future, I might also post regarding upcoming talks etc, but I promise I w
       
     <h2>Improving your GitHub Profile</h2>
     
-      <p>GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
-Your GitHub profile should then showcase who you are, what you know and what you&rsquo;re learning.
-This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I&rsquo;m learning.</p>
+      <p>Improve your GitHub profile with these tips. Learn how to create a repository with your username, add stats, coding skills, preferred IDEs, blog stats, and more. Customize your profile to make it engaging and showcase your skills and interests effectively.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1363,9 +1357,7 @@ This is how I vamped up my GitHub profile, to showcase who I am, what I know and
       
     <h2>Positron IDE - A new IDE for data science</h2>
     
-      <p>In May I wrote about my favorite IDE&rsquo;s.
-As a result of that post, I was asked to join Posits private beta-testers for their new IDE, Positron.
-Now Positron is out of private beta, so let&rsquo;s see if it can replace my current favorite IDE&rsquo;s.</p>
+      <p>Positron, an IDE developed for data science, combines the best features of RStudio and Visual Studio Code. Learn about its features, customization options, and extensions. Discover how Positron compares to other popular IDEs and why it&rsquo;s a promising tool for data scientists.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1436,11 +1428,7 @@ Now Positron is out of private beta, so let&rsquo;s see if it can replace my cur
       
     <h2>Customise your R startup message</h2>
     
-      <p>We all know the R startup message. It tells us the version
-of R we are running, the date, the platform we are running
-on, and some informative tips on using R.
-When you&rsquo;ve been using R a while, though, it gets old.
-Let me show you how you can customise your startup message!</p>
+      <p>Customize your R startup experience by modifying the R startup message, adding useful system information, and fun elements like a praise or colour bar. Learn how to edit the <code>.Rprofile</code> file, clear the console, print system details, and add a personalised message using the {praise} and {cli} packages for an enjoyable R session.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1501,8 +1489,7 @@ Let me show you how you can customise your startup message!</p>
       
     <h2>Too much git cleaning</h2>
     
-      <p>Version control is great, but sometimes it can trip you up!
-In this post I recount my rather stupid mistake of using <code>git clean</code> when I shouldn&rsquo;t have, and how I got out of it.</p>
+      <p>Learn how to handle git mistakes and recover lost work with simple solutions. Explore commands like <code>git clean</code> and <code>git reset</code>, and discover how to undo mistakes using <code>ctrl + z</code> in RStudio. Gain confidence in your git journey with tips from experienced developers and helpful resources.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="Rmarkdown has been working on a set of analyses from a survey at work . The survey has two basic type of questions, likert-scale questions and binary yes/no questions . For each of these two types of . questions, I’ve needed to generate a . set of descriptive plots and tables, as well as run a particular set of statistical models . I know how to make Rmark down parametrised reports, and I kind of wanted something similar, but in a nested fashion ." />
+  <meta name="description" content="Generate automated reports in Rmarkdown by creating reusable child templates. Learn to call child documents from a main Rmd using knitr and environment variables, enabling efficient and flexible report generation for survey data analysis. Follow this guide to streamline your workflow and reduce repetitive code." />
   <meta name="author" content="Athanasia M. Mowinckel" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Automate Rmarkdown reports with reusable child templates. Learn to use knitr for efficient and flexible report generation.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Rmarkdown Child Templates - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Rmarkdown has been working on a set of analyses from a survey at work . The survey has two basic type of questions, likert-scale questions and binary yes/no questions . For each of these two types of . questions, I’ve needed to generate a . set of descriptive plots and tables, as well as run a particular set of statistical models . I know how to make Rmark down parametrised reports, and I kind of wanted something similar, but in a nested fashion .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Automate Rmarkdown reports with reusable child templates. Learn to use knitr for efficient and flexible report generation.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="Rmarkdown has been working on a set of analyses from a survey at work . The survey has two basic type of questions, likert-scale questions and binary yes/no questions . For each of these two types of . questions, I’ve needed to generate a . set of descriptive plots and tables, as well as run a particular set of statistical models . I know how to make Rmark down parametrised reports, and I kind of wanted something similar, but in a nested fashion .">
+<meta name="twitter:description" content="Automate Rmarkdown reports with reusable child templates. Learn to use knitr for efficient and flexible report generation.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -381,7 +385,7 @@
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/knitr/" class="uk-label uk-label-secondary tags" >
-                                knitr
+                                Knitr
                             </a>
                         </div>
                     
@@ -392,7 +396,7 @@
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/rmarkdown/" class="uk-label uk-label-secondary tags" >
-                                rmarkdown
+                                Rmarkdown
                             </a>
                         </div>
                     
@@ -414,7 +418,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">Rmarkdown has been working on a set of analyses from a survey at work . The survey has two basic type of questions, likert-scale questions and binary yes/no questions . For each of these two types of . questions, I’ve needed to generate a . set of descriptive plots and tables, as well as run a particular set of statistical models . I know how to make Rmark down parametrised reports, and I kind of wanted something similar, but in a nested fashion .</p>
+            <p class="uk-text-lead">Generate automated reports in Rmarkdown by creating reusable child templates. Learn to call child documents from a main Rmd using knitr and environment variables, enabling efficient and flexible report generation for survey data analysis. Follow this guide to streamline your workflow and reduce repetitive code.</p>
         
         <div class="uk-markdown uk-width">
             <p>I have recently been working on a set of analyses from a survey at work.
@@ -427,8 +431,6 @@ Tedious.</p>
 Ideally, I wanted a type of Rmarkdown parametrised report I could provide data, titles and small text snippets to to generate a whole set of descriptives and statistics for me for the various questions.
 But I could not find any of the sort.</p>
 <p>As I often do, I went to the #Rstats twitter Gods for help.</p>
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Rmd wishlist: a parametrized sub-section. <br><br>A way to input whole sections (text and chunks) with some parameters. I have q&#39;s following two basic logics, and thus two sets of text+chunk based on these. I&#39;d love to not copy+paste + edit all these sections, just input as sub-report</p>&mdash; Athanasia Mo Mowinckel @Drmowinckels@fosstodon.org (@DrMowinckels) <a href="https://twitter.com/DrMowinckels/status/1447518834005532676?ref_src=twsrc%5Etfw">October 11, 2021</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p>And this was not at all a super easy thing to do, it turns out!
 We had some nice conversations and people offered awesome advice.
 #Rstats twitter really is the best!</p>
@@ -601,7 +603,7 @@ You can have a look at the documents in the github repo of this post, and hopefu
                         &emsp;url = "https://drmowinckels.io/blog/2021/rmarkdown-child-templates/",<br>
                         &emsp;year = 2021,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273520",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>

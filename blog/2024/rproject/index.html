@@ -17,11 +17,7 @@
 
 
 
-  <meta name="description" content="We all know the R startup message. It tells us the version
-of R we are running, the date, the platform we are running
-on, and some informative tips on using R.
-When you’ve been using R a while, though, it gets old.
-Let me show you how you can customise your startup message!" />
+  <meta name="description" content="Customize your R startup experience by modifying the R startup message, adding useful system information, and fun elements like a praise or colour bar. Learn how to edit the .Rprofile file, clear the console, print system details, and add a personalised message using the {praise} and {cli} packages for an enjoyable R session." />
   <meta name="author" content="Dr. Mowinckel" />
 
 
@@ -29,30 +25,26 @@ Let me show you how you can customise your startup message!" />
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Customize your R startup with personalized messages and system info. Learn to edit the .Rprofile file using {praise} and {cli} packages for a better R experience.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2024/rproject/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Customise your R startup message - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="We all know the R startup message. It tells us the version
-of R we are running, the date, the platform we are running
-on, and some informative tips on using R.
-When you’ve been using R a while, though, it gets old.
-Let me show you how you can customise your startup message!">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Customize your R startup with personalized messages and system info. Learn to edit the .Rprofile file using {praise} and {cli} packages for a better R experience.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2024/rproject/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="We all know the R startup message. It tells us the version
-of R we are running, the date, the platform we are running
-on, and some informative tips on using R.
-When you’ve been using R a while, though, it gets old.
-Let me show you how you can customise your startup message!">
+<meta name="twitter:description" content="Customize your R startup with personalized messages and system info. Learn to edit the .Rprofile file using {praise} and {cli} packages for a better R experience.">
 
 
 
@@ -109,7 +101,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -121,7 +113,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -130,7 +122,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -139,7 +131,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -148,7 +140,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -157,7 +149,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -166,7 +158,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -175,7 +167,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -184,7 +176,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -192,11 +184,11 @@ Let me show you how you can customise your startup message!">
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -205,7 +197,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -214,7 +206,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -223,7 +215,7 @@ Let me show you how you can customise your startup message!">
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -404,7 +396,7 @@ Let me show you how you can customise your startup message!">
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/startup/" class="uk-label uk-label-secondary tags" >
-                                startup
+                                Startup
                             </a>
                         </div>
                     
@@ -415,7 +407,7 @@ Let me show you how you can customise your startup message!">
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/pride/" class="uk-label uk-label-secondary tags" >
-                                pride
+                                Pride
                             </a>
                         </div>
                     
@@ -440,11 +432,7 @@ Let me show you how you can customise your startup message!">
             </div>
         </div>
         
-            <p class="uk-text-lead">We all know the R startup message. It tells us the version
-of R we are running, the date, the platform we are running
-on, and some informative tips on using R.
-When you&rsquo;ve been using R a while, though, it gets old.
-Let me show you how you can customise your startup message!</p>
+            <p class="uk-text-lead">Customize your R startup experience by modifying the R startup message, adding useful system information, and fun elements like a praise or colour bar. Learn how to edit the <code>.Rprofile</code> file, clear the console, print system details, and add a personalised message using the {praise} and {cli} packages for an enjoyable R session.</p>
         
         <div class="uk-markdown uk-width">
             <p>I love customizing things.
@@ -456,21 +444,21 @@ The R startup message is just, so much!
 And when you have been working with it so long, it&rsquo;s just noise.</p>
 <p>I mean, look at this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>R version <span style="color:#ae81ff">4.3.3</span> (<span style="color:#ae81ff">2024-02-29</span>) <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;Angel Food Cake&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Copyright </span>(C) <span style="color:#ae81ff">2024</span> The R Foundation for Statistical Computing
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Copyright </span>(C) <span style="color:#ae81ff">2024</span> The R Foundation <span style="color:#66d9ef">for</span> Statistical Computing
 </span></span><span style="display:flex;"><span>Platform<span style="color:#f92672">:</span> aarch64<span style="color:#f92672">-</span>apple<span style="color:#f92672">-</span><span style="color:#a6e22e">darwin20 </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>R is free software and comes with ABSOLUTELY NO WARRANTY.
 </span></span><span style="display:flex;"><span>You are welcome to redistribute it under certain conditions.
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;license()&#39;</span> or <span style="color:#e6db74">&#39;licence()&#39;</span> for distribution details.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;license()&#39;</span> or <span style="color:#e6db74">&#39;licence()&#39;</span> <span style="color:#66d9ef">for</span> distribution details.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Natural language support but running in an English locale
+</span></span><span style="display:flex;"><span>  Natural language support but running <span style="color:#66d9ef">in</span> an English locale
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>R is a collaborative project with many contributors.
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;contributors()&#39;</span> for more information and
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;citation()&#39;</span> on how to cite R or R packages in publications.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;contributors()&#39;</span> <span style="color:#66d9ef">for</span> more information and
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;citation()&#39;</span> on how to cite R or R packages <span style="color:#66d9ef">in</span> publications.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;demo()&#39;</span> for some demos, <span style="color:#e6db74">&#39;help()&#39;</span> for on<span style="color:#f92672">-</span>line help, or
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;help.start()&#39;</span> for an HTML browser interface to help.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;demo()&#39;</span> <span style="color:#66d9ef">for</span> some demos, <span style="color:#e6db74">&#39;help()&#39;</span> <span style="color:#66d9ef">for</span> on<span style="color:#f92672">-</span>line help, or
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;help.start()&#39;</span> <span style="color:#66d9ef">for</span> an HTML browser interface to help.
 </span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;q()&#39;</span> to quit R.
 </span></span></code></pre></div><p>Ok, it&rsquo;s all informative and meaningful information.
 You just don&rsquo;t need that information every time, and wouldn&rsquo;t it be fun if we could make it more personal?</p>
@@ -537,7 +525,7 @@ The {praise} package contains a list of praises that you can use to get a random
 </code></pre>
 <p>See? Isn&rsquo;t that nice? And it will be a different phrase every time you start R, it&rsquo;s a nice little boost.</p>
 <p>To make this happen, we can add the following code to our <code>.Rprofile</code> file.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;paise&#34;</span> <span style="color:#f92672">%in%</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;paise&#34;</span> <span style="color:#f92672">%in%</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
 </span></span><span style="display:flex;"><span>    praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
@@ -554,21 +542,21 @@ We use the <code>sep</code> argument to separate the praise from the &ldquo;Hey 
 <p>That is our first piece of fun customisation!
 But that will still print the normal startup message, and then append our own praise at the end.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>R version <span style="color:#ae81ff">4.3.3</span> (<span style="color:#ae81ff">2024-02-29</span>) <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;Angel Food Cake&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Copyright </span>(C) <span style="color:#ae81ff">2024</span> The R Foundation for Statistical Computing
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Copyright </span>(C) <span style="color:#ae81ff">2024</span> The R Foundation <span style="color:#66d9ef">for</span> Statistical Computing
 </span></span><span style="display:flex;"><span>Platform<span style="color:#f92672">:</span> aarch64<span style="color:#f92672">-</span>apple<span style="color:#f92672">-</span><span style="color:#a6e22e">darwin20 </span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">-</span>bit)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>R is free software and comes with ABSOLUTELY NO WARRANTY.
 </span></span><span style="display:flex;"><span>You are welcome to redistribute it under certain conditions.
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;license()&#39;</span> or <span style="color:#e6db74">&#39;licence()&#39;</span> for distribution details.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;license()&#39;</span> or <span style="color:#e6db74">&#39;licence()&#39;</span> <span style="color:#66d9ef">for</span> distribution details.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Natural language support but running in an English locale
+</span></span><span style="display:flex;"><span>  Natural language support but running <span style="color:#66d9ef">in</span> an English locale
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>R is a collaborative project with many contributors.
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;contributors()&#39;</span> for more information and
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;citation()&#39;</span> on how to cite R or R packages in publications.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;contributors()&#39;</span> <span style="color:#66d9ef">for</span> more information and
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;citation()&#39;</span> on how to cite R or R packages <span style="color:#66d9ef">in</span> publications.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;demo()&#39;</span> for some demos, <span style="color:#e6db74">&#39;help()&#39;</span> for on<span style="color:#f92672">-</span>line help, or
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;help.start()&#39;</span> for an HTML browser interface to help.
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;demo()&#39;</span> <span style="color:#66d9ef">for</span> some demos, <span style="color:#e6db74">&#39;help()&#39;</span> <span style="color:#66d9ef">for</span> on<span style="color:#f92672">-</span>line help, or
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;help.start()&#39;</span> <span style="color:#66d9ef">for</span> an HTML browser interface to help.
 </span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;q()&#39;</span> to quit R.
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Hey Mo<span style="color:#f92672">!</span>
@@ -589,7 +577,7 @@ This information is useful to have, and it&rsquo;s nice to see it every time you
 It can be useful to know what version of R you are running, what operating system you are on, and what time it is.
 This can be useful for debugging, and it&rsquo;s just nice to know.</p>
 <p>To do this, I&rsquo;m going to use the {cli} package, which can print nice colours, bullet points and all sorts of fun things!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()){
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
@@ -633,7 +621,7 @@ Let&rsquo;s put all we have for now together in our <code>.Rprofile</code> file.
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;clear&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\014&#34;</span>)
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>instl <span style="color:#f92672">&lt;-</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
@@ -646,7 +634,7 @@ Let&rsquo;s put all we have for now together in our <code>.Rprofile</code> file.
 </span></span><span style="display:flex;"><span>} <span style="color:#75715e"># end if cli installed</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\n&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
 </span></span><span style="display:flex;"><span>    praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
@@ -745,7 +733,7 @@ We can use this logic in the <code>grepl</code> function, which will return <cod
 <p>Putting it all together as chunk together, we get a piece of code that will create our custom colourbar.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
 </span></span><span style="display:flex;"><span>colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
 </span></span><span style="display:flex;"><span>  colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e50000&#34;</span>, <span style="color:#e6db74">&#34;#ff8d00&#34;</span>, <span style="color:#e6db74">&#34;#ffee00&#34;</span>,
 </span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;#028121&#34;</span>, <span style="color:#e6db74">&#34;#004cff&#34;</span>, <span style="color:#e6db74">&#34;#770088&#34;</span>,
 </span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;#ffffff&#34;</span>, <span style="color:#e6db74">&#34;#ffafc7&#34;</span>, <span style="color:#e6db74">&#34;#73D7EE&#34;</span>,
@@ -766,11 +754,11 @@ We now have can make a file that:</p>
 <li>Prints a fun colourbar</li>
 <li>Gives a random praise</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">interactive</span>()){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">interactive</span>()){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">system2</span>(<span style="color:#e6db74">&#34;clear&#34;</span>)
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\014&#34;</span>)
 </span></span><span style="display:flex;"><span>  instl <span style="color:#f92672">&lt;-</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
 </span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
 </span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
 </span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
@@ -780,9 +768,9 @@ We now have can make a file that:</p>
 </span></span><span style="display:flex;"><span>                      <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">.libPaths</span>())
 </span></span><span style="display:flex;"><span>                      )))
 </span></span><span style="display:flex;"><span>    thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>    (<span style="color:#a6e22e">function</span>(){
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">function</span>(){
 </span></span><span style="display:flex;"><span>      colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
 </span></span><span style="display:flex;"><span>        colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e50000&#34;</span>, <span style="color:#e6db74">&#34;#ff8d00&#34;</span>, <span style="color:#e6db74">&#34;#ffee00&#34;</span>,
 </span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#028121&#34;</span>, <span style="color:#e6db74">&#34;#004cff&#34;</span>, <span style="color:#e6db74">&#34;#770088&#34;</span>,
 </span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;#ffffff&#34;</span>, <span style="color:#e6db74">&#34;#ffafc7&#34;</span>, <span style="color:#e6db74">&#34;#73D7EE&#34;</span>,
@@ -797,7 +785,7 @@ We now have can make a file that:</p>
 </span></span><span style="display:flex;"><span>    })()
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\n&#34;</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cat</span>(
 </span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
 </span></span><span style="display:flex;"><span>      praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
@@ -807,7 +795,7 @@ We now have can make a file that:</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rm</span>(instl, thick_bar, colour)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>instl <span style="color:#f92672">&lt;-</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">installed.packages</span>()
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;cli&#34;</span> <span style="color:#f92672">%in%</span> instl){
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(R.version.string)
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;Running under {utils::osVersion}&#34;</span>)
 </span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34;System time is {Sys.time()}&#34;</span>)
@@ -817,9 +805,9 @@ We now have can make a file that:</p>
 </span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">.libPaths</span>())
 </span></span><span style="display:flex;"><span>                    )))
 </span></span><span style="display:flex;"><span>  thick_bar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;\u2583&#34;</span>, <span style="color:#ae81ff">6</span>), collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">function</span>(){
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">function</span>(){
 </span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;#88398a&#34;</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;-06-&#34;</span>, <span style="color:#a6e22e">Sys.Date</span>() )){
 </span></span><span style="display:flex;"><span>      colour <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#e50000&#34;</span>, <span style="color:#e6db74">&#34;#ff8d00&#34;</span>, <span style="color:#e6db74">&#34;#ffee00&#34;</span>,
 </span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;#028121&#34;</span>, <span style="color:#e6db74">&#34;#004cff&#34;</span>, <span style="color:#e6db74">&#34;#770088&#34;</span>,
 </span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;#ffffff&#34;</span>, <span style="color:#e6db74">&#34;#ffafc7&#34;</span>, <span style="color:#e6db74">&#34;#73D7EE&#34;</span>,
@@ -834,7 +822,7 @@ We now have can make a file that:</p>
 </span></span><span style="display:flex;"><span>  })()
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;\n&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;praise&#34;</span> <span style="color:#f92672">%in%</span> instl){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;\nHey Mo!&#34;</span>,
 </span></span><span style="display:flex;"><span>    praise<span style="color:#f92672">::</span><span style="color:#a6e22e">praise</span>(),
@@ -873,7 +861,7 @@ The piece of (rather long) code that customised my R startup to something shorte
                         &emsp;url = "https://drmowinckels.io/blog/2024/rproject/",<br>
                         &emsp;year = 2024,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273566",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -912,8 +900,7 @@ The piece of (rather long) code that customised my R startup to something shorte
       
     <h2>Too much git cleaning</h2>
     
-      <p>Version control is great, but sometimes it can trip you up!
-In this post I recount my rather stupid mistake of using <code>git clean</code> when I shouldn&rsquo;t have, and how I got out of it.</p>
+      <p>Learn how to handle git mistakes and recover lost work with simple solutions. Explore commands like <code>git clean</code> and <code>git reset</code>, and discover how to undo mistakes using <code>ctrl + z</code> in RStudio. Gain confidence in your git journey with tips from experienced developers and helpful resources.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

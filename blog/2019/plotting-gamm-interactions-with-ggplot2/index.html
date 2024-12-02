@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="Plotting GAMM interactions with ggplot2 is not always easy, especially if you have some interactions in there . Plotting the results of GAMMs are not always so easy . I’ll be using the diamonds dataset for this, as it has some nice non-linear features ." />
+  <meta name="description" content="Discover how to visualize Generalized Additive Mixed Models (GAMMs) with interactions in R using ggplot2 and mgcv. This tutorial covers numeric and factor interactions, creating prediction datasets, and generating smooth plots. Ideal for enhancing your data analysis and visualization skills." />
   <meta name="author" content="DrMowinckels" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to visualize GAMMs with interactions in R using ggplot2 and mgcv. This guide covers prediction datasets and smooth plots for numeric and factor interactions.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Plotting GAMM interactions with ggplot2 - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Plotting GAMM interactions with ggplot2 is not always easy, especially if you have some interactions in there . Plotting the results of GAMMs are not always so easy . I’ll be using the diamonds dataset for this, as it has some nice non-linear features .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to visualize GAMMs with interactions in R using ggplot2 and mgcv. This guide covers prediction datasets and smooth plots for numeric and factor interactions.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="Plotting GAMM interactions with ggplot2 is not always easy, especially if you have some interactions in there . Plotting the results of GAMMs are not always so easy . I’ll be using the diamonds dataset for this, as it has some nice non-linear features .">
+<meta name="twitter:description" content="Learn to visualize GAMMs with interactions in R using ggplot2 and mgcv. This guide covers prediction datasets and smooth plots for numeric and factor interactions.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -414,7 +418,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">Plotting GAMM interactions with ggplot2 is not always easy, especially if you have some interactions in there . Plotting the results of GAMMs are not always so easy . I&rsquo;ll be using the <code>diamonds</code> dataset for this, as it has some nice non-linear features .</p>
+            <p class="uk-text-lead">Discover how to visualize Generalized Additive Mixed Models (GAMMs) with interactions in R using ggplot2 and mgcv. This tutorial covers numeric and factor interactions, creating prediction datasets, and generating smooth plots. Ideal for enhancing your data analysis and visualization skills.</p>
         
         <div class="uk-markdown uk-width">
             <p>I&rsquo;m full of making packages and unit testing these days, and I don&rsquo;t feel particularly confident in my unit testing skills to be sharing those yet.
@@ -779,7 +783,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
                         &emsp;url = "https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/",<br>
                         &emsp;year = 2019,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273494",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -818,7 +822,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
       
     <h2>GAMM random effects</h2>
     
-      <p>I&rsquo;m working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .</p>
+      <p>Explore the use of Generalized Additive Mixed Models (GAMMs) with random effects using <code>mgcv</code> in R. This blog post covers the differences between specifying random effects in <code>mgcv</code> compared to other packages like <code>lme4</code> and walks through a detailed example with simulated data. Learn about <code>gamm</code> model output, interpreting random effects, and plot comparisons of different model specifications.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -874,7 +878,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
       
     <h2>GAMM spaghetti plots in R with ggplot</h2>
     
-      <p>A co-worker was working on some generalized additive mixed models (GAMM) through the R package [mgcv] The analyses work very well, and results were as expected . There were also some built in plotting functions for the gamm output in R . However, they were with base-r, and we all know base r is not the most beautiful .</p>
+      <p>Discover how to plot Generalized Additive Mixed Models (GAMMs) using ggplot2 in R. This tutorial covers generating simulated data, creating GAMM models with mgcv, predicting single predictor effects, and using the itsadug package for smooth predictions. Learn the steps to visualize complex models and create informative plots.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -930,7 +934,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
       
     <h2>R for Psychologists - part II</h2>
     
-      <p>R for Psychologists - part III: Getting SPSS data into R, doing some data wrangling (altering the data), plotting, and running a simple linear model . Part II: Plotting in R through <code>ggplot2</code> really is a way to understand how to organise and alter data in R to suit your needs .</p>
+      <p>Improve your data visualization skills in R with this comprehensive guide on creating plots using ggplot2. Learn to wrangle data, create long-format datasets, and produce various types of plots, including histograms, scatter plots, and regression lines. Ideal for psychologists transitioning from SPSS to R.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -981,7 +985,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
       
     <h2>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration</h2>
     
-      <p>Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way .</p>
+      <p>Discover the key steps to building R packages effectively with insights from the &ldquo;Building tidy tools&rdquo; workshop at RStudio::conf. Learn about package setup, unit testing, documentation, naming conventions, and using essential tools like <code>usethis</code>, <code>testthat</code>, and <code>pkgdown</code>. Create your first package with practical examples and improve your package development workflow.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1032,7 +1036,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
       
     <h2>Why RStudio::conf is the best conference experience I have had</h2>
     
-      <p>RStudio::conf Austin is the best conference experience I have had . It was thoroughly enjoyable and educational to see the different ways the same tools were applied to solve &ldquo;real life-life problems&rdquo; It was also enjoyable to see how they applied to problems in industry to solve real life problems . It is the empitamy of what this community actually is .</p>
+      <p>Reflecting on the unique experience of RStudio::conf, this blog post highlights the community-driven atmosphere, inclusivity, diverse attendance, and the genuine support for speakers. Discover why RStudio::conf stands out among other conferences and how it fosters an inspiring environment for R enthusiasts.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="I’m working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before ." />
+  <meta name="description" content="Explore the use of Generalized Additive Mixed Models (GAMMs) with random effects using mgcv in R. This blog post covers the differences between specifying random effects in mgcv compared to other packages like lme4 and walks through a detailed example with simulated data. Learn about gamm model output, interpreting random effects, and plot comparisons of different model specifications." />
   <meta name="author" content="DrMowinckels" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to specify and interpret random effects in Generalized Additive Mixed Models (GAMMs) using mgcv in R. Detailed example with simulated data and model comparisons.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2018/gamm-random-effects/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="GAMM random effects - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="I’m working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to specify and interpret random effects in Generalized Additive Mixed Models (GAMMs) using mgcv in R. Detailed example with simulated data and model comparisons.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2018/gamm-random-effects/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="I’m working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .">
+<meta name="twitter:description" content="Learn to specify and interpret random effects in Generalized Additive Mixed Models (GAMMs) using mgcv in R. Detailed example with simulated data and model comparisons.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -408,7 +412,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">I&rsquo;m working a lot with Generalized Additive Mixed Mixed Models (GAMMs) I started seeing some differences in the output from other mixed models I had run through [lme4] and even Bayesian mixed models with [rstanarm] The random effects terms were specified differently . At first I thought this was mainly the fact that I was now using smoothing splines, which I was unfamiliar with running before .</p>
+            <p class="uk-text-lead">Explore the use of Generalized Additive Mixed Models (GAMMs) with random effects using <code>mgcv</code> in R. This blog post covers the differences between specifying random effects in <code>mgcv</code> compared to other packages like <code>lme4</code> and walks through a detailed example with simulated data. Learn about <code>gamm</code> model output, interpreting random effects, and plot comparisons of different model specifications.</p>
         
         <div class="uk-markdown uk-width">
             <p>I&rsquo;m working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it <a href="blog/gamm-spaghetti-plots-in-r-with-ggplot/">here</a>.</p>
@@ -445,13 +449,13 @@
 </span></span><span style="display:flex;"><span>ra <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">10</span>),<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>n.g,<span style="color:#ae81ff">10</span>))
 </span></span><span style="display:flex;"><span>fb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.factor</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>,<span style="color:#a6e22e">rep</span>(n.g,<span style="color:#ae81ff">4</span>)),<span style="color:#ae81ff">10</span>))
 </span></span><span style="display:flex;"><span>rb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">4</span>),<span style="color:#a6e22e">rep</span>(n.g,<span style="color:#ae81ff">4</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for </span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>) rb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(rb,<span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">4</span>),<span style="color:#a6e22e">rep</span>(n.g,<span style="color:#ae81ff">4</span>)))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>) rb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(rb,<span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">4</span>),<span style="color:#a6e22e">rep</span>(n.g,<span style="color:#ae81ff">4</span>)))
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">## simulate auto-correlated errors within groups</span>
 </span></span><span style="display:flex;"><span>e<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">array</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for </span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">40</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">40</span>) {
 </span></span><span style="display:flex;"><span>  eg <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(n.g, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">sd</span>(f))
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for </span>(j in <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n.g) eg[j] <span style="color:#f92672">&lt;-</span> eg[j<span style="color:#ae81ff">-1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">0.6</span><span style="color:#f92672">+</span> eg[j]
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n.g) eg[j] <span style="color:#f92672">&lt;-</span> eg[j<span style="color:#ae81ff">-1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">0.6</span><span style="color:#f92672">+</span> eg[j]
 </span></span><span style="display:flex;"><span>  e<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>(e,eg)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
@@ -744,7 +748,7 @@
 ## b3$lme     3 13 2191.055 2242.943 -1082.527
 </code></pre><p>If you are not used to model comparisons, what you want to look at is Bayesian Information Criterion (BIC) that is the lowest. In our case, the two last models are exactly the same, factoring we saw didn&rsquo;t have much effect in this example. The first model is, however, superior, but only by a very small margin. Most people would agree that all three models are equivalent.</p>
 <p>Lets also plot then to see how the fits look. I&rsquo;ll be using the function I presented in the last post, that creates fitted data with the <code>itsadug</code> package.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>GammPredData <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(data, gamm.model, condition){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>GammPredData <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(data, gamm.model, condition){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">require</span>(itsadug)
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">eval</span>(<span style="color:#a6e22e">parse</span>(text<span style="color:#f92672">=</span><span style="color:#a6e22e">paste0</span>(
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;get_predictions(gamm.model, cond = list(&#34;</span>,
@@ -762,7 +766,7 @@
 </span></span><span style="display:flex;"><span>preds.b <span style="color:#f92672">=</span> preds.b2 <span style="color:#f92672">=</span> preds.b3 <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>() <span style="color:#75715e"># prepare lists for predictions</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># loop through the predictors</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(p)){
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(p)){
 </span></span><span style="display:flex;"><span>  preds.b[[i]] <span style="color:#f92672">=</span> <span style="color:#a6e22e">GammPredData</span>(dat, b<span style="color:#f92672">$</span>gam, p[i]) <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">select_</span>(<span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;CI&#34;</span>, <span style="color:#e6db74">&#34;fit&#34;</span>, p[i])
 </span></span><span style="display:flex;"><span>  
@@ -953,7 +957,7 @@
                         &emsp;url = "https://drmowinckels.io/blog/2018/gamm-random-effects/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13256615",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -992,7 +996,7 @@
       
     <h2>GAMM spaghetti plots in R with ggplot</h2>
     
-      <p>A co-worker was working on some generalized additive mixed models (GAMM) through the R package [mgcv] The analyses work very well, and results were as expected . There were also some built in plotting functions for the gamm output in R . However, they were with base-r, and we all know base r is not the most beautiful .</p>
+      <p>Discover how to plot Generalized Additive Mixed Models (GAMMs) using ggplot2 in R. This tutorial covers generating simulated data, creating GAMM models with mgcv, predicting single predictor effects, and using the itsadug package for smooth predictions. Learn the steps to visualize complex models and create informative plots.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

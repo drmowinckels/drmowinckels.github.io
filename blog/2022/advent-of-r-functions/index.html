@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="Advent of R Functions is a series of 24 pieces of code I often use in my work . This advent brings you 24 code examples that I hope can be of interest and help to you . I’ll continue using the calendar as for this first part of the first day of the month ." />
+  <meta name="description" content="Explore 15 essential pieces of R code to streamline your data analysis and visualization workflow. From creating directories and handling files to customizing ggplot and working with logit scales, these snippets can help you enhance your programming efficiency and maintain cleaner scripts." />
   <meta name="author" content="Dr. Mowinckel" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Boost your R programming efficiency with 15 essential code snippets. Learn to handle files, customize ggplot, and more.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Advent of R Functions - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Advent of R Functions is a series of 24 pieces of code I often use in my work . This advent brings you 24 code examples that I hope can be of interest and help to you . I’ll continue using the calendar as for this first part of the first day of the month .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Boost your R programming efficiency with 15 essential code snippets. Learn to handle files, customize ggplot, and more.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2022/advent-of-r-functions/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="Advent of R Functions is a series of 24 pieces of code I often use in my work . This advent brings you 24 code examples that I hope can be of interest and help to you . I’ll continue using the calendar as for this first part of the first day of the month .">
+<meta name="twitter:description" content="Boost your R programming efficiency with 15 essential code snippets. Learn to handle files, customize ggplot, and more.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -387,7 +391,7 @@
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/advent-calendar/" class="uk-label uk-label-secondary tags" >
-                                Advent calendar
+                                Advent Calendar
                             </a>
                         </div>
                     
@@ -409,7 +413,7 @@
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/r-functions-2022/" class="uk-label uk-label-secondary tags" >
-                                R functions 2022
+                                R Functions 2022
                             </a>
                         </div>
                     
@@ -443,7 +447,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">Advent of R Functions is a series of 24 pieces of code I often use in my work . This advent brings you 24 code examples that I hope can be of interest and help to you . I&rsquo;ll continue using the calendar as for this first part of the first day of the month .</p>
+            <p class="uk-text-lead">Explore 15 essential pieces of R code to streamline your data analysis and visualization workflow. From creating directories and handling files to customizing ggplot and working with logit scales, these snippets can help you enhance your programming efficiency and maintain cleaner scripts.</p>
         
         <div class="uk-markdown uk-width">
             <p>It is advent!
@@ -463,10 +467,10 @@ But R will also throw annoying warnings if the folder already exists, which I al
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">dir.create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>) <span style="color:#75715e"># produces warning</span>
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning in dir.create(&#34;new_folder&#34;): &#39;new_folder&#39; already exists
 </code></pre><p>The solution, is to check if the directory already exists, and make it if it does not.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)) <span style="color:#a6e22e">dir.create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)) <span style="color:#a6e22e">dir.create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)
 </span></span></code></pre></div><p>Actually, I often end up using a little convenience function for this, since I do it quite often.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dir_create <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, <span style="color:#66d9ef">...</span>){
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(x)) 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dir_create <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x, <span style="color:#66d9ef">...</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(x)) 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dir.create</span>(x, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">...</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">dir_create</span>(<span style="color:#e6db74">&#34;new_folder&#34;</span>)
@@ -546,7 +550,7 @@ So, <code>x</code> will be one data.frame.
 Then I write the csv to file, using the species name.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>penguins <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">split</span>(<span style="color:#f92672">~</span>species) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(<span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">write.csv</span>(x, <span style="color:#a6e22e">paste0</span>(<span style="color:#a6e22e">unique</span>(x<span style="color:#f92672">$</span>species), <span style="color:#e6db74">&#34;.csv&#34;</span>), row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>  })
 </span></span></code></pre></div><pre tabindex="0"><code>## $Adelie
@@ -564,7 +568,7 @@ I don&rsquo;t like capitalisation in my file names, and they are not in a folder
 I also cannot easily change the grouping factor, if I for instance wanted to save by island or sex in stead.
 To do that, I&rsquo;ll construct a function that will do my work for me in a standardised way.
 It&rsquo;s going to be quite a doozy, but its such a convenient thing for me!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>save_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, group, directory) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>save_files <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, group, directory) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># get column name from formula</span>
 </span></span><span style="display:flex;"><span>  colname <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.character</span>(group)[<span style="color:#ae81ff">-1</span>]
 </span></span><span style="display:flex;"><span>  
@@ -576,7 +580,7 @@ It&rsquo;s going to be quite a doozy, but its such a convenient thing for me!</p
 </span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">split</span>(data, group)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># internal file name constructor</span>
-</span></span><span style="display:flex;"><span>  .filename <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data){
+</span></span><span style="display:flex;"><span>  .filename <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data){
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># get unique value, make lower, append .csv</span>
 </span></span><span style="display:flex;"><span>    g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unique</span>(data[[colname]]) <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">tolower</span>() <span style="color:#f92672">|&gt;</span> 
@@ -590,7 +594,7 @@ It&rsquo;s going to be quite a doozy, but its such a convenient thing for me!</p
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(tmp) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(tmp, .filename)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># write the filees!</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sapply</span>(tmp, <span style="color:#a6e22e">function</span>(x) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sapply</span>(tmp, <span style="color:#66d9ef">function</span>(x) {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">write.csv</span>(x,
 </span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">.filename</span>(x),
 </span></span><span style="display:flex;"><span>              row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
@@ -694,12 +698,12 @@ But! Usually, I would want to know <em>which file each row comes from</em>.
 In the penguins data here, that is not a huge issue, as the species column basically already tells us that.
 But there might be lots of other reasons you&rsquo;d like to know, for instance for debugging the original data (in case there are suspicious entries), or because the source file information is not inherent in the data.
 To do that, we need a little custom function.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>merge_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(path, pattern, func <span style="color:#f92672">=</span> read.csv, <span style="color:#66d9ef">...</span>){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>merge_files <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(path, pattern, func <span style="color:#f92672">=</span> read.csv, <span style="color:#66d9ef">...</span>){
 </span></span><span style="display:flex;"><span>  file_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(path, pattern, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span><span style="display:flex;"><span>  data_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(file_list, func, <span style="color:#66d9ef">...</span>)
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># loop through data_list length</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># apply new column with source information</span>
-</span></span><span style="display:flex;"><span>  data_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">seq_along</span>(data_list), <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  data_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(<span style="color:#a6e22e">seq_along</span>(data_list), <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>    data_list[[x]]<span style="color:#f92672">$</span>src <span style="color:#f92672">&lt;-</span> file_list[x]
 </span></span><span style="display:flex;"><span>    data_list[[x]]
 </span></span><span style="display:flex;"><span>  })
@@ -744,7 +748,7 @@ I will not be able to make it <em>as neat</em> as janitor, but we can make it mu
 ## 5      &lt;NA&gt;   &lt;NA&gt;                &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt; &lt;NA&gt;
 </code></pre><p>I think we can all agree this is no fun column names to deal with!
 Keeping to base R and some <a href="https://www.wikiwand.com/en/Regular_expression">regular expression</a> (oh man, I need to google those expressions every time!), we can do a decent bit of cleaning.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>clean_names <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, col_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;v&#34;</span>){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>clean_names <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, col_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;v&#34;</span>){
 </span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">names</span>(data)
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn camelCase to snake_case</span>
@@ -764,7 +768,7 @@ Keeping to base R and some <a href="https://www.wikiwand.com/en/Regular_expressi
 </span></span><span style="display:flex;"><span>  colnames <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;^_|_$&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, colnames)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># add column names to columns missing them</span>
-</span></span><span style="display:flex;"><span>  k <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">&#34;&#34;</span>, colnames), <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>  k <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">&#34;&#34;</span>, colnames), <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>    colnames[x] <span style="color:#f92672">&lt;&lt;-</span> <span style="color:#a6e22e">paste0</span>(col_prefix, x)
 </span></span><span style="display:flex;"><span>  })
 </span></span><span style="display:flex;"><span>  
@@ -804,9 +808,9 @@ Again <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor
 </code></pre><p>We made a data.frame yesterday with missing values completely from rows 4 and 5, and partial missing data from 2 and 3, while row 1 is the only complete row of data.
 And in columns 4 and 6 we are completely missing any data.
 We want a simple way to remove all columns that have no information, so we have something simpler to work with.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_col <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_col <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># find columns with only missing values</span>
-</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(data, <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
+</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(data, <span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># keep only columns where there is data</span>
 </span></span><span style="display:flex;"><span>  data[, <span style="color:#f92672">!</span>idx]
@@ -827,9 +831,9 @@ The function is neither long nor particularly complicated (though <code>apply</c
 Imagine having subsetted columns, and now, lots of your rows actually don&rsquo;t contain meaningful information any more.
 No use in having them around, lets just get rid of them!</p>
 <p>The code is <em>remarkably</em> similar to yesterdays code,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_row <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_row <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># find columns with only missing values</span>
-</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(data, <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
+</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(data, <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># keep only rows where there is data</span>
 </span></span><span style="display:flex;"><span>  data[<span style="color:#f92672">!</span>idx, ]
@@ -848,7 +852,7 @@ Then, we subset the rows with the inverse of that output, giving us only the row
 Likely, you&rsquo;ll have some identifier columns that are always populated, and you&rsquo;ll want to make sure you check for <code>NA</code> <em>not</em> in those columns.
 I.e. we want to discard rows where certain columns only have <code>NA</code> not necessarily all!</p>
 <p>This one becomes a little trickier!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_row <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>na_rm_row <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, 
 </span></span><span style="display:flex;"><span>                      col_names <span style="color:#f92672">=</span> <span style="color:#a6e22e">names</span>(data),
 </span></span><span style="display:flex;"><span>                      col_inverse <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get column index for wanted cols</span>
@@ -858,7 +862,7 @@ I.e. we want to discard rows where certain columns only have <code>NA</code> not
 </span></span><span style="display:flex;"><span>  cols <span style="color:#f92672">&lt;-</span>  <span style="color:#a6e22e">names</span>(data)[col_idx]
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Reverse if you want exclude the columns</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(col_inverse){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(col_inverse){
 </span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">names</span>(data)[<span style="color:#f92672">!</span>col_idx]
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>    
@@ -867,7 +871,7 @@ I.e. we want to discard rows where certain columns only have <code>NA</code> not
 </span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(data[, cols])
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># find rows with only missing values</span>
-</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(tmp, <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
+</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(tmp, <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">function</span>(x) <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(x)))
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># keep only rows where there is data</span>
 </span></span><span style="display:flex;"><span>  data[<span style="color:#f92672">!</span>idx, ]
@@ -938,7 +942,7 @@ We have saved our penguin data as csv, so lets read them in, and then save them 
 ## 2   male 2007
 ## 3 female 2007
 ##  [ reached &#39;max&#39; / getOption(&#34;max.print&#34;) -- omitted 121 rows ]
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>csv2tsv <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, file){
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>csv2tsv <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, file){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># remove csv extension from file name</span>
 </span></span><span style="display:flex;"><span>  file <span style="color:#f92672">&lt;-</span> tools<span style="color:#f92672">::</span><span style="color:#a6e22e">file_path_sans_ext</span>(file)
 </span></span><span style="display:flex;"><span>  
@@ -1035,7 +1039,7 @@ To capture it, we need to redirect stdout, and we do this through an argument in
 ## [5] &#34;Adelie\tTorgersen\tNA\tNA\tNA\tNA\tNA\t2007&#34;
 </code></pre><p>The data is now stored as a string vector with 15 elements.
 We&rsquo;ll need to work with it to get it into the shape we want.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>read_custom <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(command, arguments <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>()){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>read_custom <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(command, arguments <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>()){
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn list of arguments into single string</span>
 </span></span><span style="display:flex;"><span>  arguments <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">do.call</span>(paste, arguments)
@@ -1120,15 +1124,15 @@ We just need to be <em>very</em> careful to have ways that the function stops ca
 ## 
 ## $number
 ## [1] 1 2 3 4 5
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>collapse_strings <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">inherits</span>(x, <span style="color:#e6db74">&#34;list&#34;</span>)){
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>collapse_strings <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">inherits</span>(x, <span style="color:#e6db74">&#34;list&#34;</span>)){
 </span></span><span style="display:flex;"><span>    x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(x, collapse_strings)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(x)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># if not a character, return NULL</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">inherits</span>(x, <span style="color:#e6db74">&#34;character&#34;</span>)){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">NULL</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">inherits</span>(x, <span style="color:#e6db74">&#34;character&#34;</span>)){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">NULL</span>)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># collapse strings else</span>
@@ -1155,7 +1159,7 @@ At least in terms of interfacing with the data through a computer, and let&rsquo
 <p>Often, data come in as strings when they should not, or I choose to read them in as strings to preserve data I might loose when turned into something else.
 But that can also lead to some quite frustrating consequences I need to deal with, like empty cells <code>&quot;&quot;</code> or NA cells read as <code>&quot;NA&quot;</code>. Le Sigh.</p>
 <p>I have a little convenience function to deal with this situation exactly.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>empty_to_na <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>empty_to_na <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ifelse</span>(x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;NA&#34;</span> <span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;NULL&#34;</span>,
 </span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">NA_character_</span>, 
 </span></span><span style="display:flex;"><span>         x)
@@ -1169,7 +1173,7 @@ After this, the remaining tedious cleaning begins, but this first step is someth
 <h2 id="12supthsup-of-december---format-for-nice-print">12<sup>th</sup> of December - format for nice print</h2>
 <p>Some times, when I work in R markdown documents, I need to format numbers to look nicer.
 So today&rsquo;s post is a short but sweet one!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thousand <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>thousand <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">formatC</span>(x, 
 </span></span><span style="display:flex;"><span>          format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span>, 
 </span></span><span style="display:flex;"><span>          big.mark <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>, 
@@ -1193,7 +1197,7 @@ In those cases, I make a convenience function for the plotting, so I can call it
 </code></pre><pre tabindex="0"><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ggbar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, grouping){
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ggbar <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, grouping){
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Must have both arguments to work</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stopifnot</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">missing</span>(data))
@@ -1231,7 +1235,7 @@ Some times, it would be convenient to make subplots easily, and wrap them all to
 We can do this with yesterday&rsquo;s function,
 by adding another layer of complexity!</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(patchwork)
-</span></span><span style="display:flex;"><span>ggbar_wrap <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, wrap, grouping){
+</span></span><span style="display:flex;"><span>ggbar_wrap <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, wrap, grouping){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Nest data by wrapping column</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest_by</span>(data, {{wrap}}, .key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dt&#34;</span>) <span style="color:#f92672">|&gt;</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mutate</span>(
@@ -1258,7 +1262,7 @@ by adding another layer of complexity!</p>
 <p>In my PhD days, I did quite some binomial modelling.
 That gives results in logit scale.
 But I struggle with logit, as they are not always the easiest to interpret, so I might want to convert them into probabilities, which my puny brain deals with a little better.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>logit2prob <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(logit){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>logit2prob <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(logit){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># turn logit into odds</span>
 </span></span><span style="display:flex;"><span>  odds <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">exp</span>(logit)
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Turn odds into probability</span>
@@ -1295,7 +1299,7 @@ But I struggle with logit, as they are not always the easiest to interpret, so I
                         &emsp;url = "https://drmowinckels.io/blog/2022/advent-of-r-functions/",<br>
                         &emsp;year = 2022,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273527",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -1334,7 +1338,7 @@ But I struggle with logit, as they are not always the easiest to interpret, so I
       
     <h2>R-Package Advent Calendar 2020</h2>
     
-      <p>The advent calendar is one R-package per day that I personally use and find very useful in my work . The hope is that it would give people a mix of familiar and less familiar packages that might help their work too . R-Package Advent Calendar 2020 is one package per day .</p>
+      <p>This year, I started a Twitter advent calendar showcasing one R-package per day, each of which I find essential for my work. The aim is to highlight useful packages, both familiar and lesser-known, and offer insights into their functionalities. Follow along to discover packages from CRAN, BioConductor, GitHub, and more, and perhaps find new tools to enhance your work.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1395,7 +1399,7 @@ But I struggle with logit, as they are not always the easiest to interpret, so I
       
     <h2>Let&rsquo;s Get Apply&rsquo;ing</h2>
     
-      <p>When programming we want to write code that iterates well, we do this through loops . Let&rsquo;s Get Apply&rsquo;ing is based on the very well-known <code>mtcars</code> dataset built-in to R . We&rsquo;ll only use two columns, just to keep it simple .</p>
+      <p>Learn to replace loops with vectorized apply functions in R for efficient data manipulation. This guide covers converting loops to functions using sapply and mapply, enhancing your programming skills by making code more readable and less error-prone.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1451,7 +1455,7 @@ But I struggle with logit, as they are not always the easiest to interpret, so I
       
     <h2>New {ggseg} with Geom!</h2>
     
-      <p>A new version of ggseg R-package for visualisations of brain atlases was released a couple of months ago . I wanted to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult . New {ggseg} with Geom! The position is what I&rsquo;m truly happy about!</p>
+      <p>We released a new version of the ggseg R-package for visualizing brain atlases. It features a <code>geom_brain</code> function and <code>position_brain</code> for flexible brain slice positioning in ggplot2. This update enhances atlas plotting, offering more customization and improved visuals.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1512,7 +1516,7 @@ But I struggle with logit, as they are not always the easiest to interpret, so I
       
     <h2>New Year&rsquo;s Wishes</h2>
     
-      <p>New Year&rsquo;s Wishes is a ggplot2 holiday card wishing you all a better 2021 than 2020! I find these holiday cards help me understand and explore how data need to look to create a certain output . I wanted to use <code>ggforce::geom_circle</code> for this, which would need x and y coordinates for the center of the circle and the radius .</p>
+      <p>Here&rsquo;s a ggplot2 holiday card wishing you a better 2021! Explore how to create a festive holiday plot in R with ggplot2. Understanding the preparation of data for plotting, using <code>geom_circle</code>, adding blur effects, and customizing text. This exercise enhances your skills in working with ggplot2 and thinking critically about data structures and visual outputs.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1568,7 +1572,7 @@ But I struggle with logit, as they are not always the easiest to interpret, so I
       
     <h2>The Linear Regression Family in R</h2>
     
-      <p>In this post we will go through examples of how we can specify different linear models (linear regressions) in R . The Linear Regression Family in RI will focus on how you can run models in R, and it will be up to you to try to translate your hypothesis into a model .</p>
+      <p>Linear regression is essential in psychology, often disguised as t-tests or ANOVAs. This guide explains running linear models in R, comparing t-tests, Pearson correlations, ANOVAs, ANCOVAs, and more. Understand how to specify models, run tests, and interpret them with real data examples. Gain confidence in translating your hypotheses into linear models and applying statistical methods effectively.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="Reading in multiple files to append them is quite common in muy field. Let’s go through a couple ways you can do that in R." />
+  <meta name="description" content="Learn how to use apply-functions in R to read multiple files efficiently. This guide covers the basics of using sapply and lapply to iterate over files quickly, eliminating the need for loops." />
   <meta name="author" content="Dr. Mowinckel" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Efficiently read multiple files in R using sapply and lapply. Eliminate loops and streamline your data importing process.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2024/lapply-files/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Reading in multiple files without loops - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Reading in multiple files to append them is quite common in muy field. Let’s go through a couple ways you can do that in R.">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Efficiently read multiple files in R using sapply and lapply. Eliminate loops and streamline your data importing process.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2024/lapply-files/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="Reading in multiple files to append them is quite common in muy field. Let’s go through a couple ways you can do that in R.">
+<meta name="twitter:description" content="Efficiently read multiple files in R using sapply and lapply. Eliminate loops and streamline your data importing process.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -392,7 +396,7 @@
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/iterating/" class="uk-label uk-label-secondary tags" >
-                                iterating
+                                Iterating
                             </a>
                         </div>
                     
@@ -414,7 +418,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">Reading in multiple files to append them is quite common in muy field. Let&rsquo;s go through a couple ways you can do that in R.</p>
+            <p class="uk-text-lead">Learn how to use apply-functions in R to read multiple files efficiently. This guide covers the basics of using sapply and lapply to iterate over files quickly, eliminating the need for loops.</p>
         
         <div class="uk-markdown uk-width">
             <p>I&rsquo;ve written about how to use <a href="https://drmowinckels.io/blog/2022/11-07-lets-get-applying">apply-functions</a> before, and did promise to expand on this topic.
@@ -437,9 +441,9 @@ This is a nice way to store the stimuli information.</p>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param sign either 1 or -1, depending if the associated </span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    values should be positive or negative</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return named vector of values</span>
-</span></span><span style="display:flex;"><span>generate_stimuli <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(stimuli, sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>generate_stimuli <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(stimuli, sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># make sure sign either 1 or 1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#f92672">!</span>sign <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">-1</span>)){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>sign <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">-1</span>)){
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;argument &#39;sign&#39; can only be 1 or -1.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setNames</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(stimuli), stimuli) <span style="color:#f92672">*</span> sign
@@ -456,7 +460,7 @@ This is a nice way to store the stimuli information.</p>
 <p>Then I&rsquo;m going to generate the mock response files.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to generate random data</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params n_rows how many rows the data should have</span>
-</span></span><span style="display:flex;"><span>generate_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(n_rows) {
+</span></span><span style="display:flex;"><span>generate_data <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(n_rows) {
 </span></span><span style="display:flex;"><span>  shapes <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">generate_stimuli</span>(
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;square&#34;</span>, <span style="color:#e6db74">&#34;triangle&#34;</span>, <span style="color:#e6db74">&#34;circle&#34;</span>, <span style="color:#e6db74">&#34;rhombus&#34;</span>, <span style="color:#e6db74">&#34;diamond&#34;</span>, <span style="color:#e6db74">&#34;squiggle&#34;</span>),
 </span></span><span style="display:flex;"><span>    sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
@@ -497,7 +501,7 @@ This is a nice way to store the stimuli information.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Generate files with data</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @params i number to append to file name</span>
-</span></span><span style="display:flex;"><span>generate_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(i){
+</span></span><span style="display:flex;"><span>generate_files <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(i){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Generate a random number of rows between 75 and 100</span>
 </span></span><span style="display:flex;"><span>  num_rows <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">75</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1</span>)
 </span></span><span style="display:flex;"><span>  
@@ -549,7 +553,7 @@ We want to combine the data <strong>row-wise</strong>, meaning we get a really <
 &lt;0 rows&gt; (or 0-length row.names)
 </code></pre>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Read in all files</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">for</span>(file in files){
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(file <span style="color:#66d9ef">in</span> files){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Read in the file</span>
 </span></span><span style="display:flex;"><span>  tmp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(file)
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Add file name as src column</span>
@@ -657,7 +661,7 @@ How it works in my head is that it takes all the elements in the list you provid
 </code></pre>
 <p>The only thing we are missing now, is the src column!
 We&rsquo;ll need to do some adaptations to make that work.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(files, <span style="color:#a6e22e">function</span>(x){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(files, <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  dt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(x)
 </span></span><span style="display:flex;"><span>  dt<span style="color:#f92672">$</span>src <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">basename</span>(x)
 </span></span><span style="display:flex;"><span>  dt
@@ -761,7 +765,7 @@ But the <code>lapply</code> variation I find to be just as satisfying when I nee
                         &emsp;url = "https://drmowinckels.io/blog/2024/lapply-files/",<br>
                         &emsp;year = 2024,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.14024550",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -800,7 +804,7 @@ But the <code>lapply</code> variation I find to be just as satisfying when I nee
       
     <h2>Creating post summary with AI from Hugging Face</h2>
     
-      <p>When you have lots of old blog posts, writing good summaries for SEO can be very tedious. Using AI, we can get summaries for our posts easily. Using httr2 we can access models through the Hugging Face API.</p>
+      <p>Optimize your blog&rsquo;s SEO and Zenodo metadata with automated summaries using Hugging Face&rsquo;s text summarization models. Learn how to connect to the Hugging Face API, prepare content, and integrate summaries into your markdown files using R and the httr2 package.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -866,9 +870,7 @@ But the <code>lapply</code> variation I find to be just as satisfying when I nee
       
     <h2>Making your blog FAIR</h2>
     
-      <p>In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
-This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure.
-Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.</p>
+      <p>Making your blog FAIR (Findable, Accessible, Interoperable, and Reusable) by archiving posts on Zenodo and adding DOIs. Learn how to use Hugo, GitHub actions, and the Zenodo API to ensure your content is preserved. Enhance your blog&rsquo;s visibility and reliability.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -939,9 +941,7 @@ Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all m
       
     <h2>Positron IDE - A new IDE for data science</h2>
     
-      <p>In May I wrote about my favorite IDE&rsquo;s.
-As a result of that post, I was asked to join Posits private beta-testers for their new IDE, Positron.
-Now Positron is out of private beta, so let&rsquo;s see if it can replace my current favorite IDE&rsquo;s.</p>
+      <p>Positron, an IDE developed for data science, combines the best features of RStudio and Visual Studio Code. Learn about its features, customization options, and extensions. Discover how Positron compares to other popular IDEs and why it&rsquo;s a promising tool for data scientists.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1012,9 +1012,7 @@ Now Positron is out of private beta, so let&rsquo;s see if it can replace my cur
       
     <h2>Improving your GitHub Profile</h2>
     
-      <p>GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
-Your GitHub profile should then showcase who you are, what you know and what you&rsquo;re learning.
-This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I&rsquo;m learning.</p>
+      <p>Improve your GitHub profile with these tips. Learn how to create a repository with your username, add stats, coding skills, preferred IDEs, blog stats, and more. Customize your profile to make it engaging and showcase your skills and interests effectively.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1075,11 +1073,7 @@ This is how I vamped up my GitHub profile, to showcase who I am, what I know and
       
     <h2>Customise your R startup message</h2>
     
-      <p>We all know the R startup message. It tells us the version
-of R we are running, the date, the platform we are running
-on, and some informative tips on using R.
-When you&rsquo;ve been using R a while, though, it gets old.
-Let me show you how you can customise your startup message!</p>
+      <p>Customize your R startup experience by modifying the R startup message, adding useful system information, and fun elements like a praise or colour bar. Learn how to edit the <code>.Rprofile</code> file, clear the console, print system details, and add a personalised message using the {praise} and {cli} packages for an enjoyable R session.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="New Year’s Wishes is a ggplot2 holiday card wishing you all a better 2021 than 2020! I find these holiday cards help me understand and explore how data need to look to create a certain output . I wanted to use ggforce::geom_circle for this, which would need x and y coordinates for the center of the circle and the radius ." />
+  <meta name="description" content="Here’s a ggplot2 holiday card wishing you a better 2021! Explore how to create a festive holiday plot in R with ggplot2. Understanding the preparation of data for plotting, using geom_circle, adding blur effects, and customizing text. This exercise enhances your skills in working with ggplot2 and thinking critically about data structures and visual outputs." />
   <meta name="author" content="Dr. Mowinckel" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Create a festive holiday card with ggplot2 in R. Learn to plot with geom_circle, add blur effects, and customize text for a fun and visually appealing plot.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="New Year&rsquo;s Wishes - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="New Year’s Wishes is a ggplot2 holiday card wishing you all a better 2021 than 2020! I find these holiday cards help me understand and explore how data need to look to create a certain output . I wanted to use ggforce::geom_circle for this, which would need x and y coordinates for the center of the circle and the radius .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Create a festive holiday card with ggplot2 in R. Learn to plot with geom_circle, add blur effects, and customize text for a fun and visually appealing plot.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2020/new-year-s-wishes/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="New Year’s Wishes is a ggplot2 holiday card wishing you all a better 2021 than 2020! I find these holiday cards help me understand and explore how data need to look to create a certain output . I wanted to use ggforce::geom_circle for this, which would need x and y coordinates for the center of the circle and the radius .">
+<meta name="twitter:description" content="Create a festive holiday card with ggplot2 in R. Learn to plot with geom_circle, add blur effects, and customize text for a fun and visually appealing plot.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -412,7 +416,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">New Year&rsquo;s Wishes is a ggplot2 holiday card wishing you all a better 2021 than 2020! I find these holiday cards help me understand and explore how data need to look to create a certain output . I wanted to use <code>ggforce::geom_circle</code> for this, which would need x and y coordinates for the center of the circle and the radius .</p>
+            <p class="uk-text-lead">Here&rsquo;s a ggplot2 holiday card wishing you a better 2021! Explore how to create a festive holiday plot in R with ggplot2. Understanding the preparation of data for plotting, using <code>geom_circle</code>, adding blur effects, and customizing text. This exercise enhances your skills in working with ggplot2 and thinking critically about data structures and visual outputs.</p>
         
         <div class="uk-markdown uk-width">
             <p>It&rsquo;s time for a new year, and I think we are all ready for it!
@@ -648,7 +652,7 @@ It&rsquo;s just something I got used to.</p>
                         &emsp;url = "https://drmowinckels.io/blog/2020/new-year-s-wishes/",<br>
                         &emsp;year = 2020,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273510",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -687,7 +691,7 @@ It&rsquo;s just something I got used to.</p>
       
     <h2>Using Freesurfer annotation files to plot in R</h2>
     
-      <p>Using Freesurfer, the Desikan Killany coortical atlas (aparc) is an atlas that consist of 36 segments, which are well-defined <a href="https://surfer.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=get&amp;target=annot-desikan-m.jpg">Automatically Parcellating the Human Cerebral Cortex</a> Using Freisurfer annotation files to plot in R is our package where you can render the proper 3d version using ggplot2 .</p>
+      <p>For neuroimaging, toggling between R and imaging software like FSL or Freesurfer is common. We segment large 3D brain data into meaningful regions. Our ggseg and ggseg3d packages visualize the brain&rsquo;s Desikan-Killany atlas in 2D and 3D. Learn the steps to convert Freesurfer annotation files to mesh files using the ggsegExtra package for enhanced brain data visualization.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -748,7 +752,7 @@ It&rsquo;s just something I got used to.</p>
       
     <h2>Do you wanna build a snowman?</h2>
     
-      <p>Do you wanna build a snowman? Do you want to build a Christmas tree? We&rsquo;re going to use [ggforce] from the [gg force] package by Thomas Lin Pedersen . We need to specify the center of the circles we&rsquo;re drawing&rsquo;s locations and their radii . We use &lsquo;geom_circle&rsquo; and &rsquo;tidyr&rsquo; to create the snowman .</p>
+      <p>Celebrate with another Christmas special! Following last year&rsquo;s festive ggplot tree, build an interactive snowman using R, ggplot2, ggforce, and gganimate. Learn to create a snowman from circles, add features like a face, arms, and accessories, and animate falling snow. Enhance your R skills and holiday spirit with this detailed tutorial, ending with a personalized &ldquo;Merry Christmas!&rdquo; message.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -804,7 +808,7 @@ It&rsquo;s just something I got used to.</p>
       
     <h2>ggseg3d - creating interactive brain segmentation plots with plotly</h2>
     
-      <p>ggseg3d is a package for 3d mesh plots of brain atlases using plotly . It is made to plot brain atlas data . It should be fairly easy to use or atlele to make the first plot . It can be installed from our works GitHub account using remotes .</p>
+      <p>Discover how to create interactive 3D brain atlas plots using the ggseg3d package in R. Learn to visualize neuroimaging data with plotly, including setting up and customizing brain atlas plots. Ideal for neuroscientists and data scientists working with brain segmentation data.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -870,7 +874,7 @@ It&rsquo;s just something I got used to.</p>
       
     <h2>Introducing the ggseg R-package for brain segmentations</h2>
     
-      <p>The ggseg R-package for brain segmentations is intended for those who need to easily plot results or overviews of segmentet data . The package is developed as part of our lab [The Center for Lifespanism and Cognition [LCBC-UiO]</p>
+      <p>Discover ggseg, an R package designed for plotting brain segmentations directly in R with ggplot2. Learn how to visualize results from different brain atlases, customize plots, and integrate your own data. Ideal for neuroimaging researchers needing to plot segmented brain data efficiently.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -935,8 +939,6 @@ It&rsquo;s just something I got used to.</p>
       
       
     <h2>Circular plots in R and adding images</h2>
-    
-      <p>Circular plots are becoming more and more popular in for visualising associatetions between different phenomena . I think they look pretty cool, and while I have not yet published a paper with it, I did prep a lot of scripts for plotting my analysis results with it .</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

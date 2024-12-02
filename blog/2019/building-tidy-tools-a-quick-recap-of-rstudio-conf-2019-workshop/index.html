@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way ." />
+  <meta name="description" content="Discover the key steps to building R packages effectively with insights from the “Building tidy tools” workshop at RStudio::conf. Learn about package setup, unit testing, documentation, naming conventions, and using essential tools like usethis, testthat, and pkgdown. Create your first package with practical examples and improve your package development workflow." />
   <meta name="author" content="DrMowinckels" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to build R packages with tips from the &ldquo;Building tidy tools&rdquo; workshop. Setup, unit testing, documentation, and essential tools for package development.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to build R packages with tips from the &ldquo;Building tidy tools&rdquo; workshop. Setup, unit testing, documentation, and essential tools for package development.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way .">
+<meta name="twitter:description" content="Learn to build R packages with tips from the &ldquo;Building tidy tools&rdquo; workshop. Setup, unit testing, documentation, and essential tools for package development.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -427,7 +431,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">Building tidy tools - a quick recap of RStudio::conf 2019 workshop &amp; teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way .</p>
+            <p class="uk-text-lead">Discover the key steps to building R packages effectively with insights from the &ldquo;Building tidy tools&rdquo; workshop at RStudio::conf. Learn about package setup, unit testing, documentation, naming conventions, and using essential tools like <code>usethis</code>, <code>testthat</code>, and <code>pkgdown</code>. Create your first package with practical examples and improve your package development workflow.</p>
         
         <div class="uk-markdown uk-width">
             <p>I&rsquo;ve already posted about what I liked so much about RStudio::conf 2019, and while I could continue chanting that over and over without it ever being able to properly convey how lovely it was, I am going to continue into another report from the conference.</p>
@@ -566,7 +570,7 @@ To put simply, if you want to pass arguments to other tidyverse package function
 <p>We&rsquo;re going to make a small function that calculates the standard error of the mean of a vector of numbers. I have this function everywhere, as my field often uses this particular formula for the sem. We are going to call it <code>se</code>. Again, calling <code>usethis</code> in the console (you may also to <code>library(usethis)</code> and skip all the <code>usethis::function()</code> syntax).</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_r</span>(<span style="color:#e6db74">&#34;se&#34;</span>)
 </span></span></code></pre></div><p>Running this will make an &lsquo;SE.R&rsquo; file in the &lsquo;R/&rsquo; folder within your project, which is where all the functions to your package will go. Using <code>usethis</code> just sets that up for you directly, so you don&rsquo;t have to even think about making sure things go in the right place. The script file will also automatically be opened in RStudio for you, so you can start writing you function.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>se <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>se <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sd</span>(x)<span style="color:#f92672">/</span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">length</span>(x))
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this case, the sem is calculated as the standard deviation of the vector, divided by the square root of its length. Copy or write that into your &lsquo;SE.R&rsquo; script and save. Once this is done, you can load your package directly, and see how it works. You can either load by the key-stroke <code>cmd (ctrl) + shift + L</code> or type <code>devtools::load_all(.)</code> in your console. I recommend learning the keystroke, it makes things easier, and you&rsquo;ll be doing it alto! Once it&rsquo;s loaded, all the functions of your package is made available for you to use, so you can give them a go and see how they work.</p>
@@ -628,7 +632,7 @@ We should probably create our of numbers vector, so that we always know the answ
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; numbers &lt;- c(1,5,6,8,1,14,16,2,3,9,22,15)</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; se(numbers)</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
-</span></span><span style="display:flex;"><span>se <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x){
+</span></span><span style="display:flex;"><span>se <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sd</span>(x)<span style="color:#f92672">/</span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">length</span>(x))
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>I have already made some edits. Roxygen type documentation is nice, because you place them directly with your function, in lines starting with &ldquo;#&rsquo;&rdquo;. The first line will be the title, then comes a simple description. Then there are several different &ldquo;arguments&rdquo;  that start with an <code>@</code>. <code>@params</code> will be one for each argument to your function, names exactly as the function names them, in this case we only have <code>x</code>. <code>@return</code> is optional, where you may describe what your function will return. <code>@export</code> means the function will be made available once the package is loaded, most packages have several functions that are <em>not</em> exported, which are just for internal use within the package, ie function within the exported functions. and <code>@examples</code> will create small snippets of example code for the documentation. <code>@importFrom</code> I added so that this function knows to use the <code>sd()</code> function from the <code>stats</code> package, rather than any other possible loaded package. This is where the package <code>prefixer</code> might be of help, as it helps you add these imports, if you have many. I use that package heavily.</p>
@@ -668,7 +672,7 @@ We should probably create our of numbers vector, so that we always know the answ
                         &emsp;url = "https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/",<br>
                         &emsp;year = 2019,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273490",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -707,7 +711,7 @@ We should probably create our of numbers vector, so that we always know the answ
       
     <h2>Why RStudio::conf is the best conference experience I have had</h2>
     
-      <p>RStudio::conf Austin is the best conference experience I have had . It was thoroughly enjoyable and educational to see the different ways the same tools were applied to solve &ldquo;real life-life problems&rdquo; It was also enjoyable to see how they applied to problems in industry to solve real life problems . It is the empitamy of what this community actually is .</p>
+      <p>Reflecting on the unique experience of RStudio::conf, this blog post highlights the community-driven atmosphere, inclusivity, diverse attendance, and the genuine support for speakers. Discover why RStudio::conf stands out among other conferences and how it fosters an inspiring environment for R enthusiasts.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -763,7 +767,7 @@ We should probably create our of numbers vector, so that we always know the answ
       
     <h2>Christmas tree in ggplot</h2>
     
-      <p>Rladies.org showed me this cool thing a stats professor does each Christmas at the end of his visualisation lecture, I knew I had to do it! You can see all the lovely submissions he has <a href="http://smarterpoland.pl/index.php/2017/12/christmas-trees/">here</a>.</p>
+      <p>Celebrate Christmas with a fun and festive Christmas tree plot in ggplot2! Follow this tutorial to create your own animated Christmas tree in R, complete with baubles, a tree topper, and falling snow using gganimate. Learn how to use ggplot2 and gganimate for creative data visualizations.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -819,7 +823,7 @@ We should probably create our of numbers vector, so that we always know the answ
       
     <h2>R for psychologists - just dive into it!</h2>
     
-      <p>R requires you to be proficient in R in a different way than SPSS . Once you are proficient enough in R, you have a gazillion tools to do more or less anything you want to do, be it analysing complex data, a simple linear regression, writing a blog or making interactive data portals . RStudio is a completely blank slate, no data, no fancy stuff, just a program .</p>
+      <p>Learn the basics of using R and RStudio for psychologists. This tutorial covers reading SPSS data, recoding variables, using pipes, creating simple plots, transforming data to a tall format, and running linear models. Discover how to transition from SPSS to R and take advantage of its powerful data analysis capabilities.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -870,7 +874,7 @@ We should probably create our of numbers vector, so that we always know the answ
       
     <h2>Get the brain animated!</h2>
     
-      <p>The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .</p>
+      <p>Explore how to create animated visualizations of brain data using the ggseg and gganimate packages in R. Learn to prepare data for animations, customize plots, and generate smooth transitions to visualize changes across different conditions such as age.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -931,7 +935,7 @@ We should probably create our of numbers vector, so that we always know the answ
       
     <h2>Introducing the ggseg R-package for brain segmentations</h2>
     
-      <p>The ggseg R-package for brain segmentations is intended for those who need to easily plot results or overviews of segmentet data . The package is developed as part of our lab [The Center for Lifespanism and Cognition [LCBC-UiO]</p>
+      <p>Discover ggseg, an R package designed for plotting brain segmentations directly in R with ggplot2. Learn how to visualize results from different brain atlases, customize plots, and integrate your own data. Ideal for neuroimaging researchers needing to plot segmented brain data efficiently.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       

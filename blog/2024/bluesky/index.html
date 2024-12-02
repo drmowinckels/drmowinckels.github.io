@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Posting to Bluesky from R - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="With the recent mass exodus from Xitter, Bluesky has emerged as a new home for the R community. Discover how to join the community with starter packs and automate posting to Bluesky from R using GitHub Actions. Explore detailed steps for setup and automation, making it easy to share your latest blog posts on social media platforms." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to automate posting to Bluesky from R using GitHub Actions. Join the R community on Bluesky and discover starter packs for easy connections.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2024/bluesky/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Posting to Bluesky from R - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn to automate posting to Bluesky from R using GitHub Actions. Join the R community on Bluesky and discover starter packs for easy connections.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2024/bluesky/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Learn to automate posting to Bluesky from R using GitHub Actions. Join the R community on Bluesky and discover starter packs for easy connections.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2024/bluesky/images/drmowinckels_rstats.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2024/bluesky/images/drmowinckels_rstats.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.b949f82ef13ab020c09cc9a01a06b5c35de205c6382cde6ed472ebf5efc8e9d2.css" 
+    integrity="sha256-uUn4LvE6sCDAnMmgGga1w13iBcY4LN5u1HLr9e/I6dI=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2024/bluesky/images/drmowinckels_rstats.png" alt="Posting to Bluesky from R" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Posting to Bluesky from R</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Dec 2, 2024
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/github/" class="uk-label uk-label-secondary tags" >
+                                GitHub
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/api/" class="uk-label uk-label-secondary tags" >
+                                API
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/bluesky/" class="uk-label uk-label-secondary tags" >
+                                Bluesky
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#starter-packs">Starter Packs</a></li>
+    <li><a href="#get-your-custom-domain-as-your-handle">Get your custom domain as your handle</a></li>
+    <li><a href="#posting-to-bluesky-from-r">Posting to Bluesky from R</a></li>
+    <li><a href="#the-github-action-job">The GitHub Action job</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">With the recent mass exodus from Xitter, Bluesky has emerged as a new home for the R community. Discover how to join the community with starter packs and automate posting to Bluesky from R using GitHub Actions. Explore detailed steps for setup and automation, making it easy to share your latest blog posts on social media platforms.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>With the latest mass flee&rsquo;ing from Xitter, a &ldquo;new&rdquo; social media platform seems to have emerged as a home for the R community.
+Bluesky has been around for a while, and next to Threads and Mastodon was one of the initial contenders when the first wave fled Xitter about two years ago.
+Now, I think Mastodon ended up at first as where most of us placed our bet.
+The open source, federated system really appealed to a lot of tech savvy folks.
+However, while I am happy for what we have there, I at least never managed to get a proper feel for community there.
+The engagement is much less than hoped for.</p>
+<p>With the results of the current US electing sparking fear for what is to come, and Musk&rsquo;s involvement and continued shitification of Xitter, people have had enough.
+Bluesky seems to have become the favoured platform for this exodus, so I decided to make an account also and see what it was.</p>
+<p>I must say, I am happy I did.
+The sense of community is much more and engagement is much larger.
+Now, it&rsquo;s still early days of the R community on Bluesky, so it&rsquo;s hard to say if it will continue this way, but there are some signs.</p>
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:iz6v2itga76zik4okvzlv6di/app.bsky.feed.post/3lawelexzwk2w" data-bluesky-cid="bafyreibgkj65ox44yt5yqowlw7dny37c4uhu2qqtd4i7nhbh7cw2ll7exi"><p lang="en">Bluesky really is the new #rstats twitter because we have the first base R vs tidyverse flame war 🤣</p>&mdash; Hadley Wickham (<a href="https://bsky.app/profile/did:plc:iz6v2itga76zik4okvzlv6di?ref_src=embed">@hadleywickham.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:iz6v2itga76zik4okvzlv6di/post/3lawelexzwk2w?ref_src=embed">Nov 14, 2024 at 18:18</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+<h2 id="starter-packs">Starter Packs</h2>
+<p>I think one of the reasons it exploded, was the emergence of the <a href="https://bsky.social/about/blog/06-26-2024-starter-packs">Bluesky Starter Packs</a>.
+Starter Packs are created by users to make it easier to connect with their communities, or find people you might be interested in following.</p>
+<p>Personally, I started out with Jeremy Allens&rsquo; <a href="https://bsky.app/starter-pack/jeremy-data.bsky.social/3l6x3agttsg2r">Rstats starter pack</a>.
+It was just so simple to easily find the community I wanted to connect to again.
+If you are thinking of giving it a go, here are some starter packs that might be of interest to people reading this blog!</p>
+<p>You can easily &ldquo;follow all&rdquo; or cherry pick whoever you want from each pack.
+Remember to also check out if they have any recommended Feeds!</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Category</th>
+          <th style="text-align: right">Pack</th>
+          <th>Preview</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>R</strong></td>
+          <td style="text-align: right">My Rstats picks</td>
+          <td><a href="https://bsky.app/starter-pack/drmowinckels.io/3l76bq6sdms2z"><img src="images/drmowinckels_rstats.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>R</strong></td>
+          <td style="text-align: right">R-Ladies Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack/rladies.org/3lawoimij4m2e"><img src="images/rladies.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>R</strong></td>
+          <td style="text-align: right">Jeremy Allen&rsquo;s Rstats Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack/jeremy-data.bsky.social/3l6x3agttsg2r"><img src="images/rstats.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>R</strong></td>
+          <td style="text-align: right">Ansgar Wolsing ggplot2 Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack/ansgarw.bsky.social/3l6xrq3f4fe24"><img src="images/ggplot2.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>R</strong></td>
+          <td style="text-align: right">Noam Ross&rsquo; rOpenSci Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack/noamross.net/3land3z3fez2z"><img src="images/ropensci.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>R</strong></td>
+          <td style="text-align: right">🌈 rainbowR: LGBTQIA+ people who code in #RStats</td>
+          <td><a href="https://go.bsky.app/S3t9LbZ"><img src="images/rainbowr.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>R/Neuro</strong></td>
+          <td style="text-align: right">My Neuro Rstats Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack/drmowinckels.io/3larl2jajog2o"><img src="images/neurorstats.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>R/python</strong></td>
+          <td style="text-align: right">Garrick Aden-Buie&rsquo;s Shiny Dev</td>
+          <td><a href="https://bsky.app/starter-pack/grrrck.xyz/3lahi4wmmkq2h"><img src="images/shiny.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>python</strong></td>
+          <td style="text-align: right">Cosima Meyer&rsquo;s PyLadies</td>
+          <td><a href="https://bsky.app/starter-pack/cosima.bsky.social/3l7zmdn5tsp26"><img src="images/pyladies.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Coding</strong></td>
+          <td style="text-align: right">Milos&rsquo; Free Tutorials Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack/milos-makes-maps.bsky.social/3lau5bzm53p2j"><img src="images/tutorials.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>RSE</strong></td>
+          <td style="text-align: right">My Research Software Engineers Pack</td>
+          <td><a href="hhttps://go.bsky.app/4kfWypW"><img src="images/rse.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>UiO</strong></td>
+          <td style="text-align: right">Dan Quintana&rsquo;s UiO Community Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack/dsquintana.bsky.social/3lalcn3lzo72f"><img src="images/uio.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Data</strong></td>
+          <td style="text-align: right">Christian Minich&rsquo;s Data People Starter Pack</td>
+          <td><a href="https://bsky.app/starter-pack-short/8TdEfdK"><img src="images/data.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>AI</strong></td>
+          <td style="text-align: right">Catherine Breslin&rsquo;s Women in AI</td>
+          <td><a href="https://bsky.app/starter-pack-short/LaGDpqg"><img src="images/wai.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Viz</strong></td>
+          <td style="text-align: right">Francis Gagnon&rsquo;s Data visualization community</td>
+          <td><a href="https://go.bsky.app/R3nSyyy"><img src="images/datavis.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Cog/Neuro</strong></td>
+          <td style="text-align: right">Micah Allen&rsquo;s Cognitive neuroscience 1</td>
+          <td><a href="https://go.bsky.app/2n84SRM"><img src="images/cogneuro1.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Cog/Neuro</strong></td>
+          <td style="text-align: right">Micah Allen&rsquo;s Cognitive neuroscience 2</td>
+          <td><a href="https://go.bsky.app/HQeoP7D"><img src="images/cogneuro2.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Cog/Psy</strong></td>
+          <td style="text-align: right">Allie Sinclair&rsquo;s Cognitive Psychology</td>
+          <td><a href="https://go.bsky.app/NsFhnV"><img src="images/cog.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>EEG</strong></td>
+          <td style="text-align: right">Maëlan Menétrey&rsquo;s EEG Research</td>
+          <td><a href="https://go.bsky.app/H2URVjv"><img src="images/eeg.png" alt=""></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>MRI</strong></td>
+          <td style="text-align: right">Todd Woodward&rsquo;s Task-based fMRI</td>
+          <td><a href="https://go.bsky.app/Ai1f67H"><img src="images/fmri.png" alt=""></a></td>
+      </tr>
+  </tbody>
+</table>
+<p>That should get you more than started!</p>
+<h2 id="get-your-custom-domain-as-your-handle">Get your custom domain as your handle</h2>
+<p>When I first signed up on Bluesky, I had the standard <code>drmowinckels.bsky.social</code> handle, most people have a variant of this type.
+But I started noticing that people had their domains as their handles, and I got very curious how that worked.
+I found the Bluesky documentation on <a href="https://bsky.social/about/blog/4-28-2023-domain-handle-tutorial">how to set your custom domains as your handle</a> and followed the <em>very</em> easy steps to do so.
+Presto!
+I became <a href="https://bsky.app/profile/drmowinckels.io">drmowinckels.io</a> on Bluesky.
+I think this is a very neat and easy way to verify if a person is who they say they are, if the already have a clear online presense like their own website domain.</p>
+<h2 id="posting-to-bluesky-from-r">Posting to Bluesky from R</h2>
+<p>While I have been on somewhat of an API spree with <a href="https://httr2.r-lib.org/">httr2</a> lately, this time I think we will stick to using a package.
+I did start off doing this myself, but then found that creating links and tags in Bluesky through the API is <a href="https://docs.bsky.app/docs/advanced-guides/post-richtext"><em>much more</em></a> work than just sending some plaintext, so I abandoned that to someone how has already figured out how it works.</p>
+<p>Christopher Kenny has amazingly created <a href="https://christophertkenny.com/bskyr/">bskyr</a> to aid us in sending an receiving data from the Bluesky API.
+The documentation was really very easy to follow, so I don&rsquo;t really have lots more information to provide than the code I use to automatically create a post once a new blogpost is published on my site.</p>
+<p>I have set this up as a script that will be called from a Github action, and the script takes an argument, which is the path to the new post&rsquo;s <code>index.md</code></p>
+<p>The first lines are all about catching this input, and making sure its actually provided and singular.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env Rscript</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>post <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">commandArgs</span>(trailingOnly <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check if arguments are provided</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">length</span>(post) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stop</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;No arguments provided. Script needs a file to process.&#34;</span>, 
+</span></span><span style="display:flex;"><span>  call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">length</span>(post) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">warning</span>(<span style="color:#e6db74">&#34;Several arguments provided. Processing only first one.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  post <span style="color:#f92672">&lt;-</span> post[1]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Then we read in the posts frontmatter, cleanup the tags, and build the complete URL to the post.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>frontmatter <span style="color:#f92672">&lt;-</span> rmarkdown<span style="color:#f92672">::</span><span style="color:#a6e22e">yaml_front_matter</span>(post)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># fix tags</span>
+</span></span><span style="display:flex;"><span>tags <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;#&#34;</span>, frontmatter<span style="color:#f92672">$</span>tags)
+</span></span><span style="display:flex;"><span>tags <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sub</span>(<span style="color:#e6db74">&#34;^#r$&#34;</span>, <span style="color:#e6db74">&#34;#rstats&#34;</span>, tags)
+</span></span><span style="display:flex;"><span>tags <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(tags, collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;, &#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># build URL</span>
+</span></span><span style="display:flex;"><span>uri <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;https://drmowinckels.io/blog/%s/%s&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">basename</span>(<span style="color:#a6e22e">dirname</span>(<span style="color:#a6e22e">dirname</span>(post))),
+</span></span><span style="display:flex;"><span>  frontmatter<span style="color:#f92672">$</span>slug
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Because this is going on social media, I also have a selection of emoji&rsquo;s that I randomly select from each time, just for fun.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>emojis <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;🦄&#34;</span>, <span style="color:#e6db74">&#34;🦜&#34;</span>, <span style="color:#e6db74">&#34;🦣&#34;</span>, <span style="color:#e6db74">&#34;🦥&#34;</span>, <span style="color:#e6db74">&#34;🦦&#34;</span>, <span style="color:#e6db74">&#34;🦧&#34;</span>, <span style="color:#e6db74">&#34;🦨&#34;</span>, <span style="color:#e6db74">&#34;🦩&#34;</span>, <span style="color:#e6db74">&#34;🦪&#34;</span>, 
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🦫&#34;</span>, <span style="color:#e6db74">&#34;🦬&#34;</span>, <span style="color:#e6db74">&#34;🦭&#34;</span>, <span style="color:#e6db74">&#34;🦮&#34;</span>, <span style="color:#e6db74">&#34;🦯&#34;</span>, <span style="color:#e6db74">&#34;🦰&#34;</span>, <span style="color:#e6db74">&#34;🦱&#34;</span>, <span style="color:#e6db74">&#34;🦲&#34;</span>, <span style="color:#e6db74">&#34;🦳&#34;</span>, <span style="color:#e6db74">&#34;🦴&#34;</span>, 
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🦵&#34;</span>, <span style="color:#e6db74">&#34;🦶&#34;</span>, <span style="color:#e6db74">&#34;🦷&#34;</span>, <span style="color:#e6db74">&#34;🦸&#34;</span>, <span style="color:#e6db74">&#34;🦹&#34;</span>, <span style="color:#e6db74">&#34;🦺&#34;</span>, <span style="color:#e6db74">&#34;🦻&#34;</span>, <span style="color:#e6db74">&#34;🦼&#34;</span>, <span style="color:#e6db74">&#34;🦽&#34;</span>, <span style="color:#e6db74">&#34;🦾&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🦿&#34;</span>, <span style="color:#e6db74">&#34;🧀&#34;</span>, <span style="color:#e6db74">&#34;🧁&#34;</span>, <span style="color:#e6db74">&#34;🧂&#34;</span>, <span style="color:#e6db74">&#34;🧃&#34;</span>, <span style="color:#e6db74">&#34;🧄&#34;</span>, <span style="color:#e6db74">&#34;🧅&#34;</span>, <span style="color:#e6db74">&#34;🧆&#34;</span>, <span style="color:#e6db74">&#34;🧇&#34;</span>, <span style="color:#e6db74">&#34;🧈&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🧉&#34;</span>, <span style="color:#e6db74">&#34;🧊&#34;</span>, <span style="color:#e6db74">&#34;🧋&#34;</span>, <span style="color:#e6db74">&#34;🧌&#34;</span>, <span style="color:#e6db74">&#34;🧍&#34;</span>, <span style="color:#e6db74">&#34;🧎&#34;</span>, <span style="color:#e6db74">&#34;🧏&#34;</span>, <span style="color:#e6db74">&#34;🧐&#34;</span>, <span style="color:#e6db74">&#34;🧑&#34;</span>, <span style="color:#e6db74">&#34;🧒&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🧓&#34;</span>, <span style="color:#e6db74">&#34;🧔&#34;</span>, <span style="color:#e6db74">&#34;🧕&#34;</span>, <span style="color:#e6db74">&#34;🧖&#34;</span>, <span style="color:#e6db74">&#34;🧗&#34;</span>, <span style="color:#e6db74">&#34;🧘&#34;</span>, <span style="color:#e6db74">&#34;🧙&#34;</span>, <span style="color:#e6db74">&#34;🧚&#34;</span>, <span style="color:#e6db74">&#34;🧛&#34;</span>, <span style="color:#e6db74">&#34;🧜&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🧝&#34;</span>, <span style="color:#e6db74">&#34;🧞&#34;</span>, <span style="color:#e6db74">&#34;🧟&#34;</span>, <span style="color:#e6db74">&#34;🧠&#34;</span>, <span style="color:#e6db74">&#34;🧡&#34;</span>, <span style="color:#e6db74">&#34;🧢&#34;</span>, <span style="color:#e6db74">&#34;🧣&#34;</span>, <span style="color:#e6db74">&#34;🧤&#34;</span>, <span style="color:#e6db74">&#34;🧥&#34;</span>, <span style="color:#e6db74">&#34;🧦&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🧧&#34;</span>, <span style="color:#e6db74">&#34;🧨&#34;</span>, <span style="color:#e6db74">&#34;🧩&#34;</span>, <span style="color:#e6db74">&#34;🧪&#34;</span>, <span style="color:#e6db74">&#34;🧫&#34;</span>, <span style="color:#e6db74">&#34;🧬&#34;</span>, <span style="color:#e6db74">&#34;🧭&#34;</span>, <span style="color:#e6db74">&#34;🧮&#34;</span>, <span style="color:#e6db74">&#34;🧯&#34;</span>, <span style="color:#e6db74">&#34;🧰&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🧱&#34;</span>, <span style="color:#e6db74">&#34;🧲&#34;</span>, <span style="color:#e6db74">&#34;🧳&#34;</span>, <span style="color:#e6db74">&#34;🧴&#34;</span>, <span style="color:#e6db74">&#34;🧵&#34;</span>, <span style="color:#e6db74">&#34;🧶&#34;</span>, <span style="color:#e6db74">&#34;🧷&#34;</span>, <span style="color:#e6db74">&#34;🧸&#34;</span>, <span style="color:#e6db74">&#34;🧹&#34;</span>, <span style="color:#e6db74">&#34;🧺&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;🧻&#34;</span>, <span style="color:#e6db74">&#34;🧼&#34;</span>, <span style="color:#e6db74">&#34;🧽&#34;</span>, <span style="color:#e6db74">&#34;🧾&#34;</span>, <span style="color:#e6db74">&#34;🧿&#34;</span>)
+</span></span><span style="display:flex;"><span>emoji <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(emojis, <span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>Then I construct the message I want, using all these bits, and a frontmatter parameter I call &ldquo;seo&rdquo;.
+I have previously used &ldquo;summary&rdquo; here, but have now decided I both want a longer summary of my post (400-500 characters) and a simpler 155 character SEO.
+Because social media have strict character limits, I use the SEO for that.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Create message</span>
+</span></span><span style="display:flex;"><span>message <span style="color:#f92672">&lt;-</span> glue<span style="color:#f92672">::</span><span style="color:#a6e22e">glue</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;📝 New blog post 📝 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#39;{frontmatter$title}&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  {emoji} {frontmatter$seo} 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  👀  Read at: {uri} 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  {tags}&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Lastly, I make sure I have the complete path to the post image I want to use.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Add image</span>
+</span></span><span style="display:flex;"><span>image <span style="color:#f92672">&lt;-</span> here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#a6e22e">dirname</span>(post), frontmatter<span style="color:#f92672">$</span>image)
+</span></span></code></pre></div><p>Now that we have all the bits and bobs lined up, let&rsquo;s get posting!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Post to Bluesky</span>
+</span></span><span style="display:flex;"><span>bskyr<span style="color:#f92672">::</span><span style="color:#a6e22e">bs_post</span>(
+</span></span><span style="display:flex;"><span>  text <span style="color:#f92672">=</span> message,
+</span></span><span style="display:flex;"><span>  images <span style="color:#f92672">=</span> image,
+</span></span><span style="display:flex;"><span>  images_alt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Blogpost featured image&#34;</span>,
+</span></span><span style="display:flex;"><span>  langs <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;US-en&#34;</span>,
+</span></span><span style="display:flex;"><span>  user <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drmowinckels.io&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>and that&rsquo;s it!
+It&rsquo;s so short and simple.
+Assuming you have followed the documentation on getting you <a href="https://christophertkenny.com/bskyr/#authentication">authentication right</a>, that really is all you need.
+I really love it when package creators make life this easy.
+And all the links and tags are correctly formatted like bluesky wants, and it even preserves linesbreaks (which I&rsquo;ve found Bluesky to be a little tricky with!)</p>
+<p>I know this post is all about Bluesky, but I am also not abandoning Mastodon.
+And in the spirit of simplicity, let&rsquo;s use <a href="https://gesistsa.github.io/rtoot/articles/auth.html">rtoot</a> to post to it too.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Post to Mastodon</span>
+</span></span><span style="display:flex;"><span>rtoot<span style="color:#f92672">::</span><span style="color:#a6e22e">post_toot</span>(
+</span></span><span style="display:flex;"><span>  status <span style="color:#f92672">=</span> message,
+</span></span><span style="display:flex;"><span>  media <span style="color:#f92672">=</span> image,
+</span></span><span style="display:flex;"><span>  alt_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Blogpost featured image&#34;</span>,
+</span></span><span style="display:flex;"><span>  visibility <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;public&#34;</span>,
+</span></span><span style="display:flex;"><span>  language <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;US-en&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="the-github-action-job">The GitHub Action job</h2>
+<p>I&rsquo;ll show you how the GitHub action (mainly) looks like too.
+I&rsquo;ve skipped showing the <code>build</code> step, as its not necessary for this post,
+and very specific to my setup.</p>
+<p>First I set up that the workflow should run when I push or PR to main, or manually by triggering it.
+Then I have three jobs:</p>
+<ul>
+<li><code>check</code>: sets up build parameters. Bash commands to figure out the post path, and date etc.</li>
+<li><code>build</code>: builds and pushes the website to the gh-pages branch</li>
+<li><code>announce</code>: send social media announcements if its the same day as a new blogpost is published.</li>
+</ul>
+<p>I hope the code comments give you the general idea of what is going on.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">workflow_dispatch</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Update website</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">checks</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Set-up build params</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">if</span>: <span style="color:#ae81ff">github.ref == &#39;refs/heads/main&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">POST</span>:      <span style="color:#ae81ff">${{ steps.check-post.outputs.POST }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">POST_DATE</span>: <span style="color:#ae81ff">${{ steps.check-date.outputs.POST_DATE }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ANNOUNCE</span>:  <span style="color:#ae81ff">${{ steps.check-date.outputs.ANNOUNCE }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">DOI</span>:       <span style="color:#ae81ff">${{ steps.check-doi.outputs.DOI }}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">GITHUB_PAT</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout repo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">📝 Get latest blog post 📝</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">id</span>: <span style="color:#ae81ff">check-post</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">BLOG_PATH</span>: <span style="color:#e6db74">&#34;content/blog&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          # Find the latest blog post
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          latest_post=$(find &#34;${BLOG_PATH}&#34; | grep /index.md$ | grep -v &#34;XX-XX&#34; | sort | tail -n1)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;POST=${latest_post}&#34; &gt;&gt; $GITHUB_OUTPUT</span>          
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check post date</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">id</span>: <span style="color:#ae81ff">check-date</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          post_date=$(grep &#34;^date:&#34; &#34;${{ steps.check-post.outputs.POST }}&#34; | sed &#39;s/^date: //&#39; | sed &#39;s/[&#34;&#39;\&#39;&#39;]//g&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;POST_DATE=${post_date}&#34; &gt;&gt; $GITHUB_OUTPUT
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          one_day_ago=$(date -d &#34;-1 days&#34; +%Y-%m-%d)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;ANNOUNCE=false&#34; &gt;&gt; $GITHUB_OUTPUT
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          if (( ${post_date} &lt; ${one_day_ago} )); then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;ANNOUNCE=true&#34; &gt;&gt; $GITHUB_OUTPUT
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          fi</span>          
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check if needs DOI</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">id</span>: <span style="color:#ae81ff">check-doi</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          # Does the post need a DOI?
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;DOI=true&#34; &gt;&gt; $GITHUB_OUTPUT
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          if head -n 10 &#34;${{ steps.check-post.outputs.POST }}&#34; | grep -q &#34;doi:&#34;; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;DOI=false&#34; &gt;&gt; $GITHUB_OUTPUT
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          fi</span>          
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build site</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#redacted for simplicity ...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">announce</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Announce new blog post</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">needs</span>: [<span style="color:#ae81ff">build, checks]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">if</span>: <span style="color:#ae81ff">needs.checks.outputs.ANNOUNCE == &#39;true&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">GITHUB_PAT</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">RENV_PROFILE</span>: <span style="color:#ae81ff">social_media</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install cURL Headers</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          sudo apt-get update
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          sudo apt-get install libcurl4-openssl-dev
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          </span>          
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup R</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-r@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">r-version</span>: <span style="color:#e6db74">&#39;renv&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup renv</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-renv@v2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Announce the post</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">BLUESKY_APP_PASS</span>: <span style="color:#ae81ff">${{ secrets.BLUESKY_PWD }}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo RTOOT_DEFAULT_TOKEN=&#34;${{ secrets.RTOOT_TOKEN }}&#34; &gt;&gt; .Renviron
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo KIT_SECRET=&#34;${{ secrets.KIT_KEY }}&#34; &gt;&gt; .Renviron
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Rscript .github/scripts/announce.R ${{ needs.checks.outputs.POST }}</span>          
+</span></span></code></pre></div><p>All this creates a workflow that looks like this</p>
+<p><img src="images/gha_workflow.png" alt="Workflow when Announcement is skipped"></p>
+<p>And with that my life gets less and less complicated arround announcing new blogposts.
+I&rsquo;ve been toying with the LinkedIn API, but y&rsquo;all&hellip;
+It&rsquo;s got me stumped&hellip;</p>
+<p>So far, I&rsquo;m happy getting posting to Bluesky and Mastodon off smoothly.</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Dec 2, 2024) 
+                    Posting to Bluesky from R. 
+                    Retrieved from https://drmowinckels.io/blog/2024/bluesky/.
+                     DOI: https://www.doi.org/10.5281/zenodo.14259387
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2024-posting-to-bluesky-from-r,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Posting to Bluesky from R",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2024/bluesky/",<br>
+                        &emsp;year = 2024,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.14259387",<br> 
+                        &emsp;updated = "Dec 2, 2024"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="uk-section">
+        
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid" >
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 07, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Creating post summary with AI from Hugging Face</h2>
+    
+      <p>Optimize your blog&rsquo;s SEO and Zenodo metadata with automated summaries using Hugging Face&rsquo;s text summarization models. Learn how to connect to the Hugging Face API, prepare content, and integrate summaries into your markdown files using R and the httr2 package.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ai-blog-summary/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ai</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 06, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Making your blog FAIR</h2>
+    
+      <p>Making your blog FAIR (Findable, Accessible, Interoperable, and Reusable) by archiving posts on Zenodo and adding DOIs. Learn how to use Hugo, GitHub actions, and the Zenodo API to ensure your content is preserved. Enhance your blog&rsquo;s visibility and reliability.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/fair-blog/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">fair</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">zenodo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">doi</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jul 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Improving your GitHub Profile</h2>
+    
+      <p>Improve your GitHub profile with these tips. Learn how to create a repository with your username, add stats, coding skills, preferred IDEs, blog stats, and more. Customize your profile to make it engaging and showcase your skills and interests effectively.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/github-profile/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github-actions</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Reading in multiple files without loops</h2>
+    
+      <p>Learn how to use apply-functions in R to read multiple files efficiently. This guide covers the basics of using sapply and lapply to iterate over files quickly, eliminating the need for loops.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/lapply-files/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">iterating</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+                
+                    <li class="uk-width-3-4" >
+                        <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Positron IDE - A new IDE for data science</h2>
+    
+      <p>Positron, an IDE developed for data science, combines the best features of RStudio and Visual Studio Code. Learn about its features, customization options, and extensions. Discover how Positron compares to other popular IDEs and why it&rsquo;s a promising tool for data scientists.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/positron/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">data-science</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">positron</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">vscode</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                    </li>
+                
+            </ul>
+        
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+        
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

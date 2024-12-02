@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="In this post we will go through examples of how we can specify different linear models (linear regressions) in R . The Linear Regression Family in RI will focus on how you can run models in R, and it will be up to you to try to translate your hypothesis into a model ." />
+  <meta name="description" content="Linear regression is essential in psychology, often disguised as t-tests or ANOVAs. This guide explains running linear models in R, comparing t-tests, Pearson correlations, ANOVAs, ANCOVAs, and more. Understand how to specify models, run tests, and interpret them with real data examples. Gain confidence in translating your hypotheses into linear models and applying statistical methods effectively." />
   <meta name="author" content="Dr. Mowinckel" />
 
 
@@ -25,22 +25,26 @@
 
 
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.138.0">
 
 
 
         
 
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn linear regression for psychology. Compare t-tests, ANOVAs, and more in R. Translate hypotheses into models and apply stats effectively.">
+
+
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/">
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="The Linear Regression Family in R - Dr. Mowinckel&rsquo;s">
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="In this post we will go through examples of how we can specify different linear models (linear regressions) in R . The Linear Regression Family in RI will focus on how you can run models in R, and it will be up to you to try to translate your hypothesis into a model .">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn linear regression for psychology. Compare t-tests, ANOVAs, and more in R. Translate hypotheses into models and apply stats effectively.">
 
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/">
 <meta name="twitter:title" content="Igloo">
-<meta name="twitter:description" content="In this post we will go through examples of how we can specify different linear models (linear regressions) in R . The Linear Regression Family in RI will focus on how you can run models in R, and it will be up to you to try to translate your hypothesis into a model .">
+<meta name="twitter:description" content="Learn linear regression for psychology. Compare t-tests, ANOVAs, and more in R. Translate hypotheses into models and apply stats effectively.">
 
 
 
@@ -97,7 +101,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_16x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
         sizes="16x16"
         type="image/png"
     />
@@ -109,7 +113,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_32x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
         sizes="32x32"
         type="image/png"
     />
@@ -118,7 +122,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_57x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
         sizes="57x57"
         type="image/png"
     />
@@ -127,7 +131,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_76x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
         sizes="76x76"
         type="image/png"
     />
@@ -136,7 +140,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_96x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
         sizes="96x96"
         type="image/png"
     />
@@ -145,7 +149,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_128x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
         sizes="128x128"
         type="image/png"
     />
@@ -154,7 +158,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_120x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
         sizes="120x120"
         type="image/png"
     />
@@ -163,7 +167,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_150x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
         sizes="150x150"
         type="image/png"
     />
@@ -172,7 +176,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_152x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
         sizes="152x152"
         type="image/png"
     />
@@ -180,11 +184,11 @@
     
     
         <meta name="msapplication-TileImage" 
-            content="/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png">
+            content="/img/fav.ico_hu4123736746700774209.png">
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_144x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
         sizes="144x144"
         type="image/png"
     />
@@ -193,7 +197,7 @@
     
     <link
         rel="apple-touch-icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_180x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
         sizes="180x180"
         type="image/png"
     />
@@ -202,7 +206,7 @@
     
     <link
         rel="icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_192x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
         sizes="192x192"
         type="image/png"
     />
@@ -211,7 +215,7 @@
     
     <link
         rel="shortcut icon"
-        href="https://drmowinckels.io/img/fav.ico_hu5c0771520169a7c5939dfeb49415bb9c_5256_196x0_resize_box_3.png"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
         sizes="196x196"
         type="image/png"
     />
@@ -403,7 +407,7 @@
                         
                         <div class="uk-card uk-margin-left uk-margin-bottom">
                             <a href="https://drmowinckels.io/tags/linear-regression/" class="uk-label uk-label-secondary tags" >
-                                Linear regression
+                                Linear Regression
                             </a>
                         </div>
                     
@@ -419,7 +423,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">In this post we will go through examples of how we can specify different linear models (linear regressions) in R . The Linear Regression Family in RI will focus on how you can run models in R, and it will be up to you to try to translate your hypothesis into a model .</p>
+            <p class="uk-text-lead">Linear regression is essential in psychology, often disguised as t-tests or ANOVAs. This guide explains running linear models in R, comparing t-tests, Pearson correlations, ANOVAs, ANCOVAs, and more. Understand how to specify models, run tests, and interpret them with real data examples. Gain confidence in translating your hypotheses into linear models and applying statistical methods effectively.</p>
         
         <div class="uk-markdown uk-width">
             <p>Let&rsquo;s talk linear regression.
@@ -1298,7 +1302,7 @@ Looking at the values for each level might give insight into something wrong hav
                         &emsp;url = "https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/",<br>
                         &emsp;year = 2020,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273506",<br> 
-                        &emsp;updated = "Nov 7, 2024"<br>
+                        &emsp;updated = "Dec 2, 2024"<br>
                     }
                 </div>
             </div>
@@ -1337,7 +1341,7 @@ Looking at the values for each level might give insight into something wrong hav
       
     <h2>Changing your Blogdown Workflow</h2>
     
-      <p>Blogdown is usually used with [go hugo], a static webpage builder . Blogdown renders directly from <code>Rmd</code> to <code>html, meaning it circumvents hugo's processing of </code>md` . This can cause some unwanted issues depending on your theme . It can also make it difficult to maintain your webpage over time .</p>
+      <p>Updating my hugo setup on netlify took over a year of delays due to complexities. After extensive work, I transitioned from knitting <code>.html</code> to <code>.md</code>, fixed theme issues, and resolved netlify CSS problems. Follow my step-by-step guide to smoothly update your blogdown website. Learn to make use of hugo&rsquo;s page bundles, adjust configurations, and ensure seamless rendering both locally and on netlify. This guide addresses key changes you might face, from altering your workflow to understanding theme changes and troubleshooting rendering issues.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1398,7 +1402,7 @@ Looking at the values for each level might give insight into something wrong hav
       
     <h2>Using Freesurfer annotation files to plot in R</h2>
     
-      <p>Using Freesurfer, the Desikan Killany coortical atlas (aparc) is an atlas that consist of 36 segments, which are well-defined <a href="https://surfer.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=get&amp;target=annot-desikan-m.jpg">Automatically Parcellating the Human Cerebral Cortex</a> Using Freisurfer annotation files to plot in R is our package where you can render the proper 3d version using ggplot2 .</p>
+      <p>For neuroimaging, toggling between R and imaging software like FSL or Freesurfer is common. We segment large 3D brain data into meaningful regions. Our ggseg and ggseg3d packages visualize the brain&rsquo;s Desikan-Killany atlas in 2D and 3D. Learn the steps to convert Freesurfer annotation files to mesh files using the ggsegExtra package for enhanced brain data visualization.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1459,7 +1463,7 @@ Looking at the values for each level might give insight into something wrong hav
       
     <h2>Do you wanna build a snowman?</h2>
     
-      <p>Do you wanna build a snowman? Do you want to build a Christmas tree? We&rsquo;re going to use [ggforce] from the [gg force] package by Thomas Lin Pedersen . We need to specify the center of the circles we&rsquo;re drawing&rsquo;s locations and their radii . We use &lsquo;geom_circle&rsquo; and &rsquo;tidyr&rsquo; to create the snowman .</p>
+      <p>Celebrate with another Christmas special! Following last year&rsquo;s festive ggplot tree, build an interactive snowman using R, ggplot2, ggforce, and gganimate. Learn to create a snowman from circles, add features like a face, arms, and accessories, and animate falling snow. Enhance your R skills and holiday spirit with this detailed tutorial, ending with a personalized &ldquo;Merry Christmas!&rdquo; message.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1515,7 +1519,7 @@ Looking at the values for each level might give insight into something wrong hav
       
     <h2>ggseg3d - creating interactive brain segmentation plots with plotly</h2>
     
-      <p>ggseg3d is a package for 3d mesh plots of brain atlases using plotly . It is made to plot brain atlas data . It should be fairly easy to use or atlele to make the first plot . It can be installed from our works GitHub account using remotes .</p>
+      <p>Discover how to create interactive 3D brain atlas plots using the ggseg3d package in R. Learn to visualize neuroimaging data with plotly, including setting up and customizing brain atlas plots. Ideal for neuroscientists and data scientists working with brain segmentation data.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
@@ -1581,7 +1585,7 @@ Looking at the values for each level might give insight into something wrong hav
       
     <h2>Plotting GAMM interactions with ggplot2</h2>
     
-      <p>Plotting GAMM interactions with ggplot2 is not always easy, especially if you have some interactions in there . Plotting the results of GAMMs are not always so easy . I&rsquo;ll be using the <code>diamonds</code> dataset for this, as it has some nice non-linear features .</p>
+      <p>Discover how to visualize Generalized Additive Mixed Models (GAMMs) with interactions in R using ggplot2 and mgcv. This tutorial covers numeric and factor interactions, creating prediction datasets, and generating smooth plots. Ideal for enhancing your data analysis and visualization skills.</p>
     
     <div class="uk-flex uk-flex-between uk-flex-middle ">
       
