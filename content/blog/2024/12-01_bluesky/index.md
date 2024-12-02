@@ -58,7 +58,7 @@ Remember to also check out if they have any recommended Feeds!
 | **R/python**  | Garrick Aden-Buie's Shiny Dev | [![](images/shiny.png)](https://bsky.app/starter-pack/grrrck.xyz/3lahi4wmmkq2h) |
 | **python**    | Cosima Meyer's PyLadies | [![](images/pyladies.png)](https://bsky.app/starter-pack/cosima.bsky.social/3l7zmdn5tsp26) |
 | **Coding**    | Milos' Free Tutorials Starter Pack | [![](images/tutorials.png)](https://bsky.app/starter-pack/milos-makes-maps.bsky.social/3lau5bzm53p2j)  |
-| **RSE**       | My Research Software Engineers Pack | [![](images/tutorials.png)](https://bsky.app/starter-pack/milos-makes-maps.bsky.social/3lau5bzm53p2j)  |
+| **RSE**       | My Research Software Engineers Pack | [![](images/rse.png)](hhttps://go.bsky.app/4kfWypW)  |
 | **UiO**       | Dan Quintana's UiO Community Starter Pack | [![](images/uio.png)](https://bsky.app/starter-pack/dsquintana.bsky.social/3lalcn3lzo72f)  |
 | **Data**      | Christian Minich's Data People Starter Pack | [![](images/data.png)](https://bsky.app/starter-pack-short/8TdEfdK) |
 | **AI**        | Catherine Breslin's Women in AI | [![](images/wai.png)](https://bsky.app/starter-pack-short/LaGDpqg) |
