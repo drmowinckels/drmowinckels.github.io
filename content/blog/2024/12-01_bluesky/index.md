@@ -213,7 +213,7 @@ and very specific to my setup.
 
 First I set up that the workflow should run when I push or PR to main, or manually by triggering it.
 Then I have three jobs:
-  - `check`: sets up build parameters. Bash commands to figure out the post path, and date, the r-version in the renv-lock file etc.
+  - `check`: sets up build parameters. Bash commands to figure out the post path, and date etc.
   - `build`: builds and pushes the website to the gh-pages branch
   - `announce`: send social media announcements if its the same day as a new blogpost is published.
 
@@ -242,7 +242,6 @@ jobs:
       POST_DATE: ${{ steps.check-date.outputs.POST_DATE }}
       ANNOUNCE:  ${{ steps.check-date.outputs.ANNOUNCE }}
       DOI:       ${{ steps.check-doi.outputs.DOI }}
-      RVER:      ${{ steps.check-rver.outputs.RVER }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -279,12 +278,6 @@ jobs:
             echo "DOI=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Get R versions
-        id: check-rver
-        run: |
-          rver=$(cat renv.lock | jq '.R.Version' | tr -d '"')
-          echo "RVER=${rver}" >> $GITHUB_OUTPUT
-
   build:
     name: Build site
     #redacted for simplicity ...
@@ -308,7 +301,7 @@ jobs:
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
         with:
-          r-version: ${{ needs.checks.outputs.RVER }}
+          r-version: 'renv'
 
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
