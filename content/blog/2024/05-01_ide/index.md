@@ -12,8 +12,8 @@ tags:
   - VScode
 slug: "ide"
 image: vscode.png
-summary: |
-  People who code have a tendency to spend a lot of time in various IDEs (Integrated Development Environments). They can be as simple as a text editor or as complex as a full-blown development environment. In this post, I'll go through my two go-to IDE's, RStudio and VScode, and why I switch between them rather than sticking to a single one.
+summary: Explore my programming IDE journey, from MATLAB and gedit to RStudio and VSCode. Learn about the strengths of each IDE for different languages and tasks, and why I switch between RStudio and VSCode depending on the project. Insights on optimizing your coding environment for efficiency and productivity.
+seo: Discover the best programming IDE for your needs. Compare MATLAB, gedit, vi, RStudio, and VSCode, and learn when to use each for different languages and tasks.
 ---
 
 ## My previous experience with programming IDEs

@@ -12,7 +12,8 @@ image: blobby_bricks_TradingCard.jpg
 slug: "lets-get-applying"
 aliases:
   - '/blog/2022-11-07-lets-get-applying'
-summary:  When programming we want to write code that iterates well, we do this through loops . Let's Get Apply'ing is based on the very well-known `mtcars` dataset built-in to R . We'll only use two columns, just to keep it simple .
+summary: Learn to replace loops with vectorized apply functions in R for efficient data manipulation. This guide covers converting loops to functions using sapply and mapply, enhancing your programming skills by making code more readable and less error-prone.
+seo: Replace loops with vectorized apply functions in R. Use sapply and mapply for efficient and readable code.
 ---
 
 When programming we want to write code that iterates well.

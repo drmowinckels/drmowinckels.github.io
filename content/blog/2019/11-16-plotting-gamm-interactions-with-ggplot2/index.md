@@ -11,9 +11,9 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "plotting-gamm-interactions-with-ggplot2"
 aliases:
   - '/blog/2019-11-16-plotting-gamm-interactions-with-ggplot2'
-summary:  Plotting GAMM interactions with ggplot2 is not always easy, especially if you have some interactions in there . Plotting the results of GAMMs are not always so easy . I'll be using the `diamonds` dataset for this, as it has some nice non-linear features .
+summary: Discover how to visualize Generalized Additive Mixed Models (GAMMs) with interactions in R using ggplot2 and mgcv. This tutorial covers numeric and factor interactions, creating prediction datasets, and generating smooth plots. Ideal for enhancing your data analysis and visualization skills.
+seo: Learn to visualize GAMMs with interactions in R using ggplot2 and mgcv. This guide covers prediction datasets and smooth plots for numeric and factor interactions.
 ---
-
 
 
 I'm full of making packages and unit testing these days, and I don't feel particularly confident in my unit testing skills to be sharing those yet.

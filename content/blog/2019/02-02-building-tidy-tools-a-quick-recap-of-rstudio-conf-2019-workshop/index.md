@@ -11,7 +11,8 @@ image: 'check_1.png'
 slug: "building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop"
 aliases:
   - '/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop'
-summary:  Building tidy tools - a quick recap of RStudio::conf 2019 workshop & teeny demonstration . I attended a two-day workshop with Charlotte Wickham and Hadley Wickham . The sibling duo of R-package development did not fail to deliver what the workshop title announced, a workshop in how to create packages in a tidy way .
+summary: Discover the key steps to building R packages effectively with insights from the "Building tidy tools" workshop at RStudio::conf. Learn about package setup, unit testing, documentation, naming conventions, and using essential tools like `usethis`, `testthat`, and `pkgdown`. Create your first package with practical examples and improve your package development workflow.
+seo: Learn to build R packages with tips from the "Building tidy tools" workshop. Setup, unit testing, documentation, and essential tools for package development.
 ---
 
 

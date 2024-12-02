@@ -11,7 +11,8 @@ image: 'index_files/figure-html/featured-1.gif'
 slug: "get-the-brain-animated"
 aliases:
   - '/blog/2018-10-01-get-the-brain-animated'
-summary:  The ggseg package was so well received that we almost immediately got it on [Neuroconductor]. We got some pull requests from people helping us improve the code, and particularly get it ready for CRAN when we decide to submit it there . The package vignettes are update on how you may supply data for facetting .
+summary: Explore how to create animated visualizations of brain data using the ggseg and gganimate packages in R. Learn to prepare data for animations, customize plots, and generate smooth transitions to visualize changes across different conditions such as age.
+seo: Create animated brain data visualizations in R using ggseg and gganimate. Learn data preparation, plot customization, and generating animations with smooth transitions.
 ---
 
 

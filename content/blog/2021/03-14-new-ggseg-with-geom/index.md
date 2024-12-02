@@ -12,7 +12,8 @@ image: 'index_files/figure-html/featured-1.png'
 slug: "new-ggseg-with-geom"
 aliases:
   - '/blog/2021-03-14-new-ggseg-with-geom'
-summary:  A new version of ggseg R-package for visualisations of brain atlases was released a couple of months ago . I wanted to create such an update for a long time, but getting the internal logics of a ggplot geom working as I wanted was rather difficult . New {ggseg} with Geom! The position is what I'm truly happy about!
+summary: We released a new version of the ggseg R-package for visualizing brain atlases. It features a `geom_brain` function and `position_brain` for flexible brain slice positioning in ggplot2. This update enhances atlas plotting, offering more customization and improved visuals.
+seo: Discover the latest ggseg R-package update for brain atlases. Use `geom_brain` and `position_brain` for flexible and enhanced visualizations in ggplot2.
 ---
 
 

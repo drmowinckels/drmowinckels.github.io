@@ -11,11 +11,11 @@ image: 'index_files/figure-html/unnamed-chunk-16-1.png'
 slug: "adding-external-images-to-plots"
 aliases:
   - '/blog/2018-05-02-adding-external-images-to-plots'
-summary:  Adding external images to plots is a good way to showcase results, and make it easier for me and my reader to understand what the findings are . I use [ImageMagick] for this, but there are R-packages to help, like [imager] and [imaging] software .
-summary:  Adding external images to plots is a good way to showcase results, and make it easier for me and my reader to understand what the findings are . I use [ImageMagick] for this, but there are R-packages to help, like [imager] and [imaging] software .
+summary: Learn how to add external images to your ggplot visualizations in R. This tutorial covers steps to read images and plot them alongside your data, useful for enhancing interpretation and presentation in fields like neuroimaging. Discover how to use functions like `readPNG`, `rasterGrob`, and `annotation_custom` for integrating images with your plots.
+seo: Add external images to your ggplot visualizations in R for enhanced interpretation. Tutorial on using `readPNG`, `rasterGrob`, and `annotation_custom`.
 ---
 
-Two weeks ago we had out first RLadies-Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks! 
+Two weeks ago we had out first R-Ladies Oslo meetup! It was such a great turnout, and I had so much fun presenting to the group of lovely folks! 
 
 
 And indeed it is true, I love plotting. Probably more than I love analysing data (and definately more than cleaning and wrangling :P). I can spend hours and hours creating my own custom plotting functions for whatever paper/output I am currently working on. I'm not sure if this is a productive way of spending my time, but it's fun and instantly grattifying. 

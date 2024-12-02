@@ -9,10 +9,8 @@ tags:
   - GitHub
   - GitHub Actions
 slug: "github-profile"
-summary: |
-  GitHub is a major developer platform, and your profile is the first thing people see when they visit your account.
-  Your GitHub profile should then showcase who you are, what you know and what you're learning.
-  This is how I vamped up my GitHub profile, to showcase who I am, what I know and what I'm learning.
+summary: Improve your GitHub profile with these tips. Learn how to create a repository with your username, add stats, coding skills, preferred IDEs, blog stats, and more. Customize your profile to make it engaging and showcase your skills and interests effectively.
+seo: Improve your GitHub profile with these tips. Learn to add GitHub stats, coding skills, preferred IDEs, and blog stats. Customize your profile to showcase your skills and interests.
 ---
 
 I've been meaning to improve my GitHub profile for a while, but I never got around to it.

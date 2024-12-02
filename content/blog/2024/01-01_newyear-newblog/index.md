@@ -8,7 +8,8 @@ tags:
   - reflections
   - hugo
 slug: "newyear-newblog"
-summary:  New year, a new blog, and some reflections on the past year that has passed . I'm taking the lead for a new Core Facility at the University of Oslo . I also got funding from my university to establish a Hub/Node network, which is an initiative from University IT to facilitate exchange of knowledhe between University staff .
+summary: Reflecting on the past years, I've focused on significant career milestones, volunteer work, and a new website revamp. Highlights include leading a new Core Facility at the University of Oslo, attending Posit::conf 2023, contributing to R-Ladies, rOpenSci, and R-Hub communities. My new Hugo Igloo theme offers a fresh look for my website.
+seo: Reflecting on career achievements and volunteer work in 2022 and 2023. New website revamp with Hugo Igloo theme. Highlights include leading a Core Facility at UiO, Posit::conf 2023, contributing to R-Ladies, rOpenSci, and R-Hub.
 ---
 
 A new year, a new blog, and some reflections on the past year

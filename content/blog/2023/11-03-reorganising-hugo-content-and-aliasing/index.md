@@ -11,7 +11,8 @@ tags:
   - bash
 image: image.png
 citation: true
-summary:  Hugo Aliasing is a stickler for good organisation of content . Reorganising Hugo Content and Aliasing has a nice way of dealing with that, which they call [gohugoioio] Reorganisation concept is that people should redirect to the specific page that they should be using .
+summary: Revamping a website and organizing content can be challenging. Here's how I restructured my blog posts into yearly subfolders using a Bash script, added Hugo aliases for seamless redirects, and simplified file slugs for cleaner URLs. This automation ensures better content organization and link integrity.
+seo: Discover how to automate organizing blog posts into yearly subfolders, add Hugo aliases, and simplify URLs using a Bash script. Enhance your website's content management.
 ---
 
 I'm working on a little website revamp, and on that occasion I have been thinking through some reorganisation of the file content of my website.

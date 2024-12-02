@@ -12,7 +12,8 @@ image: gh-deploy.png
 slug: "using-github-actions-to-build-your-hugo-website"
 aliases:
   - '/blog/2021-03-23-using-github-actions-to-build-your-hugo-website'
-summary:  Using GitHub Actions is a service that runs Continuous Integration, meaning that using a set-up file you can ask workers (computers run by GitHub) to do certain operations on your repository at certain triggers (at push, pull-requests or even on a schedule with crontab) This is where GitHub Actions shines. It is free and so are its actions for small jobs like what we want to do . To build on Netlify, you need all your content version controlled, in my case with git, and stored on GitHub . This is fine and dandy for text files like markdown, csv data, and images that _will not change often_.
+summary: Learn to build Hugo websites using GitHub Actions and deploy them with Netlify. This guide covers setting up GitHub Actions to build your site, install dependencies, render Rmarkdown files, and deploy to Netlify or GitHub Pages. Enhanced control and maintenance for your site, with step-by-step instructions.
+seo: Build Hugo websites with GitHub Actions and deploy on Netlify. Step-by-step guide for setup, dependencies, rendering, and deployment.
 ---
 
 

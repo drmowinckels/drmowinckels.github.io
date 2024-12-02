@@ -16,10 +16,8 @@ tags:
   - GitHub
 slug: fair-blog
 image: images/fair.png
-summary: |
-  In August, Heidi Seibold wrote in her Newsletter about how she made it FAIR.
-  This made me think about my own writing and how to secure the content even when/if I port by blog or change its structure. 
-  Here, I show how I use R, GitHub Actions and Zenodo API to create dois for all my posts.
+summary: Making your blog FAIR (Findable, Accessible, Interoperable, and Reusable) by archiving posts on Zenodo and adding DOIs. Learn how to use Hugo, GitHub actions, and the Zenodo API to ensure your content is preserved. Enhance your blog's visibility and reliability.
+seo: Make your blog FAIR by archiving posts on Zenodo and adding DOIs. Learn to use Hugo, GitHub actions, and the Zenodo API for content preservation.
 ---
 
 *This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/178) hosted by Eric Nantz and Mike Thomas.*

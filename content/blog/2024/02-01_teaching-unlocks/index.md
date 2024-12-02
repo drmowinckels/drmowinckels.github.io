@@ -9,7 +9,8 @@ tags:
   - teaching
   - reciprocal
 slug: "teaching-unlocks"
-summary:  Teaching can be extremely rewarding, and teaching can be rewarding . Teaching you - teaching me is the beauty of teaching . I love teaching coding and programming, and helping scientists unlock a new way of working . My university hosts an annual event called [Digital Scholarship Days] This year, I taught two workshops at the Universtity of Oslo .
+summary: Teaching is rewarding, especially in coding workshops. Reflecting on experiences from Digital Scholarship Days at the University of Oslo, I learned valuable lessons from learners about Quarto slides, project management, and teaching challenges. Continuous improvement in teaching methods benefits both instructors and learners.
+seo: Reflecting on learned from teaching coding workshops at Digital Scholarship Days. Insights into Quarto slides, project management, and improving teaching methods.
 ---
 
 *This post was featured on the [R Weekly highlights podcast](https://share.fireside.fm/episode/87RSVeFz+Wtk1siKa) hosted by Eric Nantz and Mike Thomas.*

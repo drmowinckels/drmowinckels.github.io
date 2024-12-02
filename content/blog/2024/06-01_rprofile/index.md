@@ -11,12 +11,8 @@ tags:
 slug: "rproject"
 image: "startup.png"
 format: hugo-md
-summary: |
-  We all know the R startup message. It tells us the version
-  of R we are running, the date, the platform we are running
-  on, and some informative tips on using R.
-  When you've been using R a while, though, it gets old.
-  Let me show you how you can customise your startup message!
+summary: Customize your R startup experience by modifying the R startup message, adding useful system information, and fun elements like a praise or colour bar. Learn how to edit the `.Rprofile` file, clear the console, print system details, and add a personalised message using the {praise} and {cli} packages for an enjoyable R session.
+seo: Customize your R startup with personalized messages and system info. Learn to edit the `.Rprofile` file using {praise} and {cli} packages for a better R experience.
 ---
 
 I love customizing things.

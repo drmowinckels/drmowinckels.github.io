@@ -14,8 +14,8 @@ tags:
   - iterating
 slug: lapply-files
 image: index.markdown_strict_files/figure-markdown_strict/featured-1.png 
-summary: |
-  Reading in multiple files to append them is quite common in muy field. Let's go through a couple ways you can do that in R.
+summary: Learn how to use apply-functions in R to read multiple files efficiently. This guide covers the basics of using sapply and lapply to iterate over files quickly, eliminating the need for loops.
+seo: Efficiently read multiple files in R using sapply and lapply. Eliminate loops and streamline your data importing process.
 ---
 
 I've written about how to use [apply-functions](/blog/2022/11-07-lets-get-applying) before, and did promise to expand on this topic.

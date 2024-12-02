@@ -14,7 +14,8 @@ image: jackson_popcorn.jpeg
 slug: "adding-giscus-to-your-blogdown-site"
 aliases:
   - '/blog/2021-12-04-adding-giscus-to-your-blogdown-site'
-summary:  Adding giscus to your blogdown site is an easy way to get your comment section working with blogdown/hugo . The following steps are outlined in the guide to getting it working with hugo and blogdown . The steps include creating a new layout file and setting up GitHub discissions .
+summary: Switch from Disqus to Giscus for comments on your Hugo site using blogdown. This guide shows how to integrate Giscus, a GitHub discussions-based comment section, into your blog seamlessly. Learn how to set up Giscus, modify your theme, and customize the comment section for a streamlined experience.
+seo: Switch from Disqus to Giscus on Hugo with blogdown. Integrate GitHub discussions for comments and customize your theme.
 ---
 
 This is going to be a short one.
@@ -47,7 +48,7 @@ In my case it was quite easy, I looked into the `themes/my-theme/layouts/blog/si
 In my case, the theme creator had a little piece of code that would enable disqus if the disqus shortname was set in the config toml.
 
 ``` html
-{{- if .Site.DisqusShortname }}
+{{- if .Site.Config.Services.Disqus.Shortname }}
     <div class="container disqus">
         {{ template "_internal/disqus.html" . }}
     </div>
