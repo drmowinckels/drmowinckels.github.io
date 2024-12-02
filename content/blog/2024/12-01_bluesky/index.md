@@ -5,7 +5,7 @@ editor_options:
 format: hugo-md
 title: Posting to Bluesky from R
 author: Dr. Mowinckel
-date: '2024-12-01'
+date: '2024-12-02'
 categories: 
 tags:
   - r
@@ -53,6 +53,7 @@ Remember to also check out if they have any recommended Feeds!
 | **R**         | Jeremy Allen's Rstats Starter Pack | [![](images/rstats.png)](https://bsky.app/starter-pack/jeremy-data.bsky.social/3l6x3agttsg2r) |
 | **R**         | Ansgar Wolsing ggplot2 Starter Pack | [![](images/ggplot2.png)](https://bsky.app/starter-pack/ansgarw.bsky.social/3l6xrq3f4fe24) |
 | **R**         | Noam Ross' rOpenSci Starter Pack | [![](images/ropensci.png)](https://bsky.app/starter-pack/noamross.net/3land3z3fez2z) |
+| **R**         | 🌈 rainbowR: LGBTQIA+ people who code in #RStats | [![](images/rainbowr.png)](https://go.bsky.app/S3t9LbZ) |
 | **R/Neuro**   | My Neuro Rstats Starter Pack | [![](images/neurorstats.png)](https://bsky.app/starter-pack/drmowinckels.io/3larl2jajog2o) |
 | **R/python**  | Garrick Aden-Buie's Shiny Dev | [![](images/shiny.png)](https://bsky.app/starter-pack/grrrck.xyz/3lahi4wmmkq2h) |
 | **python**    | Cosima Meyer's PyLadies | [![](images/pyladies.png)](https://bsky.app/starter-pack/cosima.bsky.social/3l7zmdn5tsp26) |
