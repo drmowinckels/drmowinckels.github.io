@@ -44,7 +44,7 @@ message <- glue::glue(
 
   '{frontmatter$title}'
   
-  {emoji} {frontmatter$summary} 
+  {emoji} {frontmatter$seo} 
   
   👀  Read at: {uri} 
   
@@ -68,8 +68,7 @@ bskyr::bs_post(
   text = message,
   images = image,
   images_alt = "Blogpost featured image",
-  langs = "US-en",
-  user = "drmowinckels.io"
+  langs = "US-en"
 )
 
 

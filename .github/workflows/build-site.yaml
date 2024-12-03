@@ -205,6 +205,7 @@ jobs:
       - name: Announce the post
         env:
           BLUESKY_APP_PASS: ${{ secrets.BLUESKY_PWD }}
+          BLUESKY_APP_USER: "drmowinckels.io"
         run: |
           echo RTOOT_DEFAULT_TOKEN="${{ secrets.RTOOT_TOKEN }}" >> .Renviron
           echo KIT_SECRET="${{ secrets.KIT_KEY }}" >> .Renviron
