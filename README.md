@@ -13,11 +13,11 @@ code for my content.
 
 🎉 DrMowinckels has **39** posts since **2018-03-08**!
 
-📅 That’s a post roughly every **63** days, or about **0.47** posts per
+📅 That’s a post roughly every **64** days, or about **0.47** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-9** days ago ([Posting to Bluesky from
-R](https://drmowinckels.io/blog/bluesky)).
+✍️ The last post was published **-16** days ago ([Posting to Bluesky
+from R](https://drmowinckels.io/blog/bluesky)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -79,4 +79,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-12-11 01:22:19.743491*
+*Updated 2024-12-18 01:19:10.483338*
