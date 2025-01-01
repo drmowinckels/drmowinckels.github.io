@@ -252,7 +252,7 @@ publish_deposition <- function(id){
 #' @params doi the doi of the deposition
 #' 
 update_post <- function(path, doi){
-  post_content <- readLines(post)
+  post_content <- readLines(path)
 
   # Update YAML front matter with DOI
   post_content <- c(
@@ -314,7 +314,7 @@ posts <- list.files(
 posts <- posts[sapply(posts, needs_doi)]
 
 if( length(posts) > 0){
-  # Run thorugh all posts that need a doi.
+  # Run through all posts that need a doi.
   sapply(posts,
     publish_to_zenodo, 
     upload = TRUE

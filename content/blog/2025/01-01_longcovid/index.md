@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.14584763
 title: The difficult year
 author: Dr. Mowinckel
 date: '2025-01-01'
