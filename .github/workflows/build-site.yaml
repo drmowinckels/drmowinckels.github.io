@@ -39,10 +39,10 @@ jobs:
           post_date=$(grep "^date:" "${{ steps.check-post.outputs.POST }}" | sed 's/^date: //' | sed 's/["'\'']//g')
           echo "POST_DATE=${post_date}" >> $GITHUB_OUTPUT
 
-          one_day_ago=$(date -d "-1 days" +%Y-%m-%d)
-          echo ${one_day_ago} ${post_date}
+          one_day_ago=$(date -d "-1 days" +%Y%m%d)
+          post_date=$(date -d "${post_date}" +%Y%m%d)
           echo "ANNOUNCE=false" >> $GITHUB_OUTPUT
-          if (( ${post_date} < ${one_day_ago} )); then
+          if (( "${post_date}" < "${one_day_ago}" )); then
             echo "ANNOUNCE=true" >> $GITHUB_OUTPUT
           fi
 
