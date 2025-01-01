@@ -43,7 +43,7 @@ jobs:
           post_date=$(date -d "${post_date}" +%Y%m%d)
           echo "${post_date} < ${one_day_ago}"
           echo "ANNOUNCE=false" >> $GITHUB_OUTPUT
-          if (( "${post_date}" < "${one_day_ago}" )); then
+          if (( ${post_date} < ${one_day_ago} )); then
             echo "ANNOUNCE=true" >> $GITHUB_OUTPUT
           fi
 
