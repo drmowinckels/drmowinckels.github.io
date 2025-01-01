@@ -13,7 +13,7 @@ summary: Teaching is rewarding, especially in coding workshops. Reflecting on ex
 seo: Reflecting on learned from teaching coding workshops at Digital Scholarship Days. Insights into Quarto slides, project management, and improving teaching methods.
 ---
 
-*This post was featured on the [R Weekly highlights podcast](https://share.fireside.fm/episode/87RSVeFz+Wtk1siKa) hosted by Eric Nantz and Mike Thomas.*
+*This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w06-highlights) hosted by Eric Nantz and Mike Thomas.*
 
 Teaching can be extremely rewarding.
 I love teaching coding and programming, and helping scientists unlock a new way of working.

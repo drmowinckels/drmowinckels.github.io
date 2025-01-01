@@ -19,6 +19,8 @@ summary: Positron, an IDE developed for data science, combines the best features
 seo: Discover Positron, the new IDE for data science. Compare its features with VSCode and RStudio. Learn how to customize Positron and make it work for your projects.
 ---
 
+*This post was featured on [What's New in R](https://rfortherestofus.com/2024/09/whats-new-in-r-september-9-2024) by [R for the Rest of Us](https://rfortherestofus.com/).*
+
 [Positron](https://github.com/posit-dev/positron?tab=readme-ov-file) is a clone of Visual Studio Code (VScode), but tweaks for data science.
 I think this was a smart move by Posit's team.
 VScode is a great IDE, and it's free, open-source, and cross-platform, and it has so many developers on board already, and has an extensive library of extensions.
