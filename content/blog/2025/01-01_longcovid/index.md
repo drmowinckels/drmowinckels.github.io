@@ -65,6 +65,16 @@ It felt so amazing.
 
 #longcovid #postcovid #rehab<br><br><a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd/post/3lcpru2e25f2j?ref_src=embed">[image or embed]</a></p>&mdash; ᴅʀ. ᴍᴏᴡɪɴᴄᴋᴇʟ&#x27;ꜱ (<a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd?ref_src=embed">@drmowinckels.io</a>) <a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd/post/3lcpru2e25f2j?ref_src=embed">December 7, 2024 at 2:17 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
+
+| Activity                       | Before Rehabilitation          | After Rehabilitation           |
+|--------------------------------|---------------------------------|---------------------------------|
+| Steps per day                 | Less than 1,000                | Around 2,000                   |
+| Using the elevator            | Needed to sit while riding     | Regularly climbed 4 flights    |
+| Walking on forest paths       | 400m in 45 minutes             | 700m in 15 minutes             |
+| Group activities              | Unable to attend               | Meditation and slow movement classes |
+| Overall energy levels         | Exhausted by basic tasks       | Improved stamina for structured activities |
+
+
 And imagine, this is very little activity for a normal person, but it was an increase of over 100% activity in just 8 weeks!
 My task now is to continue rehab at home, and I made a schedule with my physio before I left to start with.
 Activity at home is different than at rehab.
@@ -104,6 +114,17 @@ To end this year, I will say I am very proud of managing to write a blogpost eve
 With some very good help from [Maëlle](https://masalmon.eu/) on topics, it's been nice to keep some semblence of my skills going.
 I even managed to set up a Newsletter!
 Given how this year has been, I'm really happy with what I have managed to do, despite it all.
+Several of my posts have even been featured in regular R newsletter highlights!
+
+
+| Post     | Featured In                                                                                                       |
+|----------------|-------------------------------------------------------------------------------------------------------------------|
+| **[Teaching you - teaching me](/blog/2024/teaching-unlocks)**   | [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w06-highlights) hosted by Eric Nantz and Mike Thomas. |
+| **[Positron IDE - A new IDE for data science](/blog/2024/positron)**   | [What's New in R](https://rfortherestofus.com/2024/09/whats-new-in-r-september-9-2024) by [R for the Rest of Us](https://rfortherestofus.com/). |
+| **[ Making your blog FAIR](/blog/2024/fair-blog)**       | [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w37-highlights) hosted by Eric Nantz and Mike Thomas. |
+| **[Creating post summary with AI from Hugging Face](/blog/2024/ai-blog-summary)**  | [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w42-highlights) hosted by Eric Nantz and Mike Thomas, and [What's New in R](https://rfortherestofus.com/2024/12/whats-new-in-r-december-9-2024) by [R for the Rest of Us](https://rfortherestofus.com/). |
+| **[Posting to Bluesky from R](/blog/2024/bluesky)**    | [This week in R](https://www.linkedin.com/pulse/week-r-2024-12-06-chris-brownlie-c2rge/?trackingId=0bbreZVDQ1WnlfTCArEo7A%3D%3D) written by [Chris Brownlie](https://www.linkedin.com/in/cnbrownlie/). |
+
 
 Focus for the year to come is first and foremost to get back to life again.
 Part of rehab was also coming to grips with this taking a while, and not to force myself back to work too early.

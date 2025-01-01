@@ -19,6 +19,9 @@ summary: With the recent mass exodus from Xitter, Bluesky has emerged as a new h
 seo: Learn to automate posting to Bluesky from R using GitHub Actions. Join the R community on Bluesky and discover starter packs for easy connections.
 ---
 
+*This post was featured on the [This week in R](https://www.linkedin.com/pulse/week-r-2024-12-06-chris-brownlie-c2rge/?trackingId=0bbreZVDQ1WnlfTCArEo7A%3D%3D) written by [Chris Brownlie
+](https://www.linkedin.com/in/cnbrownlie/).*
+
 With the latest mass flee'ing from Xitter, a "new" social media platform seems to have emerged as a home for the R community. 
 Bluesky has been around for a while, and next to Threads and Mastodon was one of the initial contenders when the first wave fled Xitter about two years ago.
 Now, I think Mastodon ended up at first as where most of us placed our bet. 
