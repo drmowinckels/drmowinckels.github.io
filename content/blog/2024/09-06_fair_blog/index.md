@@ -20,7 +20,7 @@ summary: Making your blog FAIR (Findable, Accessible, Interoperable, and Reusabl
 seo: Make your blog FAIR by archiving posts on Zenodo and adding DOIs. Learn to use Hugo, GitHub actions, and the Zenodo API for content preservation.
 ---
 
-*This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/178) hosted by Eric Nantz and Mike Thomas.*
+*This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w37-highlights) hosted by Eric Nantz and Mike Thomas.*
 
 I have subscribed to [Heidi Seibold](https://heidiseibold.com/)'s newsletter for a good while, she has some really great reflections on data, data literacy, programming and open-science.
 Reading her [August newsletter](https://heidiseibold.ck.page/posts/making-my-newsletter-fair) about making it FAIR ((Findable, Accessible, Interoperable, and Reusable)) she it was really an eye-opener about my own content and archiving it.

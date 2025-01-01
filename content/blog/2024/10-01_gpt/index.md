@@ -18,6 +18,11 @@ summary: Optimize your blog's SEO and Zenodo metadata with automated summaries u
 seo: Enhance your blog's SEO and Zenodo metadata with automated summaries via Hugging Face API. Step-by-step guide using R and httr2.
 ---
 
+
+*This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w42-highlights) hosted by Eric Nantz and Mike Thomas, and on [What's New in R](https://rfortherestofus.com/2024/12/whats-new-in-r-december-9-2024) by [R for the Rest of Us](https://rfortherestofus.com/).*
+
+
+
 After my last post, I got to thinking about the summaries of my posts.
 I am not the best at summarising what my posts are about, and also my post summaries are used for SEO.
 "What is SEO", you ask?
