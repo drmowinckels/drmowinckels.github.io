@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **64** days, or about **0.47** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-23** days ago ([Posting to Bluesky
+✍️ The last post was published **-30** days ago ([Posting to Bluesky
 from R](https://drmowinckels.io/blog/bluesky)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -79,4 +79,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2024-12-25 01:15:10.762537*
+*Updated 2025-01-01 01:21:50.524279*
