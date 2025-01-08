@@ -1,5 +1,5 @@
-# Explicitly library httpuv so renv acknowledges that it's needed.
-library(httpuv)
+# To refresh the refresh the token, visit 
+# https://www.linkedin.com/developers/tools/oauth/token-generator
 
 Sys.setenv(
   LI_ENDPOINT = "rest"
@@ -39,8 +39,25 @@ li_req_auth <- function(req, token = Sys.getenv("LI_TOKEN")) {
 }
 
 
+#' Create setup for connecting to LinkedIn API
+#' 
+#' Sets up API url, version endpoint, and necessary
+#' headers for making resuests from the API.
+#' Does not perform any actual calls to the API.
+#' 
+#' @param endpoint_version character. Sets the endpoint version,
+#'    should likely be either "v2" or "rest"
+#' 
+#' @export
 #' 
 li_req <- function(endpoint_version = Sys.getenv("LI_ENDPOINT")){
+  if(endpoint_version == ""){
+    warning(
+      "`endpoint_version` not set in Renviron, setting to 'rest'.", call. = FALSE
+    )
+    endpoint_version = "rest"
+  }
+
   httr2::request("https://api.linkedin.com") |> 
     httr2::req_url_path_append(endpoint_version) |> 
     httr2::req_headers(
@@ -57,11 +74,12 @@ li_req <- function(endpoint_version = Sys.getenv("LI_ENDPOINT")){
 
 #' Post to LinkedIn
 #'
-#' @param author Character. URN. Either yours (see `li_urn_me()` or rOpenSci's
-#'   "urn:li:organization:77132573")
-#' @param body Character. The body of the post as you would like it to appear.
-#' @param dry_run Logical. TRUE to show what would be sent to the server without
-#'   actually sending it.
+#' @param author Character. URN. Either yours (see `li_urn_me()` 
+#'    or an organisation's).
+#' @param body Character. The body of the post as you would like 
+#'    it to appear.
+#' @param dry_run Logical. TRUE to show what would be sent to 
+#'    the server without actually sending it.
 #'
 #' @return A string of the URN for the post id.
 #' @export
@@ -211,13 +229,3 @@ li_oauth <- function() {
   )
 }
 
-# To refresh the refresh, visit 
-# https://www.linkedin.com/developers/tools/oauth/token-generator
-
-
-## Trying to get things working ----
-
-response <- li_posts_write(
-  author = li_urn_me(), 
-  body = "Testing the LinkedIn API"
-)
