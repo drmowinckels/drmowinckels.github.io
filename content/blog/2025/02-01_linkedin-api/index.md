@@ -44,6 +44,7 @@ Here, you should be able to log in with your LinkedIn credentials, or already be
 ![](li_app_setup.png)
 
 > For Third Party/Enterprise Developers: The LinkedIn Company Page you select will be associated with your app. Verification can be done by a Page Admin. Please note this cannot be a member profile page.
+
 > For Individual Developers: API products available to individual developers have a default Company page associated with them and you must select that default Company page to proceed.
 
 ![](li_app_settings.png)
