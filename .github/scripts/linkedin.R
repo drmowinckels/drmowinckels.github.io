@@ -1,6 +1,9 @@
-# SHhmelessly stolen and adapted from rOpenSci
-# https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R
+# Explicitly library httpuv so renv acknowledges that it's needed.
+library(httpuv)
 
+Sys.setenv(
+  LI_ENDPOINT = "rest"
+)
 
 # LinkedIn Chars to escape
 escape_linkedin_chars <- function(x) {
@@ -8,6 +11,49 @@ escape_linkedin_chars <- function(x) {
   p <- stats::setNames(paste0("\\", chars), chars)
   stringr::str_replace_all(x, p)
 }
+
+# Automatically set the LinkedIn API endpoint_version to 2 months ago since they
+# constantly change that without changing core features.
+li_get_version <- function(){
+  li_version_date <- lubridate::rollback(lubridate::rollback(lubridate::today()))
+
+  paste0(
+    lubridate::year(li_version_date), 
+    stringr::str_pad(lubridate::month(li_version_date), 2, pad = "0")
+  )
+}
+
+
+#' Create authorization for LinkedIn
+#' 
+#' This uses the bearer token auth, which would
+#' not work for organisation posting.
+#'
+#' @param req httr2 request
+#' @param token Access token
+#'
+#' @noRd
+li_req_auth <- function(req, token = Sys.getenv("LI_TOKEN")) {
+  req |> 
+    httr2::req_auth_bearer_token(token)
+}
+
+
+#' 
+li_req <- function(endpoint_version = Sys.getenv("LI_ENDPOINT")){
+  httr2::request("https://api.linkedin.com") |> 
+    httr2::req_url_path_append(endpoint_version) |> 
+    httr2::req_headers(
+      "LinkedIn-Version" = li_get_version(),
+      "X-Restli-Protocol-Version" = "2.0.0",
+      "Content-Type" = "application/json"
+    ) |>
+    li_req_auth() 
+}
+
+# Shmelessly stolen and adapted from rOpenSci
+# https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R
+
 
 #' Post to LinkedIn
 #'
@@ -30,59 +76,50 @@ escape_linkedin_chars <- function(x) {
 #'
 #' \dontrun{
 #' # Real post
-#' id <- li_posts_write(
+#' response <- li_posts_write(
 #'   author = ro_urn, # Post on behalf of rOpenSci
-#'   body = "Testing out the LinkedIn API via R and httr2!")
+#'   body = "Testing out the LinkedIn API via R and httr2!"
+#' )
 #' }
-
-
 li_posts_write <- function(author, body, dry_run = FALSE) {
 
   # Need to escape () around links in the body or we lose them and everything following
   body <- escape_linkedin_chars(body)
 
-  r <- li_req_posts() |>
-    httr2::req_headers("Content-Type" = "application/json") |>
+  r <- li_req() |> 
+    httr2::req_url_path_append("posts") |>
     httr2::req_body_json(list(
       author = author,
       commentary = body,
       visibility = "PUBLIC",
-      distribution = list("feedDistribution" = "MAIN_FEED",
-                          "targetEntities" = list(),
-                          "thirdPartyDistributionChannels" = list()),
+      distribution = list(
+        "feedDistribution" = "MAIN_FEED",
+        "targetEntities" = list(),
+        "thirdPartyDistributionChannels" = list()
+      ),
       lifecycleState = "PUBLISHED",
       isReshareDisabledByAuthor = FALSE
-    ), auto_unbox = TRUE)
+    ), 
+    auto_unbox = TRUE)
+    
 
   if(dry_run) {
     httr2::req_dry_run(r)
   } else {
-    httr2::req_perform(r) |>
+    r |> 
+      httr2::req_retry(
+        is_transient = \(x) httr2::resp_status(x) == 401,
+        max_tries = 10,
+        backoff = ~ 3
+      ) |> 
+      httr2::req_perform() |>
       httr2::resp_header("x-restli-id")
   }
 }
 
-#' Setup API request for Posts endpoint
-#'
-#' @references
-#'  - https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api
-#'
-#' @noRd
-li_req_posts <- function() {
-  httr2::request(base_url = "https://api.linkedin.com/rest/posts") |>
-    li_req_auth() |>
-    httr2::req_headers(
-      "LinkedIn-Version" = "202311",
-      "X-Restli-Protocol-Version" = "2.0.0"
-    )
-}
-
-
-
 #' Fetch your personal URN number
 #'
 #' This is required to post on LinkedIn to your personal account
-#' (for rOpenSci, use the organization urn, "urn:li:organization:77132573"
 #'
 #' @return A string with your URN in the format of "urn:li:person:XXXX"
 #' @export
@@ -93,44 +130,32 @@ li_req_posts <- function() {
 #' li_urn_me()
 #' }
 li_urn_me <- function() {
-  id <- httr2::request(base_url = "https://api.linkedin.com/v2/me") |>
-    li_req_auth() |>
-    httr2::req_url_query(projection = "(id)") |>
+  id <- li_req("v2") |> 
+    httr2::req_url_path_append("userinfo") |>
+    httr2::req_auth_bearer_token(Sys.getenv("LI_TOKEN")) |> 
+    httr2::req_url_query(projection = "(sub)") |>
     httr2::req_perform() |>
     httr2::resp_body_json() |>
     unlist()
   paste0("urn:li:person:", id)
 }
 
-#' Create authorization for rOpenSci on LinkedIn
-#'
-#' @param req httr2 request
-#'
-#' @noRd
-li_req_auth <- function(req) {
-  # Uses refresh token so works programatically on GitHub API
-  # Define authorization
-  httr2::req_oauth_refresh(
-    req,
-    client = li_client())
-}
-
-
-
-#' Setup rOpenSci client id for LinkedIn API
+#' Setup client id for LinkedIn API
 #'
 #' Expects to find the "Client Secret" in the .Renviron file under
-#' LINKEDIN_SECRET (Or as a general environemental variable through GitHub
+#' LI_CLIENT_SECRET (Or as a general environemental variable through GitHub
 #' actions).
 #'
 #' @noRd
-li_client <- function() {
+li_client <- function(endpoint_version = Sys.getenv("LI_ENDPOINT")) {
   httr2::oauth_client(
     name = "drmowinckels_linkedIn",
-    id = "77vql6v7pla4n2",
-    token_url = "https://www.linkedin.com/oauth/v2/accessToken",
-    secret = Sys.getenv("LINKEDIN_SECRET"))
+    id = Sys.getenv("LI_CLIENT_ID"),
+    token_url = sprintf("https://www.linkedin.com/oauth/%s/accessToken", endpoint_version),
+    secret = Sys.getenv("LI_CLIENT_SECRET")
+  )
 }
+
 
 #' Authorize rOpenSci client with LinkedIn
 #'
@@ -165,11 +190,10 @@ li_client <- function() {
 #' \dontrun{
 #' # Only run if you need to update the scopes or get a new token (otherwise
 #' # you'll have to replace all your tokens)
-#' t <- li_auth()
+#' t <- li_oauth()
 #' t$refresh_token
 #' }
-
-li_auth <- function() {
+li_oauth <- function() {
   auth_url <- "https://www.linkedin.com/oauth/v2/authorization"
 
   auth_url <- httr2::oauth_flow_auth_code_url(
@@ -182,15 +206,18 @@ li_auth <- function() {
     client = li_client(),
     auth_url = auth_url,
     redirect_uri = "http://localhost:1444/",
-    scope = paste("w_member_social"),
+    scope = paste("email", "openid", "profile", "w_member_social"),
     pkce = FALSE
   )
 }
 
-httr2::oauth_client(
-  name = "drmowinckels-gha",
-  id = "778d2qp9e4w5vz",
-  token_url = "https://www.linkedin.com/oauth/v2/accessToken",
-  secret = Sys.getenv("LINKEDIN_SECRET")
-)
+# To refresh the refresh, visit 
+# https://www.linkedin.com/developers/tools/oauth/token-generator
 
+
+## Trying to get things working ----
+
+response <- li_posts_write(
+  author = li_urn_me(), 
+  body = "Testing the LinkedIn API"
+)
