@@ -17,7 +17,7 @@ image: li_api_logo.png
 image_alt: LinkedIn API logo. LinkedIn standard logo on the left, a rectangle with rounded corners with the letters API inside on the right.
 ---
 
-So I've had several posts past year about using [httr2]{} in R to connect to various API's, like [Zenodo](/blog/2024/fair-blog).
+So I've had several posts past year about using [httr2](https://httr2.r-lib.org/) in R to connect to various API's, like [Zenodo](/blog/2024/fair-blog).
 In that journey, I have been trying to get things working with LinkedIn too, which is one of the three social-media type platforms I use to communicate. 
 In that quest, there has been... much frustration.
 I feel like I am becoming more and more comfortable with API's, both from R and from the shell. 
@@ -62,7 +62,7 @@ So let's walk through it!
 > For Individual Developers: API products available to individual developers have a default Company page associated with them and you must select that default Company page to proceed.
 
 Meaning, you need a Company page associated with you app, so you need to make one...
-I [made a company](https://business.linkedin.com/marketing-solutions/linkedin-pages) page called [Dr. Mowinckel's](https://www.linkedin.com/company/dr-mowinckel-s/) on LinkedIn, which will see no activity as far as I am concerned.
+I [made a company page](https://business.linkedin.com/marketing-solutions/linkedin-pages) called [Dr. Mowinckel's](https://www.linkedin.com/company/dr-mowinckel-s/) on LinkedIn, which will see no activity as far as I am concerned.
 Once that was made, I could associate that page with my app, and things seemed to be just fine.
 
 **Privacy policy URL** not required, and if you are using it for yourself, totally not needed.
