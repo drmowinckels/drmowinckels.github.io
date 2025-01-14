@@ -25,7 +25,7 @@ But LinkedIn had me thoroughly confused.
 The documentation was hard to grasp and navigate.
 The process was extremely obscure and I just could not _get it_.
 
-Finally, after much aid from both [Jon Harmond][https://jonthegeek.com/] and [Steffi LaZerte](https://steffilazerte.ca/) through my connection to [rOpenSci](https://ropensci.org/), we were able to get it working!
+Finally, after much aid from both [Jon Harmond](https://jonthegeek.com/) and [Steffi LaZerte](https://steffilazerte.ca/) through my connection to [rOpenSci](https://ropensci.org/), we were able to get it working!
 I can't tell you how happy I was when I finally got that test post to LinkedIn through the API, the journey has been alsmot 5 months!
 That being said, those five months means extremely sporadic trying giving my current health status, but still.
 
