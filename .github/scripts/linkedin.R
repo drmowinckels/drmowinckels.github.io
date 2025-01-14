@@ -218,7 +218,7 @@ li_posts_write <- function(author, text, image = NULL, image_alt = "") {
       auto_unbox = TRUE
     ) |> 
       httr2::req_retry(
-        is_transient = \(x) httr2::resp_status(x) == 401,
+        is_transient = \(x) httr2::resp_status(x) %in% c(401, 403, 425, 429),
         max_tries = 10,
         backoff = ~ 3
       ) |> 
