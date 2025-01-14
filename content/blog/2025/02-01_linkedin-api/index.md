@@ -27,7 +27,7 @@ The process was extremely obscure and I just could not _get it_.
 
 Finally, after much aid from both [Jon Harmond](https://jonthegeek.com/) and [Steffi LaZerte](https://steffilazerte.ca/) through my connection to [rOpenSci](https://ropensci.org/), we were able to get it working!
 I can't tell you how happy I was when I finally got that test post to LinkedIn through the API, the journey has been alsmot 5 months!
-That being said, those five months means extremely sporadic trying giving my current health status, but still.
+That being said, those five months means extremely sporadic trying given [my current health status](/blog/2025/the-difficult-year), but still.
 
 In this post I want to lay out the process I use as a _person_ to post to LinkedIn through their API.
 I want to make sure this is very clear, as a _person_, not as a person on behalf of an organisation (which part of the confusion in this process stemmed from). 
