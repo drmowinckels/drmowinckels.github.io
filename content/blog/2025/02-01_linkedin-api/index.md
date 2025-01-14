@@ -23,9 +23,9 @@ In that quest, there has been... much frustration.
 I feel like I am becoming more and more comfortable with API's, both from R and from the shell. 
 But LinkedIn had me thoroughly confused.
 The documentation was hard to grasp and navigate.
-The process was extremely obscure and I just could not _get it_.
+The process was extremely obscure and I just could not _GET it_.
 
-Finally, after much aid from both [Jon Harmond](https://jonthegeek.com/) and [Steffi LaZerte](https://steffilazerte.ca/) through my connection to [rOpenSci](https://ropensci.org/), we were able to get it working!
+Finally, after much aid from both [Jon Harmon](https://jonthegeek.com/) and [Steffi LaZerte](https://steffilazerte.ca/) through my connection to [rOpenSci](https://ropensci.org/), we were able to get it working!
 I can't tell you how happy I was when I finally got that test post to LinkedIn through the API, the journey has been alsmot 5 months!
 That being said, those five months means extremely sporadic trying given [my current health status](/blog/2025/the-difficult-year), but still.
 
@@ -61,7 +61,7 @@ So let's walk through it!
 
 > For Individual Developers: API products available to individual developers have a default Company page associated with them and you must select that default Company page to proceed.
 
-Meaning, you need a Company page associated with you app, so you need to make one...
+Meaning, you need a Company page associated with your app, so you need to make one...
 I [made a company page](https://business.linkedin.com/marketing-solutions/linkedin-pages) called [Dr. Mowinckel's](https://www.linkedin.com/company/dr-mowinckel-s/) on LinkedIn, which will see no activity as far as I am concerned.
 Once that was made, I could associate that page with my app, and things seemed to be just fine.
 
@@ -92,13 +92,16 @@ Not that this is information that is easy to find, the docs in general are super
 The different products give you access to different API endpoints,
 meaning if you don't have the correct products, you won't have access to the API as expected.
 
-I quickly and easily added the "Shage on LinkedIn" Product, which has the endpoints for adding posts, videos, images etc. 
+I quickly and easily added the "Share on LinkedIn" Product, which has the endpoints for adding posts, videos, images etc. 
 And for a _very long time_ this was the only product I had, and you will realise during this post that that was at the core of my issues.
 
 ## Getting an access token
 
 After getting code from Jon and Steffi, I started playing around with the code to get things working.
 With [Steffi's code](https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R#L180-L201), I was able to get a bit of code that created a login screen for me, and that I could get a token in the console!
+This was the first time for me really working with an [OAuth workflow](https://httr2.r-lib.org/articles/oauth.html).
+I had some minimal experience from the [meetupr](https://rladies.org/meetupr/) package, but I was not the one who worked on that bit of the code, so I can't really take any credit for it.
+Very happy Steffi and Jon had some code I could work on.
 
 ```r
 # Set endpoint version for LinkedIn
@@ -353,7 +356,7 @@ After much digging, and confusion, and poor Jon trying to help me on Slack, we f
 It seems so obvious in hindsight, I needed to be able to authenticate myself through LinkedIn.
 In my defence though, this seems like such an integral part of an API that having it as a separate thing was just too ludicrous to think about.
 
-Alrighty, so now I had two product, one that allowed me to authenticate myself and one that allowed me to post to LinkedIn.
+Alrighty, so now I had two products, one that allowed me to authenticate myself and one that allowed me to post to LinkedIn.
 Time to try getting the urn again.
 
 ```r
