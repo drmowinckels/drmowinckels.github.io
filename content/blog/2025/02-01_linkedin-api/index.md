@@ -240,12 +240,12 @@ I went to that link, and did indeed get a token!
 But it looked suspiciously like the token I got from Steffi's oauth client approach, and there was no mention of a refresh token anywhere.
 
 I also noticed I could only get a single "scope", which dictates what type of permissions (endpoints) I could access.
-While both Steffi and Jon listed a whole bunch (`r_basicprofile,r_emailaddress,r_liteprofile,r_member_social,r_organization_social,w_member_social,w_organization_social`), I had a single one
+While both Steffi and Jon listed a whole bunch (`r_basicprofile`, `r_emailaddress`, `r_liteprofile`, `r_member_social`, `r_organization_social`, `w_member_social`, `w_organization_social`), I had a single one
 `w_member_social`.
 
 ![](images/li_token_scope.png)
 
-It was eady enough to understand that the `organization` ones where not for me, but that still left things like `r_basicprofile,r_emailaddress,r_liteprofile,r_member_social`, I'm sure those are nexessary for something?
+It was eady enough to understand that the `organization` ones where not for me, but that still left things like `r_basicprofile`, `r_emailaddress`, `r_liteprofile`, `r_member_social`, I'm sure those are nexessary for something?
 I set it aside for now, to continue testing things (that was, in hind-sight, not a great idea).
 
 I had a token, and some code. 
