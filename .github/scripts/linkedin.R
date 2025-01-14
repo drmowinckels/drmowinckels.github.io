@@ -1,9 +1,11 @@
+# Shamelessly stolen and adapted from rOpenSci
+# https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R
+
+# And Jon Harmon's code for TinyTuesday sharing
+# https://github.com/rfordatascience/ttpost/blob/main/runner-li.R
+
 # To refresh the refresh the token, visit 
 # https://www.linkedin.com/developers/tools/oauth/token-generator
-
-Sys.setenv(
-  LI_ENDPOINT = "rest"
-)
 
 # LinkedIn Chars to escape
 escape_linkedin_chars <- function(x) {
@@ -23,141 +25,6 @@ li_get_version <- function(){
   )
 }
 
-
-#' Create authorization for LinkedIn
-#' 
-#' This uses the bearer token auth, which would
-#' not work for organisation posting.
-#'
-#' @param req httr2 request
-#' @param token Access token
-#'
-#' @noRd
-li_req_auth <- function(req, token = Sys.getenv("LI_TOKEN")) {
-  req |> 
-    httr2::req_auth_bearer_token(token)
-}
-
-
-#' Create setup for connecting to LinkedIn API
-#' 
-#' Sets up API url, version endpoint, and necessary
-#' headers for making resuests from the API.
-#' Does not perform any actual calls to the API.
-#' 
-#' @param endpoint_version character. Sets the endpoint version,
-#'    should likely be either "v2" or "rest"
-#' 
-#' @export
-#' 
-li_req <- function(endpoint_version = Sys.getenv("LI_ENDPOINT")){
-  if(endpoint_version == ""){
-    warning(
-      "`endpoint_version` not set in Renviron, setting to 'rest'.", call. = FALSE
-    )
-    endpoint_version = "rest"
-  }
-
-  httr2::request("https://api.linkedin.com") |> 
-    httr2::req_url_path_append(endpoint_version) |> 
-    httr2::req_headers(
-      "LinkedIn-Version" = li_get_version(),
-      "X-Restli-Protocol-Version" = "2.0.0",
-      "Content-Type" = "application/json"
-    ) |>
-    li_req_auth() 
-}
-
-# Shmelessly stolen and adapted from rOpenSci
-# https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R
-
-
-#' Post to LinkedIn
-#'
-#' @param author Character. URN. Either yours (see `li_urn_me()` 
-#'    or an organisation's).
-#' @param body Character. The body of the post as you would like 
-#'    it to appear.
-#' @param dry_run Logical. TRUE to show what would be sent to 
-#'    the server without actually sending it.
-#'
-#' @return A string of the URN for the post id.
-#' @export
-#'
-#' @examples
-#'
-#' # Dry-run
-#' id <- li_posts_write(
-#'   author = ro_urn, # Post on behalf of rOpenSci
-#'   body = "Testing out the LinkedIn API via R and httr2!",
-#'   dry_run = TRUE)
-#'
-#' \dontrun{
-#' # Real post
-#' response <- li_posts_write(
-#'   author = ro_urn, # Post on behalf of rOpenSci
-#'   body = "Testing out the LinkedIn API via R and httr2!"
-#' )
-#' }
-li_posts_write <- function(author, body, dry_run = FALSE) {
-
-  # Need to escape () around links in the body or we lose them and everything following
-  body <- escape_linkedin_chars(body)
-
-  r <- li_req() |> 
-    httr2::req_url_path_append("posts") |>
-    httr2::req_body_json(list(
-      author = author,
-      commentary = body,
-      visibility = "PUBLIC",
-      distribution = list(
-        "feedDistribution" = "MAIN_FEED",
-        "targetEntities" = list(),
-        "thirdPartyDistributionChannels" = list()
-      ),
-      lifecycleState = "PUBLISHED",
-      isReshareDisabledByAuthor = FALSE
-    ), 
-    auto_unbox = TRUE)
-    
-
-  if(dry_run) {
-    httr2::req_dry_run(r)
-  } else {
-    r |> 
-      httr2::req_retry(
-        is_transient = \(x) httr2::resp_status(x) == 401,
-        max_tries = 10,
-        backoff = ~ 3
-      ) |> 
-      httr2::req_perform() |>
-      httr2::resp_header("x-restli-id")
-  }
-}
-
-#' Fetch your personal URN number
-#'
-#' This is required to post on LinkedIn to your personal account
-#'
-#' @return A string with your URN in the format of "urn:li:person:XXXX"
-#' @export
-#'
-#' @examples
-#'
-#' \dontrun{
-#' li_urn_me()
-#' }
-li_urn_me <- function() {
-  id <- li_req("v2") |> 
-    httr2::req_url_path_append("userinfo") |>
-    httr2::req_auth_bearer_token(Sys.getenv("LI_TOKEN")) |> 
-    httr2::req_url_query(projection = "(sub)") |>
-    httr2::req_perform() |>
-    httr2::resp_body_json() |>
-    unlist()
-  paste0("urn:li:person:", id)
-}
-
 #' Setup client id for LinkedIn API
 #'
 #' Expects to find the "Client Secret" in the .Renviron file under
@@ -165,11 +32,11 @@ li_urn_me <- function() {
 #' actions).
 #'
 #' @noRd
-li_client <- function(endpoint_version = Sys.getenv("LI_ENDPOINT")) {
+li_client <- function() {
   httr2::oauth_client(
     name = "drmowinckels_linkedIn",
     id = Sys.getenv("LI_CLIENT_ID"),
-    token_url = sprintf("https://www.linkedin.com/oauth/%s/accessToken", endpoint_version),
+    token_url = "https://www.linkedin.com/oauth/v2/accessToken",
     secret = Sys.getenv("LI_CLIENT_SECRET")
   )
 }
@@ -228,4 +95,171 @@ li_oauth <- function() {
     pkce = FALSE
   )
 }
+
+
+#' Create authorization for LinkedIn
+#' 
+#' This uses the bearer token auth, which would
+#' not work for organisation posting.
+#'
+#' @param req httr2 request
+#' @param token Access token
+#'
+#' @noRd
+li_req_auth <- function(req, token = Sys.getenv("LI_TOKEN")) {
+  req |> 
+    httr2::req_auth_bearer_token(token)
+}
+
+
+#' Create setup for connecting to LinkedIn API
+#' 
+#' Sets up API url, version endpoint, and necessary
+#' headers for making resuests from the API.
+#' Does not perform any actual calls to the API.
+#' 
+#' @param endpoint_version character. Sets the endpoint version,
+#'    should likely be either "v2" or "rest"
+#' @param ... arguments passed along to \code{li_req_auth()}
+#' 
+#' @export
+#' 
+li_req <- function(endpoint_version = "rest", ...){
+
+  httr2::request("https://api.linkedin.com") |> 
+    httr2::req_url_path_append(endpoint_version) |> 
+    httr2::req_headers(
+      "LinkedIn-Version" = li_get_version(),
+      "X-Restli-Protocol-Version" = "2.0.0",
+      "Content-Type" = "application/json"
+    ) |>
+    li_req_auth(...) 
+}
+
+#' Fetch your personal URN number
+#'
+#' This is required to post on LinkedIn to your personal account
+#'
+#' @return A string with your URN in the format of "urn:li:person:XXXX"
+#' @export
+#'
+#' @examples
+#'
+#' \dontrun{
+#' li_urn_me()
+#' }
+li_urn_me <- function() {
+  id <- li_req("v2") |> 
+    httr2::req_url_path_append("userinfo") |>
+    httr2::req_auth_bearer_token(Sys.getenv("LI_TOKEN")) |> 
+    httr2::req_url_query(projection = "(sub)") |>
+    httr2::req_perform() |>
+    httr2::resp_body_json() |>
+    unlist()
+  paste0("urn:li:person:", id)
+}
+
+#' Post to LinkedIn
+#'
+#' @param author Character. URN. Either yours (see `li_urn_me()` 
+#'    or an organisation's).
+#' @param body Character. The body of the post as you would like 
+#'    it to appear.
+#' @param image Character. Path to the image you want to use
+#' @param image_alt Character. String describing the image.
+#'
+#' @return A string of the URN for the post id.
+#' @export
+#'
+#' @examples
+#'
+#' \dontrun{
+#' # Real post
+#' response <- li_posts_write(
+#'   author = li_urn_me(),
+#'   body = "Testing out the LinkedIn API via R and httr2!"
+#' )
+#' }
+li_posts_write <- function(author, text, image = NULL, image_alt = "") {
+
+  text <- escape_linkedin_chars(text)
+
+  body <- list(
+    author = author,
+    lifecycleState = "PUBLISHED",
+    commentary = text,
+    visibility = "PUBLIC",
+    distribution = list(
+      `feedDistribution` = "MAIN_FEED",
+      `targetEntities` = list(),
+      `thirdPartyDistributionChannels` = list()
+    ),
+    isReshareDisabledByAuthor = FALSE
+  )
+
+  if(!is.null(image)){
+    body <- c(
+      body,
+      list(
+        content = list(
+          media = list(
+            id = li_media_upload(author, image),
+            title = image_alt
+          )
+        )
+      )
+    )
+  }
+  
+  resp <- li_req() |> 
+    httr2::req_url_path_append("posts") |>
+    httr2::req_body_json(
+      body,
+      auto_unbox = TRUE
+    ) |> 
+      httr2::req_retry(
+        is_transient = \(x) httr2::resp_status(x) == 401,
+        max_tries = 10,
+        backoff = ~ 3
+      ) |> 
+    httr2::req_perform() |>
+    httr2::resp_header("x-restli-id")
+
+  message(file.path(
+    "https://www.linkedin.com/feed/update/",
+    resp
+  ))
+
+  invisible(resp)
+}
+
+#' Upload image to LinkedIn
+#' 
+#' @param author Character. URN. Either yours (see `li_urn_me()` 
+#'    or an organisation's).
+#' @param image Character. Path to the image you want to use
+#' 
+#' @return image urn asset
+li_media_upload <- function(author, media){
+
+  r <- li_req() |> 
+    httr2::req_url_path_append("images") |>
+      httr2::req_url_query(action="initializeUpload") |> 
+      httr2::req_body_json(list(
+        initializeUploadRequest = list(
+          owner = author
+        )
+      ),
+      auto_unbox = TRUE
+    ) |> 
+    httr2::req_perform() |> 
+    httr2::resp_body_json()
+
+  img_r <- httr2::request(r$value$uploadUrl) |> 
+    httr2::req_body_file(image) |> 
+    httr2::req_perform()
+  
+  r$value$image
+}
+
 

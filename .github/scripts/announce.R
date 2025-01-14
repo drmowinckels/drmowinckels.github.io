@@ -13,14 +13,14 @@ if (length(post) == 0) {
   post <- post[1]
 }
 
-source(linkedin.R, local = TRUE)
-source(kit-newsletter.R, local = TRUE)
+source(".github/scripts/linkedin.R", local = TRUE)
+source(".github/scripts/kit_newsletter.R", local = TRUE)
 
-create_message <- function(summary){
+create_message <- function(text){
   glue::glue(
     "📝 New post: '{frontmatter$title}'
     
-    {emoji} {summary} 
+    {emoji} {text} 
     
     👀 {uri} 
     
@@ -28,6 +28,7 @@ create_message <- function(summary){
   )
 }
 
+#post <- "content/blog/2025/01-01_longcovid/index.md"
 frontmatter <- rmarkdown::yaml_front_matter(post)
 
 # fix tags
@@ -59,7 +60,7 @@ image <- here::here(dirname(post), frontmatter$image)
 rtoot::post_toot(
   status = create_message(frontmatter$seo),
   media = image,
-  alt_text = "Blogpost featured image",
+  alt_text = frontmatter$image_alt,
   visibility = "public",
   language = "US-en"
 )
@@ -68,14 +69,15 @@ rtoot::post_toot(
 bskyr::bs_post(
   text = substr(create_message(frontmatter$seo), 1, 300),
   images = image,
-  images_alt = "Blogpost featured image",
+  images_alt = frontmatter$image_alt,
   langs = "US-en"
 )
 
 # Post to LinkedIn
 li_posts_write(
   author = li_urn_me(), 
-  body = create_message(frontmatter$summary)
+  media_alt = frontmatter$image_alt,
+  text = create_message(frontmatter$summary)
 )
 
 # Send Newsletter
