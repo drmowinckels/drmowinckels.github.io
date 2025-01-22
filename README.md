@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **63** days, or about **0.48** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-14** days ago ([The difficult
+✍️ The last post was published **-21** days ago ([The difficult
 year](https://drmowinckels.io/blog/the-difficult-year)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -80,4 +80,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-01-15 01:14:57.92291*
+*Updated 2025-01-22 01:19:10.838822*
