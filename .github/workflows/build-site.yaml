@@ -125,6 +125,12 @@ jobs:
           Rscript -e 'renv::restore()'
           Rscript .github/scripts/add_doi.R
 
+      - name: Commit content with doi
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git commit content/blog -m 'Add doi' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
@@ -172,12 +178,6 @@ jobs:
               repo: 'drmowinckels.github.io',
               body: ':tada: The preview is built! [Check it out :eyes:](https://${{ env.nalias }}--drmowinckels.netlify.app/)'
             })
-
-      - name: Commit content with doi
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git commit content/blog -m 'Add doi' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
 
   announce:
     name: Announce new blog post
