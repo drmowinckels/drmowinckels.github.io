@@ -245,10 +245,6 @@ What we need to do, is predict all the data, keeping the other covariates consta
 
 After trying for several days, without managing to make the plot I wanted, I tweeted my frustration. 
 
-
-<!--html_preserve-->{{< tweet user="DrMowinckels" id="968428248026832896" >}}
-<!--/html_preserve-->
-
 And to the rescue comes twitter, a useR pointed me to [itsadug](https://cran.r-project.org/web/packages/itsadug/index.html). The obscure package I just could not manage to find through all my googling. `itsadug` has a predict function, where you can specify which predictor you want to predict on. 
 
 If you give it the min, max and length of what you want to predict, it then generates data with all other predictors set to constants, for your convenient plotting. It was like magic, exactly what i was searching for. Now, I could plot what I wanted, just like I wanted it!
