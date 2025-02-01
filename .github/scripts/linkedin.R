@@ -175,12 +175,12 @@ li_urn_me <- function() {
 #'
 #' \dontrun{
 #' # Real post
-#' response <- li_posts_write(
+#' response <- li_post_write(
 #'   author = li_urn_me(),
 #'   body = "Testing out the LinkedIn API via R and httr2!"
 #' )
 #' }
-li_posts_write <- function(author, text, image = NULL, image_alt = "") {
+li_post_write <- function(author, text, image = NULL, image_alt = "") {
 
   text <- escape_linkedin_chars(text)
 

@@ -13,8 +13,8 @@ if (length(post) == 0) {
   post <- post[1]
 }
 
-source(".github/scripts/linkedin.R", local = TRUE)
-source(".github/scripts/kit_newsletter.R", local = TRUE)
+source(here::here(".github/scripts/linkedin.R"))
+source(here::here(".github/scripts/kit_newsletter.R"))
 
 create_message <- function(text){
   glue::glue(
@@ -57,9 +57,10 @@ emoji <- sample(emojis, 1)
 image <- here::here(dirname(post), frontmatter$image)
 
 # Post to LinkedIn
-li_posts_write(
+li_post_write(
   author = li_urn_me(), 
-  media_alt = frontmatter$image_alt,
+  image_alt = frontmatter$image_alt,
+  image = image,
   text = create_message(frontmatter$summary)
 )
 

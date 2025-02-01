@@ -466,19 +466,19 @@ There is so much going on in this call to make the post, I'm so happy I didn't h
 #' @examples
 #'
 #' # Dry-run
-#' id <- li_posts_write(
+#' id <- li_post_write(
 #'   author = li_urn_me(), 
 #'   body = "Testing out the LinkedIn API via R and httr2!",
 #' )
 #'
 #' \dontrun{
 #' # Real post
-#' response <- li_posts_write(
+#' response <- li_post_write(
 #'   author = li_urn_me(), 
 #'   body = "Testing out the LinkedIn API via R and httr2!"
 #' )
 #' }
-li_posts_write <- function(body, author) {
+li_post_write <- function(body, author) {
 
   # Need to escape () around links in the body or we lose them and everything following
   body <- escape_linkedin_chars(body)
@@ -579,12 +579,12 @@ Anyway, this is now the newly formed posting function!
 #'
 #' \dontrun{
 #' # Real post
-#' response <- li_posts_write(
+#' response <- li_post_write(
 #'   author = li_urn_me(),
 #'   body = "Testing out the LinkedIn API via R and httr2!"
 #' )
 #' }
-li_posts_write <- function(author, text, image = NULL, image_alt = "") {
+li_post_write <- function(author, text, image = NULL, image_alt = "") {
 
   text <- escape_linkedin_chars(text)
 
