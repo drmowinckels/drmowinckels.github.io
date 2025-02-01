@@ -56,6 +56,13 @@ emoji <- sample(emojis, 1)
 
 image <- here::here(dirname(post), frontmatter$image)
 
+# Post to LinkedIn
+li_posts_write(
+  author = li_urn_me(), 
+  media_alt = frontmatter$image_alt,
+  text = create_message(frontmatter$summary)
+)
+
 # Post to Mastodon
 rtoot::post_toot(
   status = create_message(frontmatter$seo),
@@ -71,13 +78,6 @@ bskyr::bs_post(
   images = image,
   images_alt = frontmatter$image_alt,
   langs = "US-en"
-)
-
-# Post to LinkedIn
-li_posts_write(
-  author = li_urn_me(), 
-  media_alt = frontmatter$image_alt,
-  text = create_message(frontmatter$summary)
 )
 
 # Send Newsletter
