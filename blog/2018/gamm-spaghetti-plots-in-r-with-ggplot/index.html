@@ -66,8 +66,8 @@
 
  
 
-    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.b949f82ef13ab020c09cc9a01a06b5c35de205c6382cde6ed472ebf5efc8e9d2.css" 
-    integrity="sha256-uUn4LvE6sCDAnMmgGga1w13iBcY4LN5u1HLr9e/I6dI=" 
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
     crossorigin="anonymous">
 
 
@@ -545,8 +545,6 @@
 <p>Now, there are packages to help do this. For instance, visreg has a gamm plotting function. However, <a href="https://cran.r-project.org/web/packages/visreg/visreg.pdf">visreg</a> requires attached data, or each variable existing in the global environment. I don&rsquo;t like working with attached data, in my opinion in makes the workflow less transparent, and it&rsquo;s hard to debug issues. If you forget to detach the data, you can spend hours trying to figure out why things aren&rsquo;t working, without noticing that the attached data may be messing things up.</p>
 <p>What we need to do, is predict all the data, keeping the other covariates constant, while only varying the predictor of interest. Right-o. If you&rsquo;re good at simulating data etc, this might be easy for you. I&rsquo;m pretty terrible at it (for lack of practise for sure).</p>
 <p>After trying for several days, without managing to make the plot I wanted, I tweeted my frustration.</p>
-<!--html_preserve-->
-<!--/html_preserve-->
 <p>And to the rescue comes twitter, a useR pointed me to <a href="https://cran.r-project.org/web/packages/itsadug/index.html">itsadug</a>. The obscure package I just could not manage to find through all my googling. <code>itsadug</code> has a predict function, where you can specify which predictor you want to predict on.</p>
 <p>If you give it the min, max and length of what you want to predict, it then generates data with all other predictors set to constants, for your convenient plotting. It was like magic, exactly what i was searching for. Now, I could plot what I wanted, just like I wanted it!</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(itsadug)
@@ -702,23 +700,25 @@
                         &emsp;url = "https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13256467",<br> 
-                        &emsp;updated = "Jan 15, 2025"<br>
+                        &emsp;updated = "Feb 1, 2025"<br>
                     }
                 </div>
             </div>
         </div>
     </div>
-</div><div class="uk-section">
-        
-        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
 
-            <ul class="uk-slider-items uk-grid" >
-                
-            </ul>
-        
-            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
-        
+                <ul class="uk-slider-items uk-grid" >
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
         </div>
     </div>
     

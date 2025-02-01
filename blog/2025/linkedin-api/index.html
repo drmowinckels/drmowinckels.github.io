@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Cracking the LinkedIn API through R - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Master LinkedIn API in R with my detailed guide on authentication, posting, and overcoming documentation challenges.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/linkedin-api/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Cracking the LinkedIn API through R - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Master LinkedIn API in R with my detailed guide on authentication, posting, and overcoming documentation challenges.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/linkedin-api/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Master LinkedIn API in R with my detailed guide on authentication, posting, and overcoming documentation challenges.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/linkedin-api/images/featured.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/linkedin-api/images/featured.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/linkedin-api/images/featured.png" alt="A professional digital illustration featuring a confident woman, with a polished appearance. She has medium-length dark hair styled neatly, wearing a business-casual outfit, consisting of a tailored blazer and a soft-colored blouse. The background is a gradient of neutral tones, giving a modern, LinkedIn-style look, with a faint abstract design that suggests professionalism and a digital context." class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Cracking the LinkedIn API through R</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Feb 1, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/linkedin/" class="uk-label uk-label-secondary tags" >
+                                Linkedin
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/api/" class="uk-label uk-label-secondary tags" >
+                                API
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/github/" class="uk-label uk-label-secondary tags" >
+                                GitHub
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#getting-linkedin-api-access">Getting LinkedIn API access</a></li>
+    <li><a href="#creating-an-authentication-client">Creating an authentication client</a></li>
+    <li><a href="#getting-an-access-token">Getting an access token</a></li>
+    <li><a href="#getting-information-from-the-api">Getting information from the API</a></li>
+    <li><a href="#post-to-linkedin-through-r">Post to LinkedIn through R</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>So I&rsquo;ve had several posts past year about using <a href="https://httr2.r-lib.org/">httr2</a> in R to connect to various API&rsquo;s, like <a href="https://drmowinckels.io/blog/2024/fair-blog">Zenodo</a>.
+In that journey, I have been trying to get things working with LinkedIn too, which is one of the three social-media type platforms I use to communicate.
+In that quest, there has been&hellip; much frustration.
+I feel like I am becoming more and more comfortable with API&rsquo;s, both from R and from the shell.
+But LinkedIn had me thoroughly confused.
+The documentation was hard to grasp and navigate.
+The process was extremely obscure and I just could not <em>GET it</em>.</p>
+<p>Finally, after much aid from both <a href="https://jonthegeek.com/">Jon Harmon</a> and <a href="https://steffilazerte.ca/">Steffi LaZerte</a> through my connection to <a href="https://ropensci.org/">rOpenSci</a>, we were able to get it working!
+I can&rsquo;t tell you how happy I was when I finally got that test post to LinkedIn through the API, the journey has been alsmot 5 months!
+That being said, those five months means extremely sporadic trying given <a href="https://drmowinckels.io/blog/2025/the-difficult-year">my current health status</a>, but still.</p>
+<p>In this post I want to lay out the process I use as a <em>person</em> to post to LinkedIn through their API.
+I want to make sure this is very clear, as a <em>person</em>, not as a person on behalf of an organisation (which part of the confusion in this process stemmed from).</p>
+<h2 id="getting-linkedin-api-access">Getting LinkedIn API access</h2>
+<p>The first thing one needs to do, is to actually get access to the LinkedIn API.
+The API is available through the <a href="https://developer.linkedin.com/">LinkedIn developers portal</a>.
+Here, you should be able to log in with your LinkedIn credentials, or already be logged in if you are logged in to LinkedIn already.</p>
+<p><img src="images/li_dev.png" alt=""></p>
+<p>There&rsquo;s a lot of information you can access from this page, like docs etc.</p>
+<h2 id="creating-an-authentication-client">Creating an authentication client</h2>
+<p>Next step is to &ldquo;Create an app&rdquo;, which is what is going to make it possible for you to authenticate your self towards the API.
+Unlike other API&rsquo;s we&rsquo;ve dealth with before, this API requires a somewhat more complex authentication process.</p>
+<p><img src="images/li_app_create.png" alt=""></p>
+<p>When creating an app, there are quite some things that need to be specified.
+I&rsquo;ve made an app so many times to get things right!
+So let&rsquo;s walk through it!</p>
+<p><img src="images/li_app_setup.png" alt=""></p>
+<p><strong>App name</strong>: simple enough, it needs a name. This can be anything you want.</p>
+<p><strong>LinkedIn Page</strong>: this is confusing and so weird.</p>
+<blockquote>
+<p>For Individual Developers: API products available to individual developers have a default Company page associated with them and you must select that default Company page to proceed.</p>
+</blockquote>
+<p>Meaning, you need a Company page associated with your app, so you need to make one&hellip;
+I <a href="https://business.linkedin.com/marketing-solutions/linkedin-pages">made a company page</a> called <a href="https://www.linkedin.com/company/dr-mowinckel-s/">Dr. Mowinckel&rsquo;s</a> on LinkedIn, which will see no activity as far as I am concerned.
+Once that was made, I could associate that page with my app, and things seemed to be just fine.</p>
+<p><strong>Privacy policy URL</strong> not required, and if you are using it for yourself, totally not needed.</p>
+<p><strong>App logo</strong> self explanatory, I think. I&rsquo;m mostly surprised its required!</p>
+<p><img src="images/li_app_settings.png" alt=""></p>
+<p>Once those settings are done, you will have an app you can use to access the LinkedIn API through.
+You will get information about your &ldquo;Client&rdquo; inside the App page, which will look like something as the above.</p>
+<p>But wait, there are still things that need to be set before we can actually use it.</p>
+<p><img src="images/li_app_auth.png" alt=""></p>
+<p>In the auth tab, the only thing that really needs setting is a redirect URL.
+You need this if you want to use an interactive authentication process to get a token.
+I thought that sounded neat, and since Steffi had code for it, I followed her <a href="https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R#L151">instructions in her code</a> to set redirect url to local host.</p>
+<p><img src="images/li_app_products.png" alt=""></p>
+<p>In the &ldquo;Products&rdquo; tab, you will find various services you can add to your app.
+<strong>These are very important</strong>.
+My main problem getting started with the API was from the lack of the correct products associated with my app.
+Not that this is information that is easy to find, the docs in general are super difficult to navigate, in my opinion.</p>
+<p>The different products give you access to different API endpoints,
+meaning if you don&rsquo;t have the correct products, you won&rsquo;t have access to the API as expected.</p>
+<p>I quickly and easily added the &ldquo;Share on LinkedIn&rdquo; Product, which has the endpoints for adding posts, videos, images etc.
+And for a <em>very long time</em> this was the only product I had, and you will realise during this post that that was at the core of my issues.</p>
+<h2 id="getting-an-access-token">Getting an access token</h2>
+<p>After getting code from Jon and Steffi, I started playing around with the code to get things working.
+With <a href="https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R#L180-L201">Steffi&rsquo;s code</a>, I was able to get a bit of code that created a login screen for me, and that I could get a token in the console!
+This was the first time for me really working with an <a href="https://httr2.r-lib.org/articles/oauth.html">OAuth workflow</a>.
+I had some minimal experience from the <a href="https://rladies.org/meetupr/">meetupr</a> package, but I was not the one who worked on that bit of the code, so I can&rsquo;t really take any credit for it.
+Very happy Steffi and Jon had some code I could work on.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Set endpoint version for LinkedIn</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Sys.setenv</span>(
+</span></span><span style="display:flex;"><span>  LI_ENDPOINT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rest&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Setup client id for LinkedIn API</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Expects to find the &#34;Client Secret&#34; in the .Renviron file under</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; LI_CLIENT_SECRET (Or as a general environemental variable through GitHub</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; actions).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @noRd</span>
+</span></span><span style="display:flex;"><span>li_client <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(endpoint_version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;v2&#34;</span>) {
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">oauth_client</span>(
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drmowinckels_linkedIn&#34;</span>,
+</span></span><span style="display:flex;"><span>    id <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;LI_CLIENT_ID&#34;</span>),
+</span></span><span style="display:flex;"><span>    token_url <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;https://www.linkedin.com/oauth/%s/accessToken&#34;</span>, endpoint_version),
+</span></span><span style="display:flex;"><span>    secret <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;LI_CLIENT_SECRET&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Authorize a client with LinkedIn</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This authorizes the rOpenSci client with **your** credentials (and you must</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; be part of the rOpenSci organization as an admin).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Make sure to take note of the &#39;refresh_token&#39; as that is what you&#39;ll</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; add to your .Renviron file for local work, or the GitHub secrets for</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; the comms/scheduled_socials workflow.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This function authorizes with a redirect url of &#34;http://localhost:1444/&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; this *must* be the same as that listed in the LinkedIn Developer App,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; https://www.linkedin.com/developers/apps.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; **If you retrieve a new token, you will have to put it in the .Renviron</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; and the re-start your R session to continue**</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This function authorizes with the scopes:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; - w_member_social (default)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; - w_organization_social (special request)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; - r_organization_social (special request)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; - r_organization_admin (special request)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return httr2 authorization</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @references</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   - Refresh tokens API: https://learn.microsoft.com/en-us/linkedin/shared/authentication/programmatic-refresh-tokens</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; \dontrun{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Only run if you need to update the scopes or get a new token (otherwise</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # you&#39;ll have to replace all your tokens)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; t &lt;- li_oauth()</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; t$refresh_token</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; }</span>
+</span></span><span style="display:flex;"><span>li_oauth <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  scopes <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;w_member_social&#34;</span>),
+</span></span><span style="display:flex;"><span>  state <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drmowinckels_token&#34;</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  auth_url <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;https://www.linkedin.com/oauth/v2/authorization&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  auth_url <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">oauth_flow_auth_code_url</span>(
+</span></span><span style="display:flex;"><span>    client <span style="color:#f92672">=</span> <span style="color:#a6e22e">li_client</span>(),
+</span></span><span style="display:flex;"><span>    auth_url <span style="color:#f92672">=</span> auth_url,
+</span></span><span style="display:flex;"><span>    state <span style="color:#f92672">=</span> state
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">oauth_flow_auth_code</span>(
+</span></span><span style="display:flex;"><span>    client <span style="color:#f92672">=</span> <span style="color:#a6e22e">li_client</span>(),
+</span></span><span style="display:flex;"><span>    auth_url <span style="color:#f92672">=</span> auth_url,
+</span></span><span style="display:flex;"><span>    redirect_uri <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://localhost:1444/&#34;</span>,
+</span></span><span style="display:flex;"><span>    scope <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste</span>(scopes),
+</span></span><span style="display:flex;"><span>    pkce <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The process will open a browser window that you can open to log into LinkedIn with, and therefore get an access token.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>t <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">li_oauth</span>()
+</span></span></code></pre></div><p><img src="images/li_oauth_login.png" alt="">
+<img src="images/li_oauth_access.png" alt=""></p>
+<p>And at the end of it all, I got a token!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>t
+</span></span></code></pre></div><pre tabindex="0"><code>&lt;httr2_token&gt;
+token_type: bearer
+access_token: &lt;REDACTED&gt;
+expires_at: 2025-03-10 16:43:18
+scope: w_member_social
+</code></pre><p>But there is a problem with my token, it does not include a <code>refresh_token</code> like the example from <a href="https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R#L177">Steffi&rsquo;s code</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(t)
+</span></span></code></pre></div><pre tabindex="0"><code>[1] &#34;token_type&#34;   &#34;access_token&#34; &#34;expires_at&#34;   &#34;scope&#34;
+</code></pre><p>Why?!
+Off I went down a rabbit hole to figure out why I was missing a refresh code.
+I was quite sure I needed it to get things working in Github Actions.
+Then I read on StackOverflow and somewhere in the docs, that refresh tokens can only be provided with the Community Management API product.</p>
+<p>So I went to add that, only to realise you cannot have community management and share on linkedin on the same app.
+So I made a new app, so I could give it a go.</p>
+<p><img src="images/li_app_products_community.png" alt=""></p>
+<p>It was denied because I am, in fact, not a community :P
+To get this product you need to have a legally registered entity, and since I don&rsquo;t have that, I had no success.
+Back to figuring out what was happening.</p>
+<p>I started looking at <a href="https://github.com/rfordatascience/ttpost/blob/main/helpers-linkedin.R#L11-L12">Jon&rsquo;s code</a> and noticed a section talking about refreshing the refresh token.
+Alright!</p>
+<p>I went to that link, and did indeed get a token!
+But it looked suspiciously like the token I got from Steffi&rsquo;s oauth client approach, and there was no mention of a refresh token anywhere.</p>
+<p>I also noticed I could only get a single &ldquo;scope&rdquo;, which dictates what type of permissions (endpoints) I could access.
+While both Steffi and Jon listed a whole bunch (<code>r_basicprofile</code>, <code>r_emailaddress</code>, <code>r_liteprofile</code>, <code>r_member_social</code>, <code>r_organization_social</code>, <code>w_member_social</code>, <code>w_organization_social</code>), I had a single one
+<code>w_member_social</code>.</p>
+<p><img src="images/li_token_scope.png" alt=""></p>
+<p>It was eady enough to understand that the <code>organization</code> ones where not for me, but that still left things like <code>r_basicprofile</code>, <code>r_emailaddress</code>, <code>r_liteprofile</code>, <code>r_member_social</code>, I&rsquo;m sure those are nexessary for something?
+I set it aside for now, to continue testing things (that was, in hind-sight, not a great idea).</p>
+<p>I had a token, and some code.
+I wanted to test.
+Maybe I could use the access token as a refresh token?
+Worth trying.</p>
+<h2 id="getting-information-from-the-api">Getting information from the API</h2>
+<p>I needed information about myself, because to post to LinkedIn, you need to know your so called <a href="https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/urns">urn</a> which is a type of user identifier.</p>
+<p>Steffi had some <a href="https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R#L90-L111">code</a> to get this information, so I thought that would be a good thing to try out.
+It did not work.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Fetch your personal URN number</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This is required to post on LinkedIn to your personal account</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return A string with your URN in the format of &#34;urn:li:person:XXXX&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; \dontrun{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; li_urn_me()</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; }</span>
+</span></span><span style="display:flex;"><span>li_urn_me <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  id <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(base_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://api.linkedin.com/v2/me&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">li_req_auth</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_query</span>(projection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(id)&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">unlist</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;urn:li:person:&#34;</span>, id)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">li_urn_me</span>()
+</span></span></code></pre></div><pre tabindex="0"><code>Error in `token_refresh()`:
+! OAuth failure [access_denied]
+• Refresh token not allowed
+</code></pre><p>What does even <code>Refresh token not allowed</code> mean?
+I was googling, Steffi and Jon were communicating with me on slack, it was just so&hellip; frustratingly obfuscated.</p>
+<p>Then Jon had the <em>brilliant</em> idea that maybe I needed to use a Bearer token, rather than an oauth flow when I was interacting as a single user.
+Brilliant, so meaningful.
+This is the way I am <em>used to</em> interacting with API&rsquo;s, but I was blindly following Jon and Steffi&rsquo;s code, which was made mostly for an organizational setup (i.e. multiple users being able to post to the company page).</p>
+<p>I switched Steffi&rsquo;s oauth flow with my authentication to bearer instead, and things got better, but were still failing!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Create authorization for LinkedIn</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This uses the bearer token auth, which would</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; not work for organisation posting.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param req httr2 request</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param token Access token</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @noRd</span>
+</span></span><span style="display:flex;"><span>li_req_auth <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(req, token <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;LI_TOKEN&#34;</span>)) {
+</span></span><span style="display:flex;"><span>  req <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_auth_bearer_token</span>(token)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">li_urn_me</span>()
+</span></span></code></pre></div><pre tabindex="0"><code>&lt;httr2_response&gt;
+GET https://api.linkedin.com/rest/me
+Status: 403 Forbidden
+Content-Type: application/json
+Body: In memory (132 bytes)
+</code></pre><p>Digging more into that error gave me proper idea of what was going wrong now.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">last_response</span>() <span style="color:#f92672">|&gt;</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>()
+</span></span></code></pre></div><pre tabindex="0"><code>$status
+[1] 403
+
+$serviceErrorCode
+[1] 100
+
+$code
+[1] &#34;ACCESS_DENIED&#34;
+
+$message
+[1] &#34;Not enough permissions to access: partnerApiMe.GET.20241101&#34;
+</code></pre><p>I didn&rsquo;t have access to the endpoints that could give me my urn (&ldquo;me&rdquo; or &ldquo;userinfo&rdquo;).
+See, we are now circling back to the point I set aside before, I only had a single scope I could access <code>w_member_social</code> which only gave me access to post.
+But I could not post without knowing my urn!</p>
+<p>I started digging to figure out how I could get access to those endpoints.
+And a merry merry-go-round I went on indeed!
+After much digging, and confusion, and poor Jon trying to help me on Slack, we figured out I needed another Product to get things going.
+&ldquo;Sign in with LinkedIn&rdquo;.
+It seems so obvious in hindsight, I needed to be able to authenticate myself through LinkedIn.
+In my defence though, this seems like such an integral part of an API that having it as a separate thing was just too ludicrous to think about.</p>
+<p>Alrighty, so now I had two products, one that allowed me to authenticate myself and one that allowed me to post to LinkedIn.
+Time to try getting the urn again.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">li_urn_me</span>()
+</span></span></code></pre></div><pre tabindex="0"><code>[1] &#34;urn:li:person:[myurn]&#34;
+</code></pre><p>Finally returned my urn!
+HUZZAH!</p>
+<p>✅ I have API access<br>
+✅ I have a token<br>
+✅ I have my urn</p>
+<p>It&rsquo;s time to get posting!</p>
+<h2 id="post-to-linkedin-through-r">Post to LinkedIn through R</h2>
+<p>Here comes a little code dump.
+This is a mix of both Steffi and Jon&rsquo;s approaches, with the changes I needed to the authorization.
+Some of this code are just helpers to make things run smoothly in the long run, others are necessary to get things working correctly.</p>
+<p>First bit of code I got from Steffi, that helps escaping certain characters so that the post gets written correctly to LinkedIn.
+I&rsquo;m so happy I didn&rsquo;t have to trial-and-error this over time!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># LinkedIn Chars to escape</span>
+</span></span><span style="display:flex;"><span>escape_linkedin_chars <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x) {
+</span></span><span style="display:flex;"><span>  chars <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;\\|&#34;</span>, <span style="color:#e6db74">&#34;\\{&#34;</span>, <span style="color:#e6db74">&#34;\\}&#34;</span>, <span style="color:#e6db74">&#34;\\@&#34;</span>, <span style="color:#e6db74">&#34;\\[&#34;</span>, <span style="color:#e6db74">&#34;\\]&#34;</span>, <span style="color:#e6db74">&#34;\\(&#34;</span>, <span style="color:#e6db74">&#34;\\)&#34;</span>, <span style="color:#e6db74">&#34;\\&lt;&#34;</span>, <span style="color:#e6db74">&#34;\\&gt;&#34;</span>, <span style="color:#e6db74">&#34;\\#&#34;</span>, <span style="color:#e6db74">&#34;\\\\&#34;</span>, <span style="color:#e6db74">&#34;\\*&#34;</span>, <span style="color:#e6db74">&#34;\\_&#34;</span>, <span style="color:#e6db74">&#34;\\~&#34;</span>)
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> stats<span style="color:#f92672">::</span><span style="color:#a6e22e">setNames</span>(<span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;\\&#34;</span>, chars), chars)
+</span></span><span style="display:flex;"><span>  stringr<span style="color:#f92672">::</span><span style="color:#a6e22e">str_replace_all</span>(x, p)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Second one here is from Jon, and is a bit of code that creates a string for the API version I want to access.
+Adding this string is required for the API call to work, and they release a new version around every 2 months, without major changes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Automatically set the LinkedIn API endpoint_version to 2 months ago since they</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># constantly change that without changing core features.</span>
+</span></span><span style="display:flex;"><span>li_get_version <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>  li_version_date <span style="color:#f92672">&lt;-</span> lubridate<span style="color:#f92672">::</span><span style="color:#a6e22e">rollback</span>(lubridate<span style="color:#f92672">::</span><span style="color:#a6e22e">rollback</span>(lubridate<span style="color:#f92672">::</span><span style="color:#a6e22e">today</span>()))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">paste0</span>(
+</span></span><span style="display:flex;"><span>    lubridate<span style="color:#f92672">::</span><span style="color:#a6e22e">year</span>(li_version_date), 
+</span></span><span style="display:flex;"><span>    stringr<span style="color:#f92672">::</span><span style="color:#a6e22e">str_pad</span>(lubridate<span style="color:#f92672">::</span><span style="color:#a6e22e">month</span>(li_version_date), <span style="color:#ae81ff">2</span>, pad <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And this bit of code sets up a general function for LinkedIn API requests.
+It makes sure the necessary headers are present, and makes sure the authencitation is in place.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Create setup for connecting to LinkedIn API</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Sets up API url, version endpoint, and necessary</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; headers for making resuests from the API.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Does not perform any actual calls to the API.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param endpoint_version character. Sets the endpoint version,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    should likely be either &#34;v2&#34; or &#34;rest&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span>li_req <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(endpoint_version <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;LI_ENDPOINT&#34;</span>)){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(endpoint_version <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">warning</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;`endpoint_version` not set in Renviron, setting to &#39;rest&#39;.&#34;</span>, call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    endpoint_version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rest&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(<span style="color:#e6db74">&#34;https://api.linkedin.com&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(endpoint_version) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_headers</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;LinkedIn-Version&#34;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">li_get_version</span>(),
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;X-Restli-Protocol-Version&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;application/json&#34;</span>
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">li_req_auth</span>() 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And finally, we come to the code that will actually post the content!
+And again, this mix of Steffi and Jon&rsquo;s code.
+There is so much going on in this call to make the post, I&rsquo;m so happy I didn&rsquo;t have to figure it all out on my own.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Post to LinkedIn</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param author Character. URN. Either yours (see `li_urn_me()` </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    or an organisation&#39;s).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param body Character. The body of the post as you would like </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    it to appear.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return A string of the URN for the post id.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Dry-run</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; id &lt;- li_posts_write(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   author = li_urn_me(), </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   body = &#34;Testing out the LinkedIn API via R and httr2!&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; \dontrun{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Real post</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; response &lt;- li_posts_write(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   author = li_urn_me(), </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   body = &#34;Testing out the LinkedIn API via R and httr2!&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; }</span>
+</span></span><span style="display:flex;"><span>li_posts_write <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(body, author) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Need to escape () around links in the body or we lose them and everything following</span>
+</span></span><span style="display:flex;"><span>  body <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">escape_linkedin_chars</span>(body)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  r <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">li_req</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;posts&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_body_json</span>(<span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      author <span style="color:#f92672">=</span> author,
+</span></span><span style="display:flex;"><span>      commentary <span style="color:#f92672">=</span> body,
+</span></span><span style="display:flex;"><span>      visibility <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PUBLIC&#34;</span>,
+</span></span><span style="display:flex;"><span>      distribution <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;feedDistribution&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MAIN_FEED&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;targetEntities&#34;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;thirdPartyDistributionChannels&#34;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>()
+</span></span><span style="display:flex;"><span>      ),
+</span></span><span style="display:flex;"><span>      lifecycleState <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PUBLISHED&#34;</span>,
+</span></span><span style="display:flex;"><span>      isReshareDisabledByAuthor <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>    ), 
+</span></span><span style="display:flex;"><span>    auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  r <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_retry</span>(
+</span></span><span style="display:flex;"><span>      is_transient <span style="color:#f92672">=</span> <span style="color:#a6e22e">\</span>(x) httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_status</span>(x) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">401</span>, <span style="color:#ae81ff">403</span>, <span style="color:#ae81ff">425</span>, <span style="color:#ae81ff">429</span>),
+</span></span><span style="display:flex;"><span>      max_tries <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>      backoff <span style="color:#f92672">=</span> <span style="color:#f92672">~</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_header</span>(<span style="color:#e6db74">&#34;x-restli-id&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Cool!
+I ran some tests, and they all worked now.
+Finally!
+I tell you, after months of this simmering in my head, I was so happy to get it working.</p>
+<p>Of course, you know I wouldn&rsquo;t finish it off completely here?
+Notice what I&rsquo;m missing?
+I always post with an image, the featured image of my post.
+Now, that&rsquo;s code neither Steffi nor Jon had ready, so off I went to the docs, and got lost again.</p>
+<p>I cannot overstate how difficult the docs are to navigate.
+Finding the correct version of the docs for the endpoints I was using was so hard.
+After lots and lots of trial and error and trying out various variations, I finally ended up with a posting function that could optionally handle an image as well.</p>
+<p>As is common with API&rsquo;s, we first need a function that will upload the image to LinkedIn.
+This particular part was actually the easiest part to get down.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Upload image to LinkedIn</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param author Character. URN. Either yours (see `li_urn_me()` </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    or an organisation&#39;s).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param image Character. Path to the image you want to use</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return image urn asset</span>
+</span></span><span style="display:flex;"><span>li_media_upload <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(author, media){
+</span></span><span style="display:flex;"><span>  r <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">li_req</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;images&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_query</span>(action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;initializeUpload&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_body_json</span>(<span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>        initializeUploadRequest <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>          owner <span style="color:#f92672">=</span> author
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      ),
+</span></span><span style="display:flex;"><span>      auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  img_r <span style="color:#f92672">&lt;-</span> httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(r<span style="color:#f92672">$</span>value<span style="color:#f92672">$</span>uploadUrl) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_body_file</span>(image) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>()
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  r<span style="color:#f92672">$</span>value<span style="color:#f92672">$</span>image
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The difficult part was figuring out how to add the image to the post.
+You would think it was easy, and the solution <strong>is</strong> easy, but figuring it out was not.
+I don&rsquo;t know why their docs are such a mess, likely because the have a new API version every 2 months, and they can&rsquo;t seem to decide on a consistent way to update the docs across the various versions, or get them linked from meaningful places.
+Anyway, this is now the newly formed posting function!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Post to LinkedIn</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param author Character. URN. Either yours (see `li_urn_me()` </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    or an organisation&#39;s).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param text Character. The body of the post as you would like </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    it to appear.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param image Character. Path to the image you want to use</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param image_alt Character. String describing the image.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return A string of the URN for the post id.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; \dontrun{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Real post</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; response &lt;- li_posts_write(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   author = li_urn_me(),</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   body = &#34;Testing out the LinkedIn API via R and httr2!&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; }</span>
+</span></span><span style="display:flex;"><span>li_posts_write <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(author, text, image <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, image_alt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  text <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">escape_linkedin_chars</span>(text)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  body <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    author <span style="color:#f92672">=</span> author,
+</span></span><span style="display:flex;"><span>    lifecycleState <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PUBLISHED&#34;</span>,
+</span></span><span style="display:flex;"><span>    commentary <span style="color:#f92672">=</span> text,
+</span></span><span style="display:flex;"><span>    visibility <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PUBLIC&#34;</span>,
+</span></span><span style="display:flex;"><span>    distribution <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      `feedDistribution` <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MAIN_FEED&#34;</span>,
+</span></span><span style="display:flex;"><span>      `targetEntities` <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(),
+</span></span><span style="display:flex;"><span>      `thirdPartyDistributionChannels` <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>()
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    isReshareDisabledByAuthor <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is.null</span>(image)){
+</span></span><span style="display:flex;"><span>    body <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      body,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>        content <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>          media <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>            id <span style="color:#f92672">=</span> <span style="color:#a6e22e">li_media_upload</span>(author, image),
+</span></span><span style="display:flex;"><span>            title <span style="color:#f92672">=</span> image_alt
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  resp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">li_req</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;posts&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_body_json</span>(
+</span></span><span style="display:flex;"><span>      body,
+</span></span><span style="display:flex;"><span>      auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>      httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_retry</span>(
+</span></span><span style="display:flex;"><span>        is_transient <span style="color:#f92672">=</span> <span style="color:#a6e22e">\</span>(x) httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_status</span>(x) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">401</span>, <span style="color:#ae81ff">403</span>, <span style="color:#ae81ff">425</span>, <span style="color:#ae81ff">429</span>),
+</span></span><span style="display:flex;"><span>        max_tries <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>        backoff <span style="color:#f92672">=</span> <span style="color:#f92672">~</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>      ) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_header</span>(<span style="color:#e6db74">&#34;x-restli-id&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">message</span>(<span style="color:#a6e22e">file.path</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;https://www.linkedin.com/feed/update/&#34;</span>,
+</span></span><span style="display:flex;"><span>    resp
+</span></span><span style="display:flex;"><span>  ))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">invisible</span>(resp)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>After this, I can now finally add linkedIn to my <a href="https://github.com/drmowinckels/drmowinckels.github.io/blob/main/.github/scripts/announce.R">announce script</a> on GitHub actions,
+and hopefully I will now have a fully automated pipeline for announcing my posts on bluesky, mastodon, linkedin and as a newsletter!</p>
+<p>Neat-O!</p>
+<p>If you want to use my linkedIn functions, you can source them <a href="https://github.com/drmowinckels/drmowinckels.github.io/blob/main/.github/scripts/linkedin.R">from this file</a>.</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Feb 1, 2025) 
+                    Cracking the LinkedIn API through R. 
+                    Retrieved from https://drmowinckels.io/blog/2025/linkedin-api/.
+                     DOI: https://www.doi.org/10.5281/zenodo.14786054
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-cracking-the-linkedin-api-through-r,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Cracking the LinkedIn API through R",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/linkedin-api/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.14786054",<br> 
+                        &emsp;updated = "Feb 1, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Dec 02, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Posting to Bluesky from R</h2>
+    
+      <p>With the recent mass exodus from Xitter, Bluesky has emerged as a new home for the R community. Discover how to join the community with starter packs and automate posting to Bluesky from R using GitHub Actions. Explore detailed steps for setup and automation, making it easy to share your latest blog posts on social media platforms.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/bluesky/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">bluesky</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 07, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Creating post summary with AI from Hugging Face</h2>
+    
+      <p>Optimize your blog&rsquo;s SEO and Zenodo metadata with automated summaries using Hugging Face&rsquo;s text summarization models. Learn how to connect to the Hugging Face API, prepare content, and integrate summaries into your markdown files using R and the httr2 package.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ai-blog-summary/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ai</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 06, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Making your blog FAIR</h2>
+    
+      <p>Making your blog FAIR (Findable, Accessible, Interoperable, and Reusable) by archiving posts on Zenodo and adding DOIs. Learn how to use Hugo, GitHub actions, and the Zenodo API to ensure your content is preserved. Enhance your blog&rsquo;s visibility and reliability.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/fair-blog/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">fair</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">zenodo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">doi</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jul 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Improving your GitHub Profile</h2>
+    
+      <p>Improve your GitHub profile with these tips. Learn how to create a repository with your username, add stats, coding skills, preferred IDEs, blog stats, and more. Customize your profile to make it engaging and showcase your skills and interests effectively.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/github-profile/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github-actions</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>The IDEs I use</h2>
+    
+      <p>Explore my programming IDE journey, from MATLAB and gedit to RStudio and VSCode. Learn about the strengths of each IDE for different languages and tasks, and why I switch between RStudio and VSCode depending on the project. Insights on optimizing your coding environment for efficiency and productivity.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ide/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">programming</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">rstudio</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">vscode</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

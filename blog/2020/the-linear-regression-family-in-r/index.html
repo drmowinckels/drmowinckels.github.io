@@ -66,8 +66,8 @@
 
  
 
-    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.b949f82ef13ab020c09cc9a01a06b5c35de205c6382cde6ed472ebf5efc8e9d2.css" 
-    integrity="sha256-uUn4LvE6sCDAnMmgGga1w13iBcY4LN5u1HLr9e/I6dI=" 
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
     crossorigin="anonymous">
 
 
@@ -437,9 +437,6 @@ But, I can hopefully get you going in doing stats in R.</p>
 Many students find the term &ldquo;linear regression&rdquo; intimidating, all the while running statistical tests that at their core are exactly that.
 It&rsquo;s a flaw in how we teach stats to psychology students, that we are struggling to convey this point.</p>
 <p>If you are running t-tests, ANOVA&rsquo;s and ANCOVA&rsquo;s, you are doing linear regression.</p>
-<!--html_preserve--><blockquote class="twitter-tweet"><p lang="en" dir="ltr">There once was a model, ANOVA,<br>who along with their cousin ANCOVA,<br>made a great big confession:<br>“We’re the same as regression,<br> but we’ve established a separate persona.”</p>&mdash; Chelsea Parlett-Pelleriti (@ChelseaParlett) <a href="https://twitter.com/ChelseaParlett/status/1259586040219594753?ref_src=twsrc%5Etfw">May 10, 2020</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<!--/html_preserve-->
 <p>In this post we will go through a couple of examples of how we can specify different linear models (linear regressions) in R, and compare how running specialised types of linear regressions (like ANOVA) can also be specified as a linear model.
 I will focus on <em>running models</em>, not on what constitutes <em>good</em> or <em>bad</em> models or their interpretation.
 These are important things to think about when doing analyses, and no analysis is completely objective.
@@ -1302,21 +1299,22 @@ Looking at the values for each level might give insight into something wrong hav
                         &emsp;url = "https://drmowinckels.io/blog/2020/the-linear-regression-family-in-r/",<br>
                         &emsp;year = 2020,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273506",<br> 
-                        &emsp;updated = "Jan 15, 2025"<br>
+                        &emsp;updated = "Feb 1, 2025"<br>
                     }
                 </div>
             </div>
         </div>
     </div>
-</div><div class="uk-section">
-        
-        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
 
-            <ul class="uk-slider-items uk-grid" >
-                
-                
-                    <li class="uk-width-3-4" >
-                        <div class="timeline-item timeline-item-horizontal">
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1373,11 +1371,11 @@ Looking at the values for each level might give insight into something wrong hav
     </div>
   </div>
 </div> 
-                    </li>
-                
-                
-                    <li class="uk-width-3-4" >
-                        <div class="timeline-item timeline-item-horizontal">
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1434,11 +1432,11 @@ Looking at the values for each level might give insight into something wrong hav
     </div>
   </div>
 </div> 
-                    </li>
-                
-                
-                    <li class="uk-width-3-4" >
-                        <div class="timeline-item timeline-item-horizontal">
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1490,11 +1488,11 @@ Looking at the values for each level might give insight into something wrong hav
     </div>
   </div>
 </div> 
-                    </li>
-                
-                
-                    <li class="uk-width-3-4" >
-                        <div class="timeline-item timeline-item-horizontal">
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1556,11 +1554,11 @@ Looking at the values for each level might give insight into something wrong hav
     </div>
   </div>
 </div> 
-                    </li>
-                
-                
-                    <li class="uk-width-3-4" >
-                        <div class="timeline-item timeline-item-horizontal">
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1612,13 +1610,14 @@ Looking at the values for each level might give insight into something wrong hav
     </div>
   </div>
 </div> 
-                    </li>
-                
-            </ul>
-        
-            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
-        
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
         </div>
     </div>
     
