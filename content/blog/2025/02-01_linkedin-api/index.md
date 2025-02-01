@@ -14,7 +14,7 @@ tags:
   - API
   - GitHub
 slug: "linkedin-api"
-image: featured.png
+image: images/featured.png
 image_alt: "A professional digital illustration featuring a confident woman, with a polished appearance. She has medium-length dark hair styled neatly, wearing a business-casual outfit, consisting of a tailored blazer and a soft-colored blouse. The background is a gradient of neutral tones, giving a modern, LinkedIn-style look, with a faint abstract design that suggests professionalism and a digital context."
 summary: "I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints."
 seo: "Master LinkedIn API in R with my detailed guide on authentication, posting, and overcoming documentation challenges."

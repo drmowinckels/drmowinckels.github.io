@@ -56,6 +56,8 @@ emoji <- sample(emojis, 1)
 
 image <- here::here(dirname(post), frontmatter$image)
 
+Sys.getenv("LI_TOKEN")
+
 # Post to LinkedIn
 li_post_write(
   author = li_urn_me(), 

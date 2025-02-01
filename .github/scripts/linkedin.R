@@ -17,7 +17,7 @@ escape_linkedin_chars <- function(x) {
 # Automatically set the LinkedIn API endpoint_version to 2 months ago since they
 # constantly change that without changing core features.
 li_get_version <- function(){
-  li_version_date <- lubridate::rollback(lubridate::rollback(lubridate::today()))
+  li_version_date <- lubridate::rollback(lubridate::today())
 
   paste0(
     lubridate::year(li_version_date), 
