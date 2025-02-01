@@ -210,5 +210,6 @@ jobs:
         run: |
           echo RTOOT_DEFAULT_TOKEN="${{ secrets.RTOOT_TOKEN }}" >> .Renviron
           echo KIT_SECRET="${{ secrets.KIT_KEY }}" >> .Renviron
+          echo LI_TOKEN="${{ secrets.LI_TOKEN }}" >> .Renviron
           Rscript .github/scripts/announce.R ${{ needs.checks.outputs.POST }}
 
