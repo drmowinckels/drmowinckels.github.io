@@ -778,19 +778,19 @@ There is so much going on in this call to make the post, I&rsquo;m so happy I di
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Dry-run</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; id &lt;- li_posts_write(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; id &lt;- li_post_write(</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   author = li_urn_me(), </span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   body = &#34;Testing out the LinkedIn API via R and httr2!&#34;,</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; \dontrun{</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Real post</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; response &lt;- li_posts_write(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; response &lt;- li_post_write(</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   author = li_urn_me(), </span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   body = &#34;Testing out the LinkedIn API via R and httr2!&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; }</span>
-</span></span><span style="display:flex;"><span>li_posts_write <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(body, author) {
+</span></span><span style="display:flex;"><span>li_post_write <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(body, author) {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Need to escape () around links in the body or we lose them and everything following</span>
 </span></span><span style="display:flex;"><span>  body <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">escape_linkedin_chars</span>(body)
@@ -880,12 +880,12 @@ Anyway, this is now the newly formed posting function!</p>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; \dontrun{</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Real post</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; response &lt;- li_posts_write(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; response &lt;- li_post_write(</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   author = li_urn_me(),</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   body = &#34;Testing out the LinkedIn API via R and httr2!&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; }</span>
-</span></span><span style="display:flex;"><span>li_posts_write <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(author, text, image <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, image_alt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>) {
+</span></span><span style="display:flex;"><span>li_post_write <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(author, text, image <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, image_alt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>) {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  text <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">escape_linkedin_chars</span>(text)
 </span></span><span style="display:flex;"><span>
