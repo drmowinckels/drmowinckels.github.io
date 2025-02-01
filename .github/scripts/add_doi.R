@@ -186,7 +186,6 @@ upload_pdf <- function(bucket, pdf_file, id){
       req_throttle(rate = 30 / 60) |>
       req_perform()
   
-  browser()
 
   if (inherits(upload_response, "error")) {
     request(zenodo_api_endpoint) |> 
@@ -194,13 +193,12 @@ upload_pdf <- function(bucket, pdf_file, id){
       req_auth_bearer_token(zenodo_api_token) |> 
       req_method("DELETE") |> 
       req_perform()
-browser()
+
     stop(sprintf("Failed to upload Zenodo: %s", 
       e),
       call. = FALSE
     )
   }
-  browser()
 
   if (!resp_status(upload_response) %in% c(200, 201)) {
     request(zenodo_api_endpoint) |> 
