@@ -25,9 +25,7 @@ I’m not going to go into details of why I wanted to move away from disqus, [ot
 I was procrastinating mainly because it felt like a little much to figure out [utterances](https://utteranc.es/) too, and the idea of using GitHub issues for comments felt awkward.
 
 But, the other day, I saw Shannon Pileggi tweet about something new and exciting:
-
-{{% tweet user="PipingHotData" id="1465878389852676107" %}}
-
+  
 giscus sounded awesome. I already use github to not only store all my blog content, but also use github actions to [render and deploy](/blog/2021-03-23-using-github-actions-to-build-your-hugo-website/) my blog.
 
 Off I went to the blogpost she links to, an awesome post by [Joel Nitta](https://www.joelnitta.com/posts/2021-11-24_using-giscus/), that made the whole process super smooth.
