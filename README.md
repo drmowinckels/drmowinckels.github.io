@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **62** days, or about **0.48** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **-18** days ago ([Cracking the LinkedIn
+✍️ The last post was published **-25** days ago ([Cracking the LinkedIn
 API through R](https://drmowinckels.io/blog/linkedin-api)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -81,4 +81,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-02-19 01:16:08.63703*
+*Updated 2025-02-26 01:17:38.879483*
