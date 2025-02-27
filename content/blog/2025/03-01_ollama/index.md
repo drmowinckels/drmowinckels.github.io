@@ -2,7 +2,7 @@
 editor_options:
   markdown:
     wrap: sentence
-title: 'Setting up Ollama with ellmer, pal and gander as R LLM helpers'
+title: 'Setting up Ollama with ellmer, chores and gander as R LLM helpers'
 format: hugo-md
 author: Dr. Mowinckel
 date: '2025-03-01'
@@ -13,8 +13,12 @@ tags:
   - API
   - LLM
 slug: ollama
-image: images/featured.png
-image_alt: ''
+image: images/featured.jpg
+image_alt: >-
+  A digital illustration combining the Ollama logo and the R statistical
+  software logo. The design features a clean and sleek integration of both
+  logos. The color scheme is tech-inspired, with smooth gradients and modern
+  aesthetics, ensuring a blend of the two logos.  
 summary: ''
 seo: ''
 ---
@@ -29,9 +33,9 @@ Mostly, I was using the GPT run by my University to help me out when I needed it
 But the back and forth between a browser and my IDE was a much less enjoyable experience than having it all in one place.
 Especially when I've been working on an update to a work package wrapping an API and needed tests for the new functionality, a GPT is just not as great as a proper co-pilot.
 
-So, as I usually do, I complained to Maêlle, and through the R-Ladies grapevine (meaning Hannah Frick) she told me about [this post](https://www.tidyverse.org/blog/2025/01/experiments-llm) on the Tidyverse blog about R packages to accomplish some functionality I was after.
-Knowing [Simon Couch](), I was sure this had to be good.
-I had notice him talk about his [pal]() package before, and thought it looked good, and then he adds two more packages [gander]() and [ensure]() to help out during package development and testing.
+So, as I usually do, I complained to Maêlle, and through the R-Ladies grapevine (meaning [Hannah Frick](https://www.frick.ws/)) she told me about [this post](https://www.tidyverse.org/blog/2025/01/experiments-llm) on the Tidyverse blog about R packages to accomplish some functionality I was after.
+Knowing [Simon Couch](https://www.simonpcouch.com/), I was sure this had to be good.
+I had notice him talk about his [chores](https://simonpcouch.github.io/chores/) package before, and thought it looked good, and then he adds two more packages [gander](https://simonpcouch.github.io/gander/) and [ensure](https://simonpcouch.github.io/ensure/) to help out during package development and testing.
 Genious!
 
 After reading the post, I knew I wanted to give them a go, and finally get my new setup LLM integrated.
@@ -68,7 +72,7 @@ Alrighty, we have some models we can run!
 So, we'd better run them.
 
 ``` sh
- ollama run deepseek-r1
+ollama run deepseek-r1
 >>> 
 Use Ctrl + d or /bye to exit.
 >>> hello
@@ -136,39 +140,176 @@ ola$chat("Hey. how are you doing?")
 
 Cool.
 And thanks for reminding me that you don't have feelings, because I am one of those who does indeed thank her LLM's for providing assistance.
-(I want my slate clean when the AI uprising happens, maybe they will space me.)
+(I want my slate clean when the AI uprising happens, maybe they will spare me.)
 
 Now we can chat with Ole from within R if we want.
 That can be quite convenient.
 But we want more :D
 
-## Setting up Pal
+## Setting up chores <a href="https://github.com/simonpcouch/chores"><img src="images/chores.png" align="right" height="138" alt="chores website" /></a>
 
--   https://github.com/simonpcouch/pal
+Chores (previously known as pal) can help out with certain repetitive tasks during package development.
+These are exactly the things I *love* getting help with, as stated in the package README
 
-## Setting up Ganser
+-   `"cli"`: [Convert to
+    cli](https://simonpcouch.github.io/chores/reference/cli_helper.html)
+-   `"testthat"`: [Convert to testthat
+    3](https://simonpcouch.github.io/chores/reference/testthat_helper.html)
+-   `"roxygen"`: [Document functions with
+    roxygen](https://simonpcouch.github.io/chores/reference/roxygen_helper.html)
 
--   https://simonpcouch.github.io/gander
+It's so convenient and helpful!
+
+![](https://raw.githubusercontent.com/simonpcouch/chores/refs/heads/main/inst/figs/addin.gif)
+
+To get that working, we need to add some R options so that chores knows which LLM you want to use.
+Chores uses ellmer chats, so we know from above already that we have an Ollama chat we can use.
+
+Open your `.Rprofile` (either by knowing where it is or using `usethis::edit_r_profile()`).
+
+Depending on what you might already have in there, it can either be empty or have lots of stuff ([like I have](blog/2024/rproject)).
+You need to add this option about what ellmer chat option you want to use.
+
+``` r
+options(
+  .chores_chat = ellmer::chat_ollama(model="deepseek-r1")
+)
+```
+
+Once that is in your `.Rprofile` you'll need to restart your R-session for it to become available.
+
+You will also want a keyboard shortcut for ease of use!
+In RStudio, navigate to Tools \> Modify Keyboard Shortcuts \> Search "Chores", and Simon suggests `Ctrl+Alt+C` (or `Ctrl+Cmd+C` on macOS).
+
+Adding keybindings in Positron is a little different.
+To add custom keybindings, open the keybindings helper with `cmd + k cmd + s` (keep `cmd` pressed and then type `k` then `s` in succession).
+From there, you can open the `keybindings.json` file from the upper right hand corner of the file pane.
+
+![](images/keybindings.png)
+
+Now, add the following to create a shortcut using the `ctrl + cmd + c` combination.
+
+``` json
+{
+    "key": "Ctrl+Cmd+C",
+    "command": "workbench.action.executeCode.console",
+    "when": "editorTextFocus",
+    "args": {
+      "langId": "r",
+      "code": "chores::.init_addin()",
+      "focus": true
+    }
+}
+```
+
+Of course, if you want another combination, you can alter the first part of the code to whatever works for you!
+
+At this point I tested my new chores plugin, and it was not good.
+To no fault of the tool, but to my choice of model!
+`deepseek-r1` is a reasoning model, where it thinks outloud before returning something verbose to you.
+That does not work well if you have code you want overwritten.
+My test-function was being overwritten with lots of verbose LLM thinking and resoning.
+Not that lovely output as shown in the chores README.
+
+So I went looking for other LLM's that might do the trick.
+
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:sgdhwgqd2ulz4zf5i4n4clnd/app.bsky.feed.post/3liwdo3taty2y" data-bluesky-cid="bafyreidypleisvw3qgvsuvwayx6vxjtd44x5vbe2inm7m4djwz723dnaea">
+<p lang>
+
+I\'m working on a blogpost connecting #rstats with a local #Ollama #llm for code assistance. I\'m struggling to find a good model for this. Deepseek-r1 is nice for chatting, but I\'d like a model that can output pure code, without lots of reasoning.
+
+I\'d love to hear from people with Ollama experience<br><br><a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd/post/3liwdo3taty2y?ref_src=embed">\[image or embed\]</a>
+</p>
+--- ᴅʀ. ᴍᴏᴡɪɴᴄᴋᴇʟ\'ꜱ (<a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd?ref_src=embed">@drmowinckels.io</a>) <a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd/post/3liwdo3taty2y?ref_src=embed">Feb 24, 2025 at 13:23</a>
+</blockquote>
+<script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+
+Turning to social media network for help, as my social media mainly consist of other researchers and developer.
+I got some nice replies that helped me explore a little more, and also let me think more about my prompts to the models.
+Some people noted that local LLMs are slower and not as powerful as the ones you get running on a cluster.
+Well, that mostly depends on your local computer, that is.
+I have a MacBook Air with an M2 silicone chip with 24Gb memory, so I can manage a decent size model locally, I think.
+
+After some discussions on LinkedIn, Bluesky and Mastodon, I started properly testing the [qwen2.5-coder](https://ollama.com/library/qwen2.5-coder) model, and it does indeed seem pretty good.
+I also reached out to Simon directly to ask if he had any tips.
+The downside is that I cannot run the full 32b model, but had to go all the way down to the 7b model, the larger models were just taking too long (and I assume that is because they are too large for my computer to really work).
+
+<video src="screencast_chores.mov" controls>
+</video>
+
+That leaves a lot to be desired, really.
+It likely is doing poorly because I can't run a larger and better model.
+What I noticed with all my chores tests was that it looks like the prompts seem to be ignored.
+I know Simon put a lot of instruction into the chores shortcuts and a lot of them seem to be ignored by these small models (Simon's words, not mine).
+So, that's a downside to running local models, the inability to run large models if you dont have the power for it.
 
 ## Setting up Ensure
 
--   https://simonpcouch.github.io/ensure/
+I'm not giving up though.
+Ok, so chores didnt do it yet, let me [ensure](https://simonpcouch.github.io/ensure/) out for a ride and see.
+Ensure is supposed to help with generating tests for R functions in packages.
+I love that!
+I've been quite laxing in my testing in my packages lately, maybe this will help me get better at it?
 
-## Setting up R and Positron defaults
-
--   Positron Keybindings
+As before, we need to add some R options to set it all up.
 
 ``` r
 options(
   .ensure_fn = "chat_ollama", 
-  .ensure_args = list(model = "deepseek-r1:8b")
-)
-
-options(
-  .gander_chat = ellmer::chat_ollama(model = getOption(".ensure_args")$model)
+  .ensure_args = list(model = "qwen2.5-coder:7b")
 )
 ```
 
-## Using the Continue extension
+and then I read further down the README and get to
 
-Continue
+> The ensurer is currently not available in Positron as Positron has yet to implement document ids that the package needs to toggle between source and test files.
+
+Darn!
+Oh well, hopefully they will get that sorted in not too long.
+
+## Setting up gander <a href="https://github.com/simonpcouch/gander"><img src="images/gander.png" align="right" height="138" alt="chores website" /></a>
+
+Last one to try is Gander.
+This one is more flexible in a way, than both chores and ensure.
+It's a chat, but it has access to your R environment, so it can make some better decisions on code you are asking for.
+That sounds really swell!
+
+as before, we need some R options
+
+``` r
+options(
+  .gander_chat = ellmer::chat_ollama(model = "qwen2.5-coder:7b")
+)
+```
+
+and some keybindings
+
+``` json
+{
+  "key": "Ctrl+Cmd+G",
+  "command": "workbench.action.executeCode.console",
+  "when": "editorTextFocus",
+  "args": {
+    "langId": "r",
+    "code": "gander::gander_addin()",
+    "focus": true
+  }
+}
+```
+
+and let's give it a go!
+
+<video src="screencast_gander.mov" controls>
+</video>
+
+Now, that is much better!
+The code still needs some fixing, but it is much better than what I got with chores.
+Likely because I could give it less instructions, so it remembered it all and could follow.
+
+It's not going to be a huge game changer, but I find adapting code very easy, since I am proficient enough in R to have been able to generate it all on my own, it's just nice to take some shortcuts.
+
+## Are we happy about how Ollama is working with these tools?
+
+Ok, so I think we can all agree that all this testing has showed that there are definite limitations to doing all this on a local machine that can't run the largest models.
+I'm sure there are still also lots of Ollama tips and tricks I could do to make things better, but for now this is where I have landed.
+[Fluxmind](https://fosstodon.org/@fluxmind@ioc.exchange) shared with me his [Ollama FAQ](https://github.com/maglore9900/personal_Ollama_FAQ) that he's put together based on what he's seen on the Ollama discourse.
