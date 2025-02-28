@@ -2,10 +2,10 @@
 editor_options:
   markdown:
     wrap: sentence
-title: 'Setting up Ollama with ellmer, chores and gander as R LLM helpers'
+title: Harness Local LLMs and GitHub Copilot for Enhanced R Package Development
 format: hugo-md
 author: Dr. Mowinckel
-date: '2025-03-01'
+date: '2025-03-03'
 categories: []
 tags:
   - R
@@ -18,9 +18,20 @@ image_alt: >-
   A digital illustration combining the Ollama logo and the R statistical
   software logo. The design features a clean and sleek integration of both
   logos. The color scheme is tech-inspired, with smooth gradients and modern
-  aesthetics, ensuring a blend of the two logos.  
-summary: ''
-seo: ''
+  aesthetics, ensuring a blend of the two logos.
+summary: >-
+  In this post I explore local large language models (LLMs) with R for code
+  assistance, using tools like chores, ensure, gander, and continue in Positron.
+  I discover limitations with smaller models on local machines and balance
+  computational resources with model capabilities. The post explores R options
+  and keybindings for various tools, adjusting settings to optimize performance.
+  Lastly, I switch to GitHub Copilot for better results, encountering rate
+  limits but finding workarounds to control autocomplete triggers. The summary
+  highlights the journey of setting up LLMs for efficient coding in R,
+  emphasizing customization and optimization.
+seo: >-
+  Unlocking code assistance with local LLMs & GitHub Copilot! Discover R
+  optimization & streamline your workflow.
 ---
 
 
@@ -36,18 +47,18 @@ Especially when I've been working on an update to a work package wrapping an API
 So, as I usually do, I complained to Maêlle, and through the R-Ladies grapevine (meaning [Hannah Frick](https://www.frick.ws/)) she told me about [this post](https://www.tidyverse.org/blog/2025/01/experiments-llm) on the Tidyverse blog about R packages to accomplish some functionality I was after.
 Knowing [Simon Couch](https://www.simonpcouch.com/), I was sure this had to be good.
 I had notice him talk about his [chores](https://simonpcouch.github.io/chores/) package before, and thought it looked good, and then he adds two more packages [gander](https://simonpcouch.github.io/gander/) and [ensure](https://simonpcouch.github.io/ensure/) to help out during package development and testing.
-Genious!
+Genius!
 
 After reading the post, I knew I wanted to give them a go, and finally get my new setup LLM integrated.
 But, I am also cheap, I don't want to pay for LLM usage.
 I fist had a look at my Unis LLM API, and I think my usage of it would be low enough that I would not be billed.
-But that also meant having to figure out and set up an [ellmer]() function to that API, and that was a little more work than I wanted right now.
+But that also meant having to figure out and set up an [ellmer](https://ellmer.tidyverse.org/) function to that API, and that was a little more work than I wanted right now.
 
-The next natural step was then to use [Ollama]() which can run locally on your own computer.
+The next natural step was then to use [Ollama](https://ollama.com/) which can run locally on your own computer.
 Depending on the power of your computer, this is a good option for free LLM aid.
 My Mac has 16 cores, so I thought it was worth a try.
 
-## Getting Ollama
+## Working with Ollama
 
 First of all, you'll need to [download the Ollama application](https://ollama.com/download), and then install it as your OS requires.
 It runs on Mac, Linux and Windows, so people should be more or less covered.
@@ -113,7 +124,7 @@ Good proof of concept, that I could tidy up and work on further if I wanted.
 This was running in my terminal, but I wanted it running from within my IDE, Positron.
 Let us have a look at how that could look.
 
-## Working with Ellmer
+### Working with Ellmer
 
 [Ellmer](https://ellmer.tidyverse.org/) is Posits package for interacting with LLM's from within R.
 Ellmer already comes with a function to easily communicate with [Ollama as a chat](https://ellmer.tidyverse.org/reference/chat_ollama.html) from within R.
@@ -146,7 +157,7 @@ Now we can chat with Ole from within R if we want.
 That can be quite convenient.
 But we want more :D
 
-## Setting up chores <a href="https://github.com/simonpcouch/chores"><img src="images/chores.png" align="right" height="138" alt="chores website" /></a>
+### Setting up chores <a href="https://github.com/simonpcouch/chores"><img src="images/chores.png" align="right" height="138" alt="chores website" /></a>
 
 Chores (previously known as pal) can help out with certain repetitive tasks during package development.
 These are exactly the things I *love* getting help with, as stated in the package README
@@ -234,7 +245,7 @@ After some discussions on LinkedIn, Bluesky and Mastodon, I started properly tes
 I also reached out to Simon directly to ask if he had any tips.
 The downside is that I cannot run the full 32b model, but had to go all the way down to the 7b model, the larger models were just taking too long (and I assume that is because they are too large for my computer to really work).
 
-<video src="screencast_chores.mov" controls>
+<video src="screencast/chores.mov" controls>
 </video>
 
 That leaves a lot to be desired, really.
@@ -243,10 +254,10 @@ What I noticed with all my chores tests was that it looks like the prompts seem 
 I know Simon put a lot of instruction into the chores shortcuts and a lot of them seem to be ignored by these small models (Simon's words, not mine).
 So, that's a downside to running local models, the inability to run large models if you dont have the power for it.
 
-## Setting up Ensure
+### Setting up Ensure
 
 I'm not giving up though.
-Ok, so chores didnt do it yet, let me [ensure](https://simonpcouch.github.io/ensure/) out for a ride and see.
+Ok, so chores didnt do it yet, let me take [ensure](https://simonpcouch.github.io/ensure/) out for a ride and see.
 Ensure is supposed to help with generating tests for R functions in packages.
 I love that!
 I've been quite laxing in my testing in my packages lately, maybe this will help me get better at it?
@@ -267,7 +278,7 @@ and then I read further down the README and get to
 Darn!
 Oh well, hopefully they will get that sorted in not too long.
 
-## Setting up gander <a href="https://github.com/simonpcouch/gander"><img src="images/gander.png" align="right" height="138" alt="chores website" /></a>
+### Setting up gander <a href="https://github.com/simonpcouch/gander"><img src="images/gander.png" align="right" height="138" alt="chores website" /></a>
 
 Last one to try is Gander.
 This one is more flexible in a way, than both chores and ensure.
@@ -299,7 +310,7 @@ and some keybindings
 
 and let's give it a go!
 
-<video src="screencast_gander.mov" controls>
+<video src="screencast/gander.mov" controls>
 </video>
 
 Now, that is much better!
@@ -308,8 +319,167 @@ Likely because I could give it less instructions, so it remembered it all and co
 
 It's not going to be a huge game changer, but I find adapting code very easy, since I am proficient enough in R to have been able to generate it all on my own, it's just nice to take some shortcuts.
 
-## Are we happy about how Ollama is working with these tools?
+### Using the Continue extension in Positron
+
+The last thing I want to talk about is using the [continue](https://docs.continue.dev/) extension in Positron (or VSCode if you use that).
+This extension is really really nice, and I had tried setting it up before I saw all these lovely extra R packages for LLM help in coding.
+But I didn't really set it up correctly, and gave up a little.
+Because I was working on this post though, I decided to really give it another go.
+
+There are two MAIN features in continue, a chat (with possibility of setting up custom slash commands with precreated prompts etc), and code completion *while you code*.
+This was a copilot feature I missed from VSCode, as I found it very helpful as I was working.
+
+Continue is not too difficult to set up, if you actually set aside a little time to do so.
+First install the [extension from openVSX](https://open-vsx.org/extension/Continue/continue).
+Once its done installing, it should pop up in your sidebar, and by clicking it you can start setting up models you want to have access to.
+
+![](images/continue_ext.png)
+![](images/continue_model.png)
+![](images/continue_ollama.png)
+
+For Ollama, I have set it up for chat model and autocomplete model.
+For simplicity, I'm only showing the part of my config file for continue (it will open once you add a model through the wizard) that sets up the models.
+There are lots more settings in the config for special commands.
+
+``` json
+{
+  "models": [
+    {
+      "title": "Qwen 2.5 Coder 14b",
+      "model": "qwen2.5-coder:14b",
+      "provider": "ollama",
+      "systemMessage": "You are an expert software developer. You give helpful and concise responses."
+    }
+  ],
+  "tabAutocompleteModel": {
+      "title": "Qwen 2.5 Coder 14b",
+      "model": "qwen2.5-coder:14b",
+      "provider": "ollama",
+      "systemMessage": "You are an expert software developer. You give helpful and concise responses."
+  }
+}
+```
+
+How does the chat look?
+
+<video src="screencast/continue_ollama.mov" controls>
+</video>
+
+It does the job, verbose and all, but is quite slow.
+Here I was running the 14b model, which is more accurate, but it was running somewhat slowly.
+7b was faster, but made less desirable suggestions.
+
+### Are we happy about how Ollama is working with these tools?
 
 Ok, so I think we can all agree that all this testing has showed that there are definite limitations to doing all this on a local machine that can't run the largest models.
+That being said, I still think there is help from the models in this process, especially for smaller-scale tasks or prototyping.
+
+One thing that was [pointed out to me on Bluesky](https://bsky.app/profile/matteomics.bsky.social/post/3lj45bgmgek2j) was that we could set the timeout limit for Ellmer.
+Because Ellmer is powering all these other tools, setting good options for ellmer seems like a good way to go.
+I added an option to increase the timeout limit for Ellmer requests to 3 minutes (rather than the 1 minute that is the default)
+This did indeed help, and enabled me to run some larger models and things were looking much better.
+
+So now it looks like this for me.
+
+``` r
+options(
+  ellmer_timeout_s = 2*60,
+  .chores_chat = ellmer::chat_ollama(model = "qwen2.5-coder:14b"),
+  .ensure_fn = "chat_ollama", 
+  .ensure_args = list(model = "qwen2.5-coder:14b"),
+  .gander_chat = ellmer::chat_ollama(model = "qwen2.5-coder:14b")
+)
+```
+
 I'm sure there are still also lots of Ollama tips and tricks I could do to make things better, but for now this is where I have landed.
 [Fluxmind](https://fosstodon.org/@fluxmind@ioc.exchange) shared with me his [Ollama FAQ](https://github.com/maglore9900/personal_Ollama_FAQ) that he's put together based on what he's seen on the Ollama discourse.
+
+## Connecting with GitHub
+
+As I was working on all this, I noticed ellmer has a `chat_github()` function.
+I thought maybe if this connected with my free copilot stuff (since I am a registered educator on GitHub I have free [GitHub Pro](https://docs.github.com/en/get-started/learning-about-github/githubs-plans#github-pro)), that would be a nice way to get good code help for free.
+
+So I switched everything to GitHub chat for elllmer, and it was sooooo smooth.
+Much faster, much better and just really really cool.
+
+For that to work I just switched it all, and didn't really need to do anything else.
+
+``` r
+options(
+  .chores_chat = ellmer::chat_github(model = "gpt-4o"),
+  .ensure_fn = "chat_github", 
+  .ensure_args = list(model = "gpt-4o"),
+  .gander_chat = ellmer::chat_github(model = "gpt-4o")
+)
+```
+
+If you already have your system connected to GitHub, check with `usethis::git_sitrep()` for your status from R and it will aid you in getting setup correctly for it.
+But I reiterate, I have a educator free copilot thing, so be careful you don't be charged if you don't have the same free access or permissions.
+
+![](images/continue_setup.png)
+
+My models setup in the continue config.json now looks like this:
+
+``` json
+{
+  "models": [
+    {
+      "model": "gpt-4o",
+      "title": "GPT-4o",
+      "systemMessage": "You are an expert software developer. You give helpful and concise responses.",
+      "apiKey": "<<insert from gitcreds::gitcreds_get()$password>>",
+      "provider": "openai",
+      "apiBase": "https://models.inference.ai.azure.com"
+    },
+    {
+      "title": "Qwen 2.5 Coder 14b",
+      "model": "qwen2.5-coder:14b",
+      "provider": "ollama"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "model": "gpt-4o",
+    "title": "GPT-4o",
+    "systemMessage": "You are an expert software developer. You give helpful and concise responses to code.",
+    "apiKey": "<<insert from gitcreds::gitcreds_get()$password>>",
+    "provider": "openai",
+    "apiBase": "https://models.inference.ai.azure.com"
+  }
+}
+```
+
+Oh! I finally had auto-complete, which I missed so much.
+And it was all so fast.
+Then, I started getting this error:
+
+![](images/continue_ratelimit.png)
+
+Oops!!
+Seems like I really fast hit rate limiting with that setup.
+I wasn't used to that from co-pilot in VScode, it likely has some exception for that not to happen.
+I couldn't find a way to fix this in continue itself, but did find a way where autocomplete would only be triggered if I asked it to (rather than automatically).
+This was something I wanted to do anyway, as I wasn't too happy with how triggerhappy it was.
+It was autocompleting even as I was writing prose for my blog.
+I only want to use it for code assistance.
+
+Firstly, I had a look on the [options Continue have for autocomplete](https://docs.continue.dev/customize/deep-dives/autocomplete).
+
+I firstly set it up to ignore all markdown files, I don't want code assistance in those.
+
+![](images/continue_settings.png)
+
+I did that by listing them as files to be excluded with the string
+
+\``*/.md, */.?md`
+
+Next, I went to Positron settings and searched for `editor.inlineSuggest.enabled` and set it to false.
+This would mean that the suggestions would not pop up by themselves.
+Then I needed to specify a keycombination that would enable me to trigger the suggestion on demand.
+So I opened my Positron keybindings as indicated before, and added the following
+
+``` json
+{
+  "key": "ctrl+cmd+l",
+  "command": "editor.action.inlineSuggest.trigger"
+}
+```
