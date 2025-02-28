@@ -457,7 +457,10 @@ Then, I started getting this error:
 Oops!!
 Seems like I really fast hit rate limiting with that setup.
 I wasn't used to that from co-pilot in VScode, it likely has some exception for that not to happen.
-I couldn't find a way to fix this in continue itself, but did find a way where autocomplete would only be triggered if I asked it to (rather than automatically).
+That being said, the rate limit is for 50 requests per 24hours, so that is not a whole lot.
+So I guess you'd only use this if you had no better options.
+
+I couldn't find a way to fix the rate limiting in continue itself, but did find a way where autocomplete would only be triggered if I asked it to (rather than automatically).
 This was something I wanted to do anyway, as I wasn't too happy with how triggerhappy it was.
 It was autocompleting even as I was writing prose for my blog.
 I only want to use it for code assistance.
