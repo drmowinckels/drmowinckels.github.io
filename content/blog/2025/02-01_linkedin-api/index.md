@@ -20,6 +20,8 @@ summary: "I share my experience integrating R with the LinkedIn API, focusing on
 seo: "Master LinkedIn API in R with my detailed guide on authentication, posting, and overcoming documentation challenges."
 ---
 
+_This post has been featured in Chris Brownlie's [This week in R](https://www.linkedin.com/posts/cnbrownlie_rstats-programming-news-activity-7293576879184236544-GhW8?utm_source=share&utm_medium=member_desktop&rcm=ACoAABNDt20BP2SReTkJa8gH1-ZOkiYBysNsgPc)_
+
 So I've had several posts past year about using [httr2](https://httr2.r-lib.org/) in R to connect to various API's, like [Zenodo](/blog/2024/fair-blog).
 In that journey, I have been trying to get things working with LinkedIn too, which is one of the three social-media type platforms I use to communicate. 
 In that quest, there has been... much frustration.
