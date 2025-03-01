@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Setting up Ollama with ellmer, pal and gander as R LLM helpers - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Large Language Models as code helpers are really one of the biggest changes to programmers daily lives for a good while.
+While LLMs can&rsquo;t fix our applications for us, they can help us work a little faster and maybe get a first proof-of-concept out of the door.
+Before starting to use Positron, I relied on GitHub co-pilot (I am a registered Educator on GitHub so I have that for free) in both RStudio and VSCode to help me out.
+After switching to Positron, I lost that connection as Positron does not have GitHub Co-pilot integration." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/ollama/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Setting up Ollama with ellmer, pal and gander as R LLM helpers - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Large Language Models as code helpers are really one of the biggest changes to programmers daily lives for a good while.
+While LLMs can&rsquo;t fix our applications for us, they can help us work a little faster and maybe get a first proof-of-concept out of the door.
+Before starting to use Positron, I relied on GitHub co-pilot (I am a registered Educator on GitHub so I have that for free) in both RStudio and VSCode to help me out.
+After switching to Positron, I lost that connection as Positron does not have GitHub Co-pilot integration.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/ollama/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Large Language Models as code helpers are really one of the biggest changes to programmers daily lives for a good while.
+While LLMs can&rsquo;t fix our applications for us, they can help us work a little faster and maybe get a first proof-of-concept out of the door.
+Before starting to use Positron, I relied on GitHub co-pilot (I am a registered Educator on GitHub so I have that for free) in both RStudio and VSCode to help me out.
+After switching to Positron, I lost that connection as Positron does not have GitHub Co-pilot integration.">
+
+
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="" alt="Setting up Ollama with ellmer, pal and gander as R LLM helpers" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Setting up Ollama with ellmer, pal and gander as R LLM helpers</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Mar 1, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/ollama/" class="uk-label uk-label-secondary tags" >
+                                Ollama
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/api/" class="uk-label uk-label-secondary tags" >
+                                API
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/llm/" class="uk-label uk-label-secondary tags" >
+                                LLM
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#getting-ollama">Getting Ollama</a></li>
+    <li><a href="#working-with-ellmer">Working with Ellmer</a></li>
+    <li><a href="#setting-up-pal">Setting up Pal</a></li>
+    <li><a href="#setting-up-ganser">Setting up Ganser</a></li>
+    <li><a href="#setting-up-ensure">Setting up Ensure</a></li>
+    <li><a href="#setting-up-r-and-positron-defaults">Setting up R and Positron defaults</a></li>
+    <li><a href="#using-the-continue-extension">Using the Continue extension</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <div class="uk-markdown uk-width">
+            <p>Large Language Models as code helpers are really one of the biggest changes to programmers daily lives for a good while.
+While LLMs can&rsquo;t fix our applications for us, they can help us work a little faster and maybe get a first proof-of-concept out of the door.
+Before starting to use Positron, I relied on GitHub co-pilot (I am a registered Educator on GitHub so I have that for free) in both RStudio and VSCode to help me out.
+After switching to Positron, I lost that connection as Positron does not have GitHub Co-pilot integration.</p>
+<p>Mostly, I was using the GPT run by my University to help me out when I needed it.
+But the back and forth between a browser and my IDE was a much less enjoyable experience than having it all in one place.
+Especially when I&rsquo;ve been working on an update to a work package wrapping an API and needed tests for the new functionality, a GPT is just not as great as a proper co-pilot.</p>
+<p>So, as I usually do, I complained to Maêlle, and through the R-Ladies grapevine (meaning Hannah Frick) she told me about <a href="https://www.tidyverse.org/blog/2025/01/experiments-llm">this post</a> on the Tidyverse blog about R packages to accomplish some functionality I was after.
+Knowing <a href="">Simon Couch</a>, I was sure this had to be good.
+I had notice him talk about his <a href="">pal</a> package before, and thought it looked good, and then he adds two more packages <a href="">gander</a> and <a href="">ensure</a> to help out during package development and testing.
+Genious!</p>
+<p>After reading the post, I knew I wanted to give them a go, and finally get my new setup LLM integrated.
+But, I am also cheap, I don&rsquo;t want to pay for LLM usage.
+I fist had a look at my Unis LLM API, and I think my usage of it would be low enough that I would not be billed.
+But that also meant having to figure out and set up an <a href="">ellmer</a> function to that API, and that was a little more work than I wanted right now.</p>
+<p>The next natural step was then to use <a href="">Ollama</a> which can run locally on your own computer.
+Depending on the power of your computer, this is a good option for free LLM aid.
+My Mac has 16 cores, so I thought it was worth a try.</p>
+<h2 id="getting-ollama">Getting Ollama</h2>
+<p>First of all, you&rsquo;ll need to <a href="https://ollama.com/download">download the Ollama application</a>, and then install it as your OS requires.
+It runs on Mac, Linux and Windows, so people should be more or less covered.
+Once installed, you will need to get a model you can run.
+Ollama offers many <a href="https://ollama.com/search">different models</a>, so it&rsquo;s mostly about what you want.
+To test, I grabbed <a href="https://ollama.com/library/deepseek-r1">deekseek-r1</a>, since DeepSeek is getting all the hype lately, and <a href="https://ollama.com/library/llama3.3">ollama3.3</a> in case I wanted to test one of Ollama&rsquo;s own models.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ollama pull deepseek-r1
+</span></span><span style="display:flex;"><span>ollama llama3.3
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ollama list
+</span></span></code></pre></div><pre><code>NAME                  ID              SIZE      MODIFIED    
+deepseek-r1:latest    0a8c26691023    4.7 GB    5 days ago    
+llama3.1:latest       46e0c10c039e    4.9 GB    5 days ago  
+</code></pre>
+<p>Alrighty, we have some models we can run!
+So, we&rsquo;d better run them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span> ollama run deepseek-r1
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>Use Ctrl + d or /bye to exit.
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; hello
+</span></span><span style="display:flex;"><span>&lt;think&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/think&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello! How can I assist you today? 😊
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; I just wanted to check <span style="color:#66d9ef">if</span> this was working. What can you help me with?
+</span></span><span style="display:flex;"><span>&lt;think&gt;
+</span></span><span style="display:flex;"><span>Alright, so the user just said they wanted to check <span style="color:#66d9ef">if</span> something was 
+</span></span><span style="display:flex;"><span>working and asked what I can help them with. Looking back at our 
+</span></span><span style="display:flex;"><span>conversation history, I had previously greeted them with a friendly 
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Hello! How can I assist you today?&#34;</span> Now they<span style="color:#e6db74">&#39;re following up.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Hmm, maybe they were testing my response or checking if everything is up 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">and running smoothly. It&#39;</span>s good to acknowledge their follow-up and invite 
+</span></span><span style="display:flex;"><span>them to ask about specific topics. I want to make sure they feel 
+</span></span><span style="display:flex;"><span>comfortable asking whatever they need help with.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>I should respond in a friendly manner, letting them know I<span style="color:#e6db74">&#39;m here to 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">assist and prompt them to share what they need help with. Keeping the tone 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">positive and open-ended encourages them to communicate effectively.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;/think&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Great! If you have any questions or need assistance with something, feel 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">free to ask. I&#39;</span>m here to help! What can you tell me about what you<span style="color:#960050;background-color:#1e0010">&#39;</span>d like 
+</span></span><span style="display:flex;"><span>to check or find out? 😊
+</span></span></code></pre></div><p>Great.
+It&rsquo;s running and responding, and even &ldquo;thinks&rdquo; back to me, so I can evaluate if its understood my instructions.
+I also asked it to generate a tidyverse-style code for the Gapminder data to plot it.
+And it did, the code was indeed somewhat bloated and did not grab the data from the correct source, however the code did work once some small things were adapted.
+Good proof of concept, that I could tidy up and work on further if I wanted.</p>
+<p>This was running in my terminal, but I wanted it running from within my IDE, Positron.
+Let us have a look at how that could look.</p>
+<h2 id="working-with-ellmer">Working with Ellmer</h2>
+<p><a href="https://ellmer.tidyverse.org/">Ellmer</a> is Posits package for interacting with LLM&rsquo;s from within R.
+Ellmer already comes with a function to easily communicate with <a href="https://ellmer.tidyverse.org/reference/chat_ollama.html">Ollama as a chat</a> from within R.</p>
+<p>Ellmer uses R6 objects, which I really need to get a little more comfy with.
+They feel quite different than &ldquo;standard&rdquo; R methods, so it&rsquo;s all a little foreign.
+Basically, with R6, you have an object that it self has functions to call on.
+On the case of Ellmer, the most essential functionality to chat with the LLM is the <code>chat()</code> function.</p>
+<p>I&rsquo;m gonna call my Ollama Chat Ola, which is one of the most common names in Norway.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ola <span style="color:#f92672">&lt;-</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_ollama</span>(model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;deepseek-r1&#34;</span>)
+</span></span><span style="display:flex;"><span>ola<span style="color:#f92672">$</span><span style="color:#a6e22e">chat</span>(<span style="color:#e6db74">&#34;Hey. how are you doing?&#34;</span>)
+</span></span></code></pre></div><pre><code>&lt;think&gt;
+
+&lt;/think&gt;
+
+Hi! I'm just a virtual assistant, so I don't have feelings, but I'm 
+here and ready to help you with whatever you need. How are *you* doing
+today? 😊
+</code></pre>
+<p>Cool.
+And thanks for reminding me that you don&rsquo;t have feelings, because I am one of those who does indeed thank her LLM&rsquo;s for providing assistance.
+(I want my slate clean when the AI uprising happens, maybe they will space me.)</p>
+<p>Now we can chat with Ole from within R if we want.
+That can be quite convenient.
+But we want more :D</p>
+<h2 id="setting-up-pal">Setting up Pal</h2>
+<ul>
+<li><a href="https://github.com/simonpcouch/pal">https://github.com/simonpcouch/pal</a></li>
+</ul>
+<h2 id="setting-up-ganser">Setting up Ganser</h2>
+<ul>
+<li><a href="https://simonpcouch.github.io/gander">https://simonpcouch.github.io/gander</a></li>
+</ul>
+<h2 id="setting-up-ensure">Setting up Ensure</h2>
+<ul>
+<li><a href="https://simonpcouch.github.io/ensure/">https://simonpcouch.github.io/ensure/</a></li>
+</ul>
+<h2 id="setting-up-r-and-positron-defaults">Setting up R and Positron defaults</h2>
+<ul>
+<li>Positron Keybindings</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  .ensure_fn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chat_ollama&#34;</span>, 
+</span></span><span style="display:flex;"><span>  .ensure_args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;deepseek-r1:8b&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  .gander_chat <span style="color:#f92672">=</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_ollama</span>(model <span style="color:#f92672">=</span> <span style="color:#a6e22e">getOption</span>(<span style="color:#e6db74">&#34;.ensure_args&#34;</span>)<span style="color:#f92672">$</span>model)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="using-the-continue-extension">Using the Continue extension</h2>
+<p>Continue</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Mar 1, 2025) 
+                    Setting up Ollama with ellmer, pal and gander as R LLM helpers. 
+                    Retrieved from https://drmowinckels.io/blog/2025/ollama/.
+                     DOI: https://www.doi.org/10.5281/zenodo.14950688
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-setting-up-ollama-with-ellmer-pal-and-gander-as-r-llm-helpers,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Setting up Ollama with ellmer, pal and gander as R LLM helpers",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/ollama/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.14950688",<br> 
+                        &emsp;updated = "Mar 1, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Cracking the LinkedIn API through R</h2>
+    
+      <p>I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin-api/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">linkedin</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 07, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Creating post summary with AI from Hugging Face</h2>
+    
+      <p>Optimize your blog&rsquo;s SEO and Zenodo metadata with automated summaries using Hugging Face&rsquo;s text summarization models. Learn how to connect to the Hugging Face API, prepare content, and integrate summaries into your markdown files using R and the httr2 package.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ai-blog-summary/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ai</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Dec 02, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Posting to Bluesky from R</h2>
+    
+      <p>With the recent mass exodus from Xitter, Bluesky has emerged as a new home for the R community. Discover how to join the community with starter packs and automate posting to Bluesky from R using GitHub Actions. Explore detailed steps for setup and automation, making it easy to share your latest blog posts on social media platforms.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/bluesky/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">bluesky</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>The IDEs I use</h2>
+    
+      <p>Explore my programming IDE journey, from MATLAB and gedit to RStudio and VSCode. Learn about the strengths of each IDE for different languages and tasks, and why I switch between RStudio and VSCode depending on the project. Insights on optimizing your coding environment for efficiency and productivity.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ide/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">programming</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">rstudio</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">vscode</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Setting up a Freesurfer LMM through R</h2>
+    
+      <p>Learn to create model matrices for Freesurfer Linear Mixed Models (LMM) in R using built-in functions. This guide walks you through manually creating model matrices, utilizing the <code>model.matrix</code> function, and standardizing variables. Includes creating a function to streamline the process, making neuroimaging data analysis more efficient.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/freesurfer-lmm-r/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">freesurfer</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">neuroimaging</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>
