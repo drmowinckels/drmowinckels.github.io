@@ -39,6 +39,7 @@ jobs:
                 if [ "$yaml_date" == "$current_date" ]; then
                   echo "Merging PR #$pr_number (matching YAML date: $yaml_date)"
                   gh pr merge "$pr_number" --squash
+                  gh pr close "$pr_number"
                   break
                 fi
               done
