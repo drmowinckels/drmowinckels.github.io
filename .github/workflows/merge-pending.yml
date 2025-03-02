@@ -6,6 +6,9 @@ on:
     # Run daily at noon
     - cron: '0 12 * * *'
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
   find_pending_prs:
     runs-on: ubuntu-latest
