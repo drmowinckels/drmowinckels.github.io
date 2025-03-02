@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       prs: ""
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - name: Checkout Repository
