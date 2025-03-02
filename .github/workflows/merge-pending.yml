@@ -16,6 +16,9 @@ jobs:
       prs: ${{ steps.find_pending_prs.outputs.prs }}
       process: ${{ steps.find_pending_prs.outputs.process }}
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Find PRs with "pending" label
         id: find_pending_prs
         run: |
