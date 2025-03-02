@@ -1,6 +1,7 @@
 name: Auto Merge Pending PRs
 
 on:
+  workflow_dispatch:
   schedule:
     # Run daily at noon
     - cron: '0 12 * * *'
