@@ -7,30 +7,38 @@ on:
     - cron: '0 12 * * *'
 
 jobs:
-  check-and-merge:
+  find_pending_prs:
     runs-on: ubuntu-latest
-    env:
-      prs: ""
-      GH_TOKEN: ${{ github.token }}
+    outputs:
+      prs: ${{ steps.find_pending_prs.outputs.prs }}
+      process: ${{ steps.find_pending_prs.outputs.process }}
+    steps:
+      - name: Find PRs with "pending" label
+        id: find_pending_prs
+        run: |
+          prs=$(gh pr list --label "pending" --state "open" --json number,title -q '.[] | .number')
+          process='false'
+          if [ -n "$prs" ]; then
+            process='true'
+          fi
+          echo "prs=${prs}" >> $GITHUB_OUTPUT
+          echo "process=${process}" >> $GITHUB_OUTPUT
 
+  process_prs:
+    runs-on: ubuntu-latest
+    needs: find_pending_prs
+    if: ${{ needs.find_pending_prs.outputs.process == 'true' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Find PRs with "pending" label
-        id: find_pending_prs
-        run: |
-          # Get all open PRs with the "pending" label
-          prs=$(gh pr list --label "pending" --state "open" --json number,title -q '.[] | .number')
-          
-          # Pass down the PR List for future use (space-separated)
-          echo "prs=$prs" >> $GITHUB_ENV
-
       - name: Process and Merge Qualifying PRs
+        env: 
+          prs: ${{ needs.find_pending_prs.outputs.prs }}
         run: |
-          if [ -n "$prs" ]; then
-            current_date=$(date +'%Y-%m-%d')
-            for pr_number in $prs; do
+          current_date=$(date +'%Y-%m-%d')
+
+          for pr_number in $prs; do
               echo "Checking PR #$pr_number"
 
               # Check if the PR modifies any index.md file in the "content/" directory
@@ -52,7 +60,8 @@ jobs:
                   # Check if the date matches today's date
                   if [ "$yaml_date" == "$current_date" ]; then
                     echo "Merging PR #$pr_number (matching YAML date: $yaml_date)"
-                    gh pr merge "$pr_number" --squash --delete-branch
+                    gh pr merge "$pr_number" --squash --delete
+                    gh pr close "$pr_number"
                     break
                   else
                     echo "Date in $file ($yaml_date) does not match today's date ($current_date)."
@@ -62,7 +71,3 @@ jobs:
                 echo "PR #$pr_number does not modify any index.md file."
               fi
             done
-          else
-            echo "No qualifying PRs found."
-          fi
-
