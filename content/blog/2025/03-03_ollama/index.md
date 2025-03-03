@@ -22,13 +22,10 @@ image_alt: >-
 summary: >-
   In this post I explore local large language models (LLMs) with R for code
   assistance, using tools like chores, ensure, gander, and continue in Positron.
-  I discover limitations with smaller models on local machines and balance
-  computational resources with model capabilities. The post explores R options
-  and keybindings for various tools, adjusting settings to optimize performance.
-  Lastly, I switch to GitHub Copilot for better results, encountering rate
-  limits but finding workarounds to control autocomplete triggers. The summary
-  highlights the journey of setting up LLMs for efficient coding in R,
-  emphasizing customization and optimization.
+  The post explores R options and keybindings for various tools, adjusting
+  settings to optimize performance. Lastly, I switch to GitHub Copilot for
+  better results, encountering rate limits but finding workarounds to control
+  autocomplete triggers.
 seo: >-
   Unlocking code assistance with local LLMs & GitHub Copilot! Discover R
   optimization & streamline your workflow.
@@ -170,8 +167,6 @@ These are exactly the things I *love* getting help with, as stated in the packag
     roxygen](https://simonpcouch.github.io/chores/reference/roxygen_helper.html)
 
 It's so convenient and helpful!
-
-![](https://raw.githubusercontent.com/simonpcouch/chores/refs/heads/main/inst/figs/addin.gif)
 
 To get that working, we need to add some R options so that chores knows which LLM you want to use.
 Chores uses ellmer chats, so we know from above already that we have an Ollama chat we can use.
@@ -470,7 +465,7 @@ I firstly set it up to ignore all markdown files, I don't want code assistance i
 
 I did that by listing them as files to be excluded with the string
 
-\``*/.md, */.?md`
+    */.md, */.?md
 
 Next, I went to Positron settings and searched for `editor.inlineSuggest.enabled` and set it to false.
 This would mean that the suggestions would not pop up by themselves.

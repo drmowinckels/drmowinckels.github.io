@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.14961312
 editor_options: 
   markdown: 
     wrap: sentence
@@ -15,7 +16,7 @@ tags:
 slug: "ollama"
 image: images/featured.jpg
 image_alt: "A digital illustration combining the Ollama logo and the R statistical software logo. The design features a clean and sleek integration of both logos. The color scheme is tech-inspired, with smooth gradients and modern aesthetics, ensuring a blend of the two logos."
-summary: "In this post I explore local large language models (LLMs) with R for code assistance, using tools like chores, ensure, gander, and continue in Positron. I discover limitations with smaller models on local machines and balance computational resources with model capabilities. The post explores R options and keybindings for various tools, adjusting settings to optimize performance. Lastly, I switch to GitHub Copilot for better results, encountering rate limits but finding workarounds to control autocomplete triggers. The summary highlights the journey of setting up LLMs for efficient coding in R, emphasizing customization and optimization."
+summary: "In this post I explore local large language models (LLMs) with R for code assistance, using tools like chores, ensure, gander, and continue in Positron. The post explores R options and keybindings for various tools, adjusting settings to optimize performance. Lastly, I switch to GitHub Copilot for better results, encountering rate limits but finding workarounds to control autocomplete triggers."
 seo: "Unlocking code assistance with local LLMs & GitHub Copilot! Discover R optimization & streamline your workflow."
 ---
 
@@ -173,12 +174,6 @@ These are exactly the things I _love_ getting help with, as stated in the packag
   roxygen](https://simonpcouch.github.io/chores/reference/roxygen_helper.html)
 
 It's so convenient and helpful!
-
-```{r}
-#| echo: false
-
-add_gif("https://raw.githubusercontent.com/simonpcouch/chores/refs/heads/main/inst/figs/addin.gif")
-```
 
 To get that working, we need to add some R options so that chores knows which LLM you want to use.
 Chores uses ellmer chats, so we know from above already that we have an Ollama chat we can use.
