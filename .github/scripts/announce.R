@@ -75,7 +75,7 @@ rtoot::post_toot(
 
 # Post to Bluesky
 bskyr::bs_post(
-  text = substr(create_message(frontmatter$seo), 1, 300),
+  text = substr(create_message(frontmatter$seo), 1, 290),
   images = image,
   images_alt = frontmatter$image_alt,
   langs = "US-en"

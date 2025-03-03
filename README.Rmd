@@ -74,7 +74,7 @@ postbtw <- sprintf("%s", round(postbtw, digits = 0))
 📅 That's a post roughly every **`r postbtw`** days, or about **`r postavg`** posts per month, since `r min_date`.
 
 
-✍️ The last post was published **`r last_post`** days ago (`r tail(postdf, 1)$link`).
+✍️ The last post was published **`r abs(last_post)`** days ago (`r tail(postdf, 1)$link`).
 
 😉 I'll post as often as I am able, and hope people find it interesting. I'd love your feedback in the comments!
 
