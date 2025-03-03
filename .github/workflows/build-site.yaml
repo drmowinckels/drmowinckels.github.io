@@ -109,7 +109,7 @@ jobs:
         if: ${{ env.RUN_DOI == 'true' }}
         uses: r-lib/actions/setup-renv@v2
 
-      - name: Setuo Quarto
+      - name: Setup Quarto
         if: ${{ env.RUN_DOI == 'true' }}
         uses: quarto-dev/quarto-actions/setup@v2
 
