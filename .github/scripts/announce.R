@@ -33,7 +33,7 @@ frontmatter <- rmarkdown::yaml_front_matter(post)
 
 # fix tags
 tags <- paste0("#", frontmatter$tags)
-tags <- sub("^#r$", "#rstats", tags)
+tags <- sub("^#r$", "#rstats", tags, ignore.case = TRUE)
 tags <- paste(tags, collapse=" ")
 
 # build URL
