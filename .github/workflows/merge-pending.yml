@@ -3,8 +3,7 @@ name: Auto Merge Pending PRs
 on:
   workflow_dispatch:
   schedule:
-    # Run daily at noon
-    - cron: '0 12 * * *'
+    - cron: '08 12 * * *'
 
 env:
   GH_TOKEN: ${{ github.token }}
