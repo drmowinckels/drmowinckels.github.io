@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Harness Local LLMs and GitHub Copilot for Enhanced R Package Development - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="In this post I explore local large language models (LLMs) with R for code assistance, using tools like chores, ensure, gander, and continue in Positron. The post explores R options and keybindings for various tools, adjusting settings to optimize performance. Lastly, I switch to GitHub Copilot for better results, encountering rate limits but finding workarounds to control autocomplete triggers." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Unlocking code assistance with local LLMs &amp; GitHub Copilot! Discover R optimization &amp; streamline your workflow.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/ollama/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Harness Local LLMs and GitHub Copilot for Enhanced R Package Development - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Unlocking code assistance with local LLMs &amp; GitHub Copilot! Discover R optimization &amp; streamline your workflow.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/ollama/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Unlocking code assistance with local LLMs &amp; GitHub Copilot! Discover R optimization &amp; streamline your workflow.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/ollama/images/featured.jpg" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/ollama/images/featured.jpg">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/ollama/images/featured.jpg" alt="A digital illustration combining the Ollama logo and the R statistical software logo. The design features a clean and sleek integration of both logos. The color scheme is tech-inspired, with smooth gradients and modern aesthetics, ensuring a blend of the two logos." class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Harness Local LLMs and GitHub Copilot for Enhanced R Package Development</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Mar 3, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/ollama/" class="uk-label uk-label-secondary tags" >
+                                Ollama
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/api/" class="uk-label uk-label-secondary tags" >
+                                API
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/llm/" class="uk-label uk-label-secondary tags" >
+                                LLM
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#working-with-ollama">Working with Ollama</a>
+      <ul>
+        <li><a href="#working-with-ellmer">Working with Ellmer</a></li>
+        <li><a href="#setting-up-chores-a-hrefhttpsgithubcomsimonpcouchchoresimg-srcimageschorespng-alignright-height138-altchores-website-a">Setting up chores <a href="https://github.com/simonpcouch/chores"><img src="images/chores.png" align="right" height="138" alt="chores website" /></a></a></li>
+        <li><a href="#setting-up-ensure">Setting up Ensure</a></li>
+        <li><a href="#setting-up-gander-a-hrefhttpsgithubcomsimonpcouchganderimg-srcimagesganderpng-alignright-height138-altchores-website-a">Setting up gander <a href="https://github.com/simonpcouch/gander"><img src="images/gander.png" align="right" height="138" alt="chores website" /></a></a></li>
+        <li><a href="#using-the-continue-extension-in-positron">Using the Continue extension in Positron</a></li>
+        <li><a href="#are-we-happy-about-how-ollama-is-working-with-these-tools">Are we happy about how Ollama is working with these tools?</a></li>
+      </ul>
+    </li>
+    <li><a href="#connecting-with-github">Connecting with GitHub</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">In this post I explore local large language models (LLMs) with R for code assistance, using tools like chores, ensure, gander, and continue in Positron. The post explores R options and keybindings for various tools, adjusting settings to optimize performance. Lastly, I switch to GitHub Copilot for better results, encountering rate limits but finding workarounds to control autocomplete triggers.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>Large Language Models as code helpers are really one of the biggest changes to programmers daily lives for a good while.
+While LLMs can&rsquo;t fix our applications for us, they can help us work a little faster and maybe get a first proof-of-concept out of the door.
+Before starting to use Positron, I relied on GitHub co-pilot (I am a registered Educator on GitHub so I have that for free) in both RStudio and VSCode to help me out.
+After switching to Positron, I lost that connection as Positron does not have GitHub Co-pilot integration.</p>
+<p>Mostly, I was using the GPT run by my University to help me out when I needed it.
+But the back and forth between a browser and my IDE was a much less enjoyable experience than having it all in one place.
+Especially when I&rsquo;ve been working on an update to a work package wrapping an API and needed tests for the new functionality, a GPT is just not as great as a proper co-pilot.</p>
+<p>So, as I usually do, I complained to Maêlle, and through the R-Ladies grapevine (meaning <a href="https://www.frick.ws/">Hannah Frick</a>) she told me about <a href="https://www.tidyverse.org/blog/2025/01/experiments-llm">this post</a> on the Tidyverse blog about R packages to accomplish some functionality I was after.
+Knowing <a href="https://www.simonpcouch.com/">Simon Couch</a>, I was sure this had to be good.
+I had notice him talk about his <a href="https://simonpcouch.github.io/chores/">chores</a> package before, and thought it looked good, and then he adds two more packages <a href="https://simonpcouch.github.io/gander/">gander</a> and <a href="https://simonpcouch.github.io/ensure/">ensure</a> to help out during package development and testing.
+Genius!</p>
+<p>After reading the post, I knew I wanted to give them a go, and finally get my new setup LLM integrated.
+But, I am also cheap, I don&rsquo;t want to pay for LLM usage.
+I fist had a look at my Unis LLM API, and I think my usage of it would be low enough that I would not be billed.
+But that also meant having to figure out and set up an <a href="https://ellmer.tidyverse.org/">ellmer</a> function to that API, and that was a little more work than I wanted right now.</p>
+<p>The next natural step was then to use <a href="https://ollama.com/">Ollama</a> which can run locally on your own computer.
+Depending on the power of your computer, this is a good option for free LLM aid.
+My Mac has 16 cores, so I thought it was worth a try.</p>
+<h2 id="working-with-ollama">Working with Ollama</h2>
+<p>First of all, you&rsquo;ll need to <a href="https://ollama.com/download">download the Ollama application</a>, and then install it as your OS requires.
+It runs on Mac, Linux and Windows, so people should be more or less covered.
+Once installed, you will need to get a model you can run.
+Ollama offers many <a href="https://ollama.com/search">different models</a>, so it&rsquo;s mostly about what you want.
+To test, I grabbed <a href="https://ollama.com/library/deepseek-r1">deekseek-r1</a>, since DeepSeek is getting all the hype lately, and <a href="https://ollama.com/library/llama3.3">ollama3.3</a> in case I wanted to test one of Ollama&rsquo;s own models.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ollama pull deepseek-r1
+</span></span><span style="display:flex;"><span>ollama llama3.3
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ollama list
+</span></span></code></pre></div><pre><code>NAME                  ID              SIZE      MODIFIED    
+deepseek-r1:latest    0a8c26691023    4.7 GB    5 days ago    
+llama3.1:latest       46e0c10c039e    4.9 GB    5 days ago  
+</code></pre>
+<p>Alrighty, we have some models we can run!
+So, we&rsquo;d better run them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ollama run deepseek-r1
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>Use Ctrl + d or /bye to exit.
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; hello
+</span></span><span style="display:flex;"><span>&lt;think&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/think&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello! How can I assist you today? 😊
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; I just wanted to check <span style="color:#66d9ef">if</span> this was working. What can you help me with?
+</span></span><span style="display:flex;"><span>&lt;think&gt;
+</span></span><span style="display:flex;"><span>Alright, so the user just said they wanted to check <span style="color:#66d9ef">if</span> something was 
+</span></span><span style="display:flex;"><span>working and asked what I can help them with. Looking back at our 
+</span></span><span style="display:flex;"><span>conversation history, I had previously greeted them with a friendly 
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Hello! How can I assist you today?&#34;</span> Now they<span style="color:#e6db74">&#39;re following up.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Hmm, maybe they were testing my response or checking if everything is up 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">and running smoothly. It&#39;</span>s good to acknowledge their follow-up and invite 
+</span></span><span style="display:flex;"><span>them to ask about specific topics. I want to make sure they feel 
+</span></span><span style="display:flex;"><span>comfortable asking whatever they need help with.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>I should respond in a friendly manner, letting them know I<span style="color:#e6db74">&#39;m here to 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">assist and prompt them to share what they need help with. Keeping the tone 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">positive and open-ended encourages them to communicate effectively.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;/think&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Great! If you have any questions or need assistance with something, feel 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">free to ask. I&#39;</span>m here to help! What can you tell me about what you<span style="color:#960050;background-color:#1e0010">&#39;</span>d like 
+</span></span><span style="display:flex;"><span>to check or find out? 😊
+</span></span></code></pre></div><p>Great.
+It&rsquo;s running and responding, and even &ldquo;thinks&rdquo; back to me, so I can evaluate if its understood my instructions.
+I also asked it to generate a tidyverse-style code for the Gapminder data to plot it.
+And it did, the code was indeed somewhat bloated and did not grab the data from the correct source, however the code did work once some small things were adapted.
+Good proof of concept, that I could tidy up and work on further if I wanted.</p>
+<p>This was running in my terminal, but I wanted it running from within my IDE, Positron.
+Let us have a look at how that could look.</p>
+<h3 id="working-with-ellmer">Working with Ellmer</h3>
+<p><a href="https://ellmer.tidyverse.org/">Ellmer</a> is Posits package for interacting with LLM&rsquo;s from within R.
+Ellmer already comes with a function to easily communicate with <a href="https://ellmer.tidyverse.org/reference/chat_ollama.html">Ollama as a chat</a> from within R.</p>
+<p>Ellmer uses R6 objects, which I really need to get a little more comfy with.
+They feel quite different than &ldquo;standard&rdquo; R methods, so it&rsquo;s all a little foreign.
+Basically, with R6, you have an object that it self has functions to call on.
+On the case of Ellmer, the most essential functionality to chat with the LLM is the <code>chat()</code> function.</p>
+<p>I&rsquo;m gonna call my Ollama Chat Ola, which is one of the most common names in Norway.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ola <span style="color:#f92672">&lt;-</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_ollama</span>(model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;deepseek-r1&#34;</span>)
+</span></span><span style="display:flex;"><span>ola<span style="color:#f92672">$</span><span style="color:#a6e22e">chat</span>(<span style="color:#e6db74">&#34;Hey. how are you doing?&#34;</span>)
+</span></span></code></pre></div><pre><code>&lt;think&gt;
+
+&lt;/think&gt;
+
+Hi! I'm just a virtual assistant, so I don't have feelings, but I'm 
+here and ready to help you with whatever you need. How are *you* doing
+today? 😊
+</code></pre>
+<p>Cool.
+And thanks for reminding me that you don&rsquo;t have feelings, because I am one of those who does indeed thank her LLM&rsquo;s for providing assistance.
+(I want my slate clean when the AI uprising happens, maybe they will spare me.)</p>
+<p>Now we can chat with Ole from within R if we want.
+That can be quite convenient.
+But we want more :D</p>
+<h3 id="setting-up-chores-a-hrefhttpsgithubcomsimonpcouchchoresimg-srcimageschorespng-alignright-height138-altchores-website-a">Setting up chores <a href="https://github.com/simonpcouch/chores"><img src="images/chores.png" align="right" height="138" alt="chores website" /></a></h3>
+<p>Chores (previously known as pal) can help out with certain repetitive tasks during package development.
+These are exactly the things I <em>love</em> getting help with, as stated in the package README</p>
+<ul>
+<li><code>&quot;cli&quot;</code>: <a href="https://simonpcouch.github.io/chores/reference/cli_helper.html">Convert to
+cli</a></li>
+<li><code>&quot;testthat&quot;</code>: <a href="https://simonpcouch.github.io/chores/reference/testthat_helper.html">Convert to testthat
+3</a></li>
+<li><code>&quot;roxygen&quot;</code>: <a href="https://simonpcouch.github.io/chores/reference/roxygen_helper.html">Document functions with
+roxygen</a></li>
+</ul>
+<p>It&rsquo;s so convenient and helpful!</p>
+<p>To get that working, we need to add some R options so that chores knows which LLM you want to use.
+Chores uses ellmer chats, so we know from above already that we have an Ollama chat we can use.</p>
+<p>Open your <code>.Rprofile</code> (either by knowing where it is or using <code>usethis::edit_r_profile()</code>).</p>
+<p>Depending on what you might already have in there, it can either be empty or have lots of stuff (<a href="blog/2024/rproject">like I have</a>).
+You need to add this option about what ellmer chat option you want to use.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  .chores_chat <span style="color:#f92672">=</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_ollama</span>(model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;deepseek-r1&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Once that is in your <code>.Rprofile</code> you&rsquo;ll need to restart your R-session for it to become available.</p>
+<p>You will also want a keyboard shortcut for ease of use!
+In RStudio, navigate to Tools &gt; Modify Keyboard Shortcuts &gt; Search &ldquo;Chores&rdquo;, and Simon suggests <code>Ctrl+Alt+C</code> (or <code>Ctrl+Cmd+C</code> on macOS).</p>
+<p>Adding keybindings in Positron is a little different.
+To add custom keybindings, open the keybindings helper with <code>cmd + k cmd + s</code> (keep <code>cmd</code> pressed and then type <code>k</code> then <code>s</code> in succession).
+From there, you can open the <code>keybindings.json</code> file from the upper right hand corner of the file pane.</p>
+<p><img src="images/keybindings.png" alt=""></p>
+<p>Now, add the following to create a shortcut using the <code>ctrl + cmd + c</code> combination.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;key&#34;</span>: <span style="color:#e6db74">&#34;Ctrl+Cmd+C&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;command&#34;</span>: <span style="color:#e6db74">&#34;workbench.action.executeCode.console&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;when&#34;</span>: <span style="color:#e6db74">&#34;editorTextFocus&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;args&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;langId&#34;</span>: <span style="color:#e6db74">&#34;r&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;chores::.init_addin()&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;focus&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Of course, if you want another combination, you can alter the first part of the code to whatever works for you!</p>
+<p>At this point I tested my new chores plugin, and it was not good.
+To no fault of the tool, but to my choice of model!
+<code>deepseek-r1</code> is a reasoning model, where it thinks outloud before returning something verbose to you.
+That does not work well if you have code you want overwritten.
+My test-function was being overwritten with lots of verbose LLM thinking and resoning.
+Not that lovely output as shown in the chores README.</p>
+<p>So I went looking for other LLM&rsquo;s that might do the trick.</p>
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:sgdhwgqd2ulz4zf5i4n4clnd/app.bsky.feed.post/3liwdo3taty2y" data-bluesky-cid="bafyreidypleisvw3qgvsuvwayx6vxjtd44x5vbe2inm7m4djwz723dnaea">
+<p lang>
+<p>I'm working on a blogpost connecting #rstats with a local #Ollama #llm for code assistance. I'm struggling to find a good model for this. Deepseek-r1 is nice for chatting, but I'd like a model that can output pure code, without lots of reasoning.</p>
+<p>I'd love to hear from people with Ollama experience<br><br><a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd/post/3liwdo3taty2y?ref_src=embed">[image or embed]</a></p>
+</p>
+--- ᴅʀ. ᴍᴏᴡɪɴᴄᴋᴇʟ\'ꜱ (<a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd?ref_src=embed">@drmowinckels.io</a>) <a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd/post/3liwdo3taty2y?ref_src=embed">Feb 24, 2025 at 13:23</a>
+</blockquote>
+<script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+<p>Turning to social media network for help, as my social media mainly consist of other researchers and developer.
+I got some nice replies that helped me explore a little more, and also let me think more about my prompts to the models.
+Some people noted that local LLMs are slower and not as powerful as the ones you get running on a cluster.
+Well, that mostly depends on your local computer, that is.
+I have a MacBook Air with an M2 silicone chip with 24Gb memory, so I can manage a decent size model locally, I think.</p>
+<p>After some discussions on LinkedIn, Bluesky and Mastodon, I started properly testing the <a href="https://ollama.com/library/qwen2.5-coder">qwen2.5-coder</a> model, and it does indeed seem pretty good.
+I also reached out to Simon directly to ask if he had any tips.
+The downside is that I cannot run the full 32b model, but had to go all the way down to the 7b model, the larger models were just taking too long (and I assume that is because they are too large for my computer to really work).</p>
+<p><img src="screencast/chores.gif" alt=""></p>
+<p>That leaves a lot to be desired, really.
+It likely is doing poorly because I can&rsquo;t run a larger and better model.
+What I noticed with all my chores tests was that it looks like the prompts seem to be ignored.
+I know Simon put a lot of instruction into the chores shortcuts and a lot of them seem to be ignored by these small models (Simon&rsquo;s words, not mine).
+So, that&rsquo;s a downside to running local models, the inability to run large models if you dont have the power for it.</p>
+<h3 id="setting-up-ensure">Setting up Ensure</h3>
+<p>I&rsquo;m not giving up though.
+Ok, so chores didnt do it yet, let me take <a href="https://simonpcouch.github.io/ensure/">ensure</a> out for a ride and see.
+Ensure is supposed to help with generating tests for R functions in packages.
+I love that!
+I&rsquo;ve been quite laxing in my testing in my packages lately, maybe this will help me get better at it?</p>
+<p>As before, we need to add some R options to set it all up.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  .ensure_fn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chat_ollama&#34;</span>, 
+</span></span><span style="display:flex;"><span>  .ensure_args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;qwen2.5-coder:7b&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>and then I read further down the README and get to</p>
+<blockquote>
+<p>The ensurer is currently not available in Positron as Positron has yet to implement document ids that the package needs to toggle between source and test files.</p>
+</blockquote>
+<p>Darn!
+Oh well, hopefully they will get that sorted in not too long.</p>
+<h3 id="setting-up-gander-a-hrefhttpsgithubcomsimonpcouchganderimg-srcimagesganderpng-alignright-height138-altchores-website-a">Setting up gander <a href="https://github.com/simonpcouch/gander"><img src="images/gander.png" align="right" height="138" alt="chores website" /></a></h3>
+<p>Last one to try is Gander.
+This one is more flexible in a way, than both chores and ensure.
+It&rsquo;s a chat, but it has access to your R environment, so it can make some better decisions on code you are asking for.
+That sounds really swell!</p>
+<p>as before, we need some R options</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  .gander_chat <span style="color:#f92672">=</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_ollama</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;qwen2.5-coder:7b&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>and some keybindings</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;key&#34;</span>: <span style="color:#e6db74">&#34;Ctrl+Cmd+G&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;command&#34;</span>: <span style="color:#e6db74">&#34;workbench.action.executeCode.console&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;when&#34;</span>: <span style="color:#e6db74">&#34;editorTextFocus&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;args&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;langId&#34;</span>: <span style="color:#e6db74">&#34;r&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;gander::gander_addin()&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;focus&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>and let&rsquo;s give it a go!</p>
+<p><img src="screencast/gander.gif" alt=""></p>
+<p>Now, that is much better!
+The code still needs some fixing, but it is much better than what I got with chores.
+Likely because I could give it less instructions, so it remembered it all and could follow.</p>
+<p>It&rsquo;s not going to be a huge game changer, but I find adapting code very easy, since I am proficient enough in R to have been able to generate it all on my own, it&rsquo;s just nice to take some shortcuts.</p>
+<h3 id="using-the-continue-extension-in-positron">Using the Continue extension in Positron</h3>
+<p>The last thing I want to talk about is using the <a href="https://docs.continue.dev/">continue</a> extension in Positron (or VSCode if you use that).
+This extension is really really nice, and I had tried setting it up before I saw all these lovely extra R packages for LLM help in coding.
+But I didn&rsquo;t really set it up correctly, and gave up a little.
+Because I was working on this post though, I decided to really give it another go.</p>
+<p>There are two MAIN features in continue, a chat (with possibility of setting up custom slash commands with precreated prompts etc), and code completion <em>while you code</em>.
+This was a copilot feature I missed from VSCode, as I found it very helpful as I was working.</p>
+<p>Continue is not too difficult to set up, if you actually set aside a little time to do so.
+First install the <a href="https://open-vsx.org/extension/Continue/continue">extension from openVSX</a>.
+Once its done installing, it should pop up in your sidebar, and by clicking it you can start setting up models you want to have access to.</p>
+<p><img src="images/continue_ext.png" alt="">
+<img src="images/continue_model.png" alt="">
+<img src="images/continue_ollama.png" alt=""></p>
+<p>For Ollama, I have set it up for chat model and autocomplete model.
+For simplicity, I&rsquo;m only showing the part of my config file for continue (it will open once you add a model through the wizard) that sets up the models.
+There are lots more settings in the config for special commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;models&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Qwen 2.5 Coder 14b&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;model&#34;</span>: <span style="color:#e6db74">&#34;qwen2.5-coder:14b&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;provider&#34;</span>: <span style="color:#e6db74">&#34;ollama&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;systemMessage&#34;</span>: <span style="color:#e6db74">&#34;You are an expert software developer. You give helpful and concise responses.&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;tabAutocompleteModel&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Qwen 2.5 Coder 14b&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;model&#34;</span>: <span style="color:#e6db74">&#34;qwen2.5-coder:14b&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;provider&#34;</span>: <span style="color:#e6db74">&#34;ollama&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;systemMessage&#34;</span>: <span style="color:#e6db74">&#34;You are an expert software developer. You give helpful and concise responses.&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>How does the chat look?</p>
+<p><img src="screencast/continue_ollama.gif" alt=""></p>
+<p>It does the job, verbose and all, but is quite slow.
+Here I was running the 14b model, which is more accurate, but it was running somewhat slowly.
+7b was faster, but made less desirable suggestions.</p>
+<h3 id="are-we-happy-about-how-ollama-is-working-with-these-tools">Are we happy about how Ollama is working with these tools?</h3>
+<p>Ok, so I think we can all agree that all this testing has showed that there are definite limitations to doing all this on a local machine that can&rsquo;t run the largest models.
+That being said, I still think there is help from the models in this process, especially for smaller-scale tasks or prototyping.</p>
+<p>One thing that was <a href="https://bsky.app/profile/matteomics.bsky.social/post/3lj45bgmgek2j">pointed out to me on Bluesky</a> was that we could set the timeout limit for Ellmer.
+Because Ellmer is powering all these other tools, setting good options for ellmer seems like a good way to go.
+I added an option to increase the timeout limit for Ellmer requests to 3 minutes (rather than the 1 minute that is the default)
+This did indeed help, and enabled me to run some larger models and things were looking much better.</p>
+<p>So now it looks like this for me.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  ellmer_timeout_s <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span>,
+</span></span><span style="display:flex;"><span>  .chores_chat <span style="color:#f92672">=</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_ollama</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;qwen2.5-coder:14b&#34;</span>),
+</span></span><span style="display:flex;"><span>  .ensure_fn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chat_ollama&#34;</span>, 
+</span></span><span style="display:flex;"><span>  .ensure_args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;qwen2.5-coder:14b&#34;</span>),
+</span></span><span style="display:flex;"><span>  .gander_chat <span style="color:#f92672">=</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_ollama</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;qwen2.5-coder:14b&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>I&rsquo;m sure there are still also lots of Ollama tips and tricks I could do to make things better, but for now this is where I have landed.
+<a href="https://fosstodon.org/@fluxmind@ioc.exchange">Fluxmind</a> shared with me his <a href="https://github.com/maglore9900/personal_Ollama_FAQ">Ollama FAQ</a> that he&rsquo;s put together based on what he&rsquo;s seen on the Ollama discourse.</p>
+<h2 id="connecting-with-github">Connecting with GitHub</h2>
+<p>As I was working on all this, I noticed ellmer has a <code>chat_github()</code> function.
+I thought maybe if this connected with my free copilot stuff (since I am a registered educator on GitHub I have free <a href="https://docs.github.com/en/get-started/learning-about-github/githubs-plans#github-pro">GitHub Pro</a>), that would be a nice way to get good code help for free.</p>
+<p>So I switched everything to GitHub chat for elllmer, and it was sooooo smooth.
+Much faster, much better and just really really cool.</p>
+<p>For that to work I just switched it all, and didn&rsquo;t really need to do anything else.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  .chores_chat <span style="color:#f92672">=</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_github</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gpt-4o&#34;</span>),
+</span></span><span style="display:flex;"><span>  .ensure_fn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chat_github&#34;</span>, 
+</span></span><span style="display:flex;"><span>  .ensure_args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gpt-4o&#34;</span>),
+</span></span><span style="display:flex;"><span>  .gander_chat <span style="color:#f92672">=</span> ellmer<span style="color:#f92672">::</span><span style="color:#a6e22e">chat_github</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gpt-4o&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>If you already have your system connected to GitHub, check with <code>usethis::git_sitrep()</code> for your status from R and it will aid you in getting setup correctly for it.
+But I reiterate, I have a educator free copilot thing, so be careful you don&rsquo;t be charged if you don&rsquo;t have the same free access or permissions.</p>
+<p><img src="images/continue_setup.png" alt=""></p>
+<p>My models setup in the continue config.json now looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;models&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;model&#34;</span>: <span style="color:#e6db74">&#34;gpt-4o&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;GPT-4o&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;systemMessage&#34;</span>: <span style="color:#e6db74">&#34;You are an expert software developer. You give helpful and concise responses.&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;apiKey&#34;</span>: <span style="color:#e6db74">&#34;&lt;&lt;insert from gitcreds::gitcreds_get()$password&gt;&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;provider&#34;</span>: <span style="color:#e6db74">&#34;openai&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;apiBase&#34;</span>: <span style="color:#e6db74">&#34;https://models.inference.ai.azure.com&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Qwen 2.5 Coder 14b&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;model&#34;</span>: <span style="color:#e6db74">&#34;qwen2.5-coder:14b&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;provider&#34;</span>: <span style="color:#e6db74">&#34;ollama&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;tabAutocompleteModel&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;model&#34;</span>: <span style="color:#e6db74">&#34;gpt-4o&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;GPT-4o&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;systemMessage&#34;</span>: <span style="color:#e6db74">&#34;You are an expert software developer. You give helpful and concise responses to code.&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;apiKey&#34;</span>: <span style="color:#e6db74">&#34;&lt;&lt;insert from gitcreds::gitcreds_get()$password&gt;&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;provider&#34;</span>: <span style="color:#e6db74">&#34;openai&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;apiBase&#34;</span>: <span style="color:#e6db74">&#34;https://models.inference.ai.azure.com&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Oh! I finally had auto-complete, which I missed so much.
+And it was all so fast.
+Then, I started getting this error:</p>
+<p><img src="images/continue_ratelimit.png" alt=""></p>
+<p>Oops!!
+Seems like I really fast hit rate limiting with that setup.
+I wasn&rsquo;t used to that from co-pilot in VScode, it likely has some exception for that not to happen.
+That being said, the rate limit is for 50 requests per 24hours, so that is not a whole lot.
+So I guess you&rsquo;d only use this if you had no better options.</p>
+<p>I couldn&rsquo;t find a way to fix the rate limiting in continue itself, but did find a way where autocomplete would only be triggered if I asked it to (rather than automatically).
+This was something I wanted to do anyway, as I wasn&rsquo;t too happy with how triggerhappy it was.
+It was autocompleting even as I was writing prose for my blog.
+I only want to use it for code assistance.</p>
+<p>Firstly, I had a look on the <a href="https://docs.continue.dev/customize/deep-dives/autocomplete">options Continue have for autocomplete</a>.</p>
+<p>I firstly set it up to ignore all markdown files, I don&rsquo;t want code assistance in those.</p>
+<p><img src="images/continue_settings.png" alt=""></p>
+<p>I did that by listing them as files to be excluded with the string</p>
+<pre><code>*/.md, */.?md
+</code></pre>
+<p>Next, I went to Positron settings and searched for <code>editor.inlineSuggest.enabled</code> and set it to false.
+This would mean that the suggestions would not pop up by themselves.
+Then I needed to specify a keycombination that would enable me to trigger the suggestion on demand.
+So I opened my Positron keybindings as indicated before, and added the following</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;key&#34;</span>: <span style="color:#e6db74">&#34;ctrl+cmd+l&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;command&#34;</span>: <span style="color:#e6db74">&#34;editor.action.inlineSuggest.trigger&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now I can trigger autocompletion in R files with <code>cmd + ctrl + l</code>.
+I also tried gander and chores and the results were really a lot nicer.
+Downside is only doing 50 of these per day&hellip; but I&rsquo;m not working yet, so it won&rsquo;t be an issue for a good long while yet.</p>
+<p><img src="screencast/gh.gif" alt=""></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>All in all, I&rsquo;m quite happy with this exploration.
+I know how to get things working locally, and to connect to GH and I&rsquo;m looking forward to using all this when I&rsquo;m back to work.</p>
+<p>Will you be trying these things out, or have other solutions I should know of?</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Mar 3, 2025) 
+                    Harness Local LLMs and GitHub Copilot for Enhanced R Package Development. 
+                    Retrieved from https://drmowinckels.io/blog/2025/ollama/.
+                     DOI: https://www.doi.org/10.5281/zenodo.14961312
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-harness-local-llms-and-github-copilot-for-enhanced-r-package-development,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Harness Local LLMs and GitHub Copilot for Enhanced R Package Development",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/ollama/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.14961312",<br> 
+                        &emsp;updated = "Mar 3, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Cracking the LinkedIn API through R</h2>
+    
+      <p>I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin-api/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">linkedin</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 07, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Creating post summary with AI from Hugging Face</h2>
+    
+      <p>Optimize your blog&rsquo;s SEO and Zenodo metadata with automated summaries using Hugging Face&rsquo;s text summarization models. Learn how to connect to the Hugging Face API, prepare content, and integrate summaries into your markdown files using R and the httr2 package.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ai-blog-summary/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ai</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Dec 02, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Posting to Bluesky from R</h2>
+    
+      <p>With the recent mass exodus from Xitter, Bluesky has emerged as a new home for the R community. Discover how to join the community with starter packs and automate posting to Bluesky from R using GitHub Actions. Explore detailed steps for setup and automation, making it easy to share your latest blog posts on social media platforms.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/bluesky/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">bluesky</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>The IDEs I use</h2>
+    
+      <p>Explore my programming IDE journey, from MATLAB and gedit to RStudio and VSCode. Learn about the strengths of each IDE for different languages and tasks, and why I switch between RStudio and VSCode depending on the project. Insights on optimizing your coding environment for efficiency and productivity.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ide/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">programming</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">rstudio</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">vscode</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Setting up a Freesurfer LMM through R</h2>
+    
+      <p>Learn to create model matrices for Freesurfer Linear Mixed Models (LMM) in R using built-in functions. This guide walks you through manually creating model matrices, utilizing the <code>model.matrix</code> function, and standardizing variables. Includes creating a function to streamline the process, making neuroimaging data analysis more efficient.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/freesurfer-lmm-r/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">freesurfer</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">neuroimaging</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>
