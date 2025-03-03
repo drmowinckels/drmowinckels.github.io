@@ -19,6 +19,20 @@ summary: "In this post I explore local large language models (LLMs) with R for c
 seo: "Unlocking code assistance with local LLMs & GitHub Copilot! Discover R optimization & streamline your workflow."
 ---
 
+```{r}
+#| include: false
+
+add_gif <- function(path){
+  if (knitr:::is_latex_output()) {
+    knitr::asis_output(sprintf(
+      '\\url(%s)', path
+    ))
+  } else {
+    knitr::include_graphics(path)
+  }
+}
+```
+
 Large Language Models as code helpers are really one of the biggest changes to programmers daily lives for a good while.
 While LLMs can't fix our applications for us, they can help us work a little faster and maybe get a first proof-of-concept out of the door.
 Before starting to use Positron, I relied on GitHub co-pilot (I am a registered Educator on GitHub so I have that for free) in both RStudio and VSCode to help me out.
@@ -160,7 +174,11 @@ These are exactly the things I _love_ getting help with, as stated in the packag
 
 It's so convenient and helpful!
 
-![](https://raw.githubusercontent.com/simonpcouch/chores/refs/heads/main/inst/figs/addin.gif)
+```{r}
+#| echo: false
+
+add_gif("https://raw.githubusercontent.com/simonpcouch/chores/refs/heads/main/inst/figs/addin.gif")
+```
 
 To get that working, we need to add some R options so that chores knows which LLM you want to use.
 Chores uses ellmer chats, so we know from above already that we have an Ollama chat we can use.
@@ -228,7 +246,11 @@ After some discussions on LinkedIn, Bluesky and Mastodon, I started properly tes
 I also reached out to Simon directly to ask if he had any tips.
 The downside is that I cannot run the full 32b model, but had to go all the way down to the 7b model, the larger models were just taking too long (and I assume that is because they are too large for my computer to really work).
 
-<video src="screencast/chores.mov" controls></video>
+```{r}
+#| echo: false
+
+add_gif("screencast/chores.gif")
+```
 
 That leaves a lot to be desired, really.
 It likely is doing poorly because I can't run a larger and better model.
@@ -295,7 +317,11 @@ and some keybindings
 
 and let's give it a go!
 
-<video src="screencast/gander.mov" controls></video>
+```{r}
+#| echo: false
+
+add_gif("screencast/gander.gif")
+```
 
 Now, that is much better!
 The code still needs some fixing, but it is much better than what I got with chores.
@@ -345,8 +371,12 @@ There are lots more settings in the config for special commands.
 ```
 
 How does the chat look?
+```{r}
+#| echo: false
 
-<video src="screencast/continue_ollama.mov" controls></video>
+add_gif("screencast/continue_ollama.gif")
+```
+
 
 It does the job, verbose and all, but is quite slow.
 Here I was running the 14b model, which is more accurate, but it was running somewhat slowly.
@@ -457,7 +487,7 @@ I firstly set it up to ignore all markdown files, I don't want code assistance i
 
 I did that by listing them as files to be excluded with the string
 
-````
+```
 */.md, */.?md
 ```
 
@@ -477,7 +507,11 @@ Now I can trigger autocompletion in R files with `cmd + ctrl + l`.
 I also tried gander and chores and the results were really a lot nicer.
 Downside is only doing 50 of these per day... but I'm not working yet, so it won't be an issue for a good long while yet.
 
-<video src="screencast/gh.mov" controls></video>
+```{r}
+#| echo: false
+
+add_gif("screencast/gh.gif")
+```
 
 ## Conclusion
 

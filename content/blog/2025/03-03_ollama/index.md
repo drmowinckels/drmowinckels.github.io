@@ -245,8 +245,7 @@ After some discussions on LinkedIn, Bluesky and Mastodon, I started properly tes
 I also reached out to Simon directly to ask if he had any tips.
 The downside is that I cannot run the full 32b model, but had to go all the way down to the 7b model, the larger models were just taking too long (and I assume that is because they are too large for my computer to really work).
 
-<video src="screencast/chores.mov" controls>
-</video>
+![](screencast/chores.gif)
 
 That leaves a lot to be desired, really.
 It likely is doing poorly because I can't run a larger and better model.
@@ -310,8 +309,7 @@ and some keybindings
 
 and let's give it a go!
 
-<video src="screencast/gander.mov" controls>
-</video>
+![](screencast/gander.gif)
 
 Now, that is much better!
 The code still needs some fixing, but it is much better than what I got with chores.
@@ -362,8 +360,7 @@ There are lots more settings in the config for special commands.
 
 How does the chat look?
 
-<video src="screencast/continue_ollama.mov" controls>
-</video>
+![](screencast/continue_ollama.gif)
 
 It does the job, verbose and all, but is quite slow.
 Here I was running the 14b model, which is more accurate, but it was running somewhat slowly.
@@ -486,3 +483,16 @@ So I opened my Positron keybindings as indicated before, and added the following
   "command": "editor.action.inlineSuggest.trigger"
 }
 ```
+
+Now I can trigger autocompletion in R files with `cmd + ctrl + l`.
+I also tried gander and chores and the results were really a lot nicer.
+Downside is only doing 50 of these per day... but I'm not working yet, so it won't be an issue for a good long while yet.
+
+![](screencast/gh.gif)
+
+## Conclusion
+
+All in all, I'm quite happy with this exploration.
+I know how to get things working locally, and to connect to GH and I'm looking forward to using all this when I'm back to work.
+
+Will you be trying these things out, or have other solutions I should know of?
