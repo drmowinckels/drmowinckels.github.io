@@ -38,7 +38,7 @@ The interface and setup is just much much more contemporary.
 RStudio feels dated in comparison.
 The file explorer is so neat, and I love that it's a tree, rather than having to look at a single folder at the time like in RStudio.
 
-### 2. Poly-glot
+### 2. Polyglot
 
 While you _can_ code in other languages in RStudio, it's not inherently made for it.
 So you don't easily have access to linters and other nice enhancement tools.
