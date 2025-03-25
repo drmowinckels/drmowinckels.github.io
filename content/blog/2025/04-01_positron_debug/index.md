@@ -30,7 +30,7 @@ I thought I'd give you an update about what I'm enjoying with it and what my ver
 ## Why I enjoy Positron
 
 This list is not particularly different from my [initial post](/blog/2024/positron). 
-All the points I made then still stand.
+All the points of why I like Positron still stand.
 
 ### 1. It's a much more modern IDE
 
