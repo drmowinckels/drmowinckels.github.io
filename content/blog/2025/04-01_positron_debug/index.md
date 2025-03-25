@@ -16,8 +16,9 @@ tags:
 slug: "positron-debugging"
 image: images/featured.jpg
 image_alt: ""
-summary: ""
-seo: ""
+summary: |
+  Positron is a solid IDE! It's just so modern and flexible. Love the file explorer and being able to work with different languages seamlessly. The environment viewer is a game-changer for data science. But, the debugger? Ugh. It's got some real quirks, like console hangups and history issues.
+seo: "Positron's pros (modern IDE, polyglot support) & cons (debugger quirks). Is it the future of R?"
 ---
 
 
@@ -43,6 +44,8 @@ The file explorer is so neat, and I love that it's a tree, rather than having to
 While you _can_ code in other languages in RStudio, it's not inherently made for it.
 So you don't easily have access to linters and other nice enhancement tools.
 Positron, since it's based on VSCode, can deal with any language, and all the extensions mean you can get all these extra tools to enhance your work.
+Like [ESLint](https://open-vsx.org/extension/dbaeumer/vscode-eslint) for linting your javascript.
+I'm sure there are lots of extensions for languages I don't use, so search for what you might want and test things out!
 
 Of my fav things right now is the [Air](https://www.tidyverse.org/blog/2025/02/air/) extension, which will auto-format your code upon saving the file!
 No more finnicky stylizing the code so it looks better, it happens automagically when the file is saved.
@@ -52,9 +55,9 @@ Note that Air is for R, there are other similar tools for other languages.
 ### 3. Environment viewer
 
 In comparison to VSCode, its much better for Data Science, since you have the environment viewer.
-One thing I never likes in VSCode, was that I felt like working blind compared to RStudio, not being able to get an easy overview of what was in my working environment.
+One thing I never likes in VSCode, was that I felt like working completely uninformed about my project state compared to RStudio, not being able to get an easy overview of what was in my working environment.
 
-![Screenshot of environment viewer]()
+![Screenshot of environment viewer](img/data_viewer.png)
 
 ## What are my remaining pain points?
 
@@ -68,7 +71,7 @@ As I do, I asked on social media for tips.
 I got some nice replies, from the developers and other power users, which did help!
 But it also revealed that there are definite bugs in there.
 
-#### Working environment not changed
+Instead, you need to enter the Debug section of the left sidebar.
 Unlike RStudio, your working environment _is not_ changed into the function you are debugging. 
 In stead, you need to enter the Debug section of the left sidebar.
 
@@ -80,7 +83,7 @@ This is easy enough to get used to, and also highlights that while you are in th
 What the struggle is, in my opinion, is _how to run the code_ when you are in the debugger.
 My previous workflow would be to copy and paste sections I wanted to run into the console, allowing me to jump back and forth between different parts of the function while I figured out a solution.
 
-This [_will not work_](https://github.com/posit-dev/positron/issues/5928) in Positron currently.
+This [will not work](https://github.com/posit-dev/positron/issues/5928) in Positron currently.
 Pasting into the console while in debugging mode, will leave your console forever waiting for input, as if you have not closed a bracket or parentheses correctly.
 You can double check your code as much as you like, nothing will help.
 It's a bug in Positron, and they don't have a solution yet.
@@ -91,7 +94,7 @@ How many times you need to do this, varies, I have not found a systematic reason
 But rest assured, you _will_ be able to exit this hanging state.
 
 Running code in the debugger can be done with `ctrl` + `enter`, which will run the code line by line from the `browser()`, breakpoint or other debugging marker you have used.
-Once [Jenny](https://bsky.app/profile/jennybryan.bsky.social/post/3lggu2abc3s2y) pointed this out to me, things got _a lot_ easier.
+If I've moved the cursor for some reason, whenever I do `ctrl` + `enter`, it just is stuck at my `browser()`, without running other code. 
 However, if you've moved the cursor manually, that might not work, for reasons I don't know.
 If I've moved the cursor for some reaason, whenever I do `ctrl` + `enter`, it just is stuck at my `browser()`, without running other code. 
 
@@ -100,7 +103,7 @@ Everything you do while debugging (like running next line code with `n`), [remai
 Which means you R history get seriously bloated with non-senscical code.
 For those of us who repeatedly navigate through R history to pick up recent lines of code to rerun, this is quite frustrating.
 
-#### Debugger autofocuses to a temporary function file
+In RStudio, when you enter the debugger in your own functions, you auto-focus on the function in whatever file you have it in.
 This is a huge annoyance.
 In RStudio, when you enter e debugger in your own functions, you auto-focus on the function in whatever file you have it in.
 In Positron, a [new tab is opened with the contents of the function](https://github.com/posit-dev/positron/issues/3151) as it is, for you to run through, but you cannot alter the code because it's in memory, not an actual file.
@@ -122,15 +125,14 @@ Before, I very much relied on the help RStudio was giving me with debugging, but
 
 I'd you'd like to see a live demo of the debugger, you can see [James Balamuta's video on YouTube](https://www.youtube.com/watch?v=p_4ZS-nnQ2Q).
 
-### Viewing character delimited files
+So, the data viewer is really nice, and mimmicks RStudio's viewer well (with the exception of not showing labels of labelled data, and no lists!!).
 
-So, the data viewer is really nice, and mimmicks RStudio's viewer well (with the exception of not showing labels of labelled data).
 It's really nice to explore tabular data in it, though it's not something I often do (I prefer printing to the console).
 
 ![Screenshot of the data viewer inspecting a data.frame](img/viewer_dt.png)
 
 One thing that annoys me with it, is that it also is used to display text-files with common tabular data extension (csv, tsv, etc.).
-I prefer using the Rainbow csv extension in Positron for looking at tabular text file content.
+I prefer using the [Rainbow csv extension](https://open-vsx.org/extension/mechatroner/rainbow-csv) in Positron for looking at tabular text file content.
 
 ![Screenshot of data viewer looking at a csv](img/viewer_csv.png)
 
@@ -145,6 +147,7 @@ So I guess this is no longer a pain point, really!
 
 Just for the sake of it, I'll also include here what I have in my Positron settings file.
 These help control the IDE and some extensions to behaviours or appearance that I prefer.
+You can quickly open your settings file by `cmd` + `k`, and then choosing the "open file" icon on the right hand side of the settings pane.
 
 ```json
 {
@@ -172,3 +175,15 @@ These help control the IDE and some extensions to behaviours or appearance that 
     "gitlens.defaultTimeFormat": "hh:mm"
 }
 ```
+
+## Where are we now?
+
+Positron is quickly shaping up to be a great go-to tools for development _and_ for data science. 
+In terms of replacing RStudio, it's done it for me.
+I'm still uncertain if I would teach beginners with Positron rather than RStudio, the setup is for sure more daunting and I don't want beginners confused by something that is supposed to help them.
+But don't worry, RStudio is not going anywhere!
+
+I think the future for Positron is very bright, and I'm happy for all the resources Posit are putting into its development.
+
+Have you tried it yet?
+What are your pro's and con's so far?
