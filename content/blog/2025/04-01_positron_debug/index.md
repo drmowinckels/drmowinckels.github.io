@@ -21,7 +21,7 @@ seo: ""
 ---
 
 
-I have been using [Positron for about 6 months](/blog/2024/positron) now.
+I started using [Positron last year](/blog/2024/positron) now.
 We all know [I'm not working](/blog/2025/longcovid), so it's not like I've been totally immersed in Positron, but I have been doing some side-projects for myself and R-Ladies, and writing blog posts exclusively in Positron for about 6 months now.
 I have not needed RStudio for all this time, and it's at the point where I feel uninstalling it is just around the corner.
 
