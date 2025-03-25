@@ -17,8 +17,8 @@ slug: "positron-debugging"
 image: img/featured.png
 image_alt: "The Positron logo reimagined as a spiral galaxy with a bright core and a swirling ring of stars and gas. The galaxy is set against a dark background with a few scattered stars."
 summary: |
-  Positron is a solid IDE! It's just so modern and flexible. Love the file explorer and being able to work with different languages seamlessly. The environment viewer is a game-changer for data science. But, the debugger? Ugh. It's got some real quirks, like console hangups and history issues.
-seo: "Positron's pros (modern IDE, polyglot support) & cons (debugger quirks). Is it the future of R?"
+  After 6 months, Positron's modern interface, polyglot support, & viewers are loved. Debugger quirks persist: console hangs, history issues, & tab focus. Data viewer lacks list support & labeled data. Despite pains, Positron's potential shines.
+seo: "Positron's pros & cons. From improved workflow transparency, to growing debugging pains."
 ---
 
 _This post is on request from [Maëlle Salmon](https://masalmon.eu/), who has finally decided to give Positron a go!_
