@@ -46,7 +46,7 @@ Positron, since it's based on VSCode, can deal with any language, and all the ex
 
 Of my fav things right now is the [Air](https://www.tidyverse.org/blog/2025/02/air/) extension, which will auto-format your code upon saving the file!
 No more finnicky stylizing the code so it looks better, it happens automagically when the file is saved.
-To be fair, you can get Air for RStudio also, but it's much easier to get working for Positron.
+To be fair, you can get Air for RStudio also, but it's much easier to set up for Positron.
 Note that Air is for R, there are other similar tools for other languages.
 
 ### 3. Environment viewer
