@@ -2,7 +2,7 @@
 editor_options: 
   markdown: 
     wrap: sentence
-title: "Positron: A Modern IDE for Data Science"
+title: "Positron: A Modern IDE for Data Science - an update"
 format: hugo-md
 author: Dr. Mowinckel
 date: '2025-04-01'
