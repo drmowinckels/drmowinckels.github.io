@@ -62,6 +62,17 @@ One thing I never likes in VSCode, was that I felt like working completely uninf
 
 ![Screenshot of environment viewer, which can be seen in the upper right quadrant. This environment contains a vector, a dataframe and a function.](img/data_viewer.png)
 
+### 4. RStudio viewer pane compatibility
+
+A feature that did not exist when I write the last post, was that Positron "shims" the RStudio viewer pane.
+This means that any package that has functionality that sends something to the viewer pane, should also work in Positron!
+
+Blogdown users should rejoice, as this makes the popular `blogdown::serve_site()` now work in Positron, and other Shiny addins should also work.
+Suuuuper nice!
+
+![Screenshot of the R-Ladies Hugo Website rendered in the Positron Viewer pane with `blogdown::serve_site()`](img/blogdown.png)
+
+
 ## What are my remaining pain points?
 
 ### The debugger
@@ -196,7 +207,7 @@ You can quickly open your settings file by `cmd` + `k`, and then choosing the "o
 
 ## Where are we now?
 
-Positron is quickly shaping up to be a great go-to tools for development _and_ for data science. 
+Positron is quickly shaping up to be a great go-to tool for development _and_ for data science. 
 In terms of replacing RStudio, it's done it for me.
 I'm still uncertain if I would teach beginners with Positron rather than RStudio, the setup is for sure more daunting and I don't want beginners confused by something that is supposed to help them.
 But don't worry, RStudio is not going anywhere!
