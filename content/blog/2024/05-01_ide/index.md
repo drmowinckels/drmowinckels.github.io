@@ -11,7 +11,8 @@ tags:
   - RStudio
   - VScode
 slug: "ide"
-image: vscode.png
+image: feature.jpeg
+image_alt: A minimalist abstract image representing IDEs, with interconnected nodes symbolizing different programming environments.
 summary: Explore my programming IDE journey, from MATLAB and gedit to RStudio and VSCode. Learn about the strengths of each IDE for different languages and tasks, and why I switch between RStudio and VSCode depending on the project. Insights on optimizing your coding environment for efficiency and productivity.
 seo: Discover the best programming IDE for your needs. Compare MATLAB, gedit, vi, RStudio, and VSCode, and learn when to use each for different languages and tasks.
 ---
