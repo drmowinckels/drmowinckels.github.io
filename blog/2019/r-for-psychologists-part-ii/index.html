@@ -75,6 +75,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
@@ -88,7 +91,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+    <script async data-id="101481526" src="//static.getclicky.com/js"></script>
+
 
         
 
@@ -472,7 +477,11 @@ There are no quick-fix solutions, but I believe R makes the fixes faster, as the
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lm&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-2-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Alrighty, we have the individual data points for depression (y-axis) at each timepoint (x-axis) for all individuals as the scatter plot, and a regression-line fitted to that data.
 To reiterate what the code is doing: <em>&ldquo;Take <code>eData_tall</code>, plot with time on the x-axis, depress on the y-axis, create a scatter plot with a little bit of random noise, and add a regression line using a linear model.&rdquo;</em>
 Let&rsquo;s break that down a little bit by looking at the data again.</p>
@@ -1342,7 +1351,11 @@ I like this output for now, so we are going to save it, since this data is more 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>() <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-8-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Look at that, suddenly we have a histogram for each of the variables!
 What we did there was <em>&ldquo;Take the data in <code>eData_tall</code> and plot <code>value</code> on the x-axis, make histograms of that, and create different facets (panels) using the information in <code>colName</code>&rdquo;</em>.
 Now we also see that apparently there was a naming inconsistency with the <code>DepTgp</code> variables, where one was typed as <code>Gp</code> instead of <code>gp</code>.
@@ -1361,14 +1374,22 @@ Let&rsquo;s see if our plot looks better now:</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>() <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-10-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>We can build more on that, because we also have the <code>time</code> variable, we can create a facet grid with histograms for each variable at each timepoint very easily</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>value)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>() <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_grid</span>(colName<span style="color:#f92672">~</span>time)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-11-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-11-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>I think that&rsquo;s pretty neat.
 We can do that because the data is in long format, and everything is contained in just some few columns, and ggplot can therefore make some nice plots out of, rather than having to tell it about the 5 different columns the data would otherwise be in (one for each variable).
 Distribution plots might not be the most interesting though, let&rsquo;s look at a plot more similar like the one we did before, scatter plot with a regression line.</p>
@@ -1379,7 +1400,11 @@ Distribution plots might not be the most interesting though, let&rsquo;s look at
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-12-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-12-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>That&rsquo;s looking much as expected!
 And we can see that <code>mah_</code> only has observations at <em>one</em> timepoint, so you would not be able to fit a regression line with that.
 It&rsquo;s no matter for us now.
@@ -1392,7 +1417,11 @@ We want the data to remain in the main data, but just not to plot it.</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-13-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-13-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Now, we added a <code>filter</code> before we did <code>ggplot</code>.
 Here we are going <em>&ldquo;Take <code>eData_tall</code> and filter away any rows where the value in <code>colName</code> is <code>mah_</code>, then make this ggplot&rdquo;.</em>
 <code>DepTgp</code> is showing some odd behaviour though.
@@ -1407,7 +1436,11 @@ Let&rsquo;s also filter away these, as they are not interesting here, just like 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-14-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-14-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>The <code>filter</code> now looks a little different than before.
 Rather than a <code>!=</code> (not equal to), we are using <code>%in%</code> and negating that (<code>!</code>) in front of the statement.
 <code>%in%</code> is a nice matching shortcut in R, that is vectorised.
@@ -1425,7 +1458,11 @@ This should also give us an idea whether there are datapoints that behave oddly 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-15-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-15-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>That is looking very odd.
 The points and the lines are not connecting.
 That is beause we are using <code>geom_jitter</code>, which generates a little random noise for us so the dots don&rsquo;t plot on top of each other and in very very straight lines.
@@ -1440,7 +1477,11 @@ First, let&rsquo;s replace <code>geom_jitter</code> with <code>geom_point</code>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-16-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-16-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>The dots and lines are connecting, good.
 Overplotting in this case is actally not too bad, in many cases like this, I&rsquo;d leave it be.
 But, I mostly have data with many more points, and so I need to find a way to reduce overplotting.</p>
@@ -1454,7 +1495,11 @@ We will also need to make sure both the lines and the dots have the correct grou
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-17-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-17-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>See, now there is a little more space between the points so you can see them all, but everything still connects correctly.
 The lines and points are a little too domineering , so let&rsquo;s reduve their opacity/transparency, byt reducing the àlpha` setting for those two geoms.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dodge <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">position_dodge</span>(width <span style="color:#f92672">=</span> <span style="color:#ae81ff">.5</span>)
@@ -1466,7 +1511,11 @@ The lines and points are a little too domineering , so let&rsquo;s reduve their 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-18-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-18-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>When we adjust the <code>alpa</code>, we can also see that there still is some overplotting.
 This is because we cannot create noise in the y-axis, that would be akin to data-manipulation, we should not enter noise in the obsvered measurements.
 But the alpa helps us see that, and now the regression line is a little more obious too.</p>
@@ -1480,7 +1529,11 @@ But the alpa helps us see that, and now the regression line is a little more obi
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lm&#34;</span>, colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;forestgreen&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;forestgreen&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-19-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>In this case, altering the colour is very easy, because we set the colour (line)  and fill (CI band)  to be a single value (not within aes).
 By setting the colour like this, all panels get the same.
 We could also use the <code>colName</code> variable to give each panel it&rsquo;s own colour.</p>
@@ -1494,7 +1547,11 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
 </span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span>colName, fill<span style="color:#f92672">=</span>colName)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>colName)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/featured-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>that is pretty neat, right?</p>
 <p>That&rsquo;s all for this time. We&rsquo;re explored more plots, and ways to change the data, so it becomes easy to plot in this faceted way.</p>
 <p>Next time, we will be working on changing factors and factor levels both to make the data correctly portray what it should, and also to help us make our plots meaningful.</p>
@@ -1526,7 +1583,7 @@ We could also use the <code>colName</code> variable to give each panel it&rsquo;
                         &emsp;url = "https://drmowinckels.io/blog/2019/r-for-psychologists-part-ii/",<br>
                         &emsp;year = 2019,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273492",<br> 
-                        &emsp;updated = "Mar 26, 2025"<br>
+                        &emsp;updated = "Mar 30, 2025"<br>
                     }
                 </div>
             </div>

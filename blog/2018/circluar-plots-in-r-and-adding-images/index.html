@@ -75,6 +75,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
@@ -88,7 +91,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+    <script async data-id="101481526" src="//static.getclicky.com/js"></script>
+
 
         
 
@@ -471,11 +476,19 @@
 <p>Let&rsquo;s get to it! To plot a using <code>circlize</code> is farily easy. The first two columns need to contain the pairs that are connected, and the third column needs to be the value they are connected by. That is how we set it up: Netwok1, Network2, Correlation. I am pre-allocating the track heights for the outer walls <code>preAllocateTracks = list(track.height = 0.25))</code>. You can play around with what you like here.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(circlize)
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS, preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>))
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-8-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Boom! Chord diagram! Now, notice how the entire viewport has been set. <code>circlize</code> will create the enitre plot space, and I have not figured out how to override this (like adding transparent background etc.). But since I have <a href="www.imagemagick.org">ImageMagick</a> I have very easy ways of manipulating the images afterwards, so I don&rsquo;t really mind.</p>
 <p>Ok now, the plot is a little &ldquo;gritty&rdquo; for me. I don&rsquo;t really like the many text annotations, as I want to put in some of my own in stead. We can remove the text annotations with the call <code>annotationTrack = c(&quot;grid&quot;)</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS, annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>),preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>))
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-9-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-9-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Nice, it&rsquo;s a little cleaner for me to work with now. And notice how the colors changed!</p>
 <p><code>circlize</code> has pretty nice color palettes, and it will randomy select one of them each time it is called. This is convenient when you just want a fast plot, but if you want to use custom colors (because they might correspond to other plots you have, or groups etc.) you&rsquo;ll need to do some grunt work. I&rsquo;ll group our brain networks somewhat haphazarously into 3 groups (networks of networks), so we can assign colors by the groups in stead. I&rsquo;ll use <code>wesanderson</code> colours, for simplicity and fun!</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(wesanderson)
@@ -497,13 +510,21 @@
 </code></pre><p>Now, this might feel a little odd, but we need to use the original data to add the colours we want. This is because the data the chord diagram is using is pair-wise, so the data is just not ordered in a way that is convenient to work with when you want to set one colour per network. For instance, neither of the network columns in <code>PAIRS</code> contains <strong>all</strong> the networks, they&rsquo;re each -1, so there is no complete list of the networks in the file. Thus, we will also struggle to create a complete list of colours and groups. So we will provide the values from the original data file to provide the colours we want.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
 </span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>DATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(DATA<span style="color:#f92672">$</span>gColor, DATA<span style="color:#f92672">$</span>names))
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-12-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-12-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>whoop! Now, you&rsquo;ll notice I used a command called <code>setNames</code> when adding the colours. This is because <code>circlize</code> wants a names vector for colours, so it know exactly which network should be which colour. In this way, it does not matter which order you provide the network names in (through the <code>order</code> call), the colours are always assigned correcly. Nice!</p>
 <p>Ok, notice how not all the networks in one group come after eachother in the wheel. For the wheel to make true sense, to me at least, all networks in a group should cluster together. This should be a farily easy task to manage. We order <code>DATA</code> by the group, and provide this new ordered list to the function.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>oDATA <span style="color:#f92672">=</span> DATA <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">arrange</span>(Group)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
 </span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names))
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-13-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-13-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Now, we&rsquo;re cooking! Let&rsquo;s get some text annotations in there. Like in the previous tutorial, we&rsquo;ll need to do this through a loop. If I ever get around to learning to use <code>purr</code> I&rsquo;ll get back to this and probably make it more efficient and pretty. For now, loops are easy for my brain to work with.</p>
 <p>Time for some brains! Like in the last tutorial, the brain images need to be read in one by one and added sequentially to the plot. We&rsquo;ll use the same technique as for the text annotations. Notice how we here are not going to be adding the images to the plot like in <code>ggplot</code>. But circlize keeps the viewport open and continues to write to it untill a new <code>chordDiagram</code> is called, or the diagram is cleared with <code>circos.clear</code>.</p>
 <p>First, we need to get the coordinates of our different sections. <code>circlize</code> had functions to grb this, by their name. We&rsquo;ll start with the one names <code>0000</code>.</p>
@@ -521,7 +542,11 @@
 </span></span><span style="display:flex;"><span>DATA<span style="color:#f92672">$</span>images<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;0000&#34;</span>, oDATA<span style="color:#f92672">$</span>images)] <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-18-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-18-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), annotationTrackHeight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.01</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
 </span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names))
 </span></span><span style="display:flex;"><span>
@@ -540,7 +565,11 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/featured-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Brain chord diagram! (malapropos: check out my friend&rsquo;s consultancy page <a href="http://www.brainchord.co.uk/">BrainChord</a> - &ldquo;We help women to optimise their work performance while taking care of their brain health and wellbeing&rdquo;. She does some excellent work!).</p>
 <p>These plots tok a lot of time to get nice. Even with the help of Tobias&rsquo; radian script (which I would not have figured out on my own). The clue lies in the pre-allocation of track heights to get it working. <code>preAllocateTracks = list(track.height = 0.3)</code> creates space outside the rim of the plot for the brains to be plotted, without this there is not enough room in the viewspace to get them in. <code>annotationTrackHeight=c(0.05, 0.01)</code> sets the sizes of the section colour and name widths, here I scrunch them a bit together so the diagram does not become too large. It require quite some fiddling with to get it looking nice. But once done, it is easy enough to continue using the same code to get it working.</p>
 <p>I&rsquo;m going to do one more thing before I stop. I find it hard to see the connections nicely when there are so many in a single diagram. What we can to is to plot the chords for each group seperately, and make three plots instead of one. Now, you&rsquo;d think that just subsetting the data should suffice. Let have a look at that first.</p>
@@ -569,7 +598,11 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-19-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>That does not look right. See how the networks in the group are made larger, while the others are bunched up in a corner? That&rsquo;s not what we want. We want all the networks plotted as before, but we want to highlight the chords from the network we are plotting. I&rsquo;ve found that using HEX alpha codes is the best way to go. Short intro to HEX colours, HEXs code for red, blue and green with pairs of digits succeeding a hash. Usually, most HEXs are only 6 digits, however, 8 digit HEXs also code for the opacity (or alpha/transparency) of the coded colour. You&rsquo;ll notice we have 6 digits in our HEX, and so we&rsquo;ll ass two more, to code for alpha. You can have a look at alpha-codes for HEX <a href="https://css-tricks.com/8-digit-hex-codes/">here</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>oDATA <span style="color:#f92672">=</span> oDATA <span style="color:#f92672">%&gt;%</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(gColorA <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(Group <span style="color:#f92672">%in%</span> <span style="color:#e6db74">&#34;Attention&#34;</span>, 
@@ -595,7 +628,11 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-20-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-20-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>We&rsquo;re getting there, but it&rsquo;s not what we are truly after. We want the sections to still show, but the chords to change colour. That is thankfully not so hard, you can spacify both the chord and the chord border colour in circlize if you want. We&rsquo;ll stick to the chord colour. We will assign the <code>grid.col</code> colours with the coloumn without the alpha set (which effectively means alpha is 100%), and then use the columns with the alpha set with the <code>col</code> specification.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">chordDiagram</span>(PAIRS,annotationTrack <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;grid&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>), annotationTrackHeight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.01</span>), preAllocateTracks <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(track.height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>), 
 </span></span><span style="display:flex;"><span>             order<span style="color:#f92672">=</span>oDATA<span style="color:#f92672">$</span>names, grid.col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColor, oDATA<span style="color:#f92672">$</span>names), col <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(oDATA<span style="color:#f92672">$</span>gColorA, oDATA<span style="color:#f92672">$</span>names))
@@ -615,7 +652,11 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-21-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-21-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>But what is this? Why are there suddenly coloured chords that are NOT part of the Attention group? Well, when colouring the chords only, you can&rsquo;t set the colour by the network (or section), because it will colour <strong>all</strong> chords connecting to the section. What we need, is to specity the colour of <strong>each</strong> chord. So instead of creating an hex alpha colour code in the original data, we should set it in the <code>PAIRS</code> dataframe, that has all the pair-wise connections.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Grab all the names of the networks in group &#34;Attention&#34;</span>
 </span></span><span style="display:flex;"><span>networks <span style="color:#f92672">=</span> oDATA <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(Group <span style="color:#f92672">%in%</span> <span style="color:#e6db74">&#34;Attention&#34;</span>) 
@@ -647,7 +688,11 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readPNG</span>() <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rasterImage</span>(x<span style="color:#ae81ff">-0.09</span>, y<span style="color:#ae81ff">-0.09</span>, x<span style="color:#ae81ff">+0.09</span>, y<span style="color:#ae81ff">+0.09</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-22-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-22-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>That&rsquo;s what we want. Now, we can loop through the groups and make one for each if we want. Maybe even make a gif? I&rsquo;m not going to do that now, but there are loads of fun things one can do!</p>
 
         </div>
@@ -677,7 +722,7 @@
                         &emsp;url = "https://drmowinckels.io/blog/2018/circluar-plots-in-r-and-adding-images/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13271548",<br> 
-                        &emsp;updated = "Mar 26, 2025"<br>
+                        &emsp;updated = "Mar 30, 2025"<br>
                     }
                 </div>
             </div>

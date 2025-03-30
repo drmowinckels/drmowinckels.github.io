@@ -75,6 +75,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
@@ -88,7 +91,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+    <script async data-id="101481526" src="//static.getclicky.com/js"></script>
+
 
         
 
@@ -426,7 +431,11 @@
 Last year I made a <a href="blog/christmas-tree-in-ggplot">Christmas tree ggplot</a>, and animated some snow and sparkling baubles.
 That was a lot of fun, and I decided I wanted to do something similar this year too.
 But this year we&rsquo;re going to build a snowman.</p>
-<p><img src="https://pics.me.me/do-you-wanna-build-a-snowman-13927884.png" alt=""><!-- --></p>
+<p>
+<div class="uk-thumbnail">
+    <img src="https://pics.me.me/do-you-wanna-build-a-snowman-13927884.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <h2 id="body">Body</h2>
 <p>A snowman needs a body, so lets start with that!
 Let&rsquo;s go for a two large body ball&rsquo;s, and a head.
@@ -457,7 +466,11 @@ Here we specify three circles, with different radii.</p>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(snowman) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_circle</span>(<span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> x, y0 <span style="color:#f92672">=</span> y, r <span style="color:#f92672">=</span> r)) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_fixed</span>()
-</span></span></code></pre></div><p><img src="index_files/figure-html/circles1-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/circles1-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>So we have three circles, and while this is pretty, it&rsquo;s not what we wanted.
 We need the circles stacked on top of eachother, not within eachother.
 An easy way to do this, is to calculate the y position of the circle middle using the radius information.
@@ -471,7 +484,11 @@ We will square the radius in a mutate (remember, a <code>mutate</code> can add o
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(snowman) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_circle</span>(<span style="color:#a6e22e">aes</span>(x0 <span style="color:#f92672">=</span> x, y0 <span style="color:#f92672">=</span> y, r <span style="color:#f92672">=</span> r)) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_fixed</span>()
-</span></span></code></pre></div><p><img src="index_files/figure-html/circles2-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/circles2-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Alright! Almost there.
 The body is up-side-down. Easy fix though, just multiply the y-axis with <code>-1</code> to flip it.
 This means we will be operating with negative numbers on the y-axis, but I don&rsquo;t really mind that.
@@ -489,7 +506,11 @@ This way we don&rsquo;t need to repeat the previous code all the time.</p>
 </span></span><span style="display:flex;"><span>              colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lightgrey&#34;</span>) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_fixed</span>()
 </span></span><span style="display:flex;"><span>p
-</span></span></code></pre></div><p><img src="index_files/figure-html/body-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/body-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Any snowman needs a face too.
 We&rsquo;re making a data frame (a tibble is a type of data frame), with x and y coordinates for eyes and nose, and also make a column specifying the colour for those elemens.
 We add them to our snowman by adding a <code>geom_point</code> to the plot, and use <code>shape = type</code> to make sure we get different shapes to the eyes and nose.
@@ -510,7 +531,11 @@ So we do not need to tweak that more later.</p>
 </span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, 
 </span></span><span style="display:flex;"><span>                 shape <span style="color:#f92672">=</span> type, colour <span style="color:#f92672">=</span> <span style="color:#a6e22e">I</span>(colour)))
 </span></span><span style="display:flex;"><span>p
-</span></span></code></pre></div><p><img src="index_files/figure-html/face-1.png" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/face-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>What is a face without a mouth?
 The arc of a mouth again is not the easiest to make, but again {ggforce} comes to the rescue with <code>geom_arc</code>.
 I have to be honest, I don&rsquo;t really understand the mapping of the <code>start</code> and <code>end</code> points of the arc, but otherwise it is quite similar to <code>geom_circle</code>.
@@ -523,7 +548,11 @@ We need to specify the x and y  coordinates for the middle of the arc, which we 
 </span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
-</code></pre><p><img src="index_files/figure-html/mouth-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/mouth-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Next up in the body-department, are arms.
 We cant have him not being able to wave to us!
 This was again mostly trial and error or finding coordinates I liked for the arms,
@@ -553,7 +582,11 @@ In <code>geom_line</code> using the <code>group</code> argument informs the geom
 </span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
-</code></pre><p><img src="index_files/figure-html/arms-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/arms-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>He looks like a happy snowman!</p>
 <h2 id="accessories">Accessories</h2>
 <p>Let&rsquo;s give him some accessories, it&rsquo;s all in the detailes.
@@ -564,7 +597,11 @@ These are farily easy, we position all buttons at <code>x = 0</code> and then at
 </span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
-</code></pre><p><img src="index_files/figure-html/buttons-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/buttons-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>And what is a snowman without a hat?
 We give him a tophat, &lsquo;cause he&rsquo;s a gentleman (and tophats are not particularly hard to draw with a polygon).
 Since we&rsquo;re making a polygon, we need x and y position for each polygon corner(breakpoint), and add an id column so we can tell <code>geom_polygon</code> that all these points belong to a single polygon.</p>
@@ -580,7 +617,11 @@ Since we&rsquo;re making a polygon, we need x and y position for each polygon co
 </span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
-</code></pre><p><img src="index_files/figure-html/tophat-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/tophat-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>He&rsquo;s looking quite fab, I must say.
 But it looks a little chilly, he needs a scarf, and we&rsquo;ll use lines for that.
 For simplicitiy.
@@ -598,7 +639,11 @@ And then make it red.</p>
 </span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
-</code></pre><p><img src="index_files/figure-html/scarf-1.png" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/scarf-1.png" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <h2 id="ambience">Ambience</h2>
 <p>So now we have a snowman, and we like the way he looks.
 He makes me happy at least.</p>
@@ -651,7 +696,11 @@ So each snowflake is identified with the &lsquo;id&rsquo; column, and a new colu
 </span></span><span style="display:flex;"><span>p
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
-</code></pre><p><img src="index_files/figure-html/snow-1.gif" alt=""><!-- --></p>
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/snow-1.gif" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>SNOW! Falling snow AND a snowman!
 Can you feel my excitement?</p>
 <p>Ok, one last element I want, I want a nice serene background.
@@ -684,7 +733,11 @@ By using this dataset in <code>geom_tile</code> and using the &lsquo;id&rsquo; c
 </span></span><span style="display:flex;"><span>  )
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: Use of `snowman$x` is discouraged. Use `x` instead.
 </code></pre><pre tabindex="0"><code>## Warning: Use of `snowman$y` is discouraged. Use `y` instead.
-</code></pre><p><img src="index_files/figure-html/background-1.gif" alt=""><!-- -->
+</code></pre><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/background-1.gif" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- -->
 But oh no! The tiles are masking the rest of the plot!
 No worries, this was expected.
 Remember that ggplot layers are added in the sequence you provide them.
@@ -759,7 +812,11 @@ To fix this, we will remake the entire plot, and make sure things come in the ot
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_time</span>(time)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>p
-</span></span></code></pre></div><p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-2-1.gif" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 <p>Look at him! :) I&rsquo;m quite happy with this guy.
 Play around with it as you like, figure out what I did and how.
 Show me your snowmen too!</p>
@@ -768,7 +825,11 @@ Show me your snowmen too!</p>
 </span></span><span style="display:flex;"><span>            colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;goldenrod&#34;</span>, vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, 
 </span></span><span style="display:flex;"><span>            angle <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, 
 </span></span><span style="display:flex;"><span>            family<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Times&#34;</span>, fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;italic&#34;</span>)
-</span></span></code></pre></div><p><img src="index_files/figure-html/featured-1.gif" alt=""><!-- --></p>
+</span></span></code></pre></div><p>
+<div class="uk-thumbnail">
+    <img src="index_files/figure-html/featured-1.gif" alt="">
+    <div class="uk-thumbnail-caption uk-text-small"></div>
+</div><!-- --></p>
 
         </div>
     </article><div class="uk-margin">
@@ -797,7 +858,7 @@ Show me your snowmen too!</p>
                         &emsp;url = "https://drmowinckels.io/blog/2019/do-you-wanna-build-a-snowman/",<br>
                         &emsp;year = 2019,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273500",<br> 
-                        &emsp;updated = "Mar 26, 2025"<br>
+                        &emsp;updated = "Mar 30, 2025"<br>
                     }
                 </div>
             </div>
