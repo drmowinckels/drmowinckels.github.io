@@ -2,10 +2,10 @@ baseURL  = ""
 theme    = "hugo-igloo"
 title    = "Dr. Mowinckel's"
 
-buildDrafts     = true    # Include pages with draft status of true
-buildFuture     = true    # Include content with publishdate in the future
+buildDrafts     = true    
+buildFuture     = true   
 
-canonifyurls    = true    # Turns relative urls into absolute urls
+canonifyurls    = true    
 enableRobotsTXT = true
 enableGitInfo   = true
 enforce_ssl     = true
@@ -27,6 +27,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
     dateFormat    = "Jan 2, 2006"
     #customCSS     = ["/css/syntax.css", "/css/custom-style.css"]   # Include custom css files placed under assets/
     subtitle       = "&#8212; all things R and neuroimaging &#8212;"
+    clicky = "101481526"
 
     [params.footerSection]
         title   = "<i class=\"fa-regular fa-copyright\"></i> 2023 Athanasia Mo Mowinckel"
