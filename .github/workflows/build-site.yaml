@@ -127,6 +127,8 @@ jobs:
       - name: Commit content with doi
         if: github.ref == 'refs/heads/main'
         run: |
+          git config --local user.email "actions@github.com"	
+          git config --local user.name "GitHub Actions"	
           git commit content/blog -m 'Add doi' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
 
