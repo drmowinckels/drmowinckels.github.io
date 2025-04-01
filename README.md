@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **61** days, or about **0.49** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **16** days ago ([Harness Local LLMs and
+✍️ The last post was published **23** days ago ([Harness Local LLMs and
 GitHub Copilot for Enhanced R Package
 Development](https://drmowinckels.io/blog/ollama)).
 
@@ -83,4 +83,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-03-19 01:24:19.189879*
+*Updated 2025-03-26 01:21:39.889841*
