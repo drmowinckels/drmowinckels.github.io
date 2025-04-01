@@ -191,6 +191,10 @@ You can quickly open your settings file by `cmd` + `k`, and then choosing the "o
     "[quarto]": {
         "editor.formatOnSave": true
     },
+    "[makefile]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    },
     "workbench.colorTheme": "Default Dark Modern",
     "workbench.editor.enablePreview": false,
     "positron.r.quietMode": true,
@@ -201,11 +205,7 @@ You can quickly open your settings file by `cmd` + `k`, and then choosing the "o
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
     "gitlens.defaultDateFormat": "YYYY-MM-D hh:mm",
     "gitlens.defaultDateShortFormat": "YYYY-MM-D",
-    "gitlens.defaultTimeFormat": "hh:mm",
-    "[makefile]": {
-        "editor.insertSpaces": false,
-        "editor.detectIndentation": false
-    }
+    "gitlens.defaultTimeFormat": "hh:mm"
 }
 ```
 
