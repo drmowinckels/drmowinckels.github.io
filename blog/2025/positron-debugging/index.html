@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Positron: current joys and pains - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="After 6 months, Positron’s modern interface, polyglot support, &amp; viewers are loved. Debugger quirks persist: console hangs, history issues, &amp; tab focus. Data viewer lacks list support &amp; labeled data. Despite pains, Positron’s potential shines." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Positron&rsquo;s pros &amp; cons. From improved workflow transparency, to growing debugging pains.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/positron-debugging/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Positron: current joys and pains - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Positron&rsquo;s pros &amp; cons. From improved workflow transparency, to growing debugging pains.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/positron-debugging/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Positron&rsquo;s pros &amp; cons. From improved workflow transparency, to growing debugging pains.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/positron-debugging/img/featured.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/positron-debugging/img/featured.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/positron-debugging/img/featured.png" alt="The Positron logo reimagined as a spiral galaxy with a bright core and a swirling ring of stars and gas. The galaxy is set against a dark background with a few scattered stars." class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Positron: current joys and pains</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Apr 1, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/positron/" class="uk-label uk-label-secondary tags" >
+                                Positron
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/data-science/" class="uk-label uk-label-secondary tags" >
+                                Data Science
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/ide/" class="uk-label uk-label-secondary tags" >
+                                IDE
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/debugging/" class="uk-label uk-label-secondary tags" >
+                                Debugging
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-i-enjoy-positron">Why I enjoy Positron</a>
+      <ul>
+        <li><a href="#1-its-a-much-more-modern-ide">1. It&rsquo;s a much more modern IDE</a></li>
+        <li><a href="#2-polyglot">2. Polyglot</a></li>
+        <li><a href="#3-environment-viewer">3. Environment viewer</a></li>
+        <li><a href="#4-rstudio-viewer-pane-compatibility">4. RStudio viewer pane compatibility</a></li>
+      </ul>
+    </li>
+    <li><a href="#what-are-my-remaining-pain-points">What are my remaining pain points?</a>
+      <ul>
+        <li><a href="#the-debugger">The debugger</a></li>
+        <li><a href="#the-data-viewer">The data viewer</a></li>
+      </ul>
+    </li>
+    <li><a href="#my-current-positron-settings-file">My current Positron settings file</a></li>
+    <li><a href="#where-are-we-now">Where are we now?</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">After 6 months, Positron&rsquo;s modern interface, polyglot support, &amp; viewers are loved. Debugger quirks persist: console hangs, history issues, &amp; tab focus. Data viewer lacks list support &amp; labeled data. Despite pains, Positron&rsquo;s potential shines.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p><em>This post is on request from <a href="https://masalmon.eu/">Maëlle Salmon</a>, who has finally decided to give Positron a go!</em></p>
+<p>I started using <a href="https://drmowinckels.io/blog/2024/positron">Positron last year</a>.
+We all know <a href="https://drmowinckels.io/blog/2025/longcovid">I&rsquo;m not working</a>, so it&rsquo;s not like I&rsquo;ve been totally immersed in Positron.
+I have, on the other hand, been doing some side-projects for myself and R-Ladies, and writing blog posts exclusively in Positron for about 6 months now.
+I have not needed RStudio for all this time, and it&rsquo;s at the point where I feel uninstalling it is just around the corner.</p>
+<p>I thought I&rsquo;d give you an update about what I&rsquo;m enjoying with it and what my very last pain point is: the debugger.</p>
+<h2 id="why-i-enjoy-positron">Why I enjoy Positron</h2>
+<p>This list is not particularly different from my <a href="https://drmowinckels.io/blog/2024/positron">initial post</a>.
+All the points of why I like Positron still stand.</p>
+<h3 id="1-its-a-much-more-modern-ide">1. It&rsquo;s a much more modern IDE</h3>
+<p>The interface and setup is just much much more contemporary.
+RStudio feels dated in comparison.
+The file explorer is so neat, and I love that it&rsquo;s a tree, rather than having to look at a single folder at the time like in RStudio.</p>
+<h3 id="2-polyglot">2. Polyglot</h3>
+<p>While you <em>can</em> code in other languages in RStudio, it&rsquo;s not inherently made for it.
+So you don&rsquo;t easily have access to linters and other nice enhancement tools.
+Positron, since it&rsquo;s based on VSCode, can deal with any language, and all the extensions mean you can get all these extra tools to enhance your work.
+Like <a href="https://open-vsx.org/extension/dbaeumer/vscode-eslint">ESLint</a> for linting your javascript.
+I&rsquo;m sure there are lots of extensions for languages I don&rsquo;t use, so search for what you might want and test things out!</p>
+<p>Of my fav things right now is the <a href="https://www.tidyverse.org/blog/2025/02/air/">Air</a> extension, which will auto-format your code upon saving the file!
+No more finnicky stylizing the code so it looks better, it happens automagically when the file is saved.
+To be fair, you can get Air for RStudio also, but it&rsquo;s much easier to set up for Positron.
+Note that Air is for R, there are other similar tools for other languages.</p>
+<h3 id="3-environment-viewer">3. Environment viewer</h3>
+<p>In comparison to VSCode, its much better for Data Science, since you have the environment viewer.
+One thing I never likes in VSCode, was that I felt like working completely uninformed about my project state compared to RStudio, not being able to get an easy overview of what was in my working environment.</p>
+<p>
+<div class="uk-thumbnail">
+    <img src="img/data_viewer.png" alt="Screenshot of environment viewer, which can be seen in the upper right quadrant. This environment contains a vector, a dataframe and a function.">
+    <div class="uk-thumbnail-caption uk-text-small">Screenshot of environment viewer, which can be seen in the upper right quadrant. This environment contains a vector, a dataframe and a function.</div>
+</div></p>
+<h3 id="4-rstudio-viewer-pane-compatibility">4. RStudio viewer pane compatibility</h3>
+<p>A feature that did not exist when I write the last post, was that Positron &ldquo;shims&rdquo; the RStudio viewer pane.
+This means that any package that has functionality that sends something to the viewer pane, should also work in Positron!</p>
+<p>Blogdown users should rejoice, as this makes the popular <code>blogdown::serve_site()</code> now work in Positron, and other Shiny addins should also work.
+Suuuuper nice!</p>
+<p>
+<div class="uk-thumbnail">
+    <img src="img/blogdown.png" alt="Screenshot of the R-Ladies Hugo Website rendered in the Positron Viewer pane with blogdown::serve_site()">
+    <div class="uk-thumbnail-caption uk-text-small">Screenshot of the R-Ladies Hugo Website rendered in the Positron Viewer pane with <code>blogdown::serve_site()</code></div>
+</div></p>
+<h2 id="what-are-my-remaining-pain-points">What are my remaining pain points?</h2>
+<h3 id="the-debugger">The debugger</h3>
+<p>Ok, so debugging in Positron is know to have some quirks.
+As I do, I asked on social media for tips.</p>
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:sgdhwgqd2ulz4zf5i4n4clnd/app.bsky.feed.post/3lgg3xwsuss2l" data-bluesky-cid="bafyreih5ejcdrbbdcw5lx4l2hggonirchpicdztqp64yze35vdxthnt6ja"><p>I love seeing all these #positronIDE posts with tips on settings etc. Really helpful stuff! 
+
+What I feel in missing, is a recording of how to efficiently work with the debugger. I&#39;m very comfy in the #rstudio debugger, but can&#39;t seem to get the hang of Positron&#39;s. 
+
+#rstats #python #datascience</p>&mdash; <a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd?ref_src=embed">ᴅʀ. ᴍᴏᴡɪɴᴄᴋᴇʟ&#39;ꜱ (@drmowinckels.io)</a> <a href="https://bsky.app/profile/did:plc:sgdhwgqd2ulz4zf5i4n4clnd/post/3lgg3xwsuss2l?ref_src=embed">2025-01-23T14:32:45.497Z</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+<p>I got some nice replies, from the developers and other power users, which did help!
+But it also revealed that there are definite bugs in there.
+I&rsquo;ll summarise what was discussed h below.</p>
+<p>Instead, you need to enter the Debug section of the left sidebar.
+Unlike RStudio, your working environment <em>is not</em> changed into the function you are debugging.
+In stead, you need to enter the Debug section of the left sidebar.</p>
+<p><a href="img/debugger1.png">Screenshot of the Positron Debugger pane. Notice how my working environment (upper right) does not contain the debugging variable, but the debugger (left side) has it. </a></p>
+<p>This is easy enough to get used to, and also highlights that while you are in the function, R technically still has access to your working environment, so that might still trip up your functions in other settings.</p>
+<h4 id="autofocus-to-function-tab">Autofocus to function tab</h4>
+<p>In RStudio, when you enter the debugger in your own functions, you auto-focus on the function in whatever file you have it in.
+In Positron, a <a href="https://github.com/posit-dev/positron/issues/3151">new tab is opened with the contents of the function</a> as it is, for you to run through, but you cannot alter the code because it&rsquo;s in memory, not an actual file.
+This is a huge annoyance.
+Notice in the screenshot above, how the middle pane, which usually contains my scripts, has a tab open with the greyed out function code.
+This is what you autofocus to when you enter the debugger.</p>
+<p>
+<div class="uk-thumbnail">
+    <img src="img/debugger2.png" alt="Screenshot of the debugger in Positron. Debugger environment on the left, and in the middle the function file I would like to auto-focus to in stead, because I can alter it as I debug my function.">
+    <div class="uk-thumbnail-caption uk-text-small">Screenshot of the debugger in Positron. Debugger environment on the left, and in the middle the function file I would like to auto-focus to in stead, because I can alter it as I debug my function.</div>
+</div></p>
+<p>This means that a workflow I use a lot, which is make an (almost) empty function, and jump into it to start writing the function while in debugger mode is kind of frustratingly hard.
+It means jumping back and forth between a &lsquo;useless&rsquo; tab (with the original contents of the function) and where I have defined the function in my <code>.R</code>file.</p>
+<p>Hopefully, there will be a better solution for this in the near future.</p>
+<h4 id="history-from-debugger-remains-in-main-environment">History from debugger remains in main environment</h4>
+<p>Everything you do while debugging (like running next line code with <code>n</code>), <a href="https://github.com/posit-dev/positron/issues/4478">remains in your console history</a>.
+Which means you R history get seriously bloated with non-senscical code.
+For those of us who repeatedly navigate through R history to pick up recent lines of code to rerun, this is quite frustrating.</p>
+<h4 id="running-code-while-in-the-debugger">Running code while in the debugger</h4>
+<p>What the struggle is, in my opinion, is <em>how to run the code</em> when you are in the debugger.
+My previous workflow would be to copy and paste sections I wanted to run into the console, allowing me to jump back and forth between different parts of the function while I figured out a solution.</p>
+<p>This <a href="https://github.com/posit-dev/positron/issues/5928">will not work</a> in Positron currently.
+Pasting into the console while in debugging mode, will leave your console forever waiting for input, as if you have not closed a bracket or parentheses correctly.
+You can double check your code as much as you like, nothing will help.
+It&rsquo;s a bug in Positron, and they don&rsquo;t have a solution yet.</p>
+<p>How do you exit this strange scenario??
+You spam the <code>ctrl</code> + <code>c</code> combo until you are out of it.
+How many times you need to do this, varies, I have not found a systematic reason for the number of button clicks needed.
+But rest assured, you <em>will</em> be able to exit this hanging state.</p>
+<p>
+<div class="uk-thumbnail">
+    <img src="img/debugger3.png" alt="Screenshot of Positron debugger in its &ldquo;hanging&rdquo; state. I have copy &#43; pasted this multi-line lapply function, and while the lapply statement is complete, the debugger console it waiting for more input.">
+    <div class="uk-thumbnail-caption uk-text-small">Screenshot of Positron debugger in its &ldquo;hanging&rdquo; state. I have copy + pasted this multi-line lapply function, and while the lapply statement is complete, the debugger console it waiting for more input.</div>
+</div></p>
+<p>Running code in the debugger can be done with <code>ctrl</code> + <code>enter</code>, which will run the code line by line from the <code>browser()</code>, breakpoint or other debugging marker you have used.
+If I&rsquo;ve moved the cursor for some reason, whenever I do <code>ctrl</code> + <code>enter</code>, it just is stuck at my <code>browser()</code>, without running other code.
+However, if you&rsquo;ve moved the cursor manually, that might not work, for reasons I don&rsquo;t know.
+If I&rsquo;ve moved the cursor for some reaason, whenever I do <code>ctrl</code> + <code>enter</code>, it just is stuck at my <code>browser()</code>, without running other code.</p>
+<h4 id="exiting-the-debugger">Exiting the debugger</h4>
+<p>It also tok me a little while to learn how to exit the debugger correctly.
+In RStudio, I have to admit to exiting with the pointy-clicky method in the IDE.
+This is, kind of weird, as I usually always opt for keyboard solutions for things, but I think it was just a thing that has stuck around from my novice days and I never transitioned out of it.
+Now, however, Positron does not necessarily have an super pointy-clicky way to exit, which it great!
+Because now I&rsquo;ve learned to exit properly by typing <code>Q</code> in the console and hitting enter.
+Much better workflow!</p>
+<p>So, while there still are annoying things with the debugger in Positron, I must admit that it has helped me better understand the R debugger as a tool.
+Before, I very much relied on the help RStudio was giving me with debugging, but I think I understand better how it actually works now.</p>
+<p>I&rsquo;d you&rsquo;d like to see a live demo of the debugger, you can see <a href="https://www.youtube.com/watch?v=p_4ZS-nnQ2Q">James Balamuta&rsquo;s video on YouTube</a>.</p>
+<h3 id="the-data-viewer">The data viewer</h3>
+<p>So, the data viewer is really nice, and mimmicks RStudio&rsquo;s viewer well. It does have some exceptions, though.
+While looking at normal data.frames, its very convenient.
+But it does not handle labelled data, which I have become a recent fan of thanks to <a href="https://www.youtube.com/watch?v=eoI9QZdHBMw">Shannon Pileggi</a>, while RStudio has had that support a really long time.
+It also does not give you the option to explore lists like a tree, like RStudio does.
+And that&rsquo;s a real bummer!
+I more often used to inspect lists in RStudio&rsquo;s data viewer rather than data.frames, I more often print data.frames to the console and subset them to inspect various aspects of them.</p>
+<p>
+<div class="uk-thumbnail">
+    <img src="img/viewer_dt.png" alt="Screenshot of the data viewer inspecting a data.frame. You get a little graph of each column, and then can inspect the data and see the column data type directly in the viewer.">
+    <div class="uk-thumbnail-caption uk-text-small">Screenshot of the data viewer inspecting a data.frame. You get a little graph of each column, and then can inspect the data and see the column data type directly in the viewer.</div>
+</div></p>
+<p>One other thing that annoys me with it, is that it also is used to display text-files with common tabular data extension (csv, tsv, etc.).
+I prefer using the <a href="https://open-vsx.org/extension/mechatroner/rainbow-csv">Rainbow csv extension</a> in Positron for looking at tabular text file content, as I often either am looking for incorrect data entries, or data I manually want to alter (because I made the data and just want a quick fix).</p>
+<p>
+<div class="uk-thumbnail">
+    <img src="img/viewer_csv.png" alt="Screenshot of data viewer looking at a csv. The viewer is not correctly guessing my delimiter, and so only thinks there are two columns, and so this tool doesn&rsquo;t work for this file.">
+    <div class="uk-thumbnail-caption uk-text-small">Screenshot of data viewer looking at a csv. The viewer is not correctly guessing my delimiter, and so only thinks there are two columns, and so this tool doesn&rsquo;t work for this file.</div>
+</div></p>
+<p>Thankfully, writing this post I also noticed the little tab at the top of the data viewer while looking at a csv file that says <code>Open as plan text</code> and presto!
+I could view my file with ranbow csv in stead.
+So I guess this is no longer a pain point, really!</p>
+<p>
+<div class="uk-thumbnail">
+    <img src="img/rainbow_csv.png" alt="Screenshot of plaint text ranbow csv. Here we can see the entire content, and rainbow csv is colouring data in the same column the same colour, so I can easily identify what belongs together.">
+    <div class="uk-thumbnail-caption uk-text-small">Screenshot of plaint text ranbow csv. Here we can see the entire content, and rainbow csv is colouring data in the same column the same colour, so I can easily identify what belongs together.</div>
+</div></p>
+<h2 id="my-current-positron-settings-file">My current Positron settings file</h2>
+<p>Just for the sake of it, I&rsquo;ll also include here what I have in my Positron settings file.
+These help control the IDE and some extensions to behaviours or appearance that I prefer.
+You can quickly open your settings file by <code>cmd</code> + <code>k</code>, and then choosing the &ldquo;open file&rdquo; icon on the right hand side of the settings pane.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.wordWrap&#34;</span>: <span style="color:#e6db74">&#34;bounded&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.inlineSuggest.enabled&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.fontFamily&#34;</span>: <span style="color:#e6db74">&#34;&#39;Fira Code&#39;, monospace&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.fontLigatures&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.fontSize&#34;</span>: <span style="color:#ae81ff">14</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;[r]&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;[quarto]&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;workbench.colorTheme&#34;</span>: <span style="color:#e6db74">&#34;Default Dark Modern&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;workbench.editor.enablePreview&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;positron.r.quietMode&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;database-client.autoSync&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;git.autofetch&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;githubPullRequests.pullBranch&#34;</span>: <span style="color:#e6db74">&#34;never&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;githubPullRequests.pushBranch&#34;</span>: <span style="color:#e6db74">&#34;always&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;python.defaultInterpreterPath&#34;</span>: <span style="color:#e6db74">&#34;/opt/homebrew/bin/python3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gitlens.defaultDateFormat&#34;</span>: <span style="color:#e6db74">&#34;YYYY-MM-D hh:mm&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gitlens.defaultDateShortFormat&#34;</span>: <span style="color:#e6db74">&#34;YYYY-MM-D&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gitlens.defaultTimeFormat&#34;</span>: <span style="color:#e6db74">&#34;hh:mm&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;[makefile]&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.insertSpaces&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.detectIndentation&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="where-are-we-now">Where are we now?</h2>
+<p>Positron is quickly shaping up to be a great go-to tool for development <em>and</em> for data science.
+In terms of replacing RStudio, it&rsquo;s done it for me.
+I&rsquo;m still uncertain if I would teach beginners with Positron rather than RStudio, the setup is for sure more daunting and I don&rsquo;t want beginners confused by something that is supposed to help them.
+But don&rsquo;t worry, RStudio is not going anywhere!</p>
+<p>I think the future for Positron is very bright, and I&rsquo;m happy for all the resources Posit are putting into its development.</p>
+<p>Have you tried it yet?
+What are your pro&rsquo;s and con&rsquo;s so far?</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Apr 1, 2025) 
+                    Positron: current joys and pains. 
+                    Retrieved from https://drmowinckels.io/blog/2025/positron-debugging/.
+                     DOI: https://www.doi.org/10.5281/zenodo.15119831
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-positron-current-joys-and-pains,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Positron: current joys and pains",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/positron-debugging/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.15119831",<br> 
+                        &emsp;updated = "Apr 1, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>The IDEs I use</h2>
+    
+      <p>Explore my programming IDE journey, from MATLAB and gedit to RStudio and VSCode. Learn about the strengths of each IDE for different languages and tasks, and why I switch between RStudio and VSCode depending on the project. Insights on optimizing your coding environment for efficiency and productivity.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ide/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">programming</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">rstudio</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">vscode</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 03, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Harness Local LLMs and GitHub Copilot for Enhanced R Package Development</h2>
+    
+      <p>In this post I explore local large language models (LLMs) with R for code assistance, using tools like chores, ensure, gander, and continue in Positron. The post explores R options and keybindings for various tools, adjusting settings to optimize performance. Lastly, I switch to GitHub Copilot for better results, encountering rate limits but finding workarounds to control autocomplete triggers.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/ollama/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ollama</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Cracking the LinkedIn API through R</h2>
+    
+      <p>I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin-api/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">linkedin</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Positron IDE - A new IDE for data science</h2>
+    
+      <p>Positron, an IDE developed for data science, combines the best features of RStudio and Visual Studio Code. Learn about its features, customization options, and extensions. Discover how Positron compares to other popular IDEs and why it&rsquo;s a promising tool for data scientists.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/positron/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">data-science</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">positron</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">vscode</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 01, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Setting up a Freesurfer LMM through R</h2>
+    
+      <p>Learn to create model matrices for Freesurfer Linear Mixed Models (LMM) in R using built-in functions. This guide walks you through manually creating model matrices, utilizing the <code>model.matrix</code> function, and standardizing variables. Includes creating a function to streamline the process, making neuroimaging data analysis more efficient.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/freesurfer-lmm-r/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">freesurfer</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">neuroimaging</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>
