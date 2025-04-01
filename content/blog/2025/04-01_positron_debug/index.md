@@ -11,7 +11,6 @@ categories: []
 tags:
   - R
   - Positron
-  - Data Science
   - IDE
   - Debugging
 slug: "positron-debugging"
