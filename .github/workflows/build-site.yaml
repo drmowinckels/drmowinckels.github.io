@@ -88,14 +88,13 @@ jobs:
           echo "hugo_v=${ver}" >> $GITHUB_ENV
           nalias=$(echo ${{ github.head_ref }} | sed 's/_/-/g')
           echo "nalias=${nalias}" >> $GITHUB_ENV
-          echo ${{ env.RUN_DOI }}
 
       - name: Install cURL Headers
         run: |
           sudo apt-get update
           sudo apt-get install libcurl4-openssl-dev
   
-      - name: Install pdf svg handler
+      - name: Install pdf svg imageMagick
         if: ${{ env.RUN_DOI == 'true' }}
         run: sudo apt-get install librsvg2-dev
 
@@ -140,7 +139,7 @@ jobs:
       - name: Build
         run: |
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
-            hugo -e production
+            hugo -e production 
           else
             hugo \
               --buildDrafts \
@@ -190,10 +189,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install cURL Headers
+      - name: Install lib deps
         run: |
           sudo apt-get update
-          sudo apt-get install libcurl4-openssl-dev
+          sudo apt-get install libcurl4-openssl-dev  libmagick++-dev
           
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
