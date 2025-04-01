@@ -16,11 +16,19 @@ if (length(post) == 0) {
   post <- post[1]
 }
 
+{
+  "url": "https://www.example.com/my-really-long-link-that-I-need-to-shorten/84378949",
+  "domain": "tinyurl.com",
+  "alias": "myexamplelink",
+  "tags": "example,link",
+  "expires_at": "2024-10-25 10:11:12",
+  "description": "string"
+}
+
 short_url <- function(uri) {
-  resp <- httr2::request("http://v.gd/create.php") |>
-    httr2::req_url_query(
-      format = "json",
-      url = uri
+  resp <- httr2::request("https://api.tinyurl.com/create") |>
+    httr2::req_body_json(
+      list(url = uri)
     ) |>
     httr2::req_perform() |>
     httr2::resp_body_string() |>
