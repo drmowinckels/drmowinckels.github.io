@@ -201,7 +201,11 @@ You can quickly open your settings file by `cmd` + `k`, and then choosing the "o
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
     "gitlens.defaultDateFormat": "YYYY-MM-D hh:mm",
     "gitlens.defaultDateShortFormat": "YYYY-MM-D",
-    "gitlens.defaultTimeFormat": "hh:mm"
+    "gitlens.defaultTimeFormat": "hh:mm",
+    "[makefile]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    }
 }
 ```
 
