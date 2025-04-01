@@ -1,9 +1,9 @@
-name: Auto Merge Pending PRs
+name: Merge Pending PRs
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '12 13 * * *'
+    - cron: '58 10 * * *'
 
 env:
   GH_TOKEN: ${{ github.token }}
