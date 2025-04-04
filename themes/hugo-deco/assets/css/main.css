@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@source "hugo_stats.json";
+
+/* Relative to css static */
+@font-face {
+    font-family: "Capires";
+    src: url("../webfonts/capires/capires.eot");
+    src: url("../webfonts/capires/capires.eot?#iefix")format("embedded-opentype"),
+    url("../webfonts/capires/capires.woff2")format("woff2"),
+    url("../webfonts/capires/capires.woff")format("woff"),
+    url("../webfonts/capires/capires.ttf")format("truetype"),
+    url("../webfonts/capires/capires.svg#Capires Demo")format("svg");
+}
+
+@font-face {
+    font-family: "Tenor Sans";
+    font-weight: 400;
+    font-style: normal;
+    src: url("../webfonts/tenor-sans/TenorSans-Regular.ttf")format("truetype")
+}
+  
+
+@theme {
+    --color-deco-gold: #D4AF37;
+    --color-deco-navy: #000030;
+    --color-deco-cream: #FFFDD0;
+    --font-sans: Capires, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-serif: "Tenor Sans", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;  
+}
+

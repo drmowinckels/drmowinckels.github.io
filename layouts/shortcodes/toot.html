@@ -1,0 +1,24 @@
+
+{{ $toot   := .Get "toot" }}
+{{ $user   := .Get "user" }}
+{{ $server := .Get "server" }}
+
+{{ if not $toot }}
+    {{ errorf "toot shortcode requires a 'toot' parameter" }}
+{{ end }}
+
+{{ if not $user }}
+    {{ errorf "toot shortcode requires a 'user' parameter" }}
+{{ end }}
+
+{{ if not $server }}
+    {{ errorf "toot shortcode requires a 'server' parameter" }}
+{{ end }}
+{{ $url := printf "https://%s/@%s/%s/embed" $server $user $toot}}
+
+<iframe
+    src="{{ $url }}"
+    width="400"
+    allowfullscreen="allowfullscreen"
+    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
+></iframe>

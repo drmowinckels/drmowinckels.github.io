@@ -1,22 +1,10 @@
 {
-  "name": "drmowinckels",
-  "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.19",
-    "postcss-cli": "^10.1.0",
-    "uuid": "^9.0.0"
-  },
   "devDependencies": {
-    "bulma": "^0.9.4",
-    "node-sass": "^8.0.0"
-  },
-  "scripts": {
-    "build-css": "node-sass --include-path sass sass/custom-style.sass public/css/custom-style.css",
-    "watch-css": "nodemon -e sass -x \"npm run build-css\""
-  },
-  "author": "Athanasia Monika Mowinckel",
-  "license": "ISC"
+    "@tailwindcss/cli": "^4.1.1",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.0",
+    "tailwindcss": "^4.1.1"
+  }
 }
