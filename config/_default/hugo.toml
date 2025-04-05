@@ -11,7 +11,8 @@ enableGitInfo   = true
 enforce_ssl     = true
 
 
-DefaultContentLanguage  = "en"    # Default language for multilingual sites
+DefaultContentLanguage  = "en" 
+
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.html",
     "static/blog/\\*_files/", "README", "\\.knit\\.md$", "\\.utf8\\.md$",
     "\\.qmd$", "\\.ipynb$", "\\.py$", "about/resume*"]
@@ -23,9 +24,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
       unsafe = true
 
 [params]
-    themeStyle    = "light"                 # Choose "light" or "dark"
     dateFormat    = "Jan 2, 2006"
-    #customCSS     = ["/css/syntax.css", "/css/custom-style.css"]   # Include custom css files placed under assets/
     subtitle       = "&#8212; all things R and neuroimaging &#8212;"
     clicky = "101481527"
 
@@ -72,7 +71,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
         theme = "light"
         lang = "en"
 
-# If you don't want to use the default menu, you can define one by yourself
 [[menu.main]]
    name    = "About"
    url     = "/about"

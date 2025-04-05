@@ -16,25 +16,7 @@ if (length(post) == 0) {
   post <- post[1]
 }
 
-short_url <- function(uri) {
-  resp <- httr2::request("http://is.gd/create.php") |>
-    httr2::req_url_query(
-      format = "json",
-      url = uri
-    ) |>
-    httr2::req_perform() |>
-    httr2::resp_body_string() |>
-    jsonlite::fromJSON()
-  resp$shorturl
-}
-
-strlength <- function(x) {
-  strsplit(x, "") |>
-    unlist() |>
-    length()
-}
-
-
+source(here::here(".github/scripts/utils.R"))
 source(here::here(".github/scripts/linkedin.R"))
 source(here::here(".github/scripts/kit_newsletter.R"))
 
