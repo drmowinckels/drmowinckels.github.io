@@ -1,0 +1,22 @@
+{{ $siteTitle := .Site.Title }}
+{{ $sitesummary := .Site.Params.description | default "Default site summary." }}
+{{ $ogType := "website" }}
+{{ $ogTitle := .Title | default $siteTitle }}
+{{ $ogsummary := .Summary | default $sitesummary }}
+{{ $ogURL := .Permalink | default .Site.BaseURL }}
+{{ $ogImage := .Params.image | default "favicon.ico" }} 
+
+{{ $ogLocale := .Site.LanguageCode }}
+{{ $twitterCard := "summary_large_image" }}
+
+
+<meta property="og:type" content="{{ $ogType }}">
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:description" content="{{ $ogsummary }}">
+<meta property="og:url" content="{{ $ogURL }}">
+<meta property="og:image" content="{{ $ogImage }}">
+<meta property="og:locale" content="{{ $ogLocale }}">
+<meta name="twitter:card" content="{{ $twitterCard }}">
+<meta property="twitter:title" content="{{ $ogTitle }}">
+<meta property="twitter:summary" content="{{ $ogsummary }}">
+<meta property="twitter:image" content="{{ $ogImage }}">

@@ -1,0 +1,9 @@
+{{- $icon := resources.Get .Site.Params.params.aesthetics.favicon -}}
+{{- $sizes := slice 180 167 152 120 -}}
+
+{{ with $icon }}
+  {{ range $sizes }}
+  {{- $resizedIcon := $icon.Fill (printf "%dx%d" . .) -}}
+    <link rel="apple-touch-icon" sizes="{{ . }}x{{ .}}" href="{{ $resizedIcon.RelPermalink }}_{{ . }}x{{ . }}.png">
+  {{ end }}
+{{ end }}

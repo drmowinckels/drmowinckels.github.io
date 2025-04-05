@@ -21,11 +21,84 @@
   
 
 @theme {
-    --color-deco-gold: #D4AF37;
-    --color-deco-navy: #000030;
-    --color-deco-cream: #FFFDD0;
-    --font-sans: Capires, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-serif: "Tenor Sans", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --color-deco-navy:   #15152c;
+    --color-deco-cream:  #fcfaf0;
+    --color-deco-copper: #b87333; 
+    --color-deco-brass:  #b59a42;
+
+    --color-deco-navy-50:  #ececfe;
+    --color-deco-navy-100: #d8d9fc;
+    --color-deco-navy-200: #b0b3f9;
+    --color-deco-navy-300: #898ef5;
+    --color-deco-navy-400: #6169f2;
+    --color-deco-navy-500: #3a44ee;
+    --color-deco-navy-600: #2d36d1;
+    --color-deco-navy-700: #2128b3;
+    --color-deco-navy-800: #181e8f;
+    --color-deco-navy-900: #15152c;
+
+    --color-deco-copper-50:  #fdf6ee;
+    --color-deco-copper-100: #fbead9;
+    --color-deco-copper-200: #f5d1b3;
+    --color-deco-copper-300: #eea88c;
+    --color-deco-copper-400: #e48f66;
+    --color-deco-copper-500: #b87333; 
+    --color-deco-copper-600: #a2642a;
+    --color-deco-copper-700: #804e20;
+    --color-deco-copper-800: #5e3817;
+    --color-deco-copper-900: #3d220d;
+
+    --color-deco-brass-50:  #fcfaf0;
+    --color-deco-brass-100: #f9f4e1;
+    --color-deco-brass-200: #f2e9c3;
+    --color-deco-brass-300: #ebde9e;
+    --color-deco-brass-400: #e4d37a;
+    --color-deco-brass-500: #b59a42; 
+    --color-deco-brass-600: #a1893a;
+    --color-deco-brass-700: #7e6a2d;
+    --color-deco-brass-800: #5b4b20;
+    --color-deco-brass-900: #382c14;
+
+    --font-sans: "Tenor Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-serif: "Capires", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;  
+    --font-title: Capires
 }
 
+
+@layer base {
+    h1 {
+        @apply font-title text-6xl tracking-wider;
+    }
+
+    .flex-center {
+        @apply flex items-center justify-center content-around;
+    }
+
+    nav {
+        @apply flex items-center justify-center content-around gap-6 p-2;
+
+        a {
+            @apply font-title text-2xl tracking-widest hover:bg-deco-cream/10 p-2 rounded;
+        }
+    }
+
+    body {
+        @apply bg-deco-navy text-deco-cream;
+    }
+}
+
+@layer components {
+    .shimmer-border {
+      border: 5px solid transparent; 
+      background-image: linear-gradient(to right, var(--color-copper), var(--color-light-copper));
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      animation: shimmer 5s linear infinite;
+    }
+  }
+  
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}

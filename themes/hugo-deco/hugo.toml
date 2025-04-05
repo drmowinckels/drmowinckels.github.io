@@ -31,11 +31,3 @@ weight = 30
   [module.hugoVersion]
     extended = false
     min = "0.116.0"
-  [[module.mounts]]
-    source = 'assets'
-    target = 'assets'
-  [[module.mounts]]
-    disableWatch = true
-    source = 'hugo_stats.json'
-    target = 'assets/notwatching/hugo_stats.json'
-

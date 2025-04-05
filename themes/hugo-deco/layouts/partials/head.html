@@ -1,8 +1,21 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow" />
+<meta name="generator" content="Hugo {{ hugo.Version }}">
 
-<meta name="viewport" content="width=device-width">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 
+<title>{{ if .IsHome }}{{ .Title }} - {{ site.Params.subtitle }}{{else}}{{ .Title }} | {{ site.Title }}{{end}}</title>
+
+
+<meta name="description" content="{{ with .Summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="author" content="Athanasia Monika Mowinckel">
+
+<meta http-equiv="content-language" content="{{ .Site.LanguageCode }}">
+<link rel="alternate" hreflang="{{ .Site.LanguageCode }}" href="{{ .Permalink }}">
+
+
+{{ partialCached "head/favicon.html" . }}
+{{ partialCached "head/og.html" . }}
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/js.html" . }}
 
