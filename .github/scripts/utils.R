@@ -37,7 +37,7 @@ short_url <- function(uri) {
         archived = FALSE,
         allowDuplicates = FALSE,
         originalURL = uri,
-        domain = "l.drmowinckels.io"
+        domain = "drmo.site"
       ),
     ) |>
     httr2::req_perform() |>
