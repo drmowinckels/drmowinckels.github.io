@@ -16,7 +16,7 @@ code for my content.
 📅 That’s a post roughly every **60** days, or about **0.50** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **1** days ago ([“Positron: current joys
+✍️ The last post was published **8** days ago ([“Positron: current joys
 and pains”](https://drmowinckels.io/blog/positron-debugging)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
@@ -83,4 +83,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-04-02 01:25:59.078746*
+*Updated 2025-04-09 01:22:32.34835*
