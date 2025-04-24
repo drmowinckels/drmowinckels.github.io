@@ -18,7 +18,7 @@
     font-style: normal;
     src: url("../webfonts/tenor-sans/TenorSans-Regular.ttf")format("truetype")
 }
-  
+
 
 @theme {
     --color-deco-navy:   #15152c;
@@ -67,9 +67,14 @@
 
 
 @layer base {
-    h1 {
-        @apply font-title text-6xl tracking-wider;
+    h1, h2, h3, h4 {
+        @apply font-title tracking-wider;
     }
+
+    h1 { @apply text-6xl; }
+    h2 { @apply text-4xl; }
+    h3 { @apply text-2xl; }
+    h4 { @apply text-xl;  }
 
     .flex-center {
         @apply flex items-center justify-center content-around;
@@ -86,6 +91,15 @@
     body {
         @apply bg-deco-navy text-deco-cream;
     }
+
+    .border-deco-inner {
+        @apply border rounded-tl-4xl rounded-br-4xl;
+    }
+
+    .border-deco-outer {
+        @apply border rounded-tl-4xl rounded-br-4xl;
+    }
+
 }
 
 @layer components {
@@ -97,7 +111,7 @@
       animation: shimmer 5s linear infinite;
     }
   }
-  
+
 @keyframes shimmer {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
