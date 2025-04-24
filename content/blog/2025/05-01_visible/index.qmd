@@ -5,7 +5,7 @@ editor_options:
 title: A year with Visible Long-Covid Tracking
 format: hugo-md
 author: Dr. Mowinckel
-date: '2025-0-01'
+date: '2025-05-01'
 categories: []
 tags:
   - R
@@ -17,3 +17,160 @@ image_alt: ""
 summary: ""
 seo: ""
 ---
+
+[I have previously](/blog/2025/the-difficult-year) written about having been sick with long covid for a year. 
+It's not a picnic, and recovery is a slow and tedious process of extremely slowly trying to increase what I can manage to do within a single day. 
+
+Pretty early on, I started tracking my symptoms and experiences.
+Well, I am a quanitiative scientist, am I not?
+
+I got myself a mid-tier Garmin watch, the Forerunner 165 Music, to monitor my heart in particular, throughout the day.
+I felt it racing for absolutely nothing (just walking inside, or taking a shower).
+With my watch in hand, I could document my heart rate climbing up to 140 beats per minute while taking a shower...
+That just could not be normal, that's heart rate for exercising, not a relaxing shower!
+Well, truth be told, with that heart rate there is nothing relaxing with my showers anymore. 
+
+Initially, I had my own little survey that I answered every day. 
+I have that data, but as usual, I was being too thorough and the data is just not easy to use.
+It's not my field, survey data.
+And it totally is an artform to develop good survey data.
+
+In April of last year, I was told about the [Visible app](https://www.makevisible.com/) for daily tracking of "invisible" illnesses, like Long covid, Me, POTS etc.
+I downloaded it and started using it.
+They do also have a wearable device for continuous heart rate monitoring, but that is not available in my location.
+The app, though, does a daily measurement of 1 minute heart rate through the camera.
+Its really quite nifty, you cover the camera lens with a finger, while the flash is on, and the camera records fluctuations in the red colour of your skin to estimate heart rate and heart rate variability.
+It also includes a question in the morning to rate your sleep on a 4 point scale, and questions in the evening about your symptoms that day and their severity, your activity level, and if you experienced a crash or got your period that day. 
+This was better suited for me to answer than my own survey, so I stopped filling that out when I started with Visible.
+
+Visible also has a monthly questionnaire where you evaluate what you are able to to do for various activities over the month and what it costs you to do that activity. 
+The [FUNCAP27](https://pmc.ncbi.nlm.nih.gov/articles/PMC11204454/) was developed and validated on ME/CFS patients, and is a great tool for assessing functional capacity. 
+
+![Functional capacity score of 3.2 out of 6.0, lower than a healthy person's score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.](funcap_summary.png)
+
+With this, I have _DATA_.
+The App has several tools inside to get an idea of how you are progressing, and if you are pacing well.
+These have been nice to look at and monitor how I'm doing.
+
+![A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.](trends.png)
+
+I thought 1 year of data was a good place to sit down with the exported data and have my own take on looking at the data. 
+
+## Getting my data
+
+Getting my Visible data is really very easy.
+Inside the app, in your profile, there is a "Export Health Data" button, which exports the data as a csv.
+And now, we can have a look!
+
+```{r}
+library(tidyverse)
+
+visible <- read_csv(here::here(
+  "content/blog/2025/05-01_visible/visible.csv"
+))
+glimpse(visible)
+```
+
+And my heart is so happy seeing this data.
+I'm so used to getting data in all sort of weird formats, but look at this!
+Nice, tidy, tall data for me to play with. 
+We barely need ANY data munging to start getting plots of _everything_!
+But we need a little :P
+
+``{r}
+# What are our categories
+unique(visible$tracker_category)
+
+# What are our trackers
+unique(visible$tracker_name)
+```
+
+Great.
+The data are really nicely structured.
+Through the categories and tracker names, I know there are several things here that I want to omit from initial plotting.
+
+Lets start by plotting only measurements.
+
+```{r}
+visible |>
+  filter(tracker_category == "Measurement") |>
+  ggplot(aes(
+    x = observation_date,
+    y = observation_value,
+    group = tracker_category
+  )) +
+  geom_jitter(alpha=.3, size = .2) +
+  geom_smooth(aes(
+    colour = tracker_name,
+    fill = tracker_name
+  ),
+    show.legend = FALSE) +
+  facet_wrap(~tracker_name, scales = "free_y") +
+  scale_x_date(date_breaks = "3 months") +
+  labs(
+    title = "Long-Covid progression",
+    subtitle = "As tracked by the Visible App",
+    x = "Observed value",
+    y = "Observation date"
+  )
+```
+
+From this, it kind of looks like I was progressively getting worse (lower HRV, higher resting heart rate, and lower stability score) until about July/August, then started improving.
+One thing you can notice, is that in the begiining I was getting some "5" (best score) for my morning stability, but I have not had them since.
+I believe the ones I got in the start were before the App had enough data to calibrate to how I was doing, and interpreting my data incorrectly. 
+Which is also something they do explicitly state in the beginning, the longer they have measurements, the better they can be sure of the estimate.
+
+This coincides with my own experience.
+From February to June, there was little to no improvement, in how I was feeling. 
+I was more or less completely bed bound and it was absolutely awful.
+
+In July, my wife found out about a German sports researcher doing research on long covid.
+I don't know from where exactly (I think it was a long covid/ME group on facebook), but [this article](https://covidinstitute.org/pem-and-pacing/) seems to cover what it was.
+Dr. Simon's research into chronic fatigue syndromes, including Long Covid, reveals that patients often experience blood circulation issues leading to oxygen deficits in tissues despite normal blood oxygen saturation. 
+This hypoxia triggers compensatory over-breathing and a faster heartbeat, resulting in post-exertional malaise (PEM) even from minor, unbalanced muscle exertion lasting over 30 seconds or from mental overstimulation. 
+Recovery involves intensive consultation to teach patients to avoid prolonged, unbalanced exertion and to incorporate "awarding breaks" of 30 seconds to 1 minute after every 30 seconds of activity, including mental tasks, to allow tissue recovery and prevent PEM.
+
+In August I for real started practising what was recommended.
+Taking frequent breaks of 30 seconds, trying to let my body regain the oxygen it needed.
+I thought I had been pacing before this, but I was deteriorating, so I obviously was not doing it well. 
+Using this method, we slowly started seeing progress, which these plots also show!
+And with my progress, I could finally plan on going to rehab, as I so desperately wanted.
+
+I'm so happy to see things are looking like they are going in the right direction.
+I want to note one thing that makes me very optimistic, not only are the trends looking like they are going in the right direction, but generally the variance in my readings are also narrowing.
+I read this as things becoming more stable.
+For sure a positive sign!
+
+
+But let us look at some more data!
+One thing you cannot easily see in the app, is your funcap27 measurements over time.
+I think I would really like to look at that, despite knowling I have had little change according to it.
+
+```{r}
+visible |>
+  filter(grepl("Funcap", tracker_category)) |>
+  ggplot(aes(
+    x = observation_date,
+    y = observation_value,
+    group = tracker_category
+  )) +
+  geom_jitter(alpha = .3, size = .2) +
+  geom_smooth(
+    aes(
+      colour = tracker_name,
+      fill = tracker_name
+    ),
+    show.legend = FALSE
+  ) +
+  facet_wrap(
+    ~tracker_name,
+    labeller = label_wrap_gen(width = 25, multi_line = TRUE)
+  ) +
+  scale_x_date(date_breaks = "3 months") +
+  labs(
+    title = "Long-Covid progression",
+    subtitle = "As tracked by the Visible App",
+    x = "Observed value",
+    y = "Observation date"
+  )
+```
