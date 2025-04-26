@@ -12,7 +12,7 @@ tags:
   - Health data
   - Long-covid
 slug: "visible"
-image: images/featured.jpg
+image: index.markdown_strict_files/figure-markdown_strict/featured-1.png
 image_alt: ""
 summary: ""
 seo: ""
@@ -356,6 +356,7 @@ It's the mean of all the categories together, so we'll need to reorganise the da
 Thankfully, scoring is just the mean of each day. 
 
 ```{r}
+#| label: featured
 funcap_sum <- visible |>
   filter(grepl("Funcap", tracker_category)) |>
   group_by(observation_date) |>

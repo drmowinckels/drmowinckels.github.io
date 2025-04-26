@@ -12,7 +12,7 @@ tags:
   - Health data
   - Long-covid
 slug: visible
-image: images/featured.jpg
+image: index.markdown_strict_files/figure-markdown_strict/featured-1.png
 image_alt: ''
 summary: ''
 seo: ''
@@ -510,7 +510,7 @@ funcap_sum |>
   scale_y_continuous(limits = c(0, 6))
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/featured-1.png" width="768" />
 
 Simple, yet satisfying.
 And you can clearly see my denial for my first score.
@@ -565,7 +565,7 @@ zooms$`HR`
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="768" />
 
 Ok.
 Lots to unpack here.
@@ -581,7 +581,7 @@ zooms$`Resting HR`
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="768" />
 
 Something you can notice in my HRV plots, is that whenever I have a HRV spike (sudden high HRV), I tend to get very low HRV the following days.
 This is a trend I've been monitoring for a while, and have looked into.
@@ -599,7 +599,7 @@ zooms$`Stability Score`
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="768" />
 
 I think the really interesting part is my stability score over time.
 I think the first panel, the first 3 months of measurements is completely chaotic.
