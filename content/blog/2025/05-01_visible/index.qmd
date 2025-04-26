@@ -77,7 +77,7 @@ Nice, tidy, tall data for me to play with.
 We barely need ANY data munging to start getting plots of _everything_!
 But we need a little :P
 
-``{r}
+```{r}
 # What are our categories
 unique(visible$tracker_category)
 
@@ -86,39 +86,62 @@ unique(visible$tracker_name)
 ```
 
 Great.
-The data are really nicely structured.
-Through the categories and tracker names, I know there are several things here that I want to omit from initial plotting.
+The data are decently structured.
+Not overly fond of having all values ac "character", but given the format I guess its the easiest way to deal with that.
+Through the categories and tracker names, I have a decent idea of how to go about looking at this.
 
 Lets start by plotting only measurements.
 
+## Morning measurements
+
+In the morning, before I get out of bed, I take my morning measurement with the camera.
+Based on this, I get measurements of Heart rate and Heart rate variability (HRV).
+These two, together with my symptom ratings of the evening before, produce a calculated ["stability score"](https://www.makevisible.com/blog/introducing-the-morning-stability-score), which indicates how my state is for the day on a 5 point scale, 1 being very poorly and 5 being well.
+
 ```{r}
+# Set some ggplot2 defaults
+theme_set(theme_light())
+theme_update(
+  strip.background = element_rect(fill = "#000"),
+  axis.text = element_text(angle = 60, hjust = 1)
+)
+
+options(
+  "ggplot2.discrete.colour" = scale_colour_viridis_d,
+  "ggplot2.discrete.fill" = scale_fill_viridis_d,
+  "ggplot2.continuous.colour" = scale_colour_viridis_c,
+  "ggplot2.continuous.fill" = scale_fill_viridis_c
+)
+
+
 visible |>
   filter(tracker_category == "Measurement") |>
   ggplot(aes(
     x = observation_date,
-    y = observation_value,
-    group = tracker_category
+    y = observation_value
   )) +
-  geom_jitter(alpha=.3, size = .2) +
-  geom_smooth(aes(
-    colour = tracker_name,
-    fill = tracker_name
-  ),
-    show.legend = FALSE) +
+  geom_jitter(alpha = .3, size = .2) +
+  geom_smooth(
+    aes(
+      group = tracker_name,
+      fill = tracker_name
+    ),
+    show.legend = FALSE
+  ) +
   facet_wrap(~tracker_name, scales = "free_y") +
   scale_x_date(date_breaks = "3 months") +
   labs(
     title = "Long-Covid progression",
     subtitle = "As tracked by the Visible App",
-    x = "Observed value",
-    y = "Observation date"
+    x = "Observed date",
+    y = "Observation value"
   )
 ```
 
 From this, it kind of looks like I was progressively getting worse (lower HRV, higher resting heart rate, and lower stability score) until about July/August, then started improving.
-One thing you can notice, is that in the begiining I was getting some "5" (best score) for my morning stability, but I have not had them since.
+One thing you can notice, is that in the beginning I was getting some "5" (best score) for my morning stability, but I have not had them since.
 I believe the ones I got in the start were before the App had enough data to calibrate to how I was doing, and interpreting my data incorrectly. 
-Which is also something they do explicitly state in the beginning, the longer they have measurements, the better they can be sure of the estimate.
+Which is also something they do explicitly state in the beginning, the longer they have measurements, the better they can be sure of the stability score.
 
 This coincides with my own experience.
 From February to June, there was little to no improvement, in how I was feeling. 
@@ -130,7 +153,7 @@ Dr. Simon's research into chronic fatigue syndromes, including Long Covid, revea
 This hypoxia triggers compensatory over-breathing and a faster heartbeat, resulting in post-exertional malaise (PEM) even from minor, unbalanced muscle exertion lasting over 30 seconds or from mental overstimulation. 
 Recovery involves intensive consultation to teach patients to avoid prolonged, unbalanced exertion and to incorporate "awarding breaks" of 30 seconds to 1 minute after every 30 seconds of activity, including mental tasks, to allow tissue recovery and prevent PEM.
 
-In August I for real started practising what was recommended.
+In August I for real started practising what was recommended by Dr. Simon.
 Taking frequent breaks of 30 seconds, trying to let my body regain the oxygen it needed.
 I thought I had been pacing before this, but I was deteriorating, so I obviously was not doing it well. 
 Using this method, we slowly started seeing progress, which these plots also show!
@@ -141,36 +164,332 @@ I want to note one thing that makes me very optimistic, not only are the trends 
 I read this as things becoming more stable.
 For sure a positive sign!
 
-
 But let us look at some more data!
-One thing you cannot easily see in the app, is your funcap27 measurements over time.
-I think I would really like to look at that, despite knowling I have had little change according to it.
+
+## Evening assessment
+
+There are a bunch of datapoints that I can tell are my own self assessments in the evening about how the day has been in terms of symptoms, activity and other notable occurrences.
+These are basically all the remaining tracker categories when you take away Measurements, and all the Funcap measures.
 
 ```{r}
+visible <- visible |>
+  mutate(
+    category = case_match(
+      tracker_category,
+      c(
+        "Gastrointestinal",
+        "Muscles",
+        "Brain",
+        "Heart and Lungs",
+        "Pain",
+        "Sensory"
+      ) ~
+        "Symptoms",
+      c("Cognitive", "Emotional", "Physical", "Social") ~ "Activity"
+    )
+  )
+
 visible |>
-  filter(grepl("Funcap", tracker_category)) |>
+  filter(category == "Activity") |>
   ggplot(aes(
     x = observation_date,
-    y = observation_value,
-    group = tracker_category
+    y = observation_value
   )) +
   geom_jitter(alpha = .3, size = .2) +
   geom_smooth(
     aes(
+      group = tracker_name,
+      fill = tracker_name
+    ),
+    show.legend = FALSE
+  ) +
+  facet_wrap(~tracker_name) +
+  scale_x_date(date_breaks = "3 months") +
+  labs(
+    title = "Daily activity",
+    subtitle = "As tracked by the Visible App",
+    x = "Observed date",
+    y = "Observation value"
+  )
+```
+
+As you can see, my general activity level is pretty low.
+And that is a consequence of what I am going through, and also something I _strive_ to keep low.
+But, there is some improvement, in that activity is a little higher, and I'm improving in my metrics (as seen above). 
+I had an increase in socially demading activities before Christmas, which was due to my rehab stay and a week at my parents.
+Then after that our Cat got sick, so I had a more demanding period (look at the dots around that time for all categories are spread quite high). 
+But that leveled out again once our cat got better with anti-biotics.
+
+Let's have a look at symptoms.
+
+```{r}
+#| output-height: 700px
+#| fig-height: 10
+visible |>
+  filter(category == "Symptoms") |>
+  ggplot(aes(
+    x = observation_date,
+    y = observation_value
+  )) +
+  geom_jitter(alpha = .3, size = .2) +
+  geom_smooth(
+    aes(
+      group = tracker_name,
       colour = tracker_name,
       fill = tracker_name
     ),
     show.legend = FALSE
   ) +
+  facet_wrap(~tracker_name) +
+  scale_x_date(date_breaks = "3 months") +
+  labs(
+    title = "Daily Symptom Tracking",
+    subtitle = "As tracked by the Visible App",
+    x = "Observed date",
+    y = "Observation value"
+  )
+```
+
+In general, things are quite flat here too.
+Again, thats a good sign.
+But using "loess" models for data on a 5 point scale is... not really doing any justice.
+But it's a quick and easy view.
+
+As you can see, my symptoms here are scored quite low.
+This is because I really struggle with self-evaluation of this kind.
+I'm really quite in denial, and I just can't seem deal with how bad it **can** be at times.
+
+Like, I'm sure both light and sound sensitivity should be scored higher.
+I cannot stay in a normally lit room (we have dimmers on all our lightbulbs), and need sunglasses and a hat for going outside no matter how overcast. 
+I place my fatigue at 1 on most days, which for most people this sounds absurd, given that I am largely bedbound.
+This is because given the scale, and how **extremely** poorly I am when I crash, 1 is where I am at most days I think, where I am able to do about 1-2 hours of gentle activity throughout the day (and activity here is everything; showering, walking around the house etc).
+So, these daily questions hardly capture good variation, but it's always a dilemma right. 
+Getting good data is hard, and making good scales for metrics is hard. 
+
+Which is why its so great they include a monthly Funcap27, a validated tool for evaluating functional capacity.
+
+## Functional Capacity
+
+One thing you cannot easily see in the app, is your funcap27 measurements over time.
+I think I would really like to look at that, despite knowing I have had little change according to the summary score.
+
+```{r}
+#| output-height: 700px
+#| fig-height: 10
+visible |>
+  filter(grepl("Funcap", tracker_category)) |>
+  mutate(tracker_category = gsub("Funcap_", "", tracker_category)) |>
+  ggplot(aes(
+    x = observation_date,
+    y = observation_value
+  )) +
+  geom_jitter(alpha = .3, size = .2) +
+  geom_smooth(
+    aes(
+      fill = tracker_category,
+      group = tracker_category,
+    ),
+    show.legend = FALSE
+  ) +
   facet_wrap(
-    ~tracker_name,
-    labeller = label_wrap_gen(width = 25, multi_line = TRUE)
+    ~tracker_category
   ) +
   scale_x_date(date_breaks = "3 months") +
   labs(
-    title = "Long-Covid progression",
-    subtitle = "As tracked by the Visible App",
-    x = "Observed value",
-    y = "Observation date"
+    title = "Functional Capacity Progression",
+    subtitle = "As tracked by the Visible App's Funcap27 monthly check-ins",
+    x = "Date",
+    y = "Self-evaluation"
   )
 ```
+
+As expected, the improvements are not so visible here.
+I think there are several reasons for that though: 
+
+1. In the beginning, I absolutely underestimated how poorly I really was (pretty much denial).
+2. Progress is truly slow and I can't expect it to change too much too fast.
+
+But there for sure are improvements though.
+I think if we split the panels by each question in the questionnaire, though, we might see progress better.
+
+```{r}
+#| output-height: 1700px
+#| fig-height: 20
+visible |>
+  filter(grepl("Funcap", tracker_category)) |>
+  mutate(tracker_category = gsub("Funcap_", "", tracker_category)) |>
+  ggplot(aes(
+    x = observation_date,
+    y = observation_value
+  )) +
+  geom_jitter(alpha = .3, size = .2) +
+  geom_smooth(
+    aes(
+      fill = tracker_category,
+      group = tracker_name,
+    ),
+    show.legend = FALSE
+  ) +
+  facet_wrap(
+    ~ tracker_category + tracker_name,
+    labeller = labeller(
+      tracker_name = label_wrap_gen(20)
+    )
+  ) +
+  scale_x_date(date_breaks = "3 months") +
+  labs(
+    title = "Functional Capacity Progression",
+    subtitle = "As tracked by the Visible App's Funcap27 monthly check-ins",
+    x = "Date",
+    y = "Self-evaluation"
+  )
+```
+
+Here, I think we can see that I **am** getting better in several individual metrics, while the overall metrics don't change too much.
+
+Walking is for sure better, and there are slight improvements in being upright and doing things in the home. 
+The light category (light and noise sensitivity) looks like it got worse and then stayed that way. 
+In reality, I think it was always what is is now, but as mentioned above, I was in denial in the beginning. 
+
+My Funcap summary score will need a little data manipulation.
+It's the mean of all the categories together, so we'll need to reorganise the data somewhat.
+Thankfully, scoring is just the mean of each day. 
+
+```{r}
+funcap_sum <- visible |>
+  filter(grepl("Funcap", tracker_category)) |>
+  group_by(observation_date) |>
+  summarise(
+    score = mean(as.numeric(observation_value))
+  )
+
+funcap_sum |>
+  ggplot(aes(
+    x = observation_date,
+    y = score
+  )) +
+  geom_line() +
+  geom_point(
+    size = 9,
+    show.legend = FALSE,
+    aes(colour = score)
+  ) +
+  geom_text(
+    aes(
+      label = round(score, 1)
+    ),
+    colour = "white"
+  ) +
+  scale_y_continuous(limits = c(0, 6))
+```
+
+Simple, yet satisfying.
+And you can clearly see my denial for my first score.
+That was about 1 month after my absolute **worst** illness period, I was **not** that well.
+While not the biggest change here either, it **is** going the right way.
+
+## Zooming in on time periods
+
+While all the plots above do help me see the larger trends, these are not what are helping me pace myself on a day-to-day basis.
+They are just great for getting optimistic about where things are going, never mind how slowly.
+
+We really need to zoom in on smaller timeframes to get a proper view on how this data can help people with fatigue related illnesses pace better.
+
+
+```{r}
+#| output-height: 1700px
+#| fig-height: 20
+measurements <- visible |>
+  filter(tracker_category == "Measurement") |>
+  mutate(
+    observation_value = as.numeric(observation_value),
+    panels = cut(observation_date, 4, labels = FALSE)
+  )
+
+zooms <- split(measurements, measurements$tracker_name) |>
+  lapply(function(x) {
+    ggplot(
+      x,
+      aes(
+        x = observation_date,
+        y = observation_value
+      )
+    ) +
+      geom_bar(
+        alpha = .8,
+        stat = "identity",
+        aes(fill = observation_value)
+      ) +
+      geom_smooth() +
+      facet_wrap(~panels, ncol = 1, scales = "free") +
+      scale_x_date(date_breaks = "2 weeks") +
+      labs(
+        title = paste(
+          "Long-Covid progression:",
+          unique(x$tracker_name)
+        ),
+        subtitle = "As tracked by the Visible App",
+        x = "Observed date",
+        y = "Observation value"
+      )
+  })
+
+zooms$`HR`
+```
+
+Ok.
+Lots to unpack here.
+Some may notice the unholy combination of base R `split` and `lapply` with the `ggplot` rather than what I'd normally do with grouping and nesting.
+Well, its just what came easiest in the moment for me, so that's what I did. 
+
+I think interpreting my HR and HRV is difficult here.
+My (resting) HR has been fairly stable around 60 beats per minute, which is a decent resting HR for someone my age and sex.
+
+```{r}
+#| output-height: 1700px
+#| fig-height: 20
+zooms$`Resting HR`
+```
+
+Something you can notice in my HRV plots, is that whenever I have a HRV spike (sudden high HRV), I tend to get very low HRV the following days. 
+This is a trend I've been monitoring for a while, and have looked into.
+Apparently, getting a HRV spike is something many with long covid see right before they have a crash. 
+It's seen as a warning sign.
+So while we generally talk about higher HRV being positive, that is stabily higher HRV is positive, but spikes or plummets in HRV are warning signs.
+
+After noticing this, I've started being extra careful the day of and following a HRV spike measurement. 
+Often, of HRV spike days, I feel _great_, so I'm also at risk for doing more that day.
+So it is very much a thing I need to be careful of, and knowing that now, I feel I can see I have lower plummets after a spike, and I interpret that as doing the right thing.
+
+```{r}
+#| output-height: 1700px
+#| fig-height: 20
+zooms$`Stability Score`
+```
+
+I think the really interesting part is my stability score over time.
+I think the first panel, the first 3 months of measurements is completely chaotic. 
+Fluctuating between 5's and 1's and I'm all over the place.
+There is no stability there.
+I think that is two-fold: both that I was extremely volatile in that period, but also that the app was still calibrating to my measurements so it was more off in general.
+
+But notice how my score has got more and more stable over time.
+The last panel is the most exciting, in my opinion.
+I've been doing really well since the new year, and it feels really good to see that.
+At the end of February this year, I overdid it, and gave myself a proper crash after a combined vet and trip to the post office.
+I should have know better, but I was over-optimistic.
+I have been struggling to get back to my end of January, mid February stability since.
+Despite that, though, I still am _much more_ stable now after rehab than before.
+
+
+
+## Conclusion
+
+I feel I get a lot of help from Visible tracking my daily progress.
+Especially having the morning evaluation helps remind me to take it easy and not overdo myself.
+I do have a tendency to do too many things on good days, and then end up in a crash later.
+Avoiding crashes is **key** to managing illness and getting better, so that is top priority!
+
+Maybe at a later date, I'll dig into my Garmin data too.
+Right now, though, I think Visible is an excellent and _easy_ tool to use and help me stay on track to recovery.
+
