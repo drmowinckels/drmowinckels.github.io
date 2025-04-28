@@ -19,8 +19,19 @@ image_alt: >-
   plateaus around 2.6 until late December 2024. It then rises to 2.9, 2.8, 3.3,
   3.1, 3.2, and ends at 3.2. The points on the line are colored on a gradient
   from dark purple (low score) to bright yellow (high score).
-summary: ''
-seo: ''
+summary: >-
+  This post dives into a year of tracking Long Covid symptoms and progress using
+  the Visible app. Dr. Mowinckel, a quantitative scientist, shares their
+  experience monitoring heart rate, heart rate variability (HRV), daily
+  symptoms, and functional capacity using the app's features and the FUNCAP27
+  questionnaire. Discover how this data provides insights into pacing
+  strategies, identifies potential warning signs like HRV spikes, and reveals
+  meaningful clusters of interconnected symptoms and experiences. Explore the
+  journey of living with and managing Long Covid through the lens of personal
+  health data.
+seo: >-
+  Tracking Long Covid with Visible app: 1 year of health data. Insights & pacing
+  strategies.
 ---
 
 
@@ -208,9 +219,34 @@ The data are decently structured.
 Not overly fond of having all values ac "character", but given the format I guess its the easiest way to deal with that.
 Through the categories and tracker names, I have a decent idea of how to go about looking at this.
 
+The value column is a character vector though, which is incovenient.
+I know there is a "Note" field in there, so let's get that in its own column, and make sure the values are numeric.
+We'll also simplify the column names just a little, for convenience.
+
+``` r
+visible <- visible |>
+  group_by(observation_date) |>
+  mutate(
+    note = if_else(tracker_name == "Note", observation_value, ""),
+    note = paste(unique(note), collapse = ","),
+    note = if_else(note == "", NA, note)
+  ) |>
+  filter(tracker_name != "Note") |>
+  ungroup() |>
+  transmute(
+    odate = observation_date,
+    category = tracker_category,
+    tracker = tracker_name,
+    value = as.numeric(observation_value),
+    note = note
+  )
+```
+
 Lets start by plotting only measurements.
 
-## Morning measurements
+## Getting a look at the data
+
+### Morning measurements
 
 In the morning, before I get out of bed, I take my morning measurement with the camera.
 Based on this, I get measurements of Heart rate and Heart rate variability (HRV).
@@ -233,20 +269,21 @@ options(
 
 
 visible |>
-  filter(tracker_category == "Measurement") |>
+  filter(category == "Measurement") |>
   ggplot(aes(
-    x = observation_date,
-    y = observation_value
+    x = odate,
+    y = value
   )) +
   geom_jitter(alpha = .3, size = .2) +
   geom_smooth(
     aes(
-      group = tracker_name,
-      fill = tracker_name
+      group = tracker,
+      colour = tracker,
+      fill = tracker
     ),
     show.legend = FALSE
   ) +
-  facet_wrap(~tracker_name, scales = "free_y") +
+  facet_wrap(~tracker, scales = "free_y") +
   scale_x_date(date_breaks = "3 months") +
   labs(
     title = "Long-Covid progression",
@@ -258,7 +295,7 @@ visible |>
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/measurements-1.png" width="768" />
 
 From this, it kind of looks like I was progressively getting worse (lower HRV, higher resting heart rate, and lower stability score) until about July/August, then started improving.
 One thing you can notice, is that in the beginning I was getting some "5" (best score) for my morning stability, but I have not had them since.
@@ -288,7 +325,7 @@ For sure a positive sign!
 
 But let us look at some more data!
 
-## Evening assessment
+### Evening assessment
 
 There are a bunch of datapoints that I can tell are my own self assessments in the evening about how the day has been in terms of symptoms, activity and other notable occurrences.
 These are basically all the remaining tracker categories when you take away Measurements, and all the Funcap measures.
@@ -296,36 +333,48 @@ These are basically all the remaining tracker categories when you take away Meas
 ``` r
 visible <- visible |>
   mutate(
-    category = case_match(
-      tracker_category,
+    type = case_match(
+      category,
       c(
         "Gastrointestinal",
         "Muscles",
         "Brain",
         "Heart and Lungs",
         "Pain",
-        "Sensory"
+        "Sensory",
+        "General",
+        "Menstrual",
+        "Allergies",
+        "Fatigue"
       ) ~
         "Symptoms",
-      c("Cognitive", "Emotional", "Physical", "Social") ~ "Activity"
+      c(
+        "Cognitive",
+        "Emotional",
+        "Physical",
+        "Social"
+      ) ~
+        "Activity",
+      c("Crash", "Period") ~ "Event"
     )
   )
 
 visible |>
-  filter(category == "Activity") |>
+  filter(type == "Activity") |>
   ggplot(aes(
-    x = observation_date,
-    y = observation_value
+    x = odate,
+    y = value
   )) +
   geom_jitter(alpha = .3, size = .2) +
   geom_smooth(
     aes(
-      group = tracker_name,
-      fill = tracker_name
+      group = tracker,
+      colour = tracker,
+      fill = tracker
     ),
     show.legend = FALSE
   ) +
-  facet_wrap(~tracker_name) +
+  facet_wrap(~tracker) +
   scale_x_date(date_breaks = "3 months") +
   labs(
     title = "Daily activity",
@@ -337,7 +386,7 @@ visible |>
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/activities-1.png" width="768" />
 
 As you can see, my general activity level is pretty low.
 And that is a consequence of what I am going through, and also something I *strive* to keep low.
@@ -350,21 +399,21 @@ Let's have a look at symptoms.
 
 ``` r
 visible |>
-  filter(category == "Symptoms") |>
+  filter(type == "Symptoms") |>
   ggplot(aes(
-    x = observation_date,
-    y = observation_value
+    x = odate,
+    y = value
   )) +
   geom_jitter(alpha = .3, size = .2) +
   geom_smooth(
     aes(
-      group = tracker_name,
-      colour = tracker_name,
-      fill = tracker_name
+      group = tracker,
+      colour = tracker,
+      fill = tracker
     ),
     show.legend = FALSE
   ) +
-  facet_wrap(~tracker_name) +
+  facet_wrap(~tracker) +
   scale_x_date(date_breaks = "3 months") +
   labs(
     title = "Daily Symptom Tracking",
@@ -376,7 +425,7 @@ visible |>
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/symptoms-1.png" width="768" />
 
 In general, things are quite flat here too.
 Again, thats a good sign.
@@ -396,30 +445,43 @@ Getting good data is hard, and making good scales for metrics is hard.
 
 Which is why its so great they include a monthly Funcap27, a validated tool for evaluating functional capacity.
 
-## Functional Capacity
+### Functional Capacity
 
 One thing you cannot easily see in the app, is your funcap27 measurements over time.
 I think I would really like to look at that, despite knowing I have had little change according to the summary score.
 
 ``` r
+visible <- visible |>
+  mutate(
+    type = if_else(
+      is.na(type),
+      gsub("Funcap_", "", category),
+      type
+    ),
+    category = if_else(
+      grepl("Funcap_", category),
+      "FunCap27",
+      category
+    )
+  )
+
+
 visible |>
-  filter(grepl("Funcap", tracker_category)) |>
-  mutate(tracker_category = gsub("Funcap_", "", tracker_category)) |>
+  filter(category == "FunCap27") |>
   ggplot(aes(
-    x = observation_date,
-    y = observation_value
+    x = odate,
+    y = value
   )) +
   geom_jitter(alpha = .3, size = .2) +
   geom_smooth(
     aes(
-      fill = tracker_category,
-      group = tracker_category,
+      fill = type,
+      colour = type,
+      group = type,
     ),
     show.legend = FALSE
   ) +
-  facet_wrap(
-    ~tracker_category
-  ) +
+  facet_wrap(~type) +
   scale_x_date(date_breaks = "3 months") +
   labs(
     title = "Functional Capacity Progression",
@@ -431,7 +493,7 @@ visible |>
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/funcap-cats-1.png" width="768" />
 
 As expected, the improvements are not so visible here.
 I think there are several reasons for that though:
@@ -444,24 +506,24 @@ I think if we split the panels by each question in the questionnaire, though, we
 
 ``` r
 visible |>
-  filter(grepl("Funcap", tracker_category)) |>
-  mutate(tracker_category = gsub("Funcap_", "", tracker_category)) |>
+  filter(category == "FunCap27") |>
   ggplot(aes(
-    x = observation_date,
-    y = observation_value
+    x = odate,
+    y = value
   )) +
   geom_jitter(alpha = .3, size = .2) +
   geom_smooth(
     aes(
-      fill = tracker_category,
-      group = tracker_name,
+      fill = type,
+      colour = type,
+      group = tracker,
     ),
     show.legend = FALSE
   ) +
   facet_wrap(
-    ~ tracker_category + tracker_name,
+    ~ type + tracker,
     labeller = labeller(
-      tracker_name = label_wrap_gen(20)
+      tracker = label_wrap_gen(20)
     )
   ) +
   scale_x_date(date_breaks = "3 months") +
@@ -475,7 +537,7 @@ visible |>
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/funcap-all-1.png" width="768" />
 
 Here, I think we can see that I **am** getting better in several individual metrics, while the overall metrics don't change too much.
 
@@ -489,15 +551,15 @@ Thankfully, scoring is just the mean of each day.
 
 ``` r
 funcap_sum <- visible |>
-  filter(grepl("Funcap", tracker_category)) |>
-  group_by(observation_date) |>
+  filter(category == "FunCap27") |>
+  group_by(odate) |>
   summarise(
-    score = mean(as.numeric(observation_value))
+    score = mean(value)
   )
 
 funcap_sum |>
   ggplot(aes(
-    x = observation_date,
+    x = odate,
     y = score
   )) +
   geom_line() +
@@ -522,7 +584,7 @@ And you can clearly see my denial for my first score.
 That was about 1 month after my absolute **worst** illness period, I was **not** that well.
 While not the biggest change here either, it **is** going the right way.
 
-## Zooming in on time periods
+### Zooming in on time periods
 
 While all the plots above do help me see the larger trends, these are not what are helping me pace myself on a day-to-day basis.
 They are just great for getting optimistic about where things are going, never mind how slowly.
@@ -530,26 +592,27 @@ They are just great for getting optimistic about where things are going, never m
 We really need to zoom in on smaller timeframes to get a proper view on how this data can help people with fatigue related illnesses pace better.
 
 ``` r
-measurements <- visible |>
-  filter(tracker_category == "Measurement") |>
+visible <- visible |>
   mutate(
-    observation_value = as.numeric(observation_value),
-    panels = cut(observation_date, 4, labels = FALSE)
+    panels = cut(odate, 4, labels = FALSE)
   )
 
-zooms <- split(measurements, measurements$tracker_name) |>
+measurements <- visible |>
+  filter(category == "Measurement")
+
+zooms <- split(measurements, measurements$tracker) |>
   lapply(function(x) {
     ggplot(
       x,
       aes(
-        x = observation_date,
-        y = observation_value
+        x = odate,
+        y = value
       )
     ) +
       geom_bar(
         alpha = .8,
         stat = "identity",
-        aes(fill = observation_value)
+        aes(fill = value)
       ) +
       geom_smooth() +
       facet_wrap(~panels, ncol = 1, scales = "free") +
@@ -557,7 +620,7 @@ zooms <- split(measurements, measurements$tracker_name) |>
       labs(
         title = paste(
           "Long-Covid progression:",
-          unique(x$tracker_name)
+          unique(x$tracker)
         ),
         subtitle = "As tracked by the Visible App",
         x = "Observed date",
@@ -565,12 +628,12 @@ zooms <- split(measurements, measurements$tracker_name) |>
       )
   })
 
-zooms$`HR`
+zooms$`HR Variability`
 ```
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/zoom-hrv-1.png" width="768" />
 
 Ok.
 Lots to unpack here.
@@ -586,7 +649,7 @@ zooms$`Resting HR`
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/zoom-hr-1.png" width="768" />
 
 Something you can notice in my HRV plots, is that whenever I have a HRV spike (sudden high HRV), I tend to get very low HRV the following days.
 This is a trend I've been monitoring for a while, and have looked into.
@@ -604,7 +667,7 @@ zooms$`Stability Score`
 
     `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-<img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="768" />
+<img src="index.markdown_strict_files/figure-markdown_strict/zoom-stability-1.png" width="768" />
 
 I think the really interesting part is my stability score over time.
 I think the first panel, the first 3 months of measurements is completely chaotic.
@@ -619,6 +682,217 @@ At the end of February this year, I overdid it, and gave myself a proper crash a
 I should have know better, but I was over-optimistic.
 I have been struggling to get back to my end of January, mid February stability since.
 Despite that, though, I still am *much more* stable now after rehab than before.
+
+## Analysing the data
+
+We've had a little look at how the data looks.
+And it all makes me curous if we can find any trends in the data, other than some smooth lines.
+I have my own personal experiences, and I am curious to if any of them can be detected with what we have at hand.
+
+We start by getting the data into wide format, which is necessary for most analyses.
+
+``` r
+visible_wide <- visible |>
+  filter(category != "FunCap27") |>
+  unite(type, c(type, category, tracker)) |>
+  pivot_wider(
+    id_cols = odate,
+    names_from = type,
+    values_from = value
+  )
+visible_wide
+```
+
+    # A tibble: 366 × 35
+       odate      Sleep_Sleep_Sleep Measurement_Measurement…¹ Measurement_Measurem…²
+       <date>                 <dbl>                     <dbl>                  <dbl>
+     1 2025-04-24                 1                        55                     63
+     2 2025-04-23                 0                        58                     63
+     3 2025-04-22                 0                        59                     62
+     4 2025-04-21                 0                        61                     57
+     5 2025-04-20                 0                        58                     57
+     6 2025-04-19                 0                        57                     60
+     7 2025-04-18                 0                        54                     62
+     8 2025-04-17                 0                        57                     57
+     9 2025-04-16                 0                        60                     60
+    10 2025-04-15                 0                        52                     65
+    # ℹ 356 more rows
+    # ℹ abbreviated names: ¹​`Measurement_Measurement_HR Variability`,
+    #   ²​`Measurement_Measurement_Resting HR`
+    # ℹ 31 more variables: `Measurement_Measurement_Stability Score` <dbl>,
+    #   `Activity_Cognitive_Mentally demanding` <dbl>,
+    #   `Symptoms_Pain_Stomach pain` <dbl>, Symptoms_Brain_Lightheadedness <dbl>,
+    #   Symptoms_Brain_Headache <dbl>, `Symptoms_Muscles_Muscle weakness` <dbl>, …
+
+I know the column names are a little much here, but this way I can keep some important information about each data intact.
+
+Then, I need a simple function that will help me clean the data a little.
+A lot of analyses don't deal well with data that have a lot of `NA` and there are some of those here, like evening evaluations I stopped doing because they never occur.
+So, I make a function that will remove columns with a certain amount of NA's from the dataset, for convenience.
+
+``` r
+remove_na_columns <- function(df, threshold = 0.5) {
+  # Check if threshold is valid
+  if (threshold <= 0 || threshold >= 1) {
+    warning("threshold must be between 0 and 1. Returning original dataframe.")
+    return(df)
+  }
+
+  # Calculate the percentage of NA values in each column
+  na_percentages <- colMeans(is.na(df))
+
+  # Identify columns to keep (NA percentage <= threshold)
+  columns_to_keep <- names(df)[na_percentages <= threshold]
+
+  # Return the dataframe with the selected columns
+  df[, columns_to_keep, drop = FALSE]
+}
+```
+
+### Heat map
+
+Now that that's done, let'd doe a simple matrix correlation.
+Matrix correlations need full observations (no `NA`s), and only numeric data.
+
+``` r
+visible_wide_num <- visible_wide |>
+  remove_na_columns() |>
+  select(where(is.numeric)) |>
+  drop_na()
+
+cordat <- cor(visible_wide_num) |>
+  as_tibble()
+```
+
+    Warning in cor(visible_wide_num): the standard deviation is zero
+
+``` r
+cordat$var <- names(cordat)
+
+cordat |>
+  pivot_longer(-var) |>
+  ggplot(aes(
+    x = name,
+    y = var,
+    fill = value
+  )) +
+  geom_tile()
+```
+
+<img src="index.markdown_strict_files/figure-markdown_strict/correlation%20matrix-1.png" width="768" />
+
+What can we see here?
+When I'm depressed, I also tend to get nauseated.
+I knew that, its a hallmark for me recognising I'm in a depressed state.
+Fatigue & Crashes go with depression, I think mostly because I get pretty down when I realised I'm more poorly, and anxiety tends to follow along (with thoughts of "what if I never get better").
+And Fatigue and Crashes seem to correlate quite a bit with when I've had emotionally taxing activities.
+I think all this makes pretty intuitive sense (ok, the heatplot is not intuituve, but what it's telling me is).
+
+Next I see is that morning stability score correlates with Resting HR, HRV, sleep score and fatigue.
+That all makes sense, as I know the stability score is calculated based on those measures.
+It would be nice to know how things cluster together though, so let's try some hierarchical clustering.
+
+First we make another function to cleanup some special data.
+There are some columns that only have `0`'s, which makes the clustering fail.
+So, we make this function to remove columns with only `0`s in them.
+
+``` r
+# Remove cols with only 0's
+remove_0_cols <- function(data) {
+  idx <- apply(data, 2, function(x) {
+    all(x == 0)
+  }) |>
+    which()
+  data[, idx * -1]
+}
+```
+
+### Clustering
+
+Just for better modelling, we scale the data, then fit a Ward.D2 model with eucledian distance.
+Then we plot it to have a look at what the results are telling us.
+
+``` r
+library(cluster)
+library(pvclust)
+library(ggraph)
+library(tidygraph)
+
+clust <- visible_wide_num |>
+  remove_0_cols() |>
+  scale() |>
+  pvclust(
+    method.hclust = "ward.D2",
+    method.dist = "euclidean",
+    nboot = 1000
+  )
+```
+
+    Bootstrap (r = 0.5)... Done.
+    Bootstrap (r = 0.6)... Done.
+    Bootstrap (r = 0.69)... Done.
+    Bootstrap (r = 0.8)... Done.
+    Bootstrap (r = 0.9)... Done.
+    Bootstrap (r = 1.0)... Done.
+    Bootstrap (r = 1.1)... Done.
+    Bootstrap (r = 1.2)... Done.
+    Bootstrap (r = 1.3)... Done.
+    Bootstrap (r = 1.4)... Done.
+
+``` r
+clust_graph <- as_tbl_graph(clust$hclust)
+
+# Make prettier names
+clustdt <- as.list(clust_graph)
+clustdt$nodes <- clustdt$nodes |>
+  separate(label, c("type", "category", "tracker"), sep = "_")
+```
+
+    Warning: Expected 3 pieces. Missing pieces filled with `NA` in 27 rows [4, 5, 8, 11, 12,
+    17, 18, 19, 20, 21, 24, 27, 31, 32, 33, 34, 38, 39, 42, 43, ...].
+
+``` r
+clustdt <- as_tbl_graph(clustdt)
+
+ggraph(clustdt, "circlepack") +
+  geom_node_circle(
+    aes(fill = depth),
+    n = 50,
+    show.legend = FALSE
+  ) +
+  geom_node_label(
+    aes(label = tracker),
+    repel = TRUE,
+    size = 2
+  ) +
+  coord_fixed()
+```
+
+    Warning: Removed 27 rows containing missing values or values outside the scale range
+    (`geom_label_repel()`).
+
+<img src="index.markdown_strict_files/figure-markdown_strict/clustering-1.png" width="768" />
+
+And there we have some nice clustering!
+What we see here, is more or less what I described above with the heatplot, just much much more intuitive to interpret.
+I'd say there are about 4 main clusters:
+
+1.  **Menstruation:** period, muscles aches, stomach pain, light sensitivity, and constipation
+2.  **Exertion**: stability score, heart rate variablility, mental and physical exertion, and lightness of breath
+3.  **Emotional**: Emotional exertion, depression, and nausea
+4.  **Neurological**: Fatigue, Sleep, joint pain, headache, palpitations, resting heart rate, anxiety, and crash (PEM).
+
+What I love about clustering is when results come out so very meaningful like here.
+I think these clusters make a lot of intuitive sense, and while they are not in any way revolutionary, they help provide some insight in how things are connected for me.
+
+### Other analyses
+
+This is a tease.
+I had planned trying out some linear mixed models, or some survival analyses, or even a sliding window approach.
+But my brain gave out, I could barely wrap my head around wrangling my data into the correct shapes, let alone make clear decisions on modelling approaches.
+So, I'll leave it at this for now.
+
+What would you test with data like this?
 
 ## Conclusion
 
