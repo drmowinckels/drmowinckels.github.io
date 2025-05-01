@@ -36,10 +36,7 @@ create_message <- function(text) {
 frontmatter <- rmarkdown::yaml_front_matter(post)
 
 # fix tags
-tags <- paste0("#", frontmatter$tags)
-tags <- sub("^#r$", "#rstats", tags, ignore.case = TRUE)
-tags <- sub(" ", "", tags, ignore.case = TRUE)
-tags <- paste(tags, collapse = " ")
+tags <- tags2hash(frontmatter$tags)
 
 # build URL
 uri <- sprintf(

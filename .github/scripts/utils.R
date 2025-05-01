@@ -24,6 +24,7 @@
 #' @importFrom httr2 resp_body_json
 #' @export
 short_url <- function(uri) {
+  message("Getting Short.io")
   resp <- httr2::request("https://api.short.io/links") |>
     httr2::req_method("POST") |>
     httr2::req_headers(
@@ -67,4 +68,19 @@ strlength <- function(x) {
   strsplit(x, "") |>
     unlist() |>
     length()
+}
+
+#' Converts a vector of tags into a single hash-tagged string
+#'
+#' @param tags A character vector of tags (e.g., c("R", "Health data")).
+#' @return A single string with tags converted to a hash-tagged format (e.g., "#Rstats #HealthData").
+#' Specific transformation applied:
+#'  - Converts "r" (case insensitive) to "rstats".
+#'  - Removes spaces within tags.
+#'  - Collapses all elements into one space-separated string.
+tags2hash <- function(tags) {
+  tags <- paste0("#", tags)
+  tags <- sub("^#r$", "#rstats", tags, ignore.case = TRUE)
+  tags <- sub(" |-", "", tags, ignore.case = TRUE)
+  paste(tags, collapse = " ")
 }
