@@ -437,15 +437,7 @@ Since the resolution of the brain we have is quite large and 3 dimensional, we o
 For instance, areas of the brain that control language or visual processing, or areas of the brain with similar structural properties.
 If you have worked with Freesurfer, the Desikan Killany coortical atlas (aparc) is likely well known to you.
 This is an atlas that consist of 36 segments, which are well-defined (<a href="https://surfer.nmr.mgh.harvard.edu/ftp/articles/fischl04-parcellation.pdf">Automatically Parcellating the Human Cerebral Cortex</a>, Fischl et al., (2004). Cerebral Cortex, 14:11-22.)</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=get&amp;target=annot-desikan.jpg" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- -->
-<div class="uk-thumbnail">
-    <img src="https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=get&amp;target=annot-desikan-m.jpg" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+<p><img class="uk-thumbnail" src="https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=get&amp;target=annot-desikan.jpg"><!-- --><img class="uk-thumbnail" src="https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=get&amp;target=annot-desikan-m.jpg"><!-- --></p>
 <p>Since the brain is full of sulci (grooves), we often inflate the brain surface so we can more clearly see the entire brain.
 This is what is shown  above.
 For those who have followed some of my posts, you might recognise this image to be similar to the default image from our <a href="https://lcbc-uio.github.io/ggseg/">ggseg</a> package.</p>
@@ -455,11 +447,7 @@ For those who have followed some of my posts, you might recognise this image to 
 </span></span><span style="display:flex;"><span>      position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;stacked&#34;</span>, colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>, 
 </span></span><span style="display:flex;"><span>      show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_brain</span>(<span style="color:#e6db74">&#34;dk&#34;</span>)
-</span></span></code></pre></div><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/featured-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/featured-1.png"><!-- --></p>
 <p>Similarly is our package <code>ggseg3d</code>, where you can render the proper 3d version using plotly.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dplyr, warn.conflicts <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggseg3d)
@@ -580,12 +568,12 @@ You can read more about this format in Anderson Winklers <a href="https://braind
 </span></span></code></pre></div><pre tabindex="0"><code>##  chr [1:30731] &#34;ply&#34; &#34;format ascii 1.0&#34; &#34;element vertex 10242&#34; ...
 </code></pre><p>The fun part is that, despite this being a file made completely of text and might seem very niche, Mac&rsquo;s Finder recognises this format as a 3d object and can preview it for you!
 Albeit in a strange angle, there it is!</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="ply_ss.png" alt="screenshot of ply file in Finder">
-    <div class="uk-thumbnail-caption uk-text-small">screenshot of ply file in Finder</div>
-</div></p>
-<p>The next step is to project the colours from the regions we know of, onto the currently white faces of the meshes.
+<figure class="uk-thumbnail">
+        <img src="ply_ss.png" alt="screenshot of ply file in Finder">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>The next step is to project the colours from the regions we know of, onto the currently white faces of the meshes.
 This, is easier said than done.
 While I would have loved to do this on a face-by-face way, I have yet to find a way to do so.
 The only way I know how to do this next step, and by no means truly understand what is happening, is by scouring through Anderson Winklers <a href="https://github.com/andersonwinkler/areal">areal scripts</a>.
@@ -683,7 +671,7 @@ I learned so much, and it was really a fun challenge!</p>
                         &emsp;url = "https://drmowinckels.io/blog/2020/using-freesurfer-annotation-files-to-plot-in-r/",<br>
                         &emsp;year = 2020,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273502",<br> 
-                        &emsp;updated = "Apr 30, 2025"<br>
+                        &emsp;updated = "May 1, 2025"<br>
                     }
                 </div>
             </div>

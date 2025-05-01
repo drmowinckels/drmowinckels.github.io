@@ -457,11 +457,7 @@ I&rsquo;m going to gather the numeric variables I&rsquo;m interested in into a l
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>() <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>variable, scales <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;free&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
-</code></pre><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-1-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-1-1.png"><!-- --></p>
 <p><code>carat</code> quite obviously has a strong relationship with the price, with higher carats upping the price of the diamond.
 But it does not look to be linear, there seems to be a peak around 2.2 carat, with a flattening and then a slower increase again later, with higher uncertainty (look at the CI bands).
 <code>table</code> is a more odd little thing.
@@ -477,11 +473,7 @@ It looks so strange, but we can play with it anyway.</p>
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning: attributes are not identical across measure variables;
 ## they will be dropped
 </code></pre><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
-</code></pre><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-2-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-2-1.png"><!-- --></p>
 <p>I&rsquo;m not winning any awards with this plot, but it&rsquo;s a quick way to get a general idea of what the data looks like.
 There&rsquo;s not much fun happening with <code>table</code> though there is this one cut that seems to behave <em>very</em> oddly.
 We will leave <code>table</code> as a main contributor, and focus on <code>carat</code>.</p>
@@ -506,11 +498,7 @@ I&rsquo;m just going to pick clarity, for the clarity (award for horrible word-p
 </code></pre><p>Unsurprisingly, that turns out to be quite true, carat predicts price well.
 Let&rsquo;s look at predicted price in a plot.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(model1)
-</span></span></code></pre></div><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-4-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-4-1.png"><!-- --></p>
 <p>There&rsquo;s the smooth line.
 But let&rsquo;s be honest, it ain&rsquo;t pretty.
 It&rsquo;s neat for getting a quick look at, but if you&rsquo;re prepping for a paper or a report, you&rsquo;ll need to fix it up a bit.
@@ -535,11 +523,7 @@ We also want the confidence bands, so we make sure to tell the <code>predict</co
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;model1&#34;</span>)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(data <span style="color:#f92672">=</span> diamonds, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>price, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ggplot gam&#34;</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
-</code></pre><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-5-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-5-1.png"><!-- --></p>
 <p>Despite the general formula being more or less the same, our gam and ggplots gam are slightly different.
 This is because ggplot2 does a cubic spline with knot reductions, while we are using the default low rank isotropic smoothers (<code>bs='tp'</code>).
 But you can see that we are nicely plotting the predicted line based on the model we have.
@@ -563,11 +547,7 @@ Let&rsquo;s hypothetically say a diamond with such an amazing quality that they 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;model1&#34;</span>)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(data <span style="color:#f92672">=</span> diamonds, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>price, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ggplot gam&#34;</span>))
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
-</code></pre><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-6-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-6-1.png"><!-- --></p>
 <p>I adjusted both the min and max and you can now see how the regression line based on our predicted data extends beyond the ggplot gam.</p>
 <p>But today we were supposed to talk about interactions.
 Let&rsquo;s have a look at how clarity interacts with carat.</p>
@@ -662,11 +642,7 @@ Pretty neat!</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(data <span style="color:#f92672">=</span> diamonds, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>price, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ggplot gam&#34;</span>)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>clarity)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
-</code></pre><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-11-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-11-1.png"><!-- --></p>
 <p>Ok, this still looks&hellip;. weird.
 Well, the model is not well suited to the data, but it works for making the point of how to plot interactions.
 This looks weird because the predictions are odd based on the data and model, and the scaling is very different for the different types of clarities.
@@ -679,11 +655,7 @@ We&rsquo;ll let each subplot have a different y-scale, so that we can inspect th
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(data <span style="color:#f92672">=</span> diamonds, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>price, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ggplot gam&#34;</span>)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>clarity, scales<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;free_y&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
-</code></pre><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/featured-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/featured-1.png"><!-- --></p>
 <p>So now we can see each better and whats going on.
 The <code>I1</code> clarity is a straight up hill, and <code>VS1</code> is also looking meaningful.
 But it is really where we are projecting predictions on the clarity-carat interaction into levels of carat that don&rsquo;t exist for the specific clarity.
@@ -731,11 +703,7 @@ To do that, the main effects need to have a dataset where the main effect you wa
 </span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>se.fit,
 </span></span><span style="display:flex;"><span>                  ymax <span style="color:#f92672">=</span> fit<span style="color:#f92672">+</span>se.fit)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>()
-</span></span></code></pre></div><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-14-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-14-1.png"><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>table_pred <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
 </span></span><span style="display:flex;"><span>  carat <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
 </span></span><span style="display:flex;"><span>  table <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq</span>(from<span style="color:#f92672">=</span><span style="color:#a6e22e">min</span>(diamonds<span style="color:#f92672">$</span>table), 
@@ -753,11 +721,7 @@ To do that, the main effects need to have a dataset where the main effect you wa
 </span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>se.fit,
 </span></span><span style="display:flex;"><span>                  ymax <span style="color:#f92672">=</span> fit<span style="color:#f92672">+</span>se.fit)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>()
-</span></span></code></pre></div><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-15-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-15-1.png"><!-- --></p>
 <p>Very nice! We now have plottet both main effects, and they looks like the plots from <code>plot</code> just better.</p>
 <p>To get the interaction, we need to do as we did with the factor, meaning each value of <code>table</code> must be combined with each value of <code>carat</code>.
 We use  <code>expand_grid</code> again.</p>
@@ -781,11 +745,7 @@ We use  <code>expand_grid</code> again.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(ct_int_pred, <span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>carat, y<span style="color:#f92672">=</span>table)) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_tile</span>(<span style="color:#a6e22e">aes</span>(fill <span style="color:#f92672">=</span> fit)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_contour</span>(<span style="color:#a6e22e">aes</span>(z <span style="color:#f92672">=</span> fit), colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>)
-</span></span></code></pre></div><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-17-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-17-1.png"><!-- --></p>
 <p>And there you have it.
 Interactions and smooths and all.
 Now you can alter the colour schemes, legends, theme and what you need using the standard <code>ggplot2</code> grammar.</p>
@@ -798,11 +758,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ct_int_pred <span style="color:#f92672">%&gt;%</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>carat, y<span style="color:#f92672">=</span>fit)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>table, colour<span style="color:#f92672">=</span>table))
-</span></span></code></pre></div><p>
-<div class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-18-1.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div><!-- --></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-18-1.png"><!-- --></p>
 <p>It&rsquo;s mighty pretty though!</p>
 
         </div>
@@ -832,7 +788,7 @@ But these are quite difficult to parse out, which is why I opt for the heatplot 
                         &emsp;url = "https://drmowinckels.io/blog/2019/plotting-gamm-interactions-with-ggplot2/",<br>
                         &emsp;year = 2019,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273494",<br> 
-                        &emsp;updated = "Apr 30, 2025"<br>
+                        &emsp;updated = "May 1, 2025"<br>
                     }
                 </div>
             </div>

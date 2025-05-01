@@ -577,12 +577,12 @@ In RStudio, navigate to Tools &gt; Modify Keyboard Shortcuts &gt; Search &ldquo;
 <p>Adding keybindings in Positron is a little different.
 To add custom keybindings, open the keybindings helper with <code>cmd + k cmd + s</code> (keep <code>cmd</code> pressed and then type <code>k</code> then <code>s</code> in succession).
 From there, you can open the <code>keybindings.json</code> file from the upper right hand corner of the file pane.</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="images/keybindings.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<p>Now, add the following to create a shortcut using the <code>ctrl + cmd + c</code> combination.</p>
+<figure class="uk-thumbnail">
+        <img src="images/keybindings.png" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>Now, add the following to create a shortcut using the <code>ctrl + cmd + c</code> combination.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;key&#34;</span>: <span style="color:#e6db74">&#34;Ctrl+Cmd+C&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;command&#34;</span>: <span style="color:#e6db74">&#34;workbench.action.executeCode.console&#34;</span>,
@@ -617,12 +617,12 @@ I have a MacBook Air with an M2 silicone chip with 24Gb memory, so I can manage 
 <p>After some discussions on LinkedIn, Bluesky and Mastodon, I started properly testing the <a href="https://ollama.com/library/qwen2.5-coder">qwen2.5-coder</a> model, and it does indeed seem pretty good.
 I also reached out to Simon directly to ask if he had any tips.
 The downside is that I cannot run the full 32b model, but had to go all the way down to the 7b model, the larger models were just taking too long (and I assume that is because they are too large for my computer to really work).</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="screencast/chores.gif" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<p>That leaves a lot to be desired, really.
+<figure class="uk-thumbnail">
+        <img src="screencast/chores.gif" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>That leaves a lot to be desired, really.
 It likely is doing poorly because I can&rsquo;t run a larger and better model.
 What I noticed with all my chores tests was that it looks like the prompts seem to be ignored.
 I know Simon put a lot of instruction into the chores shortcuts and a lot of them seem to be ignored by these small models (Simon&rsquo;s words, not mine).
@@ -665,12 +665,12 @@ That sounds really swell!</p>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>and let&rsquo;s give it a go!</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="screencast/gander.gif" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<p>Now, that is much better!
+<figure class="uk-thumbnail">
+        <img src="screencast/gander.gif" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>Now, that is much better!
 The code still needs some fixing, but it is much better than what I got with chores.
 Likely because I could give it less instructions, so it remembered it all and could follow.</p>
 <p>It&rsquo;s not going to be a huge game changer, but I find adapting code very easy, since I am proficient enough in R to have been able to generate it all on my own, it&rsquo;s just nice to take some shortcuts.</p>
@@ -684,21 +684,9 @@ This was a copilot feature I missed from VSCode, as I found it very helpful as I
 <p>Continue is not too difficult to set up, if you actually set aside a little time to do so.
 First install the <a href="https://open-vsx.org/extension/Continue/continue">extension from openVSX</a>.
 Once its done installing, it should pop up in your sidebar, and by clicking it you can start setting up models you want to have access to.</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="images/continue_ext.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div>
-
-<div class="uk-thumbnail">
-    <img src="images/continue_model.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div>
-
-<div class="uk-thumbnail">
-    <img src="images/continue_ollama.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
+<p><img class="uk-thumbnail" src="images/continue_ext.png">
+<img class="uk-thumbnail" src="images/continue_model.png">
+<img class="uk-thumbnail" src="images/continue_ollama.png"></p>
 <p>For Ollama, I have set it up for chat model and autocomplete model.
 For simplicity, I&rsquo;m only showing the part of my config file for continue (it will open once you add a model through the wizard) that sets up the models.
 There are lots more settings in the config for special commands.</p>
@@ -719,12 +707,12 @@ There are lots more settings in the config for special commands.</p>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>How does the chat look?</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="screencast/continue_ollama.gif" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<p>It does the job, verbose and all, but is quite slow.
+<figure class="uk-thumbnail">
+        <img src="screencast/continue_ollama.gif" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>It does the job, verbose and all, but is quite slow.
 Here I was running the 14b model, which is more accurate, but it was running somewhat slowly.
 7b was faster, but made less desirable suggestions.</p>
 <h3 id="are-we-happy-about-how-ollama-is-working-with-these-tools">Are we happy about how Ollama is working with these tools?</h3>
@@ -758,12 +746,12 @@ Much faster, much better and just really really cool.</p>
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><p>If you already have your system connected to GitHub, check with <code>usethis::git_sitrep()</code> for your status from R and it will aid you in getting setup correctly for it.
 But I reiterate, I have a educator free copilot thing, so be careful you don&rsquo;t be charged if you don&rsquo;t have the same free access or permissions.</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="images/continue_setup.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<p>My models setup in the continue config.json now looks like this:</p>
+<figure class="uk-thumbnail">
+        <img src="images/continue_setup.png" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>My models setup in the continue config.json now looks like this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;models&#34;</span>: [
 </span></span><span style="display:flex;"><span>    {
@@ -792,12 +780,12 @@ But I reiterate, I have a educator free copilot thing, so be careful you don&rsq
 </span></span></code></pre></div><p>Oh! I finally had auto-complete, which I missed so much.
 And it was all so fast.
 Then, I started getting this error:</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="images/continue_ratelimit.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<p>Oops!!
+<figure class="uk-thumbnail">
+        <img src="images/continue_ratelimit.png" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>Oops!!
 Seems like I really fast hit rate limiting with that setup.
 I wasn&rsquo;t used to that from co-pilot in VScode, it likely has some exception for that not to happen.
 That being said, the rate limit is for 50 requests per 24hours, so that is not a whole lot.
@@ -808,12 +796,12 @@ It was autocompleting even as I was writing prose for my blog.
 I only want to use it for code assistance.</p>
 <p>Firstly, I had a look on the <a href="https://docs.continue.dev/customize/deep-dives/autocomplete">options Continue have for autocomplete</a>.</p>
 <p>I firstly set it up to ignore all markdown files, I don&rsquo;t want code assistance in those.</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="images/continue_settings.png" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<p>I did that by listing them as files to be excluded with the string</p>
+<figure class="uk-thumbnail">
+        <img src="images/continue_settings.png" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><p>I did that by listing them as files to be excluded with the string</p>
 <pre><code>*/.md, */.?md
 </code></pre>
 <p>Next, I went to Positron settings and searched for <code>editor.inlineSuggest.enabled</code> and set it to false.
@@ -827,12 +815,12 @@ So I opened my Positron keybindings as indicated before, and added the following
 </span></span></code></pre></div><p>Now I can trigger autocompletion in R files with <code>cmd + ctrl + l</code>.
 I also tried gander and chores and the results were really a lot nicer.
 Downside is only doing 50 of these per day&hellip; but I&rsquo;m not working yet, so it won&rsquo;t be an issue for a good long while yet.</p>
-<p>
-<div class="uk-thumbnail">
-    <img src="screencast/gh.gif" alt="">
-    <div class="uk-thumbnail-caption uk-text-small"></div>
-</div></p>
-<h2 id="conclusion">Conclusion</h2>
+<figure class="uk-thumbnail">
+        <img src="screencast/gh.gif" alt="">
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+            
+        </figcaption>
+    </figure><h2 id="conclusion">Conclusion</h2>
 <p>All in all, I&rsquo;m quite happy with this exploration.
 I know how to get things working locally, and to connect to GH and I&rsquo;m looking forward to using all this when I&rsquo;m back to work.</p>
 <p>Will you be trying these things out, or have other solutions I should know of?</p>
@@ -864,7 +852,7 @@ I know how to get things working locally, and to connect to GH and I&rsquo;m loo
                         &emsp;url = "https://drmowinckels.io/blog/2025/ollama/",<br>
                         &emsp;year = 2025,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.14961312",<br> 
-                        &emsp;updated = "Apr 30, 2025"<br>
+                        &emsp;updated = "May 1, 2025"<br>
                     }
                 </div>
             </div>
