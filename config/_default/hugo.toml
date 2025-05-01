@@ -1,4 +1,4 @@
-baseURL  = ""
+baseURL  = "./"
 theme    = "hugo-igloo"
 title    = "Dr. Mowinckel's"
 
@@ -18,9 +18,11 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
 
 # Getting raw html to render
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+        unsafe = true
+        [markup.goldmark.parser]
+        wrapStandAloneImageWithinParagraph = false
 
 [params]
     themeStyle    = "light"                 # Choose "light" or "dark"
