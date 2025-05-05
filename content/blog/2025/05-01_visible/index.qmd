@@ -22,7 +22,7 @@ seo: "Tracking Long Covid with Visible app: 1 year of health data. Insights & pa
 It's not a picnic, and recovery is a slow and tedious process of extremely slowly trying to increase what I can manage to do within a single day. 
 
 Pretty early on, I started tracking my symptoms and experiences.
-Well, I am a quanitiative scientist, am I not?
+Well, I am a quantitative scientist, am I not?
 
 I got myself a mid-tier Garmin watch, the Forerunner 165 Music, to monitor my heart in particular, throughout the day.
 I felt it racing for absolutely nothing (just walking inside, or taking a shower).
@@ -89,10 +89,10 @@ unique(visible$tracker_name)
 
 Great.
 The data are decently structured.
-Not overly fond of having all values ac "character", but given the format I guess its the easiest way to deal with that.
+Not overly fond of having all values as "character", but given the format I guess its the easiest way to deal with that.
 Through the categories and tracker names, I have a decent idea of how to go about looking at this.
 
-The value column is a character vector though, which is incovenient.
+The value column is a character vector though, which is inconvenient.
 I know there is a "Note" field in there, so let's get that in its own column, and make sure the values are numeric.
 We'll also simplify the column names just a little, for convenience.
 
