@@ -362,6 +362,13 @@ visible |>
   )
 ```
 
+```{r}
+#| include: false
+
+saveRDS(visible, "visible_clean.rds")
+```
+
+
 As expected, the improvements are not so visible here.
 I think there are several reasons for that though: 
 
@@ -604,8 +611,10 @@ Matrix correlations need full observations (no `NA`s), and only numeric data.
 #| label: correlation matrix
 #| output-height: 700px
 #| fig-height: 10
-visible_wide_num <- visible_wide |>
-  remove_na_columns() |>
+visible_wide <- visible_wide |>
+  remove_na_columns()
+
+visible_wide_num <- visible_wide |> 
   select(where(is.numeric)) |>
   drop_na()
 
@@ -621,6 +630,10 @@ cordat |>
     fill = value
   )) +
   geom_tile()
+```
+
+```{r}
+saveRDS(visible_wide, "visible_wide.rds")
 ```
 
 What can we see here?
@@ -651,7 +664,7 @@ remove_0_cols <- function(data) {
 
 ### Clustering
 
-Just for better modelling, we scale the data, then fit a Ward.D2 model with eucledian distance.
+Just for better modelling, we scale the data, then fit a Ward.D2 model with euclidian distance.
 Then we plot it to have a look at what the results are telling us.
 
 ```{r}
@@ -692,6 +705,11 @@ ggraph(clustdt, "circlepack") +
   ) +
   coord_fixed()
 
+```
+```{r}
+#| include: false
+
+saveRDS(clustdt, "clusters.rds")
 ```
 
 And there we have some nice clustering!

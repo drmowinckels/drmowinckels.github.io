@@ -1,5 +1,4 @@
 ---
-doi: 10.5281/zenodo.15316170
 editor_options:
   markdown:
     wrap: sentence
@@ -756,8 +755,10 @@ Now that that's done, let'd doe a simple matrix correlation.
 Matrix correlations need full observations (no `NA`s), and only numeric data.
 
 ``` r
-visible_wide_num <- visible_wide |>
-  remove_na_columns() |>
+visible_wide <- visible_wide |>
+  remove_na_columns()
+
+visible_wide_num <- visible_wide |> 
   select(where(is.numeric)) |>
   drop_na()
 
@@ -781,6 +782,10 @@ cordat |>
 ```
 
 <img src="index.markdown_strict_files/figure-markdown_strict/correlation%20matrix-1.png" width="768" />
+
+``` r
+saveRDS(visible_wide, "visible_wide.rds")
+```
 
 What can we see here?
 When I'm depressed, I also tend to get nauseated.
