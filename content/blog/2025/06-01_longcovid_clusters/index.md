@@ -384,21 +384,21 @@ I also added a horizontal line at the `0.2` loading value, to give us a general 
 Usually, people will use `0.3` or higher for larger samples.
 But my data is very little for a PCA, and we are just using it here as a fun way to explore my condition and symptoms, but as a rule to decide with scientific rigour.
 
-#### **Principal Component 1 (PC1): The "Overall Severity" or "Neurological Burden" Component**
+#### PC1: The "Overall Severity" or "Neurological Burden" Component
 
 Looking at the top plot for **PC1**, we see strong positive loadings (tall green bars) for `Fatigue`, `Nausea`, `Crash`, `Depression`, and `Headache`.
 These are clearly my most debilitating and pervasive Long Covid symptoms.
 On the negative side (purple/blue bars), `Resting HR`, `HR Variability`, and `Stability Score` have strong negative loadings.
 This means that when these symptoms (fatigue, crash, depression, etc.) are high, my stability score is low, my resting heart rate is high, and my HRV is low.
 
-#### **Principal Component 2 (PC2): The "Inflammatory/Physical Discomfort" Component**
+#### PC2: The "Inflammatory/Physical Discomfort" Component
 
 Moving to the middle plot for **PC2**, we see different strong contributors. `Depression`, `Period`, `Nausea`, and `Physically active` (surprisingly, or perhaps inversely related) have high positive loadings.
 On the negative side, `Resting HR` and `Muscle weakness` show strong negative loadings.
 
 This component seems to capture a dimension related to more general physical discomfort, potentially linked to inflammatory responses, and surprisingly, how physically active I *can be* (or how that activity impacts this cluster).
 
-#### **Principal Component 3 (PC3): The "Exertion & Recovery Balance" Component**
+#### PC3: The "Exertion & Recovery Balance" Component
 
 The bottom plot for **PC3** is interesting.
 We see high positive loadings for `Joint pain`, `Sleep`, `Muscle aches`, and `Brain fog`.
@@ -583,3 +583,4 @@ As in the PCA **each** component will have a value for every tracker, with the v
 The clustering gives us neither strength nor directionality, and a single "location" for each tracker.
 
 Despite this, we see that there is some meaningful overlap between the two that can help us evaluate what we are looking at.
+It's not the most interesting thing I've looked at, but I got to test out some plots, which is always fun!
