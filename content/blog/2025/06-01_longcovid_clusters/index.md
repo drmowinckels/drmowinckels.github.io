@@ -11,7 +11,7 @@ tags:
   - R
   - health-data
   - longcovid
-slug: visible-clusters
+slug: visible-pca
 image: index.markdown_strict_files/figure-markdown_strict/pca-sankey-1.png
 image_alt: >-
   A Sankey diagram showing flows from Principal Components (PCs) on the left, to
