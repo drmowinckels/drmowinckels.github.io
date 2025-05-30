@@ -30,11 +30,7 @@ The participants are shown on a computer screen a coloured shape, where they hav
 Seeing the coloured shape, they are asked to accumulate as many points as possible by rejecting net negative objects and accept net positive objects.
 They are asked to be as quick as possible, as we also log in milliseconds how long they take to respond.
 
-<figure class="uk-thumbnail">
-
-<img src="images/experiment.png" alt="Experiment setup" />
-<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Experiment setup</figcaption>
-</figure>
+![Experiment setup](images/experiment.png)
 
 First, I'm creating a function that will generate stimuli values as named vectors.
 This is a nice way to store the stimuli information.

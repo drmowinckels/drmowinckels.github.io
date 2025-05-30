@@ -49,20 +49,13 @@ For those who aren't familiar, imagine trying to organize a messy pile of LEGO b
 You might group all the red ones together, all the long ones, or all the ones with wheels.
 Clustering in data does something similar: it finds items (in this case, my symptoms and tracked metrics) that are naturally similar or tend to show up together, and groups them.
 
-<figure class="uk-thumbnail">
-
-<img src="lego_blocks.jpg" alt="Image of several mounds of LEGO sorted neatly by colour." />
-<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Image of several mounds of LEGO sorted neatly by colour.</figcaption>
-</figure>
+![Image of several mounds of LEGO sorted neatly by colour.](lego_blocks.jpg)
 
 It was an affirming moment for me when I ran this analysis.
 I'd always felt that certain symptoms seemed to "travel together," but seeing it laid out by the data was incredibly validating.
 And one thing that is very good when you have a hidden illness like this (like, I don't _look_ sick) is seeing some validation that stuff is going on.
 
-<figure class="uk-thumbnail">
-<img src="./blog/2025/visible/index.markdown_strict_files/figure-markdown_strict/clustering-1.png" alt="Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside." />
-<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside.</figcaption>
-</figure>
+![Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside.](/blog/2025/visible/index.markdown_strict_files/figure-markdown_strict/clustering-1.png)
 
 From the analysis, four main clusters emerged, each telling its own story about how my body experiences Long Covid. Here they are:
 
@@ -85,11 +78,7 @@ While the hierarchical clustering we did last time helped us group symptoms that
 Imagine you have a giant, intricate LEGO creation -- not just loose bricks in piles.
 PCA is like taking that complex structure and figuring out the core building blocks or main axes around which the whole thing is constructed.
 
-<figure class="uk-thumbnail">
-
-<img src="lego_orchid.jpg" alt="Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks." />
-<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks.</figcaption>
-</figure>
+![Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks.](lego_orchid.jpg)
 
 It doesn't just put bricks into piles; it reveals the fundamental themes or underlying "stories" that make up the overall shape of your health data.
 For example, one principal component might represent "all the pieces related to my daily energy levels," another "all the pieces for my body's inflammation state."

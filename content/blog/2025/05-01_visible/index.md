@@ -62,21 +62,13 @@ This was better suited for me to answer than my own survey, so I stopped filling
 Visible also has a monthly questionnaire where you evaluate what you are able to to do for various activities over the month and what it costs you to do that activity.
 The [FUNCAP27](https://pmc.ncbi.nlm.nih.gov/articles/PMC11204454/) was developed and validated on ME/CFS patients, and is a great tool for assessing functional capacity.
 
-<figure class="uk-thumbnail">
-
-<img src="funcap_summary.png" alt="Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound." />
-<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.</figcaption>
-</figure>
+![Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.](funcap_summary.png)
 
 With this, I have _DATA_.
 The App has several tools inside to get an idea of how you are progressing, and if you are pacing well.
 These have been nice to look at and monitor how I'm doing.
 
-<figure class="uk-thumbnail">
-
-<img src="trends.png" alt="A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70." />
-<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.</figcaption>
-</figure>
+![A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.](trends.png)
 
 I thought 1 year of data was a good place to sit down with the exported data and have my own take on looking at the data.
 

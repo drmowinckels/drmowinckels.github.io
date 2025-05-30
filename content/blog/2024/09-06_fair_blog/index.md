@@ -30,11 +30,7 @@ I have used Hugo's internal way of making sure this does not happen, but this ne
 I might not have detected all the broken links.
 And, I might change my home-page url at some point, and that will be really hard to do anything about.
 
-<figure class="uk-thumbnail">
-
-<img src="images/fair.png" alt="FAIR data wheel" />
-<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">FAIR data wheel</figcaption>
-</figure>
+![FAIR data wheel](images/fair.png)
 
 So, setting up a pipeline for making sure my posts are archived, given a persistent identigier (DOI, digital object identifier), is a way of making sure what I write is actually around even if my website dies.
 I prepach about making research as [FAIR](https://faircookbook.elixir-europe.org/content/recipes/introduction/brief-FAIR-principles.html) as possible, so I should really make sure I also do as I say.
