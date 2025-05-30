@@ -2,10 +2,10 @@
 editor_options:
   markdown:
     wrap: sentence
-title: 'Unmasking Long Covid: PCA & Clustering Analysis of Symptom Syndromes'
+title: "Unmasking Long Covid: PCA & Clustering Analysis of Symptom Syndromes"
 format: hugo-md
 author: Dr. Mowinckel
-date: '2025-06-01'
+date: "2025-06-01"
 categories: []
 tags:
   - R
@@ -31,7 +31,6 @@ seo: >-
   symptom clusters and inform management strategies.
 ---
 
-
 I thought I'd continue on exploring my long covid data this month too.
 My [last post](./blog/2025/visible) we dived a little into the data I have gathered using the [Visible app](https://www.makevisible.com/) for over a year now.
 I showed you how the Visible app helped me monitor my heart rate and HRV, gave me a "stability score" each morning, and provided monthly functional capacity assessments (the awesome FUNCAP27).
@@ -50,34 +49,35 @@ For those who aren't familiar, imagine trying to organize a messy pile of LEGO b
 You might group all the red ones together, all the long ones, or all the ones with wheels.
 Clustering in data does something similar: it finds items (in this case, my symptoms and tracked metrics) that are naturally similar or tend to show up together, and groups them.
 
-<figure>
+<figure class="uk-thumbnail">
+
 <img src="lego_blocks.jpg" alt="Image of several mounds of LEGO sorted neatly by colour." />
-<figcaption aria-hidden="true">Image of several mounds of LEGO sorted neatly by colour.</figcaption>
+<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Image of several mounds of LEGO sorted neatly by colour.</figcaption>
 </figure>
 
 It was an affirming moment for me when I ran this analysis.
 I'd always felt that certain symptoms seemed to "travel together," but seeing it laid out by the data was incredibly validating.
-And one thing that is very good when you have a hidden illness like this (like, I don't *look* sick) is seeing some validation that stuff is going on.
+And one thing that is very good when you have a hidden illness like this (like, I don't _look_ sick) is seeing some validation that stuff is going on.
 
-<figure>
-<img src="../05-01_visible/index.markdown_strict_files/figure-markdown_strict/clustering-1.png" alt="Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside." />
-<figcaption aria-hidden="true">Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside.</figcaption>
+<figure class="uk-thumbnail">
+<img src="./blog/2025/visible/index.markdown_strict_files/figure-markdown_strict/clustering-1.png" alt="Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside." />
+<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside.</figcaption>
 </figure>
 
 From the analysis, four main clusters emerged, each telling its own story about how my body experiences Long Covid. Here they are:
 
 1.  **Menstruation:** This cluster grouped "period," "muscles aches," "stomach pain," "light sensitivity," and "constipation."
-    -   *My initial thought:* "Okay, this makes so much sense. This is'nt long-covid stuff, it's 'just' period stuff. These are all (except light sensitivity) symptoms that have always plagued me during my period."
+    - _My initial thought:_ "Okay, this makes so much sense. This is'nt long-covid stuff, it's 'just' period stuff. These are all (except light sensitivity) symptoms that have always plagued me during my period."
 2.  **Exertion:** Here, we saw "stability score," "heart rate variability," "mental and physical exertion," and "lightness of breath."
-    -   *My initial thought:* "This is the core of what stability score is based on, isn't it? The physical output directly impacting my energy and my heart's response. Biggest surprise was that resting heart rate was **not** in here, but seeing 'lightness of breath' in here confirms that feeling of struggling to breathe after minimal effort especially on poor days."
+    - _My initial thought:_ "This is the core of what stability score is based on, isn't it? The physical output directly impacting my energy and my heart's response. Biggest surprise was that resting heart rate was **not** in here, but seeing 'lightness of breath' in here confirms that feeling of struggling to breathe after minimal effort especially on poor days."
 3.  **Emotional:** This cluster contained "emotional exertion," "depression," and "nausea."
-    -   *My initial thought:* "This one is a no brainer for me, yeah, that is my brain doing its thing. As a person who generally struggles with depression and low mood, this clustering is meaningful. Biggest surprise here was that anxiety was not clustered in with it all."
+    - _My initial thought:_ "This one is a no brainer for me, yeah, that is my brain doing its thing. As a person who generally struggles with depression and low mood, this clustering is meaningful. Biggest surprise here was that anxiety was not clustered in with it all."
 4.  **Neurological:** This was the largest cluster, including "fatigue," "sleep," "joint pain," "headache," "palpitations," "resting heart rate," "anxiety," and "crash (PEM)."
-    -   *My initial thought:* "This really encapsulates the 'Long Covid feeling.' All these symptoms are the heavy hitters that define my worst days. It's the central hub of what pulls me down. While there is clear meaning behind anxienty being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression."
+    - _My initial thought:_ "This really encapsulates the 'Long Covid feeling.' All these symptoms are the heavy hitters that define my worst days. It's the central hub of what pulls me down. While there is clear meaning behind anxienty being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression."
 
 ## Unpacking Symptom Dimensions with Principal Component Analysis (PCA)
 
-While the hierarchical clustering helped us group symptoms that co-occur, sometimes we want to understand the underlying *dimensions* or *factors* that explain the most variation in our data.
+While the hierarchical clustering helped us group symptoms that co-occur, sometimes we want to understand the underlying _dimensions_ or _factors_ that explain the most variation in our data.
 This is where **Principal Component Analysis (PCA)** comes in -- it's a powerful technique for dimensionality reduction that finds new, uncorrelated variables (principal components) that capture the most variance in our original dataset.
 
 While the hierarchical clustering we did last time helped us group symptoms that love to hang out together, sometimes we want to understand the underlying dimensions or factors that explain the most variation in our data. This is where Principal Component Analysis (PCA) comes in.
@@ -85,9 +85,10 @@ While the hierarchical clustering we did last time helped us group symptoms that
 Imagine you have a giant, intricate LEGO creation -- not just loose bricks in piles.
 PCA is like taking that complex structure and figuring out the core building blocks or main axes around which the whole thing is constructed.
 
-<figure>
+<figure class="uk-thumbnail">
+
 <img src="lego_orchid.jpg" alt="Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks." />
-<figcaption aria-hidden="true">Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks.</figcaption>
+<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks.</figcaption>
 </figure>
 
 It doesn't just put bricks into piles; it reveals the fundamental themes or underlying "stories" that make up the overall shape of your health data.
@@ -97,7 +98,7 @@ If my symptom clusters are truly meaningful, we'd expect to see them emerge as s
 For this analysis, we'll use our `visible_wide` dataset, which is already cleaned and only keep the numeric daily observations that are suitable for PCA.
 Scaling the data is crucial for PCA, especially when your variables are on different scales (like heart rate vs. a 1-5 symptom score), to ensure that variables with larger values don't disproportionately influence the components.
 
-``` r
+```r
 library(tidyverse)
 ```
 
@@ -111,7 +112,7 @@ library(tidyverse)
     ✖ dplyr::lag()    masks stats::lag()
     ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
-``` r
+```r
 # Remove cols with only 0's
 remove_0_cols <- function(data) {
   idx <- apply(data, 2, function(x) {
@@ -152,7 +153,7 @@ summary(pca_result)
     Cumulative Proportion  0.9432 0.95631 0.96866 0.97951 0.98946 0.99698 1.00000
 
 You get a table out with, in this case, 28 components, and showing how much each component explains of the variance, and the standard deviation of the component.
-PCA's are always sorted from *most explained* to *least explained*, so the first components are ultimately what we are generally most interested in.
+PCA's are always sorted from _most explained_ to _least explained_, so the first components are ultimately what we are generally most interested in.
 
 ### Interpreting the Principal Components
 
@@ -164,7 +165,7 @@ First, we need to create a data.frame we can use for plotting.
 For data from prcomp, I like to extract it's summary table and coerce it into a data.frame.
 It's a little sneaky, but also convenient.
 
-``` r
+```r
 # Create nice data frame of components
 prcomp_to_df <- function(prcomp) {
   spca <- summary(prcomp)
@@ -211,7 +212,7 @@ pca_variance
 
 Once we have that, we can get our neat scree plot.
 
-``` r
+```r
 ggplot(pca_variance, aes(x = component, y = var_exp)) +
   geom_line() +
   geom_point() +
@@ -239,7 +240,7 @@ Variables with positive loadings on a component move in the same direction, whil
 Let's look at the loadings for the first few principal components,
 and also make sure we split up the tracker information into components again.
 
-``` r
+```r
 # Extract loadings (rotations)
 loadings_df <- as.data.frame(pca_result$rotation) |>
   rownames_to_column(var = "tracker") |>
@@ -255,21 +256,21 @@ loadings_df |>
        tracker            PC1      PC2      PC3
        <chr>            <dbl>    <dbl>    <dbl>
      1 Fatigue          0.343  0.0684   0.00162
-     2 Crash            0.328 -0.0460  -0.0888 
-     3 Stability Score -0.323  0.227   -0.0392 
-     4 Nausea           0.301  0.355   -0.0505 
-     5 Sleep            0.300 -0.00906  0.310  
-     6 Depression       0.287  0.360   -0.0136 
-     7 Palpitations     0.275 -0.0522   0.0338 
-     8 Headache         0.254  0.0490   0.123  
-     9 Anxiety          0.208  0.0588  -0.376  
-    10 Resting HR       0.195 -0.351   -0.133  
+     2 Crash            0.328 -0.0460  -0.0888
+     3 Stability Score -0.323  0.227   -0.0392
+     4 Nausea           0.301  0.355   -0.0505
+     5 Sleep            0.300 -0.00906  0.310
+     6 Depression       0.287  0.360   -0.0136
+     7 Palpitations     0.275 -0.0522   0.0338
+     8 Headache         0.254  0.0490   0.123
+     9 Anxiety          0.208  0.0588  -0.376
+    10 Resting HR       0.195 -0.351   -0.133
     # ℹ 18 more rows
 
 Now we have a nice data.frame with all our loadings for the top 3 components.
 We can create a nice barchart to show these loadings fairly easily with ggplot2
 
-``` r
+```r
 loadings_df |>
   pivot_longer(
     cols = starts_with("PC"),
@@ -295,7 +296,7 @@ loadings_df |>
 Downside with using facets here, is that while the trackers are the same across each plot, it also makes it harder in this case to clearly see which trackers contribute the most to each component.
 I'll make a special function that will order the x-axis according to the loading value, and then make each plot individually before we put them together again with {patchwork}.
 
-``` r
+```r
 library(patchwork)
 
 pca_bar <- function(data) {
@@ -339,7 +340,7 @@ Now, we can focus on the trackers that contribute most on each end of the scale.
 I'm still searching for a better visualisation though, and I think we can keep the colours, but use their absolute loading value to plot.
 This will place all the most important components in order at the very left of the plot, and we can distinguish between positive and negative by their colour.
 
-``` r
+```r
 pca_bar2 <- function(data) {
   data |>
     mutate(abs_loading = abs(loading)) |>
@@ -396,7 +397,7 @@ This means that when these symptoms (fatigue, crash, depression, etc.) are high,
 Moving to the middle plot for **PC2**, we see different strong contributors. `Depression`, `Period`, `Nausea`, and `Physically active` (surprisingly, or perhaps inversely related) have high positive loadings.
 On the negative side, `Resting HR` and `Muscle weakness` show strong negative loadings.
 
-This component seems to capture a dimension related to more general physical discomfort, potentially linked to inflammatory responses, and surprisingly, how physically active I *can be* (or how that activity impacts this cluster).
+This component seems to capture a dimension related to more general physical discomfort, potentially linked to inflammatory responses, and surprisingly, how physically active I _can be_ (or how that activity impacts this cluster).
 
 #### PC3: The "Exertion & Recovery Balance" Component
 
@@ -415,7 +416,7 @@ Maybe we can see the connections between the principal components and the cluste
 Now that we have explored the dimensionality of the data with two different approaches, we should have a clear comparison between them.
 First, we need to define which factors go into each cluster from before.
 
-``` r
+```r
 clusters_df <- list(
   Menstruation = c(
     "Period",
@@ -464,30 +465,30 @@ clusters_df
 ```
 
     # A tibble: 28 × 2
-       cluster      tracker            
-       <chr>        <chr>              
-     1 Menstruation Period             
-     2 Menstruation Muscle aches       
-     3 Menstruation Stomach pain       
-     4 Menstruation Light sensitivity  
-     5 Menstruation Constipation       
-     6 Exertion     Stability Score    
-     7 Exertion     HR Variability     
-     8 Exertion     Physically active  
-     9 Exertion     Mentally demanding 
+       cluster      tracker
+       <chr>        <chr>
+     1 Menstruation Period
+     2 Menstruation Muscle aches
+     3 Menstruation Stomach pain
+     4 Menstruation Light sensitivity
+     5 Menstruation Constipation
+     6 Exertion     Stability Score
+     7 Exertion     HR Variability
+     8 Exertion     Physically active
+     9 Exertion     Mentally demanding
     10 Exertion     Shortness of breath
     # ℹ 18 more rows
 
 Then we combine the clusters data with the loadsings for the three top components, and the loadings of the factors over `0.2` to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component).
-I'm using the [ggsankey](https://github.com/davidsjoberg/ggsankey) package by [David Sjoberg](David%20Sjoberg) here, which is *not* on CRAN, but I think makes the most beautiful Sankey diagram
+I'm using the [ggsankey](https://github.com/davidsjoberg/ggsankey) package by [David Sjoberg](David%20Sjoberg) here, which is _not_ on CRAN, but I think makes the most beautiful Sankey diagram
 (hint hint David, get it on CRAN, will ya?).
 
 This package contains a very convenient function `make_long` which translates your data into the necessary format for the plot.
 It tok me a really good while to get the data looking as I needed, despite the code looking this clean.
 
-I *think* the trick was placing the columns into the function *in the order I wanted my x-axis*.
+I _think_ the trick was placing the columns into the function _in the order I wanted my x-axis_.
 
-``` r
+```r
 library(ggsankey)
 
 sankey_df <- loadings_df |>
@@ -506,7 +507,7 @@ sankey_df <- loadings_df |>
 
     Joining with `by = join_by(tracker)`
 
-``` r
+```r
 sankey_df
 ```
 
@@ -527,7 +528,7 @@ sankey_df
 
 With this data, we can finally get a nice flowchart of the trackers between the two analysis approaches.
 
-``` r
+```r
 sankey_df |>
   ggplot(aes(
     x = x,

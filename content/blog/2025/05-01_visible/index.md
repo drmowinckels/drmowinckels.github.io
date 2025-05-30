@@ -5,7 +5,7 @@ editor_options:
 title: A year with Visible Long-Covid Tracking
 format: hugo-md
 author: Dr. Mowinckel
-date: '2025-05-01'
+date: "2025-05-01"
 categories: []
 tags:
   - R
@@ -33,7 +33,6 @@ seo: >-
   Tracking Long Covid with Visible app: 1 year of health data. Insights & pacing
   strategies.
 ---
-
 
 [I have previously](./blog/2025/the-difficult-year) written about having been sick with long covid for a year.
 It's not a picnic, and recovery is a slow and tedious process of extremely slowly trying to increase what I can manage to do within a single day.
@@ -63,18 +62,20 @@ This was better suited for me to answer than my own survey, so I stopped filling
 Visible also has a monthly questionnaire where you evaluate what you are able to to do for various activities over the month and what it costs you to do that activity.
 The [FUNCAP27](https://pmc.ncbi.nlm.nih.gov/articles/PMC11204454/) was developed and validated on ME/CFS patients, and is a great tool for assessing functional capacity.
 
-<figure>
+<figure class="uk-thumbnail">
+
 <img src="funcap_summary.png" alt="Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound." />
-<figcaption aria-hidden="true">Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.</figcaption>
+<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.</figcaption>
 </figure>
 
-With this, I have *DATA*.
+With this, I have _DATA_.
 The App has several tools inside to get an idea of how you are progressing, and if you are pacing well.
 These have been nice to look at and monitor how I'm doing.
 
-<figure>
+<figure class="uk-thumbnail">
+
 <img src="trends.png" alt="A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70." />
-<figcaption aria-hidden="true">A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.</figcaption>
+<figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.</figcaption>
 </figure>
 
 I thought 1 year of data was a good place to sit down with the exported data and have my own take on looking at the data.
@@ -85,7 +86,7 @@ Getting my Visible data is really very easy.
 Inside the app, in your profile, there is a "Export Health Data" button, which exports the data as a csv.
 And now, we can have a look!
 
-``` r
+```r
 library(tidyverse)
 ```
 
@@ -94,13 +95,13 @@ library(tidyverse)
     ✔ forcats   1.0.0     ✔ stringr   1.5.1
     ✔ ggplot2   3.5.2     ✔ tibble    3.2.1
     ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-    ✔ purrr     1.0.4     
+    ✔ purrr     1.0.4
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ✖ dplyr::filter() masks stats::filter()
     ✖ dplyr::lag()    masks stats::lag()
     ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
-``` r
+```r
 visible <- read_csv(here::here(
   "content/blog/2025/05-01_visible/visible.csv"
 ))
@@ -115,7 +116,7 @@ visible <- read_csv(here::here(
     ℹ Use `spec()` to retrieve the full column specification for this data.
     ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-``` r
+```r
 glimpse(visible)
 ```
 
@@ -129,90 +130,90 @@ glimpse(visible)
 And my heart is so happy seeing this data.
 I'm so used to getting data in all sort of weird formats, but look at this!
 Nice, tidy, tall data for me to play with.
-We barely need ANY data munging to start getting plots of *everything*!
+We barely need ANY data munging to start getting plots of _everything_!
 But we need a little :P
 
-``` r
+```r
 # What are our categories
 unique(visible$tracker_category)
 ```
 
-     [1] "Sleep"                "Measurement"          "Cognitive"           
-     [4] "Pain"                 "Brain"                "Muscles"             
-     [7] "Heart and Lungs"      "Gastrointestinal"     "Social"              
-    [10] "General"              "Menstrual"            "Experience"          
-    [13] "Emotional"            "Physical"             "Sensory"             
-    [16] "Funcap_concentration" "Funcap_upright"       "Funcap_hygiene"      
-    [19] "Funcap_outside"       "Funcap_walking"       "Funcap_light"        
-    [22] "Funcap_communication" "Funcap_home"          "Note"                
+     [1] "Sleep"                "Measurement"          "Cognitive"
+     [4] "Pain"                 "Brain"                "Muscles"
+     [7] "Heart and Lungs"      "Gastrointestinal"     "Social"
+    [10] "General"              "Menstrual"            "Experience"
+    [13] "Emotional"            "Physical"             "Sensory"
+    [16] "Funcap_concentration" "Funcap_upright"       "Funcap_hygiene"
+    [19] "Funcap_outside"       "Funcap_walking"       "Funcap_light"
+    [22] "Funcap_communication" "Funcap_home"          "Note"
 
-``` r
+```r
 # What are our trackers
 unique(visible$tracker_name)
 ```
 
-     [1] "Sleep"                                                                                     
-     [2] "HR Variability"                                                                            
-     [3] "Resting HR"                                                                                
-     [4] "Stability Score"                                                                           
-     [5] "Mentally demanding"                                                                        
-     [6] "Stomach pain"                                                                              
-     [7] "Lightheadedness"                                                                           
-     [8] "Headache"                                                                                  
-     [9] "Muscle weakness"                                                                           
-    [10] "Shortness of breath"                                                                       
-    [11] "Diarrhea"                                                                                  
-    [12] "Socially demanding"                                                                        
-    [13] "Anxiety"                                                                                   
-    [14] "Joint pain"                                                                                
-    [15] "Allergies"                                                                                 
-    [16] "Palpitations"                                                                              
-    [17] "Brain Fog"                                                                                 
-    [18] "Memory issues"                                                                             
-    [19] "Period"                                                                                    
-    [20] "Nausea"                                                                                    
-    [21] "Crash"                                                                                     
-    [22] "Emotionally stressful"                                                                     
-    [23] "Depression"                                                                                
-    [24] "Physically active"                                                                         
-    [25] "Blurred vision"                                                                            
-    [26] "Dizziness"                                                                                 
-    [27] "Noise sensitivity"                                                                         
-    [28] "Muscle aches"                                                                              
-    [29] "Light sensitivity"                                                                         
-    [30] "Fatigue"                                                                                   
-    [31] "Nerve pain"                                                                                
-    [32] "Constipation"                                                                              
-    [33] "Reading a short text such as a mobile phone text message"                                  
-    [34] "Standing up for approx. 5 minutes e.g. while queuing or while cooking"                     
-    [35] "Using the toilet (not bedpan or bedside commode)"                                          
-    [36] "Going to a shop for groceries"                                                             
-    [37] "Focusing on a task for approx. 2 hours continuously"                                       
-    [38] "Physical activity with increased heart rate for approx. 15 min"                            
+     [1] "Sleep"
+     [2] "HR Variability"
+     [3] "Resting HR"
+     [4] "Stability Score"
+     [5] "Mentally demanding"
+     [6] "Stomach pain"
+     [7] "Lightheadedness"
+     [8] "Headache"
+     [9] "Muscle weakness"
+    [10] "Shortness of breath"
+    [11] "Diarrhea"
+    [12] "Socially demanding"
+    [13] "Anxiety"
+    [14] "Joint pain"
+    [15] "Allergies"
+    [16] "Palpitations"
+    [17] "Brain Fog"
+    [18] "Memory issues"
+    [19] "Period"
+    [20] "Nausea"
+    [21] "Crash"
+    [22] "Emotionally stressful"
+    [23] "Depression"
+    [24] "Physically active"
+    [25] "Blurred vision"
+    [26] "Dizziness"
+    [27] "Noise sensitivity"
+    [28] "Muscle aches"
+    [29] "Light sensitivity"
+    [30] "Fatigue"
+    [31] "Nerve pain"
+    [32] "Constipation"
+    [33] "Reading a short text such as a mobile phone text message"
+    [34] "Standing up for approx. 5 minutes e.g. while queuing or while cooking"
+    [35] "Using the toilet (not bedpan or bedside commode)"
+    [36] "Going to a shop for groceries"
+    [37] "Focusing on a task for approx. 2 hours continuously"
+    [38] "Physical activity with increased heart rate for approx. 15 min"
     [39] "Staying in a noisy environment (shopping mall café or open plan office) for approx. 1 hour"
-    [40] "Managing a full working day (non-physical work such as office work classes or lectures)"   
-    [41] "Walking a short distance indoors from one room to another"                                 
-    [42] "Stepping right outside your home"                                                          
-    [43] "Using public transport (bus or train)"                                                     
-    [44] "Showering standing up"                                                                     
-    [45] "Participating in organized leisure activities such as classes sports etc."                 
-    [46] "Having a conversation for approx. 5 minutes"                                               
-    [47] "Participating in a dinner party party or family event"                                     
-    [48] "Staying in a room with normal lighting without sunglasses for approx. 1 hour"              
-    [49] "Heavier housework (washing floors vacuuming etc.) for approx. ½ hour continuously"         
-    [50] "Sitting in bed for approx. ½ hour"                                                         
-    [51] "Walking between approx. 100m and 1km on level ground (length of 1 to 10 football fields)"  
-    [52] "Sitting in an upright chair (dining chair) with feet on floor for approx. 2 hours"         
+    [40] "Managing a full working day (non-physical work such as office work classes or lectures)"
+    [41] "Walking a short distance indoors from one room to another"
+    [42] "Stepping right outside your home"
+    [43] "Using public transport (bus or train)"
+    [44] "Showering standing up"
+    [45] "Participating in organized leisure activities such as classes sports etc."
+    [46] "Having a conversation for approx. 5 minutes"
+    [47] "Participating in a dinner party party or family event"
+    [48] "Staying in a room with normal lighting without sunglasses for approx. 1 hour"
+    [49] "Heavier housework (washing floors vacuuming etc.) for approx. ½ hour continuously"
+    [50] "Sitting in bed for approx. ½ hour"
+    [51] "Walking between approx. 100m and 1km on level ground (length of 1 to 10 football fields)"
+    [52] "Sitting in an upright chair (dining chair) with feet on floor for approx. 2 hours"
     [53] "Reading and understanding a non-fiction text such as an official document one A4 page long"
-    [54] "Participating in a conversation with three people for approx. ½ hour"                      
-    [55] "Staying outdoors in daylight without sunglasses for approx. 2 hours"                       
-    [56] "Focusing on a task for approx. 10 minutes continuously"                                    
-    [57] "Cooking a complicated meal from scratch approx. 1 hour of preparation"                     
-    [58] "Using social media to stay in touch with others"                                           
-    [59] "Getting dressed in regular clothes"                                                        
-    [60] "Lack of appetite"                                                                          
-    [61] "Acid Reflux"                                                                               
-    [62] "Note"                                                                                      
+    [54] "Participating in a conversation with three people for approx. ½ hour"
+    [55] "Staying outdoors in daylight without sunglasses for approx. 2 hours"
+    [56] "Focusing on a task for approx. 10 minutes continuously"
+    [57] "Cooking a complicated meal from scratch approx. 1 hour of preparation"
+    [58] "Using social media to stay in touch with others"
+    [59] "Getting dressed in regular clothes"
+    [60] "Lack of appetite"
+    [61] "Acid Reflux"
+    [62] "Note"
 
 Great.
 The data are decently structured.
@@ -223,7 +224,7 @@ The value column is a character vector though, which is incovenient.
 I know there is a "Note" field in there, so let's get that in its own column, and make sure the values are numeric.
 We'll also simplify the column names just a little, for convenience.
 
-``` r
+```r
 visible <- visible |>
   group_by(observation_date) |>
   mutate(
@@ -252,7 +253,7 @@ In the morning, before I get out of bed, I take my morning measurement with the 
 Based on this, I get measurements of Heart rate and Heart rate variability (HRV).
 These two, together with my symptom ratings of the evening before, produce a calculated ["stability score"](https://www.makevisible.com/blog/introducing-the-morning-stability-score), which indicates how my state is for the day on a 5 point scale, 1 being very poorly and 5 being well.
 
-``` r
+```r
 # Set some ggplot2 defaults
 theme_set(theme_light())
 theme_update(
@@ -330,7 +331,7 @@ But let us look at some more data!
 There are a bunch of datapoints that I can tell are my own self assessments in the evening about how the day has been in terms of symptoms, activity and other notable occurrences.
 These are basically all the remaining tracker categories when you take away Measurements, and all the Funcap measures.
 
-``` r
+```r
 visible <- visible |>
   mutate(
     type = case_match(
@@ -389,7 +390,7 @@ visible |>
 <img src="index.markdown_strict_files/figure-markdown_strict/activities-1.png" width="768" />
 
 As you can see, my general activity level is pretty low.
-And that is a consequence of what I am going through, and also something I *strive* to keep low.
+And that is a consequence of what I am going through, and also something I _strive_ to keep low.
 But, there is some improvement, in that activity is a little higher, and I'm improving in my metrics (as seen above).
 I had an increase in socially demading activities before Christmas, which was due to my rehab stay and a week at my parents.
 Then after that our Cat got sick, so I had a more demanding period (look at the dots around that time for all categories are spread quite high).
@@ -397,7 +398,7 @@ But that leveled out again once our cat got better with anti-biotics.
 
 Let's have a look at symptoms.
 
-``` r
+```r
 visible |>
   filter(type == "Symptoms") |>
   ggplot(aes(
@@ -450,7 +451,7 @@ Which is why its so great they include a monthly Funcap27, a validated tool for 
 One thing you cannot easily see in the app, is your funcap27 measurements over time.
 I think I would really like to look at that, despite knowing I have had little change according to the summary score.
 
-``` r
+```r
 visible <- visible |>
   mutate(
     type = if_else(
@@ -504,7 +505,7 @@ I think there are several reasons for that though:
 But there for sure are improvements though.
 I think if we split the panels by each question in the questionnaire, though, we might see progress better.
 
-``` r
+```r
 visible |>
   filter(category == "FunCap27") |>
   ggplot(aes(
@@ -549,7 +550,7 @@ My Funcap summary score will need a little data manipulation.
 It's the mean of all the categories together, so we'll need to reorganise the data somewhat.
 Thankfully, scoring is just the mean of each day.
 
-``` r
+```r
 funcap_sum <- visible |>
   filter(category == "FunCap27") |>
   group_by(odate) |>
@@ -591,7 +592,7 @@ They are just great for getting optimistic about where things are going, never m
 
 We really need to zoom in on smaller timeframes to get a proper view on how this data can help people with fatigue related illnesses pace better.
 
-``` r
+```r
 visible <- visible |>
   mutate(
     panels = cut(odate, 4, labels = FALSE)
@@ -643,7 +644,7 @@ Well, its just what came easiest in the moment for me, so that's what I did.
 I think interpreting my HR and HRV is difficult here.
 My (resting) HR has been fairly stable around 60 beats per minute, which is a decent resting HR for someone my age and sex.
 
-``` r
+```r
 zooms$`Resting HR`
 ```
 
@@ -658,10 +659,10 @@ It's seen as a warning sign.
 So while we generally talk about higher HRV being positive, that is stabily higher HRV is positive, but spikes or plummets in HRV are warning signs.
 
 After noticing this, I've started being extra careful the day of and following a HRV spike measurement.
-Often, of HRV spike days, I feel *great*, so I'm also at risk for doing more that day.
+Often, of HRV spike days, I feel _great_, so I'm also at risk for doing more that day.
 So it is very much a thing I need to be careful of, and knowing that now, I feel I can see I have lower plummets after a spike, and I interpret that as doing the right thing.
 
-``` r
+```r
 zooms$`Stability Score`
 ```
 
@@ -681,7 +682,7 @@ I've been doing really well since the new year, and it feels really good to see 
 At the end of February this year, I overdid it, and gave myself a proper crash after a combined vet and trip to the post office.
 I should have know better, but I was over-optimistic.
 I have been struggling to get back to my end of January, mid February stability since.
-Despite that, though, I still am *much more* stable now after rehab than before.
+Despite that, though, I still am _much more_ stable now after rehab than before.
 
 ## Analysing the data
 
@@ -691,7 +692,7 @@ I have my own personal experiences, and I am curious to if any of them can be de
 
 We start by getting the data into wide format, which is necessary for most analyses.
 
-``` r
+```r
 visible_wide <- visible |>
   filter(category != "FunCap27") |>
   unite(type, c(type, category, tracker)) |>
@@ -730,7 +731,7 @@ Then, I need a simple function that will help me clean the data a little.
 A lot of analyses don't deal well with data that have a lot of `NA` and there are some of those here, like evening evaluations I stopped doing because they never occur.
 So, I make a function that will remove columns with a certain amount of NA's from the dataset, for convenience.
 
-``` r
+```r
 remove_na_columns <- function(df, threshold = 0.5) {
   # Check if threshold is valid
   if (threshold <= 0 || threshold >= 1) {
@@ -754,11 +755,11 @@ remove_na_columns <- function(df, threshold = 0.5) {
 Now that that's done, let'd doe a simple matrix correlation.
 Matrix correlations need full observations (no `NA`s), and only numeric data.
 
-``` r
+```r
 visible_wide <- visible_wide |>
   remove_na_columns()
 
-visible_wide_num <- visible_wide |> 
+visible_wide_num <- visible_wide |>
   select(where(is.numeric)) |>
   drop_na()
 
@@ -768,7 +769,7 @@ cordat <- cor(visible_wide_num) |>
 
     Warning in cor(visible_wide_num): the standard deviation is zero
 
-``` r
+```r
 cordat$var <- names(cordat)
 
 cordat |>
@@ -783,7 +784,7 @@ cordat |>
 
 <img src="index.markdown_strict_files/figure-markdown_strict/correlation%20matrix-1.png" width="768" />
 
-``` r
+```r
 saveRDS(visible_wide, "visible_wide.rds")
 ```
 
@@ -802,7 +803,7 @@ First we make another function to cleanup some special data.
 There are some columns that only have `0`'s, which makes the clustering fail.
 So, we make this function to remove columns with only `0`s in them.
 
-``` r
+```r
 # Remove cols with only 0's
 remove_0_cols <- function(data) {
   idx <- apply(data, 2, function(x) {
@@ -818,7 +819,7 @@ remove_0_cols <- function(data) {
 Just for better modelling, we scale the data, then fit a Ward.D2 model with eucledian distance.
 Then we plot it to have a look at what the results are telling us.
 
-``` r
+```r
 library(cluster)
 library(pvclust)
 library(ggraph)
@@ -845,7 +846,7 @@ clust <- visible_wide_num |>
     Bootstrap (r = 1.3)... Done.
     Bootstrap (r = 1.4)... Done.
 
-``` r
+```r
 clust_graph <- as_tbl_graph(clust$hclust)
 
 # Make prettier names
@@ -857,7 +858,7 @@ clustdt$nodes <- clustdt$nodes |>
     Warning: Expected 3 pieces. Missing pieces filled with `NA` in 27 rows [4, 5, 8, 11, 12,
     17, 18, 19, 20, 21, 24, 27, 31, 32, 33, 34, 38, 39, 42, 43, ...].
 
-``` r
+```r
 clustdt <- as_tbl_graph(clustdt)
 
 ggraph(clustdt, "circlepack") +
@@ -908,4 +909,4 @@ I do have a tendency to do too many things on good days, and then end up in a cr
 Avoiding crashes is **key** to managing illness and getting better, so that is top priority!
 
 Maybe at a later date, I'll dig into my Garmin data too.
-Right now, though, I think Visible is an excellent and *easy* tool to use and help me stay on track to recovery.
+Right now, though, I think Visible is an excellent and _easy_ tool to use and help me stay on track to recovery.
