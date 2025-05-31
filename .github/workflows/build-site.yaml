@@ -141,8 +141,10 @@ jobs:
       - name: Build
         run: |
           if [[ '${{github.ref}}' == 'refs/heads/main' ]]; then
+            echo 'Building production'
             hugo -e production 
           else
+            echo 'Building preview'
             hugo \
               --buildDrafts \
               --buildFuture \

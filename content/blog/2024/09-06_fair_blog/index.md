@@ -1,12 +1,12 @@
 ---
 doi: 10.5281/zenodo.13710616
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: sentence
 format: hugo-md
 title: Making your blog FAIR
 author: Dr. Mowinckel
-date: '2024-09-06'
+date: "2024-09-06"
 categories: []
 tags:
   - r
@@ -20,7 +20,7 @@ summary: Making your blog FAIR (Findable, Accessible, Interoperable, and Reusabl
 seo: Make your blog FAIR by archiving posts on Zenodo and adding DOIs. Learn to use Hugo, GitHub actions, and the Zenodo API for content preservation.
 ---
 
-*This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w37-highlights) hosted by Eric Nantz and Mike Thomas.*
+_This post was featured on the [R Weekly highlights podcast](https://serve.podhome.fm/episodepage/r-weekly-highlights/issue-2024-w37-highlights) hosted by Eric Nantz and Mike Thomas._
 
 I have subscribed to [Heidi Seibold](https://heidiseibold.com/)'s newsletter for a good while, she has some really great reflections on data, data literacy, programming and open-science.
 Reading her [August newsletter](https://heidiseibold.ck.page/posts/making-my-newsletter-fair) about making it FAIR ((Findable, Accessible, Interoperable, and Reusable)) she it was really an eye-opener about my own content and archiving it.
@@ -30,10 +30,7 @@ I have used Hugo's internal way of making sure this does not happen, but this ne
 I might not have detected all the broken links.
 And, I might change my home-page url at some point, and that will be really hard to do anything about.
 
-<figure>
-<img src="images/fair.png" alt="FAIR data wheel" />
-<figcaption aria-hidden="true">FAIR data wheel</figcaption>
-</figure>
+![FAIR data wheel](images/fair.png)
 
 So, setting up a pipeline for making sure my posts are archived, given a persistent identigier (DOI, digital object identifier), is a way of making sure what I write is actually around even if my website dies.
 I prepach about making research as [FAIR](https://faircookbook.elixir-europe.org/content/recipes/introduction/brief-FAIR-principles.html) as possible, so I should really make sure I also do as I say.
@@ -43,9 +40,9 @@ Even if it's "just" my own blog.
 
 First, let us just have a quick look at Heidi's setup.
 
--   ​Jekyll website (hosted via GitLab pages), that allows me to write Markdown posts and creates an Atom feed.  
--   Kit newsletter service that can turn an Atom feed into newsletter posts automatically.  
--   Add blog to [Rogue Scholar](https://rogue-scholar.org/), an archive for scholarly blogs, which provides long-term archiving, DOIs and metadata.
+- ​Jekyll website (hosted via GitLab pages), that allows me to write Markdown posts and creates an Atom feed.
+- Kit newsletter service that can turn an Atom feed into newsletter posts automatically.
+- Add blog to [Rogue Scholar](https://rogue-scholar.org/), an archive for scholarly blogs, which provides long-term archiving, DOIs and metadata.
 
 This is nice an very streamlined, I think.
 Now, I'm not making my Newletter FAIR, but my blog, so step 2 we can omit.
@@ -55,8 +52,8 @@ It's very easy for me to adapt the remaining to the tools I use myself.
 
 The run-down of my approach is
 
--   **Hugo** website (hosted via **GitHub** pages), that allows me to write Markdown posts and creates an RSS feed.  
--   Run GitHub action that registeres a new post to Zenodo using the Zenodo API, and also adds this DOI to the markdown frontmatter.
+- **Hugo** website (hosted via **GitHub** pages), that allows me to write Markdown posts and creates an RSS feed.
+- Run GitHub action that registeres a new post to Zenodo using the Zenodo API, and also adds this DOI to the markdown frontmatter.
 
 ![](images/pipeline.png)
 
@@ -64,7 +61,7 @@ There are some reasons my approach ended up differently than Heidi's.
 Firstly, since I primarily use GitHub, it made sense staying there.
 I never really liked Jekyll, but Hugo does the same purpose for what we are talking about here (mostly).
 While Rogue Scholar seems like a very excellent resource, it was not something I could ultimately use unless I changed how my Hugo website creates RSS feeds.
-Rogue scholar requires that the *entire content* of the post is in the RSS feed.
+Rogue scholar requires that the _entire content_ of the post is in the RSS feed.
 Hugo, by default, will make a minimal RSS feed with just some simple meta-data on title, author, date, link and summary of the content.
 While I am fully able to adapt the Hugo template to what Rogue Scholar requires, I did not like this idea.
 That RSS feed will just be a monster of a thing, so I descided to explore other avenues.
@@ -73,7 +70,7 @@ For this process we are going to need 3 packages: httr2 to access the Zenodo API
 My first attempts I archived the pure markdown content, but this did not go so well, as it did not display content output etc and looked messy.
 While the pdf's are not perfect, they at least contain the most important aspects of the posts in a much better way than did the markdown data alone.
 
-``` r
+```r
 # Connecting to API
 library(httr2)
 
@@ -91,22 +88,22 @@ Now that we have the libraries loaded, we can prepare some information
 Before I continue with describing how to arvhive on Zenodo, we need to prepare the data for archiving.
 We need two basic pieces of information:
 
--   post meta-data
--   the post itself
+- post meta-data
+- the post itself
 
 In my Hugo setup, I have all my blogposts as page bundles, meaning that every post is stored in an `index.md` within its own directory.
 I need to find all these files so I can process them.
 The `list.files` function is great for this, and we will use a couple extra arguments to make sure we capture the correct files.
 
-``` r
+```r
 # Read Hugo content files
 content_dir <- "content/blog"
 posts <- list.files(
-  content_dir, 
+  content_dir,
   pattern = "^index\\.md$", # search for index.md
   recursive = TRUE, # Look through all subdirectories
   full.names = TRUE # return the entire path
-) 
+)
 ```
 
 The most difficult part here is the pattern matching.
@@ -120,7 +117,7 @@ But the regexp is specific enough here that those files will not be listed.
 To start off a Zenodo archive, we'll need to have some metadata about what we are archiving.
 This metadata we will capture from the yaml frontmatter of the markdown files.
 
-``` r
+```r
 # Select a single post to process
 post <- posts[1]
 post
@@ -128,44 +125,44 @@ post
 
     [1] "content/blog/2018/04-05-gamm-random-effects/index.md"
 
-``` r
+```r
 # Read in the entire content of the file
 post_content <- readLines(post)
 ```
 
-``` r
+```r
 # Preview the first 20 lines in the file
 post_content[1:20]
 ```
 
-     [1] "---"                                                                                                                                                                                                                                                                                                                                    
-     [2] "title: GAMM random effects"                                                                                                                                                                                                                                                                                                             
-     [3] "author: DrMowinckels"                                                                                                                                                                                                                                                                                                                   
-     [4] "date: '2018-04-05'"                                                                                                                                                                                                                                                                                                                     
-     [5] "output:"                                                                                                                                                                                                                                                                                                                                
-     [6] "  html_document:"                                                                                                                                                                                                                                                                                                                       
-     [7] "    keep_md: yes"                                                                                                                                                                                                                                                                                                                       
-     [8] "tags: [R, GAMM]"                                                                                                                                                                                                                                                                                                                        
-     [9] "image: 'index_files/figure-html/unnamed-chunk-10-1.png'"                                                                                                                                                                                                                                                                                
-    [10] "slug: \"gamm-random-effects\""                                                                                                                                                                                                                                                                                                          
-    [11] "aliases:"                                                                                                                                                                                                                                                                                                                               
-    [12] "  - '/blog/2018-04-05-gamm-random-effects'"                                                                                                                                                                                                                                                                                             
-    [13] "---"                                                                                                                                                                                                                                                                                                                                    
-    [14] ""                                                                                                                                                                                                                                                                                                                                       
-    [15] ""                                                                                                                                                                                                                                                                                                                                       
-    [16] ""                                                                                                                                                                                                                                                                                                                                       
+     [1] "---"
+     [2] "title: GAMM random effects"
+     [3] "author: DrMowinckels"
+     [4] "date: '2018-04-05'"
+     [5] "output:"
+     [6] "  html_document:"
+     [7] "    keep_md: yes"
+     [8] "tags: [R, GAMM]"
+     [9] "image: 'index_files/figure-html/unnamed-chunk-10-1.png'"
+    [10] "slug: \"gamm-random-effects\""
+    [11] "aliases:"
+    [12] "  - '/blog/2018-04-05-gamm-random-effects'"
+    [13] "---"
+    [14] ""
+    [15] ""
+    [16] ""
     [17] "I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). "
-    [18] ""                                                                                                                                                                                                                                                                                                                                       
-    [19] "For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM."                                                                                                                                                            
-    [20] ""                                                                                                                                                                                                                                                                                                                                       
+    [18] ""
+    [19] "For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM."
+    [20] ""
 
 Now we will have the entire content of the markdown file stored as a vector of strings in the `post_content` object.
 In this object, each line in the markdown file is an element, so we can capture the frontmatter with some more regexp magic.
 
 We need to extract the yaml frontmatter from the markdown file to populate Zenodo with the necessary information it needs.
-I used to have a really long, complicated and convoluted way to do this, untill my good friend [Maëlle](https://masalmon.eu/) told me about a *very* convenient function from the {rmarkdown} package.
+I used to have a really long, complicated and convoluted way to do this, untill my good friend [Maëlle](https://masalmon.eu/) told me about a _very_ convenient function from the {rmarkdown} package.
 
-``` r
+```r
 # Extract YAML front matter
 metadata <- rmarkdown::yaml_front_matter(post)
 metadata
@@ -214,14 +211,14 @@ So, I made a piece of code that will detect where the first empty line in the ma
 
 The following function will look for this empty line, and return that index so I can use it to create the summary I need.
 
-``` r
+```r
 #' Find line index where first post paragraph ends
-#' 
-#' Looks for the indeces of empty lines surrounding 
+#'
+#' Looks for the indeces of empty lines surrounding
 #' paragraphs. Specifically looking for the index that
 #' ends the first paragraph, using this as the post
 #' summary for Zenodo meta-data.
-#' 
+#'
 #' @param x path to content .md
 find_end <- function(x){
   char <- grep("^$", x, invert = TRUE)
@@ -233,13 +230,13 @@ find_end <- function(x){
 
 Now that we have that, I can use it to grab the first paragraph and add it to the metadata.
 
-``` r
+```r
 if(is.null(metadata$summmary)){
   end_yaml <- grep("---", post_content)[2]+2
   post_summary <- post_content[end_yaml:length(post_content)]
   metadata$summary <- post_summary[1:find_end(post_summary)]
   metadata$summary <- sprintf(
-    "Dr. Mowinckel's blog: %s", 
+    "Dr. Mowinckel's blog: %s",
     paste0(metadata$summary, collapse = " ")
   )
 }
@@ -252,7 +249,7 @@ I believe we have all the meta-data we need to create the deposition, i.e. to i
 We will create a list that has all the information Zenodo requires for an archive to be valid.
 The following list I created after lots of trial and error, looking at the API documentation and other's code who successfully archived on Zenodo.
 
-``` r
+```r
 # Create Zenodo deposition metadata
 zenodo_metadata <- list(
   metadata = list(
@@ -264,8 +261,8 @@ zenodo_metadata <- list(
     )),
     upload_type = "publication",
     publication_type = "other",
-    publication_date = metadata$date, 
-    url = sprintf("https://drmowinckels.io/blog/%s/%s", 
+    publication_date = metadata$date,
+    url = sprintf("https://drmowinckels.io/blog/%s/%s",
       substr(metadata$date, 1, 4),
       metadata$slug),
     access_right = "open",
@@ -337,7 +334,7 @@ However, I found that images were not being resized nicely to fit the pdf-pages 
 So you could not see all my content as you'd need this way.
 This was very unfortunate, and meant I had to switch to the standard latex-to-pdf formatting.
 
-``` r
+```r
 # Create a meaningful filename
 pdf_file <- sprintf(
   "drmowinckels_%s_%s.pdf",
@@ -349,22 +346,22 @@ pdf_file
 
     [1] "drmowinckels_2018-04-05_gamm-random-effects.pdf"
 
-``` r
+```r
 # Try rendering pdf, if errors returns FALSE so we can abort.
 render_status <- tryCatch({
     quarto_render(
-      post, 
-      output_format = "pdf", 
-      output_file = pdf_file, 
+      post,
+      output_format = "pdf",
+      output_file = pdf_file,
       as_job = FALSE
     )
     TRUE
-  }, 
+  },
   error = function(e) {FALSE}
 )
 ```
 
-``` r
+```r
 render_status
 ```
 
@@ -382,7 +379,7 @@ I already have a Zenodo account, as I have several software projects linked betw
 I also know Zenodo has a strong API, so I could programatically figure out a way to create an automatic way of archiving my posts there to retrieve a DOI.
 This could also allow me to get the doi directly into the post front-matter, so I could display it on my blog, along with information on how to cite the content.
 
-``` r
+```r
 # Zenodo API settings
 zenodo_api_endpoint <- "https://zenodo.org/api/deposit/depositions"
 zenodo_api_token <- Sys.getenv("ZENODO_API_TOKEN")
@@ -414,10 +411,10 @@ Once our request looks like we want to, we finish with `performing` the request.
 Notice how all these functions start with the `req_` prefix, indicating that these are functions to building a request.
 Soon, we will see the other part of the {httr2} functions, which are the response `resp_` functions for dealing with the responses from the API.
 
-``` r
-query <- request(zenodo_api_endpoint) |> 
-  req_auth_bearer_token(zenodo_api_token) |> 
-  req_body_json(zenodo_metadata, auto_unbox = TRUE) 
+```r
+query <- request(zenodo_api_endpoint) |>
+  req_auth_bearer_token(zenodo_api_token) |>
+  req_body_json(zenodo_metadata, auto_unbox = TRUE)
 
 # Show the query without performing it
 req_dry_run(query)
@@ -436,7 +433,7 @@ req_dry_run(query)
 
 If we are happy with how the request looks, we go ahead and perform it, meaning we actually send the request to Zenodo.
 
-``` r
+```r
 # Upload metadata to initiate DOI
 response <- req_perform(query)
 response
@@ -455,7 +452,7 @@ Now, that is **not** the response I got for many attempts while I figured out wh
 Now, the deposition actually contains information we need for the next step in our process: a link to where we can upload the pdf to accompany all the meta-data.
 Zenodo returns this information in a json, which we can have a look at using one of the `resp_` functions.
 
-``` r
+```r
 deposition <- resp_body_json(response)
 deposition
 ```
@@ -597,13 +594,13 @@ I turned to the rOpenSci folks for help, I can always trust someone in there has
 The last piece of the puzzle was switching to the `PUT` curl method, rather than the default `POST` method.
 I had been looking at the curl commands needed as stated on the Zenodo docs, and just completely missed the fact that it was a `PUT` method rather than a `POST` method.
 
-``` r
+```r
 # Upload the pdf file
-upload_response <- request(deposition$links$bucket) |> 
-  req_url_path_append(pdf_file) |> 
-  req_auth_bearer_token(zenodo_api_token) |> 
-  req_body_file(pdf_file) |> 
-  req_method("PUT") |> 
+upload_response <- request(deposition$links$bucket) |>
+  req_url_path_append(pdf_file) |>
+  req_auth_bearer_token(zenodo_api_token) |>
+  req_body_file(pdf_file) |>
+  req_method("PUT") |>
   req_perform()
 ```
 
@@ -619,11 +616,11 @@ I feel silly that happened, but now that it's done it's done. I can't take it ba
 Ok, back to the process.
 We want to actually publish the results.
 
-``` r
-pub_response <- request(zenodo_api_endpoint) |> 
-  req_url_path_append(deposition$id, "actions", "publish") |> 
-  req_auth_bearer_token(zenodo_api_token) |> 
-  req_method("POST") |> 
+```r
+pub_response <- request(zenodo_api_endpoint) |>
+  req_url_path_append(deposition$id, "actions", "publish") |>
+  req_auth_bearer_token(zenodo_api_token) |>
+  req_method("POST") |>
   req_perform()
 
 pub_deposition <- resp_body_json(pub_response)
@@ -639,7 +636,7 @@ We want to make sure we know which posts have a DOI, and what that DOI is.
 Let's face it, I will forget.
 I also have a section on my blog about citing information, and I want the DOI to be shown there.
 
-``` r
+```r
 # Update YAML front matter with DOI
 post_content <- c(
   post_content[1],
@@ -649,15 +646,15 @@ post_content <- c(
 post_content[1:10]
 ```
 
-     [1] "---"                                                    
-     [2] "doi: 10.5281/zenodo.13344546"                           
-     [3] "title: GAMM random effects"                             
-     [4] "author: DrMowinckels"                                   
-     [5] "date: '2018-04-05'"                                     
-     [6] "output:"                                                
-     [7] "  html_document:"                                       
-     [8] "    keep_md: yes"                                       
-     [9] "tags: [R, GAMM]"                                        
+     [1] "---"
+     [2] "doi: 10.5281/zenodo.13344546"
+     [3] "title: GAMM random effects"
+     [4] "author: DrMowinckels"
+     [5] "date: '2018-04-05'"
+     [6] "output:"
+     [7] "  html_document:"
+     [8] "    keep_md: yes"
+     [9] "tags: [R, GAMM]"
     [10] "image: 'index_files/figure-html/unnamed-chunk-10-1.png'"
 
 I'm taking a simple approach here.
@@ -666,7 +663,7 @@ I'll add the DOI to the second line of the file (after the starting `---`), and 
 
 We write the content back to the file, and now we have the post updated with DOI!
 
-``` r
+```r
 writeLines(post_content, post)
 ```
 
@@ -679,18 +676,18 @@ The best way to do this, is to make sure your critical parts are in a function.
 There is no way to abort a `script` in R (that I know of), but we can error inside a function.
 So, my approach is to put the entire process of submitting to Zenodo in a function, so I can abort if the status codes returned from the API are not what I am after.
 
-``` r
+```r
 library(httr2)
 library(yaml)
 library(quarto)
 
 #' Find line index where first post paragraph ends
-#' 
-#' Looks for the indeces of empty lines surrounding 
+#'
+#' Looks for the indeces of empty lines surrounding
 #' paragraphs. Specifically looking for the index that
 #' ends the first paragraph, using this as the post
 #' summary for Zenodo meta-data.
-#' 
+#'
 #' @param x path to content .md
 find_end <- function(x){
   char <- grep("^$", x, invert = TRUE)
@@ -700,15 +697,15 @@ find_end <- function(x){
 }
 
 #' Check if post needs DOI
-#' 
+#'
 #' Will check if the post frontmatter
 #' indicates the post needs DOI.
-#' The post date needs to be in the past or 
+#' The post date needs to be in the past or
 #' today, it cannot be listed as a draft, and
 #' it should not already have a DOI.
-#' 
+#'
 #' @param x path to content .md
-#' 
+#'
 needs_doi <- function(x){
   frontmatter <- readLines(x, 30)
 
@@ -716,14 +713,14 @@ needs_doi <- function(x){
   draft <- frontmatter[grep("^draft:", frontmatter)]
   if(length(draft) != 0){
     if(grepl("true", draft))
-      return(FALSE) 
+      return(FALSE)
   }
 
   # Don't process if already has DOI
   if(any(grep("^doi:", frontmatter))){
     return(FALSE)
   }
-  
+
   # Don't process if date is in future
   date <- frontmatter[grep("^date:", frontmatter)]
   date <- yaml.load(date)$date
@@ -735,16 +732,16 @@ needs_doi <- function(x){
 }
 
 #' Publish blogpost to Zenodo
-#' 
+#'
 #' Function will read in meta-data from yaml,
 #' and create pdf for archiving to Zenodo.
 #' If run with \code{uplad = FALSE} will prepare
 #' meta-data and create the pdf, without submitting
 #' to Zenodo.
-#' 
+#'
 #' @param post character. path to the post .md
 #' @param upload logical. If the information should be uploaded
-#' 
+#'
 publish_to_zenodo <- function(post, upload = FALSE){
   post_content <- readLines(post)
 
@@ -756,7 +753,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
     post_summary <- post_content[end_yaml:length(post_content)]
     metadata$summary <- post_summary[1:find_end(post_summary)]
     metadata$summary <- sprintf(
-      "Dr. Mowinckel's blog: %s", 
+      "Dr. Mowinckel's blog: %s",
       paste0(metadata$summary, collapse = " ")
     )
   }
@@ -772,7 +769,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
       )),
       upload_type = "publication",
       publication_type = "other",
-      publication_date = metadata$date, 
+      publication_date = metadata$date,
       url = sprintf("https://drmowinckels.io/blog/%s/%s", substr(metadata$date, 1, 4), metadata$slug),
       access_right = "open",
       license = "cc-by",
@@ -780,7 +777,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
       language = "eng"
     )
   )
-  
+
   pdf_file <- sprintf(
     "drmowinckels_%s_%s.pdf",
     metadata$date,
@@ -790,13 +787,13 @@ publish_to_zenodo <- function(post, upload = FALSE){
   # Try rendering pdf, if errors returns FALSE so we can abort.
   render_status <- tryCatch({
     quarto_render(
-      post, 
-      output_format = "pdf", 
-      output_file = pdf_file, 
+      post,
+      output_format = "pdf",
+      output_file = pdf_file,
       as_job = FALSE
     )
     TRUE
-  }, 
+  },
   error = function(e) {FALSE}
   )
 
@@ -805,14 +802,14 @@ publish_to_zenodo <- function(post, upload = FALSE){
       sprintf("Error during PDF conversion: %s\n", e$message),
       call. = FALSE
     )
-  
+
   if(upload){
     # Upload metadata to initiate DOI
-    response <- request(zenodo_api_endpoint) |> 
-      req_auth_bearer_token(zenodo_api_token) |> 
-      req_body_json(zenodo_metadata, auto_unbox = TRUE) |> 
+    response <- request(zenodo_api_endpoint) |>
+      req_auth_bearer_token(zenodo_api_token) |>
+      req_body_json(zenodo_metadata, auto_unbox = TRUE) |>
       req_perform()
-      
+
     if (!resp_status(response) %in% c(200, 201)) {
       stop(sprintf(
         "Failed to create DOI for %s: %s", post, resp_status(response)),
@@ -823,13 +820,13 @@ publish_to_zenodo <- function(post, upload = FALSE){
     deposition <- resp_body_json(response)
 
     # Upload the pdf file
-    upload_response <- request(deposition$links$bucket) |> 
-      req_url_path_append(pdf_file) |> 
-      req_auth_bearer_token(zenodo_api_token) |> 
-      req_method("PUT") |> 
-      req_body_file(pdf_file) |> 
+    upload_response <- request(deposition$links$bucket) |>
+      req_url_path_append(pdf_file) |>
+      req_auth_bearer_token(zenodo_api_token) |>
+      req_method("PUT") |>
+      req_body_file(pdf_file) |>
       req_perform()
-          
+
     if (!resp_status(upload_response) %in% c(200, 201)) {
       stop(sprintf("Failed to upload %s to Zenodo: %s", post, resp_status(upload_response)),
       call. = FALSE
@@ -839,12 +836,12 @@ publish_to_zenodo <- function(post, upload = FALSE){
     message(sprintf("Successfully uploaded %s to Zenodo", post))
 
     # Publish the deposition
-    pub_response <- request(zenodo_api_endpoint) |> 
-      req_url_path_append(deposition$id, "actions", "publish") |> 
-      req_auth_bearer_token(zenodo_api_token) |> 
-      req_method("POST") |> 
+    pub_response <- request(zenodo_api_endpoint) |>
+      req_url_path_append(deposition$id, "actions", "publish") |>
+      req_auth_bearer_token(zenodo_api_token) |>
+      req_method("POST") |>
       req_perform()
-      
+
     if (!resp_status(pub_response) %in% c(200, 201, 202)) {
       stop(sprintf("Failed to publish %s on Zenodo: %s", pdf_file, resp_status(pub_response)),
       call. = FALSE)
@@ -859,7 +856,7 @@ publish_to_zenodo <- function(post, upload = FALSE){
       sprintf("doi: %s", pub_deposition$metadata$doi),
       post_content[2:length(post_content)]
     )
-  
+
     writeLines(post_content, post)
   }
 
@@ -872,18 +869,18 @@ zenodo_api_token <- Sys.getenv("ZENODO_API_TOKEN")
 
 # Read Hugo content files
 posts <- list.files(
-  "content/blog", 
-  pattern = "^index\\.md$", 
+  "content/blog",
+  pattern = "^index\\.md$",
   recursive = TRUE,
   full.names = TRUE
-) 
+)
 
 # Only process files without doi and that are published
 posts <- posts[sapply(posts, needs_doi)]
 
 # Run thorugh all posts that need a doi.
 sapply(posts,
-  publish_to_zenodo, 
+  publish_to_zenodo,
   upload = FALSE
 )
 ```

@@ -1,19 +1,19 @@
 ---
 doi: 10.5281/zenodo.14024550
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: sentence
 format: hugo-md
 title: Reading in multiple files without loops
 author: Dr. Mowinckel
-date: '2024-11-01'
-categories: 
+date: "2024-11-01"
+categories:
   - apply-series
 tags:
   - r
   - iterating
 slug: lapply-files
-image: index.markdown_strict_files/figure-markdown_strict/featured-1.png 
+image: index.markdown_strict_files/figure-markdown_strict/featured-1.png
 summary: Learn how to use apply-functions in R to read multiple files efficiently. This guide covers the basics of using sapply and lapply to iterate over files quickly, eliminating the need for loops.
 seo: Efficiently read multiple files in R using sapply and lapply. Eliminate loops and streamline your data importing process.
 ---
@@ -30,18 +30,15 @@ The participants are shown on a computer screen a coloured shape, where they hav
 Seeing the coloured shape, they are asked to accumulate as many points as possible by rejecting net negative objects and accept net positive objects.
 They are asked to be as quick as possible, as we also log in milliseconds how long they take to respond.
 
-<figure>
-<img src="images/experiment.png" alt="Experiment setup" />
-<figcaption aria-hidden="true">Experiment setup</figcaption>
-</figure>
+![Experiment setup](images/experiment.png)
 
 First, I'm creating a function that will generate stimuli values as named vectors.
 This is a nice way to store the stimuli information.
 
-``` r
+```r
 #' Function to generate stimuli
 #' @param stimuli string vector
-#' @param sign either 1 or -1, depending if the associated 
+#' @param sign either 1 or -1, depending if the associated
 #'    values should be positive or negative
 #' @return named vector of values
 generate_stimuli <- function(stimuli, sign = 1){
@@ -55,19 +52,19 @@ generate_stimuli <- function(stimuli, sign = 1){
 generate_stimuli(c("triangle", "diamond", "circle", "square"))
 ```
 
-    triangle  diamond   circle   square 
-           1        2        3        4 
+    triangle  diamond   circle   square
+           1        2        3        4
 
-``` r
+```r
 generate_stimuli(c("red", "blue", "green", "orange"), sign = -1)
 ```
 
-       red   blue  green orange 
-        -1     -2     -3     -4 
+       red   blue  green orange
+        -1     -2     -3     -4
 
 Then I'm going to generate the mock response files.
 
-``` r
+```r
 #' Function to generate random data
 #' @params n_rows how many rows the data should have
 generate_data <- function(n_rows) {
@@ -114,17 +111,17 @@ generate_data <- function(n_rows) {
 generate_files <- function(i){
   # Generate a random number of rows between 75 and 100
   num_rows <- sample(75:100, 1)
-  
+
   # Generate the data
   data <- generate_data(num_rows)
-  
+
   # Construct the file name
   file_name <- sprintf(
-    "%s/data_%02d.csv", 
+    "%s/data_%02d.csv",
     here::here("content/blog/2024/11-01_lapply_files/data"),
-    i 
+    i
   )
-  
+
   # Write the data to a CSV file, silently
   invisible(write.csv(data, file = file_name, row.names = FALSE))
 }
@@ -137,7 +134,7 @@ Ok, now we have some files to work with!
 And notice how I used an `apply` variant to generate the files?
 Just to recap, that an `sapply` will iterate through the vector given as the first argument (`1:num_files`), and pass those values to the first argument of the given function (`generate_files`).
 
-``` r
+```r
 files <- list.files(here::here("content/blog/2024/11-01_lapply_files/data"), full.names = TRUE)
 files
 ```
@@ -165,7 +162,7 @@ We want to combine the data **row-wise**, meaning we get a really **tall** datas
 
 The way I used to do it with loops, would be something like this:
 
-``` r
+```r
 # initiate data with only headers
 data <- read.csv(files[[1]], nrows=1)
 data <- data[0, ]
@@ -173,10 +170,10 @@ data
 ```
 
     [1] trial        shape        colour       shape_value  colour_value
-    [6] value        choice       rt           accuracy    
+    [6] value        choice       rt           accuracy
     <0 rows> (or 0-length row.names)
 
-``` r
+```r
 # Read in all files
 for(file in files){
   # Read in the file
@@ -210,7 +207,7 @@ This means all the data is appended together, exactly what I was wanting.
 
 Let's explore how we can do this with apply!
 
-``` r
+```r
 data <- lapply(files, read.csv)
 
 # Inspect what the data object contains
@@ -271,8 +268,8 @@ str(data)
 
 Ok.
 So this is very different.
-All the data is now in a *list*, where each data set is an element in the list.
-So we have a *list* with 5 data.frames in them.
+All the data is now in a _list_, where each data set is an element in the list.
+So we have a _list_ with 5 data.frames in them.
 Cool, but how do we combine them?
 Keeping to base R, we are going to use a function called `do.call`.
 Now, I really struggle to explain `do.call` because it can do several things depending on what function you profide and what the list you give it is.
@@ -281,7 +278,7 @@ How it works in my head is that it takes all the elements in the list you provid
 
 Out of curiousity, my friend [Maëlle](https://masalmon.eu/) had a [search on GitHub](https://github.com/search?q=+language%3AR+do.call%28&type=code&ref=advsearch) and found that at least on public repos on GitHub, my usecase is quite common.
 
-``` r
+```r
 data <- do.call(rbind, data)
 str(data)
 ```
@@ -300,7 +297,7 @@ str(data)
 The only thing we are missing now, is the src column!
 We'll need to do some adaptations to make that work.
 
-``` r
+```r
 data <- lapply(files, function(x){
   dt <- read.csv(x)
   dt$src <- basename(x)
@@ -334,11 +331,10 @@ While this post is all about the `lapply`, I would be amiss if I didn't mention 
 I've mentioned lots of times that I work in an environment where sticking to base R can make life and reproducibility much easier.
 But, when I can, I use the tidyverse version, which is just soo good.
 
-``` r
+```r
 library(readr)
 library(dplyr)
 ```
-
 
     Attaching package: 'dplyr'
 
@@ -350,7 +346,7 @@ library(dplyr)
 
         intersect, setdiff, setequal, union
 
-``` r
+```r
 data <- read_csv(files, id = "src") |>
   mutate(src = basename(src))
 ```
@@ -365,7 +361,7 @@ data <- read_csv(files, id = "src") |>
     ℹ Use `spec()` to retrieve the full column specification for this data.
     ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-``` r
+```r
 str(data)
 ```
 
@@ -388,12 +384,12 @@ But the `lapply` variation I find to be just as satisfying when I need it.
 
 Do you have any particular hacks for reading in this type of data?
 
-``` r
+```r
 library(ggplot2)
 data |>
   ggplot() +
   geom_density(aes(x = rt, group = src, colour = src)) +
-  scale_colour_viridis_d() + 
+  scale_colour_viridis_d() +
   theme_minimal()
 ```
 
