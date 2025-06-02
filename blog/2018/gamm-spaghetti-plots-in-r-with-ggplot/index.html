@@ -471,7 +471,12 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-1-1.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-1-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>The data is not particularly well crafted, but it serves to make my point I believe. <code>geom_smooth</code> runs a loess model for prediction, which, given this data, makes a lot of sense. But it&rsquo;s not what I want, and it won&rsquo;t take into account the repeated measures. Let&rsquo;s go over to the gamm models. I&rsquo;ll omit gam, because you can easily get gams in ggplot by running:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
@@ -479,7 +484,12 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gam&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ s(x, bs = &#34;cs&#34;)&#39;
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/plotGam1-1.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/plotGam1-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>but that&rsquo;s definately not what we want, despite the horrible data</p>
 <p>We could even give it a formula, which might look really nice. Not that the formula will read x and y in the formula as the &lsquo;x&rsquo; and &lsquo;y&rsquo; set in the <code>aes</code>. So don&rsquo;t give it the actual names of the column, use &lsquo;x&rsquo; and &lsquo;y&rsquo;.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
@@ -487,7 +497,12 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>,<span style="color:#a6e22e">aes</span>(group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gam&#34;</span>, formula<span style="color:#f92672">=</span>y<span style="color:#f92672">~</span><span style="color:#a6e22e">s</span>(x,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cr&#39;</span>))
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/plotGam2-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/plotGam2-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>The downside to this is that it is only modelling the one term, and we want a fit that takes into account all our covariates, but only plots the one prediction, holding the others constant. trying to increase formula complexity in ggplot directly wont work, it&rsquo;s just not made for something so complex.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dat <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x2, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span> 
@@ -497,7 +512,12 @@
 </span></span></code></pre></div><pre tabindex="0"><code>## Warning in predict.gam(model, newdata = data_frame(x = xseq), se.fit = se, : not all required variables have been supplied in  newdata!
 </code></pre><pre tabindex="0"><code>## Warning: Computation failed in `stat_smooth()`:
 ## object &#39;group&#39; not found
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/plotGam3-1.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/plotGam3-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>So, let&rsquo;s have a look at what we want to model. This particular example is compelx, because it is the complex that is hard to predict and plot. The simple ones will work with the above, provigin a formula directly to <code>geom_stat</code>. We&rsquo;re using three smoothing splines on three predictors in this model, and including two random intercepts. But we are really only interested in the <code>x2</code> smoothing spline, the others are just covariates of no interest.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#a6e22e">gamm</span>(y<span style="color:#f92672">~</span><span style="color:#a6e22e">s</span>(x0,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">s</span>(x1,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">s</span>(x2,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>)<span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>           <span style="color:#a6e22e">s</span>(x3,bs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cr&#34;</span>),data<span style="color:#f92672">=</span>dat,random<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(id<span style="color:#f92672">=~</span><span style="color:#ae81ff">1</span>,fb<span style="color:#f92672">=~</span><span style="color:#ae81ff">1</span>),
@@ -546,7 +566,12 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(<span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>pred<span style="color:#f92672">$</span>fit<span style="color:#ae81ff">-1.96</span><span style="color:#f92672">*</span>pred<span style="color:#f92672">$</span>se.fit,
 </span></span><span style="display:flex;"><span>                  ymax<span style="color:#f92672">=</span>pred<span style="color:#f92672">$</span>fit<span style="color:#ae81ff">+1.96</span><span style="color:#f92672">*</span>pred<span style="color:#f92672">$</span>se.fit), alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span>)<span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>pred<span style="color:#f92672">$</span>fit), col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-2-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-2-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>Now, there are packages to help do this. For instance, visreg has a gamm plotting function. However, <a href="https://cran.r-project.org/web/packages/visreg/visreg.pdf">visreg</a> requires attached data, or each variable existing in the global environment. I don&rsquo;t like working with attached data, in my opinion in makes the workflow less transparent, and it&rsquo;s hard to debug issues. If you forget to detach the data, you can spend hours trying to figure out why things aren&rsquo;t working, without noticing that the attached data may be messing things up.</p>
 <p>What we need to do, is predict all the data, keeping the other covariates constant, while only varying the predictor of interest. Right-o. If you&rsquo;re good at simulating data etc, this might be easy for you. I&rsquo;m pretty terrible at it (for lack of practise for sure).</p>
 <p>After trying for several days, without managing to make the plot I wanted, I tweeted my frustration.</p>
@@ -581,7 +606,12 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(data<span style="color:#f92672">=</span>pred, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.4</span>, <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>CI, ymax<span style="color:#f92672">=</span>fit<span style="color:#f92672">+</span>CI), show.legend <span style="color:#f92672">=</span> F, fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data<span style="color:#f92672">=</span>pred, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>fit), show.legend <span style="color:#f92672">=</span> F, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-3-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>That&rsquo;s looking much nicer! Hurrah! I also made a convenience function for my self, to make the predicted data. This would only work for other numeric predictors, and it&rsquo;s not particularly pretty coding, as it&rsquo;s using ugly eval parsing, but that&rsquo;s how I got it working for me.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Custom function that predicts on a single predictor, and adds the dependent with the value of 1</span>
 </span></span><span style="display:flex;"><span>GammPredData <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(data, gamm.model, condition){
@@ -608,7 +638,12 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.3</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(data<span style="color:#f92672">=</span>pred, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.4</span>, <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>CI, ymax<span style="color:#f92672">=</span>fit<span style="color:#f92672">+</span>CI), show.legend <span style="color:#f92672">=</span> F, fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data<span style="color:#f92672">=</span>pred, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>fit), show.legend <span style="color:#f92672">=</span> F, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;forestgreen&#39;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-4-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-4-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>You might want to grab each predictor and plot them? That can be done also, and I&rsquo;ll use a combination of <code>apply</code>&lsquo;es to do so, for convenience. I love apply&rsquo;es&hellip;</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Predictions</span>
 </span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;x0&#34;</span>, <span style="color:#e6db74">&#34;x1&#34;</span>, <span style="color:#e6db74">&#34;x2&#34;</span>,<span style="color:#e6db74">&#34;x3&#34;</span>)
@@ -674,7 +709,12 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(data<span style="color:#f92672">=</span>preds, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">.4</span>, <span style="color:#a6e22e">aes</span>(ymin<span style="color:#f92672">=</span>fit<span style="color:#f92672">-</span>CI, ymax<span style="color:#f92672">=</span>fit<span style="color:#f92672">+</span>CI, fill<span style="color:#f92672">=</span>Pred), show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(data<span style="color:#f92672">=</span>preds, <span style="color:#a6e22e">aes</span>(y<span style="color:#f92672">=</span>fit, color<span style="color:#f92672">=</span>Pred), show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>Pred, scales<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;free&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-5-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-5-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>And that is it. My first blogpost, and I hope it is to some help.</p>
 <p>Happy International Woman&rsquo;s day!</p>
 
@@ -705,7 +745,7 @@
                         &emsp;url = "https://drmowinckels.io/blog/2018/gamm-spaghetti-plots-in-r-with-ggplot/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13256467",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

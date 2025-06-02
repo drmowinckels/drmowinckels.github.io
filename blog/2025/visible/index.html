@@ -473,18 +473,20 @@ It also includes a question in the morning to rate your sleep on a 4 point scale
 This was better suited for me to answer than my own survey, so I stopped filling that out when I started with Visible.</p>
 <p>Visible also has a monthly questionnaire where you evaluate what you are able to to do for various activities over the month and what it costs you to do that activity.
 The <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11204454/">FUNCAP27</a> was developed and validated on ME/CFS patients, and is a great tool for assessing functional capacity.</p>
-<figure>
-<img src="funcap_summary.png" alt="Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound." />
-<figcaption aria-hidden="true">Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.</figcaption>
-</figure>
-<p>With this, I have <em>DATA</em>.
+<figure class="uk-thumbnail">
+    <img src="funcap_summary.png" alt="Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>With this, I have <em>DATA</em>.
 The App has several tools inside to get an idea of how you are progressing, and if you are pacing well.
 These have been nice to look at and monitor how I&rsquo;m doing.</p>
-<figure>
-<img src="trends.png" alt="A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70." />
-<figcaption aria-hidden="true">A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.</figcaption>
-</figure>
-<p>I thought 1 year of data was a good place to sit down with the exported data and have my own take on looking at the data.</p>
+<figure class="uk-thumbnail">
+    <img src="trends.png" alt="A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>I thought 1 year of data was a good place to sit down with the exported data and have my own take on looking at the data.</p>
 <h2 id="getting-my-data">Getting my data</h2>
 <p>Getting my Visible data is really very easy.
 Inside the app, in your profile, there is a &ldquo;Export Health Data&rdquo; button, which exports the data as a csv.
@@ -495,7 +497,7 @@ And now, we can have a look!</p>
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.2     ✔ tibble    3.2.1
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
+✔ purrr     1.0.4
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -528,79 +530,79 @@ We barely need ANY data munging to start getting plots of <em>everything</em>!
 But we need a little :P</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># What are our categories</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">unique</span>(visible<span style="color:#f92672">$</span>tracker_category)
-</span></span></code></pre></div><pre><code> [1] &quot;Sleep&quot;                &quot;Measurement&quot;          &quot;Cognitive&quot;           
- [4] &quot;Pain&quot;                 &quot;Brain&quot;                &quot;Muscles&quot;             
- [7] &quot;Heart and Lungs&quot;      &quot;Gastrointestinal&quot;     &quot;Social&quot;              
-[10] &quot;General&quot;              &quot;Menstrual&quot;            &quot;Experience&quot;          
-[13] &quot;Emotional&quot;            &quot;Physical&quot;             &quot;Sensory&quot;             
-[16] &quot;Funcap_concentration&quot; &quot;Funcap_upright&quot;       &quot;Funcap_hygiene&quot;      
-[19] &quot;Funcap_outside&quot;       &quot;Funcap_walking&quot;       &quot;Funcap_light&quot;        
-[22] &quot;Funcap_communication&quot; &quot;Funcap_home&quot;          &quot;Note&quot;                
+</span></span></code></pre></div><pre><code> [1] &quot;Sleep&quot;                &quot;Measurement&quot;          &quot;Cognitive&quot;
+ [4] &quot;Pain&quot;                 &quot;Brain&quot;                &quot;Muscles&quot;
+ [7] &quot;Heart and Lungs&quot;      &quot;Gastrointestinal&quot;     &quot;Social&quot;
+[10] &quot;General&quot;              &quot;Menstrual&quot;            &quot;Experience&quot;
+[13] &quot;Emotional&quot;            &quot;Physical&quot;             &quot;Sensory&quot;
+[16] &quot;Funcap_concentration&quot; &quot;Funcap_upright&quot;       &quot;Funcap_hygiene&quot;
+[19] &quot;Funcap_outside&quot;       &quot;Funcap_walking&quot;       &quot;Funcap_light&quot;
+[22] &quot;Funcap_communication&quot; &quot;Funcap_home&quot;          &quot;Note&quot;
 </code></pre>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># What are our trackers</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">unique</span>(visible<span style="color:#f92672">$</span>tracker_name)
-</span></span></code></pre></div><pre><code> [1] &quot;Sleep&quot;                                                                                     
- [2] &quot;HR Variability&quot;                                                                            
- [3] &quot;Resting HR&quot;                                                                                
- [4] &quot;Stability Score&quot;                                                                           
- [5] &quot;Mentally demanding&quot;                                                                        
- [6] &quot;Stomach pain&quot;                                                                              
- [7] &quot;Lightheadedness&quot;                                                                           
- [8] &quot;Headache&quot;                                                                                  
- [9] &quot;Muscle weakness&quot;                                                                           
-[10] &quot;Shortness of breath&quot;                                                                       
-[11] &quot;Diarrhea&quot;                                                                                  
-[12] &quot;Socially demanding&quot;                                                                        
-[13] &quot;Anxiety&quot;                                                                                   
-[14] &quot;Joint pain&quot;                                                                                
-[15] &quot;Allergies&quot;                                                                                 
-[16] &quot;Palpitations&quot;                                                                              
-[17] &quot;Brain Fog&quot;                                                                                 
-[18] &quot;Memory issues&quot;                                                                             
-[19] &quot;Period&quot;                                                                                    
-[20] &quot;Nausea&quot;                                                                                    
-[21] &quot;Crash&quot;                                                                                     
-[22] &quot;Emotionally stressful&quot;                                                                     
-[23] &quot;Depression&quot;                                                                                
-[24] &quot;Physically active&quot;                                                                         
-[25] &quot;Blurred vision&quot;                                                                            
-[26] &quot;Dizziness&quot;                                                                                 
-[27] &quot;Noise sensitivity&quot;                                                                         
-[28] &quot;Muscle aches&quot;                                                                              
-[29] &quot;Light sensitivity&quot;                                                                         
-[30] &quot;Fatigue&quot;                                                                                   
-[31] &quot;Nerve pain&quot;                                                                                
-[32] &quot;Constipation&quot;                                                                              
-[33] &quot;Reading a short text such as a mobile phone text message&quot;                                  
-[34] &quot;Standing up for approx. 5 minutes e.g. while queuing or while cooking&quot;                     
-[35] &quot;Using the toilet (not bedpan or bedside commode)&quot;                                          
-[36] &quot;Going to a shop for groceries&quot;                                                             
-[37] &quot;Focusing on a task for approx. 2 hours continuously&quot;                                       
-[38] &quot;Physical activity with increased heart rate for approx. 15 min&quot;                            
+</span></span></code></pre></div><pre><code> [1] &quot;Sleep&quot;
+ [2] &quot;HR Variability&quot;
+ [3] &quot;Resting HR&quot;
+ [4] &quot;Stability Score&quot;
+ [5] &quot;Mentally demanding&quot;
+ [6] &quot;Stomach pain&quot;
+ [7] &quot;Lightheadedness&quot;
+ [8] &quot;Headache&quot;
+ [9] &quot;Muscle weakness&quot;
+[10] &quot;Shortness of breath&quot;
+[11] &quot;Diarrhea&quot;
+[12] &quot;Socially demanding&quot;
+[13] &quot;Anxiety&quot;
+[14] &quot;Joint pain&quot;
+[15] &quot;Allergies&quot;
+[16] &quot;Palpitations&quot;
+[17] &quot;Brain Fog&quot;
+[18] &quot;Memory issues&quot;
+[19] &quot;Period&quot;
+[20] &quot;Nausea&quot;
+[21] &quot;Crash&quot;
+[22] &quot;Emotionally stressful&quot;
+[23] &quot;Depression&quot;
+[24] &quot;Physically active&quot;
+[25] &quot;Blurred vision&quot;
+[26] &quot;Dizziness&quot;
+[27] &quot;Noise sensitivity&quot;
+[28] &quot;Muscle aches&quot;
+[29] &quot;Light sensitivity&quot;
+[30] &quot;Fatigue&quot;
+[31] &quot;Nerve pain&quot;
+[32] &quot;Constipation&quot;
+[33] &quot;Reading a short text such as a mobile phone text message&quot;
+[34] &quot;Standing up for approx. 5 minutes e.g. while queuing or while cooking&quot;
+[35] &quot;Using the toilet (not bedpan or bedside commode)&quot;
+[36] &quot;Going to a shop for groceries&quot;
+[37] &quot;Focusing on a task for approx. 2 hours continuously&quot;
+[38] &quot;Physical activity with increased heart rate for approx. 15 min&quot;
 [39] &quot;Staying in a noisy environment (shopping mall café or open plan office) for approx. 1 hour&quot;
-[40] &quot;Managing a full working day (non-physical work such as office work classes or lectures)&quot;   
-[41] &quot;Walking a short distance indoors from one room to another&quot;                                 
-[42] &quot;Stepping right outside your home&quot;                                                          
-[43] &quot;Using public transport (bus or train)&quot;                                                     
-[44] &quot;Showering standing up&quot;                                                                     
-[45] &quot;Participating in organized leisure activities such as classes sports etc.&quot;                 
-[46] &quot;Having a conversation for approx. 5 minutes&quot;                                               
-[47] &quot;Participating in a dinner party party or family event&quot;                                     
-[48] &quot;Staying in a room with normal lighting without sunglasses for approx. 1 hour&quot;              
-[49] &quot;Heavier housework (washing floors vacuuming etc.) for approx. ½ hour continuously&quot;         
-[50] &quot;Sitting in bed for approx. ½ hour&quot;                                                         
-[51] &quot;Walking between approx. 100m and 1km on level ground (length of 1 to 10 football fields)&quot;  
-[52] &quot;Sitting in an upright chair (dining chair) with feet on floor for approx. 2 hours&quot;         
+[40] &quot;Managing a full working day (non-physical work such as office work classes or lectures)&quot;
+[41] &quot;Walking a short distance indoors from one room to another&quot;
+[42] &quot;Stepping right outside your home&quot;
+[43] &quot;Using public transport (bus or train)&quot;
+[44] &quot;Showering standing up&quot;
+[45] &quot;Participating in organized leisure activities such as classes sports etc.&quot;
+[46] &quot;Having a conversation for approx. 5 minutes&quot;
+[47] &quot;Participating in a dinner party party or family event&quot;
+[48] &quot;Staying in a room with normal lighting without sunglasses for approx. 1 hour&quot;
+[49] &quot;Heavier housework (washing floors vacuuming etc.) for approx. ½ hour continuously&quot;
+[50] &quot;Sitting in bed for approx. ½ hour&quot;
+[51] &quot;Walking between approx. 100m and 1km on level ground (length of 1 to 10 football fields)&quot;
+[52] &quot;Sitting in an upright chair (dining chair) with feet on floor for approx. 2 hours&quot;
 [53] &quot;Reading and understanding a non-fiction text such as an official document one A4 page long&quot;
-[54] &quot;Participating in a conversation with three people for approx. ½ hour&quot;                      
-[55] &quot;Staying outdoors in daylight without sunglasses for approx. 2 hours&quot;                       
-[56] &quot;Focusing on a task for approx. 10 minutes continuously&quot;                                    
-[57] &quot;Cooking a complicated meal from scratch approx. 1 hour of preparation&quot;                     
-[58] &quot;Using social media to stay in touch with others&quot;                                           
-[59] &quot;Getting dressed in regular clothes&quot;                                                        
-[60] &quot;Lack of appetite&quot;                                                                          
-[61] &quot;Acid Reflux&quot;                                                                               
-[62] &quot;Note&quot;                                                                                      
+[54] &quot;Participating in a conversation with three people for approx. ½ hour&quot;
+[55] &quot;Staying outdoors in daylight without sunglasses for approx. 2 hours&quot;
+[56] &quot;Focusing on a task for approx. 10 minutes continuously&quot;
+[57] &quot;Cooking a complicated meal from scratch approx. 1 hour of preparation&quot;
+[58] &quot;Using social media to stay in touch with others&quot;
+[59] &quot;Getting dressed in regular clothes&quot;
+[60] &quot;Lack of appetite&quot;
+[61] &quot;Acid Reflux&quot;
+[62] &quot;Note&quot;
 </code></pre>
 <p>Great.
 The data are decently structured.
@@ -1054,8 +1056,18 @@ So, I make a function that will remove columns with a certain amount of NA&rsquo
 </span></span></code></pre></div><h3 id="heat-map">Heat map</h3>
 <p>Now that that&rsquo;s done, let&rsquo;d doe a simple matrix correlation.
 Matrix correlations need full observations (no <code>NA</code>s), and only numeric data.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>visible_wide_num <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">remove_na_columns</span>() <span style="color:#f92672">|&gt;</span>
+<p>&laquo;&laquo;&laquo;&lt; HEAD</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>visible_wide <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">remove_na_columns</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>visible_wide_num <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=======</span>
+</span></span><span style="display:flex;"><span>``` r
+</span></span><span style="display:flex;"><span>visible_wide <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">remove_na_columns</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>visible_wide_num <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span style="color:#ae81ff">3e18681</span><span style="color:#a6e22e">c </span>(start new post)
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">where</span>(is.numeric)) <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">drop_na</span>()
 </span></span><span style="display:flex;"><span>
@@ -1074,7 +1086,12 @@ Matrix correlations need full observations (no <code>NA</code>s), and only numer
 </span></span><span style="display:flex;"><span>  )) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_tile</span>()
 </span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/correlation%20matrix-1.png" width="768" />
-<p>What can we see here?
+<p>&laquo;&laquo;&laquo;&lt; HEAD</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#f92672">=======</span>
+</span></span><span style="display:flex;"><span>``` r
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span style="color:#ae81ff">3e18681</span><span style="color:#a6e22e">c </span>(start new post)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">saveRDS</span>(visible_wide, <span style="color:#e6db74">&#34;visible_wide.rds&#34;</span>)
+</span></span></code></pre></div><p>What can we see here?
 When I&rsquo;m depressed, I also tend to get nauseated.
 I knew that, its a hallmark for me recognising I&rsquo;m in a depressed state.
 Fatigue &amp; Crashes go with depression, I think mostly because I get pretty down when I realised I&rsquo;m more poorly, and anxiety tends to follow along (with thoughts of &ldquo;what if I never get better&rdquo;).
@@ -1187,7 +1204,7 @@ Right now, though, I think Visible is an excellent and <em>easy</em> tool to use
                     (May 1, 2025) 
                     A year with Visible Long-Covid Tracking. 
                     Retrieved from https://drmowinckels.io/blog/2025/visible/.
-                     DOI: https://www.doi.org/10.5281/zenodo.15316170
+                     DOI: https://www.doi.org/10.5281/zenodo.15577053
                 </div>
             </div>
             <div>
@@ -1199,8 +1216,8 @@ Right now, though, I think Visible is an excellent and <em>easy</em> tool to use
                         &emsp;title = "A year with Visible Long-Covid Tracking",<br>
                         &emsp;url = "https://drmowinckels.io/blog/2025/visible/",<br>
                         &emsp;year = 2025,<br>
-                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.15316170",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.15577053",<br> 
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

@@ -435,15 +435,16 @@ The data is of an imaginary experiment on participants, where we have one data s
 The participants are shown on a computer screen a coloured shape, where they have already learned to associate a positive number with the shape, and a negative number with the colour.
 Seeing the coloured shape, they are asked to accumulate as many points as possible by rejecting net negative objects and accept net positive objects.
 They are asked to be as quick as possible, as we also log in milliseconds how long they take to respond.</p>
-<figure>
-<img src="images/experiment.png" alt="Experiment setup" />
-<figcaption aria-hidden="true">Experiment setup</figcaption>
-</figure>
-<p>First, I&rsquo;m creating a function that will generate stimuli values as named vectors.
+<figure class="uk-thumbnail">
+    <img src="images/experiment.png" alt="Experiment setup">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>First, I&rsquo;m creating a function that will generate stimuli values as named vectors.
 This is a nice way to store the stimuli information.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to generate stimuli</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param stimuli string vector</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param sign either 1 or -1, depending if the associated </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param sign either 1 or -1, depending if the associated</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    values should be positive or negative</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return named vector of values</span>
 </span></span><span style="display:flex;"><span>generate_stimuli <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(stimuli, sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>){
@@ -455,12 +456,12 @@ This is a nice way to store the stimuli information.</p>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">generate_stimuli</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;triangle&#34;</span>, <span style="color:#e6db74">&#34;diamond&#34;</span>, <span style="color:#e6db74">&#34;circle&#34;</span>, <span style="color:#e6db74">&#34;square&#34;</span>))
-</span></span></code></pre></div><pre><code>triangle  diamond   circle   square 
-       1        2        3        4 
+</span></span></code></pre></div><pre><code>triangle  diamond   circle   square
+       1        2        3        4
 </code></pre>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">generate_stimuli</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>, <span style="color:#e6db74">&#34;orange&#34;</span>), sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>)
-</span></span></code></pre></div><pre><code>   red   blue  green orange 
-    -1     -2     -3     -4 
+</span></span></code></pre></div><pre><code>   red   blue  green orange
+    -1     -2     -3     -4
 </code></pre>
 <p>Then I&rsquo;m going to generate the mock response files.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to generate random data</span>
@@ -509,17 +510,17 @@ This is a nice way to store the stimuli information.</p>
 </span></span><span style="display:flex;"><span>generate_files <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(i){
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Generate a random number of rows between 75 and 100</span>
 </span></span><span style="display:flex;"><span>  num_rows <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">75</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Generate the data</span>
 </span></span><span style="display:flex;"><span>  data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">generate_data</span>(num_rows)
-</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Construct the file name</span>
 </span></span><span style="display:flex;"><span>  file_name <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;%s/data_%02d.csv&#34;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;%s/data_%02d.csv&#34;</span>,
 </span></span><span style="display:flex;"><span>    here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;content/blog/2024/11-01_lapply_files/data&#34;</span>),
-</span></span><span style="display:flex;"><span>    i 
+</span></span><span style="display:flex;"><span>    i
 </span></span><span style="display:flex;"><span>  )
-</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Write the data to a CSV file, silently</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">invisible</span>(<span style="color:#a6e22e">write.csv</span>(data, file <span style="color:#f92672">=</span> file_name, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>))
 </span></span><span style="display:flex;"><span>}
@@ -554,7 +555,7 @@ We want to combine the data <strong>row-wise</strong>, meaning we get a really <
 </span></span><span style="display:flex;"><span>data <span style="color:#f92672">&lt;-</span> data[0, ]
 </span></span><span style="display:flex;"><span>data
 </span></span></code></pre></div><pre><code>[1] trial        shape        colour       shape_value  colour_value
-[6] value        choice       rt           accuracy    
+[6] value        choice       rt           accuracy
 &lt;0 rows&gt; (or 0-length row.names)
 </code></pre>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Read in all files</span>
@@ -739,7 +740,7 @@ But the <code>lapply</code> variation I find to be just as satisfying when I nee
 </span></span><span style="display:flex;"><span>data <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_density</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> rt, group <span style="color:#f92672">=</span> src, colour <span style="color:#f92672">=</span> src)) <span style="color:#f92672">+</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_viridis_d</span>() <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_viridis_d</span>() <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_minimal</span>()
 </span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/featured-1.png" width="768" />
 
@@ -770,7 +771,7 @@ But the <code>lapply</code> variation I find to be just as satisfying when I nee
                         &emsp;url = "https://drmowinckels.io/blog/2024/lapply-files/",<br>
                         &emsp;year = 2024,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.14024550",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

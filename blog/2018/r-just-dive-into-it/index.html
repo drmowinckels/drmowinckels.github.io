@@ -418,7 +418,12 @@
 <p>Rstudio will now create a folder called &ldquo;R_start&rdquo; on your Desktop and will go into this folder, so that anything you do will happen from within that folder.</p>
 <p>Lets also open a file we can place our script in (or our Syntax if you want). Click the little green circle with the pluss sign, and open an <code>RScript</code></p>
 <p>You&rsquo;ll have something that looks like this once you&rsquo;ve done so:
-<img class="uk-thumbnail" src="https://swcarpentry.github.io/r-novice-gapminder/fig/01-rstudio-script.png"></p>
+<figure class="uk-thumbnail">
+    <img src="https://swcarpentry.github.io/r-novice-gapminder/fig/01-rstudio-script.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure></p>
 <p>The top left quadrant is where your script will go (i.e. is where we are building the syntax). The bottom left is the <strong>console</strong> that <em>executes</em> your commands or you script. Whenever we want to do something, it is in the console that we do it. In a way, this is where R as a program lives, the rest or RStudio is just a way of communicating with it. The top right quadrant will show you any data (called objects in R) that you have active and available, and the bottom right is a place you can navigate to where you want to be working. The bottom right hows you the content of the folder you are in, which is the &ldquo;R_start&rdquo; folder on your Dekstop.</p>
 <p>Let&rsquo;s download some data that we can work with. This little bit of code, will download an dataset from the SPSS survival manual, and place it in your current folder.</p>
 <p>In your console, type:</p>
@@ -612,7 +617,12 @@ Now you&rsquo;ll see the &ldquo;sex&rdquo; variable no longer says <code>&lt;dbl
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>depress1)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-13-1.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-13-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>We are using tidyverse&rsquo;s ggplot to make some pretty plots. It&rsquo;s quite something else than what SPSS gives you.
 Again, with the pipe we are saying <em>&ldquo;Take <code>eData</code> create a ggplot with variable <code>depress1</code> as the x-axis, and create a histogram&rdquo;</em>.
 The observant might notice that after ggplot there is a <code>+</code> not a <code>%&gt;%</code>. I&rsquo;ll not go into that, just know in ggplot we add more geoms (type of plots) to eachother with <code>+</code>.</p>
@@ -622,20 +632,35 @@ The observant might notice that after ggplot there is a <code>+</code> not a <co
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>depress1, fill<span style="color:#f92672">=</span>sex)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>()
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-14-1.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-14-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Bars next to each other</span>
 </span></span><span style="display:flex;"><span>eData <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>depress1, fill<span style="color:#f92672">=</span>sex)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>(position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dodge&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-14-2.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-14-2.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># In different subplots</span>
 </span></span><span style="display:flex;"><span>eData <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>depress1, fill<span style="color:#f92672">=</span>sex)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_histogram</span>(show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>sex)
 </span></span></code></pre></div><pre tabindex="0"><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-14-3.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-14-3.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <h1 id="the-tall-data-format">The tall data format</h1>
 <p>If you notice, there are actually three variables with <code>depress</code> in them. This was measures three times!
 R prefers data to be, long or tall, in contrast to SPSS which likes it wide. Wide means that each person has one row, and all data collected on them is in distinct variables/columns. Long, or tall, means that R would rather you had one variable <strong>per parameter</strong> and several rows per person. In this case, R would prefer each person has three rows, and one variable for depression.
@@ -666,13 +691,23 @@ We can now plot each persons change on depression score over the three measureme
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>depress, group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>()
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-16-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-16-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>I&rsquo;m saying _&ldquo;Take the data in <code>eData_tall</code> make a plot with the variable time on the x-axis, the variable  depress as the y-axis, and group the lines by the id&rdquo;.</p>
 <p>We can also colour the lines by the id, so we can see each person&rsquo;s trajecotry better:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>depress, group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span>id))
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-17-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-17-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>and there we actually see a problem! in the data, <code>id</code> is read as a double precision <strong>number</strong> to the colour bar provides shades of a colour. But, these are distinctly different people! This issue traces all the way back to the original <code>eData</code> so we are going to make sure we fix that, and then recreate the <code>eData_tall</code> data based on that again.</p>
 <p>Make sure now, that you update your script, not just type in the console.
 Your updated script should now be something like so, to make sure we fix this forever!</p>
@@ -695,7 +730,12 @@ Your updated script should now be something like so, to make sure we fix this fo
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>eData_tall <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>time, y<span style="color:#f92672">=</span>depress, group<span style="color:#f92672">=</span>id)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(<span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span>id))
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/featured-1.png"><!-- -->
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/featured-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- -->
 Weee! Now we have 30 distinct colours, and there is no colourbar, but a categorical legend.</p>
 <h1 id="plot-some-regression-lines">Plot some regression lines!</h1>
 <p>We usually want to understand the trend in the data, right? So, let&rsquo;s add a linear regression line, and some confidence intervals around this line. Sounds complicated you say? Nay! we only need to alter the <code>depress</code> variable into something numeric, which I&rsquo;m going to cheat a bit here. I&rsquo;m doing to remove all alphabetic characters from the variable, and then change it to an integer.</p>
@@ -705,7 +745,12 @@ Weee! Now we have 30 distinct colours, and there is no colourbar, but a categori
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>() <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lm&#34;</span>)
 </span></span></code></pre></div><pre tabindex="0"><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-</code></pre><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-20-1.png"><!-- --></p>
+</code></pre><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-20-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>nice! So, again, we are saying <em>&ldquo;Take <code>eData_tall</code>, change the time variable by removing all alphabetic characters and make it into an integer. Plot this with time on the x-axis, depress on the y-axis, create a scatter plot with a little bit of random noise, and add a regression line using a linear model.&rdquo;</em></p>
 <h1 id="doing-a-simple-linear-model">Doing a simple linear model</h1>
 <p>There is a little bit of a decrease with time there! Let&rsquo;s actually run the linear model, to see what it&rsquo;s coefficients are.</p>
@@ -795,7 +840,7 @@ Weee! Now we have 30 distinct colours, and there is no colourbar, but a categori
                         &emsp;url = "https://drmowinckels.io/blog/2018/r-just-dive-into-it/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273479",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

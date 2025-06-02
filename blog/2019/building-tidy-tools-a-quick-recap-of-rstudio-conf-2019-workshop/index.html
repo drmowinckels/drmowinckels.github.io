@@ -608,11 +608,11 @@ We should probably create our of numbers vector, so that we always know the answ
 </span></span></code></pre></div><p>I&rsquo;ve set up two tests, one will work, the other will fail to prove a point. Once you have this test made, use the key-stroke <code>cmd (ctrl) + shift + t</code> to run the test (or type <code>devtools::test()</code>. This will automatically save any edited test script if you forgot to do so.</p>
 <p>This will start some stuff in your build-console, which is in the top righ-hand-corner of your RStudio if you have the standard setup.</p>
 <figure class="uk-thumbnail">
-        <img src="test_1.png" alt="failed test">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>We&rsquo;re given some information of how many passed and how many failed, and for the failed, we are told what failed. So, while the console shows us the number <code>1.975225</code> as a return from our function, R in the background has <em>lots</em> more decimal numbers it is not showing us. This makes it possible for us to actually get a number for pi (3.1415927), which is technically infinite, while R still in the back of the special object <code>pi</code> actually has all of pi with all it&rsquo;s decimal glory. This makes computations more accurate, while we as humans don&rsquo;t need to actually see the infinite detail. But it makes a formalized tests against a number difficult! Thankfully, the expect function takes something called &rsquo;tolerance&rsquo;, where you inform it that you have some tolerance for deviation from this number. We&rsquo;ll set out tolerance to <code>1e-6</code> which gives minor some decimal tolerance, but will fail if the difference is too much.</p>
+    <img src="test_1.png" alt="failed test">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>We&rsquo;re given some information of how many passed and how many failed, and for the failed, we are told what failed. So, while the console shows us the number <code>1.975225</code> as a return from our function, R in the background has <em>lots</em> more decimal numbers it is not showing us. This makes it possible for us to actually get a number for pi (3.1415927), which is technically infinite, while R still in the back of the special object <code>pi</code> actually has all of pi with all it&rsquo;s decimal glory. This makes computations more accurate, while we as humans don&rsquo;t need to actually see the infinite detail. But it makes a formalized tests against a number difficult! Thankfully, the expect function takes something called &rsquo;tolerance&rsquo;, where you inform it that you have some tolerance for deviation from this number. We&rsquo;ll set out tolerance to <code>1e-6</code> which gives minor some decimal tolerance, but will fail if the difference is too much.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">context</span>(<span style="color:#e6db74">&#34;test-se&#34;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;se returns correct number&#34;</span>, {
@@ -624,11 +624,11 @@ We should probably create our of numbers vector, so that we always know the answ
 </span></span><span style="display:flex;"><span>})
 </span></span></code></pre></div><p>do <code>cmd (ctrl) + shift + t</code>  again, and see how that went.</p>
 <figure class="uk-thumbnail">
-        <img src="test_2.png" alt="Succesful test">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>Both our tests have passed, and we are good! Now, whenever you change something in a function, or create a new function, make sure you have a test to check its output. That way, all you need to do it <code>cmd (ctrl) + shift + t</code> and you&rsquo;ll know if your function is still doing what you have intended. This is instead of you manually typing all the tests every time.</p>
+    <img src="test_2.png" alt="Succesful test">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>Both our tests have passed, and we are good! Now, whenever you change something in a function, or create a new function, make sure you have a test to check its output. That way, all you need to do it <code>cmd (ctrl) + shift + t</code> and you&rsquo;ll know if your function is still doing what you have intended. This is instead of you manually typing all the tests every time.</p>
 <p>Go back to your &lsquo;SE.R&rsquo; script, i.e. your function. We&rsquo;ll add some simple documentation to the function, so that we can generate files for people to check what your package expects as input, what it returns etc.</p>
 <p>Place your cursor inside the function, like on the line of the calculation, then in RStudio go to <code>Code -&gt; Insert Roxygen Skeleton</code>.  This <em>should</em> add some key documentation to your function, which you need to adapt to describe it.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function to calculate the standard error of the mean</span>
@@ -651,14 +651,19 @@ We should probably create our of numbers vector, so that we always know the answ
 </span></span></code></pre></div><p>I have already made some edits. Roxygen type documentation is nice, because you place them directly with your function, in lines starting with &ldquo;#&rsquo;&rdquo;. The first line will be the title, then comes a simple description. Then there are several different &ldquo;arguments&rdquo;  that start with an <code>@</code>. <code>@params</code> will be one for each argument to your function, names exactly as the function names them, in this case we only have <code>x</code>. <code>@return</code> is optional, where you may describe what your function will return. <code>@export</code> means the function will be made available once the package is loaded, most packages have several functions that are <em>not</em> exported, which are just for internal use within the package, ie function within the exported functions. and <code>@examples</code> will create small snippets of example code for the documentation. <code>@importFrom</code> I added so that this function knows to use the <code>sd()</code> function from the <code>stats</code> package, rather than any other possible loaded package. This is where the package <code>prefixer</code> might be of help, as it helps you add these imports, if you have many. I use that package heavily.</p>
 <p>Save this and do the key-stroke <code>cmd (ctrl) + shift + d</code> and the documentation will be generated. Re-load your package with <code>cmd (ctrl) + shift + l</code> , and then type <code>?se</code> in your console. Now the new wonderful documentation of your function pops up like any other function help in R.</p>
 <p>neat, huh?
-<img class="uk-thumbnail" src="docu_1.png" alt="documentation preview"></p>
+<figure class="uk-thumbnail">
+    <img src="docu_1.png" alt="documentation preview">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure></p>
 <p>That is basically it. You have made a package with a single function in it. You can do the last ultimate test of your package by testing it&rsquo;s build, with the key-stroke <code>cmd (ctrl) + shift + e</code>. A whole lot of stuff will happen in your build pane, and hopefully it will end with something looking like this:</p>
 <figure class="uk-thumbnail">
-        <img src="check_1.png" alt="Successful build">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>Its giving a warning, because there is no licence. If you are putting it up on github, you&rsquo;ll want to add something. <code>usethis::use_mit_license()</code> might be a good option, of you can browse all the licences <code>usethis</code> can provide for you. If you are not distributing or fussed, you can skip it.</p>
+    <img src="check_1.png" alt="Successful build">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>Its giving a warning, because there is no licence. If you are putting it up on github, you&rsquo;ll want to add something. <code>usethis::use_mit_license()</code> might be a good option, of you can browse all the licences <code>usethis</code> can provide for you. If you are not distributing or fussed, you can skip it.</p>
 <p>You can use <code>git</code> and publish it on <code>github</code> for safe keeping, or build and zip it to distribute it. Up to you! I put mine of github, cause it&rsquo;s just very very convenient.</p>
 <p>Happy package making, it is pretty fun!</p>
 
@@ -689,7 +694,7 @@ We should probably create our of numbers vector, so that we always know the answ
                         &emsp;url = "https://drmowinckels.io/blog/2019/building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/",<br>
                         &emsp;year = 2019,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273490",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

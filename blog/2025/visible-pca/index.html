@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="See how data-driven and domain-knowledge approaches align to define distinct symptom clusters and inform management strategies.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/visible-pca/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="See how data-driven and domain-knowledge approaches align to define distinct symptom clusters and inform management strategies.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/visible-pca/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="See how data-driven and domain-knowledge approaches align to define distinct symptom clusters and inform management strategies.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/visible-pca/index.markdown_strict_files/figure-markdown_strict/pca-sankey-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/visible-pca/index.markdown_strict_files/figure-markdown_strict/pca-sankey-1.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/visible-pca/index.markdown_strict_files/figure-markdown_strict/pca-sankey-1.png" alt="A Sankey diagram showing flows from Principal Components (PCs) on the left, to individual health trackers/symptoms in the middle, and then to four defined symptom clusters (Neurological, Menstruation, Exertion, Emotional) on the right. The thickness of the colored bands indicates the strength of the relationships." class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Jun 2, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/health-data/" class="uk-label uk-label-secondary tags" >
+                                Health-Data
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label uk-label-secondary tags" >
+                                Longcovid
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#recapping-the-clusters-unmasking-the-symptom-syndromes">Recapping the Clusters: Unmasking the Symptom Syndromes</a></li>
+    <li><a href="#unpacking-symptom-dimensions-with-principal-component-analysis-pca">Unpacking Symptom Dimensions with Principal Component Analysis (PCA)</a>
+      <ul>
+        <li><a href="#interpreting-the-principal-components">Interpreting the Principal Components</a></li>
+      </ul>
+    </li>
+    <li><a href="#comparing-clusters-and-pca">Comparing clusters and PCA</a>
+      <ul>
+        <li></li>
+        <li><a href="#comparing-pca-and-clustering-results">Comparing PCA and clustering results</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I thought I&rsquo;d continue on exploring my long covid data this month too.
+My <a href="./blog/2025/visible">last post</a> we dived a little into the data I have gathered using the <a href="https://www.makevisible.com/">Visible app</a> for over a year now.
+I showed you how the Visible app helped me monitor my heart rate and HRV, gave me a &ldquo;stability score&rdquo; each morning, and provided monthly functional capacity assessments (the awesome FUNCAP27).
+We looked at how my data hinted at progress, particularly after I started implementing Dr. Simon&rsquo;s pacing strategies (taking frequent micro-breaks, even for small tasks).</p>
+<p>But the really cool part I touched on was when I used clustering analysis to see how my symptoms grouped together.
+It was fascinating to see the data confirm connections I&rsquo;d felt instinctively but hadn&rsquo;t quite put into words.
+It revealed four distinct &ldquo;syndromes&rdquo; of symptoms that tended to show up together for me.</p>
+<p>So, in this next post, I&rsquo;m going to take an even deeper dive into those clusters, giving you a more personal, anecdotal look at what those symptom groups mean for my daily life and how understanding them is helping me manage this tricky illness.</p>
+<h2 id="recapping-the-clusters-unmasking-the-symptom-syndromes">Recapping the Clusters: Unmasking the Symptom Syndromes</h2>
+<p>Last time, we dipped our toes into the fascinating world of clustering.
+For those who aren&rsquo;t familiar, imagine trying to organize a messy pile of LEGO bricks.
+You might group all the red ones together, all the long ones, or all the ones with wheels.
+Clustering in data does something similar: it finds items (in this case, my symptoms and tracked metrics) that are naturally similar or tend to show up together, and groups them.</p>
+<figure class="uk-thumbnail">
+    <img src="lego_blocks.jpg" alt="Image of several mounds of LEGO sorted neatly by colour.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>It was an affirming moment for me when I ran this analysis.
+I&rsquo;d always felt that certain symptoms seemed to &ldquo;travel together,&rdquo; but seeing it laid out by the data was incredibly validating.
+And one thing that is very good when you have a hidden illness like this (like, I don&rsquo;t <em>look</em> sick) is seeing some validation that stuff is going on.</p>
+<figure class="uk-thumbnail">
+    <img src="clustering-1.png" alt="Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>From the analysis, four main clusters emerged, each telling its own story about how my body experiences Long Covid. Here they are:</p>
+<ol>
+<li><strong>Menstruation:</strong> This cluster grouped &ldquo;period,&rdquo; &ldquo;muscles aches,&rdquo; &ldquo;stomach pain,&rdquo; &ldquo;light sensitivity,&rdquo; and &ldquo;constipation.&rdquo;
+<ul>
+<li><em>My initial thought:</em> &ldquo;Okay, this makes so much sense. This is&rsquo;nt long-covid stuff, it&rsquo;s &lsquo;just&rsquo; period stuff. These are all (except light sensitivity) symptoms that have always plagued me during my period.&rdquo;</li>
+</ul>
+</li>
+<li><strong>Exertion:</strong> Here, we saw &ldquo;stability score,&rdquo; &ldquo;heart rate variability,&rdquo; &ldquo;mental and physical exertion,&rdquo; and &ldquo;lightness of breath.&rdquo;
+<ul>
+<li><em>My initial thought:</em> &ldquo;This is the core of what stability score is based on, isn&rsquo;t it? The physical output directly impacting my energy and my heart&rsquo;s response. Biggest surprise was that resting heart rate was <strong>not</strong> in here, but seeing &rsquo;lightness of breath&rsquo; in here confirms that feeling of struggling to breathe after minimal effort especially on poor days.&rdquo;</li>
+</ul>
+</li>
+<li><strong>Emotional:</strong> This cluster contained &ldquo;emotional exertion,&rdquo; &ldquo;depression,&rdquo; and &ldquo;nausea.&rdquo;
+<ul>
+<li><em>My initial thought:</em> &ldquo;This one is a no brainer for me, yeah, that is my brain doing its thing. As a person who generally struggles with depression and low mood, this clustering is meaningful. Biggest surprise here was that anxiety was not clustered in with it all.&rdquo;</li>
+</ul>
+</li>
+<li><strong>Neurological:</strong> This was the largest cluster, including &ldquo;fatigue,&rdquo; &ldquo;sleep,&rdquo; &ldquo;joint pain,&rdquo; &ldquo;headache,&rdquo; &ldquo;palpitations,&rdquo; &ldquo;resting heart rate,&rdquo; &ldquo;anxiety,&rdquo; and &ldquo;crash (PEM).&rdquo;
+<ul>
+<li><em>My initial thought:</em> &ldquo;This really encapsulates the &lsquo;Long Covid feeling.&rsquo; All these symptoms are the heavy hitters that define my worst days. It&rsquo;s the central hub of what pulls me down. While there is clear meaning behind anxienty being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression.&rdquo;</li>
+</ul>
+</li>
+</ol>
+<h2 id="unpacking-symptom-dimensions-with-principal-component-analysis-pca">Unpacking Symptom Dimensions with Principal Component Analysis (PCA)</h2>
+<p>While the hierarchical clustering helped us group symptoms that co-occur, sometimes we want to understand the underlying <em>dimensions</em> or <em>factors</em> that explain the most variation in our data.
+This is where <strong>Principal Component Analysis (PCA)</strong> comes in &ndash; it&rsquo;s a powerful technique for dimensionality reduction that finds new, uncorrelated variables (principal components) that capture the most variance in our original dataset.</p>
+<p>While the hierarchical clustering we did last time helped us group symptoms that love to hang out together, sometimes we want to understand the underlying dimensions or factors that explain the most variation in our data. This is where Principal Component Analysis (PCA) comes in.</p>
+<p>Imagine you have a giant, intricate LEGO creation &ndash; not just loose bricks in piles.
+PCA is like taking that complex structure and figuring out the core building blocks or main axes around which the whole thing is constructed.</p>
+<figure class="uk-thumbnail">
+    <img src="lego_orchid.jpg" alt="Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>It doesn&rsquo;t just put bricks into piles; it reveals the fundamental themes or underlying &ldquo;stories&rdquo; that make up the overall shape of your health data.
+For example, one principal component might represent &ldquo;all the pieces related to my daily energy levels,&rdquo; another &ldquo;all the pieces for my body&rsquo;s inflammation state.&rdquo;
+If my symptom clusters are truly meaningful, we&rsquo;d expect to see them emerge as significant principal components, confirming these underlying &ldquo;dimensions&rdquo; in my Long Covid experience.</p>
+<p>For this analysis, we&rsquo;ll use our <code>visible_wide</code> dataset, which is already cleaned and only keep the numeric daily observations that are suitable for PCA.
+Scaling the data is crucial for PCA, especially when your variables are on different scales (like heart rate vs. a 1-5 symptom score), to ensure that variables with larger values don&rsquo;t disproportionately influence the components.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
+</span></span></code></pre></div><pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.4     ✔ tibble    3.2.1
+✔ purrr     1.0.4     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Remove cols with only 0&#39;s</span>
+</span></span><span style="display:flex;"><span>remove_0_cols <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data) {
+</span></span><span style="display:flex;"><span>  idx <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(data, <span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">function</span>(x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">all</span>(x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>  }) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">which</span>()
+</span></span><span style="display:flex;"><span>  data[, idx <span style="color:#f92672">*</span> <span style="color:#ae81ff">-1</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>visible_wide_num <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">where</span>(is.numeric)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">drop_na</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">remove_0_cols</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Perform PCA</span>
+</span></span><span style="display:flex;"><span>pca_result <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">prcomp</span>(visible_wide_num, scale <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s peek at the summary to see explained variance</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(pca_result)
+</span></span></code></pre></div><pre><code>Importance of components:
+                          PC1     PC2     PC3     PC4     PC5     PC6     PC7
+Standard deviation     2.1979 1.55385 1.28818 1.24050 1.22930 1.18079 1.13446
+Proportion of Variance 0.1725 0.08623 0.05926 0.05496 0.05397 0.04979 0.04596
+Cumulative Proportion  0.1725 0.25876 0.31803 0.37299 0.42696 0.47675 0.52272
+                           PC8     PC9    PC10    PC11    PC12    PC13    PC14
+Standard deviation     1.08729 1.05145 1.04469 0.99201 0.96958 0.96368 0.93438
+Proportion of Variance 0.04222 0.03948 0.03898 0.03515 0.03357 0.03317 0.03118
+Cumulative Proportion  0.56494 0.60442 0.64340 0.67855 0.71212 0.74529 0.77647
+                          PC15    PC16    PC17    PC18    PC19    PC20   PC21
+Standard deviation     0.87395 0.84684 0.79606 0.75958 0.75488 0.71402 0.6777
+Proportion of Variance 0.02728 0.02561 0.02263 0.02061 0.02035 0.01821 0.0164
+Cumulative Proportion  0.80375 0.82936 0.85199 0.87260 0.89295 0.91116 0.9276
+                         PC22    PC23    PC24    PC25    PC26    PC27    PC28
+Standard deviation     0.6608 0.60687 0.58803 0.55125 0.52772 0.45893 0.29081
+Proportion of Variance 0.0156 0.01315 0.01235 0.01085 0.00995 0.00752 0.00302
+Cumulative Proportion  0.9432 0.95631 0.96866 0.97951 0.98946 0.99698 1.00000
+</code></pre>
+<p>You get a table out with, in this case, 28 components, and showing how much each component explains of the variance, and the standard deviation of the component.
+PCA&rsquo;s are always sorted from <em>most explained</em> to <em>least explained</em>, so the first components are ultimately what we are generally most interested in.</p>
+<h3 id="interpreting-the-principal-components">Interpreting the Principal Components</h3>
+<p>A <strong>scree plot</strong> is often the first visual we look at to see how many components are meaningful.
+It plots the variance explained by each component in descending order.
+We look for an &ldquo;elbow&rdquo; in the plot, where the explained variance sharply drops off.</p>
+<p>First, we need to create a data.frame we can use for plotting.
+For data from prcomp, I like to extract it&rsquo;s summary table and coerce it into a data.frame.
+It&rsquo;s a little sneaky, but also convenient.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Create nice data frame of components</span>
+</span></span><span style="display:flex;"><span>prcomp_to_df <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(prcomp) {
+</span></span><span style="display:flex;"><span>  spca <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">summary</span>(prcomp)
+</span></span><span style="display:flex;"><span>  df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(<span style="color:#a6e22e">t</span>(spca<span style="color:#f92672">$</span>importance))
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(df) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;stdev&#34;</span>, <span style="color:#e6db74">&#34;var_exp&#34;</span>, <span style="color:#e6db74">&#34;cumu_prop&#34;</span>)
+</span></span><span style="display:flex;"><span>  df<span style="color:#f92672">$</span>component <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(df)
+</span></span><span style="display:flex;"><span>  df[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;component&#34;</span>, <span style="color:#e6db74">&#34;stdev&#34;</span>, <span style="color:#e6db74">&#34;var_exp&#34;</span>, <span style="color:#e6db74">&#34;cumu_prop&#34;</span>)]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create a dataframe for the scree plot</span>
+</span></span><span style="display:flex;"><span>pca_variance <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">prcomp_to_df</span>(pca_result)
+</span></span><span style="display:flex;"><span>pca_variance
+</span></span></code></pre></div><pre><code>     component     stdev var_exp cumu_prop
+PC1          1 2.1979404 0.17253   0.17253
+PC2          2 1.5538478 0.08623   0.25876
+PC3          3 1.2881845 0.05926   0.31803
+PC4          4 1.2405038 0.05496   0.37299
+PC5          5 1.2293042 0.05397   0.42696
+PC6          6 1.1807868 0.04979   0.47675
+PC7          7 1.1344565 0.04596   0.52272
+PC8          8 1.0872894 0.04222   0.56494
+PC9          9 1.0514460 0.03948   0.60442
+PC10        10 1.0446901 0.03898   0.64340
+PC11        11 0.9920069 0.03515   0.67855
+PC12        12 0.9695849 0.03357   0.71212
+PC13        13 0.9636828 0.03317   0.74529
+PC14        14 0.9343759 0.03118   0.77647
+PC15        15 0.8739546 0.02728   0.80375
+PC16        16 0.8468355 0.02561   0.82936
+PC17        17 0.7960570 0.02263   0.85199
+PC18        18 0.7595843 0.02061   0.87260
+PC19        19 0.7548804 0.02035   0.89295
+PC20        20 0.7140210 0.01821   0.91116
+PC21        21 0.6776940 0.01640   0.92756
+PC22        22 0.6608451 0.01560   0.94316
+PC23        23 0.6068691 0.01315   0.95631
+PC24        24 0.5880283 0.01235   0.96866
+PC25        25 0.5512463 0.01085   0.97951
+PC26        26 0.5277224 0.00995   0.98946
+PC27        27 0.4589327 0.00752   0.99698
+PC28        28 0.2908108 0.00302   1.00000
+</code></pre>
+<p>Once we have that, we can get our neat scree plot.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(pca_variance, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> component, y <span style="color:#f92672">=</span> var_exp)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Scree Plot: Variance Explained by Each Principal Component&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Principal Component&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Proportion of Variance Explained&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_continuous</span>(breaks <span style="color:#f92672">=</span> scales<span style="color:#f92672">::</span><span style="color:#a6e22e">pretty_breaks</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>))
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/pca-scree-1.png" width="768" />
+<p><strong>What the Scree Plot tells us:</strong> This plot helps us decide how many principal components are worth interpreting.
+Usually, we focus on the components before the &ldquo;elbow.&rdquo;
+For my data, we can see that the first three components are the major ones.</p>
+<h2 id="comparing-clusters-and-pca">Comparing clusters and PCA</h2>
+<p>The real magic of PCA for our purpose lies in the <strong>loadings</strong>.
+Loadings are the coefficients that show how much each original variable (symptom or tracker) contributes to each principal component.
+High absolute loading values (either positive or negative) indicate a strong contribution.
+Variables with positive loadings on a component move in the same direction, while those with negative loadings move in opposite directions.</p>
+<p>Let&rsquo;s look at the loadings for the first few principal components,
+and also make sure we split up the tracker information into components again.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Extract loadings (rotations)</span>
+</span></span><span style="display:flex;"><span>loadings_df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.data.frame</span>(pca_result<span style="color:#f92672">$</span>rotation) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rownames_to_column</span>(var <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tracker&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">separate</span>(tracker, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;type&#34;</span>, <span style="color:#e6db74">&#34;category&#34;</span>, <span style="color:#e6db74">&#34;tracker&#34;</span>), sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;_&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">as_tibble</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loadings_df <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(tracker, PC1, PC2, PC3) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(<span style="color:#a6e22e">desc</span>(<span style="color:#a6e22e">abs</span>(PC1)))
+</span></span></code></pre></div><pre><code># A tibble: 28 × 4
+   tracker            PC1      PC2      PC3
+   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Fatigue          0.343  0.0684   0.00162
+ 2 Crash            0.328 -0.0460  -0.0888
+ 3 Stability Score -0.323  0.227   -0.0392
+ 4 Nausea           0.301  0.355   -0.0505
+ 5 Sleep            0.300 -0.00906  0.310
+ 6 Depression       0.287  0.360   -0.0136
+ 7 Palpitations     0.275 -0.0522   0.0338
+ 8 Headache         0.254  0.0490   0.123
+ 9 Anxiety          0.208  0.0588  -0.376
+10 Resting HR       0.195 -0.351   -0.133
+# ℹ 18 more rows
+</code></pre>
+<p>Now we have a nice data.frame with all our loadings for the top 3 components.
+We can create a nice barchart to show these loadings fairly easily with ggplot2</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>loadings_df <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_longer</span>(
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">starts_with</span>(<span style="color:#e6db74">&#34;PC&#34;</span>),
+</span></span><span style="display:flex;"><span>    names_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pc&#34;</span>,
+</span></span><span style="display:flex;"><span>    values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;loading&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(pc <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;PC1&#34;</span>, <span style="color:#e6db74">&#34;PC2&#34;</span>, <span style="color:#e6db74">&#34;PC3&#34;</span>)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> tracker, y <span style="color:#f92672">=</span> loading, fill <span style="color:#f92672">=</span> loading)
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_bar</span>(stat <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;identity&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>pc) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PCA Loadings&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Contribution of Each Variable to Principal Components&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Loading&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/pca-facets-1.png" width="768" />
+<p>Downside with using facets here, is that while the trackers are the same across each plot, it also makes it harder in this case to clearly see which trackers contribute the most to each component.
+I&rsquo;ll make a special function that will order the x-axis according to the loading value, and then make each plot individually before we put them together again with {patchwork}.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(patchwork)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pca_bar <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data) {
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arrange</span>(<span style="color:#a6e22e">desc</span>(loading)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mutate</span>(tracker <span style="color:#f92672">=</span> <span style="color:#a6e22e">fct_inorder</span>(tracker)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ggplot</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> tracker, y <span style="color:#f92672">=</span> loading, fill <span style="color:#f92672">=</span> loading)
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_bar</span>(stat <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;identity&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loadings_df <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_longer</span>(
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">starts_with</span>(<span style="color:#e6db74">&#34;PC&#34;</span>),
+</span></span><span style="display:flex;"><span>    names_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pc&#34;</span>,
+</span></span><span style="display:flex;"><span>    values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;loading&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(pc <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;PC1&#34;</span>, <span style="color:#e6db74">&#34;PC2&#34;</span>, <span style="color:#e6db74">&#34;PC3&#34;</span>)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest_by</span>(pc, .key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(pc) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(plot <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>(data, pca_bar)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(plot) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">wrap_plots</span>(ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plot_layout</span>(
+</span></span><span style="display:flex;"><span>    guides <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;collect&#39;</span>,
+</span></span><span style="display:flex;"><span>    axes <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;collect&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">&amp;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_continuous</span>(limits <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.5</span>, <span style="color:#ae81ff">0.5</span>)) <span style="color:#f92672">&amp;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plot_annotation</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PCA Loadings: Contribution of Each Variable to Principal Components&#34;</span>,
+</span></span><span style="display:flex;"><span>    tag_levels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span>,
+</span></span><span style="display:flex;"><span>    tag_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PC &#39;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/pca-pretty-1.png" width="768" />
+<p>This is starting to looks much easier to interpret now.
+Now, we can focus on the trackers that contribute most on each end of the scale.
+I&rsquo;m still searching for a better visualisation though, and I think we can keep the colours, but use their absolute loading value to plot.
+This will place all the most important components in order at the very left of the plot, and we can distinguish between positive and negative by their colour.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>pca_bar2 <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data) {
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mutate</span>(abs_loading <span style="color:#f92672">=</span> <span style="color:#a6e22e">abs</span>(loading)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arrange</span>(<span style="color:#a6e22e">desc</span>(abs_loading)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mutate</span>(tracker <span style="color:#f92672">=</span> <span style="color:#a6e22e">fct_inorder</span>(tracker)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ggplot</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> tracker, y <span style="color:#f92672">=</span> abs_loading, fill <span style="color:#f92672">=</span> loading)
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_bar</span>(stat <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;identity&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_hline</span>(yintercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loadings_df <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_longer</span>(
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">starts_with</span>(<span style="color:#e6db74">&#34;PC&#34;</span>),
+</span></span><span style="display:flex;"><span>    names_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pc&#34;</span>,
+</span></span><span style="display:flex;"><span>    values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;loading&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(pc <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;PC1&#34;</span>, <span style="color:#e6db74">&#34;PC2&#34;</span>, <span style="color:#e6db74">&#34;PC3&#34;</span>)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">nest_by</span>(pc, .key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(pc) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(plot <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>(data, pca_bar2)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(plot) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">wrap_plots</span>(ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plot_layout</span>(
+</span></span><span style="display:flex;"><span>    guides <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;collect&#39;</span>,
+</span></span><span style="display:flex;"><span>    axes <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;collect&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">&amp;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_continuous</span>(limits <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.5</span>, <span style="color:#ae81ff">0.5</span>)) <span style="color:#f92672">&amp;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plot_annotation</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PCA Loadings: Contribution of Each Variable to Principal Components&#34;</span>,
+</span></span><span style="display:flex;"><span>    tag_levels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span>,
+</span></span><span style="display:flex;"><span>    tag_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PC &#39;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/pca-pretty2-1.png" width="768" />
+<p>I like this plot much better.
+The directionality of the most important factors are very clear, and we can more easily see what contributes the most.
+I also added a horizontal line at the <code>0.2</code> loading value, to give us a general threshold to determine which factors we have some confidence in being in each component.
+Usually, people will use <code>0.3</code> or higher for larger samples.
+But my data is very little for a PCA, and we are just using it here as a fun way to explore my condition and symptoms, but as a rule to decide with scientific rigour.</p>
+<h4 id="pc1-the-overall-severity-or-neurological-burden-component">PC1: The &ldquo;Overall Severity&rdquo; or &ldquo;Neurological Burden&rdquo; Component</h4>
+<p>Looking at the top plot for <strong>PC1</strong>, we see strong positive loadings (tall green bars) for <code>Fatigue</code>, <code>Nausea</code>, <code>Crash</code>, <code>Depression</code>, and <code>Headache</code>.
+These are clearly my most debilitating and pervasive Long Covid symptoms.
+On the negative side (purple/blue bars), <code>Resting HR</code>, <code>HR Variability</code>, and <code>Stability Score</code> have strong negative loadings.
+This means that when these symptoms (fatigue, crash, depression, etc.) are high, my stability score is low, my resting heart rate is high, and my HRV is low.</p>
+<h4 id="pc2-the-inflammatoryphysical-discomfort-component">PC2: The &ldquo;Inflammatory/Physical Discomfort&rdquo; Component</h4>
+<p>Moving to the middle plot for <strong>PC2</strong>, we see different strong contributors. <code>Depression</code>, <code>Period</code>, <code>Nausea</code>, and <code>Physically active</code> (surprisingly, or perhaps inversely related) have high positive loadings.
+On the negative side, <code>Resting HR</code> and <code>Muscle weakness</code> show strong negative loadings.</p>
+<p>This component seems to capture a dimension related to more general physical discomfort, potentially linked to inflammatory responses, and surprisingly, how physically active I <em>can be</em> (or how that activity impacts this cluster).</p>
+<h4 id="pc3-the-exertion--recovery-balance-component">PC3: The &ldquo;Exertion &amp; Recovery Balance&rdquo; Component</h4>
+<p>The bottom plot for <strong>PC3</strong> is interesting.
+We see high positive loadings for <code>Joint pain</code>, <code>Sleep</code>, <code>Muscle aches</code>, and <code>Brain fog</code>.
+On the negative side, <code>Emotional exertion</code> and <code>Resting HR</code> (again) are prominent.</p>
+<p>This component might represent the delicate balance of exertion and recovery.
+Symptoms like <code>joint pain</code> and <code>muscle aches</code> can be aggravated by activity, while <code>sleep</code> (ideally restorative) pulls in the opposite direction.
+The strong negative loading for <code>Emotional exertion</code> here is fascinating; it suggests that this particular &ldquo;recovery&rdquo; state (low joint pain, good sleep) is inversely related to emotional taxing days.</p>
+<p>Maybe we can see the connections between the principal components and the clusters better through a Sankey diagram?</p>
+<h3 id="comparing-pca-and-clustering-results">Comparing PCA and clustering results</h3>
+<p>Now that we have explored the dimensionality of the data with two different approaches, we should have a clear comparison between them.
+First, we need to define which factors go into each cluster from before.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>clusters_df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  Menstruation <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Period&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Muscle aches&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Stomach pain&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Light sensitivity&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Constipation&#34;</span>
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  Exertion <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Stability Score&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;HR Variability&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Physically active&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Mentally demanding&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Shortness of breath&#34;</span>
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  Emotional <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Emotionally stressful&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Depression&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Nausea&#34;</span>
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  Neurological <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Fatigue&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Sleep&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Joint pain&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Headache&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Palpitations&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Resting HR&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Anxiety&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Crash&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Brain Fog&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Memory issues&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Dizziness&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Muscle weakness&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Nerve pain&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Noise sensitivity&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Socially demanding&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">enframe</span>(
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cluster&#34;</span>,
+</span></span><span style="display:flex;"><span>    value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tracker&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">unnest</span>(cols <span style="color:#f92672">=</span> tracker)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>clusters_df
+</span></span></code></pre></div><pre><code># A tibble: 28 × 2
+   cluster      tracker
+   &lt;chr&gt;        &lt;chr&gt;
+ 1 Menstruation Period
+ 2 Menstruation Muscle aches
+ 3 Menstruation Stomach pain
+ 4 Menstruation Light sensitivity
+ 5 Menstruation Constipation
+ 6 Exertion     Stability Score
+ 7 Exertion     HR Variability
+ 8 Exertion     Physically active
+ 9 Exertion     Mentally demanding
+10 Exertion     Shortness of breath
+# ℹ 18 more rows
+</code></pre>
+<p>Then we combine the clusters data with the loadsings for the three top components, and the loadings of the factors over <code>0.2</code> to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component).
+I&rsquo;m using the <a href="https://github.com/davidsjoberg/ggsankey">ggsankey</a> package by <a href="David%20Sjoberg">David Sjoberg</a> here, which is <em>not</em> on CRAN, but I think makes the most beautiful Sankey diagram
+(hint hint David, get it on CRAN, will ya?).</p>
+<p>This package contains a very convenient function <code>make_long</code> which translates your data into the necessary format for the plot.
+It tok me a really good while to get the data looking as I needed, despite the code looking this clean.</p>
+<p>I <em>think</em> the trick was placing the columns into the function <em>in the order I wanted my x-axis</em>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggsankey)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sankey_df <span style="color:#f92672">&lt;-</span> loadings_df <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">left_join</span>(clusters_df) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_longer</span>(
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">starts_with</span>(<span style="color:#e6db74">&#34;PC&#34;</span>),
+</span></span><span style="display:flex;"><span>    names_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pc&#34;</span>,
+</span></span><span style="display:flex;"><span>    values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;loading&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(
+</span></span><span style="display:flex;"><span>    pc <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;PC1&#34;</span>, <span style="color:#e6db74">&#34;PC2&#34;</span>, <span style="color:#e6db74">&#34;PC3&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">abs</span>(loading) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.2</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">make_long</span>(pc, tracker, cluster, value <span style="color:#f92672">=</span> loading)
+</span></span></code></pre></div><pre><code>Joining with `by = join_by(tracker)`
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>sankey_df
+</span></span></code></pre></div><pre><code># A tibble: 75 × 5
+   x       node         next_x  next_node        value
+   &lt;fct&gt;   &lt;chr&gt;        &lt;fct&gt;   &lt;chr&gt;            &lt;dbl&gt;
+ 1 pc      PC1          tracker Sleep            0.300
+ 2 tracker Sleep        cluster Neurological     0.300
+ 3 cluster Neurological &lt;NA&gt;    &lt;NA&gt;             0.300
+ 4 pc      PC3          tracker Sleep            0.310
+ 5 tracker Sleep        cluster Neurological     0.310
+ 6 cluster Neurological &lt;NA&gt;    &lt;NA&gt;             0.310
+ 7 pc      PC2          tracker Resting HR      -0.351
+ 8 tracker Resting HR   cluster Neurological    -0.351
+ 9 cluster Neurological &lt;NA&gt;    &lt;NA&gt;            -0.351
+10 pc      PC1          tracker Stability Score -0.323
+# ℹ 65 more rows
+</code></pre>
+<p>With this data, we can finally get a nice flowchart of the trackers between the two analysis approaches.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>sankey_df <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> x,
+</span></span><span style="display:flex;"><span>    next_x <span style="color:#f92672">=</span> next_x,
+</span></span><span style="display:flex;"><span>    node <span style="color:#f92672">=</span> node,
+</span></span><span style="display:flex;"><span>    next_node <span style="color:#f92672">=</span> next_node,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>  )) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_sankey</span>(
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    flow_alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.6</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_sankey_label</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(label <span style="color:#f92672">=</span> node),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_void</span>()
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/pca-sankey-1.png" width="768" />
+<p>The Principal Component Analysis (PCA) is represented by the <strong>leftmost two stages (PC -&gt; Tracker)</strong>.
+This shows how individual symptoms (trackers) load onto the underlying, statistically derived principal components (PC1, PC2, PC3).
+This is an <strong>unsupervised, data-driven grouping</strong> based on variance.</p>
+<p>The Hierarchical Clustering is represented by the <strong>rightmost two stages (Tracker -&gt; Cluster)</strong>.
+This shows which trackers belong to my manually (or previously) defined symptom clusters (Neurological, Menstruation, Exertion, Emotional).
+This is a type of <strong>domain-knowledge driven grouping</strong>.</p>
+<p><strong>The Neurological Cluster</strong> appears to be significantly influenced by trackers that load heavily on <strong>PC1</strong> and <strong>PC3</strong>.
+Trackers like &ldquo;Anxiety&rdquo;, &ldquo;Crash&rdquo;, &ldquo;Depression&rdquo;, &ldquo;Fatigue&rdquo;, &ldquo;Headache&rdquo;, and &ldquo;Joint pain&rdquo; show substantial flow from PC1, while &ldquo;Anxiety&rdquo;, &ldquo;Brain Fog&rdquo; and others also draw from PC3.
+This indicates an alignment between the two approaches: the symptoms grouped as &ldquo;Neurological&rdquo; indeed represent a dimension (or dimensions) that PCA also highlights.</p>
+<p><strong>The Emotional Cluster</strong> draws its main components like &ldquo;Depression&rdquo; and &ldquo;Emotionally stressful&rdquo; primarily from <strong>PC1</strong>.
+This suggests PC1 captures a strong emotional/mental dimension that aligns well with the &ldquo;Emotional&rdquo; cluster.</p>
+<p><strong>The Menstruation Cluster</strong> includes hallmark markers like &ldquo;Period&rdquo; and importantly, &ldquo;Stomach pain&rdquo; and &ldquo;Muscle aches&rdquo;.
+While these latter two symptoms also draw from PC1 and PC2, the &ldquo;Period&rdquo; tracker itself shows a prominent flow from <strong>PC3</strong>, suggesting PC3 might capture some cyclical or hormonal aspects.
+But given the very few trackers in this cluster, it doesn&rsquo;t seem to have a distinct connection to any partilcar principal component.</p>
+<p>In the <strong>Exertion Cluster</strong>, trackers like &ldquo;Stability Score&rdquo; and &ldquo;Physically active&rdquo; primarily flow from <strong>PC3</strong>, while &ldquo;Resting HR&rdquo; seems connected from PC1.
+This suggests the &ldquo;Exertion&rdquo; cluster is composed of elements that load on a mix of PCs, but PC3 seems to capture key aspects of physical state.</p>
+<p>Notice how some trackers (e.g., &ldquo;Anxiety&rdquo;, &ldquo;Depression&rdquo;, &ldquo;Fatigue&rdquo;) have multiple bands from different PCs converging on them before flowing to a single cluster.
+This means these symptoms are complex and influenced by several underlying PCA dimensions.
+Conversely, some trackers (e.g., &ldquo;Period&rdquo; from PC3, &ldquo;Physically active&rdquo; from PC3) show a more direct dominant link from one PC, suggesting that PC captures a very specific and strong aspect of that tracker.</p>
+<p>This is one of the reasons a direct comparison between the cluster analysis and the PCA is a little tricky.
+As in the PCA <strong>each</strong> component will have a value for every tracker, with the value indicating both directionality and strength.
+The clustering gives us neither strength nor directionality, and a single &ldquo;location&rdquo; for each tracker.</p>
+<p>Despite this, we see that there is some meaningful overlap between the two that can help us evaluate what we are looking at.
+It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to test out some plots, which is always fun!</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Jun 2, 2025) 
+                    Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes. 
+                    Retrieved from https://drmowinckels.io/blog/2025/visible-pca/.
+                     DOI: https://www.doi.org/10.5281/zenodo.15577055
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-unmasking-long-covid-pca-clustering-analysis-of-symptom-syndromes,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/visible-pca/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.15577055",<br> 
+                        &emsp;updated = "Jun 2, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>A year with Visible Long-Covid Tracking</h2>
+    
+      <p>This post dives into a year of tracking Long Covid symptoms and progress using the Visible app. Dr. Mowinckel, a quantitative scientist, shares their experience monitoring heart rate, heart rate variability (HRV), daily symptoms, and functional capacity using the app&rsquo;s features and the FUNCAP27 questionnaire. Discover how this data provides insights into pacing strategies, identifies potential warning signs like HRV spikes, and reveals meaningful clusters of interconnected symptoms and experiences. Explore the journey of living with and managing Long Covid through the lens of personal health data.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">health-data</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Apr 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Positron: current joys and pains</h2>
+    
+      <p>After 6 months, Positron&rsquo;s modern interface, polyglot support, &amp; viewers are loved. Debugger quirks persist: console hangs, history issues, &amp; tab focus. Data viewer lacks list support &amp; labeled data. Despite pains, Positron&rsquo;s potential shines.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/positron-debugging/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">positron</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">debugging</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 03, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Harness Local LLMs and GitHub Copilot for Enhanced R Package Development</h2>
+    
+      <p>In this post I explore local large language models (LLMs) with R for code assistance, using tools like chores, ensure, gander, and continue in Positron. The post explores R options and keybindings for various tools, adjusting settings to optimize performance. Lastly, I switch to GitHub Copilot for better results, encountering rate limits but finding workarounds to control autocomplete triggers.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/ollama/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ollama</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Cracking the LinkedIn API through R</h2>
+    
+      <p>I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin-api/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">linkedin</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>The difficult year</h2>
+    
+      <p>A deeply personal reflection on a challenging year with long COVID, highlighting the journey through illness, rehab, support from loved ones, and small victories. Despite physical limitations, resilience shines through monthly blog updates, a newsletter, and plans for gradual recovery in the coming year.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/the-difficult-year/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">reflections</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -467,28 +467,58 @@ Out-of-the box, calling ggseg directly will plot the dk atlas.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggseg)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>()
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-2-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-2-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>You can also choose to stack the hemispheres ontop of each other, if that works better for you.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-3-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>Of course, this grey thing isn&rsquo;t particularly fun to look at, so we can do some colourings.
 The atlases all have a variable called <code>region</code>, which will colour different sections in meaningful ways.
 You do this with ggplot <code>aes</code> mapping.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-4-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-4-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>But there are so many labels! We can&rsquo;t fit them all for this atlas. We can turn them off!.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Desikan-Killany cortical atlas&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/featured-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/featured-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>The package currently has three atlases available. The default Desikan-Killany cortical atlas as shown above, and the Automatic subcortical segmentation (aseg), and the Yeo 2011 7 resting-state networks.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas<span style="color:#f92672">=</span>aseg,mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Automatic subcortical segmentation&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-5-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-5-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># remotes::install_github(&#34;LCBC-UiO/ggsegYeo2011&#34;)</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggsegYeo2011)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(atlas<span style="color:#f92672">=</span>yeo7, position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region),) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Yeo 7 resting-state networks&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-5-2.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-5-2.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>We are working on adding the Yeo 2011 17 resting-state networks, in addition to a sagittal view of the aseg atlas.
 We work on that when we need other more &ldquo;relaxing&rdquo; tasks than responding to reviewers every whims.</p>
 <p>Since this is a ggplot-based function, there are lots of ways you can manipulate how it looks.
@@ -497,12 +527,22 @@ For instance by using different themes. The package comes with three themes:
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>,show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Desikan-Killany cortical atlas&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_darkbrain</span>()
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-6-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-6-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>There are several extra options you can add, like increasing the size of the contouring line and its colour</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span>region), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>,
 </span></span><span style="display:flex;"><span>        colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>,size<span style="color:#f92672">=</span><span style="color:#ae81ff">.8</span>,show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Desikan-Killany cortical atlas&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-7-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-7-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>wowsa, that&rsquo;s a bit too many labels. But It helps you get oriented.
 Now, in most cases, we think people will use this to plot some results. Like p-values, or estimated means.
 To do this, you can provide the function with some data. Importantly, the data must include some variables that will match the data to the atlas data.frame for merging.</p>
@@ -512,7 +552,12 @@ To do this, you can provide the function with some data. Importantly, the data m
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>results <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span><span style="color:#a6e22e">as.numeric</span>(em)), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>) 
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-8-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-8-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>Neat-o. But maybe the results only pertained to the right insula, and left superior frontal? Just add a <code>hemi</code> variable indicating which hemisphere the results belong to.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(<span style="color:#a6e22e">cbind</span>(region<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;superior frontal&#34;</span>,<span style="color:#e6db74">&#34;insula&#34;</span>),
 </span></span><span style="display:flex;"><span>                           em<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2.4</span>,<span style="color:#ae81ff">3.3</span>),
@@ -521,7 +566,12 @@ To do this, you can provide the function with some data. Importantly, the data m
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>results <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span><span style="color:#a6e22e">as.numeric</span>(em)), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>) 
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-9-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-9-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>If you keep your data in tall/long format, as ggplot likes it, you can also plot results from different groups using facets.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>results <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(region<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;superior frontal&#34;</span>,<span style="color:#e6db74">&#34;insula&#34;</span>, <span style="color:#e6db74">&#34;pars orbitalis&#34;</span>,<span style="color:#e6db74">&#34;precentral&#34;</span>),
 </span></span><span style="display:flex;"><span>                     em<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2.4</span>,<span style="color:#ae81ff">3.3</span>,<span style="color:#ae81ff">1.2</span>,<span style="color:#ae81ff">2.6</span>),
@@ -533,7 +583,12 @@ To do this, you can provide the function with some data. Importantly, the data m
 </span></span><span style="display:flex;"><span>results <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggseg</span>(mapping<span style="color:#f92672">=</span><span style="color:#a6e22e">aes</span>(fill<span style="color:#f92672">=</span><span style="color:#a6e22e">as.numeric</span>(em)), position<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stacked&#34;</span>, colour<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>AgeGroup,ncol<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-10-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-10-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>That&rsquo;s all for now. Or, there are more options, but that&rsquo;s what I&rsquo;ll be going through today.
 As mentioned, we are very new at making packages, and I&rsquo;m sure there are many ways to make this package more efficient.
 Drop us a line or pull request if you feel like contributing!</p>
@@ -565,7 +620,7 @@ Drop us a line or pull request if you feel like contributing!</p>
                         &emsp;url = "https://drmowinckels.io/blog/2018/introducing-the-ggseg-r-package-for-brain-segmentations/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273427",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

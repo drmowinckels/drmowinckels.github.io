@@ -476,11 +476,12 @@ I know there are old links to my posts that are broken.
 I have used Hugo&rsquo;s internal way of making sure this does not happen, but this needs me to actually remember all links I might have used&hellip;
 I might not have detected all the broken links.
 And, I might change my home-page url at some point, and that will be really hard to do anything about.</p>
-<figure>
-<img src="images/fair.png" alt="FAIR data wheel" />
-<figcaption aria-hidden="true">FAIR data wheel</figcaption>
-</figure>
-<p>So, setting up a pipeline for making sure my posts are archived, given a persistent identigier (DOI, digital object identifier), is a way of making sure what I write is actually around even if my website dies.
+<figure class="uk-thumbnail">
+    <img src="images/fair.png" alt="FAIR data wheel">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>So, setting up a pipeline for making sure my posts are archived, given a persistent identigier (DOI, digital object identifier), is a way of making sure what I write is actually around even if my website dies.
 I prepach about making research as <a href="https://faircookbook.elixir-europe.org/content/recipes/introduction/brief-FAIR-principles.html">FAIR</a> as possible, so I should really make sure I also do as I say.
 Even if it&rsquo;s &ldquo;just&rdquo; my own blog.</p>
 <h2 id="heidis-approach">Heidi&rsquo;s approach</h2>
@@ -500,11 +501,11 @@ It&rsquo;s very easy for me to adapt the remaining to the tools I use myself.</p
 <li>Run GitHub action that registeres a new post to Zenodo using the Zenodo API, and also adds this DOI to the markdown frontmatter.</li>
 </ul>
 <figure class="uk-thumbnail">
-        <img src="images/pipeline.png" alt="">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>There are some reasons my approach ended up differently than Heidi&rsquo;s.
+    <img src="images/pipeline.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>There are some reasons my approach ended up differently than Heidi&rsquo;s.
 Firstly, since I primarily use GitHub, it made sense staying there.
 I never really liked Jekyll, but Hugo does the same purpose for what we are talking about here (mostly).
 While Rogue Scholar seems like a very excellent resource, it was not something I could ultimately use unless I changed how my Hugo website creates RSS feeds.
@@ -537,11 +538,11 @@ The <code>list.files</code> function is great for this, and we will use a couple
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Read Hugo content files</span>
 </span></span><span style="display:flex;"><span>content_dir <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;content/blog&#34;</span>
 </span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(
-</span></span><span style="display:flex;"><span>  content_dir, 
+</span></span><span style="display:flex;"><span>  content_dir,
 </span></span><span style="display:flex;"><span>  pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;^index\\.md$&#34;</span>, <span style="color:#75715e"># search for index.md</span>
 </span></span><span style="display:flex;"><span>  recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, <span style="color:#75715e"># Look through all subdirectories</span>
 </span></span><span style="display:flex;"><span>  full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span> <span style="color:#75715e"># return the entire path</span>
-</span></span><span style="display:flex;"><span>) 
+</span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><p>The most difficult part here is the pattern matching.
 This is something called <a href="https://omni.wikiwand.com/en/articles/Regular_expression">regular expression</a> (regexp for short) and can be really tricky.
 In this case, I&rsquo;m looking for files inside directories that are called <code>index.md</code> and nothing else.
@@ -559,26 +560,26 @@ This metadata we will capture from the yaml frontmatter of the markdown files.</
 </span></span><span style="display:flex;"><span>post_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(post)
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Preview the first 20 lines in the file</span>
 </span></span><span style="display:flex;"><span>post_content[1<span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>]
-</span></span></code></pre></div><pre><code> [1] &quot;---&quot;                                                                                                                                                                                                                                                                                                                                    
- [2] &quot;title: GAMM random effects&quot;                                                                                                                                                                                                                                                                                                             
- [3] &quot;author: DrMowinckels&quot;                                                                                                                                                                                                                                                                                                                   
- [4] &quot;date: '2018-04-05'&quot;                                                                                                                                                                                                                                                                                                                     
- [5] &quot;output:&quot;                                                                                                                                                                                                                                                                                                                                
- [6] &quot;  html_document:&quot;                                                                                                                                                                                                                                                                                                                       
- [7] &quot;    keep_md: yes&quot;                                                                                                                                                                                                                                                                                                                       
- [8] &quot;tags: [R, GAMM]&quot;                                                                                                                                                                                                                                                                                                                        
- [9] &quot;image: 'index_files/figure-html/unnamed-chunk-10-1.png'&quot;                                                                                                                                                                                                                                                                                
-[10] &quot;slug: \&quot;gamm-random-effects\&quot;&quot;                                                                                                                                                                                                                                                                                                          
-[11] &quot;aliases:&quot;                                                                                                                                                                                                                                                                                                                               
-[12] &quot;  - '/blog/2018-04-05-gamm-random-effects'&quot;                                                                                                                                                                                                                                                                                             
-[13] &quot;---&quot;                                                                                                                                                                                                                                                                                                                                    
-[14] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
-[15] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
-[16] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
+</span></span></code></pre></div><pre><code> [1] &quot;---&quot;
+ [2] &quot;title: GAMM random effects&quot;
+ [3] &quot;author: DrMowinckels&quot;
+ [4] &quot;date: '2018-04-05'&quot;
+ [5] &quot;output:&quot;
+ [6] &quot;  html_document:&quot;
+ [7] &quot;    keep_md: yes&quot;
+ [8] &quot;tags: [R, GAMM]&quot;
+ [9] &quot;image: 'index_files/figure-html/unnamed-chunk-10-1.png'&quot;
+[10] &quot;slug: \&quot;gamm-random-effects\&quot;&quot;
+[11] &quot;aliases:&quot;
+[12] &quot;  - '/blog/2018-04-05-gamm-random-effects'&quot;
+[13] &quot;---&quot;
+[14] &quot;&quot;
+[15] &quot;&quot;
+[16] &quot;&quot;
 [17] &quot;I'm working a lot with Generalized Additive Mixed Models (GAMMs) lately, and so, it seems I will be doing a small series on them as we go now. After a little feedback, I did some small alterations to the last post, hopefully it is a little easier to follow, you can read it [here](blog/gamm-spaghetti-plots-in-r-with-ggplot/). &quot;
-[18] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
-[19] &quot;For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM.&quot;                                                                                                                                                            
-[20] &quot;&quot;                                                                                                                                                                                                                                                                                                                                       
+[18] &quot;&quot;
+[19] &quot;For this part I'd like to talk about random effects in `mgcv::gamm` as they are a little different from what I am used to from, for instance `lme4` or even a standard GAM.&quot;
+[20] &quot;&quot;
 </code></pre>
 <p>Now we will have the entire content of the markdown file stored as a vector of strings in the <code>post_content</code> object.
 In this object, each line in the markdown file is an element, so we can capture the frontmatter with some more regexp magic.</p>
@@ -627,12 +628,12 @@ Now, I am lazy, it&rsquo;s why I program :P</p>
 <p>So, I made a piece of code that will detect where the first empty line in the markdown content is, assuming that the first paragraph of my post outlines what the post is about.</p>
 <p>The following function will look for this empty line, and return that index so I can use it to create the summary I need.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Find line index where first post paragraph ends</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Looks for the indeces of empty lines surrounding </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Looks for the indeces of empty lines surrounding</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; paragraphs. Specifically looking for the index that</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; ends the first paragraph, using this as the post</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; summary for Zenodo meta-data.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
 </span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  char <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^$&#34;</span>, x, invert <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
@@ -646,7 +647,7 @@ Now, I am lazy, it&rsquo;s why I program :P</p>
 </span></span><span style="display:flex;"><span>  post_summary <span style="color:#f92672">&lt;-</span> post_content[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
 </span></span><span style="display:flex;"><span>  metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> post_summary[1<span style="color:#f92672">:</span><span style="color:#a6e22e">find_end</span>(post_summary)]
 </span></span><span style="display:flex;"><span>  metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Dr. Mowinckel&#39;s blog: %s&#34;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Dr. Mowinckel&#39;s blog: %s&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">paste0</span>(metadata<span style="color:#f92672">$</span>summary, collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
 </span></span><span style="display:flex;"><span>  )
 </span></span><span style="display:flex;"><span>}
@@ -667,8 +668,8 @@ The following list I created after lots of trial and error, looking at the API d
 </span></span><span style="display:flex;"><span>    )),
 </span></span><span style="display:flex;"><span>    upload_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;publication&#34;</span>,
 </span></span><span style="display:flex;"><span>    publication_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;other&#34;</span>,
-</span></span><span style="display:flex;"><span>    publication_date <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>date, 
-</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;https://drmowinckels.io/blog/%s/%s&#34;</span>, 
+</span></span><span style="display:flex;"><span>    publication_date <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>date,
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;https://drmowinckels.io/blog/%s/%s&#34;</span>,
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">substr</span>(metadata<span style="color:#f92672">$</span>date, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>),
 </span></span><span style="display:flex;"><span>      metadata<span style="color:#f92672">$</span>slug),
 </span></span><span style="display:flex;"><span>    access_right <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;open&#34;</span>,
@@ -745,13 +746,13 @@ This was very unfortunate, and meant I had to switch to the standard latex-to-pd
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Try rendering pdf, if errors returns FALSE so we can abort.</span>
 </span></span><span style="display:flex;"><span>render_status <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tryCatch</span>({
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">quarto_render</span>(
-</span></span><span style="display:flex;"><span>      post, 
-</span></span><span style="display:flex;"><span>      output_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pdf&#34;</span>, 
-</span></span><span style="display:flex;"><span>      output_file <span style="color:#f92672">=</span> pdf_file, 
+</span></span><span style="display:flex;"><span>      post,
+</span></span><span style="display:flex;"><span>      output_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pdf&#34;</span>,
+</span></span><span style="display:flex;"><span>      output_file <span style="color:#f92672">=</span> pdf_file,
 </span></span><span style="display:flex;"><span>      as_job <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">TRUE</span>
-</span></span><span style="display:flex;"><span>  }, 
+</span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>render_status
@@ -790,9 +791,9 @@ and then we add the Zenodo meta-data to the body of the request.</p>
 <p>Once our request looks like we want to, we finish with <code>performing</code> the request.
 Notice how all these functions start with the <code>req_</code> prefix, indicating that these are functions to building a request.
 Soon, we will see the other part of the {httr2} functions, which are the response <code>resp_</code> functions for dealing with the responses from the API.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>query <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_body_json</span>(zenodo_metadata, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>query <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_body_json</span>(zenodo_metadata, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Show the query without performing it</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">req_dry_run</span>(query)
@@ -960,11 +961,11 @@ I did this for so many attempts and could not get the API to accept my request.<
 The last piece of the puzzle was switching to the <code>PUT</code> curl method, rather than the default <code>POST</code> method.
 I had been looking at the curl commands needed as stated on the Zenodo docs, and just completely missed the fact that it was a <code>PUT</code> method rather than a <code>POST</code> method.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Upload the pdf file</span>
-</span></span><span style="display:flex;"><span>upload_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(deposition<span style="color:#f92672">$</span>links<span style="color:#f92672">$</span>bucket) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_url_path_append</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_body_file</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;PUT&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>upload_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(deposition<span style="color:#f92672">$</span>links<span style="color:#f92672">$</span>bucket) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_url_path_append</span>(pdf_file) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_body_file</span>(pdf_file) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;PUT&#34;</span>) <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_perform</span>()
 </span></span></code></pre></div><p>We are looking for another positive result of that, like a 201 again.
 Once we have that, our last piece for httr2 code is to actually publish the archive.
@@ -975,10 +976,10 @@ Something I am painfullly aware of in that I have a post that was published twic
 <p>I feel silly that happened, but now that it&rsquo;s done it&rsquo;s done. I can&rsquo;t take it back, it&rsquo;s there for perpetuity&hellip; or until interwebs are no longer a thing.</p>
 <p>Ok, back to the process.
 We want to actually publish the results.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>pub_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_url_path_append</span>(deposition<span style="color:#f92672">$</span>id, <span style="color:#e6db74">&#34;actions&#34;</span>, <span style="color:#e6db74">&#34;publish&#34;</span>) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>pub_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_url_path_append</span>(deposition<span style="color:#f92672">$</span>id, <span style="color:#e6db74">&#34;actions&#34;</span>, <span style="color:#e6db74">&#34;publish&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">req_perform</span>()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>pub_deposition <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">resp_body_json</span>(pub_response)
@@ -996,15 +997,15 @@ I also have a section on my blog about citing information, and I want the DOI to
 </span></span><span style="display:flex;"><span>  post_content[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>post_content[1<span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>]
-</span></span></code></pre></div><pre><code> [1] &quot;---&quot;                                                    
- [2] &quot;doi: 10.5281/zenodo.13344546&quot;                           
- [3] &quot;title: GAMM random effects&quot;                             
- [4] &quot;author: DrMowinckels&quot;                                   
- [5] &quot;date: '2018-04-05'&quot;                                     
- [6] &quot;output:&quot;                                                
- [7] &quot;  html_document:&quot;                                       
- [8] &quot;    keep_md: yes&quot;                                       
- [9] &quot;tags: [R, GAMM]&quot;                                        
+</span></span></code></pre></div><pre><code> [1] &quot;---&quot;
+ [2] &quot;doi: 10.5281/zenodo.13344546&quot;
+ [3] &quot;title: GAMM random effects&quot;
+ [4] &quot;author: DrMowinckels&quot;
+ [5] &quot;date: '2018-04-05'&quot;
+ [6] &quot;output:&quot;
+ [7] &quot;  html_document:&quot;
+ [8] &quot;    keep_md: yes&quot;
+ [9] &quot;tags: [R, GAMM]&quot;
 [10] &quot;image: 'index_files/figure-html/unnamed-chunk-10-1.png'&quot;
 </code></pre>
 <p>I&rsquo;m taking a simple approach here.
@@ -1023,12 +1024,12 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(quarto)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Find line index where first post paragraph ends</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Looks for the indeces of empty lines surrounding </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Looks for the indeces of empty lines surrounding</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; paragraphs. Specifically looking for the index that</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; ends the first paragraph, using this as the post</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; summary for Zenodo meta-data.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
 </span></span><span style="display:flex;"><span>find_end <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  char <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^$&#34;</span>, x, invert <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
@@ -1038,15 +1039,15 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Check if post needs DOI</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Will check if the post frontmatter</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; indicates the post needs DOI.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; The post date needs to be in the past or </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; The post date needs to be in the past or</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; today, it cannot be listed as a draft, and</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; it should not already have a DOI.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param x path to content .md</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span>needs_doi <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x){
 </span></span><span style="display:flex;"><span>  frontmatter <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(x, <span style="color:#ae81ff">30</span>)
 </span></span><span style="display:flex;"><span>
@@ -1054,14 +1055,14 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>  draft <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^draft:&#34;</span>, frontmatter)]
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">length</span>(draft) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;true&#34;</span>, draft))
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">FALSE</span>) 
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if already has DOI</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">any</span>(<span style="color:#a6e22e">grep</span>(<span style="color:#e6db74">&#34;^doi:&#34;</span>, frontmatter))){
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">FALSE</span>)
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Don&#39;t process if date is in future</span>
 </span></span><span style="display:flex;"><span>  date <span style="color:#f92672">&lt;-</span> frontmatter<span style="color:#a6e22e">[grep</span>(<span style="color:#e6db74">&#34;^date:&#34;</span>, frontmatter)]
 </span></span><span style="display:flex;"><span>  date <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">yaml.load</span>(date)<span style="color:#f92672">$</span>date
@@ -1073,16 +1074,16 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Publish blogpost to Zenodo</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Function will read in meta-data from yaml,</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; and create pdf for archiving to Zenodo.</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; If run with \code{uplad = FALSE} will prepare</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; meta-data and create the pdf, without submitting</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; to Zenodo.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param post character. path to the post .md</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param upload logical. If the information should be uploaded</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
 </span></span><span style="display:flex;"><span>publish_to_zenodo <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(post, upload <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>){
 </span></span><span style="display:flex;"><span>  post_content <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readLines</span>(post)
 </span></span><span style="display:flex;"><span>
@@ -1094,7 +1095,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>    post_summary <span style="color:#f92672">&lt;-</span> post_content[end_yaml<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
 </span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> post_summary[1<span style="color:#f92672">:</span><span style="color:#a6e22e">find_end</span>(post_summary)]
 </span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Dr. Mowinckel&#39;s blog: %s&#34;</span>, 
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Dr. Mowinckel&#39;s blog: %s&#34;</span>,
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">paste0</span>(metadata<span style="color:#f92672">$</span>summary, collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>  }
@@ -1110,7 +1111,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>      )),
 </span></span><span style="display:flex;"><span>      upload_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;publication&#34;</span>,
 </span></span><span style="display:flex;"><span>      publication_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;other&#34;</span>,
-</span></span><span style="display:flex;"><span>      publication_date <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>date, 
+</span></span><span style="display:flex;"><span>      publication_date <span style="color:#f92672">=</span> metadata<span style="color:#f92672">$</span>date,
 </span></span><span style="display:flex;"><span>      url <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;https://drmowinckels.io/blog/%s/%s&#34;</span>, <span style="color:#a6e22e">substr</span>(metadata<span style="color:#f92672">$</span>date, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>), metadata<span style="color:#f92672">$</span>slug),
 </span></span><span style="display:flex;"><span>      access_right <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;open&#34;</span>,
 </span></span><span style="display:flex;"><span>      license <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cc-by&#34;</span>,
@@ -1118,7 +1119,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>      language <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;eng&#34;</span>
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>  )
-</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  pdf_file <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sprintf</span>(
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;drmowinckels_%s_%s.pdf&#34;</span>,
 </span></span><span style="display:flex;"><span>    metadata<span style="color:#f92672">$</span>date,
@@ -1128,13 +1129,13 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Try rendering pdf, if errors returns FALSE so we can abort.</span>
 </span></span><span style="display:flex;"><span>  render_status <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tryCatch</span>({
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">quarto_render</span>(
-</span></span><span style="display:flex;"><span>      post, 
-</span></span><span style="display:flex;"><span>      output_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pdf&#34;</span>, 
-</span></span><span style="display:flex;"><span>      output_file <span style="color:#f92672">=</span> pdf_file, 
+</span></span><span style="display:flex;"><span>      post,
+</span></span><span style="display:flex;"><span>      output_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pdf&#34;</span>,
+</span></span><span style="display:flex;"><span>      output_file <span style="color:#f92672">=</span> pdf_file,
 </span></span><span style="display:flex;"><span>      as_job <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">TRUE</span>
-</span></span><span style="display:flex;"><span>  }, 
+</span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>  error <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(e) {<span style="color:#66d9ef">FALSE</span>}
 </span></span><span style="display:flex;"><span>  )
 </span></span><span style="display:flex;"><span>
@@ -1143,14 +1144,14 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Error during PDF conversion: %s\n&#34;</span>, e<span style="color:#f92672">$</span>message),
 </span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
 </span></span><span style="display:flex;"><span>    )
-</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(upload){
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Upload metadata to initiate DOI</span>
-</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_json</span>(zenodo_metadata, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_json</span>(zenodo_metadata, auto_unbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
-</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(
 </span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Failed to create DOI for %s: %s&#34;</span>, post, <span style="color:#a6e22e">resp_status</span>(response)),
@@ -1161,13 +1162,13 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>    deposition <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">resp_body_json</span>(response)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Upload the pdf file</span>
-</span></span><span style="display:flex;"><span>    upload_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(deposition<span style="color:#f92672">$</span>links<span style="color:#f92672">$</span>bucket) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_url_path_append</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;PUT&#34;</span>) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_file</span>(pdf_file) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    upload_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(deposition<span style="color:#f92672">$</span>links<span style="color:#f92672">$</span>bucket) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_url_path_append</span>(pdf_file) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;PUT&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_body_file</span>(pdf_file) <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
-</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(upload_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>)) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Failed to upload %s to Zenodo: %s&#34;</span>, post, <span style="color:#a6e22e">resp_status</span>(upload_response)),
 </span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
@@ -1177,12 +1178,12 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">message</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Successfully uploaded %s to Zenodo&#34;</span>, post))
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Publish the deposition</span>
-</span></span><span style="display:flex;"><span>    pub_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_url_path_append</span>(deposition<span style="color:#f92672">$</span>id, <span style="color:#e6db74">&#34;actions&#34;</span>, <span style="color:#e6db74">&#34;publish&#34;</span>) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>    pub_response <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">request</span>(zenodo_api_endpoint) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_url_path_append</span>(deposition<span style="color:#f92672">$</span>id, <span style="color:#e6db74">&#34;actions&#34;</span>, <span style="color:#e6db74">&#34;publish&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_auth_bearer_token</span>(zenodo_api_token) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_method</span>(<span style="color:#e6db74">&#34;POST&#34;</span>) <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">req_perform</span>()
-</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">resp_status</span>(pub_response) <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">201</span>, <span style="color:#ae81ff">202</span>)) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;Failed to publish %s on Zenodo: %s&#34;</span>, pdf_file, <span style="color:#a6e22e">resp_status</span>(pub_response)),
 </span></span><span style="display:flex;"><span>      call. <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
@@ -1197,7 +1198,7 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;doi: %s&#34;</span>, pub_deposition<span style="color:#f92672">$</span>metadata<span style="color:#f92672">$</span>doi),
 </span></span><span style="display:flex;"><span>      post_content[2<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(post_content)]
 </span></span><span style="display:flex;"><span>    )
-</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">writeLines</span>(post_content, post)
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>
@@ -1210,18 +1211,18 @@ So, my approach is to put the entire process of submitting to Zenodo in a functi
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Read Hugo content files</span>
 </span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(
-</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;content/blog&#34;</span>, 
-</span></span><span style="display:flex;"><span>  pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;^index\\.md$&#34;</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;content/blog&#34;</span>,
+</span></span><span style="display:flex;"><span>  pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;^index\\.md$&#34;</span>,
 </span></span><span style="display:flex;"><span>  recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
 </span></span><span style="display:flex;"><span>  full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
-</span></span><span style="display:flex;"><span>) 
+</span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Only process files without doi and that are published</span>
 </span></span><span style="display:flex;"><span>posts <span style="color:#f92672">&lt;-</span> posts<span style="color:#a6e22e">[sapply</span>(posts, needs_doi)]
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Run thorugh all posts that need a doi.</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(posts,
-</span></span><span style="display:flex;"><span>  publish_to_zenodo, 
+</span></span><span style="display:flex;"><span>  publish_to_zenodo,
 </span></span><span style="display:flex;"><span>  upload <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><p>That is the entire process.
@@ -1266,7 +1267,7 @@ In the future, I might also post regarding upcoming talks etc, but I promise I w
                         &emsp;url = "https://drmowinckels.io/blog/2024/fair-blog/",<br>
                         &emsp;year = 2024,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13710616",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

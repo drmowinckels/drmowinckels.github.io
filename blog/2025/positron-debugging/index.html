@@ -488,21 +488,21 @@ Note that Air is for R, there are other similar tools for other languages.</p>
 <p>In comparison to VSCode, its much better for Data Science, since you have the environment viewer.
 One thing I never likes in VSCode, was that I felt like working completely uninformed about my project state compared to RStudio, not being able to get an easy overview of what was in my working environment.</p>
 <figure class="uk-thumbnail">
-        <img src="img/data_viewer.png" alt="Screenshot of environment viewer, which can be seen in the upper right quadrant. This environment contains a vector, a dataframe and a function.">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><h3 id="4-rstudio-viewer-pane-compatibility">4. RStudio viewer pane compatibility</h3>
+    <img src="img/data_viewer.png" alt="Screenshot of environment viewer, which can be seen in the upper right quadrant. This environment contains a vector, a dataframe and a function.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><h3 id="4-rstudio-viewer-pane-compatibility">4. RStudio viewer pane compatibility</h3>
 <p>A feature that did not exist when I write the last post, was that Positron &ldquo;shims&rdquo; the RStudio viewer pane.
 This means that any package that has functionality that sends something to the viewer pane, should also work in Positron!</p>
 <p>Blogdown users should rejoice, as this makes the popular <code>blogdown::serve_site()</code> now work in Positron, and other Shiny addins should also work.
 Suuuuper nice!</p>
 <figure class="uk-thumbnail">
-        <img src="img/blogdown.png" alt="Screenshot of the R-Ladies Hugo Website rendered in the Positron Viewer pane with blogdown::serve_site()">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><h2 id="what-are-my-remaining-pain-points">What are my remaining pain points?</h2>
+    <img src="img/blogdown.png" alt="Screenshot of the R-Ladies Hugo Website rendered in the Positron Viewer pane with blogdown::serve_site()">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><h2 id="what-are-my-remaining-pain-points">What are my remaining pain points?</h2>
 <h3 id="the-debugger">The debugger</h3>
 <p>Ok, so debugging in Positron is know to have some quirks.
 As I do, I asked on social media for tips.</p>
@@ -526,11 +526,11 @@ This is a huge annoyance.
 Notice in the screenshot above, how the middle pane, which usually contains my scripts, has a tab open with the greyed out function code.
 This is what you autofocus to when you enter the debugger.</p>
 <figure class="uk-thumbnail">
-        <img src="img/debugger2.png" alt="Screenshot of the debugger in Positron. Debugger environment on the left, and in the middle the function file I would like to auto-focus to in stead, because I can alter it as I debug my function.">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>This means that a workflow I use a lot, which is make an (almost) empty function, and jump into it to start writing the function while in debugger mode is kind of frustratingly hard.
+    <img src="img/debugger2.png" alt="Screenshot of the debugger in Positron. Debugger environment on the left, and in the middle the function file I would like to auto-focus to in stead, because I can alter it as I debug my function.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>This means that a workflow I use a lot, which is make an (almost) empty function, and jump into it to start writing the function while in debugger mode is kind of frustratingly hard.
 It means jumping back and forth between a &lsquo;useless&rsquo; tab (with the original contents of the function) and where I have defined the function in my <code>.R</code>file.</p>
 <p>Hopefully, there will be a better solution for this in the near future.</p>
 <h4 id="history-from-debugger-remains-in-main-environment">History from debugger remains in main environment</h4>
@@ -549,11 +549,11 @@ You spam the <code>ctrl</code> + <code>c</code> combo until you are out of it.
 How many times you need to do this, varies, I have not found a systematic reason for the number of button clicks needed.
 But rest assured, you <em>will</em> be able to exit this hanging state.</p>
 <figure class="uk-thumbnail">
-        <img src="img/debugger3.png" alt="Screenshot of Positron debugger in its &ldquo;hanging&rdquo; state. I have copy &#43; pasted this multi-line lapply function, and while the lapply statement is complete, the debugger console it waiting for more input.">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>Running code in the debugger can be done with <code>ctrl</code> + <code>enter</code>, which will run the code line by line from the <code>browser()</code>, breakpoint or other debugging marker you have used.
+    <img src="img/debugger3.png" alt="Screenshot of Positron debugger in its &ldquo;hanging&rdquo; state. I have copy &#43; pasted this multi-line lapply function, and while the lapply statement is complete, the debugger console it waiting for more input.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>Running code in the debugger can be done with <code>ctrl</code> + <code>enter</code>, which will run the code line by line from the <code>browser()</code>, breakpoint or other debugging marker you have used.
 If I&rsquo;ve moved the cursor for some reason, whenever I do <code>ctrl</code> + <code>enter</code>, it just is stuck at my <code>browser()</code>, without running other code.
 However, if you&rsquo;ve moved the cursor manually, that might not work, for reasons I don&rsquo;t know.
 If I&rsquo;ve moved the cursor for some reaason, whenever I do <code>ctrl</code> + <code>enter</code>, it just is stuck at my <code>browser()</code>, without running other code.</p>
@@ -575,26 +575,26 @@ It also does not give you the option to explore lists like a tree, like RStudio 
 And that&rsquo;s a real bummer!
 I more often used to inspect lists in RStudio&rsquo;s data viewer rather than data.frames, I more often print data.frames to the console and subset them to inspect various aspects of them.</p>
 <figure class="uk-thumbnail">
-        <img src="img/viewer_dt.png" alt="Screenshot of the data viewer inspecting a data.frame. You get a little graph of each column, and then can inspect the data and see the column data type directly in the viewer.">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>One other thing that annoys me with it, is that it also is used to display text-files with common tabular data extension (csv, tsv, etc.).
+    <img src="img/viewer_dt.png" alt="Screenshot of the data viewer inspecting a data.frame. You get a little graph of each column, and then can inspect the data and see the column data type directly in the viewer.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>One other thing that annoys me with it, is that it also is used to display text-files with common tabular data extension (csv, tsv, etc.).
 I prefer using the <a href="https://open-vsx.org/extension/mechatroner/rainbow-csv">Rainbow csv extension</a> in Positron for looking at tabular text file content, as I often either am looking for incorrect data entries, or data I manually want to alter (because I made the data and just want a quick fix).</p>
 <figure class="uk-thumbnail">
-        <img src="img/viewer_csv.png" alt="Screenshot of data viewer looking at a csv. The viewer is not correctly guessing my delimiter, and so only thinks there are two columns, and so this tool doesn&rsquo;t work for this file.">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><p>Thankfully, writing this post I also noticed the little tab at the top of the data viewer while looking at a csv file that says <code>Open as plan text</code> and presto!
+    <img src="img/viewer_csv.png" alt="Screenshot of data viewer looking at a csv. The viewer is not correctly guessing my delimiter, and so only thinks there are two columns, and so this tool doesn&rsquo;t work for this file.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><p>Thankfully, writing this post I also noticed the little tab at the top of the data viewer while looking at a csv file that says <code>Open as plan text</code> and presto!
 I could view my file with ranbow csv in stead.
 So I guess this is no longer a pain point, really!</p>
 <figure class="uk-thumbnail">
-        <img src="img/rainbow_csv.png" alt="Screenshot of plaint text ranbow csv. Here we can see the entire content, and rainbow csv is colouring data in the same column the same colour, so I can easily identify what belongs together.">
-        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-            
-        </figcaption>
-    </figure><h2 id="my-current-positron-settings-file">My current Positron settings file</h2>
+    <img src="img/rainbow_csv.png" alt="Screenshot of plaint text ranbow csv. Here we can see the entire content, and rainbow csv is colouring data in the same column the same colour, so I can easily identify what belongs together.">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><h2 id="my-current-positron-settings-file">My current Positron settings file</h2>
 <p>Just for the sake of it, I&rsquo;ll also include here what I have in my Positron settings file.
 These help control the IDE and some extensions to behaviours or appearance that I prefer.
 You can quickly open your settings file by <code>cmd</code> + <code>k</code>, and then choosing the &ldquo;open file&rdquo; icon on the right hand side of the settings pane.</p>
@@ -662,7 +662,7 @@ What are your pro&rsquo;s and con&rsquo;s so far?</p>
                         &emsp;url = "https://drmowinckels.io/blog/2025/positron-debugging/",<br>
                         &emsp;year = 2025,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.15120905",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>

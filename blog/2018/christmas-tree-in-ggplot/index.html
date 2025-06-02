@@ -451,7 +451,12 @@
 </span></span><span style="display:flex;"><span>cone <span style="color:#f92672">%&gt;%</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#213c18&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-1-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-1-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <h2 id="add-some-fancy-stuff">Add some fancy stuff</h2>
 <p>This as actually meant to alter the cone and get the distinct Christmas tree shape, but I couldn&rsquo;t manage the little &ldquo;dips&rdquo; at each branch, the wrong points kept connecting.
 So it enved up with this more abstract, contemporary thing, which I actually really like!</p>
@@ -468,7 +473,12 @@ So it enved up with this more abstract, contemporary thing, which I actually rea
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#213c18&#34;</span>) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_polygon</span>(data<span style="color:#f92672">=</span>fancy, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#668c6f&#34;</span>)
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-2-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-2-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <h2 id="baubles">BAUBLES!</h2>
 <p>What christmas tree would it be without some baubles!
 We define some nice christmas&rsquo;y colours, do some data sample-randomness stuff, and voila!</p>
@@ -521,7 +531,12 @@ We define some nice christmas&rsquo;y colours, do some data sample-randomness st
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(data <span style="color:#f92672">=</span> baubles, <span style="color:#a6e22e">aes</span>(colour<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), fill<span style="color:#f92672">=</span><span style="color:#a6e22e">I</span>(cols), 
 </span></span><span style="display:flex;"><span>                                 shape <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(shp),size<span style="color:#f92672">=</span>sz), show.legend <span style="color:#f92672">=</span> F) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_shape_manual</span>(values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#ae81ff">25</span>,<span style="color:#ae81ff">8</span>))
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-3-1.png"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <h2 id="add-the-topper-and-animate-some-sparkly">Add the topper and animate some sparkly!</h2>
 <p>We need a tree topper, in Norway, we usually add the Christmas star.
 And then I wanted some ornaments to seemlingly sparkle a little, so we add a small animation too!</p>
@@ -556,7 +571,12 @@ And then I wanted some ornaments to seemlingly sparkle a little, so we add a sma
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">#transition_states(time, transition_length = 10, state_length = 2) + </span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_time</span>(time) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ease_aes</span>(<span style="color:#e6db74">&#39;quadratic-in-out&#39;</span>) 
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-4-1.gif"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/unnamed-chunk-4-1.gif" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <h2 id="the-snow">The snow!</h2>
 <p>I also wanted to have some snow falling in the background.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>snow <span style="color:#f92672">=</span> <span style="color:#a6e22e">data.frame</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">max</span>(cone<span style="color:#f92672">$</span>x)<span style="color:#ae81ff">+1</span>, by<span style="color:#f92672">=</span><span style="color:#ae81ff">.01</span>), <span style="color:#ae81ff">100</span>, replace <span style="color:#f92672">=</span> F),
@@ -604,7 +624,12 @@ And then I wanted some ornaments to seemlingly sparkle a little, so we add a sma
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Animate</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transition_time</span>(time) <span style="color:#f92672">+</span> 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ease_aes</span>(<span style="color:#e6db74">&#39;sine-in-out&#39;</span>) 
-</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/featured-1.gif"><!-- --></p>
+</span></span></code></pre></div><p><figure class="uk-thumbnail">
+    <img src="index_files/figure-html/featured-1.gif" alt="">
+    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        
+    </figcaption>
+</figure><!-- --></p>
 <p>There you go! My little Christmas tree!</p>
 <h1 id="merry-christmas-yall">Merry Christmas, y&rsquo;all!</h1>
 
@@ -635,7 +660,7 @@ And then I wanted some ornaments to seemlingly sparkle a little, so we add a sma
                         &emsp;url = "https://drmowinckels.io/blog/2018/christmas-tree-in-ggplot/",<br>
                         &emsp;year = 2018,<br>
                          &emsp;doi = "https://www.doi.org/10.5281/zenodo.13273483",<br> 
-                        &emsp;updated = "May 28, 2025"<br>
+                        &emsp;updated = "Jun 2, 2025"<br>
                     }
                 </div>
             </div>
