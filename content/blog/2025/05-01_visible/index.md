@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.15577053
 editor_options:
   markdown:
     wrap: sentence
