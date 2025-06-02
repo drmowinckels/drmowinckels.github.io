@@ -3,7 +3,7 @@ name: Merge Pending PRs
 on:
   workflow_dispatch:
   schedule:
-    - cron: '58 10 * * *'
+    - cron: "58 10 * * *"
 
 env:
   GH_TOKEN: ${{ github.token }}
@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Process and Merge Qualifying PRs
-        env: 
+        env:
           prs: ${{ needs.find_pending_prs.outputs.prs }}
         run: |
           current_date=$(date +'%Y-%m-%d')
@@ -60,7 +60,7 @@ jobs:
                   file_content=$(gh api "repos/$GITHUB_REPOSITORY/contents/$file?ref=$branch_name" --jq '.content' | base64 --decode || true)
 
                   # Extract the date from the YAML front matter (assuming "date: " is on its own line)
-                  yaml_date=$(echo "$file_content" | grep -E '^date:' | awk '{print $2}' | sed -e s/\'//g)
+                  yaml_date=$(echo "$file_content" | grep -E '^date:' | awk '{print $2}' | sed -e s/\'//g| sed -e s/\"//g)
 
                   # Check if the date matches today's date
                   if [ "$yaml_date" == "$current_date" ]; then
