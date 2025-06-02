@@ -369,6 +369,13 @@ saveRDS(visible, "visible_clean.rds")
 ```
 
 
+```{r}
+#| include: false
+
+saveRDS(visible, "visible_clean.rds")
+```
+
+
 As expected, the improvements are not so visible here.
 I think there are several reasons for that though: 
 
@@ -664,7 +671,7 @@ remove_0_cols <- function(data) {
 
 ### Clustering
 
-Just for better modelling, we scale the data, then fit a Ward.D2 model with euclidean distance.
+Just for better modelling, we scale the data, then fit a Ward.D2 model with eucledian distance.
 Then we plot it to have a look at what the results are telling us.
 
 ```{r}

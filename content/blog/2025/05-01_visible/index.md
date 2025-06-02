@@ -747,11 +747,19 @@ remove_na_columns <- function(df, threshold = 0.5) {
 Now that that's done, let'd doe a simple matrix correlation.
 Matrix correlations need full observations (no `NA`s), and only numeric data.
 
+<<<<<<< HEAD
 ```r
 visible_wide <- visible_wide |>
   remove_na_columns()
 
 visible_wide_num <- visible_wide |>
+=======
+``` r
+visible_wide <- visible_wide |>
+  remove_na_columns()
+
+visible_wide_num <- visible_wide |> 
+>>>>>>> 3e18681c (start new post)
   select(where(is.numeric)) |>
   drop_na()
 
@@ -776,7 +784,11 @@ cordat |>
 
 <img src="index.markdown_strict_files/figure-markdown_strict/correlation%20matrix-1.png" width="768" />
 
+<<<<<<< HEAD
 ```r
+=======
+``` r
+>>>>>>> 3e18681c (start new post)
 saveRDS(visible_wide, "visible_wide.rds")
 ```
 
