@@ -11,13 +11,14 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **44** posts since **2018-03-08**!
+🎉 DrMowinckels has **45** posts since **NA**!
 
-📅 That’s a post roughly every **60** days, or about **0.50** posts per
-month, since 2018-03-08.
+📅 That’s a post roughly every **NA** days, or about **NA** posts per
+month, since NA.
 
-✍️ The last post was published **27** days ago ([A year with Visible
-Long-Covid Tracking](https://drmowinckels.io/blog/visible)).
+✍️ The last post was published **NA** days ago ([“Unmasking Long Covid:
+PCA & Clustering Analysis of Symptom
+Syndromes”](https://drmowinckels.io/blog/visible-pca)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -31,15 +32,16 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2025-05-01 | [A year with Visible Long-Covid Tracking](https://drmowinckels.io/blog/visible)                                                                                                          |
+| 2025-06-02 | [“Unmasking Long Covid: PCA & Clustering Analysis of Symptom Syndromes”](https://drmowinckels.io/blog/visible-pca)                                                                       |
+| NA         | [A year with Visible Long-Covid Tracking](https://drmowinckels.io/blog/visible)                                                                                                          |
 | 2025-04-01 | [“Positron: current joys and pains”](https://drmowinckels.io/blog/positron-debugging)                                                                                                    |
 | 2025-03-03 | [Harness Local LLMs and GitHub Copilot for Enhanced R Package Development](https://drmowinckels.io/blog/ollama)                                                                          |
 | 2025-02-01 | [Cracking the LinkedIn API through R](https://drmowinckels.io/blog/linkedin-api)                                                                                                         |
 | 2025-01-01 | [The difficult year](https://drmowinckels.io/blog/the-difficult-year)                                                                                                                    |
 | 2024-12-02 | [Posting to Bluesky from R](https://drmowinckels.io/blog/bluesky)                                                                                                                        |
-| 2024-11-01 | [Reading in multiple files without loops](https://drmowinckels.io/blog/lapply-files)                                                                                                     |
+| NA         | [Reading in multiple files without loops](https://drmowinckels.io/blog/lapply-files)                                                                                                     |
 | 2024-10-07 | [Creating post summary with AI from Hugging Face](https://drmowinckels.io/blog/ai-blog-summary)                                                                                          |
-| 2024-09-06 | [Making your blog FAIR](https://drmowinckels.io/blog/fair-blog)                                                                                                                          |
+| NA         | [Making your blog FAIR](https://drmowinckels.io/blog/fair-blog)                                                                                                                          |
 | 2024-08-01 | [Positron IDE - A new IDE for data science](https://drmowinckels.io/blog/positron)                                                                                                       |
 | 2024-07-01 | [Improving your GitHub Profile](https://drmowinckels.io/blog/github-profile)                                                                                                             |
 | 2024-06-01 | [Customise your R startup message](https://drmowinckels.io/blog/rproject)                                                                                                                |
@@ -84,4 +86,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-05-28 01:28:08.853173*
+*Updated 2025-06-04 01:41:15.687282*
