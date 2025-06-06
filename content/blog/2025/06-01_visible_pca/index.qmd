@@ -412,7 +412,7 @@ clusters_df <- list(
 clusters_df
 ```
 
-Then we combine the clusters data with the loadsings for the three top components, and the loadings of the factors over `0.2` to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component). 
+Then we combine the clusters data with the loadings for the three top components, and the loadings of the factors over `0.2` to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component). 
 I'm using the [ggsankey](https://github.com/davidsjoberg/ggsankey) package by [David Sjoberg](David Sjoberg) here, which is _not_ on CRAN, but I think makes the most beautiful Sankey diagram
 (hint hint David, get it on CRAN, will ya?).
 
