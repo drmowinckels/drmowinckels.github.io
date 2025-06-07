@@ -84,7 +84,7 @@ From the analysis, four main clusters emerged, each telling its own story about 
     * *My initial thought:* "This one is a no brainer for me, yeah, that is my brain doing its thing. As a person who generally struggles with depression and low mood, this clustering is meaningful. Biggest surprise here was that anxiety was not clustered in with it all."
 
 4.  **Neurological:** This was the largest cluster, including "fatigue," "sleep," "joint pain," "headache," "palpitations," "resting heart rate," "anxiety," and "crash (PEM)."
-    * *My initial thought:* "This really encapsulates the 'Long Covid feeling.' All these symptoms are the heavy hitters that define my worst days. It's the central hub of what pulls me down. While there is clear meaning behind anxienty being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression."
+    * *My initial thought:* "This really encapsulates the 'Long Covid feeling.' All these symptoms are the heavy hitters that define my worst days. It's the central hub of what pulls me down. While there is clear meaning behind anxiety being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression."
 
 
 
@@ -143,7 +143,7 @@ We look for an "elbow" in the plot, where the explained variance sharply drops o
 
 
 First, we need to create a data.frame we can use for plotting.
-For data from prcomp, I like to extract it's summary table and coerce it into a data.frame.
+For data from prcomp, I like to extract its summary table and coerce it into a data.frame.
 It's a little sneaky, but also convenient.
 
 ```{r}
@@ -278,7 +278,7 @@ loadings_df |>
   )
 ```
 
-This is starting to looks much easier to interpret now.
+This is starting to look much easier to interpret now.
 Now, we can focus on the trackers that contribute most on each end of the scale.
 I'm still searching for a better visualisation though, and I think we can keep the colours, but use their absolute loading value to plot.
 This will place all the most important components in order at the very left of the plot, and we can distinguish between positive and negative by their colour.
@@ -412,7 +412,7 @@ clusters_df <- list(
 clusters_df
 ```
 
-Then we combine the clusters data with the loadsings for the three top components, and the loadings of the factors over `0.2` to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component). 
+Then we combine the clusters data with the loadings for the three top components, and the loadings of the factors over `0.2` to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component). 
 I'm using the [ggsankey](https://github.com/davidsjoberg/ggsankey) package by [David Sjoberg](David Sjoberg) here, which is _not_ on CRAN, but I think makes the most beautiful Sankey diagram
 (hint hint David, get it on CRAN, will ya?).
 
