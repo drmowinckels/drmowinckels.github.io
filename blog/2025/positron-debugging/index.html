@@ -461,7 +461,8 @@
             <p class="uk-text-lead">After 6 months, Positron&rsquo;s modern interface, polyglot support, &amp; viewers are loved. Debugger quirks persist: console hangs, history issues, &amp; tab focus. Data viewer lacks list support &amp; labeled data. Despite pains, Positron&rsquo;s potential shines.</p>
         
         <div class="uk-markdown uk-width">
-            <p><em>This post is on request from <a href="https://masalmon.eu/">Maëlle Salmon</a>, who has finally decided to give Positron a go!</em></p>
+            <p><em>This post was featured on <a href="https://rweekly.org/2025-W15.html">R Weekly</a></em></p>
+<p><em>This post is on request from <a href="https://masalmon.eu/">Maëlle Salmon</a>, who has finally decided to give Positron a go!</em></p>
 <p>I started using <a href="https://drmowinckels.io/blog/2024/positron">Positron last year</a>.
 We all know <a href="https://drmowinckels.io/blog/2025/longcovid">I&rsquo;m not working</a>, so it&rsquo;s not like I&rsquo;ve been totally immersed in Positron.
 I have, on the other hand, been doing some side-projects for myself and R-Ladies, and writing blog posts exclusively in Positron for about 6 months now.
@@ -620,32 +621,32 @@ So I guess this is no longer a pain point, really!</p>
 These help control the IDE and some extensions to behaviours or appearance that I prefer.
 You can quickly open your settings file by <code>cmd</code> + <code>k</code>, and then choosing the &ldquo;open file&rdquo; icon on the right hand side of the settings pane.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.wordWrap&#34;</span>: <span style="color:#e6db74">&#34;bounded&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.inlineSuggest.enabled&#34;</span>: <span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.fontFamily&#34;</span>: <span style="color:#e6db74">&#34;&#39;Fira Code&#39;, monospace&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.fontLigatures&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.fontSize&#34;</span>: <span style="color:#ae81ff">14</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;[r]&#34;</span>: {
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;[quarto]&#34;</span>: {
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;workbench.colorTheme&#34;</span>: <span style="color:#e6db74">&#34;Default Dark Modern&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;workbench.editor.enablePreview&#34;</span>: <span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;positron.r.quietMode&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;database-client.autoSync&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;git.autofetch&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;githubPullRequests.pullBranch&#34;</span>: <span style="color:#e6db74">&#34;never&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;githubPullRequests.pushBranch&#34;</span>: <span style="color:#e6db74">&#34;always&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;python.defaultInterpreterPath&#34;</span>: <span style="color:#e6db74">&#34;/opt/homebrew/bin/python3&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gitlens.defaultDateFormat&#34;</span>: <span style="color:#e6db74">&#34;YYYY-MM-D hh:mm&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gitlens.defaultDateShortFormat&#34;</span>: <span style="color:#e6db74">&#34;YYYY-MM-D&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gitlens.defaultTimeFormat&#34;</span>: <span style="color:#e6db74">&#34;hh:mm&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;[makefile]&#34;</span>: {
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.insertSpaces&#34;</span>: <span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;editor.detectIndentation&#34;</span>: <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;editor.wordWrap&#34;</span>: <span style="color:#e6db74">&#34;bounded&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;editor.inlineSuggest.enabled&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;editor.fontFamily&#34;</span>: <span style="color:#e6db74">&#34;&#39;Fira Code&#39;, monospace&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;editor.fontLigatures&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;editor.fontSize&#34;</span>: <span style="color:#ae81ff">14</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;[r]&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;[quarto]&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;workbench.colorTheme&#34;</span>: <span style="color:#e6db74">&#34;Default Dark Modern&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;workbench.editor.enablePreview&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;positron.r.quietMode&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;database-client.autoSync&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;git.autofetch&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;githubPullRequests.pullBranch&#34;</span>: <span style="color:#e6db74">&#34;never&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;githubPullRequests.pushBranch&#34;</span>: <span style="color:#e6db74">&#34;always&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;python.defaultInterpreterPath&#34;</span>: <span style="color:#e6db74">&#34;/opt/homebrew/bin/python3&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;gitlens.defaultDateFormat&#34;</span>: <span style="color:#e6db74">&#34;YYYY-MM-D hh:mm&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;gitlens.defaultDateShortFormat&#34;</span>: <span style="color:#e6db74">&#34;YYYY-MM-D&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;gitlens.defaultTimeFormat&#34;</span>: <span style="color:#e6db74">&#34;hh:mm&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;[makefile]&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.insertSpaces&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;editor.detectIndentation&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="where-are-we-now">Where are we now?</h2>
 <p>Positron is quickly shaping up to be a great go-to tool for development <em>and</em> for data science.
