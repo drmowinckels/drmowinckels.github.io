@@ -67,7 +67,7 @@ From the analysis, four main clusters emerged, each telling its own story about 
 3.  **Emotional:** This cluster contained "emotional exertion," "depression," and "nausea."
     - _My initial thought:_ "This one is a no brainer for me, yeah, that is my brain doing its thing. As a person who generally struggles with depression and low mood, this clustering is meaningful. Biggest surprise here was that anxiety was not clustered in with it all."
 4.  **Neurological:** This was the largest cluster, including "fatigue," "sleep," "joint pain," "headache," "palpitations," "resting heart rate," "anxiety," and "crash (PEM)."
-    - _My initial thought:_ "This really encapsulates the 'Long Covid feeling.' All these symptoms are the heavy hitters that define my worst days. It's the central hub of what pulls me down. While there is clear meaning behind anxienty being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression."
+    - _My initial thought:_ "This really encapsulates the 'Long Covid feeling.' All these symptoms are the heavy hitters that define my worst days. It's the central hub of what pulls me down. While there is clear meaning behind anxiety being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression."
 
 ## Unpacking Symptom Dimensions with Principal Component Analysis (PCA)
 
@@ -152,7 +152,7 @@ It plots the variance explained by each component in descending order.
 We look for an "elbow" in the plot, where the explained variance sharply drops off.
 
 First, we need to create a data.frame we can use for plotting.
-For data from prcomp, I like to extract it's summary table and coerce it into a data.frame.
+For data from prcomp, I like to extract its summary table and coerce it into a data.frame.
 It's a little sneaky, but also convenient.
 
 ```r
@@ -325,7 +325,7 @@ loadings_df |>
 
 <img src="index.markdown_strict_files/figure-markdown_strict/pca-pretty-1.png" width="768" />
 
-This is starting to looks much easier to interpret now.
+This is starting to look much easier to interpret now.
 Now, we can focus on the trackers that contribute most on each end of the scale.
 I'm still searching for a better visualisation though, and I think we can keep the colours, but use their absolute loading value to plot.
 This will place all the most important components in order at the very left of the plot, and we can distinguish between positive and negative by their colour.
@@ -469,7 +469,7 @@ clusters_df
     10 Exertion     Shortness of breath
     # ℹ 18 more rows
 
-Then we combine the clusters data with the loadsings for the three top components, and the loadings of the factors over `0.2` to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component).
+Then we combine the clusters data with the loadings for the three top components, and the loadings of the factors over `0.2` to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component).
 I'm using the [ggsankey](https://github.com/davidsjoberg/ggsankey) package by [David Sjoberg](David%20Sjoberg) here, which is _not_ on CRAN, but I think makes the most beautiful Sankey diagram
 (hint hint David, get it on CRAN, will ya?).
 
