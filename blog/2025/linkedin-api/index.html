@@ -468,28 +468,25 @@ I want to make sure this is very clear, as a <em>person</em>, not as a person on
 The API is available through the <a href="https://developer.linkedin.com/">LinkedIn developers portal</a>.
 Here, you should be able to log in with your LinkedIn credentials, or already be logged in if you are logged in to LinkedIn already.</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_dev.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_dev.png" 
+        >
         
-    </figcaption>
-</figure><p>There&rsquo;s a lot of information you can access from this page, like docs etc.</p>
+    </figure><p>There&rsquo;s a lot of information you can access from this page, like docs etc.</p>
 <h2 id="creating-an-authentication-client">Creating an authentication client</h2>
 <p>Next step is to &ldquo;Create an app&rdquo;, which is what is going to make it possible for you to authenticate your self towards the API.
 Unlike other API&rsquo;s we&rsquo;ve dealth with before, this API requires a somewhat more complex authentication process.</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_app_create.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_app_create.png" 
+        >
         
-    </figcaption>
-</figure><p>When creating an app, there are quite some things that need to be specified.
+    </figure><p>When creating an app, there are quite some things that need to be specified.
 I&rsquo;ve made an app so many times to get things right!
 So let&rsquo;s walk through it!</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_app_setup.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_app_setup.png" 
+        >
         
-    </figcaption>
-</figure><p><strong>App name</strong>: simple enough, it needs a name. This can be anything you want.</p>
+    </figure><p><strong>App name</strong>: simple enough, it needs a name. This can be anything you want.</p>
 <p><strong>LinkedIn Page</strong>: this is confusing and so weird.</p>
 <blockquote>
 <p>For Individual Developers: API products available to individual developers have a default Company page associated with them and you must select that default Company page to proceed.</p>
@@ -500,27 +497,24 @@ Once that was made, I could associate that page with my app, and things seemed t
 <p><strong>Privacy policy URL</strong> not required, and if you are using it for yourself, totally not needed.</p>
 <p><strong>App logo</strong> self explanatory, I think. I&rsquo;m mostly surprised its required!</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_app_settings.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_app_settings.png" 
+        >
         
-    </figcaption>
-</figure><p>Once those settings are done, you will have an app you can use to access the LinkedIn API through.
+    </figure><p>Once those settings are done, you will have an app you can use to access the LinkedIn API through.
 You will get information about your &ldquo;Client&rdquo; inside the App page, which will look like something as the above.</p>
 <p>But wait, there are still things that need to be set before we can actually use it.</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_app_auth.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_app_auth.png" 
+        >
         
-    </figcaption>
-</figure><p>In the auth tab, the only thing that really needs setting is a redirect URL.
+    </figure><p>In the auth tab, the only thing that really needs setting is a redirect URL.
 You need this if you want to use an interactive authentication process to get a token.
 I thought that sounded neat, and since Steffi had code for it, I followed her <a href="https://github.com/ropensci-org/promoutils/blob/main/R/linkedin.R#L151">instructions in her code</a> to set redirect url to local host.</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_app_products.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_app_products.png" 
+        >
         
-    </figcaption>
-</figure><p>In the &ldquo;Products&rdquo; tab, you will find various services you can add to your app.
+    </figure><p>In the &ldquo;Products&rdquo; tab, you will find various services you can add to your app.
 <strong>These are very important</strong>.
 My main problem getting started with the API was from the lack of the correct products associated with my app.
 Not that this is information that is easy to find, the docs in general are super difficult to navigate, in my opinion.</p>
@@ -614,18 +608,12 @@ Very happy Steffi and Jon had some code I could work on.</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The process will open a browser window that you can open to log into LinkedIn with, and therefore get an access token.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>t <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">li_oauth</span>()
-</span></span></code></pre></div><p><figure class="uk-thumbnail">
-    <img src="images/li_oauth_login.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-        
-    </figcaption>
-</figure>
-<figure class="uk-thumbnail">
-    <img src="images/li_oauth_access.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-        
-    </figcaption>
-</figure></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="images/li_oauth_login.png"
+    
+    >
+<img class="uk-thumbnail" src="images/li_oauth_access.png"
+    
+    ></p>
 <p>And at the end of it all, I got a token!</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>t
 </span></span></code></pre></div><pre tabindex="0"><code>&lt;httr2_token&gt;
@@ -643,11 +631,10 @@ Then I read on StackOverflow and somewhere in the docs, that refresh tokens can 
 <p>So I went to add that, only to realise you cannot have community management and share on linkedin on the same app.
 So I made a new app, so I could give it a go.</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_app_products_community.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_app_products_community.png" 
+        >
         
-    </figcaption>
-</figure><p>It was denied because I am, in fact, not a community :P
+    </figure><p>It was denied because I am, in fact, not a community :P
 To get this product you need to have a legally registered entity, and since I don&rsquo;t have that, I had no success.
 Back to figuring out what was happening.</p>
 <p>I started looking at <a href="https://github.com/rfordatascience/ttpost/blob/main/helpers-linkedin.R#L11-L12">Jon&rsquo;s code</a> and noticed a section talking about refreshing the refresh token.
@@ -658,11 +645,10 @@ But it looked suspiciously like the token I got from Steffi&rsquo;s oauth client
 While both Steffi and Jon listed a whole bunch (<code>r_basicprofile</code>, <code>r_emailaddress</code>, <code>r_liteprofile</code>, <code>r_member_social</code>, <code>r_organization_social</code>, <code>w_member_social</code>, <code>w_organization_social</code>), I had a single one
 <code>w_member_social</code>.</p>
 <figure class="uk-thumbnail">
-    <img src="images/li_token_scope.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/li_token_scope.png" 
+        >
         
-    </figcaption>
-</figure><p>It was eady enough to understand that the <code>organization</code> ones where not for me, but that still left things like <code>r_basicprofile</code>, <code>r_emailaddress</code>, <code>r_liteprofile</code>, <code>r_member_social</code>, I&rsquo;m sure those are nexessary for something?
+    </figure><p>It was eady enough to understand that the <code>organization</code> ones where not for me, but that still left things like <code>r_basicprofile</code>, <code>r_emailaddress</code>, <code>r_liteprofile</code>, <code>r_member_social</code>, I&rsquo;m sure those are nexessary for something?
 I set it aside for now, to continue testing things (that was, in hind-sight, not a great idea).</p>
 <p>I had a token, and some code.
 I wanted to test.

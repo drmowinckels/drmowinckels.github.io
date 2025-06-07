@@ -474,19 +474,25 @@ This was better suited for me to answer than my own survey, so I stopped filling
 <p>Visible also has a monthly questionnaire where you evaluate what you are able to to do for various activities over the month and what it costs you to do that activity.
 The <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11204454/">FUNCAP27</a> was developed and validated on ME/CFS patients, and is a great tool for assessing functional capacity.</p>
 <figure class="uk-thumbnail">
-    <img src="funcap_summary.png" alt="Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="funcap_summary.png" 
+         alt="Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound." >
         
-    </figcaption>
-</figure><p>With this, I have <em>DATA</em>.
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Functional capacity score of 3.2 out of 6.0, lower than a healthy person’s score. There is a semi-circle (like a rainbow shape) where one side i 0.0, while other side is 6.0 (max score). The semi-circle is filled with a yellow colour untill a little over half way. Breakdown shows impact on daily activities, particularly reactions to light and sound.
+        </figcaption>
+        
+    </figure><p>With this, I have <em>DATA</em>.
 The App has several tools inside to get an idea of how you are progressing, and if you are pacing well.
 These have been nice to look at and monitor how I&rsquo;m doing.</p>
 <figure class="uk-thumbnail">
-    <img src="trends.png" alt="A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="trends.png" 
+         alt="A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70." >
         
-    </figcaption>
-</figure><p>I thought 1 year of data was a good place to sit down with the exported data and have my own take on looking at the data.</p>
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            A line graph (with bars in the background) shows two trends from October 27, 2024, to April 24, 2025. The top graph for morning stability, in blue, fluctuates between roughly 3 and 4. The bottom graph for heart rate variability, in orange, fluctuates between roughly 40 and 70.
+        </figcaption>
+        
+    </figure><p>I thought 1 year of data was a good place to sit down with the exported data and have my own take on looking at the data.</p>
 <h2 id="getting-my-data">Getting my data</h2>
 <p>Getting my Visible data is really very easy.
 Inside the app, in your profile, there is a &ldquo;Export Health Data&rdquo; button, which exports the data as a csv.
@@ -1056,18 +1062,10 @@ So, I make a function that will remove columns with a certain amount of NA&rsquo
 </span></span></code></pre></div><h3 id="heat-map">Heat map</h3>
 <p>Now that that&rsquo;s done, let&rsquo;d doe a simple matrix correlation.
 Matrix correlations need full observations (no <code>NA</code>s), and only numeric data.</p>
-<p>&laquo;&laquo;&laquo;&lt; HEAD</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>visible_wide <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">remove_na_columns</span>()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>visible_wide_num <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">=======</span>
-</span></span><span style="display:flex;"><span>``` r
-</span></span><span style="display:flex;"><span>visible_wide <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">remove_na_columns</span>()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>visible_wide_num <span style="color:#f92672">&lt;-</span> visible_wide <span style="color:#f92672">|&gt;</span> 
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span style="color:#ae81ff">3e18681</span><span style="color:#a6e22e">c </span>(start new post)
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">where</span>(is.numeric)) <span style="color:#f92672">|&gt;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">drop_na</span>()
 </span></span><span style="display:flex;"><span>
@@ -1086,11 +1084,7 @@ Matrix correlations need full observations (no <code>NA</code>s), and only numer
 </span></span><span style="display:flex;"><span>  )) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_tile</span>()
 </span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/correlation%20matrix-1.png" width="768" />
-<p>&laquo;&laquo;&laquo;&lt; HEAD</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#f92672">=======</span>
-</span></span><span style="display:flex;"><span>``` r
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span style="color:#ae81ff">3e18681</span><span style="color:#a6e22e">c </span>(start new post)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">saveRDS</span>(visible_wide, <span style="color:#e6db74">&#34;visible_wide.rds&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">saveRDS</span>(visible_wide, <span style="color:#e6db74">&#34;visible_wide.rds&#34;</span>)
 </span></span></code></pre></div><p>What can we see here?
 When I&rsquo;m depressed, I also tend to get nauseated.
 I knew that, its a hallmark for me recognising I&rsquo;m in a depressed state.

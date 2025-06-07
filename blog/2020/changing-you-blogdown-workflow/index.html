@@ -457,12 +457,9 @@ I hit <em>a lot</em> of extra hurdles, and I&rsquo;ll try to document them all h
 <p>These things might not look like much, but figuring out what needed to be done was quite a toil.
 So let&rsquo;s get to it!</p>
 <h2 id="1-alter-my-workflow-from-knitting-html-to-knitting-md">1. alter my workflow from knitting <code>.html</code> to knitting <code>.md</code></h2>
-<p><figure class="uk-thumbnail">
-    <img src="https://media.giphy.com/media/3o7TKtZ6eYyq506j04/giphy.gif" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-        
-    </figcaption>
-</figure><!-- --></p>
+<p><img class="uk-thumbnail" src="https://media.giphy.com/media/3o7TKtZ6eYyq506j04/giphy.gif"
+    
+    ><!-- --></p>
 <p>This was a major change to how I work.
 After discussions with <a href="https://twitter.com/ma_salmon">Maëlle Salmon</a> and <a href="https://twitter.com/TheStephLocke">Steph Locke</a> about the caveats of blogdown rendering directly from <code>.Rmd</code> to <code>.html</code>, I decided to follow their advice and change the way I make content for my webpage.</p>
 <p>To be concise, blogdown is usually used with <a href="https://gohugo.io/">go hugo</a> a static webpage builder.
@@ -597,12 +594,9 @@ In my <code>config.toml</code> I added:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">markup</span>]
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">defaultMarkdownHandler</span> = <span style="color:#e6db74">&#34;blackfriday&#34;</span>
 </span></span></code></pre></div><p>and presto! site was also rendering html content and widgets!</p>
-<p><figure class="uk-thumbnail">
-    <img src="https://media.giphy.com/media/l8XYZYdlOHSrS/giphy.gif" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-        
-    </figcaption>
-</figure><!-- --></p>
+<p><img class="uk-thumbnail" src="https://media.giphy.com/media/l8XYZYdlOHSrS/giphy.gif"
+    
+    ><!-- --></p>
 <h2 id="2-locate-theme-changes-breaking-the-webpage">2. locate theme changes breaking the webpage</h2>
 <p>Then once I had that in place, I needed to figure out what in my theme had changed, to work with newer hugo.
 This was a bit of a pain, a lot of internal logic in my theme had changed, and I needed to find them to get it fixed.
@@ -644,12 +638,9 @@ If you encounter it, I hope this pops up for you and you get it solved!</p>
 <h2 id="webpage-updated">Webpage updated!</h2>
 <p>Then finally, the webpage was up and running again.
 On a newer hugo, with an updated theme, and new theme tweaks I&rsquo;m really fond of.</p>
-<p><figure class="uk-thumbnail">
-    <img src="lucille_sassy.gif" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-        
-    </figcaption>
-</figure><!-- --></p>
+<p><img class="uk-thumbnail" src="lucille_sassy.gif"
+    
+    ><!-- --></p>
 <p>In the future, perhaps we don&rsquo;t need to do a lot of this cumbersome stuff, if <a href="https://github.com/r-lib/hugodown">hugodown</a> gets developed and matures. I have high hopes for this package!</p>
 
         </div>

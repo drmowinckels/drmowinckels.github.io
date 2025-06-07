@@ -477,11 +477,14 @@ I have used Hugo&rsquo;s internal way of making sure this does not happen, but t
 I might not have detected all the broken links.
 And, I might change my home-page url at some point, and that will be really hard to do anything about.</p>
 <figure class="uk-thumbnail">
-    <img src="images/fair.png" alt="FAIR data wheel">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/fair.png" 
+         alt="FAIR data wheel" >
         
-    </figcaption>
-</figure><p>So, setting up a pipeline for making sure my posts are archived, given a persistent identigier (DOI, digital object identifier), is a way of making sure what I write is actually around even if my website dies.
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            FAIR data wheel
+        </figcaption>
+        
+    </figure><p>So, setting up a pipeline for making sure my posts are archived, given a persistent identigier (DOI, digital object identifier), is a way of making sure what I write is actually around even if my website dies.
 I prepach about making research as <a href="https://faircookbook.elixir-europe.org/content/recipes/introduction/brief-FAIR-principles.html">FAIR</a> as possible, so I should really make sure I also do as I say.
 Even if it&rsquo;s &ldquo;just&rdquo; my own blog.</p>
 <h2 id="heidis-approach">Heidi&rsquo;s approach</h2>
@@ -501,11 +504,10 @@ It&rsquo;s very easy for me to adapt the remaining to the tools I use myself.</p
 <li>Run GitHub action that registeres a new post to Zenodo using the Zenodo API, and also adds this DOI to the markdown frontmatter.</li>
 </ul>
 <figure class="uk-thumbnail">
-    <img src="images/pipeline.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="images/pipeline.png" 
+        >
         
-    </figcaption>
-</figure><p>There are some reasons my approach ended up differently than Heidi&rsquo;s.
+    </figure><p>There are some reasons my approach ended up differently than Heidi&rsquo;s.
 Firstly, since I primarily use GitHub, it made sense staying there.
 I never really liked Jekyll, but Hugo does the same purpose for what we are talking about here (mostly).
 While Rogue Scholar seems like a very excellent resource, it was not something I could ultimately use unless I changed how my Hugo website creates RSS feeds.

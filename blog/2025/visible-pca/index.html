@@ -460,19 +460,25 @@ For those who aren&rsquo;t familiar, imagine trying to organize a messy pile of 
 You might group all the red ones together, all the long ones, or all the ones with wheels.
 Clustering in data does something similar: it finds items (in this case, my symptoms and tracked metrics) that are naturally similar or tend to show up together, and groups them.</p>
 <figure class="uk-thumbnail">
-    <img src="lego_blocks.jpg" alt="Image of several mounds of LEGO sorted neatly by colour.">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="lego_blocks.jpg" 
+         alt="Image of several mounds of LEGO sorted neatly by colour." >
         
-    </figcaption>
-</figure><p>It was an affirming moment for me when I ran this analysis.
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Image of several mounds of LEGO sorted neatly by colour.
+        </figcaption>
+        
+    </figure><p>It was an affirming moment for me when I ran this analysis.
 I&rsquo;d always felt that certain symptoms seemed to &ldquo;travel together,&rdquo; but seeing it laid out by the data was incredibly validating.
 And one thing that is very good when you have a hidden illness like this (like, I don&rsquo;t <em>look</em> sick) is seeing some validation that stuff is going on.</p>
 <figure class="uk-thumbnail">
-    <img src="clustering-1.png" alt="Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside.">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="clustering-1.png" 
+         alt="Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside." >
         
-    </figcaption>
-</figure><p>From the analysis, four main clusters emerged, each telling its own story about how my body experiences Long Covid. Here they are:</p>
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Plot of clustered symptoms and trackers, showing four top level clusters, with varying degrees and number of items inside.
+        </figcaption>
+        
+    </figure><p>From the analysis, four main clusters emerged, each telling its own story about how my body experiences Long Covid. Here they are:</p>
 <ol>
 <li><strong>Menstruation:</strong> This cluster grouped &ldquo;period,&rdquo; &ldquo;muscles aches,&rdquo; &ldquo;stomach pain,&rdquo; &ldquo;light sensitivity,&rdquo; and &ldquo;constipation.&rdquo;
 <ul>
@@ -491,7 +497,7 @@ And one thing that is very good when you have a hidden illness like this (like, 
 </li>
 <li><strong>Neurological:</strong> This was the largest cluster, including &ldquo;fatigue,&rdquo; &ldquo;sleep,&rdquo; &ldquo;joint pain,&rdquo; &ldquo;headache,&rdquo; &ldquo;palpitations,&rdquo; &ldquo;resting heart rate,&rdquo; &ldquo;anxiety,&rdquo; and &ldquo;crash (PEM).&rdquo;
 <ul>
-<li><em>My initial thought:</em> &ldquo;This really encapsulates the &lsquo;Long Covid feeling.&rsquo; All these symptoms are the heavy hitters that define my worst days. It&rsquo;s the central hub of what pulls me down. While there is clear meaning behind anxienty being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression.&rdquo;</li>
+<li><em>My initial thought:</em> &ldquo;This really encapsulates the &lsquo;Long Covid feeling.&rsquo; All these symptoms are the heavy hitters that define my worst days. It&rsquo;s the central hub of what pulls me down. While there is clear meaning behind anxiety being in here (because on poor days I get feelings of despair around not improving), I still though it would cluster together with depression.&rdquo;</li>
 </ul>
 </li>
 </ol>
@@ -502,11 +508,14 @@ This is where <strong>Principal Component Analysis (PCA)</strong> comes in &ndas
 <p>Imagine you have a giant, intricate LEGO creation &ndash; not just loose bricks in piles.
 PCA is like taking that complex structure and figuring out the core building blocks or main axes around which the whole thing is constructed.</p>
 <figure class="uk-thumbnail">
-    <img src="lego_orchid.jpg" alt="Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks.">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
+        <img src="lego_orchid.jpg" 
+         alt="Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks." >
         
-    </figcaption>
-</figure><p>It doesn&rsquo;t just put bricks into piles; it reveals the fundamental themes or underlying &ldquo;stories&rdquo; that make up the overall shape of your health data.
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Image of a LEGO Orchid I built while I was in rehabilitation, which has more complex pieces than the classic rectangular LEGO blocks.
+        </figcaption>
+        
+    </figure><p>It doesn&rsquo;t just put bricks into piles; it reveals the fundamental themes or underlying &ldquo;stories&rdquo; that make up the overall shape of your health data.
 For example, one principal component might represent &ldquo;all the pieces related to my daily energy levels,&rdquo; another &ldquo;all the pieces for my body&rsquo;s inflammation state.&rdquo;
 If my symptom clusters are truly meaningful, we&rsquo;d expect to see them emerge as significant principal components, confirming these underlying &ldquo;dimensions&rdquo; in my Long Covid experience.</p>
 <p>For this analysis, we&rsquo;ll use our <code>visible_wide</code> dataset, which is already cleaned and only keep the numeric daily observations that are suitable for PCA.
@@ -566,7 +575,7 @@ PCA&rsquo;s are always sorted from <em>most explained</em> to <em>least explaine
 It plots the variance explained by each component in descending order.
 We look for an &ldquo;elbow&rdquo; in the plot, where the explained variance sharply drops off.</p>
 <p>First, we need to create a data.frame we can use for plotting.
-For data from prcomp, I like to extract it&rsquo;s summary table and coerce it into a data.frame.
+For data from prcomp, I like to extract its summary table and coerce it into a data.frame.
 It&rsquo;s a little sneaky, but also convenient.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Create nice data frame of components</span>
 </span></span><span style="display:flex;"><span>prcomp_to_df <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(prcomp) {
@@ -713,7 +722,7 @@ I&rsquo;ll make a special function that will order the x-axis according to the l
 </span></span><span style="display:flex;"><span>    tag_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PC &#39;</span>
 </span></span><span style="display:flex;"><span>  )
 </span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/pca-pretty-1.png" width="768" />
-<p>This is starting to looks much easier to interpret now.
+<p>This is starting to look much easier to interpret now.
 Now, we can focus on the trackers that contribute most on each end of the scale.
 I&rsquo;m still searching for a better visualisation though, and I think we can keep the colours, but use their absolute loading value to plot.
 This will place all the most important components in order at the very left of the plot, and we can distinguish between positive and negative by their colour.</p>
@@ -837,7 +846,7 @@ First, we need to define which factors go into each cluster from before.</p>
 10 Exertion     Shortness of breath
 # ℹ 18 more rows
 </code></pre>
-<p>Then we combine the clusters data with the loadsings for the three top components, and the loadings of the factors over <code>0.2</code> to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component).
+<p>Then we combine the clusters data with the loadings for the three top components, and the loadings of the factors over <code>0.2</code> to keep it neat (else the sankey plot will show lines for every tracker out of each Principal component).
 I&rsquo;m using the <a href="https://github.com/davidsjoberg/ggsankey">ggsankey</a> package by <a href="David%20Sjoberg">David Sjoberg</a> here, which is <em>not</em> on CRAN, but I think makes the most beautiful Sankey diagram
 (hint hint David, get it on CRAN, will ya?).</p>
 <p>This package contains a very convenient function <code>make_long</code> which translates your data into the necessary format for the plot.

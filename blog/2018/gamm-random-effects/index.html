@@ -931,12 +931,9 @@
 </span></span><span style="display:flex;"><span>                    values<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;firebrick&#34;</span>,<span style="color:#e6db74">&#34;forestgreen&#34;</span>,<span style="color:#e6db74">&#34;skyblue&#34;</span>)) <span style="color:#f92672">+</span>
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>Pred, scales<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;free&#34;</span>)
-</span></span></code></pre></div><p><figure class="uk-thumbnail">
-    <img src="index_files/figure-html/unnamed-chunk-10-1.png" alt="">
-    <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted">
-        
-    </figcaption>
-</figure><!-- --></p>
+</span></span></code></pre></div><p><img class="uk-thumbnail" src="index_files/figure-html/unnamed-chunk-10-1.png"
+    
+    ><!-- --></p>
 <p>The fit overlap is uncanny, but the confidence intervals have a marked difference. With my actual data, there is a little more difference than here, but it really is quite minute.</p>
 <p>So, through my tests, I&rsquo;ve become quite confident that the approaches are both <em>valid</em>. There is nothing statistically <em>wrong</em> in doing either. However, if you want a conservative approach, the second option, with random effects as a spline is the way to go. Just make sure your subject identifier is a factor, it might impact your inference more than you think.</p>
 
