@@ -34,7 +34,7 @@ I’d love your feedback in the comments!
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 2025-06-02 | [“Unmasking Long Covid: PCA & Clustering Analysis of Symptom Syndromes”](https://drmowinckels.io/blog/visible-pca)                                                                       |
 | NA         | [A year with Visible Long-Covid Tracking](https://drmowinckels.io/blog/visible)                                                                                                          |
-| 2025-04-01 | [“Positron: current joys and pains”](https://drmowinckels.io/blog/positron-debugging)                                                                                                    |
+| NA         | [“Positron: current joys and pains”](https://drmowinckels.io/blog/positron-debugging)                                                                                                    |
 | 2025-03-03 | [Harness Local LLMs and GitHub Copilot for Enhanced R Package Development](https://drmowinckels.io/blog/ollama)                                                                          |
 | 2025-02-01 | [Cracking the LinkedIn API through R](https://drmowinckels.io/blog/linkedin-api)                                                                                                         |
 | 2025-01-01 | [The difficult year](https://drmowinckels.io/blog/the-difficult-year)                                                                                                                    |
@@ -86,4 +86,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-06-04 01:41:15.687282*
+*Updated 2025-06-11 01:38:28.143225*
