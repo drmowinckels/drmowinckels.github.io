@@ -470,6 +470,136 @@ test_that("ns_has_auth identifies variables", {
 Here I am not mocking, but explicitly setting environment variables for the tests with `withr::with_envvar`.
 This way, the code is tested as I want, regardless of whether system running the tests has the variables set (as I have on my system).
 
+## Periodically testing the API calls
+
+In the tests so far, I've recorded the API requests and responses on my local machine where credentials are set up, and then all subsequent tests run against the recorded cassettes.
+But how do we discover if the API it self alters?
+Since the calls aren't actually run, I'd need to rerun the tests without the cassettes.
+But we can be sure I won't do that unless someone reports errors, and ideally I'd like to be a little more pro-active than that.
+
+Thankfully, vcr has a way to let us do that!
+If you set an environment variable `VCR_TURN_OFF=true` in your `.Renviron`, then the tests will run where the cassettes are not used.
+Neat!
+Of course they would provide such a nice and neat solution to do this.
+So I made a GitHub action workflow that will run weekly and test against the API, so I make sure that things work.
+I will only be notified on e-mail if it fails, so I can just forget about it until I get a notification.
+Which is pretty nice, in my opinion.
+
+```yaml
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "30 2 * * 0"
+
+name: Check API endpoints
+
+permissions: read-all
+
+jobs:
+  R-CMD-check:
+    runs-on: ubuntu-latest
+
+    name: Check API responses
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "release"
+          http-user-agent: "release"
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            any::knitr
+          needs: check
+
+      - name: "Setup env for full test suite"
+        run: |
+          echo "NETTSKJEMA_CLIENT_ID=${{ secrets.CLIENT_ID }}" >> .Renviron
+          echo "NETTSKJEMA_CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> .Renviron
+          echo "VCR_TURN_OFF=true" >> .Renviron
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf","--as-cran")'
+
+      - name: Build vignettes
+        run: |
+          install.packages(".", repos = NULL, type = "source")
+          nettskjemar:::knit_vignettes()
+        shell: Rscript {0}
+```
+
+## Making vignettes that call the API
+
+The last bit of the puzzle, and which you will see in my github action above, is that I call the function `nettskjemar:::knit_vignettes()`.
+This is an _internal_ function in my package that will knit my vignettes.
+
+"But why aren't your vignettes knit on check or build as normal?", you may ask.
+Because, the vignettes need the API credentials to knit.
+I've made them so that they do, and that I can make sure the vignette code actually work.
+
+How do I do that then?
+I take a note from the [rOpenSci blog](https://ropensci.org/blog/2019/12/08/precompute-vignettes/#the-solution-locally-knitting-rmarkdown) on locally knitting the vignettes.
+So rather than having a vignette called `nettskjemar.rmd` I have one called `nettskjemar.rmd.orig`. 
+By having this extra ending, R build will ignore the vignettes.
+We rather build the vignettes our selves, which I do with the handy internal function I made:
+
+```r
+knit_vignettes <- function() {
+  proc <- list.files(
+    "vignettes",
+    "orig$",
+    full.names = TRUE
+  )
+
+  lapply(proc, function(x) {
+    fig_path <- "static"
+    knitr::knit(
+      x,
+      gsub("\\.orig$", "", x)
+    )
+    imgs <- list.files(fig_path, full.names = TRUE)
+    sapply(imgs, function(x) {
+      file.copy(
+        x,
+        file.path("vignettes", fig_path, basename(x)),
+        overwrite = TRUE
+      )
+    })
+    invisible(unlink(fig_path, recursive = TRUE))
+  })
+
+  list(
+    "Knit vignettes",
+    sapply(proc, basename)
+  )
+} 
+```
+
+ok, it's not that little, a lot is going on here.
+First we locate all files ending with `orig` in the vignettes folder, and then we make sure the output name is without the extra `.orig` extension, and also make sure to carry over any images the vignettes may create into the vignettes folder.
+The knitting will happen in the project root, rather than in the vignettes folder, so making sure we carry over any files it also makes is very important.
+
+I've found this code works well for this purpose, and I use it in a couple of my packages actually.
+Hopefully, it may be of use to others.
+
+
 ## Conclusion
 
 So that is it! 
