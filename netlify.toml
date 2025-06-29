@@ -1,21 +1,8 @@
-
-[build] 
+[build]
   publish = "public"
-  command = "hugo "
-
-[context.production.environment]
-  command = "hugo --buildFuture -b $DEPLOY_PRIME_URL"
-  HUGO_ENV = "production"
-
-[context.deploy-preview]
-  command = "hugo --buildFuture -b $DEPLOY_PRIME_URL"
-
-[context.branch-deploy]
-  command = "hugo --buildFuture -b $DEPLOY_PRIME_URL"
+  command = "# No command needed, GitHub Action builds Hugo" # Netlify won't run hugo
 
 [[headers]]
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-
-
