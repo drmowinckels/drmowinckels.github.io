@@ -45,7 +45,7 @@ Basically, someone makes a client, and users authenticate towards the API using 
 This is, I believe, often called User-to-Machine (U2M) authentication, but the university service has a Machine-to-Machine authentication setup.
 There are some clear differences, and the API has not been made with the type of use I have set up.
 That doesn't mean it's not a valid way of working with it, just not what they are expecting.
-A Macine-to-Macine authentication does not do actions _on behalf of_ a user, like the User-to-Machine clients do.
+A Machine-to-Machine authentication does not do actions _on behalf of_ a user, like the User-to-Machine clients do.
 If you have the credentials of a client, it's assumed you should have access and can do stuff.
 
 ## Setting up a client
