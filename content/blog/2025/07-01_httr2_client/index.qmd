@@ -455,7 +455,7 @@ Now, the `ns_get_me` function I am trying to test, will always get to the API ca
 The cassette should thus finally be in use!
 And indeed, when I sent the code out to GitHub, all my checks passed.
 
-My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function it self.
+My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function itself.
 For transparency, that test looks like so:
 
 ```r
