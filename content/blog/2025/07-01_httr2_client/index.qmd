@@ -488,7 +488,7 @@ This way, the code is tested as I want, regardless of whether system running the
 ## Periodically testing API Calls
 
 In the tests so far, I've recorded the API requests and responses on my local machine where credentials are set up, and then all subsequent tests run against the recorded cassettes.
-But how do we discover if the API it self alters?
+But how do we discover if the API itself alters?
 Since the API calls aren't actually executed, I'd need to rerun the tests without the cassettes
 But we can be sure I won't do that unless someone reports errors, and ideally I'd like to be a little more pro-active than that.
 
