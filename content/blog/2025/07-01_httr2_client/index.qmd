@@ -482,7 +482,7 @@ test_that("ns_has_auth identifies variables", {
 })
 ```
 
-Here I am not mocking, but explicitly setting environment variables for the tests with `withr::with_envvar`.
+Here I am not mocking, but explicitly setting environment variables for the tests with `withr::with_envvar()`.
 This way, the code is tested as I want, regardless of whether system running the tests has the variables set (as I have on my system).
 
 ## Periodically testing API Calls
