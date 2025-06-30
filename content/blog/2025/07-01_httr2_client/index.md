@@ -200,7 +200,7 @@ ns_client <- function(
 ```
 
 So, I've fast-forwarded to a working function.
-It tok me a fair while to get here, and help from [Jon Harmon](http://jonthegeek.com).
+It took me a fair while to get here, and help from [Jon Harmon](http://jonthegeek.com).
 The little piece of the magic is in the last bit, `auth = "header"`.
 By default this argument is `auth = "body"`, and I thought it referred to where the token would be sent by the response, which I knew was in the body.
 But, it refers to where the authentication is being sent, which in this case is the header, which I can see in the {httr2} code that were translated.
