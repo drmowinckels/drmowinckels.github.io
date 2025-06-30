@@ -189,7 +189,7 @@ ns_client <- function(
 ```
 
 So, I've fast-forwarded to a working function.
-It tok me a fair while to get here, and help from [Jon Harmon](http://jonthegeek.com).
+It took me a fair while to get here, and help from [Jon Harmon](http://jonthegeek.com).
 The crucial detail that unlocked the client setup was the `auth = "header"` argument. 
 By default, `oauth_client` uses `auth = "body"`. 
 My initial assumption was that this referred to where the response token would be sent. 
