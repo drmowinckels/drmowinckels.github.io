@@ -30,28 +30,76 @@ seo: >-
   authentication
 ---
 
-I recently managed to get some actual work done.
+I recently managed to get some actual work done!
 If you have been reading this blog lately, you'll know why it's been a while, but I am so very excited that I did some solid work!
 
 So, I have a package that connects to my University's survey platform.
 It enables researchers to grab the data collected (and associated meta-data) right into their R console, and can set up a whole pipeline for working with their data.
 You know we all love that.
 
-I recently did a large re-write of the package from httr to httr2, but the one thing I was struggling with getting to work was a client to deal with the OAuth, rather than the unsatisfactory code I had for grabbing a token and caching it.
+I recently did a large re-write of the package from httr to httr2, but the one thing I was struggling with getting to work was a client to deal with the OAuth.
+I had this rather unsatisfactory code where I was grabbing a token and caching it myself, but that's not ideal.
 
 But I met with some difficulties, as the API OAuth was set up in an unfamiliar way.
-I have only ever looked as API's that use user authentications.
-Basically, someone makes a client, and users authenticate towards the API using the client (usually by a login being propted in a browser).
-This is, I believe, often called User-to-Machine (U2M) authentication, but the university service has a Machine-to-Machine authentication setup.
-There are some clear differences, and the API has not been made with the type of use I have set up.
-That doesn't mean it's not a valid way of working with it, just not what they are expecting.
-A Machine-to-Machine authentication does not do actions _on behalf of_ a user, like the User-to-Machine clients do.
-If you have the credentials of a client, it's assumed you should have access and can do stuff.
+Traditionally, I've encountered APIs that use user authentication, often termed User-to-Machine (U2M) flows.
+Here, a user interacts with a client application, typically via a browser login, to grant the application permission to act on their behalf.
+
+```mermaid
+
+sequenceDiagram
+    title U2M (User-to-Machine) Flow: Authorization Code Grant
+    actor User
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    User->>+ClientApp: 1. Initiates action (e.g., clicks 'Log in')
+    ClientApp-->>-User: 2. Redirects browser to Auth Server for authorization
+
+    User->>+AuthServer: 3. Logs in and grants consent
+    AuthServer-->>-User: 4. Redirects browser back to Client App with Authorization Code
+
+    ClientApp->>+AuthServer: 5. Exchanges Authorization Code for Access Token (back-channel)
+    AuthServer-->>-ClientApp: 6. Responds with Access Token & Refresh Token
+
+    ClientApp->>+ResourceServer: 7. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 8. Returns requested data
+```
+
+Imagine you want to use a cool new photo editing app (the "Client App") to access pictures you've saved on your cloud storage (the "Resource Server").
+You don't want to give the photo app your cloud storage password directly -- that would be risky!
+
+It's like giving a trusted friend (the app) a special key to your locker, but only after you confirm with the locker company (the Authorization Server) that it's okay, and you never give your friend your locker combination.
+
+However, my university's service employs a Machine-to-Machine (M2M) authentication setup.
+In this model, the client itself possesses the necessary credentials to access resources directly, without acting on behalf of a specific end-user.
+This distinction was crucial, as the API wasn't designed for the headless, programmatic access I intended.
+
+```mermaid
+sequenceDiagram
+    title M2M (Machine-to-Machine) Flow: Client Credentials Grant
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    ClientApp->>+AuthServer: 1. Requests Access Token using its credentials (client_id, client_secret)
+    AuthServer-->>-ClientApp: 2. Validates credentials and returns Access Token
+
+    ClientApp->>+ResourceServer: 3. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 4. Returns requested data
+```
+
+Imagine you have a smart home system (the "Client App") that needs to automatically turn on your outdoor lights (a "Resource Server" controlled by another service) when it gets dark.
+No human user is involved in this decision; it's just one part of your smart home talking to another.
+
+It's like two robots talking to each other.
+One robot (the app/service) has a secret handshake (its credentials) that it uses to get a temporary ID card (the Access Token) from another robot (the Authorization Server).
+Then, it uses that ID card to access a specific resource (like turning on lights) from a third robot (the Resource Server), all without any human telling them what to do.
 
 ## Setting up a client
 
 First stage is to set up a client that can help you handle authentication.
-This is the wanted setup, rather than grabbing the token your self and dealing with refresh token and caching etc.
+This is the wanted setup, rather than grabbing the token yourself and dealing with refresh token and caching etc.
 You let the client deal with the necessary stuff in the background and you can get to the fun stuff.
 
 A client needs two basic things:
@@ -87,14 +135,13 @@ This should give users more flexibility.
 #'
 #' @references
 #' For more information about authentication setup, see:
-#' https://www.capro.dev/nettskjemar/articles/authentication.html
 #'
 #' @export
 ns_has_auth <- function(
   client_id = Sys.getenv("NETTSKJEMA_CLIENT_ID"),
   client_secret = Sys.getenv("NETTSKJEMA_CLIENT_SECRET")
 ) {
-  if (client_id == "" || client_secret == "") {
+  if (!nzchar(client_id) || !nzchar(client_secret)) {
     return(FALSE)
   }
 
@@ -103,17 +150,16 @@ ns_has_auth <- function(
 ```
 
 Now that we have that, we can start setting up a client.
-To start that, I had a looked at the documentation for the API, and it had this code for how to retrieve the token
+To start that, I had a look at the documentation for the API, and it had this code for how to retrieve the token
 
     curl -X POST \
-    -u "clientId:clientSecret" \
-    -d "grant_type=client_credentials" \
-    "https://authorization.nettskjema.no/oauth2/token"
+      -u "clientId:clientSecret" \
+      -d "grant_type=client_credentials" \
+      "https://authorization.nettskjema.no/oauth2/token"
 
-ok so, that doesn't look like a client?
-How do I translate that to {httr2} code, I don't know!
-I'm not super familiar with this.
-But, {httr2} has a suuuuper nifty piece of code to help!
+This curl command, while providing the token, didn't immediately reveal how to implement a persistent client.
+I wasn't familiar with this specific flow.
+Thankfully, httr2 includes an incredibly powerful helper for just such a dilemma: `curl_translate`.
 
 ```r
 httr2::curl_translate(
@@ -135,10 +181,10 @@ Neat!
 
 But I'm still not seeing a client?
 The code works, I get a token, but then I'd need to do the whole caching etc myself, and that's not a great option.
-Especially since the response has `Cache-Control: no-save`, meaning I'm technically not allowed to cache the response...
+if (!nzchar(client_id) \|\| !nzchar(client_secret)) {
 I need a client.
 
-You will notice in my setup I also added an argument for giving the client a name, which is good practice, so that if you need the service provider to look through logs, you can tell WHICH client was running the commands.
+You will notice in my setup I also added an argument to name the client, a good practice that helps service providers identify which client ran specific commands in their logs.
 Since I'm not expecting my users to directly call the client function, I will call it in the background for them, I'm not gonna add looking for the credentials to this function.
 
 ```r
@@ -178,7 +224,7 @@ ns_client <- function(
 ) {
   # Check for valid id and secret
   if (!ns_has_auth(client_id, client_secret)) {
-    cli::cli_abort(c(
+    cli::cli_abort(
       "Variables ",
       "{.code client_id} and ",
       "{.code client_secret} ",
@@ -186,7 +232,7 @@ ns_client <- function(
       "Please read ",
       "{.url https://www.capro.dev/nettskjemar/articles/authentication.html}",
       " on how to set your credentials correctly."
-    ))
+    )
   }
 
   httr2::oauth_client(
@@ -201,10 +247,12 @@ ns_client <- function(
 
 So, I've fast-forwarded to a working function.
 It took me a fair while to get here, and help from [Jon Harmon](http://jonthegeek.com).
-The little piece of the magic is in the last bit, `auth = "header"`.
-By default this argument is `auth = "body"`, and I thought it referred to where the token would be sent by the response, which I knew was in the body.
-But, it refers to where the authentication is being sent, which in this case is the header, which I can see in the {httr2} code that were translated.
-Once I had that correct, the client was working!
+The crucial detail that unlocked the client setup was the `auth = "header"` argument.
+By default, `oauth_client` uses `auth = "body"`.
+My initial assumption was that this referred to where the response token would be sent.
+However, it actually dictates where the client credentials (ID and secret) are sent for authentication.
+The `curl_translate` output clearly showed `req_auth_basic("clientId", "clientSecret")`, indicating basic authentication in the header.
+Once I correctly specified `auth = "header"`, the client sprang to life!"
 
 ## Using the client
 
@@ -212,7 +260,7 @@ Now that I have a client correctly set up, I need to figure out how to use it.
 In the [httr2 OAuth documentation](https://httr2.r-lib.org/articles/oauth.html) there are examples using `oauth_flow_auth_code`, which is a U2M flow.
 I wasn't sure which one I needed to use for this setup.
 There are _a lot_ of [OAuth functions](https://httr2.r-lib.org/reference/index.html#oauth) in httr2, but which one is the right one for this?
-Actually clients are mentions in several places in the docs, so which one should I use?
+Actually clients are mentioned in several places in the docs, so which one should I use?
 After being puzzled a while, I noticed one called `req_oauth_client_credentials`, and that `client credentials` is something in the header of that curl command we translated earlier.
 That, is a really big hint!
 This function, in addition to setting client information, also needs a request as input.
@@ -293,11 +341,11 @@ httr2::request("https://nettskjema.no/api/v3/") |>
     $isInLdapGroupUioTils
     [1] FALSE
 
-This specific API endpoint is there to get some information on the client making the request.
+This specific API endpoint provides information about the client making the request.
 And it works!
 With a working client, that will cache and retrieve refreshtokens and whatever, we don't need to think about any of the backbone of the API authentication anymore.
 Honestly, I feel every time I try reading up on OAuth my brain explodes.
-I can't seem to wrap my head around it for more than 5 seconds (and is it wrapped, or more like my brothers attempts at gift wrapping a sweater for christmas?).
+I can't seem to wrap my head around it for more than 5 seconds (and is it wrapped, or more like my brother's attempts at gift wrapping a sweater for Christmas?).
 
 ## Testing the client
 
@@ -313,10 +361,12 @@ It looks, deceptively easy?
 First thing is first, we need to create a `helper.R` file within the testthat folder for the package, which will load {vcr} and set up some initial important things.
 
 One important thing, since my package lives on GitHub means the source is open for all to see.
-vcr stores the API calls and results as yaml's, meaning the content can be read by _anyone_.
+vcr stores API calls and results as YAMLs, meaning the content can be read by _anyone_.
 This means I need top make sure that the client secret is kept secure.
 The `vcr_configure` function has a `filter_sensitive_data` argument which allows us to obfuscate the information we provide in the yamls so they are not exposed.
 In this case, it will take the output of `Sys.getenv("NETTSKJEMA_CLIENT_SECRET")` and replace it with the string `<<CLIENT_SECRET>>` in all the yaml files.
+Further, it has a `dir` function where you specify where the cassettes that vcr records will be saved.
+In this case, we set `vcr::vcr_test_path("fixtures")` which puts the cassettes in `tests/testthat/fixtures`.
 
 ```r
 # *Required* as vcr is set up on loading
@@ -332,16 +382,30 @@ invisible(vcr::vcr_configure(
 vcr::check_cassette_names()
 ```
 
-And we also run a function to check that all the cassette names are good and things are ready to go for vcr to do its thing.
-
+Lastly, in the setup we also run a function to check that all the cassette names are good and things are ready to go for vcr to do its thing.
+I can't seem to wrap my head around it for more than 5 seconds (and is it wrapped, or more like my brother's attempts at gift wrapping a sweater for Christmas?).
 Using `vcr::use_cassette` can be done in one of two ways (maybe more, but this is how I have now learned):
 
 1.  nested inside `test_that()`
 2.  wrapped around `test_that()`
 
-I'm not entirely sure which is best when, but I found it more meaningful for me to nest inside `test_that()`, which most closely resembles the standard workflow I have for testing in packages.
+I'm not entirely sure which is best when, but I found it more meaningful for me to nest inside `test_that()`, which more closely resembles my standard testing workflow for packages.
 `vcr::use_cassette` will run a call to the API _if there is no associated cassette already in existence_, and save the call and results in a yaml.
 All subsequent runs of that test, will then use the information from the yaml rather than doing the call to the API.
+
+Let's say I have created a function to easily get the information about the client, i.e. using the request code I used before in the post.
+This is something you'd typically do in a package, set up convenience functions to get to specific end-points of an API that are important.
+
+```r
+# Example for `ns_get_me` (add this somewhere before "Testing the client")
+ns_get_me <- function() {
+  httr2::request("https://nettskjema.no/api/v3/") |>
+    ns_req_auth() |>
+    httr2::req_url_path_append("me") |>
+    httr2::req_perform() |>
+    httr2::resp_body_json()
+}
+```
 
 In the code below, I run the function `ns_get_me()`, which is a convenience function I made that runs the request I made earlier in this post.
 The results I save in the `me` variable, which I can then run some expectations on, like I would normally do using testthat.
@@ -421,14 +485,18 @@ http_interactions:
 There is a lot of information here, about the request made, the status code of the response, and the response it self.
 This is great stuff!
 Every time I ran the test, it was passing and I was happy.
-I committed my code and sent it off to GitHub, where all my package checking actions subsequently failed.
+
+Now, [Maëlle](https://masalmon.eu/) has of course read through this post and mentioned that there is not also [`vcr::local_cassette`](https://docs.ropensci.org/vcr/articles/vcr.html#testing-with-vcr) in the vcr development version, where you would not have to do all the code-wrapping stuff.
+I don't mind too much wrapping, but I can see the readability improve with it and I'll likely implement it when its released.
+
+Anyway, I committed my code and sent it off to GitHub, where all my package checking actions subsequently failed.
 Which confused me, since I thought given I recorded the responses with vcr, that wouldn't happen?
 
-Where I got my logic wrong, was that what was failing wasn't the API calls (or rather vcr's accessing of the cassettes), but rather my own checking function for whether authentication was set up (which it was not on GitHub actions!)
+Where I got my logic wrong, was that what was failing wasn't the API calls (or vcr's accessing of the cassettes), but rather my own checking function for whether authentication was set up (which it was not on GitHub Actions!)
 
-Remember I made a `ns_has_auth` function, that checks if authentication is set up?
+Remember I made a `ns_has_auth` function, that checks whether authentication is set up?
 Well, that's integrated in the `ns_client` function, meaning _before_ any calls to the API!
-So my GitHub actions were failing before any cassettes were in play.
+So my GitHub Actions. were failing before any cassettes were in play.
 
 This is where the dreaded moment I knew was going to happen in this journey would indeed happen, I needed to figure out how to _mock_ a function.
 Mocking in a test is used to circumvent a specific piece of code from testing.
@@ -436,10 +504,12 @@ This sounds counterintuitive, since we are supposed to be testing the code, but 
 
 In this particular case, I don't need to test the `ns_has_auth()` function, that is not the functionality I am after testing.
 I can test that in another test specifically made to test it, where I can control input and results better.
-In this case, I want to test the API call and make sure vcr has recorded a good cassette and that this cassette is used in instances where I need it to (like on GitHub actions and during CRAN checks).
+In this case, I want to test the API call and make sure vcr has recorded a good cassette and that this cassette is used in instances where I need it to (like on GitHub Actions. and during CRAN checks).
 
 With all that being said, I need to make sure that the `ns_has_auth()` function always returns true and can continue on to the remaining function where I ask it to during testing.
 We create a function with `testthat::local_mocked_bindings` which we will wrap around any code where we want to test the other parts of the function rather than checking if authentication is set up.
+The functions defined in the locked mocked bindings, will replace the function of the same name from the `.package` we specify.
+This makes it possible to _mock_ any function from any package when needed.
 
 ```r
 with_mocked_nettskjema_auth <- function(expr) {
@@ -454,11 +524,7 @@ with_mocked_nettskjema_auth <- function(expr) {
 This function uses the base R `force` function to run the code it's wrapped around, using the `ns_has_auth()` function that has been set up as a local mocked binding.
 So anything wrapped in this code that calls `ns_has_auth()` will always return `TRUE` because I have mocked it that way.
 
-Out final test code thus looks like a triple wrapped burrito (does that exist?):
-
-1<sup>st</sup> wrap: testthat
-2<sup>nd</sup> wrap: vcr cassette
-3<sup>rd</sup> wrap: mocked function
+Our final test code, therefore, became a layered structure: a testthat block wrapping a vcr cassette, which in turn enveloped our mocked function call.
 
 ```r
 test_that("test user information", {
@@ -473,12 +539,14 @@ test_that("test user information", {
 })
 ```
 
+So my GitHub Actions were failing before any cassettes were in play.
+
 Now, the `ns_get_me` function I am trying to test, will always get to the API call part of the function, because I am circumventing the `ns_has_auth` function.
 The cassette should thus finally be in use!
 And indeed, when I sent the code out to GitHub, all my checks passed.
 
-My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function it self.
-For transparency, that test looks like so:
+My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function itself.
+We create a function with [`testthat::local_mocked_bindings()`](https://testthat.r-lib.org/reference/local_mocked_bindings.html) which we will wrap around any code where we want to test the other parts of the function rather than checking if authentication is set up.
 
 ```r
 test_that("ns_has_auth identifies variables", {
@@ -504,21 +572,21 @@ test_that("ns_has_auth identifies variables", {
 })
 ```
 
-Here I am not mocking, but explicitly setting environment variables for the tests with `withr::with_envvar`.
-This way, the code is tested as I want, regardless of whether system running the tests has the variables set (as I have on my system).
+Here I am not mocking, but explicitly setting environment variables for the tests with `withr::with_envvar()`.
+Now, the `ns_get_me()` function I am trying to test, will always get to the API call part of the function, because I am circumventing the `ns_has_auth()` function.
 
-## Periodically testing the API calls
+## Periodically testing API Calls
 
-In the tests so far, I've recorded the API requests and responses on my local machine where credentials are set up, and then all subsequent tests run against the recorded cassettes.
-But how do we discover if the API it self alters?
-Since the calls aren't actually run, I'd need to rerun the tests without the cassettes.
+My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function itself.
+But how do we discover if the API itself alters?
+Now, the `ns_get_me()` function I am trying to test, will always get to the API call part of the function, because I am circumventing the `ns_has_auth()` function.
 But we can be sure I won't do that unless someone reports errors, and ideally I'd like to be a little more pro-active than that.
 
 Thankfully, vcr has a way to let us do that!
-If you set an environment variable `VCR_TURN_OFF=true` in your `.Renviron`, then the tests will run where the cassettes are not used.
+My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function itself.
 Neat!
 Of course they would provide such a nice and neat solution to do this.
-So I made a GitHub action workflow that will run weekly and test against the API, so I make sure that things work.
+So I made a GitHub Action workflow that will run weekly and test against the API, so I make sure that things work.
 I will only be notified on e-mail if it fails, so I can just forget about it until I get a notification.
 Which is pretty nice, in my opinion.
 
@@ -548,7 +616,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+But how do we discover if the API itself alters?
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
@@ -629,9 +697,13 @@ knit_vignettes <- function() {
 }
 ```
 
-ok, it's not that little, a lot is going on here.
-First we locate all files ending with `orig` in the vignettes folder, and then we make sure the output name is without the extra `.orig` extension, and also make sure to carry over any images the vignettes may create into the vignettes folder.
-The knitting will happen in the project root, rather than in the vignettes folder, so making sure we carry over any files it also makes is very important.
+Ok, it's not that little, a lot is going on here.
+First, we locate all files ending with `orig` in the vignettes folder, and then we make sure the output name is without the extra `.orig` extension.
+Then we also make sure to carry over any images the vignettes may create into the vignettes folder.
+Since, the knitting will happen in the project root, rather than in the vignettes folder, the output images will not be in the correct place.Making sure we carry over the output files is thus very important.
+
+Again, Maëlle pointed out that there is also ways to [use cassettes in vignettes](https://docs.ropensci.org/vcr/articles/vcr.html#other-uses-examples-and-vignettes).
+I had not noticed this when I set up my package, but I'm looking forward testing it out in my next package iteration.
 
 I've found this code works well for this purpose, and I use it in a couple of my packages actually.
 Hopefully, it may be of use to others.

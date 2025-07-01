@@ -32,9 +32,58 @@ I had this rather unsatisfactory code where I was grabbing a token and caching i
 But I met with some difficulties, as the API OAuth was set up in an unfamiliar way. 
 Traditionally, I've encountered APIs that use user authentication, often termed User-to-Machine (U2M) flows. 
 Here, a user interacts with a client application, typically via a browser login, to grant the application permission to act on their behalf. 
+
+```mermaid
+
+sequenceDiagram
+    title U2M (User-to-Machine) Flow: Authorization Code Grant
+    actor User
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    User->>+ClientApp: 1. Initiates action (e.g., clicks 'Log in')
+    ClientApp-->>-User: 2. Redirects browser to Auth Server for authorization
+
+    User->>+AuthServer: 3. Logs in and grants consent
+    AuthServer-->>-User: 4. Redirects browser back to Client App with Authorization Code
+
+    ClientApp->>+AuthServer: 5. Exchanges Authorization Code for Access Token (back-channel)
+    AuthServer-->>-ClientApp: 6. Responds with Access Token & Refresh Token
+
+    ClientApp->>+ResourceServer: 7. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 8. Returns requested data
+```
+
+Imagine you want to use a cool new photo editing app (the "Client App") to access pictures you've saved on your cloud storage (the "Resource Server"). 
+You don't want to give the photo app your cloud storage password directly – that would be risky!
+
+It's like giving a trusted friend (the app) a special key to your locker, but only after you confirm with the locker company (the Authorization Server) that it's okay, and you never give your friend your locker combination.
+
 However, my university's service employs a Machine-to-Machine (M2M) authentication setup. 
 In this model, the client itself possesses the necessary credentials to access resources directly, without acting on behalf of a specific end-user. 
 This distinction was crucial, as the API wasn't designed for the headless, programmatic access I intended.
+
+```mermaid
+sequenceDiagram
+    title M2M (Machine-to-Machine) Flow: Client Credentials Grant
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    ClientApp->>+AuthServer: 1. Requests Access Token using its credentials (client_id, client_secret)
+    AuthServer-->>-ClientApp: 2. Validates credentials and returns Access Token
+
+    ClientApp->>+ResourceServer: 3. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 4. Returns requested data
+```
+
+Imagine you have a smart home system (the "Client App") that needs to automatically turn on your outdoor lights (a "Resource Server" controlled by another service) when it gets dark. 
+No human user is involved in this decision; it's just one part of your smart home talking to another.
+
+It's like two robots talking to each other. 
+One robot (the app/service) has a secret handshake (its credentials) that it uses to get a temporary ID card (the Access Token) from another robot (the Authorization Server). 
+Then, it uses that ID card to access a specific resource (like turning on lights) from a third robot (the Resource Server), all without any human telling them what to do.
 
 ## Setting up a client
 
@@ -77,7 +126,6 @@ This should give users more flexibility.
 #'
 #' @references
 #' For more information about authentication setup, see:
-#' https://www.capro.dev/nettskjemar/articles/authentication.html
 #'
 #' @export
 ns_has_auth <- function(
@@ -122,7 +170,7 @@ Neat!
 
 But I'm still not seeing a client?
 The code works, I get a token, but then I'd need to do the whole caching etc myself, and that's not a great option.
-Especially since the response has `Cache-Control: no-save`, meaning I'm technically not allowed to cache the response...
+  if (!nzchar(client_id) || !nzchar(client_secret)) {
 I need a client.
 
 You will notice in my setup I also added an argument to name the client, a good practice that helps service providers identify which client ran specific commands in their logs.
@@ -167,7 +215,7 @@ ns_client <- function(
 ) {
   # Check for valid id and secret
   if (!ns_has_auth(client_id, client_secret)) {
-    cli::cli_abort(c(
+    cli::cli_abort(
       "Variables ",
       "{.code client_id} and ",
       "{.code client_secret} ",
@@ -175,7 +223,7 @@ ns_client <- function(
       "Please read ",
       "{.url https://www.capro.dev/nettskjemar/articles/authentication.html}",
       " on how to set your credentials correctly."
-    ))
+    )
   }
 
   httr2::oauth_client(
@@ -300,7 +348,7 @@ vcr::check_cassette_names()
 ```
 
 Lastly, in the setup we also run a function to check that all the cassette names are good and things are ready to go for vcr to do its thing.
-
+I can't seem to wrap my head around it for more than 5 seconds (and is it wrapped, or more like my brother's attempts at gift wrapping a sweater for Christmas?).
 Using `vcr::use_cassette` can be done in one of two ways (maybe more, but this is how I have now learned):
 
 1. nested inside `test_that()` 
@@ -400,12 +448,16 @@ http_interactions:
 There is a lot of information here, about the request made, the status code of the response, and the response it self.
 This is great stuff!
 Every time I ran the test, it was passing and I was happy.
-I committed my code and sent it off to GitHub, where all my package checking actions subsequently failed.
+
+Now, [Maëlle](https://masalmon.eu/) has of course read through this post and mentioned that there is not also [`vcr::local_cassette`](https://docs.ropensci.org/vcr/articles/vcr.html#testing-with-vcr) in the vcr development version, where you would not have to do all the code-wrapping stuff.
+I don't mind too much wrapping, but I can see the readability improve with it and I'll likely implement it when its released.
+
+Anyway, I committed my code and sent it off to GitHub, where all my package checking actions subsequently failed.
 Which confused me, since I thought given I recorded the responses with vcr, that wouldn't happen?
 
 Where I got my logic wrong, was that what was failing wasn't the API calls (or vcr's accessing of the cassettes), but rather my own checking function for whether authentication was set up (which it was not on GitHub Actions!)
 
-Remember I made a `ns_has_auth` function, that checks if authentication is set up?
+Remember I made a `ns_has_auth` function, that checks whether authentication is set up?
 Well, that's integrated in the `ns_client` function, meaning _before_ any calls to the API!
 So my GitHub Actions. were failing before any cassettes were in play.
 
@@ -451,12 +503,14 @@ test_that("test user information", {
 })
 ```
 
+So my GitHub Actions were failing before any cassettes were in play.
+
 Now, the `ns_get_me` function I am trying to test, will always get to the API call part of the function, because I am circumventing the `ns_has_auth` function.
 The cassette should thus finally be in use!
 And indeed, when I sent the code out to GitHub, all my checks passed.
 
 My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function itself.
-For transparency, that test looks like so:
+We create a function with [`testthat::local_mocked_bindings()`](https://testthat.r-lib.org/reference/local_mocked_bindings.html) which we will wrap around any code where we want to test the other parts of the function rather than checking if authentication is set up.
 
 ```r
 test_that("ns_has_auth identifies variables", {
@@ -483,17 +537,17 @@ test_that("ns_has_auth identifies variables", {
 ```
 
 Here I am not mocking, but explicitly setting environment variables for the tests with `withr::with_envvar()`.
-This way, the code is tested as I want, regardless of whether system running the tests has the variables set (as I have on my system).
+Now, the `ns_get_me()` function I am trying to test, will always get to the API call part of the function, because I am circumventing the `ns_has_auth()` function.
 
 ## Periodically testing API Calls
 
-In the tests so far, I've recorded the API requests and responses on my local machine where credentials are set up, and then all subsequent tests run against the recorded cassettes.
+My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function itself.
 But how do we discover if the API itself alters?
-Since the API calls aren't actually executed, I'd need to rerun the tests without the cassettes
+Now, the `ns_get_me()` function I am trying to test, will always get to the API call part of the function, because I am circumventing the `ns_has_auth()` function.
 But we can be sure I won't do that unless someone reports errors, and ideally I'd like to be a little more pro-active than that.
 
 Thankfully, vcr has a way to let us do that!
-If you set an environment variable `VCR_TURN_OFF=true` in your `.Renviron`, then the tests will run where the cassettes are not used.
+My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the `ns_has_auth()` function itself.
 Neat!
 Of course they would provide such a nice and neat solution to do this.
 So I made a GitHub Action workflow that will run weekly and test against the API, so I make sure that things work.
@@ -526,7 +580,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+But how do we discover if the API itself alters?
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
@@ -611,6 +665,9 @@ Ok, it's not that little, a lot is going on here.
 First, we locate all files ending with `orig` in the vignettes folder, and then we make sure the output name is without the extra `.orig` extension. 
 Then we also make sure to carry over any images the vignettes may create into the vignettes folder.
 Since, the knitting will happen in the project root, rather than in the vignettes folder, the output images will not be in the correct place.Making sure we carry over the output files is thus very important.
+
+Again, Maëlle pointed out that there is also ways to [use cassettes in vignettes](https://docs.ropensci.org/vcr/articles/vcr.html#other-uses-examples-and-vignettes).
+I had not noticed this when I set up my package, but I'm looking forward testing it out in my next package iteration.
 
 I've found this code works well for this purpose, and I use it in a couple of my packages actually.
 Hopefully, it may be of use to others.
