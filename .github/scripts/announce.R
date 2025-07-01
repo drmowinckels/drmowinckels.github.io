@@ -68,7 +68,7 @@ bskyr::bs_post(
   text = substr(
     create_message(frontmatter$seo, uri),
     1,
-    (290 - strlength(uri))
+    (280 - strlength(uri))
   ),
   images = image,
   images_alt = frontmatter$image_alt
