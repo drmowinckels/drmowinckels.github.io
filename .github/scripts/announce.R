@@ -61,7 +61,15 @@ emojis <- c(
 )
 emoji <- sample(emojis, 1)
 
-image <- here::here(dirname(post), frontmatter$image)
+image <- here::here(
+  dirname(post),
+  frontmatter$image
+) |>
+  optimize_image_size(
+    max_size_mb = 1,
+    quality = 80,
+    scale_factor = 0.95
+  )
 
 # Post to Bluesky
 bskyr::bs_post(

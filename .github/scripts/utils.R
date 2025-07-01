@@ -84,3 +84,146 @@ tags2hash <- function(tags) {
   tags <- sub(" |-", "", tags, ignore.case = TRUE)
   paste(tags, collapse = " ")
 }
+
+#' Optimize Image Size
+#'
+#' Reads an image, checks its file size, and iteratively reduces its dimensions
+#' and/or adjusts quality until it's below a specified maximum file size.
+#' It's particularly effective for JPEG images where quality can be adjusted.
+#'
+#' @param path A character string. The path to the input image file.
+#' @param max_size_mb A numeric value. The target maximum file size in megabytes (MB).
+#'   Defaults to 1 MB.
+#' @param quality A numeric value (0-100). The JPEG quality to use when saving the image.
+#'   Lower values result in smaller file sizes but lower quality. Defaults to 80.
+#' @param scale_factor A numeric value (0-1). The factor by which image dimensions
+#'   are reduced in each iteration if the image is still too large. E.g., 0.9
+#'   will reduce dimensions by 10% each time. Defaults to 0.9.
+#' @param max_iterations An integer. The maximum number of scaling iterations to attempt.
+#'   This prevents infinite loops for unachievable size targets. Defaults to 20.
+#'
+#' @return A logical value. `TRUE` if the image was successfully optimized and saved,
+#'   `FALSE` otherwise. Prints messages during the process.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Create a dummy image for demonstration
+#' magick::image_write(image_blank(6000, 4000, "red"), path = "large_image.jpg")
+#'
+#' # Optimize the image to be under 0.5 MB
+#' optimize_image_size(
+#'   path = "large_image.jpg",
+#'   max_size_mb = 0.5,
+#'   quality = 75,
+#'   scale_factor = 0.95 # More gradual reduction
+#' )
+#'
+#' # Clean up dummy files
+#' file.remove("large_image.jpg")
+#' file.remove("optimized_image.jpg")
+#' }
+optimize_image_size <- function(
+  path,
+  max_size_mb = 1,
+  quality = 80,
+  scale_factor = 0.9,
+  max_iterations = 20
+) {
+  if (!file.exists(path)) {
+    warning("Input image file not found: ", path)
+    return(FALSE)
+  }
+
+  output_path <- sprintf(
+    "%s_reduced.%s",
+    tools::file_path_sans_ext(path),
+    tools::file_ext(path)
+  )
+
+  max_size_bytes <- max_size_mb * 1024 * 1024
+  img <- magick::image_read(path)
+
+  # Get initial file size by saving to a temp file and checking its size
+  # This is more reliable than image_info for initial check
+  temp_initial_path <- tempfile(
+    fileext = paste(".", tools::file_ext(path))
+  )
+  magick::image_write(
+    img,
+    path = temp_initial_path,
+    quality = quality
+  )
+  current_file_size <- file.size(temp_initial_path)
+  file.remove(temp_initial_path) # Clean up temp file
+
+  cat(paste0("Optimizing '", basename(path), "'...\n"))
+  cat(paste0(
+    "Initial size: ",
+    round(current_file_size / (1024 * 1024), 2),
+    " MB\n"
+  ))
+  cat(paste0("Target size: < ", max_size_mb, " MB\n"))
+
+  iteration <- 0
+
+  # Loop to reduce size if necessary
+  while (current_file_size > max_size_bytes && iteration < max_iterations) {
+    iteration <- iteration + 1
+    cat(paste0(
+      "Iteration ",
+      iteration,
+      ": Current size ",
+      round(current_file_size / (1024 * 1024), 2),
+      " MB.\n"
+    ))
+
+    # Reduce dimensions
+    img <- magick::image_scale(img, paste0(scale_factor * 100, "%"))
+
+    # Save to a temporary file to check the new size reliably
+    temp_output_path <- tempfile(fileext = tools::file_ext(output_path))
+    magick::image_write(img, path = temp_output_path, quality = quality)
+
+    # Get the actual file size from the temporary file
+    current_file_size <- file.size(temp_output_path)
+
+    # Remove the temporary file
+    file.remove(temp_output_path)
+
+    if (iteration == max_iterations && current_file_size > max_size_bytes) {
+      warning(paste0(
+        "Maximum iterations (",
+        max_iterations,
+        ") reached. ",
+        "Could not reduce image to target size (",
+        max_size_mb,
+        " MB). Final size: ",
+        round(current_file_size / (1024 * 1024), 2),
+        " MB."
+      ))
+      break # Exit loop if max iterations reached
+    }
+  }
+
+  # Save the final optimized image
+  magick::image_write(
+    img,
+    path = output_path,
+    quality = quality
+  )
+
+  final_file_size <- file.size(output_path)
+  cat(paste0(
+    "Optimization complete. Final image saved to '",
+    basename(output_path),
+    "'.\n"
+  ))
+  cat(paste0(
+    "Final size: ",
+    round(final_file_size / (1024 * 1024), 2),
+    " MB\n"
+  ))
+
+  output_path
+}
