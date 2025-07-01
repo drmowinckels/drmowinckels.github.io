@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="This post details the process of setting up an OAuth2 Machine-to-Machine (M2M) client using the httr2 package in R, specifically addressing the challenges encountered with non-standard API authentication. It covers client creation, handling authentication flows, and comprehensively testing API calls using the vcr package for request recording and testthat for mocking functions to ensure robust and reliable package development." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="R httr2 OAuth2 M2M client API testing vcr testthat mocking httr Nettskjema authentication">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/httr2_client/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="R httr2 OAuth2 M2M client API testing vcr testthat mocking httr Nettskjema authentication">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/httr2_client/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="R httr2 OAuth2 M2M client API testing vcr testthat mocking httr Nettskjema authentication">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/httr2_client/httr2_cassette.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/httr2_client/httr2_cassette.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.4bbbb42882c67de6e69a63172f49c2a9dd5e569b87e90d37603ea697e09fdc6a.css" 
+    integrity="sha256-S7u0KILGfebmmmMXL0nCqd1eVpuH6Q03YD6ml&#43;Cf3Go=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/httr2_client/httr2_cassette.png" alt="A stylized graphic featuring the white &#39;httr2&#39; text in the foreground. Behind and slightly above it, a colorful, retro-style audio cassette tape is depicted with vibrant pink, blue, and teal accents. A small, pink mockingbird is perched on the upper left edge of the cassette tape. The background is a solid dark purple.
+" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Jul 1, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/api/" class="uk-label uk-label-secondary tags" >
+                                API
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#setting-up-a-client">Setting up a client</a></li>
+    <li><a href="#using-the-client">Using the client</a></li>
+    <li><a href="#testing-the-client">Testing the client</a></li>
+    <li><a href="#periodically-testing-api-calls">Periodically testing API Calls</a></li>
+    <li><a href="#making-vignettes-that-call-the-api">Making vignettes that call the API</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">This post details the process of setting up an OAuth2 Machine-to-Machine (M2M) client using the httr2 package in R, specifically addressing the challenges encountered with non-standard API authentication. It covers client creation, handling authentication flows, and comprehensively testing API calls using the vcr package for request recording and testthat for mocking functions to ensure robust and reliable package development.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I recently managed to get some actual work done!
+If you have been reading this blog lately, you&rsquo;ll know why it&rsquo;s been a while, but I am so very excited that I did some solid work!</p>
+<p>So, I have a package that connects to my University&rsquo;s survey platform.
+It enables researchers to grab the data collected (and associated meta-data) right into their R console, and can set up a whole pipeline for working with their data.
+You know we all love that.</p>
+<p>I recently did a large re-write of the package from httr to httr2, but the one thing I was struggling with getting to work was a client to deal with the OAuth.
+I had this rather unsatisfactory code where I was grabbing a token and caching it myself, but that&rsquo;s not ideal.</p>
+<p>But I met with some difficulties, as the API OAuth was set up in an unfamiliar way.
+Traditionally, I&rsquo;ve encountered APIs that use user authentication, often termed User-to-Machine (U2M) flows.
+Here, a user interacts with a client application, typically via a browser login, to grant the application permission to act on their behalf.</p>
+<pre class="mermaid">
+  
+sequenceDiagram
+    title U2M (User-to-Machine) Flow: Authorization Code Grant
+    actor User
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    User-&gt;&gt;+ClientApp: 1. Initiates action (e.g., clicks &#39;Log in&#39;)
+    ClientApp--&gt;&gt;-User: 2. Redirects browser to Auth Server for authorization
+
+    User-&gt;&gt;+AuthServer: 3. Logs in and grants consent
+    AuthServer--&gt;&gt;-User: 4. Redirects browser back to Client App with Authorization Code
+
+    ClientApp-&gt;&gt;+AuthServer: 5. Exchanges Authorization Code for Access Token (back-channel)
+    AuthServer--&gt;&gt;-ClientApp: 6. Responds with Access Token &amp; Refresh Token
+
+    ClientApp-&gt;&gt;+ResourceServer: 7. Requests protected resource with Access Token
+    ResourceServer--&gt;&gt;-ClientApp: 8. Returns requested data
+</pre>
+<p>Imagine you want to use a cool new photo editing app (the &ldquo;Client App&rdquo;) to access pictures you&rsquo;ve saved on your cloud storage (the &ldquo;Resource Server&rdquo;).
+You don&rsquo;t want to give the photo app your cloud storage password directly &ndash; that would be risky!</p>
+<p>It&rsquo;s like giving a trusted friend (the app) a special key to your locker, but only after you confirm with the locker company (the Authorization Server) that it&rsquo;s okay, and you never give your friend your locker combination.</p>
+<p>However, my university&rsquo;s service employs a Machine-to-Machine (M2M) authentication setup.
+In this model, the client itself possesses the necessary credentials to access resources directly, without acting on behalf of a specific end-user.
+This distinction was crucial, as the API wasn&rsquo;t designed for the headless, programmatic access I intended.</p>
+<pre class="mermaid">
+  sequenceDiagram
+    title M2M (Machine-to-Machine) Flow: Client Credentials Grant
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    ClientApp-&gt;&gt;+AuthServer: 1. Requests Access Token using its credentials (client_id, client_secret)
+    AuthServer--&gt;&gt;-ClientApp: 2. Validates credentials and returns Access Token
+
+    ClientApp-&gt;&gt;+ResourceServer: 3. Requests protected resource with Access Token
+    ResourceServer--&gt;&gt;-ClientApp: 4. Returns requested data
+</pre>
+<p>Imagine you have a smart home system (the &ldquo;Client App&rdquo;) that needs to automatically turn on your outdoor lights (a &ldquo;Resource Server&rdquo; controlled by another service) when it gets dark.
+No human user is involved in this decision; it&rsquo;s just one part of your smart home talking to another.</p>
+<p>It&rsquo;s like two robots talking to each other.
+One robot (the app/service) has a secret handshake (its credentials) that it uses to get a temporary ID card (the Access Token) from another robot (the Authorization Server).
+Then, it uses that ID card to access a specific resource (like turning on lights) from a third robot (the Resource Server), all without any human telling them what to do.</p>
+<h2 id="setting-up-a-client">Setting up a client</h2>
+<p>First stage is to set up a client that can help you handle authentication.
+This is the wanted setup, rather than grabbing the token yourself and dealing with refresh token and caching etc.
+You let the client deal with the necessary stuff in the background and you can get to the fun stuff.</p>
+<p>A client needs two basic things:</p>
+<ol>
+<li>an ID</li>
+<li>a secret</li>
+</ol>
+<p>Both these should be provided to you from whichever API you are making the client at.</p>
+<p>Let&rsquo;s start with a function to check if the information we need is saved in the environment.
+Here I&rsquo;m assuming this was set up in the <code>.Renviron</code> file, which is instructions I will provide with the package.
+And having a function to check if the information is provided correctly is important for any package.
+Notice how I both allow for the information to be set in the environment, but also to be provided to the function.
+This should give users more flexibility.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Check Environment Variables for Nettskjema Authentication</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This function verifies whether the required system</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; variables (`NETTSKJEMA_CLIENT_ID` and</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; `NETTSKJEMA_CLIENT_SECRET`) are set to enable</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; authentication with the Nettskjema API. It provides</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; feedback on the setup status and returns whether the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; system is correctly configured.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @inheritParams ns_client</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return Logical. Returns `TRUE` if both environment</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;    variables are set, otherwise `FALSE`.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; ns_has_auth()</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @references</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; For more information about authentication setup, see:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span>ns_has_auth <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  client_id <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;NETTSKJEMA_CLIENT_ID&#34;</span>),
+</span></span><span style="display:flex;"><span>  client_secret <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;NETTSKJEMA_CLIENT_SECRET&#34;</span>)
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">nzchar</span>(client_id) <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">nzchar</span>(client_secret)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now that we have that, we can start setting up a client.
+To start that, I had a look at the documentation for the API, and it had this code for how to retrieve the token</p>
+<pre><code>curl -X POST \
+  -u &quot;clientId:clientSecret&quot; \
+  -d &quot;grant_type=client_credentials&quot; \
+  &quot;https://authorization.nettskjema.no/oauth2/token&quot;
+</code></pre>
+<p>This curl command, while providing the token, didn&rsquo;t immediately reveal how to implement a persistent client.
+I wasn&rsquo;t familiar with this specific flow.
+Thankfully, httr2 includes an incredibly powerful helper for just such a dilemma: <code>curl_translate</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">curl_translate</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;</span><span style="color:#960050;background-color:#1e0010">curl -X POST \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-</span>u <span style="color:#e6db74">&#34;clientId:clientSecret&#34;</span> \
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-</span>d <span style="color:#e6db74">&#34;grant_type=client_credentials&#34;</span> \
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;https://authorization.nettskjema.no/oauth2/token&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><pre><code>request(&quot;https://authorization.nettskjema.no/oauth2/token&quot;) |&gt;
+  req_method(&quot;POST&quot;) |&gt;
+  req_body_raw(&quot;grant_type=client_credentials&quot;, &quot;application/x-www-form-urlencoded&quot;) |&gt;
+  req_auth_basic(&quot;clientId&quot;, &quot;clientSecret&quot;) |&gt;
+  req_perform()
+</code></pre>
+<p>Neat!
+{httr2} really does come with such a genius suite of functions, but this one is my favourite.</p>
+<p>But I&rsquo;m still not seeing a client?
+The code works, I get a token, but then I&rsquo;d need to do the whole caching etc myself, and that&rsquo;s not a great option.
+if (!nzchar(client_id) || !nzchar(client_secret)) {
+I need a client.</p>
+<p>You will notice in my setup I also added an argument to name the client, a good practice that helps service providers identify which client ran specific commands in their logs.
+Since I&rsquo;m not expecting my users to directly call the client function, I will call it in the background for them, I&rsquo;m not gonna add looking for the credentials to this function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Create an OAuth2 Client for Nettskjema API</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This function initializes an OAuth2 client using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;  the `httr2::oauth_client` function. It is used to</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; authenticate and interact with the Nettskjema API.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param client_id [character] The client ID provided by Nettskjema.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param client_secret [character] The client secret provided</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;     by Nettskjema.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param client_name [character] An optional name for the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;     client (default = &#34;nettskjemar&#34;).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return A configured `httr2::oauth_client` object.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Example: Initialize an OAuth2 client for Nettskjema</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; client &lt;- ns_client(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   client_id = &#34;your_client_id&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   client_secret = &#34;your_client_secret&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; # Using a custom client name</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; client &lt;- ns_client(</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   client_id = &#34;your_client_id&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   client_secret = &#34;your_client_secret&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;   client_name = &#34;custom_client_name&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; )</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span>ns_client <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  client_id,
+</span></span><span style="display:flex;"><span>  client_secret,
+</span></span><span style="display:flex;"><span>  client_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nettskjemar&#34;</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Check for valid id and secret</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">ns_has_auth</span>(client_id, client_secret)) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_abort</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Variables &#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;{.code client_id} and &#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;{.code client_secret} &#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;are not set up.&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Please read &#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;{.url https://www.capro.dev/nettskjemar/articles/authentication.html}&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34; on how to set your credentials correctly.&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">oauth_client</span>(
+</span></span><span style="display:flex;"><span>    id <span style="color:#f92672">=</span> client_id,
+</span></span><span style="display:flex;"><span>    secret <span style="color:#f92672">=</span> client_secret,
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> client_name,
+</span></span><span style="display:flex;"><span>    token_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://authorization.nettskjema.no/oauth2/token&#34;</span>,
+</span></span><span style="display:flex;"><span>    auth <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;header&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>So, I&rsquo;ve fast-forwarded to a working function.
+It took me a fair while to get here, and help from <a href="http://jonthegeek.com">Jon Harmon</a>.
+The crucial detail that unlocked the client setup was the <code>auth = &quot;header&quot;</code> argument.
+By default, <code>oauth_client</code> uses <code>auth = &quot;body&quot;</code>.
+My initial assumption was that this referred to where the response token would be sent.
+However, it actually dictates where the client credentials (ID and secret) are sent for authentication.
+The <code>curl_translate</code> output clearly showed <code>req_auth_basic(&quot;clientId&quot;, &quot;clientSecret&quot;)</code>, indicating basic authentication in the header.
+Once I correctly specified <code>auth = &quot;header&quot;</code>, the client sprang to life!&quot;</p>
+<h2 id="using-the-client">Using the client</h2>
+<p>Now that I have a client correctly set up, I need to figure out how to use it.
+In the <a href="https://httr2.r-lib.org/articles/oauth.html">httr2 OAuth documentation</a> there are examples using <code>oauth_flow_auth_code</code>, which is a U2M flow.
+I wasn&rsquo;t sure which one I needed to use for this setup.
+There are <em>a lot</em> of <a href="https://httr2.r-lib.org/reference/index.html#oauth">OAuth functions</a> in httr2, but which one is the right one for this?
+Actually clients are mentioned in several places in the docs, so which one should I use?
+After being puzzled a while, I noticed one called <code>req_oauth_client_credentials</code>, and that <code>client credentials</code> is something in the header of that curl command we translated earlier.
+That, is a really big hint!
+This function, in addition to setting client information, also needs a request as input.
+So it means its something that should be piped with other httr2 commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; Authenticate Nettskjema request</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; After creating a client in Nettskjema,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; this function will retrieve the access</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; token needed for the remaining processes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; in the package. Automatically caches the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; token for more efficient API usage.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param req An httr2 request, usually {\code{\link{ns_req}}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param client_id Character. Retrieved from the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;     Client portal.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param client_secret Character. Retrieved from the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;     Client portal.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param client_name Character. Used to identify who</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;     has been running the commands.</span>
+</span></span><span style="display:flex;"><span>ns_req_auth <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  req,
+</span></span><span style="display:flex;"><span>  client_id <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;NETTSKJEMA_CLIENT_ID&#34;</span>),
+</span></span><span style="display:flex;"><span>  client_secret <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;NETTSKJEMA_CLIENT_SECRET&#34;</span>),
+</span></span><span style="display:flex;"><span>  client_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nettskjemar&#34;</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_oauth_client_credentials</span>(
+</span></span><span style="display:flex;"><span>    req,
+</span></span><span style="display:flex;"><span>    client <span style="color:#f92672">=</span> <span style="color:#a6e22e">ns_client</span>(
+</span></span><span style="display:flex;"><span>      client_id <span style="color:#f92672">=</span> client_id,
+</span></span><span style="display:flex;"><span>      client_secret <span style="color:#f92672">=</span> client_secret,
+</span></span><span style="display:flex;"><span>      client_name <span style="color:#f92672">=</span> client_name
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Right!
+So, we have the client set up grabbing information from the environment, with error messages if it cant find it.
+We should try out a request!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(<span style="color:#e6db74">&#34;https://nettskjema.no/api/v3/&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ns_req_auth</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;me&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>()
+</span></span></code></pre></div><pre><code>$isPersonalDataResponsible
+[1] FALSE
+
+$displayName
+[1] &quot;ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient&quot;
+
+$logoutLink
+[1] &quot;/signout&quot;
+
+$isSuperUser
+[1] FALSE
+
+$isAuthenticated
+[1] TRUE
+
+$userType
+[1] &quot;UNKNOWN_ROLE&quot;
+
+$hasAcceptedTos
+[1] TRUE
+
+$isSupportUser
+[1] FALSE
+
+$isAdministrativeUser
+[1] TRUE
+
+$isInLdapGroupUioTils
+[1] FALSE
+</code></pre>
+<p>This specific API endpoint provides information about the client making the request.
+And it works!
+With a working client, that will cache and retrieve refreshtokens and whatever, we don&rsquo;t need to think about any of the backbone of the API authentication anymore.
+Honestly, I feel every time I try reading up on OAuth my brain explodes.
+I can&rsquo;t seem to wrap my head around it for more than 5 seconds (and is it wrapped, or more like my brother&rsquo;s attempts at gift wrapping a sweater for Christmas?).</p>
+<h2 id="testing-the-client">Testing the client</h2>
+<p>While getting all that set up was hard enough, I also knew that this iteration of the package needed a test suite.
+I had previously omitted doing that, as I didn&rsquo;t have the bandwidth to actually figure out how to test API calling functions and not breaking CRAN policy about using internet sources while checking a package.</p>
+<p>This time though, I knew I needed to mature the package, and myself.</p>
+<figure class="uk-thumbnail">
+        <img src="itistime.jpg" 
+         alt="Screeenshot from &ldquo;The Lion King&rdquo; original animated movie of Rafiki touching Simba&rsquo;s shoulder with the text &ldquo;It is time&rdquo; on the top right corner" >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Screeenshot from &ldquo;The Lion King&rdquo; original animated movie of Rafiki touching Simba&rsquo;s shoulder with the text &ldquo;It is time&rdquo; on the top right corner
+        </figcaption>
+        
+    </figure><p>After looking at the <a href="https://docs.ropensci.org/vcr/">vcr documentation</a>, I was ready to get started.
+It looks, deceptively easy?
+First thing is first, we need to create a <code>helper.R</code> file within the testthat folder for the package, which will load {vcr} and set up some initial important things.</p>
+<p>One important thing, since my package lives on GitHub means the source is open for all to see.
+vcr stores API calls and results as YAMLs, meaning the content can be read by <em>anyone</em>.
+This means I need top make sure that the client secret is kept secure.
+The <code>vcr_configure</code> function has a <code>filter_sensitive_data</code> argument which allows us to obfuscate the information we provide in the yamls so they are not exposed.
+In this case, it will take the output of <code>Sys.getenv(&quot;NETTSKJEMA_CLIENT_SECRET&quot;)</code> and replace it with the string <code>&lt;&lt;CLIENT_SECRET&gt;&gt;</code> in all the yaml files.
+Further, it has a <code>dir</code> function where you specify where the cassettes that vcr records will be saved.
+In this case, we set <code>vcr::vcr_test_path(&quot;fixtures&quot;)</code> which puts the cassettes in <code>tests/testthat/fixtures</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># *Required* as vcr is set up on loading</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;vcr&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">invisible</span>(vcr<span style="color:#f92672">::</span><span style="color:#a6e22e">vcr_configure</span>(
+</span></span><span style="display:flex;"><span>  filter_sensitive_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&lt;&lt;CLIENT_SECRET&gt;&gt;&#34;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;NETTSKJEMA_CLIENT_SECRET&#34;</span>)
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  dir <span style="color:#f92672">=</span> vcr<span style="color:#f92672">::</span><span style="color:#a6e22e">vcr_test_path</span>(<span style="color:#e6db74">&#34;fixtures&#34;</span>)
+</span></span><span style="display:flex;"><span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vcr<span style="color:#f92672">::</span><span style="color:#a6e22e">check_cassette_names</span>()
+</span></span></code></pre></div><p>Lastly, in the setup we also run a function to check that all the cassette names are good and things are ready to go for vcr to do its thing.
+I can&rsquo;t seem to wrap my head around it for more than 5 seconds (and is it wrapped, or more like my brother&rsquo;s attempts at gift wrapping a sweater for Christmas?).
+Using <code>vcr::use_cassette</code> can be done in one of two ways (maybe more, but this is how I have now learned):</p>
+<ol>
+<li>nested inside <code>test_that()</code></li>
+<li>wrapped around <code>test_that()</code></li>
+</ol>
+<p>I&rsquo;m not entirely sure which is best when, but I found it more meaningful for me to nest inside <code>test_that()</code>, which more closely resembles my standard testing workflow for packages.
+<code>vcr::use_cassette</code> will run a call to the API <em>if there is no associated cassette already in existence</em>, and save the call and results in a yaml.
+All subsequent runs of that test, will then use the information from the yaml rather than doing the call to the API.</p>
+<p>Let&rsquo;s say I have created a function to easily get the information about the client, i.e. using the request code I used before in the post.
+This is something you&rsquo;d typically do in a package, set up convenience functions to get to specific end-points of an API that are important.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Example for `ns_get_me` (add this somewhere before &#34;Testing the client&#34;)</span>
+</span></span><span style="display:flex;"><span>ns_get_me <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">request</span>(<span style="color:#e6db74">&#34;https://nettskjema.no/api/v3/&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ns_req_auth</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_url_path_append</span>(<span style="color:#e6db74">&#34;me&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">req_perform</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    httr2<span style="color:#f92672">::</span><span style="color:#a6e22e">resp_body_json</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In the code below, I run the function <code>ns_get_me()</code>, which is a convenience function I made that runs the request I made earlier in this post.
+The results I save in the <code>me</code> variable, which I can then run some expectations on, like I would normally do using testthat.
+In this case, i make sure <code>me</code> is a list, and has the length of <code>10</code> (my actual package tests run more expectations, but this is enough for this example).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;test user information&#34;</span>, {
+</span></span><span style="display:flex;"><span>  vcr<span style="color:#f92672">::</span><span style="color:#a6e22e">use_cassette</span>(<span style="color:#e6db74">&#34;ns_get_me&#34;</span>, {
+</span></span><span style="display:flex;"><span>    me <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ns_get_me</span>()
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_is</span>(me, <span style="color:#e6db74">&#34;list&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_length</span>(me, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>Running this test, a file is made within the testthat folder called <code>fixtures/ns_get_me.yml</code>, and its contents looks like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">http_interactions</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">request</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">method</span>: <span style="color:#ae81ff">get</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uri</span>: <span style="color:#ae81ff">https://nettskjema.no/api/v3/me</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">body</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">encoding</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">string</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">headers</span>: []
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">response</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">status</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">status_code</span>: <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">message</span>: <span style="color:#ae81ff">OK</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">headers</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">date</span>: <span style="color:#ae81ff">Fri, 06 Jun 2025 12:11:47 GMT</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content-length</span>: <span style="color:#e6db74">&#34;234&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content-encoding</span>: <span style="color:#ae81ff">gzip</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">referrer-policy</span>: <span style="color:#ae81ff">same-origin</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">set-cookie</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">JSESSIONID=F5AA8CC20BCFE3463BA73D25E04BF01E; Path=/api/v3; Secure;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">HttpOnly; SameSite=Lax</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">strict-transport-security</span>: <span style="color:#ae81ff">max-age=31536000 ; includeSubDomains ; preload</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">vary</span>: <span style="color:#ae81ff">accept-encoding</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-application-gateway-proxy</span>: <span style="color:#ae81ff">api</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-frame-options</span>: <span style="color:#ae81ff">DENY</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-robots-tag</span>: <span style="color:#ae81ff">noindex, nofollow, noarchive, noai, noimageai, noml, SPC</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-content-type-options</span>: <span style="color:#ae81ff">nosniff</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-dns-prefetch-control</span>: <span style="color:#e6db74">&#34;off&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">origin-agent-cluster</span>: ?<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-permitted-cross-domain-policies</span>: <span style="color:#ae81ff">none</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-download-options</span>: <span style="color:#ae81ff">noopen</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">x-xss-protection</span>: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content-type</span>: <span style="color:#ae81ff">application/json</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cache-control</span>: <span style="color:#ae81ff">private, max-age=0, no-cache, no-store</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">permissions-policy</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">interest-cohort=(), browsing-topics=(), join-ad-interest-group=(),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">run-ad-auction=(), conversion-measurement=(), accelerometer=(), ambient-light-sensor=(),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">autoplay=(), battery=(), camera=(), display-capture=(), encrypted-media=(),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">fullscreen=(self), gamepad=(self), geolocation=(), gyroscope=(), layout-animations=(self),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), oversized-images=(self),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">payment=(), picture-in-picture=(), publickey-credentials-create=(self), publickey-credentials-get=(),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">speaker-selection=(self), sync-xhr=(), unoptimized-images=(self), unsized-media=(self),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">usb=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">clipboard-write=(), hid=(), serial=(), cross-origin-isolated=(), execution-while-not-rendered=(self),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">execution-while-out-of-viewport=(self), keyboard-map=(), navigation-override=(self),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">identity-credentials-get=(), idle-detection=(), local-fonts=(), otp-credentials=(),</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">window-management=(), storage-access=()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content-security-policy</span>: <span style="color:#ae81ff">object-src &#39;none&#39;; frame-ancestors &#39;self&#39;; upgrade-insecure-requests</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">tdm-reservation</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">body</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">encoding</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">file</span>: <span style="color:#66d9ef">no</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">string</span>: <span style="color:#e6db74">&#39;{&#34;isPersonalDataResponsible&#34;:false,&#34;displayName&#34;:&#34;ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient&#34;,&#34;logoutLink&#34;:&#34;/signout&#34;,&#34;isSuperUser&#34;:false,&#34;isAuthenticated&#34;:true,&#34;userType&#34;:&#34;UNKNOWN_ROLE&#34;,&#34;hasAcceptedTos&#34;:true,&#34;isSupportUser&#34;:false,&#34;isAdministrativeUser&#34;:true,&#34;isInLdapGroupUioTils&#34;:false}&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">recorded_at</span>: <span style="color:#e6db74">2025-06-06 12:11:47</span> <span style="color:#ae81ff">GMT</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">recorded_with</span>: <span style="color:#ae81ff">vcr/1.6.0, webmockr/2.0.0</span>
+</span></span></code></pre></div><p>There is a lot of information here, about the request made, the status code of the response, and the response it self.
+This is great stuff!
+Every time I ran the test, it was passing and I was happy.</p>
+<p>Now, <a href="https://masalmon.eu/">Maëlle</a> has of course read through this post and mentioned that there is not also <a href="https://docs.ropensci.org/vcr/articles/vcr.html#testing-with-vcr"><code>vcr::local_cassette</code></a> in the vcr development version, where you would not have to do all the code-wrapping stuff.
+I don&rsquo;t mind too much wrapping, but I can see the readability improve with it and I&rsquo;ll likely implement it when its released.</p>
+<p>Anyway, I committed my code and sent it off to GitHub, where all my package checking actions subsequently failed.
+Which confused me, since I thought given I recorded the responses with vcr, that wouldn&rsquo;t happen?</p>
+<p>Where I got my logic wrong, was that what was failing wasn&rsquo;t the API calls (or vcr&rsquo;s accessing of the cassettes), but rather my own checking function for whether authentication was set up (which it was not on GitHub Actions!)</p>
+<p>Remember I made a <code>ns_has_auth</code> function, that checks whether authentication is set up?
+Well, that&rsquo;s integrated in the <code>ns_client</code> function, meaning <em>before</em> any calls to the API!
+So my GitHub Actions. were failing before any cassettes were in play.</p>
+<p>This is where the dreaded moment I knew was going to happen in this journey would indeed happen, I needed to figure out how to <em>mock</em> a function.
+Mocking in a test is used to circumvent a specific piece of code from testing.
+This sounds counterintuitive, since we are supposed to be testing the code, but it is very necessary in certain cases.</p>
+<p>In this particular case, I don&rsquo;t need to test the <code>ns_has_auth()</code> function, that is not the functionality I am after testing.
+I can test that in another test specifically made to test it, where I can control input and results better.
+In this case, I want to test the API call and make sure vcr has recorded a good cassette and that this cassette is used in instances where I need it to (like on GitHub Actions. and during CRAN checks).</p>
+<p>With all that being said, I need to make sure that the <code>ns_has_auth()</code> function always returns true and can continue on to the remaining function where I ask it to during testing.
+We create a function with <code>testthat::local_mocked_bindings</code> which we will wrap around any code where we want to test the other parts of the function rather than checking if authentication is set up.
+The functions defined in the locked mocked bindings, will replace the function of the same name from the <code>.package</code> we specify.
+This makes it possible to <em>mock</em> any function from any package when needed.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>with_mocked_nettskjema_auth <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(expr) {
+</span></span><span style="display:flex;"><span>  testthat<span style="color:#f92672">::</span><span style="color:#a6e22e">local_mocked_bindings</span>(
+</span></span><span style="display:flex;"><span>    ns_has_auth <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#66d9ef">...</span>) <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>    .package <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nettskjemar&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">force</span>(expr)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This function uses the base R <code>force</code> function to run the code it&rsquo;s wrapped around, using the <code>ns_has_auth()</code> function that has been set up as a local mocked binding.
+So anything wrapped in this code that calls <code>ns_has_auth()</code> will always return <code>TRUE</code> because I have mocked it that way.</p>
+<p>Our final test code, therefore, became a layered structure: a testthat block wrapping a vcr cassette, which in turn enveloped our mocked function call.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;test user information&#34;</span>, {
+</span></span><span style="display:flex;"><span>  vcr<span style="color:#f92672">::</span><span style="color:#a6e22e">use_cassette</span>(<span style="color:#e6db74">&#34;ns_get_me&#34;</span>, {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">with_mocked_nettskjema_auth</span>(
+</span></span><span style="display:flex;"><span>      me <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ns_get_me</span>()
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_is</span>(me, <span style="color:#e6db74">&#34;list&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_length</span>(me, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>So my GitHub Actions were failing before any cassettes were in play.</p>
+<p>Now, the <code>ns_get_me</code> function I am trying to test, will always get to the API call part of the function, because I am circumventing the <code>ns_has_auth</code> function.
+The cassette should thus finally be in use!
+And indeed, when I sent the code out to GitHub, all my checks passed.</p>
+<p>My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the <code>ns_has_auth()</code> function itself.
+We create a function with <a href="https://testthat.r-lib.org/reference/local_mocked_bindings.html"><code>testthat::local_mocked_bindings()</code></a> which we will wrap around any code where we want to test the other parts of the function rather than checking if authentication is set up.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;ns_has_auth identifies variables&#34;</span>, {
+</span></span><span style="display:flex;"><span>  withr<span style="color:#f92672">::</span><span style="color:#a6e22e">with_envvar</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      NETTSKJEMA_CLIENT_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dummy_id&#34;</span>,
+</span></span><span style="display:flex;"><span>      NETTSKJEMA_CLIENT_SECRET <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dummy_secret&#34;</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">expect_true</span>(<span style="color:#a6e22e">ns_has_auth</span>())
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  withr<span style="color:#f92672">::</span><span style="color:#a6e22e">with_envvar</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      NETTSKJEMA_CLIENT_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>      NETTSKJEMA_CLIENT_SECRET <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">expect_false</span>(<span style="color:#a6e22e">ns_has_auth</span>())
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>Here I am not mocking, but explicitly setting environment variables for the tests with <code>withr::with_envvar()</code>.
+Now, the <code>ns_get_me()</code> function I am trying to test, will always get to the API call part of the function, because I am circumventing the <code>ns_has_auth()</code> function.</p>
+<h2 id="periodically-testing-api-calls">Periodically testing API Calls</h2>
+<p>My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the <code>ns_has_auth()</code> function itself.
+But how do we discover if the API itself alters?
+Now, the <code>ns_get_me()</code> function I am trying to test, will always get to the API call part of the function, because I am circumventing the <code>ns_has_auth()</code> function.
+But we can be sure I won&rsquo;t do that unless someone reports errors, and ideally I&rsquo;d like to be a little more pro-active than that.</p>
+<p>Thankfully, vcr has a way to let us do that!
+My tests now wrap all the API call tests with that specific mocked binding, except for the specific tests I have to check the <code>ns_has_auth()</code> function itself.
+Neat!
+Of course they would provide such a nice and neat solution to do this.
+So I made a GitHub Action workflow that will run weekly and test against the API, so I make sure that things work.
+I will only be notified on e-mail if it fails, so I can just forget about it until I get a notification.
+Which is pretty nice, in my opinion.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># Workflow derived from https://github.com/r-lib/actions/tree/v2/examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>: [<span style="color:#ae81ff">main]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>: <span style="color:#e6db74">&#34;30 2 * * 0&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check API endpoints</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">permissions</span>: <span style="color:#ae81ff">read-all</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">R-CMD-check</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check API responses</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">GITHUB_PAT</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">R_KEEP_PKG_SOURCE</span>: <span style="color:#66d9ef">yes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">But how do we discover if the API itself alters?</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-pandoc@v2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-r@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">r-version</span>: <span style="color:#e6db74">&#34;release&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">http-user-agent</span>: <span style="color:#e6db74">&#34;release&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">use-public-rspm</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/setup-r-dependencies@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">extra-packages</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            any::rcmdcheck
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            any::knitr</span>            
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">needs</span>: <span style="color:#ae81ff">check</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;Setup env for full test suite&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;NETTSKJEMA_CLIENT_ID=${{ secrets.CLIENT_ID }}&#34; &gt;&gt; .Renviron
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;NETTSKJEMA_CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}&#34; &gt;&gt; .Renviron
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;VCR_TURN_OFF=true&#34; &gt;&gt; .Renviron</span>          
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">r-lib/actions/check-r-package@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">upload-snapshots</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">build_args</span>: <span style="color:#e6db74">&#39;c(&#34;--no-manual&#34;,&#34;--compact-vignettes=gs+qpdf&#34;,&#34;--as-cran&#34;)&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build vignettes</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          install.packages(&#34;.&#34;, repos = NULL, type = &#34;source&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          nettskjemar:::knit_vignettes()</span>          
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">Rscript {0}</span>
+</span></span></code></pre></div><h2 id="making-vignettes-that-call-the-api">Making vignettes that call the API</h2>
+<p>The last bit of the puzzle, and which you will see in my github action above, is that I call the function <code>nettskjemar:::knit_vignettes()</code>.
+This is an <em>internal</em> function in my package that will knit my vignettes.</p>
+<p>&ldquo;But why aren&rsquo;t your vignettes knit on check or build as normal?&rdquo;, you may ask.
+Because, the vignettes need the API credentials to knit.
+I&rsquo;ve made them so that they do, and that I can make sure the vignette code actually work.</p>
+<p>How do I do that then?
+I take a note from the <a href="https://ropensci.org/blog/2019/12/08/precompute-vignettes/#the-solution-locally-knitting-rmarkdown">rOpenSci blog</a> on locally knitting the vignettes.
+So rather than having a vignette called <code>nettskjemar.rmd</code> I have one called <code>nettskjemar.rmd.orig</code>.
+By having this extra ending, R build will ignore the vignettes.
+We rather build the vignettes our selves, which I do with the handy internal function I made:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>knit_vignettes <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  proc <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;vignettes&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;orig$&#34;</span>,
+</span></span><span style="display:flex;"><span>    full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lapply</span>(proc, <span style="color:#66d9ef">function</span>(x) {
+</span></span><span style="display:flex;"><span>    fig_path <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;static&#34;</span>
+</span></span><span style="display:flex;"><span>    knitr<span style="color:#f92672">::</span><span style="color:#a6e22e">knit</span>(
+</span></span><span style="display:flex;"><span>      x,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;\\.orig$&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, x)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    imgs <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(fig_path, full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sapply</span>(imgs, <span style="color:#66d9ef">function</span>(x) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">file.copy</span>(
+</span></span><span style="display:flex;"><span>        x,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;vignettes&#34;</span>, fig_path, <span style="color:#a6e22e">basename</span>(x)),
+</span></span><span style="display:flex;"><span>        overwrite <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">invisible</span>(<span style="color:#a6e22e">unlink</span>(fig_path, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>))
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Knit vignettes&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sapply</span>(proc, basename)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ok, it&rsquo;s not that little, a lot is going on here.
+First, we locate all files ending with <code>orig</code> in the vignettes folder, and then we make sure the output name is without the extra <code>.orig</code> extension.
+Then we also make sure to carry over any images the vignettes may create into the vignettes folder.
+Since, the knitting will happen in the project root, rather than in the vignettes folder, the output images will not be in the correct place.Making sure we carry over the output files is thus very important.</p>
+<p>Again, Maëlle pointed out that there is also ways to <a href="https://docs.ropensci.org/vcr/articles/vcr.html#other-uses-examples-and-vignettes">use cassettes in vignettes</a>.
+I had not noticed this when I set up my package, but I&rsquo;m looking forward testing it out in my next package iteration.</p>
+<p>I&rsquo;ve found this code works well for this purpose, and I use it in a couple of my packages actually.
+Hopefully, it may be of use to others.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>So that is it!
+OAuth with a client, testing API calls with vcr and mocking, and explicitly setting environment variables for testing in specific situations.
+Do you mock your API calls when testing?</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Jul 1, 2025) 
+                    Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing. 
+                    Retrieved from https://drmowinckels.io/blog/2025/httr2_client/.
+                     DOI: https://www.doi.org/10.5281/zenodo.15782578
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-decoding-oauth2-m2m-with-httr2-client-setup-api-testing,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/httr2_client/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.15782578",<br> 
+                        &emsp;updated = "Jul 1, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 03, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Harness Local LLMs and GitHub Copilot for Enhanced R Package Development</h2>
+    
+      <p>In this post I explore local large language models (LLMs) with R for code assistance, using tools like chores, ensure, gander, and continue in Positron. The post explores R options and keybindings for various tools, adjusting settings to optimize performance. Lastly, I switch to GitHub Copilot for better results, encountering rate limits but finding workarounds to control autocomplete triggers.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/ollama/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ollama</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Cracking the LinkedIn API through R</h2>
+    
+      <p>I share my experience integrating R with the LinkedIn API, focusing on personal authentication and posting processes. The documentation and workflow were complex, but with help from the rOpenSci community, I successfully navigated the challenges. I detail steps for API access, authentication, and creating posts, highlighting key obstacles like managing OAuth tokens, API products, and endpoints.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin-api/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">linkedin</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">github</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jun 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h2>
+    
+      <p>This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible-pca/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">health-data</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>A year with Visible Long-Covid Tracking</h2>
+    
+      <p>This post dives into a year of tracking Long Covid symptoms and progress using the Visible app. Dr. Mowinckel, a quantitative scientist, shares their experience monitoring heart rate, heart rate variability (HRV), daily symptoms, and functional capacity using the app&rsquo;s features and the FUNCAP27 questionnaire. Discover how this data provides insights into pacing strategies, identifies potential warning signs like HRV spikes, and reveals meaningful clusters of interconnected symptoms and experiences. Explore the journey of living with and managing Long Covid through the lens of personal health data.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">health-data</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Apr 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Positron: current joys and pains</h2>
+    
+      <p>After 6 months, Positron&rsquo;s modern interface, polyglot support, &amp; viewers are loved. Debugger quirks persist: console hangs, history issues, &amp; tab focus. Data viewer lacks list support &amp; labeled data. Despite pains, Positron&rsquo;s potential shines.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/positron-debugging/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">positron</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ide</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">debugging</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+
+</body>
+</html>
