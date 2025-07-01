@@ -1,37 +1,47 @@
 ---
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: sentence
 title: "Decoding OAuth2 M2M with httr2: Client Setup & API Testing"
 format: hugo-md
 author: Dr. Mowinckel
-date: '2025-07-01'
+date: "2025-07-01"
 categories: []
 tags:
   - R
   - API
-slug: "httr2_client"
-image: "httr2_cassette.png"
-image_alt: |
-  A stylized graphic featuring the white 'httr2' text in the foreground. Behind and slightly above it, a colorful, retro-style audio cassette tape is depicted with vibrant pink, blue, and teal accents. A small, pink mockingbird is perched on the upper left edge of the cassette tape. The background is a solid dark purple.
-summary: |
-  This post details the process of setting up an OAuth2 Machine-to-Machine (M2M) client using the httr2 package in R, specifically addressing the challenges encountered with non-standard API authentication. It covers client creation, handling authentication flows, and comprehensively testing API calls using the vcr package for request recording and testthat for mocking functions to ensure robust and reliable package development.
-seo: "R httr2 OAuth2 M2M client API testing vcr testthat mocking httr Nettskjema authentication"
+slug: httr2_client
+image: httr2_cassette.png
+image_alt: >
+  A stylized graphic featuring the white 'httr2' text in the foreground. Behind
+  and slightly above it, a colorful, retro-style audio cassette tape is depicted
+  with vibrant pink, blue, and teal accents. A small, pink mockingbird is
+  perched on the upper left edge of the cassette tape. The background is a solid
+  dark purple.
+summary: >
+  This post details the process of setting up an OAuth2 Machine-to-Machine (M2M)
+  client using the httr2 package in R. 
+  It covers client creation,
+  handling authentication flows, and comprehensively testing API calls using the
+  vcr package for request recording and testthat for mocking functions to ensure
+  robust and reliable package development.
+seo: >-
+  Setting up httr2 OAuth2 M2M client in R, with testing using vcr and mocking mocking.
 ---
 
 I recently managed to get some actual work done!
 If you have been reading this blog lately, you'll know why it's been a while, but I am so very excited that I did some solid work!
 
 So, I have a package that connects to my University's survey platform.
-It enables researchers to grab the data collected (and associated meta-data) right into their R console, and can set up a whole pipeline for working with their data. 
+It enables researchers to grab the data collected (and associated meta-data) right into their R console, and can set up a whole pipeline for working with their data.
 You know we all love that.
 
 I recently did a large re-write of the package from httr to httr2, but the one thing I was struggling with getting to work was a client to deal with the OAuth.
 I had this rather unsatisfactory code where I was grabbing a token and caching it myself, but that's not ideal.
 
-But I met with some difficulties, as the API OAuth was set up in an unfamiliar way. 
-Traditionally, I've encountered APIs that use user authentication, often termed User-to-Machine (U2M) flows. 
-Here, a user interacts with a client application, typically via a browser login, to grant the application permission to act on their behalf. 
+But I met with some difficulties, as the API OAuth was set up in an unfamiliar way.
+Traditionally, I've encountered APIs that use user authentication, often termed User-to-Machine (U2M) flows.
+Here, a user interacts with a client application, typically via a browser login, to grant the application permission to act on their behalf.
 
 ```mermaid
 
@@ -55,13 +65,13 @@ sequenceDiagram
     ResourceServer-->>-ClientApp: 8. Returns requested data
 ```
 
-Imagine you want to use a cool new photo editing app (the "Client App") to access pictures you've saved on your cloud storage (the "Resource Server"). 
-You don't want to give the photo app your cloud storage password directly – that would be risky!
+Imagine you want to use a cool new photo editing app (the "Client App") to access pictures you've saved on your cloud storage (the "Resource Server").
+You don't want to give the photo app your cloud storage password directly -- that would be risky!
 
 It's like giving a trusted friend (the app) a special key to your locker, but only after you confirm with the locker company (the Authorization Server) that it's okay, and you never give your friend your locker combination.
 
-However, my university's service employs a Machine-to-Machine (M2M) authentication setup. 
-In this model, the client itself possesses the necessary credentials to access resources directly, without acting on behalf of a specific end-user. 
+However, my university's service employs a Machine-to-Machine (M2M) authentication setup.
+In this model, the client itself possesses the necessary credentials to access resources directly, without acting on behalf of a specific end-user.
 This distinction was crucial, as the API wasn't designed for the headless, programmatic access I intended.
 
 ```mermaid
@@ -78,11 +88,11 @@ sequenceDiagram
     ResourceServer-->>-ClientApp: 4. Returns requested data
 ```
 
-Imagine you have a smart home system (the "Client App") that needs to automatically turn on your outdoor lights (a "Resource Server" controlled by another service) when it gets dark. 
+Imagine you have a smart home system (the "Client App") that needs to automatically turn on your outdoor lights (a "Resource Server" controlled by another service) when it gets dark.
 No human user is involved in this decision; it's just one part of your smart home talking to another.
 
-It's like two robots talking to each other. 
-One robot (the app/service) has a secret handshake (its credentials) that it uses to get a temporary ID card (the Access Token) from another robot (the Authorization Server). 
+It's like two robots talking to each other.
+One robot (the app/service) has a secret handshake (its credentials) that it uses to get a temporary ID card (the Access Token) from another robot (the Authorization Server).
 Then, it uses that ID card to access a specific resource (like turning on lights) from a third robot (the Resource Server), all without any human telling them what to do.
 
 ## Setting up a client
@@ -93,20 +103,18 @@ You let the client deal with the necessary stuff in the background and you can g
 
 A client needs two basic things:
 
-1. an ID
-1. a secret
+1.  an ID
+2.  a secret
 
-Both these should be provided to you from whichever API you are making the client at. 
+Both these should be provided to you from whichever API you are making the client at.
 
-Let's start with a function to check if the information we need is saved in the environment. 
+Let's start with a function to check if the information we need is saved in the environment.
 Here I'm assuming this was set up in the `.Renviron` file, which is instructions I will provide with the package.
 And having a function to check if the information is provided correctly is important for any package.
 Notice how I both allow for the information to be set in the environment, but also to be provided to the function.
 This should give users more flexibility.
 
-```{r}
-#| label: check
-
+```r
 #' Check Environment Variables for Nettskjema Authentication
 #'
 #' This function verifies whether the required system
@@ -143,20 +151,16 @@ ns_has_auth <- function(
 Now that we have that, we can start setting up a client.
 To start that, I had a look at the documentation for the API, and it had this code for how to retrieve the token
 
-```
-curl -X POST \
-  -u "clientId:clientSecret" \
-  -d "grant_type=client_credentials" \
-  "https://authorization.nettskjema.no/oauth2/token"
-```
+    curl -X POST \
+      -u "clientId:clientSecret" \
+      -d "grant_type=client_credentials" \
+      "https://authorization.nettskjema.no/oauth2/token"
 
-This curl command, while providing the token, didn't immediately reveal how to implement a persistent client. 
-I wasn't familiar with this specific flow. 
+This curl command, while providing the token, didn't immediately reveal how to implement a persistent client.
+I wasn't familiar with this specific flow.
 Thankfully, httr2 includes an incredibly powerful helper for just such a dilemma: `curl_translate`.
 
-```{r}
-#| label: translate
-
+```r
 httr2::curl_translate(
   'curl -X POST \
     -u "clientId:clientSecret" \
@@ -165,20 +169,24 @@ httr2::curl_translate(
 )
 ```
 
+    request("https://authorization.nettskjema.no/oauth2/token") |>
+      req_method("POST") |>
+      req_body_raw("grant_type=client_credentials", "application/x-www-form-urlencoded") |>
+      req_auth_basic("clientId", "clientSecret") |>
+      req_perform()
+
 Neat!
 {httr2} really does come with such a genius suite of functions, but this one is my favourite.
 
 But I'm still not seeing a client?
 The code works, I get a token, but then I'd need to do the whole caching etc myself, and that's not a great option.
-  if (!nzchar(client_id) || !nzchar(client_secret)) {
+if (!nzchar(client_id) \|\| !nzchar(client_secret)) {
 I need a client.
 
 You will notice in my setup I also added an argument to name the client, a good practice that helps service providers identify which client ran specific commands in their logs.
 Since I'm not expecting my users to directly call the client function, I will call it in the background for them, I'm not gonna add looking for the credentials to this function.
 
-```{r}
-#| label: client
-
+```r
 #' Create an OAuth2 Client for Nettskjema API
 #'
 #' This function initializes an OAuth2 client using
@@ -238,11 +246,11 @@ ns_client <- function(
 
 So, I've fast-forwarded to a working function.
 It took me a fair while to get here, and help from [Jon Harmon](http://jonthegeek.com).
-The crucial detail that unlocked the client setup was the `auth = "header"` argument. 
-By default, `oauth_client` uses `auth = "body"`. 
-My initial assumption was that this referred to where the response token would be sent. 
-However, it actually dictates where the client credentials (ID and secret) are sent for authentication. 
-The `curl_translate` output clearly showed `req_auth_basic("clientId", "clientSecret")`, indicating basic authentication in the header. 
+The crucial detail that unlocked the client setup was the `auth = "header"` argument.
+By default, `oauth_client` uses `auth = "body"`.
+My initial assumption was that this referred to where the response token would be sent.
+However, it actually dictates where the client credentials (ID and secret) are sent for authentication.
+The `curl_translate` output clearly showed `req_auth_basic("clientId", "clientSecret")`, indicating basic authentication in the header.
 Once I correctly specified `auth = "header"`, the client sprang to life!"
 
 ## Using the client
@@ -257,9 +265,7 @@ That, is a really big hint!
 This function, in addition to setting client information, also needs a request as input.
 So it means its something that should be piped with other httr2 commands.
 
-```{r}
-#| label: auth
-
+```r
 #' Authenticate Nettskjema request
 #'
 #' After creating a client in Nettskjema,
@@ -296,15 +302,43 @@ Right!
 So, we have the client set up grabbing information from the environment, with error messages if it cant find it.
 We should try out a request!
 
-```{r}
-#| label: request
-
+```r
 httr2::request("https://nettskjema.no/api/v3/") |>
   ns_req_auth() |>
   httr2::req_url_path_append("me") |>
   httr2::req_perform() |>
   httr2::resp_body_json()
 ```
+
+    $isPersonalDataResponsible
+    [1] FALSE
+
+    $displayName
+    [1] "ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient"
+
+    $logoutLink
+    [1] "/signout"
+
+    $isSuperUser
+    [1] FALSE
+
+    $isAuthenticated
+    [1] TRUE
+
+    $userType
+    [1] "UNKNOWN_ROLE"
+
+    $hasAcceptedTos
+    [1] TRUE
+
+    $isSupportUser
+    [1] FALSE
+
+    $isAdministrativeUser
+    [1] TRUE
+
+    $isInLdapGroupUioTils
+    [1] FALSE
 
 This specific API endpoint provides information about the client making the request.
 And it works!
@@ -331,7 +365,7 @@ This means I need top make sure that the client secret is kept secure.
 The `vcr_configure` function has a `filter_sensitive_data` argument which allows us to obfuscate the information we provide in the yamls so they are not exposed.
 In this case, it will take the output of `Sys.getenv("NETTSKJEMA_CLIENT_SECRET")` and replace it with the string `<<CLIENT_SECRET>>` in all the yaml files.
 Further, it has a `dir` function where you specify where the cassettes that vcr records will be saved.
-In this case, we set `vcr::vcr_test_path("fixtures")` which puts the cassettes in `tests/testthat/fixtures`. 
+In this case, we set `vcr::vcr_test_path("fixtures")` which puts the cassettes in `tests/testthat/fixtures`.
 
 ```r
 # *Required* as vcr is set up on loading
@@ -351,14 +385,14 @@ Lastly, in the setup we also run a function to check that all the cassette names
 I can't seem to wrap my head around it for more than 5 seconds (and is it wrapped, or more like my brother's attempts at gift wrapping a sweater for Christmas?).
 Using `vcr::use_cassette` can be done in one of two ways (maybe more, but this is how I have now learned):
 
-1. nested inside `test_that()` 
-2. wrapped around `test_that()`
+1.  nested inside `test_that()`
+2.  wrapped around `test_that()`
 
 I'm not entirely sure which is best when, but I found it more meaningful for me to nest inside `test_that()`, which more closely resembles my standard testing workflow for packages.
 `vcr::use_cassette` will run a call to the API _if there is no associated cassette already in existence_, and save the call and results in a yaml.
 All subsequent runs of that test, will then use the information from the yaml rather than doing the call to the API.
 
-Let's say I have created a function to easily get the information about the client, i.e. using the request code I used before in the post.
+Let's say I have created a function to easily get the information about the client, i.e. using the request code I used before in the post.
 This is something you'd typically do in a package, set up convenience functions to get to specific end-points of an API that are important.
 
 ```r
@@ -391,58 +425,60 @@ Running this test, a file is made within the testthat folder called `fixtures/ns
 
 ```yml
 http_interactions:
-- request:
-    method: get
-    uri: https://nettskjema.no/api/v3/me
-    body:
-      encoding: ''
-      string: ''
-    headers: []
-  response:
-    status:
-      status_code: 200
-      message: OK
-    headers:
-      server: nginx
-      date: Fri, 06 Jun 2025 12:11:47 GMT
-      content-length: '234'
-      content-encoding: gzip
-      referrer-policy: same-origin
-      set-cookie: JSESSIONID=F5AA8CC20BCFE3463BA73D25E04BF01E; Path=/api/v3; Secure;
-        HttpOnly; SameSite=Lax
-      strict-transport-security: max-age=31536000 ; includeSubDomains ; preload
-      vary: accept-encoding
-      x-application-gateway-proxy: api
-      x-frame-options: DENY
-      x-robots-tag: noindex, nofollow, noarchive, noai, noimageai, noml, SPC
-      x-content-type-options: nosniff
-      x-dns-prefetch-control: 'off'
-      origin-agent-cluster: ?1
-      x-permitted-cross-domain-policies: none
-      x-download-options: noopen
-      x-xss-protection: '0'
-      content-type: application/json
-      cache-control: private, max-age=0, no-cache, no-store
-      permissions-policy: interest-cohort=(), browsing-topics=(), join-ad-interest-group=(),
-        run-ad-auction=(), conversion-measurement=(), accelerometer=(), ambient-light-sensor=(),
-        autoplay=(), battery=(), camera=(), display-capture=(), encrypted-media=(),
-        fullscreen=(self), gamepad=(self), geolocation=(), gyroscope=(), layout-animations=(self),
-        legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), oversized-images=(self),
-        payment=(), picture-in-picture=(), publickey-credentials-create=(self), publickey-credentials-get=(),
-        speaker-selection=(self), sync-xhr=(), unoptimized-images=(self), unsized-media=(self),
-        usb=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(),
-        clipboard-write=(), hid=(), serial=(), cross-origin-isolated=(), execution-while-not-rendered=(self),
-        execution-while-out-of-viewport=(self), keyboard-map=(), navigation-override=(self),
-        identity-credentials-get=(), idle-detection=(), local-fonts=(), otp-credentials=(),
-        window-management=(), storage-access=()
-      content-security-policy: object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests
-      tdm-reservation: '1'
-    body:
-      encoding: ''
-      file: no
-      string: '{"isPersonalDataResponsible":false,"displayName":"ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient","logoutLink":"/signout","isSuperUser":false,"isAuthenticated":true,"userType":"UNKNOWN_ROLE","hasAcceptedTos":true,"isSupportUser":false,"isAdministrativeUser":true,"isInLdapGroupUioTils":false}'
-  recorded_at: 2025-06-06 12:11:47 GMT
-  recorded_with: vcr/1.6.0, webmockr/2.0.0
+  - request:
+      method: get
+      uri: https://nettskjema.no/api/v3/me
+      body:
+        encoding: ""
+        string: ""
+      headers: []
+    response:
+      status:
+        status_code: 200
+        message: OK
+      headers:
+        server: nginx
+        date: Fri, 06 Jun 2025 12:11:47 GMT
+        content-length: "234"
+        content-encoding: gzip
+        referrer-policy: same-origin
+        set-cookie:
+          JSESSIONID=F5AA8CC20BCFE3463BA73D25E04BF01E; Path=/api/v3; Secure;
+          HttpOnly; SameSite=Lax
+        strict-transport-security: max-age=31536000 ; includeSubDomains ; preload
+        vary: accept-encoding
+        x-application-gateway-proxy: api
+        x-frame-options: DENY
+        x-robots-tag: noindex, nofollow, noarchive, noai, noimageai, noml, SPC
+        x-content-type-options: nosniff
+        x-dns-prefetch-control: "off"
+        origin-agent-cluster: ?1
+        x-permitted-cross-domain-policies: none
+        x-download-options: noopen
+        x-xss-protection: "0"
+        content-type: application/json
+        cache-control: private, max-age=0, no-cache, no-store
+        permissions-policy:
+          interest-cohort=(), browsing-topics=(), join-ad-interest-group=(),
+          run-ad-auction=(), conversion-measurement=(), accelerometer=(), ambient-light-sensor=(),
+          autoplay=(), battery=(), camera=(), display-capture=(), encrypted-media=(),
+          fullscreen=(self), gamepad=(self), geolocation=(), gyroscope=(), layout-animations=(self),
+          legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), oversized-images=(self),
+          payment=(), picture-in-picture=(), publickey-credentials-create=(self), publickey-credentials-get=(),
+          speaker-selection=(self), sync-xhr=(), unoptimized-images=(self), unsized-media=(self),
+          usb=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(),
+          clipboard-write=(), hid=(), serial=(), cross-origin-isolated=(), execution-while-not-rendered=(self),
+          execution-while-out-of-viewport=(self), keyboard-map=(), navigation-override=(self),
+          identity-credentials-get=(), idle-detection=(), local-fonts=(), otp-credentials=(),
+          window-management=(), storage-access=()
+        content-security-policy: object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests
+        tdm-reservation: "1"
+      body:
+        encoding: ""
+        file: no
+        string: '{"isPersonalDataResponsible":false,"displayName":"ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient","logoutLink":"/signout","isSuperUser":false,"isAuthenticated":true,"userType":"UNKNOWN_ROLE","hasAcceptedTos":true,"isSupportUser":false,"isAdministrativeUser":true,"isInLdapGroupUioTils":false}'
+    recorded_at: 2025-06-06 12:11:47 GMT
+    recorded_with: vcr/1.6.0, webmockr/2.0.0
 ```
 
 There is a lot of information here, about the request made, the status code of the response, and the response it self.
@@ -488,7 +524,6 @@ This function uses the base R `force` function to run the code it's wrapped arou
 So anything wrapped in this code that calls `ns_has_auth()` will always return `TRUE` because I have mocked it that way.
 
 Our final test code, therefore, became a layered structure: a testthat block wrapping a vcr cassette, which in turn enveloped our mocked function call.
-
 
 ```r
 test_that("test user information", {
@@ -625,7 +660,7 @@ I've made them so that they do, and that I can make sure the vignette code actua
 
 How do I do that then?
 I take a note from the [rOpenSci blog](https://ropensci.org/blog/2019/12/08/precompute-vignettes/#the-solution-locally-knitting-rmarkdown) on locally knitting the vignettes.
-So rather than having a vignette called `nettskjemar.rmd` I have one called `nettskjemar.rmd.orig`. 
+So rather than having a vignette called `nettskjemar.rmd` I have one called `nettskjemar.rmd.orig`.
 By having this extra ending, R build will ignore the vignettes.
 We rather build the vignettes our selves, which I do with the handy internal function I made:
 
@@ -658,11 +693,11 @@ knit_vignettes <- function() {
     "Knit vignettes",
     sapply(proc, basename)
   )
-} 
+}
 ```
 
 Ok, it's not that little, a lot is going on here.
-First, we locate all files ending with `orig` in the vignettes folder, and then we make sure the output name is without the extra `.orig` extension. 
+First, we locate all files ending with `orig` in the vignettes folder, and then we make sure the output name is without the extra `.orig` extension.
 Then we also make sure to carry over any images the vignettes may create into the vignettes folder.
 Since, the knitting will happen in the project root, rather than in the vignettes folder, the output images will not be in the correct place.Making sure we carry over the output files is thus very important.
 
@@ -672,9 +707,8 @@ I had not noticed this when I set up my package, but I'm looking forward testing
 I've found this code works well for this purpose, and I use it in a couple of my packages actually.
 Hopefully, it may be of use to others.
 
-
 ## Conclusion
 
-So that is it! 
+So that is it!
 OAuth with a client, testing API calls with vcr and mocking, and explicitly setting environment variables for testing in specific situations.
 Do you mock your API calls when testing?

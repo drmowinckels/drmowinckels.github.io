@@ -1,5 +1,4 @@
 ---
-doi: 10.5281/zenodo.15782578
 editor_options:
   markdown:
     wrap: sentence
@@ -21,14 +20,13 @@ image_alt: >
   dark purple.
 summary: >
   This post details the process of setting up an OAuth2 Machine-to-Machine (M2M)
-  client using the httr2 package in R, specifically addressing the challenges
-  encountered with non-standard API authentication. It covers client creation,
+  client using the httr2 package in R. 
+  It covers client creation,
   handling authentication flows, and comprehensively testing API calls using the
   vcr package for request recording and testthat for mocking functions to ensure
   robust and reliable package development.
 seo: >-
-  R httr2 OAuth2 M2M client API testing vcr testthat mocking httr Nettskjema
-  authentication
+  Setting up httr2 OAuth2 M2M client in R, with testing using vcr and mocking mocking.
 ---
 
 I recently managed to get some actual work done!
