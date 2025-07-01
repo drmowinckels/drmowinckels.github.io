@@ -66,9 +66,9 @@ image <- here::here(
   frontmatter$image
 ) |>
   optimize_image_size(
-    max_size_mb = 1,
+    max_size_mb = .976,
     quality = 80,
-    scale_factor = 0.95
+    scale_factor = 0.90
   )
 
 # Post to Bluesky
@@ -76,7 +76,7 @@ bskyr::bs_post(
   text = substr(
     create_message(frontmatter$seo, uri),
     1,
-    (280 - strlength(uri))
+    (270 - strlength(uri))
   ),
   images = image,
   images_alt = frontmatter$image_alt

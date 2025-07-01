@@ -141,13 +141,17 @@ optimize_image_size <- function(
     tools::file_ext(path)
   )
 
+  if (file.exists(output_path)) {
+    file.remove(output_path)
+  }
+
   max_size_bytes <- max_size_mb * 1024 * 1024
   img <- magick::image_read(path)
 
   # Get initial file size by saving to a temp file and checking its size
   # This is more reliable than image_info for initial check
   temp_initial_path <- tempfile(
-    fileext = paste(".", tools::file_ext(path))
+    fileext = ".jpg"
   )
   magick::image_write(
     img,
@@ -161,29 +165,29 @@ optimize_image_size <- function(
   cat(paste0(
     "Initial size: ",
     round(current_file_size / (1024 * 1024), 2),
+    " MB\n",
+    "Target size: < ",
+    max_size_mb,
     " MB\n"
   ))
-  cat(paste0("Target size: < ", max_size_mb, " MB\n"))
 
-  iteration <- 0
+  iteration <- 1
 
   # Loop to reduce size if necessary
   while (current_file_size > max_size_bytes && iteration < max_iterations) {
-    iteration <- iteration + 1
-    cat(paste0(
-      "Iteration ",
-      iteration,
-      ": Current size ",
-      round(current_file_size / (1024 * 1024), 2),
-      " MB.\n"
-    ))
-
     # Reduce dimensions
-    img <- magick::image_scale(img, paste0(scale_factor * 100, "%"))
+    img <- magick::image_scale(
+      img,
+      paste0(scale_factor * 100, "%")
+    )
 
     # Save to a temporary file to check the new size reliably
     temp_output_path <- tempfile(fileext = tools::file_ext(output_path))
-    magick::image_write(img, path = temp_output_path, quality = quality)
+    magick::image_write(
+      img,
+      path = temp_output_path,
+      quality = quality
+    )
 
     # Get the actual file size from the temporary file
     current_file_size <- file.size(temp_output_path)
@@ -202,7 +206,14 @@ optimize_image_size <- function(
         round(current_file_size / (1024 * 1024), 2),
         " MB."
       ))
-      break # Exit loop if max iterations reached
+      break # Exit loop
+    } else {
+      cat(paste0(
+        "Current size ",
+        round(current_file_size / (1024 * 1024), 2),
+        " MB.\n"
+      ))
+      iteration <- iteration + 1
     }
   }
 
@@ -217,12 +228,9 @@ optimize_image_size <- function(
   cat(paste0(
     "Optimization complete. Final image saved to '",
     basename(output_path),
-    "'.\n"
-  ))
-  cat(paste0(
-    "Final size: ",
+    "', and is ",
     round(final_file_size / (1024 * 1024), 2),
-    " MB\n"
+    ".\n"
   ))
 
   output_path
