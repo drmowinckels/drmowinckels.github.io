@@ -131,16 +131,26 @@ li_req_auth <- function(req, token = Sys.getenv("LI_TOKEN")) {
 #' Create setup for connecting to LinkedIn API
 #'
 #' Sets up API url, version endpoint, and necessary
-#' headers for making resuests from the API.
-#' Does not perform any actual calls to the API.
+#' headers for making requests from the API, and handles OAuth authentication
+#' with disk caching for automatic token management.
 #'
 #' @param endpoint_version character. Sets the endpoint version,
-#'    should likely be either "v2" or "rest"
-#' @param ... arguments passed along to \code{li_req_auth()}
+#'    should likely be either "v2" or "rest".
+#' @param scopes character vector. The OAuth scopes required for the request.
+#'    Common scopes include: "email", "openid", "profile", "w_member_social".
+#' @param redirect_uri character. The redirect URL registered with your LinkedIn
+#'    Developer application. This MUST match. For local interactive use,
+#'    "http://localhost:1444/" is often used.
+#' @param cache_key character. A unique key for storing the token on disk.
+#'    Defaults to "linkedin_token".
 #'
 #' @export
-#'
-li_req <- function(endpoint_version = "rest", ...) {
+li_req <- function(
+  endpoint_version = "rest",
+  scopes = c("email", "openid", "profile", "w_member_social"),
+  redirect_uri = "http://localhost:1444/",
+  cache_key = "linkedin_token"
+) {
   httr2::request("https://api.linkedin.com") |>
     httr2::req_url_path_append(endpoint_version) |>
     httr2::req_headers(
@@ -148,12 +158,21 @@ li_req <- function(endpoint_version = "rest", ...) {
       "X-Restli-Protocol-Version" = "2.0.0",
       "Content-Type" = "application/json"
     ) |>
-    li_req_auth(...)
+
+    httr2::req_oauth_auth_code(
+      client = li_client(),
+      auth_url = "https://www.linkedin.com/oauth/v2/authorization",
+      scope = scopes,
+      redirect_uri = redirect_uri,
+      cache_disk = TRUE,
+      cache_key = cache_key
+    )
 }
 
 #' Fetch your personal URN number
 #'
-#' This is required to post on LinkedIn to your personal account
+#' This is required to post on LinkedIn to your personal account.
+#' Uses the updated li_req() for authentication.
 #'
 #' @return A string with your URN in the format of "urn:li:person:XXXX"
 #' @export
@@ -161,16 +180,21 @@ li_req <- function(endpoint_version = "rest", ...) {
 #' @examples
 #'
 #' \dontrun{
+#' # Ensure your token is cached locally via li_oauth() first.
+#' # Or, if in GitHub Actions, ensure the encrypted token is decrypted.
 #' li_urn_me()
 #' }
 li_urn_me <- function() {
-  id <- li_req("v2") |>
+  id <- li_req(
+    endpoint_version = "v2",
+    scopes = c("openid", "profile")
+  ) |>
     httr2::req_url_path_append("userinfo") |>
-    httr2::req_auth_bearer_token(Sys.getenv("LI_TOKEN")) |>
-    httr2::req_url_query(projection = "(sub)") |>
+    # httr2::req_url_query(projection = "(sub)") |>
     httr2::req_perform() |>
     httr2::resp_body_json() |>
-    unlist()
+    `[[`("sub")
+
   paste0("urn:li:person:", id)
 }
 
@@ -257,7 +281,9 @@ li_post_write <- function(author, text, image = NULL, image_alt = "") {
 li_media_upload <- function(author, media) {
   r <- li_req() |>
     httr2::req_url_path_append("images") |>
-    httr2::req_url_query(action = "initializeUpload") |>
+    httr2::req_url_query(
+      action = "initializeUpload"
+    ) |>
     httr2::req_body_json(
       list(
         initializeUploadRequest = list(
