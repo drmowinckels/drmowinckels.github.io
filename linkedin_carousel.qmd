@@ -1,0 +1,105 @@
+---
+title:  Decoding OAuth2 M2M with httr2: Client Setup & API Testing
+format:
+  revealjs:
+    theme: default
+    slide-number: false
+    controls: false
+    fragment: false
+    hash-for-ids: true
+    embed-resources: true
+    self-contained: true
+---
+
+# Mastering Machine-to-Machine (M2M) Authentication
+
+Unlike User-to-Machine (U2M), M2M grants direct access to resources via client credentials
+ This streamlines programmatic access for automated tasks
+ Understand the key differences!
+
+# httr2's Secret Weapon: curl_translate
+
+Struggling with complex curl commands? httr2's curl_translate function instantly converts them into R code, simplifying API interaction
+ #rstats #httr2
+
+## Code Input
+
+```{r}
+httr2::curl_translate(
+  'curl -X POST \
+    -u "clientId:clientSecret" \
+    -d "grant_type=client_credentials" \
+    "https://authorization.nettskjema.no/oauth2/token"'
+)
+
+```
+
+## Code Output
+
+```
+request("https://authorization.nettskjema.no/oauth2/token") |>
+  req_method("POST") |>
+  req_body_raw("grant_type=client_credentials", "application/x-www-form-urlencoded") |>
+  req_auth_basic("clientId", "clientSecret") |>
+  req_perform()
+
+```
+
+# Crafting a Robust OAuth2 Client with httr2
+
+Utilize httr2::oauth_client for secure authentication
+ Remember to specify auth = "header" for M2M flows where credentials are sent in the header
+ #api #oauth2
+
+# Automated API Testing with vcr
+
+vcr records API interactions as YAML cassettes, enabling offline testing and preventing live calls during checks
+ Secure sensitive data by filtering client secrets
+ #testing #rdev
+
+## Code Input
+
+```{r}
+vcr::vcr_configure(
+  filter_sensitive_data = list(
+    "<<CLIENT_SECRET>>" = Sys.getenv("NETTSKJEMA_CLIENT_SECRET")
+  ),
+  dir = vcr::vcr_test_path("fixtures")
+)
+
+```
+
+# Mocking Functions for Targeted Testing
+
+Use testthat::local_mocked_bindings to bypass specific functions during testing
+ This allows you to focus on API interactions without being blocked by environment checks
+ #testthat #mocking
+
+## Code Input
+
+```{r}
+with_mocked_nettskjema_auth <- function(expr) {
+  testthat::local_mocked_bindings(
+    ns_has_auth = function(...) TRUE,
+    .package = "nettskjemar"
+  )
+  force(expr)
+}
+
+```
+
+# Proactive API Monitoring with GitHub Actions
+
+Schedule weekly GitHub Actions to test API endpoints and ensure continued functionality
+ Receive email notifications only upon failure for hassle-free monitoring
+ #devops #automation
+
+# Dynamically knitting Vignettes with API calls
+
+Bake API usage into vignettes for live validation
+ Knit on external workflows and move output images in to the vignettes folder for correct display
+
+# Level Up Your API Skills!
+
+Ready to build more reliable and automated R packages? Share your API testing tips and tricks in the comments! #rstats #api #httr2
+

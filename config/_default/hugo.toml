@@ -1,5 +1,9 @@
 baseURL  = "./"
+<<<<<<< HEAD
 theme    = "hugo-deco"
+=======
+theme    = "hugo-igloo"
+>>>>>>> e7c6764b (POST: May 2025 - Visible App tracking (#107))
 title    = "Dr. Mowinckel's"
 
 buildDrafts     = true    
@@ -18,9 +22,11 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "index\\.html", "about\\.h
 
 # Getting raw html to render
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+        unsafe = true
+        [markup.goldmark.parser]
+        wrapStandAloneImageWithinParagraph = false
 
 [params]
     themeStyle    = "light"                 # Choose "light" or "dark"

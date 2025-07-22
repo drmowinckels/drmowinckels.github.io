@@ -1,0 +1,145 @@
+/*-- scss:defaults --*/
+
+// --- Font Imports ---
+// @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Lato:wght@400;700&display=swap');
+
+
+// --- Custom Color Variables ---
+$background-color: rgb(24, 86, 83);
+$main-color: #f8f8f8;  
+$heading-color:rgb(171, 217, 214); 
+$link-color:rgb(171, 234, 230);       
+$link-color-hover:rgb(86, 171, 165);
+$accent-color:rgb(146, 84, 153);
+
+// --- Code block specific colors ---
+$code-background-color: #333333; 
+$code-text-color: #f8f8f8; 
+$code-border-color: #e0e0e0;
+
+// --- Custom Font Variables ---
+$main-font: 'Open Sans', Helvetica, Arial, sans-serif; 
+$heading-font: Georgia, serif; 
+$code-font: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+
+// --- Custom Font Sizes ---
+$main-font-size: 1.2em;
+$heading1-font-size: 2.8em; 
+$heading2-font-size: 2em; 
+$code-font-size: 0.8em; 
+
+$slide-padding: 20px; 
+$code-padding: 10px; 
+$code-border-radius: 5px; 
+
+
+// --- Reveal.js Variable Overrides ---
+
+$backgroundColor: $background-color;
+$mainColor: $main-color;
+$headingColor: $heading-color;
+$mainFont: $main-font;
+$headingFont: $heading-font;
+$linkColor: $link-color;
+$linkColorHover: $link-color-hover;
+$codeColor: $code-text-color;
+$codeBackgroundColor: $code-background-color;
+
+
+/*-- scss:rules --*/
+
+html, body {
+  line-height: 1.6; 
+}
+
+// --- Centering all slide content ---
+.reveal .slides {
+  padding: $slide-padding;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100%; 
+  width: 100%; 
+}
+
+// Ensure text within paragraphs and code blocks is left-aligned for readability
+.reveal p,
+.reveal pre {
+  text-align: left; 
+}
+
+
+// Heading specific styles not covered by variables
+.reveal h1 {
+  font-size: $heading1-font-size;
+  font-weight: bold;
+  text-transform: none; 
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+.reveal h2 {
+  font-size: $heading2-font-size;
+  font-weight: bold;
+  text-transform: none;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+// Body text font size
+.reveal p {
+  font-size: $main-font-size;
+  margin-bottom: 1em;
+}
+
+// Code block specific styling
+.reveal pre {
+  background-color: $code-background-color;
+  border: 1px solid $code-border-color;
+  border-radius: $code-border-radius;
+  padding: $code-padding;
+  box-shadow: none;
+  font-family: $code-font;
+  font-size: $code-font-size;
+  line-height: 1.4;
+  overflow: hidden;
+  color: $code-text-color;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word; 
+  box-sizing: border-box; 
+}
+
+.reveal code {
+  color: $code-text-color;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+// Custom class for accent text (e.g., for "BLOG" or other highlights)
+.reveal .accent-text {
+  color: $accent-color;
+}
+
+// Style for "tags" if you want to replicate the "R" and "API" look
+.reveal .tag {
+  display: inline-block;
+  background-color: $code-background-color; 
+  color: $code-text-color;
+  border: 1px solid $code-border-color;
+  border-radius: $code-border-radius;
+  padding: 2px 8px;
+  margin-right: 5px;
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+// Remove Reveal.js specific elements not needed for static carousel
+.reveal .controls,
+.reveal .progress,
+.reveal .slide-number,
+.reveal .slide-menu-button {
+  display: none !important;
+}

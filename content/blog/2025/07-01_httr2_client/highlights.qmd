@@ -1,0 +1,89 @@
+---
+title:  Decoding OAuth2 M2M with httr2 - A Deep Dive
+format:
+  revealjs:
+    theme: default
+    slide-number: false
+    controls: false
+    fragment: false
+    hash-for-ids: true
+    embed-resources: true
+    self-contained: true
+  typst:
+    template: /Users/athanasm/workspace/r-stuff/drmowinckels/.github/scripts/igloo.typ
+    output-file: /Users/athanasm/workspace/r-stuff/drmowinckels/content/blog/2025/07-01_httr2_client/highlights.qmd
+---
+
+# M2M vs. U2M OAuth Flows: Know the Difference!
+
+User-to-Machine (U2M) involves user interaction, while Machine-to-Machine (M2M) uses client credentials directly. Understanding this distinction is crucial for API integration and security. Choosing the wrong flow can lead to headaches!
+
+# httr2's Secret Weapon: curl_translate for API Calls
+
+Struggling with a curl command? httr2::curl_translate converts it into R code, saving time and effort! This is super helpful when trying to understand an API's authentication process before setting up a client.
+
+# Setting up OAuth2 Client: auth = "header" is Key!
+
+Don't forget the auth = "header" argument in httr2::oauth_client! It specifies where client credentials are sent. Using auth = "body" (the default) caused a lot of trouble, but after changing this setting, the client sprung to life!
+
+# Example code in R
+
+Setting up OAuth2 Client:
+
+## Code Input
+
+```{r}
+httr2::oauth_client(
+ id = client_id,
+ secret = client_secret,
+ name = client_name,
+ token_url = "https://authorization.nettskjema.no/oauth2/token",
+ auth = "header"
+)
+
+```
+
+## Code Output
+
+```
+httr2::oauth_client object
+
+```
+
+# Testing API calls with vcr: Record, Replay, Relax
+
+The vcr package records API interactions and replays them during testing, ensuring consistency and preventing network requests. Secure your secrets with filter_sensitive_data! Use it to avoid breaching CRAN policies or exposing API keys.
+
+# Example cassette output
+
+Secure your secrets with filter_sensitive_data!:
+
+## Code Input
+
+```{r}
+None
+
+```
+
+## Code Output
+
+```
+body:
+ encoding: ""
+ file: no
+ string: '{"isPersonalDataResponsible":false,"displayName":"ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient","logoutLink":"/signout","isSuperUser":false,"isAuthenticated":true,"userType":"UNKNOWN_ROLE","hasAcceptedTos":true,"isSupportUser":false,"isAdministrativeUser":true,"isInLdapGroupUioTils":false}'
+
+```
+
+# Mocking Functions: When Real Code Gets in the Way
+
+Use mocking (with testthat::local_mocked_bindings) to bypass specific code sections during testing. This is useful when you want to focus on a particular part of your function, and an earlier part is not set up, like setting environment variables on GitHub Actions.
+
+# Vignettes that use API Calls
+
+Use and internal knit_vignettes() and the blog post from rOpenSci to run locally, allowing use of API keys and calls. You will need to copy images over to the folder for the final knitting.
+
+# API Integration Success: Share Your Tips!
+
+Integrating with APIs can be tricky. What are your favorite techniques and packages? Share your insights and let's learn together!
+
