@@ -38,7 +38,7 @@ I've already tested Gemini in the browser for smaller tasks, and thought it did 
 I also know it is used in the background for the [R-Ladies bot](https://cosimameyer.com/post/2023-04-25-building-mastodon-bots-and-promoting-the-community/). 
 So I set out to create a function that would summarise the content of a markdown file into a series of points suitable for a LinkedIn carousel.
 
-I would have used the [`gemini.R`](https://github.com/jhk0530/gemini.R) package, which provides a convenient interface to the Gemini API.
+I had planned to use the [`gemini.R`](https://github.com/jhk0530/gemini.R) package, which provides a convenient interface to the Gemini API.
 This package allows you to send prompts to the Gemini model and receive responses in a structured format.
 Since I plan on using this function to summarise a blog post, which is typically in Markdown format, I decided to use the `gemini_docs()` function from the package.
 This conveniently takes a file path, file type and a prompt, and returns the response from the Gemini model.
