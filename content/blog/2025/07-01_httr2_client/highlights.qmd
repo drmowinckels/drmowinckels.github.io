@@ -1,0 +1,195 @@
+---
+title:  Decoding OAuth2 M2M with httr2
+format:
+  revealjs:
+    theme: default
+    slide-number: false
+    controls: false
+    fragment: false
+    hash-for-ids: true
+    embed-resources: true
+    self-contained: true
+---
+
+# OAuth2: U2M vs. M2M
+
+Understanding the difference between User-to-Machine (U2M) and Machine-to-Machine (M2M) OAuth2 flows is crucial for successful API integration.  M2M authentication, used in this project, requires client credentials for direct resource access.
+
+# U2M Flow Diagram
+
+Visual representation of the U2M flow (User initiates, gets redirected to Auth Server for consent, then client receives token).
+
+
+```mermaid
+sequenceDiagram
+    title U2M (User-to-Machine) Flow: Authorization Code Grant
+    actor User
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    User->>+ClientApp: 1. Initiates action (e.g., clicks 'Log in')
+    ClientApp-->>-User: 2. Redirects browser to Auth Server for authorization
+
+    User->>+AuthServer: 3. Logs in and grants consent
+    AuthServer-->>-User: 4. Redirects browser back to Client App with Authorization Code
+
+    ClientApp->>+AuthServer: 5. Exchanges Authorization Code for Access Token (back-channel)
+    AuthServer-->>-ClientApp: 6. Responds with Access Token & Refresh Token
+
+    ClientApp->>+ResourceServer: 7. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 8. Returns requested data
+```
+
+# M2M Flow Diagram
+
+Illustrates the simplified M2M flow (Client directly requests a token using its credentials).
+
+
+```mermaid
+sequenceDiagram
+    title M2M (Machine-to-Machine) Flow: Client Credentials Grant
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    ClientApp->>+AuthServer: 1. Requests Access Token using its credentials (client_id, client_secret)
+    AuthServer-->>-ClientApp: 2. Validates credentials and returns Access Token
+
+    ClientApp->>+ResourceServer: 3. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 4. Returns requested data
+```
+
+# httr2 Client Setup
+
+Creating an httr2 OAuth2 client using client ID and secret. The `auth = "header" ` argument was crucial for successful authentication.
+
+
+```r
+ns_client <- function(
+  client_id,
+  client_secret,
+  client_name = "nettskjemar"
+) {
+  # ... (function body) ...
+}
+```
+
+# Using the httr2 Client
+
+Leveraging `req_oauth_client_credentials` for authenticated API requests.  This function handles token retrieval and caching, simplifying API interaction.
+
+
+```r
+httr2::request("https://nettskjema.no/api/v3/") |>
+  ns_req_auth() |>
+  httr2::req_url_path_append("me") |>
+  httr2::req_perform() |>
+  httr2::resp_body_json()
+```
+
+
+```
+$isPersonalDataResponsible
+[1] FALSE
+
+$displayName
+[1] "ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient"
+
+$logoutLink
+[1] "/signout"
+
+$isSuperUser
+[1] FALSE
+
+$isAuthenticated
+[1] TRUE
+
+$userType
+[1] "UNKNOWN_ROLE"
+
+$hasAcceptedTos
+[1] TRUE
+
+$isSupportUser
+[1] FALSE
+
+$isAdministrativeUser
+[1] TRUE
+
+$isInLdapGroupUioTils
+[1] FALSE
+```
+
+# Testing with VCR
+
+Using `vcr` to record and replay API calls for reliable and repeatable tests.  `filter_sensitive_data` protects secrets during testing.
+
+
+```r
+test_that("test user information", {
+  vcr::use_cassette("ns_get_me", {
+    me <- ns_get_me()
+  })
+
+  expect_is(me, "list")
+  expect_length(me, 10)
+})
+```
+
+
+```yml
+http_interactions:
+  - request:
+      method: get
+      uri: https://nettskjema.no/api/v3/me
+      body:
+        encoding: ""
+        string: ""
+      headers: []
+    response:
+      status:
+        status_code: 200
+        message: OK
+      headers: ...
+```
+
+# Mocking Functions
+
+Using `testthat::local_mocked_bindings` to mock the authentication check function (`ns_has_auth`) during API testing, ensuring tests run even without proper environment setup.
+
+
+```r
+with_mocked_nettskjema_auth <- function(expr) {
+  testthat::local_mocked_bindings(
+    ns_has_auth = function(...) TRUE,
+    .package = "nettskjemar"
+  )
+  force(expr)
+}
+```
+
+# GitHub Actions for API Testing
+
+Weekly automated API testing using GitHub Actions to detect API changes and ensure ongoing functionality. 
+
+
+```yaml
+# ... (GitHub Actions YAML)
+```
+
+# API-Driven Vignette Generation
+
+Creating vignettes that dynamically interact with the API.  An internal function handles knitting and image management.
+
+
+```r
+knit_vignettes <- function() {
+  # ... (function body) ...
+}
+```
+
+# Wrap Up & Engage!
+
+Learn how to use httr2 for OAuth2 M2M, test effectively with VCR, and mock functions. Share your testing strategies in the comments!
+

@@ -86,12 +86,14 @@ cli::cli_alert_info("Bluesky posted at {.url  {bskurl}}")
 
 
 # Post to LinkedIn
-# lipst <- li_post_write(
-#   author = li_urn_me(),
-#   image_alt = frontmatter$image_alt,
-#   image = image,
-#   text = create_message(frontmatter$summary, url)
-# )
+lipst <- li_post_write(
+  author = li_urn_me(),
+  image_alt = frontmatter$image_alt,
+  image = image,
+  text = create_message(frontmatter$summary, url)
+)
+cli::cli_alert_info("Bluesky posted at {.url  {bskurl}}")
+
 
 # Post to Mastodon
 toot <- rtoot::post_toot(
