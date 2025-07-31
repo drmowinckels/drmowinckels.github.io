@@ -1,0 +1,140 @@
+---
+title:  Decoding OAuth2 M2M with httr2
+format:
+  revealjs:
+    theme: default
+    slide-number: false
+    controls: false
+    fragment: false
+    hash-for-ids: true
+    embed-resources: true
+    self-contained: true
+---
+
+# OAuth2: U2M vs M2M
+
+Understand the difference between User-to-Machine (U2M) and Machine-to-Machine (M2M) OAuth2 flows.  M2M simplifies API access for applications.
+
+# U2M Flow Diagram
+
+Visual representation of the User-to-Machine OAuth2 authorization code grant flow.  See how a user grants permission.
+
+
+```mermaid
+sequenceDiagram
+    title U2M (User-to-Machine) Flow: Authorization Code Grant
+    actor User
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    User->>+ClientApp: 1. Initiates action (e.g., clicks 'Log in')
+    ClientApp-->>-User: 2. Redirects browser to Auth Server for authorization
+
+    User->>+AuthServer: 3. Logs in and grants consent
+    AuthServer-->>-User: 4. Redirects browser back to Client App with Authorization Code
+
+    ClientApp->>+AuthServer: 5. Exchanges Authorization Code for Access Token (back-channel)
+    AuthServer-->>-ClientApp: 6. Responds with Access Token & Refresh Token
+
+    ClientApp->>+ResourceServer: 7. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 8. Returns requested data
+```
+
+# M2M Flow Diagram
+
+Visual representation of the Machine-to-Machine OAuth2 client credentials grant flow.
+
+
+```mermaid
+sequenceDiagram
+    title M2M (Machine-to-Machine) Flow: Client Credentials Grant
+    participant ClientApp as Client App
+    participant AuthServer as Authorization Server
+    participant ResourceServer as Resource Server
+
+    ClientApp->>+AuthServer: 1. Requests Access Token using its credentials (client_id, client_secret)
+    AuthServer-->>-ClientApp: 2. Validates credentials and returns Access Token
+
+    ClientApp->>+ResourceServer: 3. Requests protected resource with Access Token
+    ResourceServer-->>-ClientApp: 4. Returns requested data
+```
+
+# Setting up httr2 Client
+
+Learn how to set up an httr2 OAuth2 client for M2M authentication.  Leverage `curl_translate` for ease.
+
+
+```r
+httr2::curl_translate(
+  'curl -X POST     -u "clientId:clientSecret"     -d "grant_type=client_credentials"     "https://authorization.nettskjema.no/oauth2/token"'
+)
+```
+
+
+```r
+request("https://authorization.nettskjema.no/oauth2/token") |>
+  req_method("POST") |>
+  req_body_raw("grant_type=client_credentials", "application/x-www-form-urlencoded") |>
+  req_auth_basic("clientId", "clientSecret") |>
+  req_perform()
+```
+
+# Using the httr2 Client
+
+Efficiently use your httr2 client to make API calls. Utilize `req_oauth_client_credentials` for seamless authentication.
+
+
+```r
+httr2::request("https://nettskjema.no/api/v3/") |>
+  ns_req_auth() |>
+  httr2::req_url_path_append("me") |>
+  httr2::req_perform() |>
+  httr2::resp_body_json()
+```
+
+
+```
+$isPersonalDataResponsible
+[1] FALSE
+
+$displayName
+[1] "ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient"
+
+$logoutLink
+[1] "/signout"
+
+$isSuperUser
+[1] FALSE
+
+$isAuthenticated
+[1] TRUE
+
+$userType
+[1] "UNKNOWN_ROLE"
+
+$hasAcceptedTos
+[1] TRUE
+
+$isSupportUser
+[1] FALSE
+
+$isAdministrativeUser
+[1] TRUE
+
+$isInLdapGroupUioTils
+[1] FALSE
+```
+
+# Testing with vcr & Mocking
+
+Robust testing with vcr for API calls and mocking with `local_mocked_bindings` to handle authentication checks.
+
+# GitHub Actions for API Testing
+
+Automate weekly API testing using GitHub Actions to ensure your package remains compatible.
+
+# Knitting Vignettes with API Calls
+
+Learn how to safely knit vignettes that require API access while avoiding build issues.
+
