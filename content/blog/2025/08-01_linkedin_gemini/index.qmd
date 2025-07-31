@@ -431,7 +431,7 @@ doc_summary <- function(
 I struggled a little here, as creating the body for the request was a bit tricky.
 I also kept getting errors about not having access to project `542708778979`, which is I project I don't have access to.
 I googled around, and even found a post in the [google ai discussions](https://discuss.ai.google.dev/t/error-while-using-my-project-changes-to-unkown-project/93735) mentioning this with the same exact error message.
-After some trial and error, I noticed what I had been blind to. 
+After some trial and error, I noticed what I had overlooked. 
 My initial function forgot to set the API key in the request headers, which resulted in the error message.
 We can all agree, that this is a very misleading error message!
 I assume the project ID is a default project that the API uses when no API key is provided, it would have been much clearer if the error message had mentioned that the API key was missing.
