@@ -1,0 +1,62 @@
+---
+title:  Decoding OAuth2 M2M with httr2
+format:
+  revealjs:
+    theme: default
+    slide-number: false
+    controls: false
+    fragment: false
+    hash-for-ids: true
+    embed-resources: true
+    self-contained: true
+---
+
+# OAuth2: U2M vs M2M
+
+Understanding the difference between User-to-Machine (U2M) and Machine-to-Machine (M2M) OAuth2 flows is crucial for successful API integration.  This post focuses on M2M.
+
+# M2M Authentication Flow
+
+M2M uses client credentials (ID & secret) to directly obtain an access token, eliminating user interaction.  This simplifies programmatic access.
+
+# Setting up the httr2 Client
+
+Create a robust httr2 client for your M2M needs using client ID, secret, and specifying `auth = "header"` for correct authentication.
+
+
+httr2::oauth_client(id = client_id, secret = client_secret, name = client_name, token_url = "https://authorization.nettskjema.no/oauth2/token", auth = "header")
+
+# Using the httr2 Client
+
+Employ `req_oauth_client_credentials` to authenticate your requests with the newly created client.  It seamlessly handles token management.
+
+
+httr2::request("https://nettskjema.no/api/v3/") |> ns_req_auth() |> httr2::req_url_path_append("me") |> httr2::req_perform() |> httr2::resp_body_json()
+
+
+{
+  "isPersonalDataResponsible": false,
+  "displayName": "ccda25ce-8256-4c6f-ba71-7a4357dc6caf@apiclient",
+  ...
+}
+
+
+# Testing with VCR & Mocking
+
+Use `vcr` to record and replay API calls, ensuring consistent test results.  Mock functions like `ns_has_auth` for reliable testing, avoiding external dependencies during testing.
+
+# Mocking ns_has_auth
+
+Use `testthat::local_mocked_bindings` to mock the `ns_has_auth` function, ensuring tests always pass authentication checks regardless of environment variables.
+
+
+testthat::local_mocked_bindings(ns_has_auth = function(...) TRUE, .package = "nettskjemar")
+
+# GitHub Actions for API Testing
+
+Implement a weekly GitHub Actions workflow to automatically test your API calls, ensuring your package remains compatible with the API over time.  Get email alerts for failures.
+
+# Knitting Vignettes with API Calls
+
+Handle vignettes that require API interaction by creating separate `.orig` files and building them using an internal function.  This prevents build issues.
+
