@@ -11,14 +11,14 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **46** posts since **NA**!
+🎉 DrMowinckels has **47** posts since **NA**!
 
 📅 That’s a post roughly every **NA** days, or about **NA** posts per
 month, since NA.
 
-✍️ The last post was published **NA** days ago ([“Decoding OAuth2 M2M
-with httr2: Client Setup & API
-Testing”](https://drmowinckels.io/blog/httr2_client)).
+✍️ The last post was published **NA** days ago ([Automate LinkedIn
+Carousels with R and
+Gemini](https://drmowinckels.io/blog/linkedin_gemini)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -32,6 +32,7 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2025-08-01 | [Automate LinkedIn Carousels with R and Gemini](https://drmowinckels.io/blog/linkedin_gemini)                                                                                            |
 | NA         | [“Decoding OAuth2 M2M with httr2: Client Setup & API Testing”](https://drmowinckels.io/blog/httr2_client)                                                                                |
 | 2025-06-02 | [“Unmasking Long Covid: PCA & Clustering Analysis of Symptom Syndromes”](https://drmowinckels.io/blog/visible-pca)                                                                       |
 | NA         | [A year with Visible Long-Covid Tracking](https://drmowinckels.io/blog/visible)                                                                                                          |
@@ -87,4 +88,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-07-30 01:46:58.922782*
+*Updated 2025-08-06 01:52:08.302092*
