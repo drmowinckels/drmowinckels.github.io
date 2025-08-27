@@ -24,7 +24,7 @@ summary: >
   dependencies efficiently. I go through their features, advantages, and practical 
   applications in web development, centering on my experience with Hugo and Git.
 seo: >
-  Learn how Hugo modules and Git submodules enhance modular design and site
+  Learn how Hugo modules and Git submodules enhance design and site
   management, offering streamlined solutions for web development.
 ---
 
@@ -33,6 +33,7 @@ This week, a chat appeared in the rOpenSci Slack, where a solution using git sub
 Even though my experience with git submodules isn't extensive, I've successfully integrated them in various projects.
 Most notably, in transitioning the R-Ladies guide theme from Hugo modules to Git submodules, I could appreciate the powerful advantages these modular systems offer.
 Inspired by my friend [Maëlle Salmon](https://masalmon.eu/), who suggested I delve into this topic, I decided to explore how (sub)modules can improve our software development practices and collaboration.
+Maëlle also graciously reviewed this post and provided invaluable feedback, you would have been reading a very different post without her insights!
 
 ## What are Modules?
 
