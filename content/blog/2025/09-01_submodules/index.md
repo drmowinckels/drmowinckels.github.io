@@ -52,26 +52,22 @@ For instance, R packages and Python libraries act as modules, allowing consisten
 | R                    | Packages                   |
 | Java                 | Classes and Packages       |
 | JavaScript           | ES6 Modules, CommonJS, AMD |
-| C/C++                | Header Files and Libraries |
 | Ruby                 | Modules                    |
-| C#                   | Namespaces and Assemblies  |
-| Go                   | Packages                   |
-| PHP                  | Namespaces                 |
+| Go                   | Packages and Modules       |
 | Rust                 | Crates and Modules         |
+| Julia                | Modules and Packages       |
 
 By implementing modularity, developers create complex, adaptable software systems efficiently, simplifying development and maintenance.
 My first experience with modularity (other than R packages), was when I started using Hugo for my personal website and blog.
-I was setting up my site with blogdown, which is an R package that integrates Hugo with R Markdown, and a recommendation there was to set up the site theme with a Hugo module.
+I was setting up my site with [blogdown](https://pkgs.rstudio.com/blogdown/), which is an R package that integrates Hugo with R Markdown, and a recommendation there was to set up the site theme with a _Hugo module_.
 
-## What are Hugo Modules?
+[Hugo modules](https://gohugo.io/hugo-modules/) are an advanced feature in Hugo, designed to streamline the management of dependencies, themes, and assets (even content!) by allowing them to be defined and imported directly in your Hugo project.
+They are a specialized implementation of Go modules.  
 
-[Hugo modules](https://gohugo.io/hugo-modules/) are an advanced feature in Hugo, designed to streamline the management of dependencies, themes, and assets ( even content!) by allowing them to be defined and imported directly in your Hugo project.
-They are a specialized implementation of Go modules, which is particularly powerful for encouraging reuse and efficient code use.
 
-1.  **Dependency Management**: Hugo modules simplify the process of managing dependencies like themes and components, automatically handling updates and version control.
-2.  **Flexible Configuration**: Modules can be customized in `config.toml` or `config.yaml`, allowing seamless integration of multiple modules with varying settings.
-3.  **Lazy Loading**: Only necessary parts of modules are fetched, optimizing build times and resource usage.
-4.  **Version Specification**: Modules can specify precise versions, ensuring stability and minimizing issues related to updates.
+1.  **Dependency Management**: Hugo modules simplify the process of managing dependencies like themes and components, automatically handling updates and version control. Modules can specify precise versions, ensuring stability and minimizing issues related to updates.
+1.  **Flexible Configuration**: Modules can be customized in your website's configuration (for instance `config.toml`).  
+1.  **Lazy Loading**: Only necessary parts of modules are fetched, optimizing build times and resource usage.
 
 Imagine a scenario where you have a website build with Hugo, and you have staff that are responsible for different parts of the site.
 Let's say you have a front-end team that focuses on the design and layout of the site,  a back-end team that handles the Hugo configuration and build process, and a content team that creates and manages the blog posts and pages.
@@ -79,6 +75,41 @@ With Hugo modules, each team can work on their respective modules independently.
 While the front-end and back-end team would need to coordinate on the overall site structure and design, they can work on their modules without interfering with each other's work.
 At the same time, the content team can focus on creating and managing the content without worrying about the technical details of the site.
 A well-managed team and project can benefit greatly from this modular approach, as it allows for parallel development and reduces the risk of conflicts and errors.
+
+```mermaid
+---
+config:
+  theme: 'base'
+  themeVariables:
+    primaryColor: '#116162'
+    primaryTextColor: '#d9ebec'
+    primaryBorderColor: '#116162'
+    lineColor: '#116162'
+    secondaryColor: '#843c83'
+    tertiaryColor: '#d9ebec'
+---
+graph TD
+subgraph Hugo
+  BackEndModule[Build Module]
+  FrontEndModule[Theme Module]
+  ContentModule[Content Module]
+end
+
+subgraph Teams
+    FrontEndTeam[Front-End Team]
+    BackEndTeam[Back-End Team]
+    ContentTeam[Content Team]
+end
+
+FrontEndTeam --->|Works on| FrontEndModule
+BackEndTeam --->|Works on| BackEndModule
+ContentTeam -->|Works on| ContentModule
+
+FrontEndModule --->|Defines presentation| BackEndModule
+ContentModule --->|Provides content| BackEndModule
+BackEndModule --->|Produces| Website
+
+```
 
 For most Hugo users, the primary use case for Hugo modules is to manage the site theme.
 As a novice, I didn't fully understand the benefits of Hugo modules until I had to update my site theme for the first time.
@@ -178,6 +209,7 @@ hugo mod init <module-name>
 ### Managing Hugo Modules
 
 Usually you would update your modules when you update your Hugo version, since newer versions of Hugo might require newer versions of the modules.
+While a Hugo website is usually pinned to a specific version of Hugo, if you are using a theme that is actively maintained, it is a good idea to keep your theme updated to the latest version.
 That's my experience both with my own website, and also with both the R-Ladies guide and the R-Ladies website.
 
 1.  **Update Modules**: Update your modules to fetch the latest changes using:
@@ -217,7 +249,7 @@ In the case with the R-Ladies guide theme, transitioning from Hugo modules to Gi
 2.  **Modular Setup**: Submodules keep your site's code clean by isolating theme code into its repository, making it easier to manage dependencies.  
 3.  **Remove extra software installation**: Since Hugo modules require Go to be installed, switching to git submodules simplifies the setup process, as it only requires Git.
 
-When using git submodules, the theme files are cloned directly into your site's repository, which means that they are part of your site's version control.
+When using Git submodules, the theme files are cloned directly into your site's repository, which means that they are part of your site's version control.  
 If you don't actually make sure to clone with the `--recursive` flag, you will likely see something like this:
 
 ```bash
@@ -267,7 +299,7 @@ The files actually need to be present in the directory structure for Hugo to be 
 Think of Git Submodules like manually downloading and organizing files:
 
 1.  **Hugo Site** - This is your website project, like your main folder
-2.  **.gitmodules** - This is a text file where you manually write down the theme's location (like writing down a friend's address)
+2.  **.gitmodules** - This is a text file that is generated by Git to keep track of your submodules (like a list of things you need to pick up)
 3.  **\[submodule 'themes/mytheme'\]** - You specify exactly where the theme should go in your project and where to find it online
 4.  **git submodule init/update** - You have to run these commands to actually go get the theme (like driving to your friend's house to pick something up)
 5.  **Theme Cloned to themes/mytheme/** - The theme gets copied directly into a folder inside your website project
@@ -276,10 +308,10 @@ Think of Git Submodules like manually downloading and organizing files:
 The version control part is more rigid:  
 - **Git tracks commit hash** - Instead of nice version numbers, Git remembers a specific snapshot using a long code (like "abc123def456")
 - **Fixed to specific commit** - You're locked to exactly one version of the theme at a time
-- **Manual updates** - When you want a newer version, you have to manually run commands to update it (like having to drive back to your friend's house every time they change something)
+- **Manual updates** - When you want a newer version, you have to manually run commands to update it, making sure everything still works
 
 The key difference is that with Git submodules, you have to do a lot more manual work as a maintainer - you manage the downloading, specify exact locations, and handle updates yourself.
-It's more hands-on but gives you complete control over exactly which version you're using.
+It's more hands-on but gives you more control over exactly which version you're using.
 
 ``` mermaid
 ---
@@ -355,13 +387,26 @@ While both Hugo modules and Git submodules aim to manage dependencies and shared
 | **Version Control** | Manual commit hash tracking and updates | Precise version specification for stability |
 | **Build Performance** | Full clone impacts build times | Optimized build times through selective loading |
 | **Update Management** | Manual `git submodule update` commands | Automated update handling |
-| **Ease of Use** | Requires Git knowledge and commands | Simplified with Hugo commands |
+| **Ease of Use** | Requires Git knowledge and commands | Understanding of Module storage and loading |
 | **Software Requirements** | Only Git needed | Requires Go installation |
 
 We implemented git submodules in the R-Ladies guide to simplify the setup process and avoid additional software dependencies, making it easier for contributors to get started without needing to install Go.
 The probability of contributors having Go installed in this community is quite low, while most will have Git installed.
 So while there is more work for us maintaining it, it makes it easier for new contributors to get started.
 It also teaches contributors about git submodules, which is a useful skill to have, while learning about Hugo modules is less useful, since they are specific to Hugo.
+
+
+| Task                      | Git Submodule Command                                | Hugo Module Command                                  |
+|---------------------------|------------------------------------------------------|------------------------------------------------------|
+| **Add a new module** | `git submodule add <repository_url> <path>`          | `hugo mod get <repository_url>`                      |
+| **Update all modules** | `git submodule update --remote`                      | `hugo mod get -u ./...`                              |
+| **Update a specific module**| `git submodule update --remote <path>`             | `hugo mod get -u <module_path>`                      |
+| **Initialize submodules** | `git submodule init`                                 | Not applicable (Hugo does this automatically)        |
+| **Download content** | `git submodule update`                               | Not applicable (managed by Hugo during build)        |
+| **Remove a module** | `git submodule deinit <path>`<br>`git rm <path>`<br>Manual file removal | Remove from `go.mod` file and configuration |
+| **View module status** | `git submodule status`                               | `hugo mod tidy --verbose`                            |
+| **Syncing with a branch** | `git submodule update --remote --merge <branch_name>` | Not applicable (managed by `go.mod` for versions)    |
+
 
 But if Hugo modules are simpler to use, why did they confuse me?
 When I started with Hugo, I was a complete novice, and I didn't really understand how Hugo modules worked.
