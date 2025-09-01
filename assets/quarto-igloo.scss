@@ -1,0 +1,89 @@
+/*-- scss:defaults --*/
+$body-bg: #137676;
+$body-color: #fdfffb;
+$link-color: #843c83;
+$code-block-bg: #2d2d2d;
+$code-block-border-color: darken($code-block-bg, 60%);
+$code-block-font-size: 0.65em;
+$font-family-sans-serif: "Source Sans Pro", Helvetica, sans-serif;
+$font-family-monospace: "Fira Code", "Source Code Pro", "Consolas", monospace;
+$presentation-font-size-root: 35px;
+
+/*-- scss:rules --*/
+pre {
+  font-family: $font-family-monospace;
+  font-size: $code-block-font-size;
+  color: $body-color;
+  background-color: $code-block-bg;
+  border: none; 
+  padding: 1em;
+  margin: 0.5em 0;    
+}
+
+.reveal pre {
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+// Custom styling for the outer div "code-window"
+.code-window {
+  background-color: darken($code-block-bg, 8%) !important; // Darker background for contrast
+  border-radius: 20px; // Rounded corners
+  border: 1px solid $code-block-border-color; // Border color
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); 
+  position: relative; // Needed for the window controls
+  overflow: hidden; 
+  margin: 20px;
+}
+
+// Create the dark header bar for the window using a pseudo-element
+.code-window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5em; /* Set a fixed height for the header bar */
+}
+
+// Create the window control "traffic lights" using a pseudo-element
+.code-window::after {
+  content: "";
+  position: absolute;
+  top: 0.4em;
+  left: 0.4em;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ff5f56; // Red
+  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f; 
+  z-index: 10; /* Ensure the dots are on top of the header bar */
+}
+
+// Custom styling for the pre and code blocks inside the .code-window
+.code-window pre {
+  margin-top: 1.7em;
+  padding-top: 1em;
+  padding-bottom: 1em; 
+  background-color: $code-block-bg;
+  border: none; 
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.code-window code {
+  background-color: $code-block-bg;
+  color: $dark-bg-code-color;
+  font-family: $font-family-monospace;
+  border: none; 
+}
+
+.reveal pre code{
+  background-color: $code-block-bg;
+}
