@@ -76,15 +76,15 @@ gemini_upload_file <- function(path) {
     ) |>
     httr2::req_perform()
 
-  if (resp_status(upload_content_resp) != 200) {
+  if (httr2::resp_status(upload_content_resp) != 200) {
     stop(paste(
       "File content upload failed with status:",
-      resp_status(upload_content_resp),
+      httr2::resp_status(upload_content_resp),
       "-",
-      resp_body_json(upload_content_resp)
+      httr2::resp_body_json(upload_content_resp)
     ))
   }
-  file_info <- resp_body_json(upload_content_resp)
+  file_info <- httr2::resp_body_json(upload_content_resp)
   cli::cli_alert_info(
     "File uploaded successfully! File Name: {.path {file_info$file$name}}"
   )
@@ -134,15 +134,15 @@ doc_summary <- function(
     ) |>
     httr2::req_perform()
 
-  if (resp_status(resp) != 200) {
+  if (httr2::resp_status(resp) != 200) {
     body <- ""
     if (httr2::resp_has_body(resp)) {
       body <- httr2::resp_body_json(resp)
     }
     cli::cli_abort(
       "Summary API Request failed with status: 
-      {.val {resp_status(resp)}} - 
-      {.val {resp_status_desc(resp)}} - 
+      {.val {httr2::resp_status(resp)}} - 
+      {.val {httr2::resp_status_desc(resp)}} - 
       {.val {body}}"
     )
   }
