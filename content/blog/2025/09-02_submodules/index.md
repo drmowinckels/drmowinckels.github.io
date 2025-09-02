@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.17038139
 title: "Hugo modules vs. Git submodules: manage your website more easily"
 author: Dr. Mowinckel
 date: '2025-09-02'
