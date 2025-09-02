@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Hugo modules vs. Git submodules: manage your website more easily - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn how Hugo modules and Git submodules enhance design and site management, offering streamlined solutions for web development.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/submodules/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Hugo modules vs. Git submodules: manage your website more easily - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Learn how Hugo modules and Git submodules enhance design and site management, offering streamlined solutions for web development.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/submodules/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Learn how Hugo modules and Git submodules enhance design and site management, offering streamlined solutions for web development.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/submodules/featured.webp" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/submodules/featured.webp">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.baa1908f96e0c6f9b71447b145d29e168c7a152baf3ed19c88d9c64d40abd901.css" 
+    integrity="sha256-uqGQj5bgxvm3FEexRdKeFox6FSuvPtGciNnGTUCr2QE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/submodules/featured.webp" alt="Two folders are labeled &#34;Hugo Modules&#34; and &#34;Git Submodules,&#34; surrounded by floating islands with code snippets, gears, and file icons, all connected by glowing lines." class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Hugo modules vs. Git submodules: manage your website more easily</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Sep 2, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/git/" class="uk-label uk-label-secondary tags" >
+                                Git
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label uk-label-secondary tags" >
+                                Hugo
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/submodules/" class="uk-label uk-label-secondary tags" >
+                                Submodules
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/web-development/" class="uk-label uk-label-secondary tags" >
+                                Web Development
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-are-modules">What are Modules?</a></li>
+    <li><a href="#file-system-structure-with-hugo-modules">File system structure with Hugo Modules</a>
+      <ul>
+        <li><a href="#implementing-hugo-modules-in-your-project">Implementing Hugo Modules in Your Project</a></li>
+        <li><a href="#managing-hugo-modules">Managing Hugo Modules</a></li>
+      </ul>
+    </li>
+    <li><a href="#why-use-git-submodules">Why Use Git Submodules?</a>
+      <ul>
+        <li><a href="#using-git-submodules-with-hugo">Using Git Submodules with Hugo</a></li>
+        <li><a href="#getting-started-with-git-submodules">Getting Started with Git Submodules</a></li>
+      </ul>
+    </li>
+    <li><a href="#comparing-hugo-modules-and-git-submodules">Comparing Hugo Modules and Git Submodules</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>This week, a chat appeared in the rOpenSci Slack, where a solution using git submodules was discussed.
+Even though my experience with git submodules isn&rsquo;t extensive, I&rsquo;ve successfully integrated them in various projects.
+Most notably, in transitioning the R-Ladies guide theme from Hugo modules to Git submodules, I could appreciate the powerful advantages these modular systems offer.
+Inspired by my friend <a href="https://masalmon.eu/">Maëlle Salmon</a>, who suggested I delve into this topic, I decided to explore how (sub)modules can improve our software development practices and collaboration.
+Maëlle also graciously reviewed this post and provided invaluable feedback, you would have been reading a very different post without her insights!</p>
+<h2 id="what-are-modules">What are Modules?</h2>
+<p>In software development, modules refer to discrete units of functionality that serve a specific purpose within a system.
+They encapsulate code, facilitating independent development, testing, and deployment.
+Modules reduce code complexity by promoting organized, reusable structures.
+For instance, R packages and Python libraries act as modules, allowing consistent reuse across projects.</p>
+<ul>
+<li><strong>Ease of Collaboration</strong>: Developers can work on separate modules simultaneously, enhancing productivity and collaboration in team settings.</li>
+<li><strong>Simplified Testing</strong>: Modules can be tested independently, facilitating unit testing and improving the reliability of the codebase.</li>
+<li><strong>Improved Organization</strong>: Code modularity leads to a clean, organized codebase where different parts of the application are logically grouped and easy to locate.</li>
+</ul>
+<table class="uk-table uk-table-responsive uk-table-divider">
+  <thead>
+      <tr>
+          <th>Programming Language</th>
+          <th>Modularity Mechanism</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Python</td>
+          <td>Modules and Packages</td>
+      </tr>
+      <tr>
+          <td>R</td>
+          <td>Packages</td>
+      </tr>
+      <tr>
+          <td>Java</td>
+          <td>Classes and Packages</td>
+      </tr>
+      <tr>
+          <td>JavaScript</td>
+          <td>ES6 Modules, CommonJS, AMD</td>
+      </tr>
+      <tr>
+          <td>Ruby</td>
+          <td>Modules</td>
+      </tr>
+      <tr>
+          <td>Go</td>
+          <td>Packages and Modules</td>
+      </tr>
+      <tr>
+          <td>Rust</td>
+          <td>Crates and Modules</td>
+      </tr>
+      <tr>
+          <td>Julia</td>
+          <td>Modules and Packages</td>
+      </tr>
+  </tbody>
+</table>
+<p>By implementing modularity, developers create complex, adaptable software systems efficiently, simplifying development and maintenance.
+My first experience with modularity (other than R packages), was when I started using Hugo for my personal website and blog.
+I was setting up my site with <a href="https://pkgs.rstudio.com/blogdown/">blogdown</a>, which is an R package that integrates Hugo with R Markdown, and a recommendation there was to set up the site theme with a <em>Hugo module</em>.</p>
+<p><a href="https://gohugo.io/hugo-modules/">Hugo modules</a> are an advanced feature in Hugo, designed to streamline the management of dependencies, themes, and assets (even content!) by allowing them to be defined and imported directly in your Hugo project.
+They are a specialized implementation of Go modules.</p>
+<ol>
+<li><strong>Dependency Management</strong>: Hugo modules simplify the process of managing dependencies like themes and components, automatically handling updates and version control. Modules can specify precise versions, ensuring stability and minimizing issues related to updates.</li>
+<li><strong>Flexible Configuration</strong>: Modules can be customized in your website&rsquo;s configuration (for instance <code>config.toml</code>).</li>
+<li><strong>Lazy Loading</strong>: Only necessary parts of modules are fetched, optimizing build times and resource usage.</li>
+</ol>
+<p>Imagine a scenario where you have a website build with Hugo, and you have staff that are responsible for different parts of the site.
+Let&rsquo;s say you have a front-end team that focuses on the design and layout of the site,  a back-end team that handles the Hugo configuration and build process, and a content team that creates and manages the blog posts and pages.
+With Hugo modules, each team can work on their respective modules independently.
+While the front-end and back-end team would need to coordinate on the overall site structure and design, they can work on their modules without interfering with each other&rsquo;s work.
+At the same time, the content team can focus on creating and managing the content without worrying about the technical details of the site.
+A well-managed team and project can benefit greatly from this modular approach, as it allows for parallel development and reduces the risk of conflicts and errors.</p>
+<pre class="mermaid">
+  ---
+config:
+  theme: &#39;base&#39;
+  themeVariables:
+    primaryColor: &#39;#116162&#39;
+    primaryTextColor: &#39;#d9ebec&#39;
+    primaryBorderColor: &#39;#116162&#39;
+    lineColor: &#39;#116162&#39;
+    secondaryColor: &#39;#843c83&#39;
+    tertiaryColor: &#39;#d9ebec&#39;
+---
+graph TD
+subgraph Hugo
+  BackEndModule[Build Module]
+  FrontEndModule[Theme Module]
+  ContentModule[Content Module]
+end
+
+subgraph Teams
+    FrontEndTeam[Front-End Team]
+    BackEndTeam[Back-End Team]
+    ContentTeam[Content Team]
+end
+
+FrontEndTeam ---&gt;|Works on| FrontEndModule
+BackEndTeam ---&gt;|Works on| BackEndModule
+ContentTeam --&gt;|Works on| ContentModule
+
+FrontEndModule ---&gt;|Defines presentation| BackEndModule
+ContentModule ---&gt;|Provides content| BackEndModule
+BackEndModule ---&gt;|Produces| Website
+</pre>
+<p>For most Hugo users, the primary use case for Hugo modules is to manage the site theme.
+As a novice, I didn&rsquo;t fully understand the benefits of Hugo modules until I had to update my site theme for the first time.
+Since I was using a Hugo module for the theme, I could simply run a command to update the theme to the latest version, without needing to manually download and replace files.
+Since I had a theme that was actively maintained, this made it very easy to keep my site up to date with the latest features and fixes.</p>
+<h2 id="file-system-structure-with-hugo-modules">File system structure with Hugo Modules</h2>
+<p>When using Hugo modules, the theme files are not directly present in your site&rsquo;s repository.
+When using Hugo modules, the theme files are downloaded to a central location in your <code>GOPATH</code>, and then mounted into your site structure during the build process.
+This means that the theme files are not directly part of your site&rsquo;s repository, which can make it easier to manage updates and keep your site lightweight.
+The paths to the modules are tracked in the <code>go.mod</code> and <code>go.sum</code> files, which are automatically generated and updated by Hugo when you add or update modules.</p>
+<p>Here is an example of what the file tree might look like when using Hugo modules for the theme:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    my-hugo-site/
+</span></span><span style="display:flex;"><span>    ├── hugo.toml
+</span></span><span style="display:flex;"><span>    ├── go.mod  <span style="color:#75715e"># &lt;&lt;-- tracks module versions &gt;&gt;</span>
+</span></span><span style="display:flex;"><span>    ├── go.sum  <span style="color:#75715e"># &lt;&lt;-- tracks module versions &gt;&gt;</span>
+</span></span><span style="display:flex;"><span>    ├── content/
+</span></span><span style="display:flex;"><span>    │   └── posts/
+</span></span><span style="display:flex;"><span>    ├── layouts/
+</span></span><span style="display:flex;"><span>    │   └── _default/
+</span></span><span style="display:flex;"><span>    └── static/
+</span></span><span style="display:flex;"><span>        └── images/
+</span></span></code></pre></div><p>As you can see, the theme files are not present in the site directory structure.
+This can make it easier to manage updates and keep your site lightweight, but can also cause confusion if you&rsquo;re not familiar with how Hugo modules work.
+I know this confused me when I first started using Hugo modules.</p>
+<p><strong>Think of Hugo Theme Modules like installing apps on your phone:</strong></p>
+<ol>
+<li><strong>Hugo Site</strong> - This is your website project, like your phone</li>
+<li><strong>hugo.toml</strong> - This is your settings file where you tell Hugo what you want</li>
+<li><strong>[module] imports</strong> - You write down which theme you want (like saying &ldquo;I want Instagram app&rdquo;)</li>
+<li><strong>hugo mod get</strong> - This is like tapping &ldquo;Install&rdquo; - Hugo goes and fetches the theme for you</li>
+<li><strong>Theme Downloaded to GOPATH</strong> - The theme gets stored in a central location on your computer (like how apps go to your phone&rsquo;s app library)</li>
+<li><strong>Theme Files Mounted</strong> - Hugo makes the theme&rsquo;s files available to your website (like how the app appears on your home screen ready to use)</li>
+</ol>
+<pre class="mermaid">
+  ---
+config:
+  theme: &#39;base&#39;
+  themeVariables:
+    primaryColor: &#39;#116162&#39;
+    primaryTextColor: &#39;#d9ebec&#39;
+    primaryBorderColor: &#39;#116162&#39;
+    lineColor: &#39;#116162&#39;
+    secondaryColor: &#39;#843c83&#39;
+    tertiaryColor: &#39;#d9ebec&#39;
+---
+graph TD
+    subgraph &#34;Hugo Theme Modules&#34;
+        A[Hugo Site] --&gt; B[hugo.toml]
+        B --&gt; C[&#34;[module]&lt;br/&gt;imports = &#39;github.com/user/theme&#39;&#34;]
+        C --&gt; D[hugo mod get]
+        D --&gt; E[Theme Downloaded to&lt;br/&gt;GOPATH/pkg/mod/]
+        E --&gt; F[Theme Files Mounted&lt;br/&gt;into Site Structure]
+        
+        G[Version Control] --&gt; H[go.mod tracks versions]
+        H --&gt; I[Semantic versioning&lt;br/&gt;v1.2.3]
+        I --&gt; J[Automatic updates&lt;br/&gt;hugo mod get -u]
+    end
+</pre>
+<p><strong>The version control part works like app updates:</strong></p>
+<ul>
+<li><strong>go.mod tracks versions</strong> - Hugo keeps track of which version of the theme you&rsquo;re using (like &ldquo;Instagram v2.1.3&rdquo;)</li>
+<li><strong>Semantic versioning</strong> - Themes use numbered versions that make sense (2.1.3 means major.minor.patch updates)</li>
+<li><strong>Automatic updates</strong> - You can easily update to newer versions when they&rsquo;re available (like updating your apps)</li>
+</ul>
+<p>The key advantage is that Hugo handles all the downloading, version tracking, and file management for you automatically - you just say what theme you want and Hugo takes care of the rest!</p>
+<h3 id="implementing-hugo-modules-in-your-project">Implementing Hugo Modules in Your Project</h3>
+<p>Incorporating Hugo modules into your workflow can significantly enhance your site&rsquo;s modularity and maintainability. Here&rsquo;s how to get started:</p>
+<h4 id="setting-up-hugo-modules">Setting Up Hugo Modules</h4>
+<ol>
+<li><strong>Enable Modules in Your Project</strong>: Start by setting up Hugo modules in your <code>config.toml</code> (or <code>config.yaml</code>). Here&rsquo;s an example of adding a theme module:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">module</span>]
+</span></span><span style="display:flex;"><span>  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/gohugoio/my-hugo-theme&#34;</span>
+</span></span></code></pre></div><ol>
+<li><strong>Initializing Your Project with Modules</strong>: If your Hugo project is not yet using modules, initialize with:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo mod init &lt;module-name&gt;
+</span></span></code></pre></div><ol>
+<li><strong>Adding Modules</strong>: You can add content, components, or themes as modules using paths to their respective repositories, similar to the example above.</li>
+</ol>
+<h3 id="managing-hugo-modules">Managing Hugo Modules</h3>
+<p>Usually you would update your modules when you update your Hugo version, since newer versions of Hugo might require newer versions of the modules.
+While a Hugo website is usually pinned to a specific version of Hugo, if you are using a theme that is actively maintained, it is a good idea to keep your theme updated to the latest version.
+That&rsquo;s my experience both with my own website, and also with both the R-Ladies guide and the R-Ladies website.</p>
+<ol>
+<li><strong>Update Modules</strong>: Update your modules to fetch the latest changes using:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo mod get -u
+</span></span></code></pre></div><ol>
+<li>
+<p><strong>Ensuring Versions</strong>: Pin specific versions or commits to avoid unexpected changes impacting your project stability by specifying version numbers or commit hashes in your configuration file.</p>
+</li>
+<li>
+<p><strong>Nested Modules</strong>: Hugo allows nested module imports, enabling hierarchical organization of dependencies for complex sites.</p>
+</li>
+</ol>
+<p>While Hugo modules are a powerful feature that enhances the modularity and maintainability of Hugo sites,
+I never really got the hang of them, and I found them a bit cumbersome to work with.
+I didn&rsquo;t really understand how they work and so I never really used them to their full potential.</p>
+<p>When I started working on making my own custom theme, I had no idea how to set it up with Hugo modules.
+But I did know how to use git submodules, and so I decided to use them instead.</p>
+<h2 id="why-use-git-submodules">Why Use Git Submodules?</h2>
+<p><a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git submodules</a> are a Git feature that allows you to include and manage external repositories within a parent repository.
+Git will actually complain if you try to add a repository inside another repository without using submodules, so this is a common use case.</p>
+<p>In my post on <a href="./blog/2024/github-profile/">customizing your GitHub profile</a>, I mentioned that I use git submodules to get information about my latest blog posts.
+There, I have my website repo as a submodule in my profile repository.
+This allows me to keep the profile repository lightweight while still displaying the latest posts from my blog.
+It does also post a small issue, because the submodule is not automatically updated when I push new posts to my blog.
+This means that I need to remember to update the submodule in my profile repository whenever I push new posts.</p>
+<h3 id="using-git-submodules-with-hugo">Using Git Submodules with Hugo</h3>
+<p>When working with Hugo incorporating themes or modular components efficiently is crucial.
+In the case with the R-Ladies guide theme, transitioning from Hugo modules to Git submodules offered several advantages:</p>
+<ol>
+<li><strong>Version Control</strong>: With git&rsquo;s robust version control capabilities, changes to the Hugo theme can be tracked seamlessly, enabling easy rollback and updates.</li>
+<li><strong>Modular Setup</strong>: Submodules keep your site&rsquo;s code clean by isolating theme code into its repository, making it easier to manage dependencies.</li>
+<li><strong>Remove extra software installation</strong>: Since Hugo modules require Go to be installed, switching to git submodules simplifies the setup process, as it only requires Git.</li>
+</ol>
+<p>When using Git submodules, the theme files are cloned directly into your site&rsquo;s repository, which means that they are part of your site&rsquo;s version control.<br>
+If you don&rsquo;t actually make sure to clone with the <code>--recursive</code> flag, you will likely see something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    my-hugo-site/
+</span></span><span style="display:flex;"><span>    ├── hugo.toml
+</span></span><span style="display:flex;"><span>    ├── .gitmodules <span style="color:#75715e"># &lt;&lt;-- tracks submodule location &gt;&gt;</span>
+</span></span><span style="display:flex;"><span>    ├── .git/
+</span></span><span style="display:flex;"><span>    ├── content/
+</span></span><span style="display:flex;"><span>    │   └── posts/
+</span></span><span style="display:flex;"><span>    ├── layouts/
+</span></span><span style="display:flex;"><span>    │   └── _default/
+</span></span><span style="display:flex;"><span>    ├── static/
+</span></span><span style="display:flex;"><span>    │   └── images/
+</span></span><span style="display:flex;"><span>    └── themes/ <span style="color:#75715e"># &lt;&lt;-- themes directory &gt;&gt;</span>
+</span></span><span style="display:flex;"><span>        └── mytheme @ 7g8h9i0j <span style="color:#75715e"># &lt;&lt;-- commit hash &gt;&gt;</span>
+</span></span></code></pre></div><p>The theme files are not actually present in the site directory structure, but are referenced by a commit hash.
+But you won&rsquo;t be able to build your site until you run <code>git submodule init</code> and <code>git submodule update</code>, which will clone the theme files into the <code>themes/mytheme/</code> directory.
+The files actually need to be present in the directory structure for Hugo to be able to use them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    my-hugo-site/
+</span></span><span style="display:flex;"><span>    ├── hugo.toml
+</span></span><span style="display:flex;"><span>    ├── .gitmodules
+</span></span><span style="display:flex;"><span>    ├── .git/
+</span></span><span style="display:flex;"><span>    ├── content/
+</span></span><span style="display:flex;"><span>    │   └── posts/
+</span></span><span style="display:flex;"><span>    ├── layouts/
+</span></span><span style="display:flex;"><span>    │   └── _default/
+</span></span><span style="display:flex;"><span>    ├── static/
+</span></span><span style="display:flex;"><span>    │   └── images/
+</span></span><span style="display:flex;"><span>    └── themes/
+</span></span><span style="display:flex;"><span>        └── mytheme/ <span style="color:#75715e"># &lt;&lt;-- theme files are now present &gt;&gt;</span>
+</span></span><span style="display:flex;"><span>            ├── .git/
+</span></span><span style="display:flex;"><span>            ├── layouts/
+</span></span><span style="display:flex;"><span>            │   ├── _default/
+</span></span><span style="display:flex;"><span>            │   └── partials/
+</span></span><span style="display:flex;"><span>            ├── static/
+</span></span><span style="display:flex;"><span>            │   ├── css/
+</span></span><span style="display:flex;"><span>            │   └── js/
+</span></span><span style="display:flex;"><span>            ├── assets/
+</span></span><span style="display:flex;"><span>            └── theme.toml
+</span></span></code></pre></div><p>Think of Git Submodules like manually downloading and organizing files:</p>
+<ol>
+<li><strong>Hugo Site</strong> - This is your website project, like your main folder</li>
+<li><strong>.gitmodules</strong> - This is a text file that is generated by Git to keep track of your submodules (like a list of things you need to pick up)</li>
+<li><strong>[submodule &rsquo;themes/mytheme&rsquo;]</strong> - You specify exactly where the theme should go in your project and where to find it online</li>
+<li><strong>git submodule init/update</strong> - You have to run these commands to actually go get the theme (like driving to your friend&rsquo;s house to pick something up)</li>
+<li><strong>Theme Cloned to themes/mytheme/</strong> - The theme gets copied directly into a folder inside your website project</li>
+<li><strong>Theme Files in Site Repository</strong> - The theme becomes part of your project&rsquo;s files (like copying your friend&rsquo;s files into your own folder)</li>
+</ol>
+<p>The version control part is more rigid:</p>
+<ul>
+<li><strong>Git tracks commit hash</strong> - Instead of nice version numbers, Git remembers a specific snapshot using a long code (like &ldquo;abc123def456&rdquo;)</li>
+<li><strong>Fixed to specific commit</strong> - You&rsquo;re locked to exactly one version of the theme at a time</li>
+<li><strong>Manual updates</strong> - When you want a newer version, you have to manually run commands to update it, making sure everything still works</li>
+</ul>
+<p>The key difference is that with Git submodules, you have to do a lot more manual work as a maintainer - you manage the downloading, specify exact locations, and handle updates yourself.
+It&rsquo;s more hands-on but gives you more control over exactly which version you&rsquo;re using.</p>
+<pre class="mermaid">
+  ---
+config:
+  theme: &#39;base&#39;
+  themeVariables:
+    primaryColor: &#39;#116162&#39;
+    primaryTextColor: &#39;#d9ebec&#39;
+    primaryBorderColor: &#39;#116162&#39;
+    lineColor: &#39;#116162&#39;
+    secondaryColor: &#39;#843c83&#39;
+    tertiaryColor: &#39;#d9ebec&#39;
+---
+graph TD
+    subgraph &#34;Git Submodules&#34;
+        K[Hugo Site] --&gt; L[.gitmodules]
+        L --&gt; M[&#34;[submodule &#39;themes/mytheme&#39;]&lt;br/&gt;path = themes/mytheme&lt;br/&gt;url = github.com/user/theme&#34;]
+        M --&gt; N[git submodule init/update]
+        N --&gt; O[Theme Cloned to&lt;br/&gt;themes/mytheme/]
+        O --&gt; P[Theme Files in&lt;br/&gt;Site Repository]
+        
+        Q[Version Control] --&gt; R[Git tracks commit hash]
+        R --&gt; S[Fixed to specific commit]
+        S --&gt; T[Manual updates&lt;br/&gt;git submodule update --remote]
+    end
+</pre>
+<h3 id="getting-started-with-git-submodules">Getting Started with Git Submodules</h3>
+<p>Here&rsquo;s a basic guide on implementing git submodules in your project:</p>
+<ol>
+<li><strong>Adding a Submodule</strong>: To add a new submodule, navigate to your project&rsquo;s root directory in the terminal and use:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git submodule add &lt;repository-url&gt; &lt;path&gt;
+</span></span></code></pre></div><p>This command links the external repository to a specific directory within your project.</p>
+<ol>
+<li><strong>Cloning a Repository with Submodules</strong>: If you are cloning a repository that already uses submodules, use:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone --recursive &lt;repository-url&gt;
+</span></span></code></pre></div><p>Alternatively, if you&rsquo;ve cloned without this flag, initialize the submodules with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git submodule init
+</span></span><span style="display:flex;"><span>git submodule update
+</span></span></code></pre></div><ol>
+<li><strong>Updating Submodules</strong>: To pull in the latest changes from a submodule&rsquo;s remote repository, run:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git submodule update --remote &lt;submodule-path&gt;
+</span></span></code></pre></div><p><strong>Committing Submodule Changes</strong>: When you make changes within a submodule, you&rsquo;ll need to go into the submodule directory to stage and commit changes.
+After committing, navigate back to your main project, stage the submodule update, and commit it again.</p>
+<p>Git submodules are a powerful tool for managing dependencies and shared components, and using them with Hugo can streamline your workflow, making theme management more efficient and collaborative.</p>
+<h2 id="comparing-hugo-modules-and-git-submodules">Comparing Hugo Modules and Git Submodules</h2>
+<p>While both Hugo modules and Git submodules aim to manage dependencies and shared components, they serve different purposes:</p>
+<table class="uk-table uk-table-responsive uk-table-divider">
+  <thead>
+      <tr>
+          <th>Feature</th>
+          <th>Git Submodules</th>
+          <th>Hugo Modules</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Dependency Management</strong></td>
+          <td>Manual submodule initialization and updates</td>
+          <td>Automatic handling of dependencies, themes, and components with version control</td>
+      </tr>
+      <tr>
+          <td><strong>Configuration</strong></td>
+          <td>Limited integration, requires <code>.gitmodules</code> file</td>
+          <td>Flexible customization via <code>config.toml</code>/<code>config.yaml</code> with multi-module support</td>
+      </tr>
+      <tr>
+          <td><strong>Resource Loading</strong></td>
+          <td>Full repository clone required</td>
+          <td>Lazy loading - only necessary parts fetched</td>
+      </tr>
+      <tr>
+          <td><strong>Version Control</strong></td>
+          <td>Manual commit hash tracking and updates</td>
+          <td>Precise version specification for stability</td>
+      </tr>
+      <tr>
+          <td><strong>Build Performance</strong></td>
+          <td>Full clone impacts build times</td>
+          <td>Optimized build times through selective loading</td>
+      </tr>
+      <tr>
+          <td><strong>Update Management</strong></td>
+          <td>Manual <code>git submodule update</code> commands</td>
+          <td>Automated update handling</td>
+      </tr>
+      <tr>
+          <td><strong>Ease of Use</strong></td>
+          <td>Requires Git knowledge and commands</td>
+          <td>Understanding of Module storage and loading</td>
+      </tr>
+      <tr>
+          <td><strong>Software Requirements</strong></td>
+          <td>Only Git needed</td>
+          <td>Requires Go installation</td>
+      </tr>
+  </tbody>
+</table>
+<p>We implemented git submodules in the R-Ladies guide to simplify the setup process and avoid additional software dependencies, making it easier for contributors to get started without needing to install Go.
+The probability of contributors having Go installed in this community is quite low, while most will have Git installed.
+So while there is more work for us maintaining it, it makes it easier for new contributors to get started.
+It also teaches contributors about git submodules, which is a useful skill to have, while learning about Hugo modules is less useful, since they are specific to Hugo.</p>
+<table class="uk-table uk-table-responsive uk-table-divider">
+  <thead>
+      <tr>
+          <th>Task</th>
+          <th>Git Submodule Command</th>
+          <th>Hugo Module Command</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Add a new module</strong></td>
+          <td><code>git submodule add &lt;repository_url&gt; &lt;path&gt;</code></td>
+          <td><code>hugo mod get &lt;repository_url&gt;</code></td>
+      </tr>
+      <tr>
+          <td><strong>Update all modules</strong></td>
+          <td><code>git submodule update --remote</code></td>
+          <td><code>hugo mod get -u ./...</code></td>
+      </tr>
+      <tr>
+          <td><strong>Update a specific module</strong></td>
+          <td><code>git submodule update --remote &lt;path&gt;</code></td>
+          <td><code>hugo mod get -u &lt;module_path&gt;</code></td>
+      </tr>
+      <tr>
+          <td><strong>Initialize submodules</strong></td>
+          <td><code>git submodule init</code></td>
+          <td>Not applicable (Hugo does this automatically)</td>
+      </tr>
+      <tr>
+          <td><strong>Download content</strong></td>
+          <td><code>git submodule update</code></td>
+          <td>Not applicable (managed by Hugo during build)</td>
+      </tr>
+      <tr>
+          <td><strong>Remove a module</strong></td>
+          <td><code>git submodule deinit &lt;path&gt;</code><br><code>git rm &lt;path&gt;</code><br>Manual file removal</td>
+          <td>Remove from <code>go.mod</code> file and configuration</td>
+      </tr>
+      <tr>
+          <td><strong>View module status</strong></td>
+          <td><code>git submodule status</code></td>
+          <td><code>hugo mod tidy --verbose</code></td>
+      </tr>
+      <tr>
+          <td><strong>Syncing with a branch</strong></td>
+          <td><code>git submodule update --remote --merge &lt;branch_name&gt;</code></td>
+          <td>Not applicable (managed by <code>go.mod</code> for versions)</td>
+      </tr>
+  </tbody>
+</table>
+<p>But if Hugo modules are simpler to use, why did they confuse me?
+When I started with Hugo, I was a complete novice, and I didn&rsquo;t really understand how Hugo modules worked.
+I found the documentation a bit overwhelming, and I didn&rsquo;t really understand the benefits of using modules.
+Also, I couldn&rsquo;t <strong>see</strong> the theme files in my project, which made it hard to understand how Hugo worked in general.
+It required me to learn about Go modules, which was far from straightforward for a novice.</p>
+<p>What is your experience with Hugo modules and git submodules?
+Have you used them in your projects?
+Feel free to share your thoughts and experiences in the comments below!</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Sep 2, 2025) 
+                    Hugo modules vs. Git submodules: manage your website more easily. 
+                    Retrieved from https://drmowinckels.io/blog/2025/submodules/.
+                     DOI: https://www.doi.org/10.5281/zenodo.17038139
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-hugo-modules-vs.-git-submodules-manage-your-website-more-easily,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Hugo modules vs. Git submodules: manage your website more easily",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/submodules/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.17038139",<br> 
+                        &emsp;updated = "Sep 2, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 25, 2020
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Changing your Blogdown Workflow</h2>
+    
+      <p>Updating my hugo setup on netlify took over a year of delays due to complexities. After extensive work, I transitioned from knitting <code>.html</code> to <code>.md</code>, fixed theme issues, and resolved netlify CSS problems. Follow my step-by-step guide to smoothly update your blogdown website. Learn to make use of hugo&rsquo;s page bundles, adjust configurations, and ensure seamless rendering both locally and on netlify. This guide addresses key changes you might face, from altering your workflow to understanding theme changes and troubleshooting rendering issues.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2020/changing-you-blogdown-workflow/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">hugo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">blogdown</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Automate LinkedIn Carousels with R and Gemini</h2>
+    
+      <p>Learn how to automate LinkedIn carousel creation with R and the free Gemini API. This post details a complete workflow, from connecting to the API and summarizing a blog post into structured points, to generating a custom Quarto document ready for manual review and posting.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin_gemini/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jul 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing</h2>
+    
+      <p>This post details the process of setting up an OAuth2 Machine-to-Machine (M2M) client using the httr2 package in R.  It covers client creation, handling authentication flows, and comprehensively testing API calls using the vcr package for request recording and testthat for mocking functions to ensure robust and reliable package development.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/httr2_client/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jun 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h2>
+    
+      <p>This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible-pca/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">health-data</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>A year with Visible Long-Covid Tracking</h2>
+    
+      <p>This post dives into a year of tracking Long Covid symptoms and progress using the Visible app. Dr. Mowinckel, a quantitative scientist, shares their experience monitoring heart rate, heart rate variability (HRV), daily symptoms, and functional capacity using the app&rsquo;s features and the FUNCAP27 questionnaire. Discover how this data provides insights into pacing strategies, identifies potential warning signs like HRV spikes, and reveals meaningful clusters of interconnected symptoms and experiences. Explore the journey of living with and managing Long Covid through the lens of personal health data.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">health-data</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+
+</body>
+</html>
