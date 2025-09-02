@@ -19,7 +19,7 @@ if (length(post) == 0) {
 source(here::here(".github/scripts/utils.R"))
 source(here::here(".github/scripts/linkedin.R"))
 source(here::here(".github/scripts/kit_newsletter.R"))
-source(here::here(".github/scripts/.R"))
+source(here::here(".github/scripts/gemini.R"))
 
 frontmatter <- rmarkdown::yaml_front_matter(post)
 
