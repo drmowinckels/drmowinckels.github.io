@@ -1,11 +1,7 @@
 ---
-editor_options:
-  markdown:
-    wrap: sentence
 title: "Hugo modules vs. Git submodules: manage your website more easily"
-format: hugo-md
 author: Dr. Mowinckel
-date: '2025-09-01'
+date: '2025-09-02'
 categories: []
 tags:
   - git
