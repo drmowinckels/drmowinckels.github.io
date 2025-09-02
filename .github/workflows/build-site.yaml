@@ -210,9 +210,10 @@ jobs:
         env:
           BLUESKY_APP_PASS: ${{ secrets.BLUESKY_PWD }}
           BLUESKY_APP_USER: "drmowinckels.io"
+          RTOOT_DEFAULT_TOKEN: ${{ secrets.RTOOT_TOKEN }}
+          KIT_SECRET: ${{ secrets.KIT_KEY }}
+          LI_TOKEN: ${{ secrets.LI_TOKEN }}
+          SHORTIO: ${{ secrets.SHORTIO }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          echo RTOOT_DEFAULT_TOKEN="${{ secrets.RTOOT_TOKEN }}" >> .Renviron
-          echo KIT_SECRET="${{ secrets.KIT_KEY }}" >> .Renviron
-          echo LI_TOKEN="${{ secrets.LI_TOKEN }}" >> .Renviron
-          echo SHORTIO="${{ secrets.SHORTIO }}" >> .Renviron
           Rscript .github/scripts/announce.R ${{ needs.checks.outputs.POST }}
