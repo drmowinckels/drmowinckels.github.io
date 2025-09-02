@@ -19,24 +19,9 @@ if (length(post) == 0) {
 source(here::here(".github/scripts/utils.R"))
 source(here::here(".github/scripts/linkedin.R"))
 source(here::here(".github/scripts/kit_newsletter.R"))
+source(here::here(".github/scripts/.R"))
 
-create_message <- function(text, uri) {
-  glue::glue(
-    "📝 New post: '{frontmatter$title}'
-    
-    {emoji} {text} 
-    
-    👀 {uri} 
-    
-    {tags}"
-  )
-}
-
-#post <- "content/blog/2025/01-01_longcovid/index.md"
 frontmatter <- rmarkdown::yaml_front_matter(post)
-
-# fix tags
-tags <- tags2hash(frontmatter$tags)
 
 # build URL
 url <- sprintf(
@@ -45,21 +30,17 @@ url <- sprintf(
   frontmatter$slug
 )
 uri <- short_url(url)
+frontmatter$url <- url
 
-# fmt: skip
-emojis <- c(
-  "🦄", "🦜", "🦣", "🦥", "🦦", "🦧", "🦨", "🦩", "🦪", "🦫", 
-  "🦬", "🦭", "🦮", "🦯", "🦰", "🦱", "🦲", "🦳", "🦴", "🦵", 
-  "🦶", "🦷", "🦸", "🦹", "🦺", "🦻", "🦼", "🦽", "🦾", "🦿", 
-  "🧀", "🧁", "🧂", "🧃", "🧄", "🧅", "🧆", "🧇", "🧈", "🧉", 
-  "🧊", "🧋", "🧌", "🧍", "🧎", "🧏", "🧐", "🧑", "🧒", "🧓", 
-  "🧔", "🧕", "🧖", "🧗", "🧘", "🧙", "🧚", "🧛", "🧜", "🧝", 
-  "🧞", "🧟", "🧠", "🧡", "🧢", "🧣", "🧤", "🧥", "🧦", "🧧", 
-  "🧨", "🧩", "🧪", "🧫", "🧬", "🧭", "🧮", "🧯", "🧰", "🧱", 
-  "🧲", "🧳", "🧴", "🧵", "🧶", "🧷", "🧸", "🧹", "🧺", "🧻", 
-  "🧼", "🧽", "🧾", "🧿"
-)
-emoji <- sample(emojis, 1)
+message <-
+  gemini_upload_file(post) |>
+  doc_summary(
+    sprintf(
+      "Please provide a text to announce the publication of the following article, highlighting its key points, practical approaches, and encouraging engagement. There should be three separate texts returned, one for each social media platform: LinkedIn (long, well structured with line breaks etc), Bluesky (short), and Mastodon (short). Each text should be tailored to the specific platform's audience and style, and should be in the first person, the author of the document is posting on their own accounts. The texts should be engaging and include relevant hashtags and emojis where appropriate, and raw link to the article at the end (%s). Output the information in a single line json, not pretty, without backslashes and information on file type (omit ```json), with keys linkedin, bluesky, and mastodon",
+      uri
+    )
+  ) |>
+  jsonlite::fromJSON()
 
 image <- here::here(
   dirname(post),
@@ -73,11 +54,7 @@ image <- here::here(
 
 # Post to Bluesky
 bpst <- bskyr::bs_post(
-  text = substr(
-    create_message(frontmatter$seo, uri),
-    1,
-    (270 - strlength(uri))
-  ),
+  text = message$bluesky,
   images = image,
   images_alt = frontmatter$image_alt
 )
@@ -90,14 +67,12 @@ lipst <- li_post_write(
   author = li_urn_me(),
   image_alt = frontmatter$image_alt,
   image = image,
-  text = create_message(frontmatter$summary, url)
+  text = message$linkedin
 )
-cli::cli_alert_info("Bluesky posted at {.url  {bskurl}}")
-
 
 # Post to Mastodon
 toot <- rtoot::post_toot(
-  status = create_message(frontmatter$seo, uri),
+  status = message$mastodon,
   media = image,
   alt_text = frontmatter$image_alt,
   visibility = "public",
