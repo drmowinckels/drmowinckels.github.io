@@ -69,6 +69,9 @@ lipst <- li_post_write(
   image = image,
   text = message$linkedin
 )
+liurl <- paste0("https://www.linkedin.com/feed/update/", lipst)
+cli::cli_alert_info("LinkedIn posted at {.url  {liurl}}")
+
 
 # Post to Mastodon
 toot <- rtoot::post_toot(
@@ -78,6 +81,7 @@ toot <- rtoot::post_toot(
   visibility = "public",
   language = "US-en"
 )
+cli::cli_alert_info("Mastodon posted at {.url  {toot$url}}")
 
 # Send Newsletter
 send_newsletter(frontmatter, url)
