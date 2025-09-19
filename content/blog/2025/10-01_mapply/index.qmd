@@ -1,0 +1,284 @@
+---
+title: "Mapply: When You Need to Iterate Over Multiple Inputs"
+author: Dr. Mowinckel
+date: '2025-10-01'
+categories: 
+  - apply-series
+tags:
+  - R
+  - apply
+slug: "mapply"
+format: hugo-md
+summary: Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise.
+seo: Use mapply in R for functions with multiple varying arguments. Learn when sapply isn't enough and mapply shines.
+---
+
+In [an older post](/blog/2022/lets-get-applying/), I showed you the basics of replacing loops with apply functions.
+I briefly touched on `mapply` at the end, but it deserves its own explanation because it's incredibly useful once you understand when to reach for it.
+
+> The key difference: `sapply` works with one varying input, `mapply` works with multiple varying inputs that need to be paired up.
+
+## When `sapply` isn't enough
+
+Let's start with a scenario where `sapply` works fine, then see where it breaks down.
+
+Say we want to generate some random samples with different sample sizes:
+
+```{r}
+#| label: sapply
+sample_sizes <- c(10, 20, 15, 30)
+samples <- sapply(
+  sample_sizes,
+  function(n) rnorm(n, mean = 0, sd = 1),
+  simplify = FALSE
+)
+
+# Look at the lengths
+sapply(samples, length)
+```
+
+
+This works because we're only varying one thing: the sample size. The mean and sd stay constant.
+
+But what if we want different means for each sample?
+
+```r
+sample_sizes <- c(10, 20, 15, 30)
+means <- c(5, 10, 7, 12)
+
+# This won't work as intended
+samples <- sapply(sample_sizes, function(n) rnorm(n, mean = ???, sd = 1))
+```
+
+We're stuck. `sapply` can only iterate over one vector at a time.
+
+## Enter mapply
+
+`mapply` is designed exactly for this situation - when you need to pair up multiple vectors element-wise:
+
+```{r}
+#| label: mapply-simple
+
+generate_samples <- function(n, mean_val) {
+  rnorm(n, mean = mean_val, sd = 1)
+}
+
+sample_sizes <- c(10, 20, 15, 30)
+means <- c(5, 10, 7, 12)
+
+samples <- mapply(
+  generate_samples,
+  n = sample_sizes,
+  mean_val = means,
+  SIMPLIFY = FALSE
+)
+
+# Check the means of our samples
+sapply(samples, mean)
+```
+
+
+Perfect!
+The first sample has ~10 observations with mean ~5, the second has ~20 observations with mean ~10, and so on.
+
+## A more complex example: Scaling data
+
+Let's work with something more realistic. 
+Say we have test scores from different classes, and we want to standardize each class separately, but with different target means and standard deviations.
+
+```{r}
+#| label: scaling-example
+
+# Create some test data
+set.seed(42)
+class_a <- rnorm(25, mean = 75, sd = 10)
+class_b <- rnorm(30, mean = 82, sd = 8)
+class_c <- rnorm(20, mean = 78, sd = 12)
+
+scores <- list(class_a, class_b, class_c)
+class_names <- c("Math", "Science", "English")
+
+# Look at original means and sds
+sapply(scores, mean)
+```
+
+```{r}
+#| label: original-sds
+sapply(scores, sd)
+```
+
+Now let's say we want to rescale each class to have specific target means and standard deviations:
+
+```{r}
+#| label: targets
+
+# Math=80, Science=85, English=75
+target_means <- c(80, 85, 75)
+
+# Different spreads for each subject
+target_sds <- c(5, 8, 10)
+```
+
+Here's the scaling function:
+
+```{r}
+#| label: rescale-function
+
+rescale_scores <- function(scores, target_mean, target_sd) {
+  # Standardize to mean=0, sd=1
+  standardized <- (scores - mean(scores)) / sd(scores)
+  # Rescale to target mean and sd
+  rescaled <- standardized * target_sd + target_mean
+  return(rescaled)
+}
+```
+
+Using a loop would look like this:
+
+```{r}
+#| label: loop-rescale
+
+rescaled_scores <- list()
+for (i in seq_along(scores)) {
+  rescaled_scores[[i]] <- rescale_scores(
+    scores[[i]],
+    target_means[i],
+    target_sds[i]
+  )
+}
+```
+
+With `mapply`:
+
+```{r}
+#| label: mapply-rescale
+
+rescaled_scores <- mapply(
+  rescale_scores,
+  scores = scores,
+  target_mean = target_means,
+  target_sd = target_sds,
+  SIMPLIFY = FALSE
+)
+
+# Check our results
+sapply(rescaled_scores, mean)
+```
+
+```{r}
+sapply(rescaled_scores, sd)
+```
+
+
+Exactly what we wanted! No indexing, no temporary variables.
+
+## Adding more arguments
+
+What if we also want to add class identifiers? We can add more vectors to match:
+
+```{r}
+rescale_and_label <- function(scores, target_mean, target_sd, class_name) {
+  rescaled <- rescale_scores(scores, target_mean, target_sd)
+  data.frame(
+    score = rescaled,
+    class = class_name,
+    student_id = seq_along(rescaled)
+  )
+}
+
+result_data <- mapply(
+  rescale_and_label,
+  scores = scores,
+  target_mean = target_means,
+  target_sd = target_sds,
+  class_name = class_names,
+  SIMPLIFY = FALSE
+)
+
+# Combine into one data.frame
+final_data <- do.call(rbind, result_data)
+head(final_data)
+```
+
+
+## When you have some constant arguments
+
+Sometimes you have multiple varying inputs AND some constant ones. That's where `MoreArgs` comes in:
+
+```{r}
+rescale_with_bounds <- function(
+  scores,
+  target_mean,
+  target_sd,
+  min_score,
+  max_score
+) {
+  rescaled <- rescale_scores(scores, target_mean, target_sd)
+  # Apply bounds
+  pmax(min_score, pmin(max_score, rescaled))
+}
+
+# All classes have same score bounds
+bounded_scores <- mapply(
+  rescale_with_bounds,
+  scores = scores,
+  target_mean = target_means,
+  target_sd = target_sds,
+  MoreArgs = list(min_score = 0, max_score = 100),
+  SIMPLIFY = FALSE
+)
+
+# Check that we don't exceed bounds
+sapply(bounded_scores, function(x) c(min = min(x), max = max(x)))
+```
+
+That's it! You can mix and match varying and constant arguments easily.
+
+
+## The mapply pattern
+
+I find `mapply` most useful for:
+
+1. **Simulation studies** - varying multiple parameters simultaneously
+2. **Data processing** - when different groups need different treatments
+3. **Modeling** - fitting the same model type with different parameters
+4. **Visualization** - creating multiple plots with varying aesthetics
+
+The pattern is always:
+1. Write a function that takes multiple arguments
+2. Create vectors for each varying argument (same length)
+3. Use `mapply` to pair them up
+4. Add any constant arguments via `MoreArgs`
+
+## Tidyverse equivalent
+
+For completeness, the `purrr` equivalent uses `pmap`, which stands for "parallel map".
+A map is a function that applies a function to each element of a list or vector, so acts like `lapply` or `sapply`.
+The name "map" comes from other functional programming languages, and is therefore a name for this same concept that is more widely used outside of R.
+In purrr, there are several types of map functions, which also validates the output type (e.g. `map_dbl` for numeric output, `map_chr` for character output, etc.).
+The standard `map` function returns a list, like `lapply`.
+
+Now, the `p` in `pmap` stands for "parallel", meaning it maps over multiple inputs in parallel, just like `mapply`.
+As noted in the purrr documentation, "parallel" here does not refer to parallel computing, but rather that multiple inputs are processed together.
+To use `pmap`, you need to put your varying inputs into a list, and in standard tidyverse fashion, the input is the first argument (contrary to the applies where it is further down the argument tree).
+
+
+```{r}
+library(purrr)
+
+result_data <- list(
+  scores = scores,
+  target_mean = target_means,
+  target_sd = target_sds,
+  class_name = class_names
+) |>
+  pmap(params, rescale_and_label)
+result_data
+```
+
+But again, base R `mapply` keeps your dependencies minimal and works everywhere.
+
+## Wrapping up
+
+Think of `mapply` as the tool for when you need to "zip" multiple vectors together and apply a function to each matched set.
+If you find yourself writing loops where you're indexing into multiple vectors with the same `i`, that's usually a sign that `mapply` would be cleaner.
