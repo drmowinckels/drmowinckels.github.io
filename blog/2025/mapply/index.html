@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Mapply: When You Need to Iterate Over Multiple Inputs - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Use mapply in R for functions with multiple varying arguments. Learn when sapply isn&rsquo;t enough and mapply shines.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/mapply/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Mapply: When You Need to Iterate Over Multiple Inputs - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Use mapply in R for functions with multiple varying arguments. Learn when sapply isn&rsquo;t enough and mapply shines.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/mapply/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Use mapply in R for functions with multiple varying arguments. Learn when sapply isn&rsquo;t enough and mapply shines.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/mapply/featured_small.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/mapply/featured_small.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.baa1908f96e0c6f9b71447b145d29e168c7a152baf3ed19c88d9c64d40abd901.css" 
+    integrity="sha256-uqGQj5bgxvm3FEexRdKeFox6FSuvPtGciNnGTUCr2QE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/mapply/featured_small.png" alt="Mapply: When You Need to Iterate Over Multiple Inputs" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Mapply: When You Need to Iterate Over Multiple Inputs</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Oct 1, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/apply/" class="uk-label uk-label-secondary tags" >
+                                Apply
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#when-sapply-isnt-enough">When <code>sapply</code> isn&rsquo;t enough</a></li>
+    <li><a href="#enter-mapply">Enter mapply</a></li>
+    <li><a href="#a-more-complex-example-scaling-data">A more complex example: Scaling data</a></li>
+    <li><a href="#adding-more-arguments">Adding more arguments</a></li>
+    <li><a href="#when-you-have-some-constant-arguments">When you have some constant arguments</a></li>
+    <li><a href="#the-mapply-pattern">The mapply pattern</a></li>
+    <li><a href="#tidyverse-equivalent">Tidyverse equivalent</a></li>
+    <li><a href="#wrapping-up">Wrapping up</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>In <a href="./blog/2022/lets-get-applying/">an older post</a>, I showed the basics of replacing loops with apply functions.
+I briefly touched on <code>mapply</code> at the end, but it deserves its own explanation because it&rsquo;s incredibly useful once you understand when to reach for it.</p>
+<blockquote>
+<p>The key difference: <code>sapply</code> works with one varying input, <code>mapply</code> works with multiple varying inputs that need to be paired up.</p>
+</blockquote>
+<h2 id="when-sapply-isnt-enough">When <code>sapply</code> isn&rsquo;t enough</h2>
+<p>Let&rsquo;s start with a scenario where <code>sapply</code> works fine, then see where it breaks down.</p>
+<p>Say we want to generate some random samples with different sample sizes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>sample_sizes <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(
+</span></span><span style="display:flex;"><span>  sample_sizes,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span>(n) <span style="color:#a6e22e">rnorm</span>(n, mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>  simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Look at the lengths</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(samples, length)
+</span></span></code></pre></div><pre><code>[1] 10 20 15 30
+</code></pre>
+<p>This works because we&rsquo;re only varying one thing: the sample size.
+The mean and sd stay constant.</p>
+<p>But what if we want different means for each sample?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>sample_sizes <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>means <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This won&#39;t work as intended</span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(sample_sizes, <span style="color:#66d9ef">function</span>(n) <span style="color:#a6e22e">rnorm</span>(n, mean <span style="color:#f92672">=</span> <span style="color:#f92672">???</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(samples, mean)
+</span></span></code></pre></div><p>We&rsquo;re stuck.
+<code>sapply</code> can only iterate over one vector at a time.</p>
+<h2 id="enter-mapply">Enter mapply</h2>
+<p><code>mapply</code> is designed exactly for this situation - when you need to pair up multiple vectors element-wise:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>generate_samples <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(n, mean_val) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rnorm</span>(n, mean <span style="color:#f92672">=</span> mean_val, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sample_sizes <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>means <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mapply</span>(
+</span></span><span style="display:flex;"><span>  generate_samples,
+</span></span><span style="display:flex;"><span>  n <span style="color:#f92672">=</span> sample_sizes,
+</span></span><span style="display:flex;"><span>  mean_val <span style="color:#f92672">=</span> means,
+</span></span><span style="display:flex;"><span>  SIMPLIFY <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check the means of our samples</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(samples, mean)
+</span></span></code></pre></div><pre><code>[1]  5.112995  9.896735  6.904238 12.074860
+</code></pre>
+<p>Perfect!
+The first sample has <code>~10</code> observations with mean <code>~5</code>, the second has <code>~20</code> observations with mean <code>~10</code>, and so on.
+An important thing with <code>mapply</code> is that the vectors you pass in must be the same length, as they are paired element-wise.
+It will recycle shorter vectors, but that can lead to unexpected results if you&rsquo;re not careful.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Only 2 means for 4 sizes</span>
+</span></span><span style="display:flex;"><span>short_means <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mapply</span>(
+</span></span><span style="display:flex;"><span>  generate_samples,
+</span></span><span style="display:flex;"><span>  n <span style="color:#f92672">=</span> sample_sizes,
+</span></span><span style="display:flex;"><span>  mean_val <span style="color:#f92672">=</span> short_means,
+</span></span><span style="display:flex;"><span>  SIMPLIFY <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(samples, mean)
+</span></span></code></pre></div><pre><code>[1]  4.880864  9.393517  5.050365 10.164239
+</code></pre>
+<p>You can see that the means are recycled, which may not be what you want.
+So it&rsquo;s best to add a check to ensure your vectors are the same length before using <code>mapply</code>, if you are getting inputs from elsewhere.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">length</span>(sample_sizes) <span style="color:#f92672">!=</span> <span style="color:#a6e22e">length</span>(means)) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;sample_sizes and means must be the same length&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="a-more-complex-example-scaling-data">A more complex example: Scaling data</h2>
+<p>Let&rsquo;s work with something more realistic.
+Say we have test scores from different classes, and we want to standardize each class separately, but with different target means and standard deviations.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Create some test data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>class_a <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">25</span>, mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">75</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>class_b <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">30</span>, mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">82</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>class_c <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">20</span>, mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">78</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scores <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(class_a, class_b, class_c)
+</span></span><span style="display:flex;"><span>class_names <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Math&#34;</span>, <span style="color:#e6db74">&#34;Science&#34;</span>, <span style="color:#e6db74">&#34;English&#34;</span>)
+</span></span><span style="display:flex;"><span>scores
+</span></span></code></pre></div><pre><code>[[1]]
+ [1] 88.70958 69.35302 78.63128 81.32863 79.04268 73.93875 90.11522 74.05341
+ [9] 95.18424 74.37286 88.04870 97.86645 61.11139 72.21211 73.66679 81.35950
+[17] 72.15747 48.43545 50.59533 88.20113 71.93361 57.18692 73.28083 87.14675
+[25] 93.95193
+
+[[2]]
+ [1] 78.55625 79.94184 67.89470 85.68078 76.88004 85.64360 87.63870 90.28083
+ [9] 77.12859 86.03964 68.26393 75.72433 75.19274 62.68634 82.28898 83.64799
+[17] 79.11154 88.06531 76.18636 71.05375 85.46254 75.50885 93.55281 78.54843
+[25] 87.24518 84.57540 75.72929 94.60582 87.14319 82.71809
+
+[[3]]
+ [1] 81.31861 86.15147 79.07799 42.08292 81.41860 73.59318 80.22277 84.98188
+ [9] 94.79684 69.27250 93.63051 82.03018 90.46207 89.04874 86.65054 65.48257
+[17] 76.91776 85.48222 66.55772 71.48605
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Look at original means and sds</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(scores, mean)
+</span></span></code></pre></div><pre><code>[1] 76.87536 80.76653 79.03326
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(scores, sd)
+</span></span></code></pre></div><pre><code>[1] 13.063647  7.590105 12.118638
+</code></pre>
+<p>Now let&rsquo;s say we want to rescale each class to have specific target means and standard deviations:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Math=80, Science=85, English=75</span>
+</span></span><span style="display:flex;"><span>target_means <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">85</span>, <span style="color:#ae81ff">75</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Different spreads for each subject</span>
+</span></span><span style="display:flex;"><span>target_sds <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><p>Here&rsquo;s the scaling function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rescale_scores <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(scores, target_mean, target_sd) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Standardize to mean=0, sd=1</span>
+</span></span><span style="display:flex;"><span>  standardized <span style="color:#f92672">&lt;-</span> (scores <span style="color:#f92672">-</span> <span style="color:#a6e22e">mean</span>(scores)) <span style="color:#f92672">/</span> <span style="color:#a6e22e">sd</span>(scores)
+</span></span><span style="display:flex;"><span>  standardized <span style="color:#f92672">*</span> target_sd <span style="color:#f92672">+</span> target_mean
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Using a loop would mean using a counter to index each vector, and would look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rescaled_scores <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">seq_along</span>(scores)) {
+</span></span><span style="display:flex;"><span>  rescaled_scores[[i]] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rescale_scores</span>(
+</span></span><span style="display:flex;"><span>    scores[[i]],
+</span></span><span style="display:flex;"><span>    target_means[i],
+</span></span><span style="display:flex;"><span>    target_sds[i]
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I&rsquo;ll be honest, this isn&rsquo;t too bad.
+I&rsquo;ve done it plenty of times, especially when the logic is more complex.
+But once I got more comfortable creating my own functions, I found <code>mapply</code> to be a cleaner solution.
+With <code>mapply</code>, we can do this cleanly without indexing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rescaled_scores <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mapply</span>(
+</span></span><span style="display:flex;"><span>  rescale_scores, <span style="color:#75715e"># the function you want to apply</span>
+</span></span><span style="display:flex;"><span>  scores <span style="color:#f92672">=</span> scores, <span style="color:#75715e"># The varying inputs</span>
+</span></span><span style="display:flex;"><span>  target_mean <span style="color:#f92672">=</span> target_means,
+</span></span><span style="display:flex;"><span>  target_sd <span style="color:#f92672">=</span> target_sds,
+</span></span><span style="display:flex;"><span>  SIMPLIFY <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span> <span style="color:#75715e"># to keep the output as a list</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check our results</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(rescaled_scores, mean)
+</span></span></code></pre></div><pre><code>[1] 80 85 75
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(rescaled_scores, sd)
+</span></span></code></pre></div><pre><code>[1]  5  8 10
+</code></pre>
+<p>Exactly what we wanted!
+No indexing, no temporary variables.
+It really is a very clean solution.
+Another nice thing about it is that since we are not relying in indexing, we can easily change the order of our inputs without breaking anything.</p>
+<h2 id="adding-more-arguments">Adding more arguments</h2>
+<p>What if we also want to add class identifiers?
+We can add more vectors to match:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rescale_and_label <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(scores, target_mean, target_sd, class_name) {
+</span></span><span style="display:flex;"><span>  rescaled <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rescale_scores</span>(scores, target_mean, target_sd)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data.frame</span>(
+</span></span><span style="display:flex;"><span>    score <span style="color:#f92672">=</span> rescaled,
+</span></span><span style="display:flex;"><span>    class <span style="color:#f92672">=</span> class_name,
+</span></span><span style="display:flex;"><span>    student_id <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq_along</span>(rescaled)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>result_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mapply</span>(
+</span></span><span style="display:flex;"><span>  rescale_and_label,
+</span></span><span style="display:flex;"><span>  scores <span style="color:#f92672">=</span> scores,
+</span></span><span style="display:flex;"><span>  target_mean <span style="color:#f92672">=</span> target_means,
+</span></span><span style="display:flex;"><span>  target_sd <span style="color:#f92672">=</span> target_sds,
+</span></span><span style="display:flex;"><span>  class_name <span style="color:#f92672">=</span> class_names,
+</span></span><span style="display:flex;"><span>  SIMPLIFY <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Combine into one data.frame</span>
+</span></span><span style="display:flex;"><span>final_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">do.call</span>(rbind, result_data)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(final_data)
+</span></span></code></pre></div><pre><code>     score class student_id
+1 84.52945  Math          1
+2 77.12089  Math          2
+3 80.67206  Math          3
+4 81.70445  Math          4
+5 80.82952  Math          5
+6 78.87604  Math          6
+</code></pre>
+<h2 id="when-you-have-some-constant-arguments">When you have some constant arguments</h2>
+<p>Sometimes you have multiple varying inputs AND some constant ones.
+That&rsquo;s where <code>MoreArgs</code> comes in, which lets you pass a list of constant arguments to your function.
+This now becomes very powerful.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rescale_with_bounds <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  scores,
+</span></span><span style="display:flex;"><span>  target_mean,
+</span></span><span style="display:flex;"><span>  target_sd,
+</span></span><span style="display:flex;"><span>  min_score,
+</span></span><span style="display:flex;"><span>  max_score
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  rescaled <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rescale_scores</span>(scores, target_mean, target_sd)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Apply bounds</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pmax</span>(min_score, <span style="color:#a6e22e">pmin</span>(max_score, rescaled))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># All classes have same score bounds</span>
+</span></span><span style="display:flex;"><span>bounded_scores <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mapply</span>(
+</span></span><span style="display:flex;"><span>  rescale_with_bounds,
+</span></span><span style="display:flex;"><span>  scores <span style="color:#f92672">=</span> scores,
+</span></span><span style="display:flex;"><span>  target_mean <span style="color:#f92672">=</span> target_means,
+</span></span><span style="display:flex;"><span>  target_sd <span style="color:#f92672">=</span> target_sds,
+</span></span><span style="display:flex;"><span>  MoreArgs <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    min_score <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    max_score <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  SIMPLIFY <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check that we don&#39;t exceed bounds</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sapply</span>(bounded_scores, <span style="color:#66d9ef">function</span>(x) <span style="color:#a6e22e">c</span>(min <span style="color:#f92672">=</span> <span style="color:#a6e22e">min</span>(x), max <span style="color:#f92672">=</span> <span style="color:#a6e22e">max</span>(x)))
+</span></span></code></pre></div><pre><code>        [,1]     [,2]     [,3]
+min 69.11486 65.94341 44.50950
+max 88.03416 99.58667 88.00772
+</code></pre>
+<p>That&rsquo;s it!
+You can mix and match varying and constant arguments easily.</p>
+<h2 id="the-mapply-pattern">The mapply pattern</h2>
+<p>I find <code>mapply</code> most useful for:</p>
+<ol>
+<li><strong>Simulation studies</strong> - varying multiple parameters simultaneously</li>
+<li><strong>Data processing</strong> - when different groups need different treatments</li>
+<li><strong>Modeling</strong> - fitting the same model type with different parameters</li>
+</ol>
+<p>The pattern is always:</p>
+<ol>
+<li>Write a function that takes multiple arguments</li>
+<li>Create vectors for each varying argument (same length)</li>
+<li>Use <code>mapply</code> to pair them up</li>
+<li>Add any constant arguments via <code>MoreArgs</code></li>
+</ol>
+<h2 id="tidyverse-equivalent">Tidyverse equivalent</h2>
+<p>For completeness, the <code>purrr</code> equivalent uses <code>pmap</code>, which stands for &ldquo;parallel map&rdquo;.
+A map is a function that applies a function to each element of a list or vector, so acts like <code>lapply</code> or <code>sapply</code>.
+The name &ldquo;map&rdquo; comes from other functional programming languages, and is therefore a name for this same concept that is more widely used outside of R.
+In purrr, there are several types of map functions, which also validates the output type (e.g. <code>map_dbl</code> for numeric output, <code>map_chr</code> for character output, etc.).
+The standard <code>map</code> function returns a list, like <code>lapply</code>.</p>
+<p>As noted in the purrr documentation, &ldquo;parallel&rdquo; here does not refer to parallel computing, but rather that multiple inputs are processed together.
+To use <code>pmap</code>, you need to put your varying inputs into a list, and in standard tidyverse fashion, the input is the first argument (contrary to the applies where it is further down the argument tree).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(purrr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>result_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  scores <span style="color:#f92672">=</span> scores,
+</span></span><span style="display:flex;"><span>  target_mean <span style="color:#f92672">=</span> target_means,
+</span></span><span style="display:flex;"><span>  target_sd <span style="color:#f92672">=</span> target_sds,
+</span></span><span style="display:flex;"><span>  class_name <span style="color:#f92672">=</span> class_names
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pmap</span>(rescale_and_label)
+</span></span><span style="display:flex;"><span>result_data
+</span></span></code></pre></div><pre><code>[[1]]
+      score class student_id
+1  84.52945  Math          1
+2  77.12089  Math          2
+3  80.67206  Math          3
+4  81.70445  Math          4
+5  80.82952  Math          5
+6  78.87604  Math          6
+7  85.06744  Math          7
+8  78.91992  Math          8
+9  87.00757  Math          9
+10 79.04219  Math         10
+11 84.27650  Math         11
+12 88.03416  Math         12
+13 73.96647  Math         13
+14 78.21518  Math         14
+15 78.77195  Math         15
+16 81.71627  Math         16
+17 78.19427  Math         17
+18 69.11486  Math         18
+19 69.94154  Math         19
+20 84.33484  Math         20
+21 78.10859  Math         21
+22 72.46441  Math         22
+23 78.62422  Math         23
+24 83.93129  Math         24
+25 86.53591  Math         25
+
+[[2]]
+      score   class student_id
+1  82.67036 Science          1
+2  84.13078 Science          2
+3  71.43304 Science          3
+4  90.17964 Science          4
+5  80.90363 Science          5
+6  90.14045 Science          6
+7  92.24329 Science          7
+8  95.02811 Science          8
+9  81.16560 Science          9
+10 90.55788 Science         10
+11 71.82221 Science         11
+12 79.68550 Science         12
+13 79.12521 Science         13
+14 65.94341 Science         14
+15 86.60467 Science         15
+16 88.03707 Science         16
+17 83.25564 Science         17
+18 92.69294 Science         18
+19 80.17249 Science         19
+20 74.76270 Science         20
+21 89.94962 Science         21
+22 79.45839 Science         22
+23 98.47679 Science         23
+24 82.66212 Science         24
+25 91.82853 Science         25
+26 89.01457 Science         26
+27 79.69073 Science         27
+28 99.58667 Science         28
+29 91.72103 Science         29
+30 87.05695 Science         30
+
+[[3]]
+      score   class student_id
+1  76.88582 English          1
+2  80.87377 English          2
+3  75.03692 English          3
+4  44.50950 English          4
+5  76.96832 English          5
+6  70.51099 English          6
+7  75.98155 English          7
+8  79.90866 English          8
+9  88.00772 English          9
+10 66.94566 English         10
+11 87.04529 English         11
+12 77.47298 English         12
+13 84.43078 English         13
+14 83.26453 English         14
+15 81.28559 English         15
+16 63.81831 English         16
+17 73.25435 English         17
+18 80.32152 English         18
+19 64.70550 English         19
+20 68.77224 English         20
+</code></pre>
+<p>Several things about <code>pmap</code> that I like a lot when I don&rsquo;t have to worry about dependencies:</p>
+<ol>
+<li>The input is the first argument, which I find more intuitive.</li>
+<li>You can use the pipe operator to build up your inputs, which I find makes it easier to read.</li>
+<li>You can use anonymous functions with the <code>~</code> syntax, which I find cleaner for short functions.</li>
+<li>Additional constant arguments can be passed directly in the <code>pmap</code> call, without needing a separate <code>MoreArgs</code> list.</li>
+<li>You can toggle progress bars with the <code>.progress</code> argument, which is nice for long-running tasks.</li>
+<li>You can <a href="https://www.tidyverse.org/blog/2025/07/purrr-1-1-0-parallel/">easily add parallell processing</a> using the {mirai} package.</li>
+</ol>
+<p>Base R <code>mapply</code> keeps your dependencies minimal and works everywhere, if that is a concern.
+But if you are already using the tidyverse, <code>pmap</code> is a great alternative, and in my opinion, is more readable.</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>Think of <code>mapply</code> as the tool for when you need to &ldquo;zip&rdquo; multiple vectors together and apply a function to each matched set.
+If you find yourself writing loops where you&rsquo;re indexing into multiple vectors with the same <code>i</code>, that&rsquo;s usually a sign that <code>mapply</code> would be cleaner.</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Oct 1, 2025) 
+                    Mapply: When You Need to Iterate Over Multiple Inputs. 
+                    Retrieved from https://drmowinckels.io/blog/2025/mapply/.
+                     DOI: https://www.doi.org/10.5281/zenodo.17244438
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-mapply-when-you-need-to-iterate-over-multiple-inputs,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Mapply: When You Need to Iterate Over Multiple Inputs",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/mapply/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.17244438",<br> 
+                        &emsp;updated = "Oct 1, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 07, 2022
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Let&rsquo;s Get Apply&rsquo;ing</h2>
+    
+      <p>Learn to replace loops with vectorized apply functions in R for efficient data manipulation. This guide covers converting loops to functions using sapply and mapply, enhancing your programming skills by making code more readable and less error-prone.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2022/lets-get-applying/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Hugo modules vs. Git submodules: manage your website more easily</h2>
+    
+      <p>Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/submodules/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">git</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">hugo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">submodules</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">web-development</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Automate LinkedIn Carousels with R and Gemini</h2>
+    
+      <p>Learn how to automate LinkedIn carousel creation with R and the free Gemini API. This post details a complete workflow, from connecting to the API and summarizing a blog post into structured points, to generating a custom Quarto document ready for manual review and posting.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin_gemini/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jul 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing</h2>
+    
+      <p>This post details the process of setting up an OAuth2 Machine-to-Machine (M2M) client using the httr2 package in R.  It covers client creation, handling authentication flows, and comprehensively testing API calls using the vcr package for request recording and testthat for mocking functions to ensure robust and reliable package development.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/httr2_client/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jun 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h2>
+    
+      <p>This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible-pca/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">health-data</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
