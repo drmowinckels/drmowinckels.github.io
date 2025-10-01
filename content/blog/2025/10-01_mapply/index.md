@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.17244438
 title: 'Mapply: When You Need to Iterate Over Multiple Inputs'
 author: Dr. Mowinckel
 date: '2025-10-01'
