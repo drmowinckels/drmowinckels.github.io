@@ -52,7 +52,8 @@ samples <- sapply(sample_sizes, function(n) rnorm(n, mean = ???, sd = 1))
 sapply(samples, mean)
 ```
 
-We're stuck. `sapply` can only iterate over one vector at a time.
+We're stuck. 
+`sapply` can only iterate over one vector at a time.
 
 ## Enter mapply
 
@@ -127,6 +128,7 @@ class_c <- rnorm(20, mean = 78, sd = 12)
 
 scores <- list(class_a, class_b, class_c)
 class_names <- c("Math", "Science", "English")
+scores
 
 # Look at original means and sds
 sapply(scores, mean)
@@ -185,11 +187,11 @@ With `mapply`, we can do this cleanly without indexing:
 #| label: mapply-rescale
 
 rescaled_scores <- mapply(
-  rescale_scores,
-  scores = scores,
+  rescale_scores, # the function you want to apply
+  scores = scores, # The varying inputs
   target_mean = target_means,
   target_sd = target_sds,
-  SIMPLIFY = FALSE
+  SIMPLIFY = FALSE # to keep the output as a list
 )
 
 # Check our results
@@ -239,7 +241,8 @@ head(final_data)
 ## When you have some constant arguments
 
 Sometimes you have multiple varying inputs AND some constant ones. 
-That's where `MoreArgs` comes in:
+That's where `MoreArgs` comes in, which lets you pass a list of constant arguments to your function.
+This now becomes very powerful.
 
 ```{r}
 rescale_with_bounds <- function(
@@ -314,6 +317,15 @@ result_data <- list(
   pmap(rescale_and_label)
 result_data
 ```
+
+Several things about `pmap` that I like a lot when I don't have to worry about dependencies:
+
+1. The input is the first argument, which I find more intuitive.  
+2. You can use the pipe operator to build up your inputs, which I find makes it easier to read.  
+3. You can use anonymous functions with the `~` syntax, which I find cleaner for short functions.  
+4. Additional constant arguments can be passed directly in the `pmap` call, without needing a separate `MoreArgs` list.  
+5. You can toggle progress bars with the `.progress` argument, which is nice for long-running tasks.  
+6. You can [easily add parallell processing](https://www.tidyverse.org/blog/2025/07/purrr-1-1-0-parallel/) using the {mirai} package.
 
 Base R `mapply` keeps your dependencies minimal and works everywhere, if that is a concern.
 But if you are already using the tidyverse, `pmap` is a great alternative, and in my opinion, is more readable.

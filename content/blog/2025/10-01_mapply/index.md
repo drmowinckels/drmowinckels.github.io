@@ -58,7 +58,8 @@ samples <- sapply(sample_sizes, function(n) rnorm(n, mean = ???, sd = 1))
 sapply(samples, mean)
 ```
 
-We're stuck. `sapply` can only iterate over one vector at a time.
+We're stuck.
+`sapply` can only iterate over one vector at a time.
 
 ## Enter mapply
 
@@ -83,7 +84,7 @@ samples <- mapply(
 sapply(samples, mean)
 ```
 
-    [1]  5.005754  9.952053  7.174447 11.862911
+    [1]  5.112995  9.896735  6.904238 12.074860
 
 Perfect!
 The first sample has `~10` observations with mean `~5`, the second has `~20` observations with mean `~10`, and so on.
@@ -102,7 +103,7 @@ samples <- mapply(
 sapply(samples, mean)
 ```
 
-    [1]  5.114247  9.647603  4.685800 10.071933
+    [1]  4.880864  9.393517  5.050365 10.164239
 
 You can see that the means are recycled, which may not be what you want.
 So it's best to add a check to ensure your vectors are the same length before using `mapply`, if you are getting inputs from elsewhere.
@@ -127,7 +128,27 @@ class_c <- rnorm(20, mean = 78, sd = 12)
 
 scores <- list(class_a, class_b, class_c)
 class_names <- c("Math", "Science", "English")
+scores
+```
 
+    [[1]]
+     [1] 88.70958 69.35302 78.63128 81.32863 79.04268 73.93875 90.11522 74.05341
+     [9] 95.18424 74.37286 88.04870 97.86645 61.11139 72.21211 73.66679 81.35950
+    [17] 72.15747 48.43545 50.59533 88.20113 71.93361 57.18692 73.28083 87.14675
+    [25] 93.95193
+
+    [[2]]
+     [1] 78.55625 79.94184 67.89470 85.68078 76.88004 85.64360 87.63870 90.28083
+     [9] 77.12859 86.03964 68.26393 75.72433 75.19274 62.68634 82.28898 83.64799
+    [17] 79.11154 88.06531 76.18636 71.05375 85.46254 75.50885 93.55281 78.54843
+    [25] 87.24518 84.57540 75.72929 94.60582 87.14319 82.71809
+
+    [[3]]
+     [1] 81.31861 86.15147 79.07799 42.08292 81.41860 73.59318 80.22277 84.98188
+     [9] 94.79684 69.27250 93.63051 82.03018 90.46207 89.04874 86.65054 65.48257
+    [17] 76.91776 85.48222 66.55772 71.48605
+
+``` r
 # Look at original means and sds
 sapply(scores, mean)
 ```
@@ -180,11 +201,11 @@ With `mapply`, we can do this cleanly without indexing:
 
 ``` r
 rescaled_scores <- mapply(
-  rescale_scores,
-  scores = scores,
+  rescale_scores, # the function you want to apply
+  scores = scores, # The varying inputs
   target_mean = target_means,
   target_sd = target_sds,
-  SIMPLIFY = FALSE
+  SIMPLIFY = FALSE # to keep the output as a list
 )
 
 # Check our results
@@ -244,7 +265,8 @@ head(final_data)
 ## When you have some constant arguments
 
 Sometimes you have multiple varying inputs AND some constant ones.
-That's where `MoreArgs` comes in:
+That's where `MoreArgs` comes in, which lets you pass a list of constant arguments to your function.
+This now becomes very powerful.
 
 ``` r
 rescale_with_bounds <- function(
@@ -405,6 +427,15 @@ result_data
     18 80.32152 English         18
     19 64.70550 English         19
     20 68.77224 English         20
+
+Several things about `pmap` that I like a lot when I don't have to worry about dependencies:
+
+1.  The input is the first argument, which I find more intuitive.  
+2.  You can use the pipe operator to build up your inputs, which I find makes it easier to read.  
+3.  You can use anonymous functions with the `~` syntax, which I find cleaner for short functions.  
+4.  Additional constant arguments can be passed directly in the `pmap` call, without needing a separate `MoreArgs` list.  
+5.  You can toggle progress bars with the `.progress` argument, which is nice for long-running tasks.  
+6.  You can [easily add parallell processing](https://www.tidyverse.org/blog/2025/07/purrr-1-1-0-parallel/) using the {mirai} package.
 
 Base R `mapply` keeps your dependencies minimal and works everywhere, if that is a concern.
 But if you are already using the tidyverse, `pmap` is a great alternative, and in my opinion, is more readable.
