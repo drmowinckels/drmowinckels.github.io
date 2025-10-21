@@ -1,5 +1,5 @@
 ---
-title: 'The Original Apply: Rows, Columns, and Beyond'
+title: 'Mastering Apply: From Matrices to Multidimensional Neuroimaging Data'
 author: Dr. Mowinckel
 date: '2025-11-01'
 format: hugo-md
@@ -10,14 +10,16 @@ tags:
   - apply
   - matrices
   - arrays
-slug: apply-rows-columns-beyond
+  - neuroimaging
+  - fMRI
+slug: mastering-apply-multidimensional
 summary: >-
-  Deep dive into the original apply() function for matrices and arrays. Learn
-  when to use MARGIN=1 vs MARGIN=2, work with higher dimensions, and understand
-  why apply() is different from the rest of the apply family.
+  Deep dive into apply() for matrices and high-dimensional arrays. From basic
+  row/column operations to complex fMRI analyses with 5D data. Learn to master
+  the MARGIN parameter for neuroimaging and scientific computing.
 seo: >-
-  Master apply() in R for matrices and arrays. Learn MARGIN parameter,
-  row/column operations, and multi-dimensional data processing.
+  Master apply() in R for multidimensional data analysis. From matrices to 5D
+  neuroimaging arrays, learn MARGIN parameter and fMRI data processing.
 ---
 
 
