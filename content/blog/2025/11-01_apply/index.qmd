@@ -362,19 +362,39 @@ Alright, this is where I get excited.
 This is where `apply()` goes from "handy" to "absolutely essential."
 
 Neuroimaging data is inherently multidimensional.
-A single MRI image, like an anatomincal scan, is a 3D volume: width, height, depth.
-We call these voxels (3D pixels), and each voxel has an intensity value representing tissue properties.
-An MRI scan inherently is a 3-dimensional array.
+Most of us are aware that digital images are made of lots and lots of pixels, small squares that each have a single colour.
+Together, all these pixels form the complete image.
+
+When we record brain activity using MRI (Magnetic Resonance Imaging), it's similar.
+We take a bunch of "slices" through the brain, each slice being a 2D image.
+Stacked together, these slices form a 3D volume of the brain.
+We call these voxels (3D pixels), and each voxel has a single intensity value representing tissue properties.
+
+![An illustration demonstrating the relationship between $2$D digital images and $3$D MRI data. On the left, a magnified view shows a $2$D digital image is composed of **pixels** (colored squares). An arrow connects this to the right side, where multiple $2$D axial slices are **stacked** along the Z-axis, forming a $3$D volume of the brain composed of **voxels** (small cubes). The image is labeled to emphasize that the stacked slices create a **$3$D Array**.](img/pixels_voxels.png)
+
+MRI data usually contains values for three spatial dimensions: X (left-right), Y (anterior-posterior), and Z (inferior-superior).
+So a standard MRI scan is 3D: width, height, depth, a larger cube made of tiny cubes (voxels).
+
+By combining these cubes in different ways, we get to see different sections of the brain.
+You will often see neuroscientists talk about "slices" of the brain - these are just 2D cross-sections through the 3D volume.
+A slice is like taking one layer out of a cake to see what's inside.
+So you can see a single "slice" of the brain, and there will typically be a notice on that image indicating which slice number it is (e.g., slice X=20 or Y=37).
 
 ![(Visualization showing three orthogonal 2D MRI planes (Axial, Sagittal, and Coronal views), with each image composed of fine pixels to represent the discrete nature of 2D data slices that combine to form a 3D volume](img/mri_2d.png)
+
+Less often we actually look at the entire 3d rendered brain, as we cannot look "inside" the brain that way.
+But in essence we have a cube of voxels representing the brain volume.
 
 ![An illustration titled "3D MRI Volume: Voxel Brain Within a Cube (Simplified)" showing a translucent blue brain formed by numerous small voxels (3D pixels). This voxel brain is contained within a larger, transparent cube defined by a grid, emphasizing the discrete volumetric data structure.](img/mri_3d.png)
 
 An fMRI scan is 4D: three spatial dimensions (x, y, z) plus time (each volume was acquired at a different timepoint usually around 2.5 - seconds apart).
+When we combine these 3D volumes over time, we get a time series of brain activity.
+An array of cubes changing over time, cubes on a line.
 
 ![An illustration titled "4D MRI Data: Time Series (fMRI)" showing a horizontal sequence of four identical translucent blue brains, each composed of voxels within a transparent cube. An arrow labeled "TIME AXIS (4th Dimension)" connects the cubes, indicating the progression from "Time 1" to "Time 4" to represent a time series of 3D MRI volumes.](img/mri_4d.png)
 
-If you have multiple subjects, you're dealing with 5D arrays!
+If you have multiple subjects, you have multiple lines of cubes, a **plane** of cubes.
+I am not 100% certain that this is how multideminsional data really are stored in practice, but it helps my brain work with it this way.
 
 ![An illustration titled "5D MRI Data: Multi-Subject Time Series" showing a vertical stack of three rows. Each row represents a different **Subject** (the 5th dimension) and consists of a horizontal line of four translucent blue brain cubes (composed of voxels). Arrows connect the cubes within each row, representing the progression of **Time** (the 4th dimension). This arrangement visualizes $5$ dimensions: X, Y, Z (spatial), Time, and Subject.](img/mri_5d.png)
 
@@ -382,7 +402,7 @@ So we have a cube of voxels changing over time, for multiple subjects.
 Each voxel is represented as a cell in our multidimensional array.
 Analyzing this data without `apply()` would be a nightmare of nested loops and index juggling.
 
-In real life, we would do lots of stuff to normalise and smooth the data to reduce the immense noise inherent in this data.
+In real life, we would do lots of stuff to normalize and smooth the data to reduce the immense noise inherent in this data.
 MRI analyses are complex and nuanced, but let me show you how `apply()` works with this kind of structure using actual data from a BIDS (Brain Imaging Data Standard) dataset I grabbed from [OpenNeuro](https://openneuro.org/datasets/ds005038/versions/1.0.3).
 
 The data were obtained by @Mueckstein2024, and are openly available for anyone to use (with credit, of course).
