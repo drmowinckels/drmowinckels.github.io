@@ -2,7 +2,10 @@
 title: 'Mastering Apply: From Matrices to Multidimensional Neuroimaging Data'
 author: Dr. Mowinckel
 date: '2025-11-01'
-format: hugo-md
+format:
+  hugo-md:
+    filters:
+      - ../../../../figure-to-markdown.lua
 categories:
   - apply-series
 tags:
@@ -433,7 +436,7 @@ We take a bunch of "slices" through the brain, each slice being a 2D image.
 Stacked together, these slices form a 3D volume of the brain.
 We call these voxels (3D pixels), and each voxel has a single intensity value representing tissue properties.
 
-![An illustration demonstrating the relationship between $2$D digital images and $3$D MRI data. On the left, a magnified view shows a $2$D digital image is composed of **pixels** (colored squares). An arrow connects this to the right side, where multiple $2$D axial slices are **stacked** along the Z-axis, forming a $3$D volume of the brain composed of **voxels** (small cubes). The image is labeled to emphasize that the stacked slices create a **$3$D Array**.](img/pixels_voxels.png)
+![An illustration demonstrating the relationship between 2D digital images and 3D MRI data. On the left, a magnified view shows a 2D digital image is composed of pixels (colored squares). An arrow connects this to the right side, where multiple 2D axial slices are stacked along the Z-axis, forming a 3D volume of the brain composed of voxels (small cubes). The image is labeled to emphasize that the stacked slices create a 3D Array.](img/pixels_voxels.png)
 
 MRI data usually contains values for three spatial dimensions: X (left-right), Y (anterior-posterior), and Z (inferior-superior).
 So a standard MRI scan is 3D: width, height, depth, a larger cube made of tiny cubes (voxels).
@@ -448,18 +451,18 @@ So you can see a single "slice" of the brain, and there will typically be a noti
 Less often we actually look at the entire 3d rendered brain, as we cannot look "inside" the brain that way.
 But in essence we have a cube of voxels representing the brain volume.
 
-![An illustration titled "3D MRI Volume: Voxel Brain Within a Cube (Simplified)" showing a translucent blue brain formed by numerous small voxels (3D pixels). This voxel brain is contained within a larger, transparent cube defined by a grid, emphasizing the discrete volumetric data structure.](img/mri_3d.png)
+![An illustration titled “3D MRI Volume: Voxel Brain Within a Cube (Simplified)” showing a translucent blue brain formed by numerous small voxels (3D pixels). This voxel brain is contained within a larger, transparent cube defined by a grid, emphasizing the discrete volumetric data structure.](img/mri_3d.png)
 
 An fMRI scan is 4D: three spatial dimensions (x, y, z) plus time (each volume was acquired at a different timepoint usually around 2.5 - seconds apart).
 When we combine these 3D volumes over time, we get a time series of brain activity.
 An array of cubes changing over time, cubes on a line.
 
-![An illustration titled "4D MRI Data: Time Series (fMRI)" showing a horizontal sequence of four identical translucent blue brains, each composed of voxels within a transparent cube. An arrow labeled "TIME AXIS (4th Dimension)" connects the cubes, indicating the progression from "Time 1" to "Time 4" to represent a time series of 3D MRI volumes.](img/mri_4d.png)
+![An illustration titled “4D MRI Data: Time Series (fMRI)” showing a horizontal sequence of four identical translucent blue brains, each composed of voxels within a transparent cube. An arrow labeled “TIME AXIS (4th Dimension)” connects the cubes, indicating the progression from “Time 1” to “Time 4” to represent a time series of 3D MRI volumes.](img/mri_4d.png)
 
 If you have multiple subjects, you have multiple lines of cubes, a **plane** of cubes.
 I am not 100% certain that this is how multideminsional data really are stored in practice, but it helps my brain work with it this way.
 
-![An illustration titled "5D MRI Data: Multi-Subject Time Series" showing a vertical stack of three rows. Each row represents a different **Subject** (the 5th dimension) and consists of a horizontal line of four translucent blue brain cubes (composed of voxels). Arrows connect the cubes within each row, representing the progression of **Time** (the 4th dimension). This arrangement visualizes $5$ dimensions: X, Y, Z (spatial), Time, and Subject.](img/mri_5d.png)
+![An illustration titled “5D MRI Data: Multi-Subject Time Series” showing a vertical stack of three rows. Each row represents a different Subject (the 5th dimension) and consists of a horizontal line of four translucent blue brain cubes (composed of voxels). Arrows connect the cubes within each row, representing the progression of Time (the 4th dimension). This arrangement visualizes 5 dimensions: X, Y, Z (spatial), Time, and Subject.](img/mri_5d.png)
 
 So we have a cube of voxels changing over time, for multiple subjects.
 Each voxel is represented as a cell in our multidimensional array.
@@ -533,10 +536,7 @@ image(
 )
 ```
 
-<figure>
-<img src="index.markdown_strict_files/figure-markdown_strict/fmri-mean-activation-plot-1.png" width="360" alt="Mean Activation across Voxels for Subject 01. Shows average signal intensity at each voxel location. Clear contour of a brain is visible." />
-<figcaption aria-hidden="true">Mean Activation across Voxels for Subject 01. Shows average signal intensity at each voxel location. Clear contour of a brain is visible.</figcaption>
-</figure>
+![Mean Activation across Voxels for Subject 01. Shows average signal intensity at each voxel location. Clear contour of a brain is visible.](index.markdown_strict_files/figure-markdown_strict/fmri-mean-activation-plot-1.png)
 
 We went from 4D to 3D - we collapsed the time dimension and kept the spatial dimensions.
 Each voxel now has one number: its average signal across the whole scan.
@@ -567,10 +567,7 @@ image(
 )
 ```
 
-<figure>
-<img src="index.markdown_strict_files/figure-markdown_strict/fmri-cv-plot-1.png" width="360" alt="Coefficient of Variation across Voxels for Subject 01. Shows normalized variability of signal intensity at each voxel. Higher values indicate more variability relative to mean signal.Shows clear contour of a brain." />
-<figcaption aria-hidden="true">Coefficient of Variation across Voxels for Subject 01. Shows normalized variability of signal intensity at each voxel. Higher values indicate more variability relative to mean signal.Shows clear contour of a brain.</figcaption>
-</figure>
+![Coefficient of Variation across Voxels for Subject 01. Shows normalized variability of signal intensity at each voxel. Higher values indicate more variability relative to mean signal.Shows clear contour of a brain.](index.markdown_strict_files/figure-markdown_strict/fmri-cv-plot-1.png)
 
 The coefficient of variation is useful because it accounts for the baseline signal intensity.
 A voxel with high signal and high variability has a different meaning than a voxel with low signal and high variability.
@@ -606,10 +603,7 @@ data.frame(
   theme_minimal() 
 ```
 
-<figure>
-<img src="index.markdown_strict_files/figure-markdown_strict/global-signal-plot-1.png" width="360" alt="Global Signal over Time for Subject 01. Shows overall mean brain signal intensity at each timepoint." />
-<figcaption aria-hidden="true">Global Signal over Time for Subject 01. Shows overall mean brain signal intensity at each timepoint.</figcaption>
-</figure>
+![Global Signal over Time for Subject 01. Shows overall mean brain signal intensity at each timepoint.](index.markdown_strict_files/figure-markdown_strict/global-signal-plot-1.png)
 
 This gives you a sense of overall signal drift and scanner stability.
 You can see some slow drift over time, which is pretty typical in fMRI.
@@ -707,282 +701,6 @@ fmri_array[40,40,20, "TR50", ]
     sub-101 sub-104 sub-105 sub-108 sub-109 sub-110 sub-111 sub-113 sub-114 sub-115 
         777     531     625     197     187     613     575     647     546     181 
 
-``` r
-# tissue intensities at voxel (40,40,20) for all subjects, across all timepoints
-fmri_array[40,40,20, , ]
-```
-
-           Subject
-    time    sub-101 sub-104 sub-105 sub-108 sub-109 sub-110 sub-111 sub-113 sub-114
-      TR1       760     531     543     612     195     190     589     590     641
-      TR2       755     533     628     194     197     194     579     597     641
-      TR3       743     533     645     196     189     188     581     597     640
-      TR4       768     524     611     194     191     189     576     600     642
-      TR5       755     541     621     193     193     185     573     577     639
-      TR6       763     523     640     198     188     569     577     575     654
-      TR7       770     517     628     195     190     564     580     589     650
-      TR8       756     523     620     190     193     557     599     657     623
-      TR9       760     532     613     195     194     577     591     664     639
-      TR10      767     510     607     190     190     568     591     667     532
-      TR11      766     527     625     192     188     576     608     644     538
-      TR12      769     522     614     193     190     558     606     642     551
-      TR13      767     518     622     197     188     563     590     647     550
-      TR14      780     521     615     193     187     582     612     650     572
-      TR15      777     516     627     191     193     566     590     653     557
-      TR16      769     522     635     195     193     592     580     631     564
-      TR17      780     518     631     193     192     584     598     647     569
-      TR18      790     518     598     200     189     580     600     645     557
-      TR19      770     529     616     198     194     563     620     631     561
-      TR20      780     541     627     192     189     595     596     642     555
-      TR21      764     532     611     194     189     578     597     637     550
-      TR22      785     532     623     192     193     561     601     632     541
-      TR23      765     545     639     194     193     587     593     664     543
-      TR24      757     523     634     198     191     592     599     630     551
-      TR25      779     537     644     196     193     586     595     640     529
-      TR26      771     533     631     198     187     557     594     645     560
-      TR27      776     521     615     199     193     568     597     643     556
-      TR28      769     546     638     196     193     592     587     648     542
-      TR29      773     523     615     193     192     570     597     653     553
-      TR30      765     524     629     195     188     571     610     629     529
-      TR31      767     525     619     192     189     582     593     629     573
-      TR32      787     527     618     193     190     569     577     632     560
-      TR33      759     514     595     191     195     560     579     649     550
-      TR34      783     512     627     194     194     590     595     642     565
-      TR35      787     528     603     196     191     579     608     616     537
-      TR36      771     527     614     198     193     577     583     629     555
-      TR37      772     522     592     189     190     596     599     643     548
-      TR38      761     533     608     190     192     566     600     647     543
-      TR39      781     538     575     193     189     569     563     636     546
-      TR40      772     517     608     192     190     577     585     638     546
-      TR41      752     523     607     191     193     585     598     634     543
-      TR42      779     538     623     195     188     566     592     634     556
-      TR43      767     524     596     196     191     591     590     635     546
-      TR44      768     534     611     194     191     585     576     635     526
-      TR45      781     520     596     191     190     582     600     633     534
-      TR46      764     531     620     196     192     570     603     635     546
-      TR47      768     542     624     190     194     582     570     634     548
-      TR48      765     522     619     196     191     568     570     653     547
-      TR49      775     524     592     191     190     584     586     638     547
-      TR50      777     531     625     197     187     613     575     647     546
-      TR51      764     534     616     195     190     594     587     642     560
-      TR52      766     518     620     196     189     582     579     626     549
-      TR53      785     533     622     195     192     585     586     644     559
-      TR54      782     517     630     191     190     561     582     640     552
-      TR55      793     556     618     191     192     569     578     633     551
-      TR56      790     517     640     195     193     577     599     662     563
-      TR57      779     534     625     194     191     584     590     648     556
-      TR58      789     543     624     197     192     579     589     639     570
-      TR59      773     509     611     196     192     587     594     638     547
-      TR60      759     517     597     197     193     597     585     650     563
-      TR61      777     513     623     197     190     583     597     672     579
-      TR62      754     526     620     193     191     576     604     632     556
-      TR63      769     535     630     191     191     593     587     639     542
-      TR64      761     522     645     192     192     584     579     648     555
-      TR65      776     511     632     193     194     560     598     639     557
-      TR66      755     515     620     187     194     591     587     627     555
-      TR67      763     533     626     190     191     600     603     654     545
-      TR68      769     538     630     195     192     587     591     638     556
-      TR69      769     511     626     193     188     547     586     636     517
-      TR70      748     541     622     192     192     580     596     642     564
-      TR71      762     534     614     191     186     587     562     640     556
-      TR72      773     519     646     192     193     579     589     635     557
-      TR73      763     535     625     192     194     587     597     641     555
-      TR74      781     545     631     193     188     598     587     640     567
-      TR75      767     514     622     192     194     604     583     646     577
-      TR76      758     526     635     192     190     573     567     648     553
-      TR77      768     520     614     194     191     579     602     629     538
-      TR78      779     518     634     195     194     579     581     646     551
-      TR79      780     521     606     195     191     588     579     628     543
-      TR80      770     521     610     192     192     565     584     637     555
-      TR81      759     535     640     196     191     585     572     609     567
-      TR82      776     524     620     189     192     570     591     615     564
-      TR83      763     528     615     191     191     558     581     637     569
-      TR84      760     526     627     192     192     601     586     644     561
-      TR85      748     536     609     189     189     586     583     620     559
-      TR86      762     528     610     193     189     585     590     657     566
-      TR87      758     530     621     196     191     584     616     629     580
-      TR88      757     533     617     196     194     570     585     649     562
-      TR89      773     527     617     195     191     571     596     626     554
-      TR90      743     516     631     195     191     600     578     650     583
-      TR91      769     532     612     193     188     594     582     635     563
-      TR92      769     547     627     194     192     580     603     638     558
-      TR93      753     537     654     194     189     592     567     651     547
-      TR94      761     523     626     193     191     578     569     657     540
-      TR95      761     527     613     193     189     581     573     622     544
-      TR96      786     526     635     191     189     594     587     649     557
-      TR97      756     535     610     195     192     593     590     628     549
-      TR98      787     534     620     193     191     597     577     639     559
-      TR99      748     530     598     194     193     580     573     635     561
-      TR100     762     537     635     196     192     595     582     647     543
-      TR101     774     534     610     192     189     588     593     660     541
-      TR102     746     532     594     195     190     553     583     658     568
-      TR103     761     520     617     190     190     598     593     635     555
-      TR104     755     530     598     195     196     608     587     636     533
-      TR105     771     522     619     192     191     605     571     610     566
-      TR106     770     549     616     194     195     591     586     631     553
-      TR107     763     523     617     194     192     565     586     641     562
-      TR108     784     520     632     198     188     577     592     634     555
-      TR109     770     527     615     190     190     602     573     621     542
-      TR110     771     533     630     197     198     567     575     638     558
-      TR111     741     542     628     193     189     587     587     629     539
-      TR112     757     528     635     193     188     596     595     643     550
-      TR113     777     535     616     194     191     577     579     620     544
-      TR114     750     518     622     195     197     593     576     617     570
-      TR115     755     536     625     195     193     584     548     624     534
-      TR116     762     543     630     195     190     604     563     640     544
-      TR117     765     529     642     195     193     594     596     636     571
-      TR118     762     532     613     196     194     608     577     625     555
-      TR119     781     527     625     190     191     577     587     644     550
-      TR120     764     525     606     193     192     582     576     624     540
-      TR121     770     519     615     190     193     577     553     639     554
-      TR122     785     521     630     189     189     577     592     620     538
-      TR123     760     503     616     190     193     605     587     609     555
-      TR124     772     518     613     194     191     580     599     655     551
-      TR125     770     529     591     192     192     595     567     635     548
-      TR126     746     529     636     189     190     568     572     627     561
-      TR127     760     519     618     194     192     607     599     641     540
-      TR128     766     533     604     194     188     591     585     638     545
-      TR129     760     509     618     198     190     582     578     621     562
-      TR130     752     520     624     194     191     577     589     635     554
-      TR131     753     534     600     196     187     581     579     639     551
-      TR132     754     527     604     189     192     585     602     636     561
-      TR133     762     531     626     199     194     593     575     645     551
-           Subject
-    time    sub-115
-      TR1       554
-      TR2       536
-      TR3       540
-      TR4       542
-      TR5       542
-      TR6       545
-      TR7       536
-      TR8       544
-      TR9       542
-      TR10      531
-      TR11      182
-      TR12      187
-      TR13      181
-      TR14      182
-      TR15      184
-      TR16      180
-      TR17      182
-      TR18      184
-      TR19      183
-      TR20      181
-      TR21      186
-      TR22      182
-      TR23      180
-      TR24      181
-      TR25      181
-      TR26      184
-      TR27      183
-      TR28      182
-      TR29      184
-      TR30      181
-      TR31      182
-      TR32      180
-      TR33      182
-      TR34      190
-      TR35      185
-      TR36      181
-      TR37      187
-      TR38      186
-      TR39      185
-      TR40      183
-      TR41      189
-      TR42      183
-      TR43      185
-      TR44      181
-      TR45      183
-      TR46      188
-      TR47      186
-      TR48      185
-      TR49      185
-      TR50      181
-      TR51      184
-      TR52      182
-      TR53      183
-      TR54      181
-      TR55      187
-      TR56      181
-      TR57      186
-      TR58      186
-      TR59      185
-      TR60      185
-      TR61      182
-      TR62      186
-      TR63      183
-      TR64      186
-      TR65      187
-      TR66      182
-      TR67      182
-      TR68      185
-      TR69      185
-      TR70      186
-      TR71      185
-      TR72      184
-      TR73      187
-      TR74      183
-      TR75      183
-      TR76      182
-      TR77      184
-      TR78      182
-      TR79      182
-      TR80      187
-      TR81      186
-      TR82      184
-      TR83      187
-      TR84      185
-      TR85      187
-      TR86      183
-      TR87      187
-      TR88      183
-      TR89      189
-      TR90      185
-      TR91      181
-      TR92      186
-      TR93      185
-      TR94      184
-      TR95      184
-      TR96      184
-      TR97      188
-      TR98      185
-      TR99      188
-      TR100     186
-      TR101     185
-      TR102     184
-      TR103     181
-      TR104     186
-      TR105     182
-      TR106     185
-      TR107     187
-      TR108     183
-      TR109     185
-      TR110     184
-      TR111     187
-      TR112     187
-      TR113     186
-      TR114     189
-      TR115     186
-      TR116     182
-      TR117     184
-      TR118     187
-      TR119     184
-      TR120     183
-      TR121     186
-      TR122     178
-      TR123     186
-      TR124     184
-      TR125     181
-      TR126     187
-      TR127     182
-      TR128     183
-      TR129     188
-      TR130     183
-      TR131     187
-      TR132     184
-      TR133     185
-
 For group-level analysis, you might want the average across all subjects:
 
 ``` r
@@ -1009,7 +727,7 @@ image(
 )
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/group-average-1.png" width="360" />
+<img src="index.markdown_strict_files/figure-markdown_strict/group-average-1.png" width="504" />
 
 This gives you a 4D array representing the average response across all participants.
 This is your group template - what the "average brain" is doing during this task.
@@ -1056,7 +774,7 @@ ggplot(subject_timeseries_df, aes(x = time, y = signal, color = subject)) +
   theme_minimal()
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/group-timeseries-plot-1.png" width="360" />
+<img src="index.markdown_strict_files/figure-markdown_strict/group-timeseries-plot-1.png" width="504" />
 
 There are some individual differences in signal patterns here.
 In particular, you can see there are some spikes and dips in certain subjects in the very beginning.

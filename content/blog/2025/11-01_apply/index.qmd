@@ -2,7 +2,10 @@
 title: "Mastering Apply: From Matrices to Multidimensional Neuroimaging Data"
 author: Dr. Mowinckel
 date: '2025-11-01'
-format: hugo-md
+format: 
+  hugo-md:
+    filters:
+      - ../../../../figure-to-markdown.lua
 categories:
     - apply-series
 tags:
@@ -27,8 +30,8 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
   cache = TRUE,
-  fig.height = 5,
-  fig.width = 5,
+  fig.height = 7,
+  fig.width = 7,
   dpi = 72
 )
 ```
@@ -608,9 +611,6 @@ fmri_array[40,40,20, , "sub-101"]
 
 # tissue intensities at voxel (40,40,20) for all subjects, at timepoint 50
 fmri_array[40,40,20, "TR50", ]
-
-# tissue intensities at voxel (40,40,20) for all subjects, across all timepoints
-fmri_array[40,40,20, , ]
 
 ```
 
