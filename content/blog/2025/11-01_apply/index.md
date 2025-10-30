@@ -60,6 +60,9 @@ The `MARGIN` parameter tells `apply()` which dimension to "collapse" by applying
 I know that sounds abstract, so let me show you what I mean.
 It's much easier to understand with examples than with explanations.
 
+> **Note:**  
+> The `MARGIN` parameter can be either numeric (e.g., `1` for rows, `2` for columns) or a character vector specifying the *names* of the dimensions (if your array or matrix has named dimensions). For example, if your array has `dimnames`, you can use `MARGIN = "Subject"` instead of its numeric index.
+
 Let's start with a simple matrix - just numbers arranged in rows and columns:
 
 ``` r
@@ -158,6 +161,40 @@ student_averages
 See how clean that is?
 No loops, no indexing nightmares.
 Just "hey R, for each student (row), calculate the mean."
+If you want to use the names of the dimensions instead of the numbers, you will need to give the `dimensions` names first.
+We have so far given each column and each row a name, but we haven't named the row and column themselves.
+This is done by setting the `dimnames` attribute of the matrix:
+
+``` r
+dimnames(grades)
+```
+
+    [[1]]
+    [1] "Student 1" "Student 2" "Student 3" "Student 4" "Student 5"
+
+    [[2]]
+    [1] "Quiz1"   "Quiz2"   "Midterm" "Final"  
+
+``` r
+dimnames(grades) <- list(
+  Student = rownames(grades),
+  Assignment = colnames(grades)
+)
+dimnames(grades)
+```
+
+    $Student
+    [1] "Student 1" "Student 2" "Student 3" "Student 4" "Student 5"
+
+    $Assignment
+    [1] "Quiz1"   "Quiz2"   "Midterm" "Final"  
+
+``` r
+apply(grades, MARGIN = "Student", FUN = mean)
+```
+
+    Student 1 Student 2 Student 3 Student 4 Student 5 
+        85.75     89.25     81.50     91.25     81.50 
 
 What about assignment difficulty? We can look at the average score for each assignment by working down the columns:
 
@@ -201,9 +238,10 @@ What about the range of scores for each assignment?
 apply(grades, 2, range)
 ```
 
-         Quiz1 Quiz2 Midterm Final
-    [1,]    78    79      78    81
-    [2,]    95    92      95    90
+          Assignment
+           Quiz1 Quiz2 Midterm Final
+      [1,]    78    79      78    81
+      [2,]    95    92      95    90
 
 This gives us a matrix where the first row is minimums and second row is maximums for each assignment.
 Here's a fun one - which assignment was each student's worst?
@@ -370,7 +408,7 @@ We keep dimension 1 (students) and collapse dimensions 2 (assignments) and 3 (cl
 ``` r
 # Student averages across all assignments and classes
 # Keep dimension 1, collapse dimensions 2 and 3
-apply(scores_3d, MARGIN = 1, FUN = mean)
+apply(scores_3d, MARGIN = "Student", FUN = mean)
 ```
 
           S1       S2       S3       S4       S5 
@@ -382,7 +420,7 @@ Keep dimension 2 (assignments), collapse dimensions 1 (students) and 3 (classes)
 ``` r
 # Assignment difficulty across all students and classes
 # Keep dimension 2, collapse dimensions 1 and 3
-apply(scores_3d, MARGIN = 2, FUN = mean)
+apply(scores_3d, MARGIN = "Assignment", FUN = mean)
 ```
 
        Quiz1    Quiz2  Midterm    Final 
@@ -393,7 +431,7 @@ Or we could see which class has the highest average:
 ``` r
 # Class averages across all students and assignments
 # Keep dimension 3, collapse dimensions 1 and 2
-apply(scores_3d, MARGIN = 3, FUN = mean)
+apply(scores_3d, MARGIN = "Class", FUN = mean)
 ```
 
        Math Science English 
@@ -428,13 +466,14 @@ Alright, this is where I get excited.
 This is where `apply()` goes from "handy" to "absolutely essential."
 
 Neuroimaging data is inherently multidimensional.
-Most of us are aware that digital images are made of lots and lots of pixels, small squares that each have a single colour.
-Together, all these pixels form the complete image.
+Most of us are aware that digital images are made of lots and lots of pixels --- tiny squares, each with a single value.
+Together, all these pixels form a complete 2D image.
 
-When we record brain activity using MRI (Magnetic Resonance Imaging), it's similar.
-We take a bunch of "slices" through the brain, each slice being a 2D image.
-Stacked together, these slices form a 3D volume of the brain.
-We call these voxels (3D pixels), and each voxel has a single intensity value representing tissue properties.
+When we record brain activity using MRI (Magnetic Resonance Imaging) --- a technique for taking detailed pictures of the inside of the body, especially the brain---the concept is similar, but in three dimensions.
+Instead of a pixel, we record a tiny cube of tissue called a voxel (think of a voxel as a 3D pixel).
+
+A full plane of voxels forms a "slice" through the brain, much like a single sheet in a stack of paper.
+Stacking these slices together creates a 3D volume of the brain, so you can think of the brain scan as a cube made up of many tiny cubes (voxels).
 
 ![An illustration demonstrating the relationship between 2D digital images and 3D MRI data. On the left, a magnified view shows a 2D digital image is composed of pixels (colored squares). An arrow connects this to the right side, where multiple 2D axial slices are stacked along the Z-axis, forming a 3D volume of the brain composed of voxels (small cubes). The image is labeled to emphasize that the stacked slices create a 3D Array.](img/pixels_voxels.png)
 
@@ -443,24 +482,21 @@ So a standard MRI scan is 3D: width, height, depth, a larger cube made of tiny c
 
 By combining these cubes in different ways, we get to see different sections of the brain.
 You will often see neuroscientists talk about "slices" of the brain - these are just 2D cross-sections through the 3D volume.
-A slice is like taking one layer out of a cake to see what's inside.
-So you can see a single "slice" of the brain, and there will typically be a notice on that image indicating which slice number it is (e.g., slice X=20 or Y=37).
-
-![(Visualization showing three orthogonal 2D MRI planes (Axial, Sagittal, and Coronal views), with each image composed of fine pixels to represent the discrete nature of 2D data slices that combine to form a 3D volume](img/mri_2d.png)
+A slice is like taking one layer out of a cake to see what's
 
 Less often we actually look at the entire 3d rendered brain, as we cannot look "inside" the brain that way.
 But in essence we have a cube of voxels representing the brain volume.
 
 ![An illustration titled “3D MRI Volume: Voxel Brain Within a Cube (Simplified)” showing a translucent blue brain formed by numerous small voxels (3D pixels). This voxel brain is contained within a larger, transparent cube defined by a grid, emphasizing the discrete volumetric data structure.](img/mri_3d.png)
 
-An fMRI scan is 4D: three spatial dimensions (x, y, z) plus time (each volume was acquired at a different timepoint usually around 2.5 - seconds apart).
-When we combine these 3D volumes over time, we get a time series of brain activity.
-An array of cubes changing over time, cubes on a line.
+An fMRI scan is often called "4D" because it captures three spatial dimensions (x, y, z) plus time.
+Each 3D brain volume is like a snapshot, and the scanner takes many of these snapshots in sequence---typically one every 2--3 seconds.
+When we combine these 3D volumes over time, we get a time series: a movie of brain activity, or, in data terms, an array of cubes changing over time.
 
 ![An illustration titled “4D MRI Data: Time Series (fMRI)” showing a horizontal sequence of four identical translucent blue brains, each composed of voxels within a transparent cube. An arrow labeled “TIME AXIS (4th Dimension)” connects the cubes, indicating the progression from “Time 1” to “Time 4” to represent a time series of 3D MRI volumes.](img/mri_4d.png)
 
-If you have multiple subjects, you have multiple lines of cubes, a **plane** of cubes.
-I am not 100% certain that this is how multideminsional data really are stored in practice, but it helps my brain work with it this way.
+If you scan multiple subjects, you can imagine stacking these time series for each person, forming a "plane" of cubes---one row per subject, each row a sequence of 3D brain volumes over time.  
+This is a helpful way to visualize multidimensional neuroimaging data, even if the actual storage in software may differ.
 
 ![An illustration titled “5D MRI Data: Multi-Subject Time Series” showing a vertical stack of three rows. Each row represents a different Subject (the 5th dimension) and consists of a horizontal line of four translucent blue brain cubes (composed of voxels). Arrows connect the cubes within each row, representing the progression of Time (the 4th dimension). This arrangement visualizes 5 dimensions: X, Y, Z (spatial), Time, and Subject.](img/mri_5d.png)
 
@@ -727,7 +763,7 @@ image(
 )
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/group-average-1.png" width="504" />
+<img src="index.markdown_strict_files/figure-markdown_strict/group-average-1.png" width="720" />
 
 This gives you a 4D array representing the average response across all participants.
 This is your group template - what the "average brain" is doing during this task.
@@ -761,9 +797,11 @@ subject_timeseries_df <- as.data.frame(subject_timeseries) |>
     names_to = "time",
     values_to = "signal"
   ) |>
-  dplyr::mutate(time = as.numeric(gsub("V", "", time)))
+  dplyr::mutate(time = as.numeric(gsub("TR", "", time)))
 
-ggplot(subject_timeseries_df, aes(x = time, y = signal, color = subject)) +
+ggplot(
+  subject_timeseries_df, 
+  aes(x = time, y = signal, color = subject)) +
   geom_line(linewidth = 1, alpha = 0.7) +
   labs(
     title = "Global Signal - All Subjects",
@@ -774,7 +812,7 @@ ggplot(subject_timeseries_df, aes(x = time, y = signal, color = subject)) +
   theme_minimal()
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/group-timeseries-plot-1.png" width="504" />
+![Global Signal over Time for All Subjects. Each colored line represents a different subject’s mean brain signal intensity at each timepoint.](index.markdown_strict_files/figure-markdown_strict/group-timeseries-plot-1.png)
 
 There are some individual differences in signal patterns here.
 In particular, you can see there are some spikes and dips in certain subjects in the very beginning.
