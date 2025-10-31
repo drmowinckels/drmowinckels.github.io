@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.17496544
 title: Neon Ghosts with ggplot2
 author: Dr. Mowinckel
 date: '2025-10-31'
