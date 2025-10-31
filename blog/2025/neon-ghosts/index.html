@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Neon Ghosts with ggplot2 - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/neon-ghosts/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Neon Ghosts with ggplot2 - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/neon-ghosts/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/neon-ghosts/index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-1-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/neon-ghosts/index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-1-1.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.baa1908f96e0c6f9b71447b145d29e168c7a152baf3ed19c88d9c64d40abd901.css" 
+    integrity="sha256-uqGQj5bgxvm3FEexRdKeFox6FSuvPtGciNnGTUCr2QE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/neon-ghosts/index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-1-1.png" alt="Neon Ghosts with ggplot2" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Neon Ghosts with ggplot2</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Oct 31, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/ggplot2/" class="uk-label uk-label-secondary tags" >
+                                Ggplot2
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/halloween/" class="uk-label uk-label-secondary tags" >
+                                Halloween
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents"></nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>Ever wanted to make a haunted house in R?
+Here&rsquo;s a quick and fun way to conjure up a whole gang of neon ghosts using ggplot2.
+Each ghost is a little different &mdash; some tall, some stout, all a bit wobbly&mdash;thanks to a shape generator that randomizes their size and wiggle.</p>
+<p>The plotting function layers up neon glows for the outline, eyes, and mouth, then adds a faint fill and solid black features for that classic ghostly look.
+Try running it a few times to see what kind of spectral friends you get!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(scales)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Ghost plotting function</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param ghost_df Data frame with x and y coordinates of the ghost shape</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param ghost_color Color of the ghost (default is neon green)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return ggplot object of the ghost</span>
+</span></span><span style="display:flex;"><span>plot_simple_ghost <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(ghost_df, ghost_color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#39FF14&#34;</span>) {
+</span></span><span style="display:flex;"><span>  x_center <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(<span style="color:#a6e22e">range</span>(ghost_df<span style="color:#f92672">$</span>x))
+</span></span><span style="display:flex;"><span>  y_top <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">max</span>(ghost_df<span style="color:#f92672">$</span>y)
+</span></span><span style="display:flex;"><span>  y_bottom <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">min</span>(ghost_df<span style="color:#f92672">$</span>y)
+</span></span><span style="display:flex;"><span>  ghost_height <span style="color:#f92672">&lt;-</span> y_top <span style="color:#f92672">-</span> y_bottom
+</span></span><span style="display:flex;"><span>  ghost_width <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">diff</span>(<span style="color:#a6e22e">range</span>(ghost_df<span style="color:#f92672">$</span>x))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Eyes</span>
+</span></span><span style="display:flex;"><span>  eye_y <span style="color:#f92672">&lt;-</span> y_bottom <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.7</span> <span style="color:#f92672">*</span> ghost_height
+</span></span><span style="display:flex;"><span>  eye_x <span style="color:#f92672">&lt;-</span> x_center <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.06</span>, <span style="color:#ae81ff">0.06</span>) <span style="color:#f92672">*</span> ghost_width
+</span></span><span style="display:flex;"><span>  eyes <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x <span style="color:#f92672">=</span> eye_x, y <span style="color:#f92672">=</span> <span style="color:#a6e22e">rep</span>(eye_y, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Mouth: several waves </span>
+</span></span><span style="display:flex;"><span>  mouth_width <span style="color:#f92672">&lt;-</span> ghost_width <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.4</span>
+</span></span><span style="display:flex;"><span>  mouth_x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(x_center <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.3</span> <span style="color:#f92672">*</span> mouth_width, x_center <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.3</span> <span style="color:#f92672">*</span> mouth_width, length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">80</span>)
+</span></span><span style="display:flex;"><span>  mouth_y <span style="color:#f92672">&lt;-</span> y_bottom <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.55</span> <span style="color:#f92672">*</span> ghost_height <span style="color:#f92672">+</span> <span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">pi</span>, length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">80</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.04</span> <span style="color:#f92672">*</span> ghost_height
+</span></span><span style="display:flex;"><span>  mouth <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(x <span style="color:#f92672">=</span> mouth_x, y <span style="color:#f92672">=</span> mouth_y)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 8 neon glow layers</span>
+</span></span><span style="display:flex;"><span>  glow_layers <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.04</span>, <span style="color:#ae81ff">0.06</span>, <span style="color:#ae81ff">0.09</span>, <span style="color:#ae81ff">0.13</span>, <span style="color:#ae81ff">0.18</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_polygon</span>(
+</span></span><span style="display:flex;"><span>      data <span style="color:#f92672">=</span> ghost_df, <span style="color:#a6e22e">aes</span>(x, y),
+</span></span><span style="display:flex;"><span>      fill <span style="color:#f92672">=</span> ghost_color, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.15</span>, color <span style="color:#f92672">=</span> <span style="color:#66d9ef">NA</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Glow layers for outline, eyes, and mouth</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(i <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">seq_len</span>(<span style="color:#a6e22e">nrow</span>(glow_layers))) {
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">geom_polygon</span>(
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> ghost_df, <span style="color:#a6e22e">aes</span>(x, y),
+</span></span><span style="display:flex;"><span>        fill <span style="color:#f92672">=</span> <span style="color:#66d9ef">NA</span>, color <span style="color:#f92672">=</span> scales<span style="color:#f92672">::</span><span style="color:#a6e22e">alpha</span>(ghost_color, glow_layers<span style="color:#f92672">$</span>alpha[i]),
+</span></span><span style="display:flex;"><span>        linewidth <span style="color:#f92672">=</span> glow_layers<span style="color:#f92672">$</span>linewidth[i]
+</span></span><span style="display:flex;"><span>      ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">geom_point</span>(
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> eyes, <span style="color:#a6e22e">aes</span>(x, y),
+</span></span><span style="display:flex;"><span>        color <span style="color:#f92672">=</span> scales<span style="color:#f92672">::</span><span style="color:#a6e22e">alpha</span>(ghost_color, glow_layers<span style="color:#f92672">$</span>alpha[i]),
+</span></span><span style="display:flex;"><span>        size <span style="color:#f92672">=</span> glow_layers<span style="color:#f92672">$</span>linewidth[i] <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.1</span>
+</span></span><span style="display:flex;"><span>      ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">geom_path</span>(
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> mouth, <span style="color:#a6e22e">aes</span>(x, y),
+</span></span><span style="display:flex;"><span>        color <span style="color:#f92672">=</span> scales<span style="color:#f92672">::</span><span style="color:#a6e22e">alpha</span>(ghost_color, glow_layers<span style="color:#f92672">$</span>alpha[i]),
+</span></span><span style="display:flex;"><span>        linewidth <span style="color:#f92672">=</span> glow_layers<span style="color:#f92672">$</span>linewidth[i]
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Solid black mouth and eyes</span>
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_path</span>(
+</span></span><span style="display:flex;"><span>      data <span style="color:#f92672">=</span> mouth, <span style="color:#a6e22e">aes</span>(x, y),
+</span></span><span style="display:flex;"><span>      color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.2</span>
+</span></span><span style="display:flex;"><span>    ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">geom_point</span>(
+</span></span><span style="display:flex;"><span>       data <span style="color:#f92672">=</span> eyes, <span style="color:#a6e22e">aes</span>(x, y),
+</span></span><span style="display:flex;"><span>       color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>,
+</span></span><span style="display:flex;"><span>       size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.2</span>
+</span></span><span style="display:flex;"><span>    ) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Fix aspect ratio and theme</span>
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">coord_fixed</span>(
+</span></span><span style="display:flex;"><span>       xlim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-4</span>, <span style="color:#ae81ff">4</span>), 
+</span></span><span style="display:flex;"><span>       ylim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-3</span>, <span style="color:#ae81ff">8</span>), 
+</span></span><span style="display:flex;"><span>       expand <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>   ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">theme_void</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">theme</span>(
+</span></span><span style="display:flex;"><span>      plot.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#66d9ef">NA</span>),
+</span></span><span style="display:flex;"><span>      panel.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#66d9ef">NA</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; Generate a random ghost shape</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param seed Optional seed for reproducibility</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @return Data frame with x and y coordinates of the ghost shape</span>
+</span></span><span style="display:flex;"><span>ghost_shape <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(seed <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is.null</span>(seed)) <span style="color:#a6e22e">set.seed</span>(seed)
+</span></span><span style="display:flex;"><span>  width <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">3</span>, length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>), <span style="color:#ae81ff">1</span>)  
+</span></span><span style="display:flex;"><span>  height <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">1</span>) 
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-1</span>, <span style="color:#ae81ff">1</span>, length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>) <span style="color:#f92672">*</span> width
+</span></span><span style="display:flex;"><span>  amp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">runif</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.15</span>, <span style="color:#ae81ff">0.28</span>)
+</span></span><span style="display:flex;"><span>  freq <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>  phase <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">runif</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#66d9ef">pi</span>)
+</span></span><span style="display:flex;"><span>  y_top <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sqrt</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> (x<span style="color:#f92672">/</span>width)^2) <span style="color:#f92672">*</span> height <span style="color:#f92672">+</span> <span style="color:#a6e22e">runif</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">-0.03</span>, <span style="color:#ae81ff">0.03</span>)
+</span></span><span style="display:flex;"><span>  y_bottom <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">-0.5</span> <span style="color:#f92672">*</span> height <span style="color:#f92672">+</span> <span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, freq <span style="color:#f92672">*</span> <span style="color:#66d9ef">pi</span>, length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>) <span style="color:#f92672">+</span> phase) <span style="color:#f92672">*</span> amp <span style="color:#f92672">*</span> height
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data.frame</span>(
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(x, <span style="color:#a6e22e">rev</span>(x)),
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(y_top, <span style="color:#a6e22e">rev</span>(y_bottom))
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ghost_shape</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">plot_simple_ghost</span>(ghost_color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#39FF14&#34;</span>)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-1-1.png" width="768" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ghost_shape</span>() <span style="color:#f92672">|&gt;</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">plot_simple_ghost</span>(ghost_color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#FF6EC7&#34;</span>)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-1-2.png" width="768" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ghost_shape</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">plot_simple_ghost</span>(ghost_color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#1E90FF&#34;</span>)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/unnamed-chunk-1-3.png" width="768" />
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Oct 31, 2025) 
+                    Neon Ghosts with ggplot2. 
+                    Retrieved from https://drmowinckels.io/blog/2025/neon-ghosts/.
+                     DOI: https://www.doi.org/10.5281/zenodo.17496544
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-neon-ghosts-with-ggplot2,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Neon Ghosts with ggplot2",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/neon-ghosts/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.17496544",<br> 
+                        &emsp;updated = "Oct 31, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mapply: When You Need to Iterate Over Multiple Inputs</h2>
+    
+      <p>Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/mapply/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Hugo modules vs. Git submodules: manage your website more easily</h2>
+    
+      <p>Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/submodules/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">git</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">hugo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">submodules</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">web-development</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Automate LinkedIn Carousels with R and Gemini</h2>
+    
+      <p>Learn how to automate LinkedIn carousel creation with R and the free Gemini API. This post details a complete workflow, from connecting to the API and summarizing a blog post into structured points, to generating a custom Quarto document ready for manual review and posting.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin_gemini/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jul 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Decoding OAuth2 M2M with httr2: Client Setup &amp; API Testing</h2>
+    
+      <p>This post details the process of setting up an OAuth2 Machine-to-Machine (M2M) client using the httr2 package in R.  It covers client creation, handling authentication flows, and comprehensively testing API calls using the vcr package for request recording and testthat for mocking functions to ensure robust and reliable package development.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/httr2_client/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jun 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h2>
+    
+      <p>This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible-pca/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">health-data</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">longcovid</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
