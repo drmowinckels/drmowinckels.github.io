@@ -130,6 +130,11 @@ optimize_image_size <- function(
   scale_factor = 0.9,
   max_iterations = 20
 ) {
+  if (is.null(path) || !nzchar(path)) {
+    warning("No input image path provided.")
+    return(FALSE)
+  }
+
   if (!file.exists(path)) {
     warning("Input image file not found: ", path)
     return(FALSE)

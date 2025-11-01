@@ -1,6 +1,6 @@
 gemini_url <- function(
   version = "v1beta",
-  model = "gemini-1.5-flash",
+  model = "gemini-2.5-flash",
   upload = FALSE
 ) {
   baseurl <- "https://generativelanguage.googleapis.com"
