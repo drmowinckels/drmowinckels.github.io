@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.17501184
 title: 'Mastering Apply: From Matrices to Multidimensional Neuroimaging Data'
 author: Dr. Mowinckel
 date: '2025-11-01'
