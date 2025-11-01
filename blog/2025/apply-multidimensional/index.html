@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Mastering Apply: From Matrices to Multidimensional Neuroimaging Data - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Deep dive into apply() for matrices and high-dimensional arrays. From basic row/column operations to complex fMRI analyses with 5D data. Learn to master the MARGIN parameter for neuroimaging and scientific computing." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Master apply() in R for multidimensional data analysis.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/apply-multidimensional/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Mastering Apply: From Matrices to Multidimensional Neuroimaging Data - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Master apply() in R for multidimensional data analysis.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/apply-multidimensional/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Master apply() in R for multidimensional data analysis.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/apply-multidimensional/img/mri_2d.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/apply-multidimensional/img/mri_2d.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.baa1908f96e0c6f9b71447b145d29e168c7a152baf3ed19c88d9c64d40abd901.css" 
+    integrity="sha256-uqGQj5bgxvm3FEexRdKeFox6FSuvPtGciNnGTUCr2QE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/apply-multidimensional/img/mri_2d.png" alt="Mastering Apply: From Matrices to Multidimensional Neuroimaging Data" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">Mastering Apply: From Matrices to Multidimensional Neuroimaging Data</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Nov 1, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/apply/" class="uk-label uk-label-secondary tags" >
+                                Apply
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/matrices/" class="uk-label uk-label-secondary tags" >
+                                Matrices
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/arrays/" class="uk-label uk-label-secondary tags" >
+                                Arrays
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label uk-label-secondary tags" >
+                                Neuroimaging
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/fmri/" class="uk-label uk-label-secondary tags" >
+                                FMRI
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pattern-recognition">Pattern recognition</a></li>
+    <li><a href="#the-margin-parameter-explained">The MARGIN parameter explained</a></li>
+    <li><a href="#real-world-example-student-grades">Real-world example: Student grades</a></li>
+    <li><a href="#beyond-mean-useful-functions-for-apply">Beyond mean: useful functions for apply</a></li>
+    <li><a href="#custom-functions-with-apply">Custom functions with apply</a></li>
+    <li><a href="#working-with-3d-arrays">Working with 3D arrays</a></li>
+    <li><a href="#real-neuroimaging-example-fmri-data">Real neuroimaging example: fMRI data</a></li>
+    <li><a href="#single-subject">Single subject</a></li>
+    <li><a href="#multiple-subjects">Multiple subjects</a></li>
+    <li><a href="#wrapping-up">Wrapping up</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">Deep dive into apply() for matrices and high-dimensional arrays. From basic row/column operations to complex fMRI analyses with 5D data. Learn to master the MARGIN parameter for neuroimaging and scientific computing.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>In my <a href="lets-get-applying">first apply post</a>, I briefly showed <code>apply()</code> converting columns to character, but I glossed over what makes <code>apply()</code> special.
+Here&rsquo;s the thing: <code>apply()</code> is actually quite different from <code>sapply()</code> and <code>mapply()</code>.
+While those work on lists and vectors, <code>apply()</code> is designed specifically for matrices and arrays.</p>
+<h2 id="pattern-recognition">Pattern recognition</h2>
+<p>Use <code>apply()</code> when you have:</p>
+<ul>
+<li>Matrix or array data (not data.frame - use dplyr for those)</li>
+<li>Need to collapse one or more dimensions by applying a function</li>
+<li>Want to apply the same operation across rows, columns, or higher dimensions</li>
+<li>Working with multidimensional scientific data (neuroimaging, climate models, genomics, etc.)</li>
+</ul>
+<p>The syntax is always: <code>apply(X, MARGIN, FUN, ...)</code></p>
+<p>Where:</p>
+<ul>
+<li><code>X</code> is your matrix or array</li>
+<li><code>MARGIN</code> specifies which dimension(s) to preserve (1 = rows, 2 = columns, 3+ = higher dimensions)</li>
+<li><code>FUN</code> is the function to apply</li>
+<li><code>...</code> are additional arguments passed to FUN</li>
+</ul>
+<p>Think of <code>MARGIN</code> as telling R &ldquo;keep these dimensions, collapse everything else.&rdquo;
+That&rsquo;s where the magic happens.</p>
+<p>I&rsquo;m going to be honest - when I first encountered <code>apply()</code>, the <code>MARGIN</code> parameter confused the heck out of me.
+&ldquo;Why do I need to specify margins? What does that even mean?&rdquo;
+But once it clicked, I realized how powerful this function is for working with structured data.
+Understanding <code>apply()</code> properly will save you from writing many unnecessary loops when working with matrix-like data.</p>
+<h2 id="the-margin-parameter-explained">The MARGIN parameter explained</h2>
+<p>The <code>MARGIN</code> parameter tells <code>apply()</code> which dimension to &ldquo;collapse&rdquo; by applying your function.
+I know that sounds abstract, so let me show you what I mean.
+It&rsquo;s much easier to understand with examples than with explanations.</p>
+<blockquote>
+<p><strong>Note:</strong><br>
+The <code>MARGIN</code> parameter can be either numeric (e.g., <code>1</code> for rows, <code>2</code> for columns) or a character vector specifying the <em>names</em> of the dimensions (if your array or matrix has named dimensions). For example, if your array has <code>dimnames</code>, you can use <code>MARGIN = &quot;Subject&quot;</code> instead of its numeric index.</p>
+</blockquote>
+<p>Let&rsquo;s start with a simple matrix - just numbers arranged in rows and columns:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Create a 4x3 matrix (4 rows, 3 columns)</span>
+</span></span><span style="display:flex;"><span>test_matrix <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">matrix</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">12</span>, nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>test_matrix
+</span></span></code></pre></div><pre><code>     [,1] [,2] [,3]
+[1,]    1    5    9
+[2,]    2    6   10
+[3,]    3    7   11
+[4,]    4    8   12
+</code></pre>
+<p>We&rsquo;ve got a matrix with 4 rows and 3 columns.
+Each row could represent a different observation, and each column could be a different variable.
+Now, let&rsquo;s see what happens when we apply <code>sum()</code> across different margins:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># MARGIN = 1: apply across rows (each row becomes one value)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(test_matrix, MARGIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, FUN <span style="color:#f92672">=</span> sum)
+</span></span></code></pre></div><pre><code>[1] 15 18 21 24
+</code></pre>
+<p>Notice what happened? We got 4 values - one for each row.
+<code>MARGIN = 1</code> means &ldquo;for each row, apply the function and give me one result.&rdquo;
+So R took each row, summed up all the values in that row, and gave us back a vector of 4 sums.</p>
+<p>Now let&rsquo;s try the other direction:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># MARGIN = 2: apply across columns (each column becomes one value)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(test_matrix, MARGIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, FUN <span style="color:#f92672">=</span> sum)
+</span></span></code></pre></div><pre><code>[1] 10 26 42
+</code></pre>
+<p>This time we got 3 values - one for each column!
+<code>MARGIN = 2</code> means &ldquo;for each column, apply the function and give me one result.&rdquo;</p>
+<p>Here&rsquo;s how I think about it:</p>
+<ul>
+<li><code>MARGIN = 1</code>: &ldquo;Process each row&rdquo; → Number of rows determines output length</li>
+<li><code>MARGIN = 2</code>: &ldquo;Process each column&rdquo; → Number of columns determines output length</li>
+</ul>
+<p>The margin you specify is the dimension that gets <em>preserved</em> in your output.
+Everything else gets collapsed by your function.</p>
+<h2 id="real-world-example-student-grades">Real-world example: Student grades</h2>
+<p>Okay, let&rsquo;s move beyond toy examples.
+Imagine
+Each row is a student, each column is an assignment.
+This is actually a really common data structure in many fields - observations in rows, variables in columns.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Rows = students, Columns = assignments</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># styler: off</span>
+</span></span><span style="display:flex;"><span>grades <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">matrix</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">85</span>, <span style="color:#ae81ff">92</span>, <span style="color:#ae81ff">78</span>, <span style="color:#ae81ff">88</span>,  <span style="color:#75715e"># Student 1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">85</span>, <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">87</span>,  <span style="color:#75715e"># Student 2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">78</span>, <span style="color:#ae81ff">83</span>, <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">85</span>,  <span style="color:#75715e"># Student 3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">88</span>, <span style="color:#ae81ff">92</span>, <span style="color:#ae81ff">90</span>,  <span style="color:#75715e"># Student 4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">82</span>, <span style="color:#ae81ff">79</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">81</span>   <span style="color:#75715e"># Student 5</span>
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>,
+</span></span><span style="display:flex;"><span>  byrow <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">colnames</span>(grades) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Quiz1&#34;</span>, <span style="color:#e6db74">&#34;Quiz2&#34;</span>, <span style="color:#e6db74">&#34;Midterm&#34;</span>, <span style="color:#e6db74">&#34;Final&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rownames</span>(grades) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;Student&#34;</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>grades
+</span></span></code></pre></div><pre><code>          Quiz1 Quiz2 Midterm Final
+Student 1    85    92      78    88
+Student 2    90    85      95    87
+Student 3    78    83      80    85
+Student 4    95    88      92    90
+Student 5    82    79      84    81
+</code></pre>
+<p>Now we can easily answer questions like &ldquo;What&rsquo;s each student&rsquo;s average?&rdquo; and &ldquo;Which assignment was hardest?&rdquo;</p>
+<p>To get each student&rsquo;s average, we want to work across columns for each row (sum up all their assignments and divide by the number of assignments):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Student averages (across columns for each row)</span>
+</span></span><span style="display:flex;"><span>student_averages <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(grades, MARGIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, FUN <span style="color:#f92672">=</span> mean)
+</span></span><span style="display:flex;"><span>student_averages
+</span></span></code></pre></div><pre><code>Student 1 Student 2 Student 3 Student 4 Student 5 
+    85.75     89.25     81.50     91.25     81.50 
+</code></pre>
+<p>See how clean that is?
+No loops, no indexing nightmares.
+Just &ldquo;hey R, for each student (row), calculate the mean.&rdquo;
+If you want to use the names of the dimensions instead of the numbers, you will need to give the <code>dimensions</code> names first.
+We have so far given each column and each row a name, but we haven&rsquo;t named the row and column themselves.
+This is done by setting the <code>dimnames</code> attribute of the matrix:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">dimnames</span>(grades)
+</span></span></code></pre></div><pre><code>[[1]]
+[1] &quot;Student 1&quot; &quot;Student 2&quot; &quot;Student 3&quot; &quot;Student 4&quot; &quot;Student 5&quot;
+
+[[2]]
+[1] &quot;Quiz1&quot;   &quot;Quiz2&quot;   &quot;Midterm&quot; &quot;Final&quot;  
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">dimnames</span>(grades) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  Student <span style="color:#f92672">=</span> <span style="color:#a6e22e">rownames</span>(grades),
+</span></span><span style="display:flex;"><span>  Assignment <span style="color:#f92672">=</span> <span style="color:#a6e22e">colnames</span>(grades)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dimnames</span>(grades)
+</span></span></code></pre></div><pre><code>$Student
+[1] &quot;Student 1&quot; &quot;Student 2&quot; &quot;Student 3&quot; &quot;Student 4&quot; &quot;Student 5&quot;
+
+$Assignment
+[1] &quot;Quiz1&quot;   &quot;Quiz2&quot;   &quot;Midterm&quot; &quot;Final&quot;  
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(grades, MARGIN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Student&#34;</span>, FUN <span style="color:#f92672">=</span> mean)
+</span></span></code></pre></div><pre><code>Student 1 Student 2 Student 3 Student 4 Student 5 
+    85.75     89.25     81.50     91.25     81.50 
+</code></pre>
+<p>What about assignment difficulty? We can look at the average score for each assignment by working down the columns:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Assignment averages (across rows for each column)</span>
+</span></span><span style="display:flex;"><span>assignment_averages <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(grades, MARGIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, FUN <span style="color:#f92672">=</span> mean)
+</span></span><span style="display:flex;"><span>assignment_averages
+</span></span></code></pre></div><pre><code>  Quiz1   Quiz2 Midterm   Final 
+   86.0    85.4    85.8    86.2 
+</code></pre>
+<p>Looks like Quiz 2 was the toughest (or maybe everyone was hungover that week?).
+The midterm was actually easier than the quizzes on average.</p>
+<p>This is so much cleaner than writing loops!
+Compare this to what you&rsquo;d have to do with a for loop - you&rsquo;d need to initialize empty vectors, loop through indices, store results&hellip; it&rsquo;s just messy.</p>
+<h2 id="beyond-mean-useful-functions-for-apply">Beyond mean: useful functions for apply</h2>
+<p>The function you pass to <code>apply()</code> can be anything that makes sense for your data.
+Let&rsquo;s explore some other common operations you might want to do with gradebook data.</p>
+<p>Want to know how consistent each student&rsquo;s performance is? Standard deviation tells you that:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Standard deviation for each student (higher = more variable)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(grades, <span style="color:#ae81ff">1</span>, sd)
+</span></span></code></pre></div><pre><code>Student 1 Student 2 Student 3 Student 4 Student 5 
+ 5.909033  4.349329  3.109126  2.986079  2.081666 
+</code></pre>
+<p>Student 1 has the highest variability - maybe they&rsquo;re really good at some things and struggle with others?
+Student 4 is super consistent.</p>
+<p>What about the range of scores for each assignment?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Range (min to max) for each assignment</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(grades, <span style="color:#ae81ff">2</span>, range)
+</span></span></code></pre></div><pre><code>      Assignment
+       Quiz1 Quiz2 Midterm Final
+  [1,]    78    79      78    81
+  [2,]    95    92      95    90
+</code></pre>
+<p>This gives us a matrix where the first row is minimums and second row is maximums for each assignment.
+Here&rsquo;s a fun one - which assignment was each student&rsquo;s worst?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(grades, <span style="color:#ae81ff">1</span>, which.min)
+</span></span></code></pre></div><pre><code>Student 1 Student 2 Student 3 Student 4 Student 5 
+        3         2         1         2         2 
+</code></pre>
+<p>These are column indices.
+We can make this more readable by looking up the actual assignment names:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Get the assignment names instead of indices</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">colnames</span>(grades)<span style="color:#a6e22e">[apply</span>(grades, <span style="color:#ae81ff">1</span>, which.min)]
+</span></span></code></pre></div><pre><code>[1] &quot;Midterm&quot; &quot;Quiz2&quot;   &quot;Quiz1&quot;   &quot;Quiz2&quot;   &quot;Quiz2&quot;  
+</code></pre>
+<p>Now that&rsquo;s informative!
+Three students struggled most with Quiz2.</p>
+<h2 id="custom-functions-with-apply">Custom functions with apply</h2>
+<p>You&rsquo;re not limited to built-in functions.
+You can pass your own functions too, which is where things get really powerful.</p>
+<p>Let&rsquo;s say we want to calculate letter grades based on each student&rsquo;s average.
+We need a function that takes a vector of scores, calculates the mean, and returns a letter:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>get_letter_grade <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(scores) {
+</span></span><span style="display:flex;"><span>  avg <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(scores)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (avg <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">90</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#34;A&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (avg <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">80</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#34;B&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (avg <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">70</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#34;C&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (avg <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">60</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#34;D&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#34;F&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Letter grade for each student</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(grades, <span style="color:#ae81ff">1</span>, get_letter_grade)
+</span></span></code></pre></div><pre><code>Student 1 Student 2 Student 3 Student 4 Student 5 
+      &quot;B&quot;       &quot;B&quot;       &quot;B&quot;       &quot;A&quot;       &quot;B&quot; 
+</code></pre>
+<p>One A and 4 B&rsquo;s, impressive!</p>
+<p>Here&rsquo;s something more interesting - let&rsquo;s figure out if students are improving over time.
+We can calculate a simple correlation between time (assignment order) and scores:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>calculate_trend <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(scores) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Simple linear trend (positive = improving, negative = declining)</span>
+</span></span><span style="display:flex;"><span>  x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq_along</span>(scores)
+</span></span><span style="display:flex;"><span>  trend <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cor</span>(x, scores)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>(trend)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Trend for each student (are they improving over time?)</span>
+</span></span><span style="display:flex;"><span>trends <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(grades, <span style="color:#ae81ff">1</span>, calculate_trend)
+</span></span><span style="display:flex;"><span>trends
+</span></span></code></pre></div><pre><code>  Student 1   Student 2   Student 3   Student 4   Student 5 
+-0.10923907  0.02968261  0.74740932 -0.47557147  0.12403473 
+</code></pre>
+<p>Student 3 has the strongest positive trend (0.7474093) - they started rough but ended strong! Good for them.
+Student 4 has a negative trend (-0.4755715) - started great but faded.
+Maybe they need some extra help?</p>
+<p>The cool thing about custom functions is you can make them as complex as you need.
+Statistical tests, transformations, summarizations - whatever makes sense for your analysis.</p>
+<h2 id="working-with-3d-arrays">Working with 3D arrays</h2>
+<p>Now we&rsquo;re getting into territory where <code>apply()</code> really starts to shine.
+Let&rsquo;s say instead of one class, you&rsquo;re teaching multiple sections.
+Or maybe you&rsquo;re running a longitudinal study with multiple measurement occasions.
+Suddenly you need a third dimension.</p>
+<p>Let me simulate something realistic: test scores for 5 students across 4 assignments in 3 different classes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 3D array: 5 students × 4 assignments × 3 classes</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>scores_3d <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">array</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">60</span>, mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">85</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>  dim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>),
+</span></span><span style="display:flex;"><span>  dimnames <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    Student <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;S&#34;</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>),
+</span></span><span style="display:flex;"><span>    Assignment <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Quiz1&#34;</span>, <span style="color:#e6db74">&#34;Quiz2&#34;</span>, <span style="color:#e6db74">&#34;Midterm&#34;</span>, <span style="color:#e6db74">&#34;Final&#34;</span>),
+</span></span><span style="display:flex;"><span>    Class <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Math&#34;</span>, <span style="color:#e6db74">&#34;Science&#34;</span>, <span style="color:#e6db74">&#34;English&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Look at the whole structure</span>
+</span></span><span style="display:flex;"><span>scores_3d
+</span></span></code></pre></div><pre><code>, , Class = Math
+
+       Assignment
+Student Quiz1 Quiz2 Midterm Final
+     S1    99    84      98    91
+     S2    79   100     108    82
+     S3    89    84      71    58
+     S4    91   105      82    61
+     S5    89    84      84    98
+
+, , Class = Science
+
+       Assignment
+Student Quiz1 Quiz2 Midterm Final
+     S1    82    81      90    68
+     S2    67    82      92    77
+     S3    83    67      95    76
+     S4    97    90      79    61
+     S5   104    79      90    85
+
+, , Class = English
+
+       Assignment
+Student Quiz1 Quiz2 Midterm Final
+     S1    87    89      88    88
+     S2    81    77      77    92
+     S3    93    99     101    86
+     S4    78    81      91    55
+     S5    71    92      86    88
+</code></pre>
+<p>This is now a 3-dimensional array.
+Think of it like a cube of numbers.
+We can slice it to look at just one class:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Just the Math class</span>
+</span></span><span style="display:flex;"><span>scores_3d[,, <span style="color:#e6db74">&#34;Math&#34;</span>]
+</span></span></code></pre></div><pre><code>       Assignment
+Student Quiz1 Quiz2 Midterm Final
+     S1    99    84      98    91
+     S2    79   100     108    82
+     S3    89    84      71    58
+     S4    91   105      82    61
+     S5    89    84      84    98
+</code></pre>
+<p>Now, with <code>apply()</code>, we can answer all sorts of questions by specifying which dimensions to collapse.</p>
+<p>Want each student&rsquo;s overall average across all assignments and all classes?
+We keep dimension 1 (students) and collapse dimensions 2 (assignments) and 3 (classes):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Student averages across all assignments and classes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep dimension 1, collapse dimensions 2 and 3</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(scores_3d, MARGIN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Student&#34;</span>, FUN <span style="color:#f92672">=</span> mean)
+</span></span></code></pre></div><pre><code>      S1       S2       S3       S4       S5 
+87.08333 84.50000 83.50000 80.91667 87.50000 
+</code></pre>
+<p>What if we want to know which assignments are hardest on average, regardless of student or class?
+Keep dimension 2 (assignments), collapse dimensions 1 (students) and 3 (classes):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Assignment difficulty across all students and classes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep dimension 2, collapse dimensions 1 and 3</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(scores_3d, MARGIN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Assignment&#34;</span>, FUN <span style="color:#f92672">=</span> mean)
+</span></span></code></pre></div><pre><code>   Quiz1    Quiz2  Midterm    Final 
+86.00000 86.26667 88.80000 77.73333 
+</code></pre>
+<p>Or we could see which class has the highest average:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Class averages across all students and assignments</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep dimension 3, collapse dimensions 1 and 2</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(scores_3d, MARGIN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Class&#34;</span>, FUN <span style="color:#f92672">=</span> mean)
+</span></span></code></pre></div><pre><code>   Math Science English 
+  86.85   82.25   85.00 
+</code></pre>
+<p>Here&rsquo;s where it gets really cool - you can specify <em>multiple</em> margins to keep.
+Say we want each student&rsquo;s average in each class (but collapsed across assignments):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Average for each student in each class</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep dimensions 1 and 3, collapse dimension 2 (assignments)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">apply</span>(scores_3d, MARGIN <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>), FUN <span style="color:#f92672">=</span> mean)
+</span></span></code></pre></div><pre><code>       Class
+Student  Math Science English
+     S1 93.00   80.25   88.00
+     S2 92.25   79.50   81.75
+     S3 75.50   80.25   94.75
+     S4 84.75   81.75   76.25
+     S5 88.75   89.50   84.25
+</code></pre>
+<p>Now we get a matrix: rows are students, columns are classes, values are averages.
+This is super useful for generating summary tables.</p>
+<p>The key insight is that <code>MARGIN</code> tells you what dimensions you want to <em>preserve</em> in your output.
+Everything else gets fed to your function.</p>
+<h2 id="real-neuroimaging-example-fmri-data">Real neuroimaging example: fMRI data</h2>
+<p>Alright, this is where I get excited.
+This is where <code>apply()</code> goes from &ldquo;handy&rdquo; to &ldquo;absolutely essential.&rdquo;</p>
+<p>Neuroimaging data is inherently multidimensional.
+Most of us are aware that digital images are made of lots and lots of pixels &mdash; tiny squares, each with a single value.
+Together, all these pixels form a complete 2D image.</p>
+<p>When we record brain activity using MRI (Magnetic Resonance Imaging) &mdash; a technique for taking detailed pictures of the inside of the body, especially the brain&mdash;the concept is similar, but in three dimensions.
+Instead of a pixel, we record a tiny cube of tissue called a voxel (think of a voxel as a 3D pixel).</p>
+<p>A full plane of voxels forms a &ldquo;slice&rdquo; through the brain, much like a single sheet in a stack of paper.
+Stacking these slices together creates a 3D volume of the brain, so you can think of the brain scan as a cube made up of many tiny cubes (voxels).</p>
+<figure class="uk-thumbnail">
+        <img src="img/pixels_voxels.png" 
+         alt="An illustration demonstrating the relationship between 2D digital images and 3D MRI data. On the left, a magnified view shows a 2D digital image is composed of pixels (colored squares). An arrow connects this to the right side, where multiple 2D axial slices are stacked along the Z-axis, forming a 3D volume of the brain composed of voxels (small cubes). The image is labeled to emphasize that the stacked slices create a 3D Array." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            An illustration demonstrating the relationship between 2D digital images and 3D MRI data. On the left, a magnified view shows a 2D digital image is composed of pixels (colored squares). An arrow connects this to the right side, where multiple 2D axial slices are stacked along the Z-axis, forming a 3D volume of the brain composed of voxels (small cubes). The image is labeled to emphasize that the stacked slices create a 3D Array.
+        </figcaption>
+        
+    </figure><p>MRI data usually contains values for three spatial dimensions: X (left-right), Y (anterior-posterior), and Z (inferior-superior).
+So a standard MRI scan is 3D: width, height, depth, a larger cube made of tiny cubes (voxels).</p>
+<p>By combining these cubes in different ways, we get to see different sections of the brain.
+You will often see neuroscientists talk about &ldquo;slices&rdquo; of the brain - these are just 2D cross-sections through the 3D volume.
+A slice is like taking one layer out of a cake to see what&rsquo;s</p>
+<p>Less often we actually look at the entire 3d rendered brain, as we cannot look &ldquo;inside&rdquo; the brain that way.
+But in essence we have a cube of voxels representing the brain volume.</p>
+<figure class="uk-thumbnail">
+        <img src="img/mri_3d.png" 
+         alt="An illustration titled “3D MRI Volume: Voxel Brain Within a Cube (Simplified)” showing a translucent blue brain formed by numerous small voxels (3D pixels). This voxel brain is contained within a larger, transparent cube defined by a grid, emphasizing the discrete volumetric data structure." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            An illustration titled “3D MRI Volume: Voxel Brain Within a Cube (Simplified)” showing a translucent blue brain formed by numerous small voxels (3D pixels). This voxel brain is contained within a larger, transparent cube defined by a grid, emphasizing the discrete volumetric data structure.
+        </figcaption>
+        
+    </figure><p>An fMRI scan is often called &ldquo;4D&rdquo; because it captures three spatial dimensions (x, y, z) plus time.
+Each 3D brain volume is like a snapshot, and the scanner takes many of these snapshots in sequence&mdash;typically one every 2&ndash;3 seconds.
+When we combine these 3D volumes over time, we get a time series: a movie of brain activity, or, in data terms, an array of cubes changing over time.</p>
+<figure class="uk-thumbnail">
+        <img src="img/mri_4d.png" 
+         alt="An illustration titled “4D MRI Data: Time Series (fMRI)” showing a horizontal sequence of four identical translucent blue brains, each composed of voxels within a transparent cube. An arrow labeled “TIME AXIS (4th Dimension)” connects the cubes, indicating the progression from “Time 1” to “Time 4” to represent a time series of 3D MRI volumes." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            An illustration titled “4D MRI Data: Time Series (fMRI)” showing a horizontal sequence of four identical translucent blue brains, each composed of voxels within a transparent cube. An arrow labeled “TIME AXIS (4th Dimension)” connects the cubes, indicating the progression from “Time 1” to “Time 4” to represent a time series of 3D MRI volumes.
+        </figcaption>
+        
+    </figure><p>If you scan multiple subjects, you can imagine stacking these time series for each person, forming a &ldquo;plane&rdquo; of cubes&mdash;one row per subject, each row a sequence of 3D brain volumes over time.<br>
+This is a helpful way to visualize multidimensional neuroimaging data, even if the actual storage in software may differ.</p>
+<figure class="uk-thumbnail">
+        <img src="img/mri_5d.png" 
+         alt="An illustration titled “5D MRI Data: Multi-Subject Time Series” showing a vertical stack of three rows. Each row represents a different Subject (the 5th dimension) and consists of a horizontal line of four translucent blue brain cubes (composed of voxels). Arrows connect the cubes within each row, representing the progression of Time (the 4th dimension). This arrangement visualizes 5 dimensions: X, Y, Z (spatial), Time, and Subject." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            An illustration titled “5D MRI Data: Multi-Subject Time Series” showing a vertical stack of three rows. Each row represents a different Subject (the 5th dimension) and consists of a horizontal line of four translucent blue brain cubes (composed of voxels). Arrows connect the cubes within each row, representing the progression of Time (the 4th dimension). This arrangement visualizes 5 dimensions: X, Y, Z (spatial), Time, and Subject.
+        </figcaption>
+        
+    </figure><p>So we have a cube of voxels changing over time, for multiple subjects.
+Each voxel is represented as a cell in our multidimensional array.
+Analyzing this data without <code>apply()</code> would be a nightmare of nested loops and index juggling.</p>
+<p>In real life, we would do lots of stuff to normalize and smooth the data to reduce the immense noise inherent in this data.
+MRI analyses are complex and nuanced, but let me show you how <code>apply()</code> works with this kind of structure using actual data from a BIDS (Brain Imaging Data Standard) dataset I grabbed from <a href="https://openneuro.org/datasets/ds005038/versions/1.0.3">OpenNeuro</a>.</p>
+<p>The data were obtained by Mueckstein (2024), and are openly available for anyone to use (with credit, of course).
+This dataset comes from a dual-task training study where participants performed tasks requiring either compatible (visual+manual, auditory+vocal) or incompatible (visual+vocal, auditory+manual) modality pairings.
+It has pre and post training sessions, though we&rsquo;ll only work with the pre-session data here.
+For our purposes, we&rsquo;re using the anatomical scans and a simple auditory task to demonstrate how <code>apply()</code> works with real neuroimaging data.
+I&rsquo;ve reduced the data to just 10 subjects to keep things manageable.</p>
+<h2 id="single-subject">Single subject</h2>
+<p>Let&rsquo;s start simple with loading in a single subject, and have a look at the MRI data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(oro.nifti)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Path to our BIDS dataset</span>
+</span></span><span style="display:flex;"><span>bids_dir <span style="color:#f92672">&lt;-</span> here<span style="color:#f92672">::</span><span style="color:#a6e22e">here</span>(<span style="color:#e6db74">&#34;content/blog/2025/11-01_apply/data&#34;</span>)
+</span></span></code></pre></div><p>Let&rsquo;s load one subject&rsquo;s functional run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Load a functional run for subject 01</span>
+</span></span><span style="display:flex;"><span>func_file <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(
+</span></span><span style="display:flex;"><span>  bids_dir,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;sub-101/ses-pre/func&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;sub-101_ses-pre_task-DT_run-01_bold.nii.gz&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fmri_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readNIfTI</span>(func_file, reorient <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dim</span>(fmri_data)
+</span></span></code></pre></div><pre><code>[1]  64  64  37 133
+</code></pre>
+<p>This is a 4D array: 64 voxels in x, 64 in y, 37 in z, and 133 timepoints.
+That&rsquo;s 64x64x37x133 = 298 individual numbers.
+You definitely don&rsquo;t want to write nested loops for this!</p>
+<p>One common analysis is calculating the mean activation for each voxel across time.
+Of course, real fMRI analysis is more complex than this, but this can illustrate how <code>apply()</code> works with 4D data.
+This tells you the average signal intensity at each location in the brain:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Calculate mean activation across time for each voxel</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep x, y, z dimensions; collapse time (dimension 4)</span>
+</span></span><span style="display:flex;"><span>mean_activation <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(
+</span></span><span style="display:flex;"><span>  fmri_data,
+</span></span><span style="display:flex;"><span>  MARGIN <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>),
+</span></span><span style="display:flex;"><span>  FUN <span style="color:#f92672">=</span> mean
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dim</span>(mean_activation)
+</span></span></code></pre></div><pre><code>[1] 64 64 37
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Visualize a slice of the mean activation</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">image</span>(
+</span></span><span style="display:flex;"><span>  mean_activation[,,<span style="color:#ae81ff">20</span>], <span style="color:#75715e"># Slice at z=20</span>
+</span></span><span style="display:flex;"><span>  col <span style="color:#f92672">=</span> viridis<span style="color:#f92672">::</span><span style="color:#a6e22e">viridis</span>(<span style="color:#ae81ff">256</span>),
+</span></span><span style="display:flex;"><span>  main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean Activation - Subject 01 (Slice z=20)&#34;</span>,
+</span></span><span style="display:flex;"><span>  xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;X-axis&#34;</span>,
+</span></span><span style="display:flex;"><span>  ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Y-axis&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/fmri-mean-activation-plot-1.png" 
+         alt="Mean Activation across Voxels for Subject 01. Shows average signal intensity at each voxel location. Clear contour of a brain is visible." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Mean Activation across Voxels for Subject 01. Shows average signal intensity at each voxel location. Clear contour of a brain is visible.
+        </figcaption>
+        
+    </figure><p>We went from 4D to 3D - we collapsed the time dimension and kept the spatial dimensions.
+Each voxel now has one number: its average signal across the whole scan.</p>
+<p>Similarly, we might want to know how variable the signal is at each location.
+High variability might indicate functional activity (or noise, depending on what you&rsquo;re looking for):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Calculate temporal standard deviation for each voxel</span>
+</span></span><span style="display:flex;"><span>temporal_sd <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(
+</span></span><span style="display:flex;"><span>  fmri_data,
+</span></span><span style="display:flex;"><span>  MARGIN <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>),
+</span></span><span style="display:flex;"><span>  FUN <span style="color:#f92672">=</span> sd
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Coefficient of variation (CV) - normalized measure of variability</span>
+</span></span><span style="display:flex;"><span>cv <span style="color:#f92672">&lt;-</span> temporal_sd <span style="color:#f92672">/</span> mean_activation
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Visualize a slice of the CV</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">image</span>(
+</span></span><span style="display:flex;"><span>  cv[,,<span style="color:#ae81ff">20</span>], <span style="color:#75715e"># Slice at z=20</span>
+</span></span><span style="display:flex;"><span>  col <span style="color:#f92672">=</span> viridis<span style="color:#f92672">::</span><span style="color:#a6e22e">viridis</span>(<span style="color:#ae81ff">256</span>),
+</span></span><span style="display:flex;"><span>  main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Coefficient of Variation - Subject 01 (Slice z=20)&#34;</span>,
+</span></span><span style="display:flex;"><span>  xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;X-axis&#34;</span>,
+</span></span><span style="display:flex;"><span>  ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Y-axis&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/fmri-cv-plot-1.png" 
+         alt="Coefficient of Variation across Voxels for Subject 01. Shows normalized variability of signal intensity at each voxel. Higher values indicate more variability relative to mean signal.Shows clear contour of a brain." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Coefficient of Variation across Voxels for Subject 01. Shows normalized variability of signal intensity at each voxel. Higher values indicate more variability relative to mean signal.Shows clear contour of a brain.
+        </figcaption>
+        
+    </figure><p>The coefficient of variation is useful because it accounts for the baseline signal intensity.
+A voxel with high signal and high variability has a different meaning than a voxel with low signal and high variability.</p>
+<p>Sometimes you want to summarize across space instead of time.
+The &ldquo;global signal&rdquo; is the average intensity across all voxels at each timepoint:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Subject-level summary: mean signal across all voxels over time</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep time dimension; collapse spatial dimensions (1, 2, 3)</span>
+</span></span><span style="display:flex;"><span>global_signal <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(
+</span></span><span style="display:flex;"><span>  fmri_data,
+</span></span><span style="display:flex;"><span>  MARGIN <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>  FUN <span style="color:#f92672">=</span> mean
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Plot the global signal</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data.frame</span>(
+</span></span><span style="display:flex;"><span>  time <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(global_signal),
+</span></span><span style="display:flex;"><span>  signal <span style="color:#f92672">=</span> global_signal
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> time, y <span style="color:#f92672">=</span> signal)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;steelblue&#34;</span>, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.2</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Global Signal - Subject 01&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (TRs)&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean Signal&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_minimal</span>() 
+</span></span></code></pre></div><figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/global-signal-plot-1.png" 
+         alt="Global Signal over Time for Subject 01. Shows overall mean brain signal intensity at each timepoint." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Global Signal over Time for Subject 01. Shows overall mean brain signal intensity at each timepoint.
+        </figcaption>
+        
+    </figure><p>This gives you a sense of overall signal drift and scanner stability.
+You can see some slow drift over time, which is pretty typical in fMRI.</p>
+<h2 id="multiple-subjects">Multiple subjects</h2>
+<p>Now let&rsquo;s scale up to multiple subjects.
+This is where neuroimaging analysis gets computationally intensive, but <code>apply()</code> keeps it manageable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>fmri_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(
+</span></span><span style="display:flex;"><span>  bids_dir,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;ses-pre_task-DT_run-01_bold.nii.gz&#34;</span>,
+</span></span><span style="display:flex;"><span>  recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>  full.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Extract subject IDs from filenames</span>
+</span></span><span style="display:flex;"><span>subjects <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gsub</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;.*sub-(\\d+)_ses-.*&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;\\1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">basename</span>(fmri_files)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>subjects
+</span></span></code></pre></div><pre><code> [1] &quot;101&quot; &quot;104&quot; &quot;105&quot; &quot;108&quot; &quot;109&quot; &quot;110&quot; &quot;111&quot; &quot;113&quot; &quot;114&quot; &quot;115&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Read in imaging files</span>
+</span></span><span style="display:flex;"><span>fmri_list <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lapply</span>(
+</span></span><span style="display:flex;"><span>  fmri_files,
+</span></span><span style="display:flex;"><span>  readNIfTI,
+</span></span><span style="display:flex;"><span>  reorient <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Combine into 5D array: x, y, z, time, subjects</span>
+</span></span><span style="display:flex;"><span>fmri_array <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">array</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">unlist</span>(fmri_list),
+</span></span><span style="display:flex;"><span>  dim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">dim</span>(fmri_list[[1]]), <span style="color:#a6e22e">length</span>(fmri_list))
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add dimension names</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dimnames</span>(fmri_array) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  X <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  Y <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  Z <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  time <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;TR&#34;</span>, <span style="color:#a6e22e">seq_len</span>(<span style="color:#a6e22e">dim</span>(fmri_array)[4])),
+</span></span><span style="display:flex;"><span>  Subject <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;sub-&#34;</span>, subjects)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dim</span>(fmri_array)
+</span></span></code></pre></div><pre><code>[1]  64  64  37 133  10
+</code></pre>
+<p>We now have a 5-dimensional array.
+Three spatial dimensions, one temporal dimension, and one subject dimension.
+That&rsquo;s over 201 million numbers to work with!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># tissue intensities at voxel (40,40,20) for subject 101, across all timepoints</span>
+</span></span><span style="display:flex;"><span>fmri_array[40,<span style="color:#ae81ff">40</span>,<span style="color:#ae81ff">20</span>, , <span style="color:#e6db74">&#34;sub-101&#34;</span>]
+</span></span></code></pre></div><pre><code>  TR1   TR2   TR3   TR4   TR5   TR6   TR7   TR8   TR9  TR10  TR11  TR12  TR13 
+  760   755   743   768   755   763   770   756   760   767   766   769   767 
+ TR14  TR15  TR16  TR17  TR18  TR19  TR20  TR21  TR22  TR23  TR24  TR25  TR26 
+  780   777   769   780   790   770   780   764   785   765   757   779   771 
+ TR27  TR28  TR29  TR30  TR31  TR32  TR33  TR34  TR35  TR36  TR37  TR38  TR39 
+  776   769   773   765   767   787   759   783   787   771   772   761   781 
+ TR40  TR41  TR42  TR43  TR44  TR45  TR46  TR47  TR48  TR49  TR50  TR51  TR52 
+  772   752   779   767   768   781   764   768   765   775   777   764   766 
+ TR53  TR54  TR55  TR56  TR57  TR58  TR59  TR60  TR61  TR62  TR63  TR64  TR65 
+  785   782   793   790   779   789   773   759   777   754   769   761   776 
+ TR66  TR67  TR68  TR69  TR70  TR71  TR72  TR73  TR74  TR75  TR76  TR77  TR78 
+  755   763   769   769   748   762   773   763   781   767   758   768   779 
+ TR79  TR80  TR81  TR82  TR83  TR84  TR85  TR86  TR87  TR88  TR89  TR90  TR91 
+  780   770   759   776   763   760   748   762   758   757   773   743   769 
+ TR92  TR93  TR94  TR95  TR96  TR97  TR98  TR99 TR100 TR101 TR102 TR103 TR104 
+  769   753   761   761   786   756   787   748   762   774   746   761   755 
+TR105 TR106 TR107 TR108 TR109 TR110 TR111 TR112 TR113 TR114 TR115 TR116 TR117 
+  771   770   763   784   770   771   741   757   777   750   755   762   765 
+TR118 TR119 TR120 TR121 TR122 TR123 TR124 TR125 TR126 TR127 TR128 TR129 TR130 
+  762   781   764   770   785   760   772   770   746   760   766   760   752 
+TR131 TR132 TR133 
+  753   754   762 
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># tissue intensities at voxel (40,40,20) for all subjects, at timepoint 50</span>
+</span></span><span style="display:flex;"><span>fmri_array[40,<span style="color:#ae81ff">40</span>,<span style="color:#ae81ff">20</span>, <span style="color:#e6db74">&#34;TR50&#34;</span>, ]
+</span></span></code></pre></div><pre><code>sub-101 sub-104 sub-105 sub-108 sub-109 sub-110 sub-111 sub-113 sub-114 sub-115 
+    777     531     625     197     187     613     575     647     546     181 
+</code></pre>
+<p>For group-level analysis, you might want the average across all subjects:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Group-level average: mean across all subjects</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep x, y, z, time; collapse subjects (dimension 5)</span>
+</span></span><span style="display:flex;"><span>group_average <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(
+</span></span><span style="display:flex;"><span>  fmri_array,
+</span></span><span style="display:flex;"><span>  MARGIN <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>),
+</span></span><span style="display:flex;"><span>  FUN <span style="color:#f92672">=</span> mean
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dim</span>(group_average)
+</span></span></code></pre></div><pre><code>[1]  64  64  37 133
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># visualize a slice of the group average</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">image</span>(
+</span></span><span style="display:flex;"><span>  group_average[,,<span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">50</span>], <span style="color:#75715e"># Slice at z=20, timepoint</span>
+</span></span><span style="display:flex;"><span>  col <span style="color:#f92672">=</span> viridis<span style="color:#f92672">::</span><span style="color:#a6e22e">viridis</span>(<span style="color:#ae81ff">256</span>),
+</span></span><span style="display:flex;"><span>  main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Group Average Activation - Slice z=20, Timepoint 50&#34;</span>,
+</span></span><span style="display:flex;"><span>  xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;X-axis&#34;</span>,
+</span></span><span style="display:flex;"><span>  ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Y-axis&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><img src="index.markdown_strict_files/figure-markdown_strict/group-average-1.png" width="720" />
+<p>This gives you a 4D array representing the average response across all participants.
+This is your group template - what the &ldquo;average brain&rdquo; is doing during this task.</p>
+<p>We can also extract summary timeseries for all subjects:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Extract global signal timeseries for each subject</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Keep time and subjects; collapse spatial dimensions</span>
+</span></span><span style="display:flex;"><span>subject_timeseries <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">apply</span>(
+</span></span><span style="display:flex;"><span>  fmri_array,
+</span></span><span style="display:flex;"><span>  MARGIN <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>),
+</span></span><span style="display:flex;"><span>  FUN <span style="color:#f92672">=</span> mean
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dim</span>(subject_timeseries)
+</span></span></code></pre></div><pre><code>[1]  10 133
+</code></pre>
+<p>This gives us a 10×133 matrix: 133 timepoints by 10 subjects.
+Now we can visualize all subjects together:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Plot all subjects&#39; global signals</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Convert to long format for ggplot</span>
+</span></span><span style="display:flex;"><span>subject_timeseries_df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.data.frame</span>(subject_timeseries) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  tibble<span style="color:#f92672">::</span><span style="color:#a6e22e">rownames_to_column</span>(<span style="color:#e6db74">&#34;subject&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  tidyr<span style="color:#f92672">::</span><span style="color:#a6e22e">pivot_longer</span>(
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>subject,
+</span></span><span style="display:flex;"><span>    names_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;time&#34;</span>,
+</span></span><span style="display:flex;"><span>    values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;signal&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">mutate</span>(time <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.numeric</span>(<span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#34;TR&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, time)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(
+</span></span><span style="display:flex;"><span>  subject_timeseries_df, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> time, y <span style="color:#f92672">=</span> signal, color <span style="color:#f92672">=</span> subject)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Global Signal - All Subjects&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Time (TRs)&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean Signal&#34;</span>,
+</span></span><span style="display:flex;"><span>    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Subject&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme_minimal</span>()
+</span></span></code></pre></div><figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/group-timeseries-plot-1.png" 
+         alt="Global Signal over Time for All Subjects. Each colored line represents a different subject’s mean brain signal intensity at each timepoint." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Global Signal over Time for All Subjects. Each colored line represents a different subject’s mean brain signal intensity at each timepoint.
+        </figcaption>
+        
+    </figure><p>There are some individual differences in signal patterns here.
+In particular, you can see there are some spikes and dips in certain subjects in the very beginning.
+It&rsquo;s always good to visually inspect your data like this before diving into more complex analyses.</p>
+<p>The beautiful thing about <code>apply()</code> is that it scales.
+Whether you&rsquo;re working with a single subject or a hundred, whether you have 10 timepoints or 1000, the syntax stays the same.
+You just specify which dimensions matter for your analysis, and R handles the rest.</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>If you work with matrices or arrays - whether that&rsquo;s gradebooks, experimental data, images, or brain scans - <code>apply()</code> will become one of your most-used functions.
+The key is understanding the <code>MARGIN</code> parameter: it tells R which dimensions to preserve while your function collapses the rest.</p>
+<p>Once you get comfortable with <code>apply()</code>, you&rsquo;ll find yourself reaching for it constantly.
+No more nested loops to calculate row means!
+No more confusing index arithmetic!
+Just a clear statement of what you want: &ldquo;for each [row/column/slice/timepoint], calculate [thing].&rdquo;</p>
+<p>This is the power of R&rsquo;s array-oriented thinking.
+Embrace it, and your code will be cleaner, faster, and easier to understand.</p>
+<p>Mueckstein, Kai AND Heinzel, Marie AND Görgen. 2024. &ldquo;&quot;Modality-Based Multitasking and Practice - fMRI&quot;.&rdquo; OpenNeuro. <a href="https://doi.org/doi:10.18112/openneuro.ds005038.v1.0.3">https://doi.org/doi:10.18112/openneuro.ds005038.v1.0.3</a>.</p>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Nov 1, 2025) 
+                    Mastering Apply: From Matrices to Multidimensional Neuroimaging Data. 
+                    Retrieved from https://drmowinckels.io/blog/2025/apply-multidimensional/.
+                     DOI: https://www.doi.org/10.5281/zenodo.17501184
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-mastering-apply-from-matrices-to-multidimensional-neuroimaging-data,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Mastering Apply: From Matrices to Multidimensional Neuroimaging Data",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/apply-multidimensional/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.17501184",<br> 
+                        &emsp;updated = "Nov 1, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mapply: When You Need to Iterate Over Multiple Inputs</h2>
+    
+      <p>Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/mapply/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 07, 2022
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Let&rsquo;s Get Apply&rsquo;ing</h2>
+    
+      <p>Learn to replace loops with vectorized apply functions in R for efficient data manipulation. This guide covers converting loops to functions using sapply and mapply, enhancing your programming skills by making code more readable and less error-prone.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2022/lets-get-applying/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 31, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Neon Ghosts with ggplot2</h2>
+    
+      <p>Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/neon-ghosts/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ggplot2</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">halloween</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Hugo modules vs. Git submodules: manage your website more easily</h2>
+    
+      <p>Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/submodules/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">git</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">hugo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">submodules</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">web-development</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Automate LinkedIn Carousels with R and Gemini</h2>
+    
+      <p>Learn how to automate LinkedIn carousel creation with R and the free Gemini API. This post details a complete workflow, from connecting to the API and summarizing a blog post into structured points, to generating a custom Quarto document ready for manual review and posting.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin_gemini/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

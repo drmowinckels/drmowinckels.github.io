@@ -1,0 +1,39 @@
+{
+	"participant_id":{
+		"LongName": "Participant identifier"
+	},
+	"age":{
+		"LongName": "Participants age at participation",
+		"Units": "years"
+	},
+	"sex":{
+		"LongName": "Participants sex",
+		"Levels": {
+			"F": "female",
+			"M": "male"
+		}
+	},
+	"group":{
+		"LongName": "Intervention group participant belongs to",
+		"Levels": {
+			"passive": "passive control group",
+			"comp": "modality compatible intervention group",
+			"incomp": "modality incompatible intervention group",
+			"-": "no data for second session"
+		}
+	},
+	"scanner": {
+		"LongName": "Which scanner was used",
+		"Levels":{
+			"TRIO": "Siemens Magnetom TIM TRIO syngo 3T",
+			"Prisma": "Siemens Magnetom 3.0T Prisma"
+		}
+	},
+	"consent": {
+		"LongName": "version of consent form",
+		"Levels": {
+			"old": "Old version of consent form, without explicit permission to publish anonymous data - excluded in upload",
+			"new": "updated version with explicit permissionto publish anonymous data"
+		}
+	}
+}
