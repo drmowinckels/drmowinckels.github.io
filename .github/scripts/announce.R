@@ -36,7 +36,7 @@ message <-
   gemini_upload_file(post) |>
   doc_summary(
     sprintf(
-      "Please provide a text to announce the publication of the following article, highlighting its key points, practical approaches, and encouraging engagement. There should be three separate texts returned, one for each social media platform: LinkedIn (long, well structured with line breaks etc), Bluesky (short), and Mastodon (short). Each text should be tailored to the specific platform's audience and style, and should be in the first person, the author of the document is posting on their own accounts. The texts should be engaging and include relevant hashtags and emojis where appropriate, and raw link to the article at the end (%s). Output the information in a single line json, not pretty, without backslashes and information on file type (omit ```json), with keys linkedin, bluesky, and mastodon",
+      "Please provide a text to announce the publication of the following blogpost, highlighting its key points, practical approaches, and encouraging engagement. There should be three separate texts returned, one for each social media platform: LinkedIn (long, well structured with line breaks etc), Bluesky (less than 300 graphemes), and Mastodon (short). Each text should be tailored to the specific platform's audience and style, and should be in the first person, the author of the document is posting on their own accounts. The texts should be engaging and include relevant hashtags and emojis where appropriate, and raw link to the article at the end (%s). Output the information in a single line json, not pretty, without backslashes and information on file type (omit ```json), with keys linkedin, bluesky, and mastodon",
       uri
     )
   ) |>
