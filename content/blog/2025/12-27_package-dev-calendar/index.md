@@ -17,7 +17,7 @@ summary: >-
   A comprehensive guide to modern R package development, covering setup,
   documentation, testing, CI/CD, and CRAN submission, a summary of a social
   media advent calendar.
-image: advent-calendar-2025.png
+image: pak-dev-cal.jpeg
 ---
 
 
@@ -33,7 +33,8 @@ The R package development ecosystem has evolved dramatically over the past decad
 Tools like `usethis`, `pkgdown`, and GitHub Actions have automated what used to be tedious, error-prone manual work.  
 Yet many developers still follow outdated workflows, missing out on productivity gains and quality improvements.
 
-This advent calendar was designed to bridge that gap---offering bite-sized, practical lessons that you can implement immediately in your packages.
+This advent calendar was designed to bridge that gap---offering bite-sized, practical lessons that you can implement immediately in your packages.  
+It comprises my favorite tools and techniques that I've found invaluable in my own package development journey.
 
 ## Week 1: Foundation & Setup (Days 1-6)
 
@@ -50,6 +51,7 @@ usethis::use_mit_license()
 usethis::use_github_action("check-standard")
 usethis::use_testthat(3)
 usethis::use_pkgdown()
+usethis::use_news_md()
 ```
 
 **Why it matters:**  
@@ -57,7 +59,28 @@ What used to take 2-3 hours of setup now takes 5 minutes.
 More importantly, you won't forget crucial infrastructure like NEWS.md files or proper .Rbuildignore entries.
 
 **Pro tip:**  
-Set up your preferences once with `usethis::edit_r_profile()` and every package inherits them automatically.
+Set up your preferences once with `usethis::edit_r_profile()` and every package inherits them automatically.  
+I have this set up:
+
+``` r
+options(
+  usethis.full_name = "Athanasia M. Mowinckel",
+  usethis.description = list(
+    "Authors@R" = utils::person(
+      given = "Athanasia Mo",
+      family = "Mowinckel",
+      email = "a.m.mowinckel@psykologi.uio.no",
+      role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0002-5756-0223")
+    ),
+    Version = "0.0.0.9000"
+  ),
+  usethis.destdir = "~/workspace/rproj/"
+)
+```
+
+**Pro tip 2:**
+When in doubt of what function to use, type `usethis::use_` in the console of RStudio or Positron and hit `Tab` to see all available options.
 
 See \[usethis documentation\][^1].
 
@@ -69,15 +92,23 @@ Traditional development meant constantly quitting R, rebuilding packages, and re
 **The magic workflow:**
 
 ``` r
-devtools::load_all()    # Instant feedback on changes
-devtools::document()    # Update documentation
-devtools::test()        # Run tests without reinstalling
-devtools::check()       # Full CRAN checks locally
+# Instant feedback on changes
+devtools::load_all()    
+
+# Update documentation
+devtools::document() 
+
+# Run tests without reinstalling
+devtools::test()  
+
+# Full CRAN checks locally
+devtools::check()
 ```
 
 **Why `load_all()` is revolutionary:**  
 It simulates installing your package without actually installing it.  
-Test functions immediately, try different approaches rapidly, and maintain state between iterations.
+Test functions immediately, try different approaches rapidly, and maintain state between iterations.  
+Learn the keyboard shortcuts for even faster workflow:
 
 **Essential keyboard shortcuts:**  
 - `Ctrl/Cmd + Shift + L`: load_all()  
@@ -88,6 +119,11 @@ Test functions immediately, try different approaches rapidly, and maintain state
 **Impact:**  
 Shaving 30 seconds off each iteration, across 100 daily iterations, saves 50 minutes per day.  
 That's hours per week spent building features instead of waiting.
+
+**Gotcha:**
+`load_all` also loads internal package functions, as if they were exported.
+This can mask bugs that only appear when the package is installed properly, and accessed by users.  
+Always run `devtools::check()` before submission to catch these issues.
 
 See \[devtools documentation\][^2].
 
@@ -115,12 +151,22 @@ usethis::use_github_action("pkgdown")
 I once added a function using `tempdir()` that worked perfectly on macOS but failed on Windows due to path separator differences.  
 GitHub Actions caught this in 8 minutes, not 8 days after CRAN submission.
 
+**Tip:**
+Customize workflows by editing the YAML files in `.github/workflows/`.
+Add a schedule to run checks weekly, i.e to the `check-standard.yaml` file, this way you can catch issues that arise from changes in dependencies.
+
+``` yaml
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Every Sunday at midnight
+```
+
 See \[GitHub Actions documentation\][^3].
 
 ### Day 4: `.Rbuildignore` and `.gitignore` Best Practices 📁
 
 These "invisible" files control what gets included in your package and repository.
-Get them wrong and you'll either leak credentials, bloat your package, or confuse users with development artifacts.
+Get them wrong and you'll either leak credentials, bloat your package, fail build chekcs, or confuse users with development artifacts.
 
 **Two distinct jobs:**  
 - `.gitignore`: Keeps secrets and local files OFF GitHub  
@@ -144,7 +190,7 @@ usethis::use_git_ignore("private_data/")
 
 **Common disaster:**  
 Accidentally committing `.httr-oauth` with API credentials.  
-Once in git history, those credentials are public forever.  
+Once in git history, those credentials are public forever (there are ways to purge git history, but that is not something you want to deal with!).  
 Add it to `.gitignore` immediately.
 
 ### Day 5: Package Structure with `pkgdown` Site Generation 🌐
@@ -166,10 +212,6 @@ pkgdown::build_site()
 - Changelog from NEWS.md  
 - Full-text search
 
-**Real impact:**  
-One developer reported going from ~10 weekly downloads with just a README to ~200 weekly downloads within a month of adding a pkgdown site.  
-Better documentation = more users.
-
 **Auto-deployment:**
 
 ``` r
@@ -185,7 +227,8 @@ See \[pkgdown documentation\][^4].
 
 ### Day 6: `pre-commit` Hooks for R 🪝
 
-We've all committed code with trailing whitespace, forgotten to run `devtools::document()`, or left debug `print()` statements in the code. Pre-commit hooks catch these mistakes before they reach your repository.
+We've all committed code with trailing whitespace, forgotten to run `devtools::document()`, or left debug `print()` statements in the code.
+Pre-commit hooks catch these mistakes before they reach your repository.
 
 **Setup:**
 
@@ -199,9 +242,6 @@ precommit::use_precommit()
 - Documentation updates via roxygenize  
 - Syntax validation  
 - README.md stays current with README.Rmd
-
-**Real save:**  
-A team of 5 contributors added the `readme-rmd-rendered` hook and caught 15 instances of people editing the wrong README file in the first week.
 
 **Why it matters:**  
 Pre-commit hooks are like spell-check for code.  
@@ -220,7 +260,7 @@ But roxygen2's advanced features transform documentation from a chore into an in
 **Cross-references that become clickable links:**
 
 ``` r
-#' @seealso [other_function()] for related functionality
+#' @seealso [other_function()] 
 #' @family data manipulation
 ```
 
@@ -245,7 +285,7 @@ DRY (Do not Repeat Yourself) principle for documentation.
 my_plot <- function(...) {}
 ```
 
-All 94 parameters from `theme()` are now documented in your function without typing them.
+All parameters from `theme()` are now documented in your function without typing them.
 
 **Section tags for organization:**
 
@@ -295,6 +335,8 @@ home:
   logo: man/figures/logo.png
 ```
 
+Check out [Melissa Van Bussel's](https://www.melissavanbussel.com/) [R/Medicine 2025 talk](https://www.youtube.com/watch?v=aMVdZX6dhIc) for a great run through!
+
 See \[pkgdown documentation\][^7].
 
 ### Day 9: Vignettes with `knitr` and `rmarkdown` 📖
@@ -314,7 +356,7 @@ usethis::use_vignette("getting-started")
 -   Start with a clear problem statement  
 -   Show complete workflows, not code fragments  
 -   Keep computation under 5 minutes  
--   Use pre-computed results for heavy tasks  
+-   Use [pre-computed](https://ropensci.org/blog/2019/12/08/precompute-vignettes/) results for heavy tasks  
 -   Use real examples, not toy datasets
 
 **Why vignettes matter:** One good vignette prevents 100 support emails and converts confused users into enthusiastic advocates who recommend your package.
@@ -347,14 +389,12 @@ experimental → stable → superseded → deprecated → defunct
 ### Day 11: NEWS.md and Semantic Versioning 📰
 
 When users see an available update, they ask:
-"Will this break my code?
-What changed?
-Should I wait?"
+"Will this break my code? What changed? Should I wait?"
 Without NEWS.md, they skip the update or update blindly.
 
 **Semantic versioning communicates risk:**
 
--   MAJOR version (1.0.0 → 2.0.0): breaking changes  
+-   MAJOR version (1.0.0 → 2.0.0): possible breaking changes  
 -   MINOR version (1.0.0 → 1.1.0): new features, backwards compatible  
 -   PATCH version (1.0.0 → 1.0.1): bug fixes only
 
@@ -389,7 +429,7 @@ usethis::use_readme_rmd()
 
 **Essential sections:**
 
--   Installation instructions (CRAN/GitHub)  
+-   Installation instructions (CRAN/GitHub/r-universe)  
 -   Quick example with real output  
 -   Badges (build status, coverage, CRAN version)  
 -   Link to full documentation
@@ -401,7 +441,8 @@ usethis::use_readme_rmd()
   run: Rscript -e 'rmarkdown::render("README.Rmd")'
 ```
 
-**Impact:** README examples that actually work build trust immediately. The first 30 seconds on your README determine if users try your package.
+**Impact:** README examples that actually work build trust immediately.
+The first 30 seconds on your README determine if users try your package.
 
 ### Day 13: `covr` - Test Coverage Reporting 📊
 
@@ -453,6 +494,7 @@ test_that("error messages stay helpful", {
 -   Helper functions in `tests/testthat/helper.R`  
 -   `setup.R` runs before all tests  
 -   `teardown.R` runs after all tests
+    -   if you are making temp files etc, I recommend using `withr::temp_file()` and `withr::temp_dir()` inside individual tests instead of global setup/teardown.
 
 **Write descriptive test names:**
 
@@ -461,6 +503,15 @@ test_that("function handles missing values by imputing mean", {})
 ```
 
 Not: `test_that("test1", {})`
+
+I've recently also started using the `describe()` function to group related tests together, like so:
+
+``` r
+describe("some_function()", {
+  it("removes duplicates correctly", {})
+  it("handles missing values appropriately", {})
+})
+```
 
 See \[testthat documentation\][^9].
 
@@ -492,7 +543,13 @@ test_that("plot is stable", {
 })
 ```
 
-**Critical:** Review snapshot changes carefully. Intentional improvement? Accept new snapshot. Unintentional regression? Fix your code.
+First run will save an svg of the plot, and then subsequent runs will compare against that.
+Differences will trigger error, and you can review the diff visually.
+
+**Critical:** Review snapshot changes carefully.
+Intentional improvement?
+Accept new snapshot. Unintentional regression?
+Fix your code.
 
 ### Day 16: Testing with Mocks using `testthat` 🎭
 
@@ -523,7 +580,9 @@ test_that("processes API response", {
 })
 ```
 
-**Why `local_mocked_bindings`:** Scoped to the test. Real function automatically restored afterward. No side effects between tests.
+**Why `local_mocked_bindings`:** Scoped to the test.
+Real function automatically restored afterward.
+No side effects between tests.
 
 ### Day 17: `vcr` - Recording API Calls for Tests 📼
 
@@ -545,15 +604,17 @@ test_that("API returns expected data", {
 })
 ```
 
-**How it works:** First run hits the real API and saves the response to a "cassette" file. Subsequent runs read from that file. Tests are fast, reliable, and work offline.
+**How it works:** First run hits the real API and saves the response to a "cassette" file.
+Subsequent runs read from that file.
+Tests are fast, reliable, and work offline.
 
 **For vignettes too:**
+use chunk labels, and cassettes will be created for vignette code as well.
 
-``` r
-vcr::use_cassette("demo_data", {
-  demo_data <- fetch_api_data("example")
-})
-```
+    ```r
+    #| label: github_api_vignette
+    #| cassette: true
+    ```
 
 See \[vcr documentation\][^10].
 
@@ -565,19 +626,20 @@ Automated formatting solves this.
 **Automate style:**
 
 ``` r
-styler::style_pkg()    # Formats entire package
-lintr::lint_package()  # Finds style issues
+# Formats entire package
+styler::style_pkg()    
+
+# Finds style issues
+lintr::lint_package()  
 ```
 
 **Configure once:**
 
-``` r
-# .lintr file
-linters: linters_with_defaults(
-  line_length_linter(120),
-  commented_code_linter = NULL
-)
-```
+    # .lintr file
+    linters: linters_with_defaults(
+      line_length_linter(120),
+      commented_code_linter = NULL
+    )
 
 **IDE integration:**
 RStudio has styler in the Addins menu.
@@ -585,7 +647,8 @@ VSCode's R extension includes lintr support.
 Some configure format-on-save.
 
 **Impact:**
-Consistent style = readable code = fewer bugs = faster code reviews. Automate it and focus on logic, not formatting debates.
+Consistent style = readable code = fewer bugs = faster code reviews.
+Automate it and focus on logic, not formatting debates.
 
 ### Day 19: `goodpractice` - Package Health Checks 🏥
 
@@ -608,6 +671,11 @@ goodpractice::gp()
 - Low test coverage  
 - Common anti-patterns
 
+**Tips :**
+You don't have to fix everything.
+Focus on high-impact issues, and improve incrementally.
+Set a goal to reduce warnings over time, but don't obsess over perfection.
+
 **Before CRAN submission:**
 
 Always run `gp()` and fix warnings.
@@ -618,7 +686,8 @@ Your CRAN submission will go much smoother.
 
 ### Day 20: Performance Testing with `bench` ⚡
 
-"I think this approach is faster" is guessing. Microbenchmarking is proof.
+"I think this approach is faster" is guessing.
+Microbenchmarking is proof.
 
 **Compare approaches:**
 
@@ -654,6 +723,7 @@ If new code makes critical functions slower, tests should fail.
 CRAN tests your package on Windows, macOS, and multiple Linux distributions.
 Platform-specific bugs are submission killers.
 rhub lets you test before submission.
+You might have set up GitHub Actions for CI, but rhub provides additional platforms and more CRAN-like environments.
 
 **Pre-submission testing:**
 
@@ -721,7 +791,8 @@ Person <- new_class("Person",
 )
 ```
 
-Combines S3's simplicity with S4's features. Somewhat experimental, but very promising.
+Combines S3's simplicity with S4's features.
+Somewhat experimental (though ggplot2 uses it internally now, so maybe its nice and stable now?), very promising.
 
 **Recommendation:**
 Most packages should use S3.
@@ -777,7 +848,7 @@ Making this safe in packages requires tidy evaluation.
 
 ``` r
 my_mutate <- function(data, col, value) {
-  data %>%
+  data |>
     dplyr::mutate({{ col }} := value)
 }
 ```
@@ -786,7 +857,7 @@ my_mutate <- function(data, col, value) {
 
 ``` r
 my_summarise <- function(data, ...) {
-  data %>%
+  data |>
     dplyr::summarise(...)
 }
 ```
@@ -826,9 +897,9 @@ usethis::use_cran_comments()
 **Common rejection reasons:**
 - Examples taking \>5 seconds  
 - Typos in documentation  
+- URL's not resolving  
 - Missing input validation  
-- Platform-specific bugs  
-- Unnecessarily large package size
+- Platform-specific bugs
 
 **Submit:**
 
@@ -848,7 +919,7 @@ Over these 25 days, we've covered the complete modern R package development work
 -   **Week 3** dove into testing and quality---comprehensive testing strategies, code quality tools, and performance benchmarking  
 -   **Week 4** tackled advanced features---multi-platform testing, object systems, user interfaces, and CRAN submission
 
-The tools and techniques presented here represent current best practices in the R community.
+The tools and techniques presented here represent tooling and workflows I personally use (or strive to use) in my own package development.
 They will help you create packages that are:
 
 -   **Robust:** Well-tested with comprehensive test suites
@@ -867,7 +938,7 @@ Whether you're developing your first package or maintaining dozens, these tools 
 -   **Follow:** Keep up with #rstats and #RPackageAdvent2025 for more tips
 
 Thank you for following along with the R Package Development Advent Calendar 2025.  
-Now go build amazing packages that make R better for everyone! 🎄📦
+Now go build amazing packages that make R better for everyone (after the holidays, of course!)! 🎄📦
 
 ## Resources
 
