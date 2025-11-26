@@ -45,9 +45,6 @@ Instead of manually creating DESCRIPTION files, writing configuration from scrat
 ```r
 usethis::create_package("~/mypackage")
 usethis::use_mit_license()
-usethis::use_github_action("check-standard")
-usethis::use_testthat(3)
-usethis::use_pkgdown()
 usethis::use_news_md()
 ```
 
@@ -58,6 +55,7 @@ More importantly, you won't forget crucial infrastructure like NEWS.md files or 
 **Pro tip:**  
 Set up your preferences once with `usethis::edit_r_profile()` and every package inherits them automatically.  
 I have this set up:
+
 
 ```r
 options(
@@ -119,7 +117,7 @@ Shaving 30 seconds off each iteration, across 100 daily iterations, saves 50 min
 That's hours per week spent building features instead of waiting.  
 
 **Gotcha:**
-`load_all` also loads internal package functions, as if they were exported.
+`load_all()` also loads internal package functions, as if they were exported.
 This can mask bugs that only appear when the package is installed properly, and accessed by users.  
 Always run `devtools::check()` before submission to catch these issues.
 
@@ -157,7 +155,8 @@ Add a schedule to run checks weekly, i.e to the `check-standard.yaml` file, this
 ```yaml
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Every Sunday at midnight
+    # Every Sunday at midnight
+    - cron: '0 0 * * 0'  
 ```
 
 See [GitHub Actions documentation][^gha].  
@@ -166,12 +165,18 @@ See [GitHub Actions documentation][^gha].
 ### Day 4: `.Rbuildignore` and `.gitignore` Best Practices 📁
 
 These "invisible" files control what gets included in your package and repository. 
-Get them wrong and you'll either leak credentials, bloat your package, fail build chekcs, or confuse users with development artifacts.
+Get them wrong and you'll either leak credentials, bloat your package, fail build checks, or confuse users with development artifacts.
 
 **Two distinct jobs:**  
 - `.gitignore`: Keeps secrets and local files OFF GitHub  
 - `.Rbuildignore`: Keeps development files OUT of your CRAN package  
 
+Can be set up with:
+
+```r
+usethis::use_git_ignore()
+usethis::use_build_ignore()
+```
 
 **Essential .Rbuildignore entries:**  
 
@@ -191,7 +196,6 @@ usethis::use_build_ignore("dev_script.R")
 usethis::use_git_ignore("private_data/")
 ```
 
-
 **Common disaster:**  
 Accidentally committing `.httr-oauth` with API credentials.  
 Once in git history, those credentials are public forever (there are ways to purge git history, but that is not something you want to deal with!).  
@@ -208,7 +212,6 @@ Reading `?my_function` in a terminal is a poor user experience compared to brows
 usethis::use_pkgdown()
 pkgdown::build_site()
 ```
-
 
 **What you get:**  
 - Professional website with all function documentation  
@@ -231,33 +234,35 @@ See [pkgdown documentation][^pkgdown].
 **Resources:** [pkgdown.r-lib.org](https://pkgdown.r-lib.org/)
 
 
-### Day 6: `pre-commit` Hooks for R 🪝
+### Day 6: Adding dependencies to your Package
 
-We've all committed code with trailing whitespace, forgotten to run `devtools::document()`, or left debug `print()` statements in the code. 
-Pre-commit hooks catch these mistakes before they reach your repository.
+Managing dependencies manually can be error-prone.
+`usethis` simplifies this by automating the process of adding packages to your DESCRIPTION file.
+This also makes sure the dependencies are in alphabetical order, which is a nice touch for readability.
 
-
-**Setup:**  
+**Add a package dependency:**
 
 ```r
-precommit::use_precommit()
+usethis::use_package("dplyr")
 ```
 
+This adds `dplyr` to the Imports section of your DESCRIPTION file.
 
-**What runs automatically on every commit:**  
-- Code formatting with styler  
-- Style checks with lintr  
-- Documentation updates via roxygenize  
-- Syntax validation  
-- README.md stays current with README.Rmd  
+**Specify version requirements:**
 
-**Why it matters:**  
-Pre-commit hooks are like spell-check for code.  
-They prevent embarrassing mistakes, enforce consistency, and save time.  
-Setup once, benefit forever.  
+```r
+usethis::use_package("data.table", min_version = "1.14.0")
+```
 
-See [pre-commit documentation][^precommit].  
+This ensures that users have at least version 1.14.0 of `data.table` installed.
 
+**Specify dependency type:**
+
+```r
+usethis::use_package("ggplot2", type = "Suggests")
+```
+
+This adds `ggplot` to the Suggests section, indicating it's only needed for testing or vignettes.
 
 ## Week 2: Documentation & Communication (Days 7-13)
 

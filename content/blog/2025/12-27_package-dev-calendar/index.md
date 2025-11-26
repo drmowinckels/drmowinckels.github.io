@@ -55,8 +55,8 @@ usethis::use_news_md()
 ```
 
 **Why it matters:**  
-What used to take 2-3 hours of setup now takes 5 minutes.  
-More importantly, you won't forget crucial infrastructure like NEWS.md files or proper .Rbuildignore entries.
+What used to take about an hour of setup now takes 5 minutes.  
+More importantly, you won't forget crucial infrastructure like NEWS.md files or proper `.Rbuildignore` entries.
 
 **Pro tip:**  
 Set up your preferences once with `usethis::edit_r_profile()` and every package inherits them automatically.  
@@ -166,7 +166,7 @@ See \[GitHub Actions documentation\][^3].
 ### Day 4: `.Rbuildignore` and `.gitignore` Best Practices 📁
 
 These "invisible" files control what gets included in your package and repository.
-Get them wrong and you'll either leak credentials, bloat your package, fail build chekcs, or confuse users with development artifacts.
+Get them wrong and you'll either leak credentials, bloat your package, fail build checks, or confuse users with development artifacts.
 
 **Two distinct jobs:**  
 - `.gitignore`: Keeps secrets and local files OFF GitHub  
@@ -196,12 +196,13 @@ Add it to `.gitignore` immediately.
 ### Day 5: Package Structure with `pkgdown` Site Generation 🌐
 
 Documentation quality determines package adoption.
-Reading `?my_function` in a terminal is a poor user experience compared to browsing a beautiful, searchable website with syntax highlighting and navigation.
+Typing `?my_function` in the console and looking at the docs in the IDE is a poorer user experience compared to browsing a beautiful, searchable website with syntax highlighting and navigation.
 
 **Setup is trivial:**
 
 ``` r
 usethis::use_pkgdown()
+
 pkgdown::build_site()
 ```
 
@@ -216,6 +217,9 @@ pkgdown::build_site()
 
 ``` r
 usethis::use_github_action("pkgdown")
+
+# or 
+usethis::use_pkgdown_github_pages() 
 ```
 
 Now your site rebuilds and deploys automatically with every push.  
@@ -230,18 +234,18 @@ See \[pkgdown documentation\][^4].
 We've all committed code with trailing whitespace, forgotten to run `devtools::document()`, or left debug `print()` statements in the code.
 Pre-commit hooks catch these mistakes before they reach your repository.
 
-**Setup:**
+There are a couple steps needed to get it working:
 
-``` r
-precommit::use_precommit()
-```
+-   Install [pre-commit](https://pre-commit.com/) on your system (on my Mac I use `brew install pre-commit`)
+-   Run `precommit::use_precommit()` in your package root once to set up the configuration files.
+-   Follow instructions in the console (will likely ask you to log into GitHub and configure access to your repositories)
 
 **What runs automatically on every commit:**  
 - Code formatting with styler  
 - Style checks with lintr  
 - Documentation updates via roxygenize  
 - Syntax validation  
-- README.md stays current with README.Rmd
+- `README.md` stays current with README.Rmd
 
 **Why it matters:**  
 Pre-commit hooks are like spell-check for code.  
@@ -301,7 +305,7 @@ See \[roxygen2 documentation\][^6].
 
 ### Day 8: `pkgdown` Customization and Deployment 🎨
 
-Default pkgdown sites are functional but forgettable.
+Default pkgdown sites are functional but can feel forgettable.
 Customization isn't vanity---it's about creating memorable user experiences and improving navigation.
 
 **Modern styling:**
@@ -325,8 +329,8 @@ reference:
     - has_concept("manipulation")
 ```
 
-One developer reorganized 60 alphabetically-listed functions into logical groups and saw support questions drop by 40%.
-When users find what they need, they don't email you.
+It's really helpful to group related functions together so users can find what they need quickly.
+Also, pkgdown will fail if you *miss* any functions here, so you have to be explicit about what goes where.
 
 **Add your hex logo:**
 
@@ -382,7 +386,7 @@ old_function <- function() {
 **The lifecycle stages:**
 experimental → stable → superseded → deprecated → defunct
 
-**Why this matters:** tidyverse packages serve millions of users and evolve constantly without breaking everyone's code. lifecycle is how they do it.
+**Why this matters:** tidyverse packages serve millions of users and evolve constantly without (silently) breaking everyone's code. lifecycle is how they do it.
 
 **Resources:** [lifecycle.r-lib.org](https://lifecycle.r-lib.org/)
 
@@ -413,7 +417,7 @@ Without NEWS.md, they skip the update or update blindly.
 * Renamed `old_param` to `new_param` in `main_function()`
 ```
 
-**Link to GitHub issues:** `(#15)` creates automatic links so users can see full context and discussion.
+**Link to GitHub issues:** `(#15)` creates automatic links so users can see full context and discussion, and contributor's usernames are linkes.
 
 ### Day 12: README.Rmd Automation 📝
 
@@ -442,7 +446,8 @@ usethis::use_readme_rmd()
 ```
 
 **Impact:** README examples that actually work build trust immediately.
-The first 30 seconds on your README determine if users try your package.
+Create your first impression with confidence, and make it easy for users to get started.
+A good readme can be the difference between someone trying your package or moving on.
 
 ### Day 13: `covr` - Test Coverage Reporting 📊
 
@@ -594,7 +599,6 @@ You need real responses but can't hit live APIs constantly (slow, rate limits, a
 
 ``` r
 library(vcr)
-vcr_configure(dir = "tests/fixtures/vcr_cassettes")
 
 test_that("API returns expected data", {
   use_cassette("github_api", {
@@ -650,13 +654,23 @@ Some configure format-on-save.
 Consistent style = readable code = fewer bugs = faster code reviews.
 Automate it and focus on logic, not formatting debates.
 
+**Alternatives**
+- Air https://posit-dev.github.io/air/
+- flir https://flir.etiennebacher.com/
+- jarl https://jarl.etiennebacher.com/
+
+I use Air on my computer, it's set as a system wide formatter for R in Positron.
+It auto-formats on save, which is nice.
+I think jarl is a very nice addition, and while I haven't tried it myself yet, it seems to have a lot of potential as well.
+
 ### Day 19: `goodpractice` - Package Health Checks 🏥
 
 Is your package well-structured?
 Are functions too complex?
 Missing docs?
 Checking manually takes hours.
-`goodpractice` checks everything automatically.
+[github.com/ropensci/goodpractice](https://github.com/ropensci/goodpractice)  
+checks everything automatically.
 
 **Run the check:**
 
@@ -716,6 +730,9 @@ Sometimes the "faster" solution uses 10x more memory. bench reveals the tradeoff
 Include benchmarks in your test suite.
 If new code makes critical functions slower, tests should fail.
 
+I am personally not doing this yet, but I plan to start including benchmarks in my packages' test suites in the near future.
+For instance, my [ggsegExtra](https://ggseg.github.io/ggsegExtra/) package has some functions that can be quite computationally intensive depending on the input data size, so having benchmarks there would be really useful to ensure that future changes do not degrade performance.
+
 ## Week 4: Advanced Features (Days 21-25)
 
 ### Day 21: `rhub` - Multi-Platform Testing 🌍
@@ -744,7 +761,7 @@ Run rhub checks + GitHub Actions before CRAN submission.
 If both pass, CRAN will very likely accept.
 
 **Impact:**
-CRAN rejection wastes 2+ weeks waiting for resubmission review.
+CRAN rejection can waste weeks waiting for resubmission review.
 rhub finds issues in hours.
 
 See \[rhub documentation\][^11].
@@ -796,7 +813,7 @@ Somewhat experimental (though ggplot2 uses it internally now, so maybe its nice 
 
 **Recommendation:**
 Most packages should use S3.
-Need strict validation?
+Need strict validation or implementing a stats method?
 Choose S4.
 Want modern OOP?
 Try S7.
@@ -894,10 +911,13 @@ Creates a GitHub issue with a complete pre-submission checklist.
 usethis::use_cran_comments()
 ```
 
+Give CRAN reviewers context on changes, especially breaking ones.
+
 **Common rejection reasons:**
 - Examples taking \>5 seconds  
 - Typos in documentation  
 - URL's not resolving  
+- If a URL is accessible only through a login etc, mention this in the cran-comments file.
 - Missing input validation  
 - Platform-specific bugs
 
@@ -908,7 +928,7 @@ devtools::submit_cran()
 ```
 
 **After acceptance:** Monitor CRAN check results, fix issues promptly, maintain your package responsibly.
-You're now part of the R ecosystem!
+Your package is now part of the R ecosystem!
 
 ## Conclusion
 
@@ -943,6 +963,7 @@ Now go build amazing packages that make R better for everyone (after the holiday
 ## Resources
 
 Happy package development! 🚀
+And thank [Maëlle Salmon](https://masalmon.eu/) for inspiring me to do this advent calendar again this year, and for the comments she provided on an earlier draft of this post!
 
 [^1]: https://usethis.r-lib.org/
 
