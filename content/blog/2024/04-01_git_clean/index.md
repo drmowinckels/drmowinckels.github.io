@@ -16,7 +16,6 @@ aliases:
 summary: Learn how to handle git mistakes and recover lost work with simple solutions. Explore commands like `git clean` and `git reset`, and discover how to undo mistakes using `ctrl + z` in RStudio. Gain confidence in your git journey with tips from experienced developers and helpful resources.
 seo: Recover from git mistakes and learn to undo lost work in RStudio. Tips and resources for git commands like `git clean` and `git reset`.
 ---
-  
 
 
 I have a type of love-hate relationship with git.
