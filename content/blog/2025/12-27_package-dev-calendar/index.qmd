@@ -198,8 +198,10 @@ usethis::use_git_ignore("private_data/")
 
 **Common disaster:**  
 Accidentally committing `.httr-oauth` with API credentials.  
-Once in git history, those credentials are public forever (there are ways to purge git history, but that is not something you want to deal with!).  
+Once in git history on GitHub, those credentials are public forever (there are ways to purge git history, but that is not something you want to deal with!).  
 Add it to `.gitignore` immediately.  
+
+Check out [https://gitignore.org/R](https://gitignore.org/R) for a great resource on common ignore patterns, and not just for R!
 
 ### Day 5: Package Structure with `pkgdown` Site Generation 🌐
 
@@ -223,7 +225,7 @@ pkgdown::build_site()
 **Auto-deployment:**  
 
 ```r
-usethis::use_github_action("pkgdown")
+usethis::use_pkgdown_github_pages()
 ```
 
 Now your site rebuilds and deploys automatically with every push.  
@@ -972,13 +974,14 @@ Whether you're developing your first package or maintaining dozens, these tools 
 Thank you for following along with the R Package Development Advent Calendar 2025.  
 Now go build amazing packages that make R better for everyone (after the holidays, of course!)! 🎄📦  
 
+Happy package development! 🚀
+
 ## Resources
 
 [^usethis]: https://usethis.r-lib.org/  
 [^devtools]: https://devtools.r-lib.org/  
 [^gha]: https://github.com/r-lib/actions  
 [^pkgdown]: https://pkgdown.r-lib.org/  
-[^precommit]: https://pre-commit.com/  
 [^roxygen2]: https://roxygen2.r-lib.org/  
 [^lifecycle]: https://lifecycle.r-lib.org/  
 [^covr]: https://covr.r-lib.org/  
@@ -990,4 +993,3 @@ Now go build amazing packages that make R better for everyone (after the holiday
 [^rpkgs]: https://r-pkgs.org/  
 [^rlib]: https://github.com/r-lib  
 
-Happy package development! 🚀
