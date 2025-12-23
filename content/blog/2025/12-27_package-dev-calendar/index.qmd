@@ -32,6 +32,19 @@ Yet many developers still follow outdated workflows, missing out on productivity
 This advent calendar was designed to bridge that gap—offering bite-sized, practical lessons that you can implement immediately in your packages.  
 It comprises my favorite tools and techniques that I've found invaluable in my own package development journey.
 
+The calendar was run on:
+
+- [LinkedIn](https://www.linkedin.com/search/results/all/?keywords=%23rpackageadvent2025&origin=HASH_TAG_FROM_FEED&sid=H75)  
+- [BlueSky](https://bsky.app/hashtag/RPackageAdvent2025?author=drmowinckels.io  )
+- [Mastodon](https://fosstodon.org/@Drmowinckels/tagged/RpackageAdvent2025)  
+
+And have a weekly structure:
+
+- **Week 1:** Foundation & Setup  
+- **Week 2:** Documentation & Communication  
+- **Week 3:** Testing & Quality  
+- **Week 4:** Advanced Features  
+
 
 ## Week 1: Foundation & Setup (Days 1-6)
 
@@ -536,6 +549,9 @@ describe("some_function()", {
 })
 ```
 
+I love how this creates a nice narrative structure for the tests, making it easier to understand the purpose of each test at a glance.
+It also helps make each dest description shorter and clearer.
+
 See [testthat documentation][^testthat].  
 
 ### Day 15: Snapshot Testing with `testthat` 📸
@@ -568,6 +584,7 @@ test_that("plot is stable", {
 
 First run will save an svg of the plot, and then subsequent runs will compare against that.
 Differences will trigger error, and you can review the diff visually.
+**Note** that `vdiffr` will error for even minor insignificant differences, but this is often what you want for plots, as even small changes can indicate unintended changes in the code.
 
 **Critical:** Review snapshot changes carefully. 
 Intentional improvement? 
@@ -580,6 +597,8 @@ Fix your code.
 Your function calls an API, database, or file system. 
 Tests shouldn't hit real external services. 
 Mocking lets you test your logic in isolation.
+For instance, if you function reads in a file from disk with some custom format, you can mock the file reading function to return a predefined data frame instead of actually reading from disk.
+Or, if your function calls an external API, you can mock the API call function to return predefined data instead of making a real HTTP request.
 
 **Local mocking:**
 
@@ -607,6 +626,7 @@ test_that("processes API response", {
 **Why `local_mocked_bindings`:** Scoped to the test. 
 Real function automatically restored afterward. 
 No side effects between tests.
+Makes it possible to test function operations without performing _all_ underlying operations.
 
 
 ### Day 17: `vcr` - Recording API Calls for Tests 📼
@@ -619,13 +639,11 @@ You need real responses but can't hit live APIs constantly (slow, rate limits, a
 
 ```r
 library(vcr)
-vcr_configure(dir = "tests/fixtures/vcr_cassettes")
 
 test_that("API returns expected data", {
-  use_cassette("github_api", {
-    response <- httr::GET("https://api.github.com/users/octocat")
-    expect_equal(httr::status_code(response), 200)
-  })
+  local_cassette("github_api")
+  response <- httr::GET("https://api.github.com/users/octocat")
+  expect_equal(httr::status_code(response), 200)
 })
 ```
 
@@ -678,6 +696,13 @@ Some configure format-on-save.
 **Impact:** 
 Consistent style = readable code = fewer bugs = faster code reviews. 
 Automate it and focus on logic, not formatting debates.
+
+**Other similar tools:**
+- [`air`](https://posit-dev.github.io/air/): Automated R code formatting with opinionated style.
+- [`formatR`](https://yihui.org/formatR/): Another code formatter for R.
+
+I use Air locally to format code on save, and lintr is a supplement to this.
+`lintr` is especially nice for contirbutors, as they might not have `air` set up, but `lintr` can still catch style issues in CI.
 
 
 ### Day 19: `goodpractice` - Package Health Checks 🏥
@@ -746,6 +771,7 @@ Sometimes the "faster" solution uses 10x more memory. bench reveals the tradeoff
 **Best practice:** 
 Include benchmarks in your test suite. 
 If new code makes critical functions slower, tests should fail.
+But make sure to `skip_on_cran()` so CRAN checks don't fail due to timing variability.
 
 ## Week 4: Advanced Features (Days 21-25)
 
@@ -770,6 +796,14 @@ rhub::check_on_macos()
 rhub::check(platform = "debian-clang-devel")
 ```
 
+**Setup for GitHub Actions:**
+
+```r
+rhub::rhub_setup()
+```
+
+Run the rhub checks when you want, manually, or trigger them from other CI workflows.
+
 **The confidence workflow:** 
 Run rhub checks + GitHub Actions before CRAN submission. 
 If both pass, CRAN will very likely accept.
@@ -784,6 +818,11 @@ See [rhub documentation][^rhub].
 
 R has three object systems, each with different strengths. 
 Choose based on your needs, not trends.
+
+Why use an object system?
+They enable polymorphism—functions behave differently based on input class.
+For instance, `print()` shows different output for data frames vs. linear models.
+This is because both `data.frame` and `lm` are classes with their own `print()` methods.
 
 **S3 - Simple & Common:**
 
@@ -943,6 +982,12 @@ devtools::submit_cran()
 **After acceptance:** Monitor CRAN check results, fix issues promptly, maintain your package responsibly. 
 You're now part of the R ecosystem!
 
+**Alternate submission options:**
+- [Multiverse](https://r-multiverse.org/): Host packages with automatic builds and easy installation, complements CRAN and Bioconductor.
+- [r-universe](https://r-universe.dev/): Host packages with automatic builds and easy installation, every organisation and user can have their own universe.
+- [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases): Distribute development versions directly from GitHub.
+
+[See my posit::conf 2023 talk on R-Universe](https://www.youtube.com/watch?v=XDiyAvpo2uk)
 
 ## Conclusion
 
