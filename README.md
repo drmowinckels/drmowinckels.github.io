@@ -11,13 +11,14 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **49** posts since **NA**!
+🎉 DrMowinckels has **51** posts since **NA**!
 
 📅 That’s a post roughly every **NA** days, or about **NA** posts per
 month, since NA.
 
-✍️ The last post was published **NA** days ago ([Mapply: When You Need
-to Iterate Over Multiple Inputs](https://drmowinckels.io/blog/mapply)).
+✍️ The last post was published **NA** days ago ([Mastering Apply: From
+Matrices to Multidimensional Neuroimaging
+Data](https://drmowinckels.io/blog/apply-multidimensional)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -31,6 +32,8 @@ I’d love your feedback in the comments!
 
 | Date       | Title                                                                                                                                                                                    |
 |:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2025-11-01 | [Mastering Apply: From Matrices to Multidimensional Neuroimaging Data](https://drmowinckels.io/blog/apply-multidimensional)                                                              |
+| 2025-10-31 | [Neon Ghosts with ggplot2](https://drmowinckels.io/blog/neon-ghosts)                                                                                                                     |
 | 2025-10-01 | [Mapply: When You Need to Iterate Over Multiple Inputs](https://drmowinckels.io/blog/mapply)                                                                                             |
 | 2025-09-02 | [“Hugo modules vs. Git submodules: manage your website more easily”](https://drmowinckels.io/blog/submodules)                                                                            |
 | 2025-08-01 | [Automate LinkedIn Carousels with R and Gemini](https://drmowinckels.io/blog/linkedin_gemini)                                                                                            |
@@ -89,4 +92,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2025-10-29 01:30:03.372434*
+*Updated 2025-12-24 01:40:01.866863*
