@@ -60,10 +60,10 @@ jobs:
 
       - name: Check if frontmatter is valid
         run: |
-          params=("title:" "date:" "author:" "tags:" "slug:" "image:" "image_alt:")
+          params=("title:" "date:" "author:" "tags:" "slug:" "image:" "image_alt:" "seo" "summary")
           ERROR=false
           for param in "${params[@]}"; do
-            if ! head -n 20 "${{ steps.check-post.outputs.POST }}" | grep -q "${param}"; then
+            if ! head -n 40 "${{ steps.check-post.outputs.POST }}" | grep -q "${param}"; then
               echo "Error: The blog post is missing a ${param} in the frontmatter."
               ERROR=true
             fi
