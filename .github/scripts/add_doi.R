@@ -138,8 +138,7 @@ generate_pdf <- function(path, date, slug = NULL) {
   message("- Generating PDF \n")
 
   if (is.null(slug) || length(slug) == 0) {
-    slug <- basename(dirname(path))
-    slug <- strsplit(slug, "_")[[1]][2]
+    slug <- make_slug(path)
   }
   pdf_file <- sprintf(
     "drmowinckels_%s_%s.pdf",

@@ -27,7 +27,7 @@ frontmatter <- rmarkdown::yaml_front_matter(post)
 url <- sprintf(
   "https://drmowinckels.io/blog/%s/%s",
   basename(dirname(dirname(post))),
-  frontmatter$slug
+  frontmatter$slug %||% make_slug(post)
 )
 uri <- short_url(url)
 frontmatter$url <- url

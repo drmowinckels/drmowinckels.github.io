@@ -24,6 +24,9 @@
 #' @importFrom httr2 resp_body_json
 #' @export
 short_url <- function(uri) {
+  if (is.null(uri) || !nzchar(uri)) {
+    stop("No URL provided to shorten.", call. = FALSE)
+  }
   message("Getting Short.io")
   resp <- httr2::request("https://api.short.io/links") |>
     httr2::req_method("POST") |>
@@ -44,6 +47,20 @@ short_url <- function(uri) {
     httr2::req_perform() |>
     httr2::resp_body_json()
   resp$shortURL
+}
+
+#' Extract Slug from File Path
+#' @param path A character string representing a file path.
+#' @return A character string representing the slug extracted from the file path.
+make_slug <- function(path) {
+  basename(dirname(path))
+}
+
+`%||%` <- function(a, b) {
+  if (!is.null(a) && !is.na(a)) {
+    return(a)
+  }
+  b
 }
 
 #' Compute the Number of Characters in a String

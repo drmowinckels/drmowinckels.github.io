@@ -13,6 +13,7 @@ tags:
   - development
   - advent
   - tutorial
+slug: rpackage-dev-calendar
 seo: 25 days of modern R package development tools, techniques, and best practices
 summary: >-
   A comprehensive guide to modern R package development, covering setup,
