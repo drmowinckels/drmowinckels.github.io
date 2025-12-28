@@ -107,6 +107,10 @@ jobs:
         with:
           r-version: "renv"
 
+      - name: Setup Pandoc
+        if: ${{ env.RUN_DOI == 'true' }}
+        uses: r-lib/actions/setup-pandoc@v2
+
       - name: Cache packages
         if: ${{ env.RUN_DOI == 'true' }}
         uses: actions/cache@v4
