@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>R Package Development Advent Calendar 2025: A Complete Journey - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="A comprehensive guide to modern R package development, covering setup, documentation, testing, CI/CD, and CRAN submission, a summary of a social media advent calendar." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.138.0">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="25 days of modern R package development tools, techniques, and best practices">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2025/12-28_package-dev-calendar/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="R Package Development Advent Calendar 2025: A Complete Journey - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="25 days of modern R package development tools, techniques, and best practices">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2025/12-28_package-dev-calendar/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="25 days of modern R package development tools, techniques, and best practices">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2025/12-28_package-dev-calendar/pak-dev-cal.jpeg" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2025/12-28_package-dev-calendar/pak-dev-cal.jpeg">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.baa1908f96e0c6f9b71447b145d29e168c7a152baf3ed19c88d9c64d40abd901.css" 
+    integrity="sha256-uqGQj5bgxvm3FEexRdKeFox6FSuvPtGciNnGTUCr2QE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5366878624836852736.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu8517673850517275173.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu14571942087844283845.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15407313826671950185.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu5243028335169998791.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu12542686187326557868.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu13659698330348218391.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu16981009452699216388.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7549612530560663352.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu4123736746700774209.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu4123736746700774209.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15595176060954391820.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu15967068578190144734.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu7854817480044023005.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+    <article class="uk-article">
+        <div class="uk-grid uk-flex-top" uk-grid>
+            
+            
+            <div class="uk-width-1-4@s">
+              <img src="https://drmowinckels.io/blog/2025/12-28_package-dev-calendar/pak-dev-cal.jpeg" alt="R Package Development Advent Calendar 2025: A Complete Journey" class="uk-border-rounded">
+              
+            </div>
+
+        <div class="uk-width-3-4@s">
+        <h1 class="uk-article-title">R Package Development Advent Calendar 2025: A Complete Journey</h1>
+        
+        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+            <h3 class="uk-margin-top-small">
+                Dec 28, 2025
+            </h3>
+            
+
+            
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
+                                R
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/rpackageadvent2025/" class="uk-label uk-label-secondary tags" >
+                                Rpackageadvent2025
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/development/" class="uk-label uk-label-secondary tags" >
+                                Development
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/advent/" class="uk-label uk-label-secondary tags" >
+                                Advent
+                            </a>
+                        </div>
+                    
+                        
+                        
+                        
+                        
+                        
+                        <div class="uk-card uk-margin-left uk-margin-bottom">
+                            <a href="https://drmowinckels.io/tags/tutorial/" class="uk-label uk-label-secondary tags" >
+                                Tutorial
+                            </a>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-this-calendar">Why This Calendar?</a></li>
+    <li><a href="#week-1-foundation--setup-days-1-6">Week 1: Foundation &amp; Setup (Days 1-6)</a>
+      <ul>
+        <li><a href="#day-1-usethis---project-setup-automation-">Day 1: <code>usethis</code> - Project Setup Automation 🎯</a></li>
+        <li><a href="#day-2-devtools---essential-development-workflow-">Day 2: <code>devtools</code> - Essential Development Workflow 🔧</a></li>
+        <li><a href="#day-3-github-actions---cicd-setup-">Day 3: GitHub Actions - CI/CD Setup 🚀</a></li>
+        <li><a href="#day-4-rbuildignore-and-gitignore-best-practices-">Day 4: <code>.Rbuildignore</code> and <code>.gitignore</code> Best Practices 📁</a></li>
+        <li><a href="#day-5-package-structure-with-pkgdown-site-generation-">Day 5: Package Structure with <code>pkgdown</code> Site Generation 🌐</a></li>
+        <li><a href="#day-6-adding-dependencies-to-your-package">Day 6: Adding dependencies to your Package</a></li>
+      </ul>
+    </li>
+    <li><a href="#week-2-documentation--communication-days-7-13">Week 2: Documentation &amp; Communication (Days 7-13)</a>
+      <ul>
+        <li><a href="#day-7-roxygen2-advanced-tags-and-cross-references-">Day 7: <code>roxygen2</code> Advanced Tags and Cross-References 📝</a></li>
+        <li><a href="#day-8-pkgdown-customization-and-deployment-">Day 8: <code>pkgdown</code> Customization and Deployment 🎨</a></li>
+        <li><a href="#day-9-vignettes-with-knitr-and-rmarkdown-">Day 9: Vignettes with <code>knitr</code> and <code>rmarkdown</code> 📖</a></li>
+        <li><a href="#day-10-lifecycle---managing-function-deprecation-">Day 10: <code>lifecycle</code> - Managing Function Deprecation 🔄</a></li>
+        <li><a href="#day-11-newsmd-and-semantic-versioning-">Day 11: NEWS.md and Semantic Versioning 📰</a></li>
+        <li><a href="#day-12-readmermd-automation-">Day 12: README.Rmd Automation 📝</a></li>
+        <li><a href="#day-13-covr---test-coverage-reporting-">Day 13: <code>covr</code> - Test Coverage Reporting 📊</a></li>
+      </ul>
+    </li>
+    <li><a href="#week-3-testing--quality-days-14-20">Week 3: Testing &amp; Quality (Days 14-20)</a>
+      <ul>
+        <li><a href="#day-14-testthat-3rd-edition-features-">Day 14: <code>testthat</code> 3rd Edition Features ✅</a></li>
+        <li><a href="#day-15-snapshot-testing-with-testthat-">Day 15: Snapshot Testing with <code>testthat</code> 📸</a></li>
+        <li><a href="#day-16-testing-with-mocks-using-testthat-">Day 16: Testing with Mocks using <code>testthat</code> 🎭</a></li>
+        <li><a href="#day-17-vcr---recording-api-calls-for-tests-">Day 17: <code>vcr</code> - Recording API Calls for Tests 📼</a></li>
+        <li><a href="#day-18-lintr-and-styler---code-quality-">Day 18: <code>lintr</code> and <code>styler</code> - Code Quality ✨</a></li>
+        <li><a href="#day-19-goodpractice---package-health-checks-">Day 19: <code>goodpractice</code> - Package Health Checks 🏥</a></li>
+        <li><a href="#day-20-performance-testing-with-bench-">Day 20: Performance Testing with <code>bench</code> ⚡</a></li>
+      </ul>
+    </li>
+    <li><a href="#week-4-advanced-features-days-21-25">Week 4: Advanced Features (Days 21-25)</a>
+      <ul>
+        <li><a href="#day-21-rhub---multi-platform-testing-">Day 21: <code>rhub</code> - Multi-Platform Testing 🌍</a></li>
+        <li><a href="#day-22-s3-s4-and-s7-object-systems-">Day 22: S3, S4, and S7 Object Systems 🎯</a></li>
+        <li><a href="#day-23-cli---beautiful-command-line-interfaces-">Day 23: <code>cli</code> - Beautiful Command Line Interfaces 💬</a></li>
+        <li><a href="#day-24-rlang---tidy-evaluation-in-packages-">Day 24: <code>rlang</code> - Tidy Evaluation in Packages 🎪</a></li>
+        <li><a href="#day-25-cran-submission-checklist-">Day 25: CRAN Submission Checklist 🎁</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#where-to-go-from-here">Where to Go From Here</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+            <p class="uk-text-lead">A comprehensive guide to modern R package development, covering setup, documentation, testing, CI/CD, and CRAN submission, a summary of a social media advent calendar.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>Over the past 25 days, we&rsquo;ve explored the complete modern R package development workflow through the #RPackageAdvent2025 advent calendar.<br>
+From initial project setup to CRAN submission, we covered the essential tools and techniques that professional R developers use to create high-quality packages.</p>
+<p>This post serves as a comprehensive reference guide, capturing all the insights, tools, and best practices shared throughout the advent calendar.<br>
+Whether you&rsquo;re just getting started with package development or looking to modernize your workflow, you&rsquo;ll find actionable advice for every stage of the process.</p>
+<h2 id="why-this-calendar">Why This Calendar?</h2>
+<p>The R package development ecosystem has evolved dramatically over the past decade.<br>
+Tools like <code>usethis</code>, <code>pkgdown</code>, and GitHub Actions have automated what used to be tedious, error-prone manual work.<br>
+Yet many developers still follow outdated workflows, missing out on productivity gains and quality improvements.</p>
+<p>This advent calendar was designed to bridge that gap&mdash;offering bite-sized, practical lessons that you can implement immediately in your packages.<br>
+It comprises my favorite tools and techniques that I&rsquo;ve found invaluable in my own package development journey.</p>
+<p>The calendar was run on:</p>
+<ul>
+<li><a href="https://www.linkedin.com/search/results/all/?keywords=%23rpackageadvent2025&amp;origin=HASH_TAG_FROM_FEED&amp;sid=H75">LinkedIn</a></li>
+<li><a href="https://bsky.app/hashtag/RPackageAdvent2025?author=drmowinckels.io">BlueSky</a></li>
+<li><a href="https://fosstodon.org/@Drmowinckels/tagged/RpackageAdvent2025">Mastodon</a></li>
+</ul>
+<p>And have a weekly structure:</p>
+<ul>
+<li><strong>Week 1:</strong> Foundation &amp; Setup</li>
+<li><strong>Week 2:</strong> Documentation &amp; Communication</li>
+<li><strong>Week 3:</strong> Testing &amp; Quality</li>
+<li><strong>Week 4:</strong> Advanced Features</li>
+</ul>
+<h2 id="week-1-foundation--setup-days-1-6">Week 1: Foundation &amp; Setup (Days 1-6)</h2>
+<h3 id="day-1-usethis---project-setup-automation-">Day 1: <code>usethis</code> - Project Setup Automation 🎯</h3>
+<p>The <code>usethis</code> package is the cornerstone of modern R package development.
+Instead of manually creating DESCRIPTION files, writing configuration from scratch, or copying YAML you don&rsquo;t fully understand, <code>usethis</code> automates everything with best practices built in.</p>
+<p><strong>Key functions:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">create_package</span>(<span style="color:#e6db74">&#34;~/mypackage&#34;</span>)
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_mit_license</span>()
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_news_md</span>()
+</span></span></code></pre></div><p><strong>Why it matters:</strong><br>
+What used to take 2-3 hours of setup now takes 5 minutes.<br>
+More importantly, you won&rsquo;t forget crucial infrastructure like NEWS.md files or proper .Rbuildignore entries.</p>
+<p><strong>Pro tip:</strong><br>
+Set up your preferences once with <code>usethis::edit_r_profile()</code> and every package inherits them automatically.<br>
+I have this set up:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(
+</span></span><span style="display:flex;"><span>  usethis.full_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Athanasia M. Mowinckel&#34;</span>,
+</span></span><span style="display:flex;"><span>  usethis.description <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Authors@R&#34;</span> <span style="color:#f92672">=</span> utils<span style="color:#f92672">::</span><span style="color:#a6e22e">person</span>(
+</span></span><span style="display:flex;"><span>      given <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Athanasia Mo&#34;</span>,
+</span></span><span style="display:flex;"><span>      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mowinckel&#34;</span>,
+</span></span><span style="display:flex;"><span>      email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a.m.mowinckel@psykologi.uio.no&#34;</span>,
+</span></span><span style="display:flex;"><span>      role <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;aut&#34;</span>, <span style="color:#e6db74">&#34;cre&#34;</span>),
+</span></span><span style="display:flex;"><span>      comment <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(ORCID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0000-0002-5756-0223&#34;</span>)
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    Version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.0.0.9000&#34;</span>
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  usethis.destdir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;~/workspace/rproj/&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p><strong>Pro tip 2:</strong>
+When in doubt of what function to use, type <code>usethis::use_</code> in the console of RStudio or Positron and hit <code>Tab</code> to see all available options.</p>
+<p>See [usethis documentation]<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<h3 id="day-2-devtools---essential-development-workflow-">Day 2: <code>devtools</code> - Essential Development Workflow 🔧</h3>
+<p>The <code>devtools</code> package revolutionizes the package development iteration cycle.
+Traditional development meant constantly quitting R, rebuilding packages, and restarting&mdash;a cycle that consumed hours of productive time.</p>
+<p><strong>The magic workflow:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Instant feedback on changes</span>
+</span></span><span style="display:flex;"><span>devtools<span style="color:#f92672">::</span><span style="color:#a6e22e">load_all</span>()    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update documentation</span>
+</span></span><span style="display:flex;"><span>devtools<span style="color:#f92672">::</span><span style="color:#a6e22e">document</span>() 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run tests without reinstalling</span>
+</span></span><span style="display:flex;"><span>devtools<span style="color:#f92672">::</span><span style="color:#a6e22e">test</span>()  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Full CRAN checks locally</span>
+</span></span><span style="display:flex;"><span>devtools<span style="color:#f92672">::</span><span style="color:#a6e22e">check</span>()
+</span></span></code></pre></div><p><strong>Why <code>load_all()</code> is revolutionary:</strong><br>
+It simulates installing your package without actually installing it.<br>
+Test functions immediately, try different approaches rapidly, and maintain state between iterations.<br>
+Learn the keyboard shortcuts for even faster workflow:</p>
+<p><strong>Essential keyboard shortcuts:</strong></p>
+<ul>
+<li><code>Ctrl/Cmd + Shift + L</code>: load_all()</li>
+<li><code>Ctrl/Cmd + Shift + T</code>: test()</li>
+<li><code>Ctrl/Cmd + Shift + D</code>: document()</li>
+<li><code>Ctrl/Cmd + Shift + E</code>: check()</li>
+</ul>
+<p><strong>Impact:</strong><br>
+Shaving 30 seconds off each iteration, across 100 daily iterations, saves 50 minutes per day.<br>
+That&rsquo;s hours per week spent building features instead of waiting.</p>
+<p><strong>Gotcha:</strong>
+<code>load_all()</code> also loads internal package functions, as if they were exported.
+This can mask bugs that only appear when the package is installed properly, and accessed by users.<br>
+Always run <code>devtools::check()</code> before submission to catch these issues.</p>
+<p>See [devtools documentation]<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<h3 id="day-3-github-actions---cicd-setup-">Day 3: GitHub Actions - CI/CD Setup 🚀</h3>
+<p>Platform-specific bugs are a nightmare.
+Your package works perfectly on your Mac, but breaks on Windows due to path separators or fails on Linux due to file permissions.
+GitHub Actions solves this by testing your package on multiple platforms automatically with every push.</p>
+<p><strong>Setup:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_github_action</span>(<span style="color:#e6db74">&#34;check-standard&#34;</span>)
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_github_action</span>(<span style="color:#e6db74">&#34;test-coverage&#34;</span>)
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_github_action</span>(<span style="color:#e6db74">&#34;pkgdown&#34;</span>)
+</span></span></code></pre></div><p><strong>What happens automatically:</strong></p>
+<ul>
+<li>Tests run on Windows, macOS, and Ubuntu</li>
+<li>Multiple R versions tested (devel, release, oldrel)</li>
+<li>Coverage tracked and reported</li>
+<li>Documentation website deployed</li>
+</ul>
+<p><strong>Real example:</strong><br>
+I once added a function using <code>tempdir()</code> that worked perfectly on macOS but failed on Windows due to path separator differences.<br>
+GitHub Actions caught this in 8 minutes, not 8 days after CRAN submission.</p>
+<p><strong>Tip:</strong>
+Customize workflows by editing the YAML files in <code>.github/workflows/</code>.
+Add a schedule to run checks weekly, i.e to the <code>check-standard.yaml</code> file, this way you can catch issues that arise from changes in dependencies.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Every Sunday at midnight</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>: <span style="color:#e6db74">&#39;0 0 * * 0&#39;</span>  
+</span></span></code></pre></div><p>See [GitHub Actions documentation]<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<h3 id="day-4-rbuildignore-and-gitignore-best-practices-">Day 4: <code>.Rbuildignore</code> and <code>.gitignore</code> Best Practices 📁</h3>
+<p>These &ldquo;invisible&rdquo; files control what gets included in your package and repository.
+Get them wrong and you&rsquo;ll either leak credentials, bloat your package, fail build checks, or confuse users with development artifacts.</p>
+<p><strong>Two distinct jobs:</strong></p>
+<ul>
+<li><code>.gitignore</code>: Keeps secrets and local files OFF GitHub</li>
+<li><code>.Rbuildignore</code>: Keeps development files OUT of your CRAN package</li>
+</ul>
+<p>Can be set up with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_git_ignore</span>()
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_build_ignore</span>()
+</span></span></code></pre></div><p><strong>Essential .Rbuildignore entries:</strong></p>
+<pre><code>^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+</code></pre>
+<p><strong>The usethis way:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_build_ignore</span>(<span style="color:#e6db74">&#34;dev_script.R&#34;</span>)
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_git_ignore</span>(<span style="color:#e6db74">&#34;private_data/&#34;</span>)
+</span></span></code></pre></div><p><strong>Common disaster:</strong><br>
+Accidentally committing <code>.httr-oauth</code> with API credentials.<br>
+Once in git history on GitHub, those credentials are public forever (there are ways to purge git history, but that is not something you want to deal with!).<br>
+Add it to <code>.gitignore</code> immediately.</p>
+<p>Check out <a href="https://gitignore.org/R">https://gitignore.org/R</a> for a great resource on common ignore patterns, and not just for R!</p>
+<h3 id="day-5-package-structure-with-pkgdown-site-generation-">Day 5: Package Structure with <code>pkgdown</code> Site Generation 🌐</h3>
+<p>Documentation quality determines package adoption.
+Reading <code>?my_function</code> in a terminal is a poor user experience compared to browsing a beautiful, searchable website with syntax highlighting and navigation.</p>
+<p><strong>Setup is trivial:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_pkgdown</span>()
+</span></span><span style="display:flex;"><span>pkgdown<span style="color:#f92672">::</span><span style="color:#a6e22e">build_site</span>()
+</span></span></code></pre></div><p><strong>What you get:</strong></p>
+<ul>
+<li>Professional website with all function documentation</li>
+<li>Vignettes displayed as articles</li>
+<li>README as landing page</li>
+<li>Changelog from NEWS.md</li>
+<li>Full-text search</li>
+</ul>
+<p><strong>Auto-deployment:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_pkgdown_github_pages</span>()
+</span></span></code></pre></div><p>Now your site rebuilds and deploys automatically with every push.<br>
+Documentation always stays current.</p>
+<p>See [pkgdown documentation]<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.</p>
+<p><strong>Resources:</strong> <a href="https://pkgdown.r-lib.org/">pkgdown.r-lib.org</a></p>
+<h3 id="day-6-adding-dependencies-to-your-package">Day 6: Adding dependencies to your Package</h3>
+<p>Managing dependencies manually can be error-prone.
+<code>usethis</code> simplifies this by automating the process of adding packages to your DESCRIPTION file.
+This also makes sure the dependencies are in alphabetical order, which is a nice touch for readability.</p>
+<p><strong>Add a package dependency:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_package</span>(<span style="color:#e6db74">&#34;dplyr&#34;</span>)
+</span></span></code></pre></div><p>This adds <code>dplyr</code> to the Imports section of your DESCRIPTION file.</p>
+<p><strong>Specify version requirements:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_package</span>(<span style="color:#e6db74">&#34;data.table&#34;</span>, min_version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1.14.0&#34;</span>)
+</span></span></code></pre></div><p>This ensures that users have at least version 1.14.0 of <code>data.table</code> installed.</p>
+<p><strong>Specify dependency type:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_package</span>(<span style="color:#e6db74">&#34;ggplot2&#34;</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Suggests&#34;</span>)
+</span></span></code></pre></div><p>This adds <code>ggplot</code> to the Suggests section, indicating it&rsquo;s only needed for testing or vignettes.</p>
+<h2 id="week-2-documentation--communication-days-7-13">Week 2: Documentation &amp; Communication (Days 7-13)</h2>
+<h3 id="day-7-roxygen2-advanced-tags-and-cross-references-">Day 7: <code>roxygen2</code> Advanced Tags and Cross-References 📝</h3>
+<p>Most developers learn the basics of roxygen2 (<code>@param</code>, <code>@return</code>, <code>@export</code>) and stop there.
+But roxygen2&rsquo;s advanced features transform documentation from a chore into an interconnected knowledge base.</p>
+<p><strong>Cross-references that become clickable links:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; @seealso [other_function()] </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @family data manipulation</span>
+</span></span></code></pre></div><p><strong>The <code>@inheritParams</code> superpower:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param data A data frame</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @param col Column to use</span>
+</span></span><span style="display:flex;"><span>parent_function <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, col) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @inheritParams parent_function</span>
+</span></span><span style="display:flex;"><span>child_function <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, col, extra) {}
+</span></span></code></pre></div><p>Update parameter documentation once, it propagates everywhere.
+DRY (Do not Repeat Yourself) principle for documentation.</p>
+<p><strong>The <code>@inheritDotParams</code> magic:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; @inheritDotParams ggplot2::theme</span>
+</span></span><span style="display:flex;"><span>my_plot <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(<span style="color:#66d9ef">...</span>) {}
+</span></span></code></pre></div><p>All parameters from <code>theme()</code> are now documented in your function without typing them.</p>
+<p><strong>Section tags for organization:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; @section Warning:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; This function modifies data in place.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @section Performance:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; For large datasets, consider using data.table.</span>
+</span></span></code></pre></div><p>See [roxygen2 documentation]<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
+<h3 id="day-8-pkgdown-customization-and-deployment-">Day 8: <code>pkgdown</code> Customization and Deployment 🎨</h3>
+<p>Default pkgdown sites are functional but forgettable.
+Customization isn&rsquo;t vanity&mdash;it&rsquo;s about creating memorable user experiences and improving navigation.</p>
+<p><strong>Modern styling:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">bootstrap</span>: <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">params</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">bootswatch</span>: <span style="color:#ae81ff">flatly</span>
+</span></span></code></pre></div><p><strong>Organize functions logically:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">reference</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Data Input&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">contents</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">read_*</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Processing&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">contents</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">has_concept(&#34;manipulation&#34;)</span>
+</span></span></code></pre></div><p>One developer reorganized 60 alphabetically-listed functions into logical groups and saw support questions drop by 40%.
+When users find what they need, they don&rsquo;t email you.</p>
+<p><strong>Add your hex logo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">home</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">logo</span>: <span style="color:#ae81ff">man/figures/logo.png</span>
+</span></span></code></pre></div><p>Check out <a href="https://www.melissavanbussel.com/">Melissa Van Bussel&rsquo;s</a> <a href="https://www.youtube.com/watch?v=aMVdZX6dhIc">R/Medicine 2025 talk</a> for a great run through!</p>
+<p>See [pkgdown documentation]<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>.</p>
+<h3 id="day-9-vignettes-with-knitr-and-rmarkdown-">Day 9: Vignettes with <code>knitr</code> and <code>rmarkdown</code> 📖</h3>
+<p>Function documentation explains <em>what</em> parameters do.
+Vignettes explain <em>why</em> and <em>how</em> to use your package.
+Users need complete workflows, not isolated function calls.</p>
+<p><strong>Create your first vignette:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_vignette</span>(<span style="color:#e6db74">&#34;getting-started&#34;</span>)
+</span></span></code></pre></div><p><strong>Best practices:</strong></p>
+<ul>
+<li>Start with a clear problem statement</li>
+<li>Show complete workflows, not code fragments</li>
+<li>Keep computation under 5 minutes</li>
+<li>Use <a href="https://ropensci.org/blog/2019/12/08/precompute-vignettes/">pre-computed</a> results for heavy tasks</li>
+<li>Use real examples, not toy datasets</li>
+</ul>
+<p><strong>Why vignettes matter:</strong> One good vignette prevents 100 support emails and converts confused users into enthusiastic advocates who recommend your package.</p>
+<h3 id="day-10-lifecycle---managing-function-deprecation-">Day 10: <code>lifecycle</code> - Managing Function Deprecation 🔄</h3>
+<p>Package evolution is inevitable.
+You need to rename functions or change behavior, but users have production code depending on current versions.
+The <code>lifecycle</code> package makes evolution graceful.</p>
+<p><strong>Setup:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_lifecycle</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @lifecycle deprecated</span>
+</span></span><span style="display:flex;"><span>old_function <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  lifecycle<span style="color:#f92672">::</span><span style="color:#a6e22e">deprecate_warn</span>(<span style="color:#e6db74">&#34;1.0.0&#34;</span>, <span style="color:#e6db74">&#34;old_function()&#34;</span>, <span style="color:#e6db74">&#34;new_function()&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">new_function</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>The lifecycle stages:</strong>
+experimental → stable → superseded → deprecated → defunct</p>
+<p><strong>Why this matters:</strong> tidyverse packages serve millions of users and evolve constantly without breaking everyone&rsquo;s code. lifecycle is how they do it.</p>
+<p><strong>Resources:</strong> <a href="https://lifecycle.r-lib.org/">lifecycle.r-lib.org</a></p>
+<h3 id="day-11-newsmd-and-semantic-versioning-">Day 11: NEWS.md and Semantic Versioning 📰</h3>
+<p>When users see an available update, they ask:
+&ldquo;Will this break my code? What changed? Should I wait?&rdquo;
+Without NEWS.md, they skip the update or update blindly.</p>
+<p><strong>Semantic versioning communicates risk:</strong></p>
+<ul>
+<li>MAJOR version (1.0.0 → 2.0.0): possible breaking changes</li>
+<li>MINOR version (1.0.0 → 1.1.0): new features, backwards compatible</li>
+<li>PATCH version (1.0.0 → 1.0.1): bug fixes only</li>
+</ul>
+<p><strong>NEWS.md structure:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span># mypackage 1.2.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## New features
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">*</span> Added <span style="color:#e6db74">`new_function()`</span> for advanced analysis (#15)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Bug fixes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">*</span> Fixed missing value handling in <span style="color:#e6db74">`existing_function()`</span> (#12)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Breaking changes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">*</span> Renamed <span style="color:#e6db74">`old_param`</span> to <span style="color:#e6db74">`new_param`</span> in <span style="color:#e6db74">`main_function()`</span>
+</span></span></code></pre></div><p><strong>Link to GitHub issues:</strong> <code>(#15)</code> creates automatic links so users can see full context and discussion.</p>
+<h3 id="day-12-readmermd-automation-">Day 12: README.Rmd Automation 📝</h3>
+<p>Static README.md files show fake examples with made-up output.
+Over time, code drifts from reality, examples break, and users copy-paste non-working code.
+README.Rmd solves this by running real code and capturing actual output.</p>
+<p><strong>Setup:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_readme_rmd</span>()
+</span></span></code></pre></div><p><strong>Essential sections:</strong></p>
+<ul>
+<li>Installation instructions (CRAN/GitHub/r-universe)</li>
+<li>Quick example with real output</li>
+<li>Badges (build status, coverage, CRAN version)</li>
+<li>Link to full documentation</li>
+</ul>
+<p><strong>Auto-render in CI:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Render README</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">run</span>: <span style="color:#ae81ff">Rscript -e &#39;rmarkdown::render(&#34;README.Rmd&#34;)&#39;</span>
+</span></span></code></pre></div><p><strong>Impact:</strong> README examples that actually work build trust immediately.
+The first 30 seconds on your README determine if users try your package.</p>
+<h3 id="day-13-covr---test-coverage-reporting-">Day 13: <code>covr</code> - Test Coverage Reporting 📊</h3>
+<p>You write tests and feel confident, then a user finds a bug in completely untested code.
+Coverage metrics reveal these blind spots.</p>
+<p><strong>Check your coverage:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>covr<span style="color:#f92672">::</span><span style="color:#a6e22e">package_coverage</span>()
+</span></span><span style="display:flex;"><span>covr<span style="color:#f92672">::</span><span style="color:#a6e22e">report</span>()  <span style="color:#75715e"># Interactive HTML report</span>
+</span></span></code></pre></div><p><strong>The 80% rule:</strong> Chasing 100% coverage means testing trivial getters/setters.
+Focus on complex logic, edge cases, and error handling.
+80% meaningful coverage beats 100% checkbox coverage.</p>
+<p><strong>CI integration:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_github_action</span>(<span style="color:#e6db74">&#34;test-coverage&#34;</span>)
+</span></span><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_coverage</span>()  <span style="color:#75715e"># Adds codecov badge</span>
+</span></span></code></pre></div><p>See [covr documentation]<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>.</p>
+<h2 id="week-3-testing--quality-days-14-20">Week 3: Testing &amp; Quality (Days 14-20)</h2>
+<h3 id="day-14-testthat-3rd-edition-features-">Day 14: <code>testthat</code> 3rd Edition Features ✅</h3>
+<p>Edition 3 of testthat brings snapshot testing, better error messages, and cleaner setup/teardown patterns.</p>
+<p><strong>Upgrade:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_testthat</span>(<span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><p><strong>Snapshot tests:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;error messages stay helpful&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_snapshot</span>(<span style="color:#a6e22e">my_function</span>(bad_input), error <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p><strong>Better organization:</strong></p>
+<ul>
+<li>Helper functions in <code>tests/testthat/helper.R</code></li>
+<li><code>setup.R</code> runs before all tests</li>
+<li><code>teardown.R</code> runs after all tests
+<ul>
+<li>if you are making temp files etc, I recommend using <code>withr::temp_file()</code> and <code>withr::temp_dir()</code> inside individual tests instead of global setup/teardown.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Write descriptive test names:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;function handles missing values by imputing mean&#34;</span>, {})
+</span></span></code></pre></div><p>Not: <code>test_that(&quot;test1&quot;, {})</code></p>
+<p>I&rsquo;ve recently also started using the <code>describe()</code> function to group related tests together, like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">describe</span>(<span style="color:#e6db74">&#34;some_function()&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">it</span>(<span style="color:#e6db74">&#34;removes duplicates correctly&#34;</span>, {})
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">it</span>(<span style="color:#e6db74">&#34;handles missing values appropriately&#34;</span>, {})
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>I love how this creates a nice narrative structure for the tests, making it easier to understand the purpose of each test at a glance.
+It also helps make each dest description shorter and clearer.</p>
+<p>See [testthat documentation]<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>.</p>
+<h3 id="day-15-snapshot-testing-with-testthat-">Day 15: Snapshot Testing with <code>testthat</code> 📸</h3>
+<p>How do you test error messages, warnings, or complex print output?
+Writing explicit assertions is tedious and brittle.
+Snapshot testing solves this.</p>
+<p><strong>Text snapshots:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;informative errors&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_snapshot</span>(<span style="color:#a6e22e">my_function</span>(bad_input), error <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>First run captures output to a file.
+Future runs compare against that snapshot.
+Any difference causes test failure with a clear diff.</p>
+<p><strong>Plot snapshots with vdiffr:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(vdiffr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;plot is stable&#34;</span>, {
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(mtcars, <span style="color:#a6e22e">aes</span>(mpg, wt)) <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_point</span>()
+</span></span><span style="display:flex;"><span>  vdiffr<span style="color:#f92672">::</span><span style="color:#a6e22e">expect_doppelganger</span>(<span style="color:#e6db74">&#34;mtcars-scatter&#34;</span>, p)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>First run will save an svg of the plot, and then subsequent runs will compare against that.
+Differences will trigger error, and you can review the diff visually.
+<strong>Note</strong> that <code>vdiffr</code> will error for even minor insignificant differences, but this is often what you want for plots, as even small changes can indicate unintended changes in the code.</p>
+<p><strong>Critical:</strong> Review snapshot changes carefully.
+Intentional improvement?
+Accept new snapshot. Unintentional regression?
+Fix your code.</p>
+<h3 id="day-16-testing-with-mocks-using-testthat-">Day 16: Testing with Mocks using <code>testthat</code> 🎭</h3>
+<p>Your function calls an API, database, or file system.
+Tests shouldn&rsquo;t hit real external services.
+Mocking lets you test your logic in isolation.
+For instance, if you function reads in a file from disk with some custom format, you can mock the file reading function to return a predefined data frame instead of actually reading from disk.
+Or, if your function calls an external API, you can mock the API call function to return predefined data instead of making a real HTTP request.</p>
+<p><strong>Local mocking:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;handles API failure gracefully&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">local_mocked_bindings</span>(
+</span></span><span style="display:flex;"><span>    api_call <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#66d9ef">...</span>) <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;API unavailable&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_error</span>(<span style="color:#a6e22e">my_function</span>(), <span style="color:#e6db74">&#34;API unavailable&#34;</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p><strong>Mock successful responses:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;processes API response&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">local_mocked_bindings</span>(
+</span></span><span style="display:flex;"><span>    fetch_data <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#66d9ef">...</span>) <span style="color:#a6e22e">list</span>(status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;success&#34;</span>, data <span style="color:#f92672">=</span> mtcars)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">my_function</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_equal</span>(<span style="color:#a6e22e">nrow</span>(result), <span style="color:#ae81ff">32</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p><strong>Why <code>local_mocked_bindings</code>:</strong> Scoped to the test.
+Real function automatically restored afterward.
+No side effects between tests.
+Makes it possible to test function operations without performing <em>all</em> underlying operations.</p>
+<h3 id="day-17-vcr---recording-api-calls-for-tests-">Day 17: <code>vcr</code> - Recording API Calls for Tests 📼</h3>
+<p>Testing API interactions is challenging.
+You need real responses but can&rsquo;t hit live APIs constantly (slow, rate limits, authentication required).
+<code>vcr</code> records real API responses once, then replays them forever.</p>
+<p><strong>Setup:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(vcr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;API returns expected data&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">local_cassette</span>(<span style="color:#e6db74">&#34;github_api&#34;</span>)
+</span></span><span style="display:flex;"><span>  response <span style="color:#f92672">&lt;-</span> httr<span style="color:#f92672">::</span><span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;https://api.github.com/users/octocat&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_equal</span>(httr<span style="color:#f92672">::</span><span style="color:#a6e22e">status_code</span>(response), <span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p><strong>How it works:</strong> First run hits the real API and saves the response to a &ldquo;cassette&rdquo; file.
+Subsequent runs read from that file.
+Tests are fast, reliable, and work offline.</p>
+<p><strong>For vignettes too:</strong>
+use chunk labels, and cassettes will be created for vignette code as well.</p>
+<pre><code>```r
+#| label: github_api_vignette
+#| cassette: true
+```
+</code></pre>
+<p>See [vcr documentation]<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>.</p>
+<h3 id="day-18-lintr-and-styler---code-quality-">Day 18: <code>lintr</code> and <code>styler</code> - Code Quality ✨</h3>
+<p>Three contributors with three different coding styles leads to code reviews focused on spacing instead of logic.
+Automated formatting solves this.</p>
+<p><strong>Automate style:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Formats entire package</span>
+</span></span><span style="display:flex;"><span>styler<span style="color:#f92672">::</span><span style="color:#a6e22e">style_pkg</span>()    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Finds style issues</span>
+</span></span><span style="display:flex;"><span>lintr<span style="color:#f92672">::</span><span style="color:#a6e22e">lint_package</span>()  
+</span></span></code></pre></div><p><strong>Configure once:</strong></p>
+<pre><code># .lintr file
+linters: linters_with_defaults(
+  line_length_linter(120),
+  commented_code_linter = NULL
+)
+</code></pre>
+<p><strong>IDE integration:</strong>
+RStudio has styler in the Addins menu.
+VSCode&rsquo;s R extension includes lintr support.
+Some configure format-on-save.</p>
+<p><strong>Impact:</strong>
+Consistent style = readable code = fewer bugs = faster code reviews.
+Automate it and focus on logic, not formatting debates.</p>
+<p><strong>Other similar tools:</strong></p>
+<ul>
+<li><a href="https://posit-dev.github.io/air/"><code>air</code></a>: Automated R code formatting with opinionated style.</li>
+<li><a href="https://yihui.org/formatR/"><code>formatR</code></a>: Another code formatter for R.</li>
+</ul>
+<p>I use Air locally to format code on save, and lintr is a supplement to this.
+<code>lintr</code> is especially nice for contirbutors, as they might not have <code>air</code> set up, but <code>lintr</code> can still catch style issues in CI.</p>
+<h3 id="day-19-goodpractice---package-health-checks-">Day 19: <code>goodpractice</code> - Package Health Checks 🏥</h3>
+<p>Is your package well-structured?
+Are functions too complex?
+Missing docs?
+Checking manually takes hours.
+<code>goodpractice</code> checks everything automatically.</p>
+<p><strong>Run the check:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>goodpractice<span style="color:#f92672">::</span><span style="color:#a6e22e">gp</span>()
+</span></span></code></pre></div><p><strong>What it catches:</strong></p>
+<ul>
+<li>Functions over 50 lines (complexity warning)</li>
+<li>Unused imports (unnecessary dependencies)</li>
+<li>Missing documentation</li>
+<li>Low test coverage</li>
+<li>Common anti-patterns</li>
+</ul>
+<p><strong>Tips :</strong>
+You don&rsquo;t have to fix everything.
+Focus on high-impact issues, and improve incrementally.
+Set a goal to reduce warnings over time, but don&rsquo;t obsess over perfection.</p>
+<p><strong>Before CRAN submission:</strong></p>
+<p>Always run <code>gp()</code> and fix warnings.
+Your CRAN submission will go much smoother.</p>
+<p><strong>Resources:</strong>
+<a href="https://github.com/mangothecat/goodpractice">github.com/mangothecat/goodpractice</a></p>
+<h3 id="day-20-performance-testing-with-bench-">Day 20: Performance Testing with <code>bench</code> ⚡</h3>
+<p>&ldquo;I think this approach is faster&rdquo; is guessing.
+Microbenchmarking is proof.</p>
+<p><strong>Compare approaches:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(bench)
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">&lt;-</span> bench<span style="color:#f92672">::</span><span style="color:#a6e22e">mark</span>(
+</span></span><span style="display:flex;"><span>  old_approach <span style="color:#f92672">=</span> <span style="color:#a6e22e">old_function</span>(data),
+</span></span><span style="display:flex;"><span>  new_approach <span style="color:#f92672">=</span> <span style="color:#a6e22e">new_function</span>(data),
+</span></span><span style="display:flex;"><span>  iterations <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(results)
+</span></span></code></pre></div><p><strong>Memory matters too:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>bench<span style="color:#f92672">::</span><span style="color:#a6e22e">mark</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">my_function</span>(big_data),
+</span></span><span style="display:flex;"><span>  filter_gc <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Sometimes the &ldquo;faster&rdquo; solution uses 10x more memory. bench reveals the tradeoff.</p>
+<p><strong>Best practice:</strong>
+Include benchmarks in your test suite.
+If new code makes critical functions slower, tests should fail.
+But make sure to <code>skip_on_cran()</code> so CRAN checks don&rsquo;t fail due to timing variability.</p>
+<h2 id="week-4-advanced-features-days-21-25">Week 4: Advanced Features (Days 21-25)</h2>
+<h3 id="day-21-rhub---multi-platform-testing-">Day 21: <code>rhub</code> - Multi-Platform Testing 🌍</h3>
+<p>CRAN tests your package on Windows, macOS, and multiple Linux distributions.
+Platform-specific bugs are submission killers.
+rhub lets you test before submission.
+You might have set up GitHub Actions for CI, but rhub provides additional platforms and more CRAN-like environments.</p>
+<p><strong>Pre-submission testing:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rhub<span style="color:#f92672">::</span><span style="color:#a6e22e">check_for_cran</span>()
+</span></span></code></pre></div><p><strong>Platform-specific checks:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rhub<span style="color:#f92672">::</span><span style="color:#a6e22e">check_on_windows</span>()
+</span></span><span style="display:flex;"><span>rhub<span style="color:#f92672">::</span><span style="color:#a6e22e">check_on_macos</span>()
+</span></span><span style="display:flex;"><span>rhub<span style="color:#f92672">::</span><span style="color:#a6e22e">check</span>(platform <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;debian-clang-devel&#34;</span>)
+</span></span></code></pre></div><p><strong>Setup for GitHub Actions:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rhub<span style="color:#f92672">::</span><span style="color:#a6e22e">rhub_setup</span>()
+</span></span></code></pre></div><p>Run the rhub checks when you want, manually, or trigger them from other CI workflows.</p>
+<p><strong>The confidence workflow:</strong>
+Run rhub checks + GitHub Actions before CRAN submission.
+If both pass, CRAN will very likely accept.</p>
+<p><strong>Impact:</strong>
+CRAN rejection wastes 2+ weeks waiting for resubmission review.
+rhub finds issues in hours.</p>
+<p>See [rhub documentation]<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup>.</p>
+<h3 id="day-22-s3-s4-and-s7-object-systems-">Day 22: S3, S4, and S7 Object Systems 🎯</h3>
+<p>R has three object systems, each with different strengths.
+Choose based on your needs, not trends.</p>
+<p>Why use an object system?
+They enable polymorphism&mdash;functions behave differently based on input class.
+For instance, <code>print()</code> shows different output for data frames vs. linear models.
+This is because both <code>data.frame</code> and <code>lm</code> are classes with their own <code>print()</code> methods.</p>
+<p><strong>S3 - Simple &amp; Common:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span>print.my_class <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(x, <span style="color:#66d9ef">...</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cat</span>(<span style="color:#e6db74">&#34;My object:&#34;</span>, <span style="color:#a6e22e">length</span>(x), <span style="color:#e6db74">&#34;elements\n&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">invisible</span>(x)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>95% of CRAN packages use S3.
+Easy, flexible, good enough for most cases.</p>
+<p><strong>S4 - Strict &amp; Validated:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">setClass</span>(<span style="color:#e6db74">&#34;MyClass&#34;</span>,
+</span></span><span style="display:flex;"><span>  slots <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(data <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data.frame&#34;</span>, metadata <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;list&#34;</span>),
+</span></span><span style="display:flex;"><span>  validity <span style="color:#f92672">=</span> check_validity
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>For complex class hierarchies and strict validation.
+Bioconductor standard.</p>
+<p><strong>S7 - Modern &amp; Intuitive:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(S7)
+</span></span><span style="display:flex;"><span>Person <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">new_class</span>(<span style="color:#e6db74">&#34;Person&#34;</span>,
+</span></span><span style="display:flex;"><span>  properties <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> class_character,
+</span></span><span style="display:flex;"><span>    age <span style="color:#f92672">=</span> class_numeric
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Combines S3&rsquo;s simplicity with S4&rsquo;s features.
+Somewhat experimental (though ggplot2 uses it internally now, so maybe its nice and stable now?), very promising.</p>
+<p><strong>Recommendation:</strong>
+Most packages should use S3.
+Need strict validation?
+Choose S4.
+Want modern OOP?
+Try S7.</p>
+<p>See [S7 documentation]<sup id="fnref:11"><a href="#fn:11" class="footnote-ref" role="doc-noteref">11</a></sup>.</p>
+<h3 id="day-23-cli---beautiful-command-line-interfaces-">Day 23: <code>cli</code> - Beautiful Command Line Interfaces 💬</h3>
+<p>Basic R messages are plain text with no structure.
+cli makes package output professional, informative, and user-friendly.</p>
+<p><strong>Semantic messages:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_success</span>(<span style="color:#e6db74">&#34;Package built successfully!&#34;</span>)
+</span></span><span style="display:flex;"><span>cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_warning</span>(<span style="color:#e6db74">&#34;Missing documentation for {.fn my_function}&#34;</span>)
+</span></span><span style="display:flex;"><span>cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_abort</span>(<span style="color:#e6db74">&#34;Invalid input: {.val {invalid_value}}&#34;</span>)
+</span></span></code></pre></div><p><strong>Progress bars:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_progress_bar</span>(<span style="color:#e6db74">&#34;Processing files&#34;</span>, total <span style="color:#f92672">=</span> <span style="color:#a6e22e">length</span>(files))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (file <span style="color:#66d9ef">in</span> files) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">process_file</span>(file)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_progress_update</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Semantic markup:</strong></p>
+<ul>
+<li><code>{.fn function_name}</code> for functions</li>
+<li><code>{.val value}</code> for values</li>
+<li><code>{.file path}</code> for file paths</li>
+</ul>
+<p><strong>Impact:</strong>
+cli transforms user experience.
+Better error messages help users fix problems faster.
+Progress indicators reduce support questions.</p>
+<p><strong>Resources:</strong> <a href="https://cli.r-lib.org/">cli.r-lib.org</a></p>
+<h3 id="day-24-rlang---tidy-evaluation-in-packages-">Day 24: <code>rlang</code> - Tidy Evaluation in Packages 🎪</h3>
+<p>Users love writing <code>filter(data, age &gt; 30)</code> instead of <code>filter(data, &quot;age &gt; 30&quot;)</code>.
+Making this safe in packages requires tidy evaluation.</p>
+<p><strong>The embrace operator:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>my_mutate <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, col, value) {
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">mutate</span>({{ col }} <span style="color:#f92672">:=</span> value)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Pass through multiple expressions:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>my_summarise <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(data, <span style="color:#66d9ef">...</span>) {
+</span></span><span style="display:flex;"><span>  data <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">summarise</span>(<span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>When to use it:</strong> Building dplyr-like interfaces, working with column names as bare names, accepting multiple expressions.
+For simple functions, standard evaluation is fine.</p>
+<p>See [rlang documentation]<sup id="fnref:12"><a href="#fn:12" class="footnote-ref" role="doc-noteref">12</a></sup>.</p>
+<h3 id="day-25-cran-submission-checklist-">Day 25: CRAN Submission Checklist 🎁</h3>
+<p>The final step: shipping your package to CRAN with confidence.</p>
+<p><strong>Start with the release issue:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_release_issue</span>()
+</span></span></code></pre></div><p>Creates a GitHub issue with a complete pre-submission checklist.</p>
+<p><strong>Essential checks:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> <code>devtools::check()</code> shows 0 errors, 0 warnings, 0 notes</li>
+<li><input disabled="" type="checkbox"> Tests pass on rhub + GitHub Actions (all platforms)</li>
+<li><input disabled="" type="checkbox"> NEWS.md updated with version and changes</li>
+<li><input disabled="" type="checkbox"> Version number bumped in DESCRIPTION</li>
+<li><input disabled="" type="checkbox"> <code>devtools::spell_check()</code> passed</li>
+<li><input disabled="" type="checkbox"> Reverse dependencies checked</li>
+</ul>
+<p><strong>Document everything:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">use_cran_comments</span>()
+</span></span></code></pre></div><p><strong>Common rejection reasons:</strong></p>
+<ul>
+<li>Examples taking &gt;5 seconds</li>
+<li>Typos in documentation</li>
+<li>URL&rsquo;s not resolving</li>
+<li>Missing input validation</li>
+<li>Platform-specific bugs</li>
+</ul>
+<p><strong>Submit:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>devtools<span style="color:#f92672">::</span><span style="color:#a6e22e">submit_cran</span>()
+</span></span></code></pre></div><p><strong>After acceptance:</strong> Monitor CRAN check results, fix issues promptly, maintain your package responsibly.
+You&rsquo;re now part of the R ecosystem!</p>
+<p><strong>Alternate submission options:</strong></p>
+<ul>
+<li><a href="https://r-multiverse.org/">Multiverse</a>: Host packages with automatic builds and easy installation, complements CRAN and Bioconductor.</li>
+<li><a href="https://r-universe.dev/">r-universe</a>: Host packages with automatic builds and easy installation, every organisation and user can have their own universe.</li>
+<li><a href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">GitHub Releases</a>: Distribute development versions directly from GitHub.</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=XDiyAvpo2uk">See my posit::conf 2023 talk on R-Universe</a></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Over these 25 days, we&rsquo;ve covered the complete modern R package development workflow:</p>
+<ul>
+<li><strong>Week 1</strong> focused on foundation and infrastructure&mdash;automated setup, development workflow, CI/CD, and documentation sites</li>
+<li><strong>Week 2</strong> explored documentation and communication&mdash;from advanced roxygen2 to vignettes and changelogs</li>
+<li><strong>Week 3</strong> dove into testing and quality&mdash;comprehensive testing strategies, code quality tools, and performance benchmarking</li>
+<li><strong>Week 4</strong> tackled advanced features&mdash;multi-platform testing, object systems, user interfaces, and CRAN submission</li>
+</ul>
+<p>The tools and techniques presented here represent tooling and workflows I personally use (or strive to use) in my own package development.
+They will help you create packages that are:</p>
+<ul>
+<li><strong>Robust:</strong> Well-tested with comprehensive test suites</li>
+<li><strong>Maintainable:</strong> Clear documentation and consistent code style</li>
+<li><strong>User-friendly:</strong> Beautiful websites and helpful error messages</li>
+<li><strong>Professional:</strong> Automated CI/CD and multi-platform testing</li>
+</ul>
+<p>Whether you&rsquo;re developing your first package or maintaining dozens, these tools will streamline your workflow and improve package quality.</p>
+<h2 id="where-to-go-from-here">Where to Go From Here</h2>
+<ul>
+<li><strong>Practice:</strong> Apply these techniques to your own packages</li>
+<li><strong>Learn more:</strong> Read &ldquo;R Packages&rdquo; by Hadley Wickham and Jenny Bryan&quot;<sup id="fnref:13"><a href="#fn:13" class="footnote-ref" role="doc-noteref">13</a></sup></li>
+<li><strong>Explore:</strong> Browse r-lib packages for cutting-edge R tooling<sup id="fnref:14"><a href="#fn:14" class="footnote-ref" role="doc-noteref">14</a></sup></li>
+<li><strong>Contribute:</strong> Share your knowledge and help others in the R community</li>
+<li><strong>Follow:</strong> Keep up with #rstats and #RPackageAdvent2025 for more tips</li>
+</ul>
+<p>Thank you for following along with the R Package Development Advent Calendar 2025.<br>
+Now go build amazing packages that make R better for everyone (after the holidays, of course!)! 🎄📦</p>
+<p>Happy package development! 🚀</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://usethis.r-lib.org/">https://usethis.r-lib.org/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://devtools.r-lib.org/">https://devtools.r-lib.org/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://github.com/r-lib/actions">https://github.com/r-lib/actions</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p><a href="https://pkgdown.r-lib.org/">https://pkgdown.r-lib.org/</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p><a href="https://roxygen2.r-lib.org/">https://roxygen2.r-lib.org/</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p><a href="https://pkgdown.r-lib.org/">https://pkgdown.r-lib.org/</a>&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7">
+<p><a href="https://covr.r-lib.org/">https://covr.r-lib.org/</a>&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8">
+<p><a href="https://testthat.r-lib.org/">https://testthat.r-lib.org/</a>&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9">
+<p><a href="https://docs.ropensci.org/vcr/">https://docs.ropensci.org/vcr/</a>&#160;<a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:10">
+<p><a href="https://r-hub.github.io/rhub/">https://r-hub.github.io/rhub/</a>&#160;<a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:11">
+<p><a href="https://rconsortium.github.io/S7/">https://rconsortium.github.io/S7/</a>&#160;<a href="#fnref:11" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:12">
+<p><a href="https://rlang.r-lib.org/">https://rlang.r-lib.org/</a>&#160;<a href="#fnref:12" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:13">
+<p><a href="https://r-pkgs.org/">https://r-pkgs.org/</a>&#160;<a href="#fnref:13" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:14">
+<p><a href="https://github.com/r-lib">https://github.com/r-lib</a>&#160;<a href="#fnref:14" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+        </div>
+    </article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Dec 28, 2025) 
+                    R Package Development Advent Calendar 2025: A Complete Journey. 
+                    Retrieved from https://drmowinckels.io/blog/2025/12-28_package-dev-calendar/.
+                     DOI: https://www.doi.org/10.5281/zenodo.18078344
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2025-r-package-development-advent-calendar-2025-a-complete-journey,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "R Package Development Advent Calendar 2025: A Complete Journey",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2025/12-28_package-dev-calendar/",<br>
+                        &emsp;year = 2025,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.18078344",<br> 
+                        &emsp;updated = "Dec 28, 2025"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+        <div class="uk-section">
+            
+            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+
+                <ul class="uk-slider-items uk-grid" >
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mastering Apply: From Matrices to Multidimensional Neuroimaging Data</h2>
+    
+      <p>Deep dive into apply() for matrices and high-dimensional arrays. From basic row/column operations to complex fMRI analyses with 5D data. Learn to master the MARGIN parameter for neuroimaging and scientific computing.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/apply-multidimensional/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">matrices</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">arrays</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">neuroimaging</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">fmri</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 31, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Neon Ghosts with ggplot2</h2>
+    
+      <p>Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/neon-ghosts/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ggplot2</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">halloween</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mapply: When You Need to Iterate Over Multiple Inputs</h2>
+    
+      <p>Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/mapply/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Hugo modules vs. Git submodules: manage your website more easily</h2>
+    
+      <p>Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/submodules/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">git</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">hugo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">submodules</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">web-development</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                    
+                        <li class="uk-width-3-4" >
+                            <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Automate LinkedIn Carousels with R and Gemini</h2>
+    
+      <p>Learn how to automate LinkedIn carousel creation with R and the free Gemini API. This post details a complete workflow, from connecting to the API and summarizing a blog post into structured points, to generating a custom Quarto document ready for manual review and posting.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/linkedin_gemini/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                        </li>
+                    
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
+            
+            </div>
+        </div>
+    </div>
+    
+        <div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+    
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
