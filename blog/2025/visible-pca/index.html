@@ -361,64 +361,70 @@
 
 
         <div id="content" class="uk-container uk-container-small uk-margin-large-top">
-    <article class="uk-article">
-        <div class="uk-grid uk-flex-top" uk-grid>
-            
-            
-            <div class="uk-width-1-4@s">
-              <img src="https://drmowinckels.io/blog/2025/visible-pca/index.markdown_strict_files/figure-markdown_strict/pca-sankey-1.png" alt="A Sankey diagram showing flows from Principal Components (PCs) on the left, to individual health trackers/symptoms in the middle, and then to four defined symptom clusters (Neurological, Menstruation, Exertion, Emotional) on the right. The thickness of the colored bands indicates the strength of the relationships." class="uk-border-rounded">
-              
-            </div>
-
-        <div class="uk-width-3-4@s">
-        <h1 class="uk-article-title">Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h1>
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
         
-        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
-            <h3 class="uk-margin-top-small">
-                Jun 2, 2025
-            </h3>
-            
-
-            
-                <div class="uk-flex uk-flex-wrap uk-flex-right">
-                    
-                        
-                        
-                        
-                        
-                        
-                        <div class="uk-card uk-margin-left uk-margin-bottom">
-                            <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags" >
-                                R
-                            </a>
-                        </div>
-                    
-                        
-                        
-                        
-                        
-                        
-                        <div class="uk-card uk-margin-left uk-margin-bottom">
-                            <a href="https://drmowinckels.io/tags/health-data/" class="uk-label uk-label-secondary tags" >
-                                Health-Data
-                            </a>
-                        </div>
-                    
-                        
-                        
-                        
-                        
-                        
-                        <div class="uk-card uk-margin-left uk-margin-bottom">
-                            <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label uk-label-secondary tags" >
-                                Longcovid
-                            </a>
-                        </div>
-                    
-                </div>
+        
+        <div class="uk-width-1-4@s">
+            <img src="https://drmowinckels.io/blog/2025/visible-pca/index.markdown_strict_files/figure-markdown_strict/pca-sankey-1.png" alt="A Sankey diagram showing flows from Principal Components (PCs) on the left, to individual health trackers/symptoms in the middle, and then to four defined symptom clusters (Neurological, Menstruation, Exertion, Emotional) on the right. The thickness of the colored bands indicates the strength of the relationships." class="uk-border-rounded">
             
         </div>
-    </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Jun 2, 2025
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags">
+                            R
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/health-data/" class="uk-label uk-label-secondary tags">
+                            Health-Data
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label uk-label-secondary tags">
+                            Longcovid
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
         <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
             <div class="uk-offcanvas-bar">
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
@@ -442,7 +448,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
+        <p class="uk-text-lead">This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
         
         <div class="uk-markdown uk-width">
             <p>I thought I&rsquo;d continue on exploring my long covid data this month too.
@@ -931,7 +937,7 @@ The clustering gives us neither strength nor directionality, and a single &ldquo
 It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to test out some plots, which is always fun!</p>
 
         </div>
-    </article><div class="uk-margin">
+</article><div class="uk-margin">
     <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
         Cite me!
     </button>
@@ -964,15 +970,16 @@ It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to tes
         </div>
     </div>
 </div><div class="section" style="height: auto !important;">
-        <div class="uk-section">
-            
-            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+    <div class="uk-section">
 
-                <ul class="uk-slider-items uk-grid" >
-                    
-                    
-                        <li class="uk-width-3-4" >
-                            <div class="timeline-item timeline-item-horizontal">
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1029,11 +1036,11 @@ It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to tes
     </div>
   </div>
 </div> 
-                        </li>
-                    
-                    
-                        <li class="uk-width-3-4" >
-                            <div class="timeline-item timeline-item-horizontal">
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1095,11 +1102,11 @@ It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to tes
     </div>
   </div>
 </div> 
-                        </li>
-                    
-                    
-                        <li class="uk-width-3-4" >
-                            <div class="timeline-item timeline-item-horizontal">
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1161,11 +1168,11 @@ It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to tes
     </div>
   </div>
 </div> 
-                        </li>
-                    
-                    
-                        <li class="uk-width-3-4" >
-                            <div class="timeline-item timeline-item-horizontal">
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1227,11 +1234,11 @@ It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to tes
     </div>
   </div>
 </div> 
-                        </li>
-                    
-                    
-                        <li class="uk-width-3-4" >
-                            <div class="timeline-item timeline-item-horizontal">
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
   
 
   
@@ -1283,18 +1290,20 @@ It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to tes
     </div>
   </div>
 </div> 
-                        </li>
-                    
-                </ul>
-            
-                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
-                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
-            
-            </div>
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
         </div>
     </div>
-    
-        <div class="uk-container uk-margin-top">
+</div>
+
+<div class="uk-container uk-margin-top">
             <script src="https://giscus.app/client.js"
                 data-repo=DrMowinckels/drmowinckels.github.io
                 data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
@@ -1310,7 +1319,7 @@ It&rsquo;s not the most interesting thing I&rsquo;ve looked at, but I got to tes
             </script>
 </div>
 
-    
+
 
         </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
     <div class="banner footer" height="500px">

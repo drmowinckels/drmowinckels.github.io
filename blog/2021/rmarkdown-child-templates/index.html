@@ -361,53 +361,59 @@
 
 
         <div id="content" class="uk-container uk-container-small uk-margin-large-top">
-    <article class="uk-article">
-        <div class="uk-grid uk-flex-top" uk-grid>
-            
-            
-            <div class="uk-width-1-4@s">
-              <img src="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/parent-and-child-md.png" alt="Rmarkdown Child Templates" class="uk-border-rounded">
-              
-            </div>
-
-        <div class="uk-width-3-4@s">
-        <h1 class="uk-article-title">Rmarkdown Child Templates</h1>
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
         
-        <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
-            <h3 class="uk-margin-top-small">
-                Dec 17, 2021
-            </h3>
-            
-
-            
-                <div class="uk-flex uk-flex-wrap uk-flex-right">
-                    
-                        
-                        
-                        
-                        
-                        
-                        <div class="uk-card uk-margin-left uk-margin-bottom">
-                            <a href="https://drmowinckels.io/tags/knitr/" class="uk-label uk-label-secondary tags" >
-                                Knitr
-                            </a>
-                        </div>
-                    
-                        
-                        
-                        
-                        
-                        
-                        <div class="uk-card uk-margin-left uk-margin-bottom">
-                            <a href="https://drmowinckels.io/tags/rmarkdown/" class="uk-label uk-label-secondary tags" >
-                                Rmarkdown
-                            </a>
-                        </div>
-                    
-                </div>
+        
+        <div class="uk-width-1-4@s">
+            <img src="https://drmowinckels.io/blog/2021/rmarkdown-child-templates/parent-and-child-md.png" alt="Rmarkdown Child Templates" class="uk-border-rounded">
             
         </div>
-    </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Rmarkdown Child Templates</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Dec 17, 2021
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/knitr/" class="uk-label uk-label-secondary tags">
+                            Knitr
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/rmarkdown/" class="uk-label uk-label-secondary tags">
+                            Rmarkdown
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
         <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
             <div class="uk-offcanvas-bar">
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
@@ -422,7 +428,7 @@
             </div>
         </div>
         
-            <p class="uk-text-lead">Generate automated reports in Rmarkdown by creating reusable child templates. Learn to call child documents from a main Rmd using knitr and environment variables, enabling efficient and flexible report generation for survey data analysis. Follow this guide to streamline your workflow and reduce repetitive code.</p>
+        <p class="uk-text-lead">Generate automated reports in Rmarkdown by creating reusable child templates. Learn to call child documents from a main Rmd using knitr and environment variables, enabling efficient and flexible report generation for survey data analysis. Follow this guide to streamline your workflow and reduce repetitive code.</p>
         
         <div class="uk-markdown uk-width">
             <p>I have recently been working on a set of analyses from a survey at work.
@@ -595,7 +601,7 @@ You can have a look at the documents in the github repo of this post, and hopefu
 </ul>
 
         </div>
-    </article><div class="uk-margin">
+</article><div class="uk-margin">
     <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
         Cite me!
     </button>
@@ -628,22 +634,25 @@ You can have a look at the documents in the github repo of this post, and hopefu
         </div>
     </div>
 </div><div class="section" style="height: auto !important;">
-        <div class="uk-section">
-            
-            <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true">
+    <div class="uk-section">
 
-                <ul class="uk-slider-items uk-grid" >
-                    
-                </ul>
-            
-                <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous uk-slider-item="previous"></a>
-                <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next uk-slider-item="next"></a>
-            
-            </div>
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
         </div>
     </div>
-    
-        <div class="uk-container uk-margin-top">
+</div>
+
+<div class="uk-container uk-margin-top">
             <script src="https://giscus.app/client.js"
                 data-repo=DrMowinckels/drmowinckels.github.io
                 data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
@@ -659,7 +668,7 @@ You can have a look at the documents in the github repo of this post, and hopefu
             </script>
 </div>
 
-    
+
 
         </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
     <div class="banner footer" height="500px">
