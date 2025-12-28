@@ -20,6 +20,8 @@ summary: >-
   documentation, testing, CI/CD, and CRAN submission, a summary of a social
   media advent calendar.
 image: pak-dev-cal.jpeg
+image_alt: |
+  A festive digital illustration features the blue R logo wearing a red Santa hat with white trim on the left. To its right stands a green Christmas tree made entirely of curly braces arranged in a triangular shape. White and light-blue %>% pipe symbols float across a dark blue, starry background like snowflakes. A speech bubble above the R logo says “Ho Ho Ho! 📦” in red text. At the bottom, white text reads: “R Package Development Advent Calendar 2025” and below it, “25 Days of Coding Magic • Dec 1–25.
 ---
 
 
