@@ -107,6 +107,12 @@ jobs:
         with:
           r-version: "renv"
 
+      - name: Setup Quarto
+        if: ${{ env.RUN_DOI == 'true' }}
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
       - name: Setup Pandoc
         if: ${{ env.RUN_DOI == 'true' }}
         uses: r-lib/actions/setup-pandoc@v2
@@ -126,14 +132,6 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
-
-      - name: Setup Quarto
-        if: ${{ env.RUN_DOI == 'true' }}
-        uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Setup Tinytex
-        if: ${{ env.RUN_DOI == 'true' }}
-        uses: r-lib/actions/setup-tinytex@v2
 
       - name: Add doi
         if: ${{ env.RUN_DOI == 'true' }}
