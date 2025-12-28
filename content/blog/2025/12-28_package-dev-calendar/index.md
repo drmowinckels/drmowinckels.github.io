@@ -1,6 +1,5 @@
 ---
 doi: 10.5281/zenodo.18078344
-doi: 10.5281/zenodo.18078344
 title: 'R Package Development Advent Calendar 2025: A Complete Journey'
 author: Dr. Mowinckel
 date: '2025-12-28'
