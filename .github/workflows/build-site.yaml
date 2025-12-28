@@ -14,7 +14,7 @@ env:
 
 jobs:
   checks:
-    name: Set-up build params
+    name: Check build params
     runs-on: ubuntu-latest
     outputs:
       POST: ${{ steps.check-post.outputs.POST }}
@@ -56,6 +56,20 @@ jobs:
           echo "DOI=true" >> $GITHUB_OUTPUT
           if head -n 10 "${{ steps.check-post.outputs.POST }}" | grep -q "doi:"; then
             echo "DOI=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if frontmatter is valid
+        run: |
+          params=("title:" "date:" "author:" "tags:" "slug:" "image:" "image_alt:")
+          ERROR=false
+          for param in "${params[@]}"; do
+            if ! head -n 20 "${{ steps.check-post.outputs.POST }}" | grep -q "${param}"; then
+              echo "Error: The blog post is missing a ${param} in the frontmatter."
+              ERROR=true
+            fi
+          done
+          if [ "${ERROR}" = "true" ]; then
+            exit 1
           fi
 
   check-output:
