@@ -1,6 +1,6 @@
 ---
 doi: 10.5281/zenodo.13274237
-doi: 10.5281/zenodo.13273843
+doi2: 10.5281/zenodo.13273843
 title: Too much git cleaning
 author: Dr. Mowinckel
 date: '2024-04-01'

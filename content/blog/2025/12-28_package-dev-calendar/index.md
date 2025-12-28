@@ -1,4 +1,6 @@
 ---
+doi: 10.5281/zenodo.18078344
+doi: 10.5281/zenodo.18078344
 title: 'R Package Development Advent Calendar 2025: A Complete Journey'
 author: Dr. Mowinckel
 date: '2025-12-28'
@@ -6,7 +8,7 @@ format:
   hugo-md:
     filters:
       - ../../../../figure-to-markdown.lua
-categories:
+tags:
   - R
   - rpackageadvent2025
   - development
@@ -1000,7 +1002,6 @@ Now go build amazing packages that make R better for everyone (after the holiday
 
 Happy package development! 🚀
 
-## Resources
 
 [^1]: https://usethis.r-lib.org/
 
