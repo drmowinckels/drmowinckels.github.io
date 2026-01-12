@@ -62,17 +62,6 @@ bskurl <- paste0("https://bsky.app/profile/drmowinckels.io/post/", bpst$cid)
 cli::cli_alert_info("Bluesky posted at {.url  {bskurl}}")
 
 
-# Post to LinkedIn
-lipst <- li_post_write(
-  author = li_urn_me(),
-  image_alt = frontmatter$image_alt,
-  image = image,
-  text = message$linkedin
-)
-liurl <- paste0("https://www.linkedin.com/feed/update/", lipst)
-cli::cli_alert_info("LinkedIn posted at {.url  {liurl}}")
-
-
 # Post to Mastodon
 toot <- rtoot::post_toot(
   status = message$mastodon,
@@ -85,3 +74,13 @@ cli::cli_alert_info("Mastodon posted at {.url  {toot$url}}")
 
 # Send Newsletter
 send_newsletter(frontmatter, url)
+
+# Post to LinkedIn
+lipst <- li_post_write(
+  author = li_urn_me(),
+  image_alt = frontmatter$image_alt,
+  image = image,
+  text = message$linkedin
+)
+liurl <- paste0("https://www.linkedin.com/feed/update/", lipst)
+cli::cli_alert_info("LinkedIn posted at {.url  {liurl}}")

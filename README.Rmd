@@ -25,45 +25,44 @@ This repository contains the code for my content.
 
 
 ```{r, echo = FALSE}
+library(dplyr)
 posts <- list.files("content/blog", 
            "^index.md",
            recursive = TRUE, 
            full.names = TRUE)
-posts <- lapply(posts, readLines)
 
-find_key <- function(x, key){
-  j <- lapply(x, function(x){
-    k <- grep(sprintf("^%s:", key), 
-            x, value = TRUE)
-    k <- gsub(sprintf("^%s: |'", key), "", k)
-    k[1] 
-  })
-  unlist(j)
-}
+postdf <- lapply(posts, function(x){
+  yml <- rmarkdown::yaml_front_matter(x)
 
-postdf <- data.frame(
-  n = seq_along(posts),
-  draft = find_key(posts, "draft") |> 
-    grepl(pattern = "true", x = _),
-  date = as.Date(find_key(posts, "date")),
-  slug = find_key(posts, "slug") |> 
-    gsub('\\"', "", x = _),
-  title = find_key(posts, "title")
-) |> 
-  subset(subset = !draft)
-postdf$link <-  sprintf("[%s](https://drmowinckels.io/blog/%s)", 
-                  postdf$title,
-                  postdf$slug)
+  tibble(
+    title = yml$title,
+    date = as.Date(yml$date),
+    slug = yml$slug,
+    draft = ifelse(is.null(yml$draft), FALSE, yml$draft),
+    link = sprintf(
+      "[%s](https://drmowinckels.io/blog/%s)", 
+      yml$title,
+      yml$slug),
+    image = ifelse(is.null(yml$image), NA, yml$image),
+    image_alt = ifelse(is.null(yml$image_alt), NA, yml$image_alt)
+  )
+}) |> 
+  bind_rows() |> 
+  arrange(desc(date)) |>
+  mutate(
+    date_diff = lag(date) - date
+  )
 
 today    <- Sys.Date()
-min_date <- min(postdf$date)
-last_post <- as.numeric(max(postdf$date) - today)
+min_date <- min(postdf$date, na.rm = TRUE)
+last_post <- as.numeric(max(postdf$date, na.rm = TRUE) - today)
 
-postavg <- nrow(postdf)/as.numeric(today - min_date) * 30
-postavg <- sprintf("%0.2f", postavg)
+# how many posts per month on average?
+diff_med <- median(as.numeric(postdf$date_diff), na.rm = TRUE)
+diff_avg <- mean(as.numeric(postdf$date_diff), na.rm = TRUE)
 
-postbtw <- as.numeric(today - min_date) / nrow(postdf)
-postbtw <- sprintf("%s", round(postbtw, digits = 0))
+postavg <- sprintf("%0.2f", diff_avg)
+postbtw <- sprintf("%s", round(diff_med, digits = 0))
 
 ```
 
@@ -72,7 +71,6 @@ postbtw <- sprintf("%s", round(postbtw, digits = 0))
 🎉 DrMowinckels has **`r nrow(postdf)`** posts since **`r min_date`**!
 
 📅 That's a post roughly every **`r postbtw`** days, or about **`r postavg`** posts per month, since `r min_date`.
-
 
 ✍️ The last post was published **`r abs(last_post)`** days ago (`r tail(postdf, 1)$link`).
 
