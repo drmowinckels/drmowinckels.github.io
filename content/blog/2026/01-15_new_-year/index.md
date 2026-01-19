@@ -14,6 +14,7 @@ summary: "A year of deliberate work despite post-COVID recovery: API exploration
 seo: "A concise look back at 2025: tooling, a package‑dev advent calendar, teaching, and coping with post‑COVID recovery."
 image: "newyear.jpg"
 image_alt: "image of a woman (me) with dark hair and glasses wearing mauve-burgundy dress, sitting next to an evergreen tree decorated with lights and Christmas ornaments"
+doi: false
 ---
 
 2025 was a year of steady rebuilding: quieter than some years, but more deliberate and productive in the ways that matter. 
