@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Year in review — 2025 - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="A year of deliberate work despite post-COVID recovery: API explorations with httr2, the R Package Development Advent Calendar, ggseg improvements, and looking ahead to 2026." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="A concise look back at 2025: tooling, a package‑dev advent calendar, teaching, and coping with post‑COVID recovery.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/year-in-review-2025/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Year in review — 2025 - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="A concise look back at 2025: tooling, a package‑dev advent calendar, teaching, and coping with post‑COVID recovery.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2026/year-in-review-2025/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="A concise look back at 2025: tooling, a package‑dev advent calendar, teaching, and coping with post‑COVID recovery.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/year-in-review-2025/newyear.jpg" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/year-in-review-2025/newyear.jpg">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.513f2c708ba173d0df3dd882e74a5d464c8a99648e1a376056c6f012ff15bec1.css" 
+    integrity="sha256-UT8scIuhc9DfPdiC50pdRkyKmWSOGjdgVsbwEv8VvsE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            <img src="https://drmowinckels.io/blog/2026/year-in-review-2025/newyear.jpg" alt="image of a woman (me) with dark hair and glasses wearing mauve-burgundy dress, sitting next to an evergreen tree decorated with lights and Christmas ornaments" class="uk-border-rounded">
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Year in review — 2025</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Jan 19, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags">
+                            R
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/year-in-review/" class="uk-label uk-label-secondary tags">
+                            Year-in-Review
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-health-factor-still-recovering">The health factor: still recovering</a></li>
+    <li><a href="#apis-and-httr2">API&rsquo;s and httr2</a></li>
+    <li><a href="#r-package-development-advent-calendar">R Package Development Advent Calendar</a></li>
+    <li><a href="#ggseg-development">ggseg development</a></li>
+    <li><a href="#keeping-up-with-llms-and-coding-assistants">Keeping up with LLMs and coding assistants</a></li>
+    <li><a href="#looking-ahead-to-2026">Looking ahead to 2026</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">A year of deliberate work despite post-COVID recovery: API explorations with httr2, the R Package Development Advent Calendar, ggseg improvements, and looking ahead to 2026.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>2025 was a year of steady rebuilding: quieter than some years, but more deliberate and productive in the ways that matter.
+I continued to manage lingering post‑COVID effects that shaped how and when I work — I shipped less, but made each piece count.</p>
+<h2 id="the-health-factor-still-recovering">The health factor: still recovering</h2>
+<p>Post‑COVID recovery remains an important constraint.
+I still struggle with variable energy and slower recovery after exertion; that has influenced how I plan work, respond to requests, and set deadlines.
+The positive side is that this limitation forced better prioritization: I focus on durable outputs (tools, tutorials, packages) rather than quick, ephemeral experiments.
+I mention this here because it shaped my year — and because being transparent about it matters to me and, I hope, to readers in similar situations.</p>
+<p>I&rsquo;ve written about my experience with post‑COVID recovery in a few posts:</p>
+<ul>
+<li><a href="https://drmowinckels.io/blog/2025/the-difficult-year/">The difficult year</a></li>
+<li><a href="https://drmowinckels.io/blog/2025/visible/">Visible - Health tracking App</a></li>
+<li><a href="https://drmowinckels.io/blog/2025/visible-pca/">Visible — PCA exploration</a></li>
+</ul>
+<h2 id="apis-and-httr2">API&rsquo;s and httr2</h2>
+<p>I&rsquo;ve been exploring API work in R more deeply this year, particularly with the httr2 package.
+APIs are a powerful way to access data and services, and httr2 provides a modern, flexible interface for working with them in R.
+I wrote a couple of posts to share what I&rsquo;ve learned:</p>
+<ul>
+<li><a href="https://drmowinckels.io/blog/2025/linkedin-api/">LinkedIn API</a></li>
+<li><a href="https://drmowinckels.io/blog/2025/httr2_client/">httr2 client</a></li>
+<li><a href="https://drmowinckels.io/blog/2025/linkedin_gemini/">LinkedIn + Gemini</a></li>
+</ul>
+<p>I did also manage to refactor and release <a href="https://rladies.org/meetupr/">meetupr</a> to CRAN for R-Ladies, which was a satisfying side project.
+R-Ladies relies on <a href="https://www.meetup.com/pro/rladies/">Meetup.com</a> for event management, and this package makes it possible for the global team to monitor activity and generate reports directly from R.</p>
+<h2 id="r-package-development-advent-calendar">R Package Development Advent Calendar</h2>
+<p>The R Package Development Advent Calendar was the year&rsquo;s biggest writing project: 25 focused entries that collectively became a practical reference for modern package authors.
+Building that series forced me to tidy my own habits around testing, CI, documentation, and CRAN submission — and it felt great to publish something immediately useful to the community.
+(<a href="https://drmowinckels.io/blog/2025/rpackage-dev-calendar/">R Package Development Advent Calendar</a>)</p>
+<h2 id="ggseg-development">ggseg development</h2>
+<p>In the background, where noone could see (except maybe those looking at my github commit chart), I continued to maintain and improve the <a href="https://ggseg.github.io/">ggseg</a> package for brain atlas visualization in R.
+There have been a couple minor releases to make sure ggseg remains on CRAN – nothing major, but dependency packages keep evolving, and it&rsquo;s important to keep up.
+In addition to that, I have been working on a major overhaul of the internal data structures to improve performance and flexibility.
+In particular I&rsquo;m working on reducing atlas size by optimizing how the underlying spatial data is stored and accessed.
+This is still a work in progress, but I&rsquo;m excited about the potential improvements it will bring to ggseg users.</p>
+<p>In tandem to that, I&rsquo;ve been working on some contributions to the <a href="">freesurfer</a> R-package, which provides R bindings for the popular FreeSurfer neuroimaging software.
+It&rsquo;s mostly been about adding tests to the R-code that calls the functions (making sure the calls are formatted correctly etc), and improving documentation.
+It&rsquo;s an amazing package, and I&rsquo;m happy to contribute to its development.
+I&rsquo;ve not yet made the PR for these changes, but I plan to do so soon.</p>
+<h2 id="keeping-up-with-llms-and-coding-assistants">Keeping up with LLMs and coding assistants</h2>
+<p>We all know that the world of generative AI moves fast, and keeping some sort of tabs on it is important.
+I don&rsquo;t want to become obsolete while I&rsquo;m out sick.</p>
+<p>Currently I&rsquo;ve just discovered that <a href="https://code.claude.com/docs/en/overview">claude-code</a> let&rsquo;s you log in with <a href="https://claude.ai/projects">Claude Pro/Max</a> accounts now.
+Which is great, because I prefer having a set monthly quota (my tests also indicate that how I use Claude I actually get more bang for my buck with a Pro subscription that paying as I go).</p>
+<h2 id="looking-ahead-to-2026">Looking ahead to 2026</h2>
+<p>Goals for 2026 are pragmatic:</p>
+<ul>
+<li>continue balancing ambition with sustainable pace while I keep recovering.</li>
+<li>refine and share my workflows for reproducible work in R.</li>
+<li>slowly increase my capacity to work, engage, and create.</li>
+</ul>
+<p>Happy New Year, and thanks for reading!</p>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Jan 19, 2026) 
+                    Year in review — 2025. 
+                    Retrieved from https://drmowinckels.io/blog/2026/year-in-review-2025/.
+                    
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-year-in-review-2025,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Year in review — 2025",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/year-in-review-2025/",<br>
+                        &emsp;year = 2026,<br>
+                        
+                        &emsp;updated = "Jan 19, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Dec 28, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>R Package Development Advent Calendar 2025: A Complete Journey</h2>
+    
+      <p>A comprehensive guide to modern R package development, covering setup, documentation, testing, CI/CD, and CRAN submission, a summary of a social media advent calendar.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/rpackage-dev-calendar/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">rpackageadvent2025</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">development</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">advent</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">tutorial</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mastering Apply: From Matrices to Multidimensional Neuroimaging Data</h2>
+    
+      <p>Deep dive into apply() for matrices and high-dimensional arrays. From basic row/column operations to complex fMRI analyses with 5D data. Learn to master the MARGIN parameter for neuroimaging and scientific computing.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/apply-multidimensional/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">matrices</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">arrays</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">neuroimaging</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">fmri</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 31, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Neon Ghosts with ggplot2</h2>
+    
+      <p>Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/neon-ghosts/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ggplot2</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">halloween</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mapply: When You Need to Iterate Over Multiple Inputs</h2>
+    
+      <p>Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/mapply/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 02, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Hugo modules vs. Git submodules: manage your website more easily</h2>
+    
+      <p>Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/submodules/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">git</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">hugo</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">submodules</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">web-development</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
