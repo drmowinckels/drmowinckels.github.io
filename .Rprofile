@@ -11,7 +11,7 @@ options(
   blogdown.ext = '.Rmd',
   blogdown.method = "markdown",
   blogdown.subdir = "blog",
-  blogdown.hugo.version = "0.138.0",
+  blogdown.hugo.version = "0.154.5",
   blogdown.knit.on_save = TRUE
 )
 
