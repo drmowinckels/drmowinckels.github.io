@@ -73,7 +73,7 @@ meetup_sitrep()
 ### The Checking Functions
 
 In meetupr, we implemented a function that goes through the possible validation options and checking what is available.
-It is quite extensive, but I wanted to show the entire function, because I quite honestly think its pretty neat (not so humble brag).
+It is quite extensive, but I wanted to show the entire function, because I quite honestly think it's pretty neat (not so humble brag).
 
 The function checks if a JWT token is set up and available, then if the httr2 cache has a valid API token stored, and returns a list with all the information (which we can then use later).
 
