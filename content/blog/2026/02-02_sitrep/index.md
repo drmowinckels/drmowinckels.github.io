@@ -1,6 +1,6 @@
 ---
 title: "Why Every R Package Wrapper Needs a sitrep() Function"
-author: "Dr. Mowinckel's"
+author: "Dr. Mowinckel"
 date: "2026-02-02"
 tags:
   - R
@@ -230,13 +230,13 @@ The key: `meetupr_auth_status()` doesn't duplicate logic — it calls the same v
 FreeSurfer is a neuroimaging toolkit with command-line tools. 
 John Muschelli has a wrapper package from R that calls the CLI functions from R and optionally imports the data to R for further processing. 
 
-My ggsegExtra-package, which contains pipelines for creating new ggseg-atlases, calls Freesurfer in several stages of the process, so I have contirbuted to the package several times, with functionality I need to my own package which make better sense to exist in Freesurfer than in my own package.
+My ggsegExtra-package, which contains pipelines for creating new ggseg-atlases, calls Freesurfer in several stages of the process, so I have contributed to the package several times, with functionality I need to my own package which make better sense to exist in Freesurfer than in my own package.
 Last time I was working on Freesurfer, I had some issues getting R and my Freesurfer to talk to each other, and I got frustrated figuring out why.
 So I thought, this package needs a sitrep function.
 
 For freesurfer, I needed similar, but still different approach.
 Since it relies on software being installed on your system, I needed a way to get information on user settings (environment or options) and whether the paths specified actually exists or not,
-and I needed to have a good overview over how Freesurfer deal with all this it self (I kind of already knew this last bit, you can't work with Freesurfer CLI unless you have a fairly thorough understanding of where its installed and how to work with system paths).
+and I needed to have a good overview over how Freesurfer deal with all this it self (I kind of already knew this last bit, you can't work with Freesurfer CLI unless you have a fairly thorough understanding of where it's installed and how to work with system paths).
 
 However, there are quite a lot of possible settings, so the first step was to set up a convenience function that would help evaluate whether settings were available using the heuristic `options > environment > default guesswork`. 
 That last one is using known paths that Freesurfer by default gets installed to to search for it.
