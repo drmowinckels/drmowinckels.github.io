@@ -231,7 +231,7 @@ FreeSurfer is a neuroimaging toolkit with command-line tools.
 John Muschelli has a wrapper package from R that calls the CLI functions from R and optionally imports the data to R for further processing. 
 
 My ggsegExtra-package, which contains pipelines for creating new ggseg-atlases, calls Freesurfer in several stages of the process, so I have contirbuted to the package several times, with functionality I need to my own package which make better sense to exist in Freesurfer than in my own package.
-Last time I was working on Freesurfer, I has some issues getting R and my Freesurfer to talk to eachother, and I got frustrated figuring out why.
+Last time I was working on Freesurfer, I had some issues getting R and my Freesurfer to talk to each other, and I got frustrated figuring out why.
 So I thought, this package needs a sitrep function.
 
 For freesurfer, I needed similar, but still different approach.
