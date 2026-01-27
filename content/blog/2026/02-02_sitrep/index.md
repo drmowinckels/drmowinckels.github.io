@@ -153,7 +153,7 @@ meetupr_auth_status <- function(
   # Return detailed status
   list(
     auth = list(
-      any = jwt_valid || encrypted_valid || cache_valid,
+      any = jwt_valid || cache_valid,
       client_name = client_name,
       method = type
     ),
