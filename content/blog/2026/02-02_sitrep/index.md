@@ -1,55 +1,96 @@
 ---
-title: "Why Every R Package Wrapper Needs a sitrep() Function"
-author: "Dr. Mowinckel"
-date: "2026-02-02"
+title: Why Every R Package Wrapping External Tools Needs a sitrep() Function
+author: Dr. Mowinckel
+date: '2026-02-02'
+format:
+  hugo-md:
+    filters:
+      - ../../../../figure-to-markdown.lua
 tags:
   - R
   - package development
   - debugging
   - wrappers
 slug: sitrep-functions
-seo: "Discover how the sitrep() pattern simplifies R package maintenance and surfaces configuration errors in one go."
-summary: |
-  Stop playing "diagnostics ping-pong" with your users. This post explores why the _sitrep() (situation report) pattern — popularized by the usethis package — is a game-changer for R packages wrapping APIs or external software. Learn how to build structured validation functions that power both early error-handling and comprehensive system reports, featuring real-world implementation examples from the meetupr and freesurfer packages.
+seo: >-
+  Discover how the sitrep() pattern simplifies R package maintenance and surfaces configuration errors in one go.
+summary: >-
+  Stop playing "diagnostics ping-pong" with your users. This post explores why
+  the _sitrep() (situation report) pattern — popularized by the usethis package
+  — is a game-changer for R packages wrapping APIs or external software. Learn
+  how to build structured validation functions that power both early
+  error-handling and comprehensive system reports, featuring real-world
+  implementation examples from the meetupr and freesurfer packages.
 image: image.png
-image_alt: |
-  A close-up view of a computer monitor in a dimly lit room, showing a terminal console. The terminal displays the output of an R function called meetupr_sitrep(). The report shows green checkmarks for "Active Authentication" and "Cached Token," and a blue information icon for package settings. At the bottom, a red "X" marks a failed "API Connectivity Test," illustrating a diagnostic situation report in action. In the foreground, a coffee mug and a person’s hand on a keyboard are visible but slightly out of focus.
+image_alt: >
+  A close-up view of a computer monitor in a dimly lit room, showing a terminal
+  console. The terminal displays the output of an R function called
+  meetupr_sitrep(). The report shows green checkmarks for "Active
+  Authentication" and "Cached Token," and a blue information icon for package
+  settings. At the bottom, a red "X" marks a failed "API Connectivity Test,"
+  illustrating a diagnostic situation report in action. In the foreground, a
+  coffee mug and a person’s hand on a keyboard are visible but slightly out of
+  focus.
 ---
 
-The usethis package has a function I find extremely useful: `git_sitrep()`. 
+
+The usethis package has a function I find extremely useful: `git_sitrep()`.
 When Git authentication breaks or remotes get confused, it dumps everything relevant in one go.
 No more hunting through config files or trying random fixes.
 
-This pattern — the situation report function — should be standard in any R package wrapping an API or external program. 
-I've built them into meetupr and freesurfer, and I think they'll help both users and developers when debugging issues.
+This pattern — the situation report function — should be standard in any R package wrapping an API or external program.
+You'll find similar functions in [devtools](https://devtools.r-lib.org/reference/dev_sitrep.html) (`dev_sitrep()`) and [greta](https://github.com/greta-dev/greta/blob/main/R/greta-sitrep.R) (`greta_sitrep()`), packages that also depend on external tooling.
+I especially like the g`greta_sitrep()`, because it allows for three flavours of sitrep "minimal", "detailed" and "quiet". 
+Super nice!
+This gives the ability for a quick overview, and provide a more detailed report when needed.
+
+Huge thanks [Maëlle Salmon](https://masalmon.eu/) for both revieweing this post and for showing me this one.
+I've built them into meetupr and freesurfer, and they help both users and developers when debugging issues. 
 
 ## Why This Matters
 
-API wrappers and program interfaces fail predictably:
-- Missing credentials  
-- Expired tokens  
-- Wrong environment variables    
-- Version mismatches  
-- Network issues  
+API wrappers and program interfaces fail predictably: external tool not installed (or installed incorrectly), missing credentials, expired tokens, wrong environment variables, version mismatches, network issues.
 
-Users hit these walls and open issues: "why doesn't it work?" 
-You end up playing 20 questions trying to diagnose their setup.
-A `sitrep()` function surfaces everything at once, and can even help the user diagnose and fix on their own.
+Users open issues: "why doesn't it work?" and you end up playing 20 questions.
+A `sitrep()` function surfaces everything at once, helping users diagnose and fix problems on their own.
+They're also invaluable in teaching contexts, where students encounter these setup issues constantly.
 
-## The Dual-Purpose Architecture
+If you're just starting, a sitrep doesn't need to be 100 lines of code.
+Here is a "Minimum Viable Sitrep" to get the pattern into your package:
 
-The real power comes from building checking functions that serve two purposes:
+``` r
+pkg_sitrep <- function() {
+  cli::cli_h1("Quick Status Report")
+  
+  # Check for a specific environment variable
+  has_key <- !nzchar(Sys.getenv("MY_API_KEY"))
+  
+  cli::cli_list(
+    "API Key: {if(has_key) cli::col_green('Found') else cli::col_red('Missing')}",
+    "Internet: {if(curl::has_internet()) cli::col_green('Online') else cli::col_red('Offline')}",
+    "R Version: {utils::packageVersion('base')}"
+  )
+}
+```
 
-1. **Error early in function calls** - Validate setup before attempting operations
-2. **Report status in sitrep** - Present comprehensive diagnostic information
+## Reusing Checking Functions
 
-This reduces duplication and keeps validation logic consistent.
+A naive approach would be to write validation code twice: once scattered throughout your package functions, and again in sitrep.
+Instead, extract your checks into small functions that return structured results.
+
+For example, a function like `has_auth()` can:
+
+1. Be called inside `api_query()` to fail early with a helpful error
+2. Be called inside `sitrep()` to show the user their authentication status
+
+Same logic, two contexts.
+This keeps your validation consistent and means updating one function fixes both places.
 
 ## meetupr Implementation
 
 The package authenticates with Meetup's GraphQL API via OAuth. Here's the sitrep output:
 
-```r
+``` r
 meetupr_sitrep()
 #> ── meetupr Situation Report ─────────────────────
 #> 
@@ -77,7 +118,7 @@ It is quite extensive, but I wanted to show the entire function, because I quite
 
 The function checks if a JWT token is set up and available, then if the httr2 cache has a valid API token stored, and returns a list with all the information (which we can then use later).
 
-```r
+``` r
 meetupr_auth_status <- function(
   client_name = get_client_name(),
   silent = FALSE
@@ -174,7 +215,7 @@ meetupr_auth_status <- function(
 
 Since the function returns all this information, we can set up convenience functions around this one that can help us evaluate the state of auth for the functions.
 
-```r
+``` r
 has_auth <- function(
   client_name = get_client_name()
 ) {
@@ -184,14 +225,13 @@ has_auth <- function(
   )$auth$any
 }
 
-
 ```
 
 ### Using Them in Functions
 
 Internal functions call these for early validation:
 
-```r
+``` r
 meetup_query <- function(query) {
   if (!has_auth()) {
     cli::cli_abort("Not authenticated. Run {.code meetup_auth()} first.")
@@ -206,7 +246,7 @@ meetup_query <- function(query) {
 Since we have this `meetupr_auth_status` with all the information on the state of authentication, we can use it in the sitrep.
 We built a convenience function, that takes the result of that function and displays the information in an orderly fashion and gives users aid if they need to fix something.
 
-```r
+``` r
 meetupr_sitrep <- function() {
   cli::cli_h1("meetupr Situation Report")
 
@@ -220,15 +260,15 @@ meetupr_sitrep <- function() {
 }
 ```
 
-Lastly, we created a simple API connectivity test, that calls the API and checks who is authenticated. 
+Lastly, we created a simple API connectivity test, that calls the API and checks who is authenticated.
 With this last bit, we can tell the users whether the setup actually works.
 
-The key: `meetupr_auth_status()` doesn't duplicate logic — it calls the same validation functions used throughout the package.
+The key: `meetupr_auth_status()` doesn't duplicate logic --- it calls the same validation functions used throughout the package.
 
-## freesurfer Implementation  
+## freesurfer Implementation
 
-FreeSurfer is a neuroimaging toolkit with command-line tools. 
-John Muschelli has a wrapper package from R that calls the CLI functions from R and optionally imports the data to R for further processing. 
+FreeSurfer is a neuroimaging toolkit with command-line tools.
+John Muschelli has a wrapper package from R that calls the CLI functions from R and optionally imports the data to R for further processing.
 
 My ggsegExtra-package, which contains pipelines for creating new ggseg-atlases, calls Freesurfer in several stages of the process, so I have contributed to the package several times, with functionality I need to my own package which make better sense to exist in Freesurfer than in my own package.
 Last time I was working on Freesurfer, I had some issues getting R and my Freesurfer to talk to each other, and I got frustrated figuring out why.
@@ -238,11 +278,17 @@ For freesurfer, I needed similar, but still different approach.
 Since it relies on software being installed on your system, I needed a way to get information on user settings (environment or options) and whether the paths specified actually exists or not,
 and I needed to have a good overview over how Freesurfer deal with all this it self (I kind of already knew this last bit, you can't work with Freesurfer CLI unless you have a fairly thorough understanding of where it's installed and how to work with system paths).
 
-However, there are quite a lot of possible settings, so the first step was to set up a convenience function that would help evaluate whether settings were available using the heuristic `options > environment > default guesswork`. 
-That last one is using known paths that Freesurfer by default gets installed to to search for it.
+However, there are quite a lot of possible settings, so the first step was to set up a convenience function that would help evaluate whether settings were available using the heuristic `options > environment > default guesswork`.
 
+When building these, I follow a specific hierarchy of "truth" to find settings. This ensures the user has maximum flexibility:
 
-```r
+-   R Options: getOption("pkg.path") --- Highest priority, set per session.
+
+-   Environment Variables: Sys.getenv("PKG_PATH") --- Standard for CI/CD and shell users.
+
+-   Default Guesswork: Known installation paths or standard values --- The "just work" fallback.
+
+``` r
 get_fs_setting <- function(
   env_var,
   opt_var,
@@ -307,7 +353,7 @@ get_fs_setting <- function(
 
 Again, my function here returns the information and context needed for further evaluation, but also calls a `return_setting` function, since I wanted to make sure this ALWAYS returns the same information, and evaluates whether a path exists or not.
 
-```r
+``` r
 return_setting <- function(value, source, is_path = TRUE) {
   exists <- FALSE
 
@@ -337,8 +383,9 @@ return_setting <- function(value, source, is_path = TRUE) {
 ```
 
 Now that we have these conveniences, I could start setting up custom functions that would look for specific pieces needed for the communication between Freesurfer and R, like the very crucial `get_fs_home()` function, which finds the path to where Freesurfer is installed.
+(Not to be confused with `fs::path_home()` from the fs package, which returns the user's home directory!)
 
-```r
+``` r
 get_fs_home <- function(simplify = TRUE) {
   ret <- get_fs_setting(
     env_var = "FREESURFER_HOME",
@@ -362,7 +409,7 @@ This function checks first for whether the `FREESURFER_HOME` environment variabl
 
 And since we also added the `simplify` argument to the function, we can return a simple logical statement is Freesurfer home is set and exists on the system
 
-```r
+``` r
 have_fs <- function() {
   get_fs_home(simplify = TRUE)
 }
@@ -370,7 +417,7 @@ have_fs <- function() {
 
 In addition, since we have the convenience `get_fs_setting()` function, we can create other check which we know Freesurfer relies on to work properly, like checking whether its license file is set up correctly (its free to use, but you need to register with them to get a license file).
 
-```r
+``` r
 get_fs_license <- function(
   fs_home = get_fs_home(),
   simplify = TRUE
@@ -410,7 +457,7 @@ Then it moves on to check for environment settings, options, and default paths a
 
 To finally create a good `fs_sitrep()` function, we created a convenience function that took the output from get_fs_setting(), which is a list of three things, and made sure it could output good cli-style information to the console.
 
-```r
+``` r
 alert_info <- function(settings, header) {
   cli::cli_h3(header)
 
@@ -454,8 +501,7 @@ With that in place, we have a rather large sitrep for fs, that shows lots of dif
 
 And just like in meetupr, we finish off with a test to whether the communication between R and Freesurfer is working, in this case by just asking for the help file of a core Freesurfer function, and making sure that outputs expected help information.
 
-
-```r
+``` r
 fs_sitrep <- function(test_commands = TRUE) {
   fs_home <- get_fs_home(simplify = FALSE)
   license_info <- get_fs_license(simplify = FALSE)
@@ -559,52 +605,49 @@ fs_sitrep <- function(test_commands = TRUE) {
 
 With all that information, both the user and us should get enough context to figure out what is going wrong if they need help.
 
+    ── FreeSurfer Setup Report ──
 
-```
-── FreeSurfer Setup Report ──
+    ── FreeSurfer Directory 
+    • "/Applications/freesurfer"
+    ! Determined from: `Default path`
+    ✔ Path exists
 
-── FreeSurfer Directory 
-• "/Applications/freesurfer"
-! Determined from: `Default path`
-✔ Path exists
+    ── Source script 
+    • Unable to detect
 
-── Source script 
-• Unable to detect
+    ── License File 
+    • Unable to detect
 
-── License File 
-• Unable to detect
+    ── Subjects Directory 
+    • Unable to detect
 
-── Subjects Directory 
-• Unable to detect
+    ── Verbose mode 
+    • TRUE
+    ! Determined from: `Default value`
 
-── Verbose mode 
-• TRUE
-! Determined from: `Default value`
+    ── MNI functionality 
+    • Unable to detect
 
-── MNI functionality 
-• Unable to detect
+    ── Output Format 
+    • "nii.gz"
+    ! Determined from: `Default value`
 
-── Output Format 
-• "nii.gz"
-! Determined from: `Default value`
+    ── System Information 
+    • Operating System:
+    "aarch64-apple-darwin20"
+    • R Version: "4.5.2 (2025-10-31)"
+    • Shell: "/bin/zsh"
 
-── System Information 
-• Operating System:
-"aarch64-apple-darwin20"
-• R Version: "4.5.2 (2025-10-31)"
-• Shell: "/bin/zsh"
-
-── Testing R and FreeSurfer Communication 
-✖ FreeSurfer installation not detected
-• Use `options(freesurfer.home =
-'/path/to/freesurfer')` to set location
-```
+    ── Testing R and FreeSurfer Communication 
+    ✖ FreeSurfer installation not detected
+    • Use `options(freesurfer.home =
+    '/path/to/freesurfer')` to set location
 
 ## Design Principles
 
 **Write checking functions, not checking code.** Extract validation logic into small, testable functions that return structured results.
 
-**Structure over booleans.** Return lists with `valid`, `value`, and `message` instead of just TRUE/FALSE. 
+**Structure over booleans.** Return lists with `valid`, `value`, and `message` instead of just TRUE/FALSE.
 This gives both functions and sitrep the context they need.
 
 **No side effects in checks.** Functions named `check_*()` or `has_*()` should only inspect, never modify or trigger auth flows.
@@ -616,13 +659,13 @@ This gives both functions and sitrep the context they need.
 ## The Maintenance Win
 
 When auth logic changes, you update one checking function.
-Both error messages and sitrep automatically stay in sync. 
+Both error messages and sitrep automatically stay in sync.
 No hunting for duplicate validation code scattered across your package.
 
 When debugging CI failures, you can add a `package_sitrep()` call to the workflow and get comprehensive diagnostics in the logs.
 
-When someone reports "it's not working", you say: "Run `package_sitrep()` and show me the output." 
+When someone reports "it's not working", you say: "Run `package_sitrep()` and show me the output."
 You get structured information instead of playing diagnostics ping-pong.
 
-The usethis team built this pattern because they knew users (and them) needed help in diagnosing setup issues. 
+The usethis team built this pattern because they knew users (and them) needed help in diagnosing setup issues.
 If it works for them, it'll work for your API wrapper too.
