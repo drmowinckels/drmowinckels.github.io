@@ -408,7 +408,7 @@ Then it moves on to check for environment settings, options, and default paths a
 
 ### Using Them in Sitrep
 
-To finally create a good `fs_sitrep()` function, we created a convenience function that tok the output from get_fs_setting(), which is a list of three things, and made sure it could output good cli-style information to the console.
+To finally create a good `fs_sitrep()` function, we created a convenience function that took the output from get_fs_setting(), which is a list of three things, and made sure it could output good cli-style information to the console.
 
 ```r
 alert_info <- function(settings, header) {
