@@ -50,7 +50,7 @@ This reduces duplication and keeps validation logic consistent.
 The package authenticates with Meetup's GraphQL API via OAuth. Here's the sitrep output:
 
 ```r
-meetup_sitrep()
+meetupr_sitrep()
 #> ── meetupr Situation Report ─────────────────────
 #> 
 #> ── Active Authentication Method ──
