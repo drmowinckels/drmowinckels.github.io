@@ -450,7 +450,7 @@ alert_info <- function(settings, header) {
 }
 ```
 
-With that in place, we have a rather large sitrep for fs, that shows lots of different things, including whether something has been set from what source (env or option) or if its just the default behaviour.
+With that in place, we have a rather large sitrep for fs, that shows lots of different things, including whether something has been set from what source (env or option) or if it's just the default behaviour.
 
 And just like in meetupr, we finish off with a test to whether the communication between R and Freesurfer is working, in this case by just asking for the help file of a core Freesurfer function, and making sure that outputs expected help information.
 
