@@ -40,7 +40,7 @@ No more hunting through config files or trying random fixes.
 
 This pattern — the situation report function — should be standard in any R package wrapping an API or external program.
 You'll find similar functions in [devtools](https://devtools.r-lib.org/reference/dev_sitrep.html) (`dev_sitrep()`) and [greta](https://github.com/greta-dev/greta/blob/main/R/greta-sitrep.R) (`greta_sitrep()`), packages that also depend on external tooling.
-I especially like the g`greta_sitrep()`, because it allows for three flavours of sitrep "minimal", "detailed" and "quiet". 
+I especially like the `greta_sitrep()`, because it allows for three flavours of sitrep "minimal", "detailed" and "quiet". 
 Super nice!
 This gives the ability for a quick overview, and provide a more detailed report when needed.
 
