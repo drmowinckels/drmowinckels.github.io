@@ -276,7 +276,7 @@ So I thought, this package needs a sitrep function.
 
 For freesurfer, I needed similar, but still different approach.
 Since it relies on software being installed on your system, I needed a way to get information on user settings (environment or options) and whether the paths specified actually exists or not,
-and I needed to have a good overview over how Freesurfer deal with all this it self (I kind of already knew this last bit, you can't work with Freesurfer CLI unless you have a fairly thorough understanding of where it's installed and how to work with system paths).
+and I needed to have a good overview over how Freesurfer deals with all this itself (I kind of already knew this last bit, you can't work with Freesurfer CLI unless you have a fairly thorough understanding of where it's installed and how to work with system paths).
 
 However, there are quite a lot of possible settings, so the first step was to set up a convenience function that would help evaluate whether settings were available using the heuristic `options > environment > default guesswork`.
 
