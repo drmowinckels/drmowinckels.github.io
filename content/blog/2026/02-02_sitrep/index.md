@@ -63,7 +63,7 @@ pkg_sitrep <- function() {
   cli::cli_h1("Quick Status Report")
   
   # Check for a specific environment variable
-  has_key <- !nzchar(Sys.getenv("MY_API_KEY"))
+  has_key <- nzchar(Sys.getenv("MY_API_KEY"))
   
   cli::cli_list(
     "API Key: {if(has_key) cli::col_green('Found') else cli::col_red('Missing')}",
@@ -411,7 +411,7 @@ And since we also added the `simplify` argument to the function, we can return a
 
 ``` r
 have_fs <- function() {
-  get_fs_home(simplify = TRUE)
+  get_fs_home(simplify = FALSE)$exists
 }
 ```
 
