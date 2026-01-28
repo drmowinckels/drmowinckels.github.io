@@ -450,7 +450,7 @@ get_fs_license <- function(
 }
 ```
 
-The license file check, first checks if fs_home() returns correctly, no reason to check for lisence with the program isn't there.
+The license file check, first checks if fs_home() returns correctly, no reason to check for license with the program isn't there.
 Then it moves on to check for environment settings, options, and default paths again, like before.
 
 ### Using Them in Sitrep
