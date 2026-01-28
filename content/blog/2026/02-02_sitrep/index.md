@@ -44,7 +44,7 @@ I especially like the `greta_sitrep()`, because it allows for three flavours of 
 Super nice!
 This gives the ability for a quick overview, and provide a more detailed report when needed.
 
-Huge thanks [Maëlle Salmon](https://masalmon.eu/) for both revieweing this post and for showing me this one.
+Huge thanks [Maëlle Salmon](https://masalmon.eu/) for both reviewing this post and for showing me this one.
 I've built them into meetupr and freesurfer, and they help both users and developers when debugging issues. 
 
 ## Why This Matters
