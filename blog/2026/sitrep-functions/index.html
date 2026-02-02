@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Why Every R Package Wrapping External Tools Needs a sitrep() Function - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Stop playing “diagnostics ping-pong” with your users. This post explores why the _sitrep() (situation report) pattern — popularized by the usethis package — is a game-changer for R packages wrapping APIs or external software. Learn how to build structured validation functions that power both early error-handling and comprehensive system reports, featuring real-world implementation examples from the meetupr and freesurfer packages." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Discover how the sitrep() pattern simplifies R package maintenance and surfaces configuration errors in one go.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/sitrep-functions/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Why Every R Package Wrapping External Tools Needs a sitrep() Function - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Discover how the sitrep() pattern simplifies R package maintenance and surfaces configuration errors in one go.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2026/sitrep-functions/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="Discover how the sitrep() pattern simplifies R package maintenance and surfaces configuration errors in one go.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/sitrep-functions/image.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/sitrep-functions/image.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.513f2c708ba173d0df3dd882e74a5d464c8a99648e1a376056c6f012ff15bec1.css" 
+    integrity="sha256-UT8scIuhc9DfPdiC50pdRkyKmWSOGjdgVsbwEv8VvsE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            <img src="https://drmowinckels.io/blog/2026/sitrep-functions/image.png" alt="A close-up view of a computer monitor in a dimly lit room, showing a terminal console. The terminal displays the output of an R function called meetupr_sitrep(). The report shows green checkmarks for &#34;Active Authentication&#34; and &#34;Cached Token,&#34; and a blue information icon for package settings. At the bottom, a red &#34;X&#34; marks a failed &#34;API Connectivity Test,&#34; illustrating a diagnostic situation report in action. In the foreground, a coffee mug and a person’s hand on a keyboard are visible but slightly out of focus.
+" class="uk-border-rounded">
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Why Every R Package Wrapping External Tools Needs a sitrep() Function</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Feb 2, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags">
+                            R
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/package-development/" class="uk-label uk-label-secondary tags">
+                            Package Development
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/debugging/" class="uk-label uk-label-secondary tags">
+                            Debugging
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/wrappers/" class="uk-label uk-label-secondary tags">
+                            Wrappers
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-this-matters">Why This Matters</a></li>
+    <li><a href="#reusing-checking-functions">Reusing Checking Functions</a></li>
+    <li><a href="#meetupr-implementation">meetupr Implementation</a>
+      <ul>
+        <li><a href="#the-checking-functions">The Checking Functions</a></li>
+        <li><a href="#using-them-in-functions">Using Them in Functions</a></li>
+        <li><a href="#using-them-in-sitrep">Using Them in Sitrep</a></li>
+      </ul>
+    </li>
+    <li><a href="#freesurfer-implementation">freesurfer Implementation</a>
+      <ul>
+        <li><a href="#using-them-in-sitrep-1">Using Them in Sitrep</a></li>
+      </ul>
+    </li>
+    <li><a href="#design-principles">Design Principles</a></li>
+    <li><a href="#the-maintenance-win">The Maintenance Win</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">Stop playing &ldquo;diagnostics ping-pong&rdquo; with your users. This post explores why the _sitrep() (situation report) pattern — popularized by the usethis package — is a game-changer for R packages wrapping APIs or external software. Learn how to build structured validation functions that power both early error-handling and comprehensive system reports, featuring real-world implementation examples from the meetupr and freesurfer packages.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>The usethis package has a function I find extremely useful: <code>git_sitrep()</code>.
+When Git authentication breaks or remotes get confused, it dumps everything relevant in one go.
+No more hunting through config files or trying random fixes.</p>
+<p>This pattern — the situation report function — should be standard in any R package wrapping an API or external program.
+You&rsquo;ll find similar functions in <a href="https://devtools.r-lib.org/reference/dev_sitrep.html">devtools</a> (<code>dev_sitrep()</code>) and <a href="https://github.com/greta-dev/greta/blob/main/R/greta-sitrep.R">greta</a> (<code>greta_sitrep()</code>), packages that also depend on external tooling.
+I especially like the <code>greta_sitrep()</code>, because it allows for three flavours of sitrep &ldquo;minimal&rdquo;, &ldquo;detailed&rdquo; and &ldquo;quiet&rdquo;.
+Super nice!
+This gives the ability for a quick overview, and provide a more detailed report when needed.</p>
+<p>Huge thanks <a href="https://masalmon.eu/">Maëlle Salmon</a> for both reviewing this post and for showing me this one.
+I&rsquo;ve built them into meetupr and freesurfer, and they help both users and developers when debugging issues.</p>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>API wrappers and program interfaces fail predictably: external tool not installed (or installed incorrectly), missing credentials, expired tokens, wrong environment variables, version mismatches, network issues.</p>
+<p>Users open issues: &ldquo;why doesn&rsquo;t it work?&rdquo; and you end up playing 20 questions.
+A <code>sitrep()</code> function surfaces everything at once, helping users diagnose and fix problems on their own.
+They&rsquo;re also invaluable in teaching contexts, where students encounter these setup issues constantly.</p>
+<p>If you&rsquo;re just starting, a sitrep doesn&rsquo;t need to be 100 lines of code.
+Here is a &ldquo;Minimum Viable Sitrep&rdquo; to get the pattern into your package:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>pkg_sitrep <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_h1</span>(<span style="color:#e6db74">&#34;Quick Status Report&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Check for a specific environment variable</span>
+</span></span><span style="display:flex;"><span>  has_key <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">nzchar</span>(<span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;MY_API_KEY&#34;</span>))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_list</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;API Key: {if(has_key) cli::col_green(&#39;Found&#39;) else cli::col_red(&#39;Missing&#39;)}&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Internet: {if(curl::has_internet()) cli::col_green(&#39;Online&#39;) else cli::col_red(&#39;Offline&#39;)}&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;R Version: {utils::packageVersion(&#39;base&#39;)}&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="reusing-checking-functions">Reusing Checking Functions</h2>
+<p>A naive approach would be to write validation code twice: once scattered throughout your package functions, and again in sitrep.
+Instead, extract your checks into small functions that return structured results.</p>
+<p>For example, a function like <code>has_auth()</code> can:</p>
+<ol>
+<li>Be called inside <code>api_query()</code> to fail early with a helpful error</li>
+<li>Be called inside <code>sitrep()</code> to show the user their authentication status</li>
+</ol>
+<p>Same logic, two contexts.
+This keeps your validation consistent and means updating one function fixes both places.</p>
+<h2 id="meetupr-implementation">meetupr Implementation</h2>
+<p>The package authenticates with Meetup&rsquo;s GraphQL API via OAuth. Here&rsquo;s the sitrep output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">meetupr_sitrep</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ── meetupr Situation Report ─────────────────────</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ── Active Authentication Method ──</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ✔ OAuth - Active</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ── OAuth Configuration ──</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; Client ID: ae743e...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; Client Secret: Set</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ✔ Cached Token: Available</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ── Package Settings ──</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; Debug Mode: Disabled</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; API endpoint: https://api.meetup.com/gql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ── API Connectivity Test ──</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ✔ API Connection: Working</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; ℹ Authenticated as: Mo Mowinckel (ID: 123456)</span>
+</span></span></code></pre></div><h3 id="the-checking-functions">The Checking Functions</h3>
+<p>In meetupr, we implemented a function that goes through the possible validation options and checking what is available.
+It is quite extensive, but I wanted to show the entire function, because I quite honestly think it&rsquo;s pretty neat (not so humble brag).</p>
+<p>The function checks if a JWT token is set up and available, then if the httr2 cache has a valid API token stored, and returns a list with all the information (which we can then use later).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>meetupr_auth_status <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  client_name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_client_name</span>(),
+</span></span><span style="display:flex;"><span>  silent <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># JWT token</span>
+</span></span><span style="display:flex;"><span>  jwt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tryCatch</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get_jwt_token</span>(client_name <span style="color:#f92672">=</span> client_name),
+</span></span><span style="display:flex;"><span>    error <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(e) <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  jwt_issuer <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">meetupr_key_get</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;jwt_issuer&#34;</span>,
+</span></span><span style="display:flex;"><span>    client_name <span style="color:#f92672">=</span> client_name,
+</span></span><span style="display:flex;"><span>    error <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  client_key <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">meetupr_key_get</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;client_key&#34;</span>,
+</span></span><span style="display:flex;"><span>    client_name <span style="color:#f92672">=</span> client_name,
+</span></span><span style="display:flex;"><span>    error <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  jwt_valid <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">is_empty</span>(jwt) <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">!</span><span style="color:#a6e22e">is_empty</span>(jwt_issuer) <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">!</span><span style="color:#a6e22e">is_empty</span>(client_key)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (jwt_valid) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>silent) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_success</span>(<span style="color:#e6db74">&#34;JWT setup found and is valid&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>silent) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_warning</span>(<span style="color:#e6db74">&#34;JWT setup not found or invalid&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># httr2 OAuth cache</span>
+</span></span><span style="display:flex;"><span>  cache_path <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">get_cache_path</span>(client_name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(cache_path)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>silent) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_danger</span>(<span style="color:#e6db74">&#34;Not authenticated: No token cache found&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  cache_files <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list_token_files</span>(cache_path)
+</span></span><span style="display:flex;"><span>  cache_valid <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(cache_files) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (cache_valid) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>silent) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_success</span>(<span style="color:#e6db74">&#34;Token found in cache&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">length</span>(cache_files) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_info</span>(<span style="color:#e6db74">&#34;Multiple token files found in cache:&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (f <span style="color:#66d9ef">in</span> cache_files) {
+</span></span><span style="display:flex;"><span>          cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_text</span>(<span style="color:#e6db74">&#34; - {.file {f}}&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>silent) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_danger</span>(<span style="color:#e6db74">&#34;Not authenticated: No token found in cache&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  type <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">if</span> (jwt_valid) {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;jwt&#34;</span>
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (cache_valid) {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;cache&#34;</span>
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;none&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Return detailed status</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    auth <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      any <span style="color:#f92672">=</span> jwt_valid <span style="color:#f92672">||</span> cache_valid,
+</span></span><span style="display:flex;"><span>      client_name <span style="color:#f92672">=</span> client_name,
+</span></span><span style="display:flex;"><span>      method <span style="color:#f92672">=</span> type
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    jwt <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      available <span style="color:#f92672">=</span> jwt_valid,
+</span></span><span style="display:flex;"><span>      value <span style="color:#f92672">=</span> jwt <span style="color:#f92672">%||%</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>      issuer <span style="color:#f92672">=</span> jwt_issuer <span style="color:#f92672">%||%</span> <span style="color:#66d9ef">NA_character_</span>,
+</span></span><span style="display:flex;"><span>      client_key <span style="color:#f92672">=</span> client_key <span style="color:#f92672">%||%</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    cache <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>      available <span style="color:#f92672">=</span> cache_valid,
+</span></span><span style="display:flex;"><span>      files <span style="color:#f92672">=</span> cache_files <span style="color:#f92672">%||%</span> <span style="color:#66d9ef">NA_character_</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">invisible</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Since the function returns all this information, we can set up convenience functions around this one that can help us evaluate the state of auth for the functions.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>has_auth <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  client_name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_client_name</span>()
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">meetupr_auth_status</span>(
+</span></span><span style="display:flex;"><span>    client_name,
+</span></span><span style="display:flex;"><span>    silent <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>  )<span style="color:#f92672">$</span>auth<span style="color:#f92672">$</span>any
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="using-them-in-functions">Using Them in Functions</h3>
+<p>Internal functions call these for early validation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>meetup_query <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(query) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">has_auth</span>()) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_abort</span>(<span style="color:#e6db74">&#34;Not authenticated. Run {.code meetup_auth()} first.&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Proceed with API call</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="using-them-in-sitrep">Using Them in Sitrep</h3>
+<p>Since we have this <code>meetupr_auth_status</code> with all the information on the state of authentication, we can use it in the sitrep.
+We built a convenience function, that takes the result of that function and displays the information in an orderly fashion and gives users aid if they need to fix something.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>meetupr_sitrep <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_h1</span>(<span style="color:#e6db74">&#34;meetupr Situation Report&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  auth_status <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">meetupr_auth_status</span>(silent <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">display_auth_status</span>(auth_status)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">test_api_connectivity</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">invisible</span>(auth_status)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Lastly, we created a simple API connectivity test, that calls the API and checks who is authenticated.
+With this last bit, we can tell the users whether the setup actually works.</p>
+<p>The key: <code>meetupr_auth_status()</code> doesn&rsquo;t duplicate logic &mdash; it calls the same validation functions used throughout the package.</p>
+<h2 id="freesurfer-implementation">freesurfer Implementation</h2>
+<p>FreeSurfer is a neuroimaging toolkit with command-line tools.
+John Muschelli has a wrapper package from R that calls the CLI functions from R and optionally imports the data to R for further processing.</p>
+<p>My ggsegExtra-package, which contains pipelines for creating new ggseg-atlases, calls Freesurfer in several stages of the process, so I have contributed to the package several times, with functionality I need to my own package which make better sense to exist in Freesurfer than in my own package.
+Last time I was working on Freesurfer, I had some issues getting R and my Freesurfer to talk to each other, and I got frustrated figuring out why.
+So I thought, this package needs a sitrep function.</p>
+<p>For freesurfer, I needed similar, but still different approach.
+Since it relies on software being installed on your system, I needed a way to get information on user settings (environment or options) and whether the paths specified actually exists or not,
+and I needed to have a good overview over how Freesurfer deals with all this itself (I kind of already knew this last bit, you can&rsquo;t work with Freesurfer CLI unless you have a fairly thorough understanding of where it&rsquo;s installed and how to work with system paths).</p>
+<p>However, there are quite a lot of possible settings, so the first step was to set up a convenience function that would help evaluate whether settings were available using the heuristic <code>options &gt; environment &gt; default guesswork</code>.</p>
+<p>When building these, I follow a specific hierarchy of &ldquo;truth&rdquo; to find settings. This ensures the user has maximum flexibility:</p>
+<ul>
+<li>
+<p>R Options: getOption(&ldquo;pkg.path&rdquo;) &mdash; Highest priority, set per session.</p>
+</li>
+<li>
+<p>Environment Variables: Sys.getenv(&ldquo;PKG_PATH&rdquo;) &mdash; Standard for CI/CD and shell users.</p>
+</li>
+<li>
+<p>Default Guesswork: Known installation paths or standard values &mdash; The &ldquo;just work&rdquo; fallback.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>get_fs_setting <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  env_var,
+</span></span><span style="display:flex;"><span>  opt_var,
+</span></span><span style="display:flex;"><span>  defaults <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  is_path <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Check R option first</span>
+</span></span><span style="display:flex;"><span>  original_opt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">getOption</span>(opt_var)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is.null</span>(original_opt) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nzchar</span>(<span style="color:#a6e22e">as.character</span>(original_opt))) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#a6e22e">return_setting</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">as.character</span>(original_opt),
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;R option:&#34;</span>, opt_var),
+</span></span><span style="display:flex;"><span>      is_path
+</span></span><span style="display:flex;"><span>    ))
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Check environment variable</span>
+</span></span><span style="display:flex;"><span>  original_env <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Sys.getenv</span>(env_var)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nzchar</span>(original_env)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#a6e22e">return_setting</span>(
+</span></span><span style="display:flex;"><span>      original_env,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;Environment variable:&#34;</span>, env_var),
+</span></span><span style="display:flex;"><span>      is_path
+</span></span><span style="display:flex;"><span>    ))
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Try defaults</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is.null</span>(defaults)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (is_path) {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Find first existing default</span>
+</span></span><span style="display:flex;"><span>      existing_defaults <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">batch_file_exists</span>(
+</span></span><span style="display:flex;"><span>        defaults,
+</span></span><span style="display:flex;"><span>        error <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>        warn <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>      valid_defaults <span style="color:#f92672">&lt;-</span> defaults[existing_defaults]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">length</span>(valid_defaults) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>(<span style="color:#a6e22e">return_setting</span>(
+</span></span><span style="display:flex;"><span>          valid_defaults[1],
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;Default path&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>        ))
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># For non-paths, just return first default</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>(<span style="color:#a6e22e">return_setting</span>(
+</span></span><span style="display:flex;"><span>        defaults[1],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Default value&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>      ))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Nothing found</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return_setting</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">NA</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Not found&#34;</span>,
+</span></span><span style="display:flex;"><span>    is_path
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Again, my function here returns the information and context needed for further evaluation, but also calls a <code>return_setting</code> function, since I wanted to make sure this ALWAYS returns the same information, and evaluates whether a path exists or not.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>return_setting <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(value, source, is_path <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) {
+</span></span><span style="display:flex;"><span>  exists <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>is_path) {
+</span></span><span style="display:flex;"><span>    exists <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">NA</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (is_path <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(value))) {
+</span></span><span style="display:flex;"><span>    value <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">normalizePath</span>(value, mustWork <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">length</span>(value) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>      exists <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.exists</span>(value)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      exists <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">batch_file_exists</span>(
+</span></span><span style="display:flex;"><span>        value,
+</span></span><span style="display:flex;"><span>        error <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>        warn <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>    value <span style="color:#f92672">=</span> value,
+</span></span><span style="display:flex;"><span>    source <span style="color:#f92672">=</span> source,
+</span></span><span style="display:flex;"><span>    exists <span style="color:#f92672">=</span> exists
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now that we have these conveniences, I could start setting up custom functions that would look for specific pieces needed for the communication between Freesurfer and R, like the very crucial <code>get_fs_home()</code> function, which finds the path to where Freesurfer is installed.
+(Not to be confused with <code>fs::path_home()</code> from the fs package, which returns the user&rsquo;s home directory!)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>get_fs_home <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) {
+</span></span><span style="display:flex;"><span>  ret <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">get_fs_setting</span>(
+</span></span><span style="display:flex;"><span>    env_var <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FREESURFER_HOME&#34;</span>,
+</span></span><span style="display:flex;"><span>    opt_var <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;freesurfer.home&#34;</span>,
+</span></span><span style="display:flex;"><span>    defaults <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;/usr/freesurfer&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;/usr/bin/freesurfer&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;/usr/local/freesurfer&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;/Applications/freesurfer&#34;</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    is_path <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (simplify) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(ret<span style="color:#f92672">$</span>value)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  ret
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This function checks first for whether the <code>FREESURFER_HOME</code> environment variable is set (which is necessary to set when using Freesurfer from the terminal, and thus any R called from a terminal on such a system will already have this set), it checks for the <code>freesurfer.home</code> <code>option()</code> setting in R, and then looks in the known default paths it may exist on a system.</p>
+<p>And since we also added the <code>simplify</code> argument to the function, we can return a simple logical statement is Freesurfer home is set and exists on the system</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>have_fs <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">get_fs_home</span>(simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)<span style="color:#f92672">$</span>exists
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In addition, since we have the convenience <code>get_fs_setting()</code> function, we can create other check which we know Freesurfer relies on to work properly, like checking whether its license file is set up correctly (its free to use, but you need to register with them to get a license file).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>get_fs_license <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(
+</span></span><span style="display:flex;"><span>  fs_home <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_fs_home</span>(),
+</span></span><span style="display:flex;"><span>  simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is.na</span>(fs_home)) {
+</span></span><span style="display:flex;"><span>    ret <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">return_setting</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">NA</span>, 
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;FreeSurfer home not found&#34;</span>, 
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (simplify) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>(ret<span style="color:#f92672">$</span>value)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(ret)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ret <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">get_fs_setting</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;FS_LICENSE&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;freesurfer.license&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">file.path</span>(fs_home, <span style="color:#e6db74">&#34;.license&#34;</span>),
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">file.path</span>(fs_home, <span style="color:#e6db74">&#34;license.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (simplify) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(ret<span style="color:#f92672">$</span>value)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  ret
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The license file check, first checks if fs_home() returns correctly, no reason to check for license with the program isn&rsquo;t there.
+Then it moves on to check for environment settings, options, and default paths again, like before.</p>
+<h3 id="using-them-in-sitrep-1">Using Them in Sitrep</h3>
+<p>To finally create a good <code>fs_sitrep()</code> function, we created a convenience function that took the output from get_fs_setting(), which is a list of three things, and made sure it could output good cli-style information to the console.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>alert_info <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(settings, header) {
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_h3</span>(header)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is.null</span>(settings) <span style="color:#f92672">||</span> <span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">is.na</span>(settings<span style="color:#f92672">$</span>value))) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Unable to detect&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">length</span>(settings<span style="color:#f92672">$</span>value) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_warning</span>(<span style="color:#e6db74">&#34;Multiple possible values found&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (val <span style="color:#66d9ef">in</span> settings<span style="color:#f92672">$</span>value) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;{.val {val}}&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_info</span>(<span style="color:#e6db74">&#34;Consider setting preferred value with {.code options}&#34;</span>)
+</span></span><span style="display:flex;"><span>    settings <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">return_single</span>(settings)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;{.val {settings$value}}&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Source information</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(settings<span style="color:#f92672">$</span>source)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;Default|Not found&#34;</span>, settings<span style="color:#f92672">$</span>source, ignore.case <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_warning</span>(<span style="color:#e6db74">&#34;Determined from: {.code {settings$source}}&#34;</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_info</span>(<span style="color:#e6db74">&#34;Determined from: {.code {settings$source}}&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Path existence</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(settings<span style="color:#f92672">$</span>exists)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (settings<span style="color:#f92672">$</span>exists) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_success</span>(<span style="color:#e6db74">&#34;Path exists&#34;</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_danger</span>(<span style="color:#e6db74">&#34;Path does not exist&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>With that in place, we have a rather large sitrep for fs, that shows lots of different things, including whether something has been set from what source (env or option) or if it&rsquo;s just the default behaviour.</p>
+<p>And just like in meetupr, we finish off with a test to whether the communication between R and Freesurfer is working, in this case by just asking for the help file of a core Freesurfer function, and making sure that outputs expected help information.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>fs_sitrep <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(test_commands <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) {
+</span></span><span style="display:flex;"><span>  fs_home <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">get_fs_home</span>(simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  license_info <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">get_fs_license</span>(simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  verbosity <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">get_fs_verbosity</span>(simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_h2</span>(<span style="color:#e6db74">&#34;FreeSurfer Setup Report&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Core settings - simple and clean</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert_info</span>(fs_home, <span style="color:#e6db74">&#34;FreeSurfer Directory&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert_info</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get_fs_source</span>(
+</span></span><span style="display:flex;"><span>      fs_home <span style="color:#f92672">=</span> fs_home<span style="color:#f92672">$</span>value,
+</span></span><span style="display:flex;"><span>      simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Source script&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert_info</span>(license_info, <span style="color:#e6db74">&#34;License File&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert_info</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get_fs_subdir</span>(fs_home <span style="color:#f92672">=</span> fs_home<span style="color:#f92672">$</span>value, simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Subjects Directory&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert_info</span>(verbosity, <span style="color:#e6db74">&#34;Verbose mode&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert_info</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get_mni_bin</span>(fs_home <span style="color:#f92672">=</span> fs_home<span style="color:#f92672">$</span>value, simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;MNI functionality&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert_info</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get_fs_output</span>(simplify <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Output Format&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># System information</span>
+</span></span><span style="display:flex;"><span>  sysinfo <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sys_info</span>()
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_h3</span>(<span style="color:#e6db74">&#34;System Information&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Operating System: {.val {sysinfo$platform}}&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;R Version: {.val {sysinfo$r_version}}&#34;</span>)
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Shell: {.val {sysinfo$shell}}&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Testing installation</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (test_commands) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_h3</span>(<span style="color:#e6db74">&#34;Testing R and FreeSurfer Communication&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Test basic availability</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">have_fs</span>()) {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_danger</span>(<span style="color:#e6db74">&#34;FreeSurfer installation not detected&#34;</span>)
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Use {.code options(freesurfer.home = &#39;/path/to/freesurfer&#39;)} to set location&#34;</span>
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>(<span style="color:#a6e22e">invisible</span>())
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Test version</span>
+</span></span><span style="display:flex;"><span>    version_info <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fs_version</span>()
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Version: {.val {version_info}}&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Test command execution - simple approach</span>
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Testing command execution with {.code mri_info --help}&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    mri_info_result <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">suppressMessages</span>(<span style="color:#a6e22e">mri_info.help</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is.character</span>(mri_info_result) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">length</span>(mri_info_result) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">any</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;USAGE:|mri_info&#34;</span>, mri_info_result, ignore.case <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>))) {
+</span></span><span style="display:flex;"><span>        cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_success</span>(<span style="color:#e6db74">&#34;R and FreeSurfer are working together&#34;</span>)
+</span></span><span style="display:flex;"><span>        cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Command test successful&#34;</span>)
+</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_warning</span>(
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;FreeSurfer command executed but output format unexpected&#34;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (verbosity<span style="color:#f92672">$</span>value) {
+</span></span><span style="display:flex;"><span>          cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Output preview: {.val {paste(head(mri_info_result, 2), collapse = &#39; | &#39;)}}&#34;</span>
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_danger</span>(<span style="color:#e6db74">&#34;FreeSurfer and R are not working together&#34;</span>)
+</span></span><span style="display:flex;"><span>      cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Command execution failed or returned no output&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Simple recommendations</span>
+</span></span><span style="display:flex;"><span>  cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_h3</span>(<span style="color:#e6db74">&#34;Recommendations&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is.na</span>(fs_home<span style="color:#f92672">$</span>value)) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Set FreeSurfer home: {.code options(freesurfer.home = &#39;/path/to/freesurfer&#39;)}&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is.na</span>(license_info<span style="color:#f92672">$</span>value) <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>license_info<span style="color:#f92672">$</span>exists) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(<span style="color:#e6db74">&#34;Install FreeSurfer license file in {fs_home$value}&#34;</span>)
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>verbosity<span style="color:#f92672">$</span>value) {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_li</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Enable verbose mode for better debugging: {.code options(freesurfer.verbose = TRUE)}&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    cli<span style="color:#f92672">::</span><span style="color:#a6e22e">cli_alert_success</span>(<span style="color:#e6db74">&#34;FreeSurfer setup looks good!&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">invisible</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>With all that information, both the user and us should get enough context to figure out what is going wrong if they need help.</p>
+<pre><code>── FreeSurfer Setup Report ──
+
+── FreeSurfer Directory 
+• &quot;/Applications/freesurfer&quot;
+! Determined from: `Default path`
+✔ Path exists
+
+── Source script 
+• Unable to detect
+
+── License File 
+• Unable to detect
+
+── Subjects Directory 
+• Unable to detect
+
+── Verbose mode 
+• TRUE
+! Determined from: `Default value`
+
+── MNI functionality 
+• Unable to detect
+
+── Output Format 
+• &quot;nii.gz&quot;
+! Determined from: `Default value`
+
+── System Information 
+• Operating System:
+&quot;aarch64-apple-darwin20&quot;
+• R Version: &quot;4.5.2 (2025-10-31)&quot;
+• Shell: &quot;/bin/zsh&quot;
+
+── Testing R and FreeSurfer Communication 
+✖ FreeSurfer installation not detected
+• Use `options(freesurfer.home =
+'/path/to/freesurfer')` to set location
+</code></pre>
+<h2 id="design-principles">Design Principles</h2>
+<p><strong>Write checking functions, not checking code.</strong> Extract validation logic into small, testable functions that return structured results.</p>
+<p><strong>Structure over booleans.</strong> Return lists with <code>valid</code>, <code>value</code>, and <code>message</code> instead of just TRUE/FALSE.
+This gives both functions and sitrep the context they need.</p>
+<p><strong>No side effects in checks.</strong> Functions named <code>check_*()</code> or <code>has_*()</code> should only inspect, never modify or trigger auth flows.</p>
+<p><strong>Consistent returns.</strong> All checking functions should return the same structure so they can be used interchangeably.</p>
+<p><strong>Use cli semantics.</strong> Headers, alerts, and colors make sitrep output scannable.</p>
+<h2 id="the-maintenance-win">The Maintenance Win</h2>
+<p>When auth logic changes, you update one checking function.
+Both error messages and sitrep automatically stay in sync.
+No hunting for duplicate validation code scattered across your package.</p>
+<p>When debugging CI failures, you can add a <code>package_sitrep()</code> call to the workflow and get comprehensive diagnostics in the logs.</p>
+<p>When someone reports &ldquo;it&rsquo;s not working&rdquo;, you say: &ldquo;Run <code>package_sitrep()</code> and show me the output.&rdquo;
+You get structured information instead of playing diagnostics ping-pong.</p>
+<p>The usethis team built this pattern because they knew users (and them) needed help in diagnosing setup issues.
+If it works for them, it&rsquo;ll work for your API wrapper too.</p>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Feb 2, 2026) 
+                    Why Every R Package Wrapping External Tools Needs a sitrep() Function. 
+                    Retrieved from https://drmowinckels.io/blog/2026/sitrep-functions/.
+                     DOI: https://www.doi.org/10.5281/zenodo.18462875
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-why-every-r-package-wrapping-external-tools-needs-a-sitrep-function,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Why Every R Package Wrapping External Tools Needs a sitrep() Function",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/sitrep-functions/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.18462875",<br> 
+                        &emsp;updated = "Feb 2, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 19, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Year in review — 2025</h2>
+    
+      <p>A year of deliberate work despite post-COVID recovery: API explorations with httr2, the R Package Development Advent Calendar, ggseg improvements, and looking ahead to 2026.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/year-in-review-2025/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">year-in-review</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Dec 28, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>R Package Development Advent Calendar 2025: A Complete Journey</h2>
+    
+      <p>A comprehensive guide to modern R package development, covering setup, documentation, testing, CI/CD, and CRAN submission, a summary of a social media advent calendar.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/rpackage-dev-calendar/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">rpackageadvent2025</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">development</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">advent</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">tutorial</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mastering Apply: From Matrices to Multidimensional Neuroimaging Data</h2>
+    
+      <p>Deep dive into apply() for matrices and high-dimensional arrays. From basic row/column operations to complex fMRI analyses with 5D data. Learn to master the MARGIN parameter for neuroimaging and scientific computing.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/apply-multidimensional/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">matrices</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">arrays</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">neuroimaging</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">fmri</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 31, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Neon Ghosts with ggplot2</h2>
+    
+      <p>Make your own glowing, wiggly ghosts in R with a dash of randomness and a lot of neon.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/neon-ghosts/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ggplot2</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">halloween</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 01, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Mapply: When You Need to Iterate Over Multiple Inputs</h2>
+    
+      <p>Learn when and how to use mapply for applying functions with multiple varying arguments. This guide shows practical examples of processing data when you need to pair multiple inputs element-wise.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/mapply/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">apply</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2023 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
