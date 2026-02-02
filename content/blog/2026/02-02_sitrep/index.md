@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.18462875
 title: Why Every R Package Wrapping External Tools Needs a sitrep() Function
 author: Dr. Mowinckel
 date: '2026-02-02'
