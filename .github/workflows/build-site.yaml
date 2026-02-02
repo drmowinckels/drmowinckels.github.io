@@ -113,7 +113,7 @@ jobs:
 
       - name: Install pdf svg imageMagick
         if: ${{ env.RUN_DOI == 'true' }}
-        run: sudo apt-get install librsvg2-dev
+        run: sudo apt-get install librsvg2-dev fonts-dejavu
 
       - name: Setup R
         if: ${{ env.RUN_DOI == 'true' }}

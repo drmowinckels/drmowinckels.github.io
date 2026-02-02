@@ -167,6 +167,22 @@ generate_pdf <- function(path, date, slug = NULL) {
   normalizePath(pdf_file)
 }
 
+#' Delete a Zenodo draft deposition
+#'
+#' Deletes an unpublished draft deposition from Zenodo.
+#' Used for cleanup when subsequent steps fail.
+#'
+#' @param id Deposition id to delete
+#'
+delete_deposition <- function(id) {
+  message("- Cleaning up draft deposition \n")
+  request(zenodo_api_endpoint) |>
+    req_url_path_append(id) |>
+    req_auth_bearer_token(zenodo_api_token) |>
+    req_method("DELETE") |>
+    req_perform()
+}
+
 #' Initiate a Zenodo deposition
 #'
 #' Initiates a Zenodo deposition by supplying
@@ -197,10 +213,8 @@ initiate_deposition <- function(metadata) {
 #'
 #' @param bucket the bucket url from the response that created the deposition.
 #' @param pdf_file path to the pdf-file.
-#' @param id id of the deposition
 #'
-upload_pdf <- function(bucket, pdf_file, id) {
-  # Upload the pdf file
+upload_pdf <- function(bucket, pdf_file) {
   message("- Uploading file \n")
   upload_response <- request(bucket) |>
     req_url_path_append(basename(pdf_file)) |>
@@ -212,23 +226,7 @@ upload_pdf <- function(bucket, pdf_file, id) {
     req_throttle(rate = 30 / 60) |>
     req_perform()
 
-  if (inherits(upload_response, "error")) {
-    request(zenodo_api_endpoint) |>
-      req_url_path_append(id) |>
-      req_auth_bearer_token(zenodo_api_token) |>
-      req_method("DELETE") |>
-      req_perform()
-
-    stop("Failed to upload Zenodo", call. = FALSE)
-  }
-
   if (!resp_status(upload_response) %in% c(200, 201)) {
-    request(zenodo_api_endpoint) |>
-      req_url_path_append(id) |>
-      req_auth_bearer_token(zenodo_api_token) |>
-      req_method("DELETE") |>
-      req_perform()
-
     stop(
       sprintf("Failed to upload to Zenodo: %s", resp_status(upload_response)),
       call. = FALSE
@@ -315,9 +313,17 @@ publish_to_zenodo <- function(post, upload = TRUE) {
   )
   if (upload) {
     deposition <- initiate_deposition(zenodo_metadata)
-    pdf_upload <- upload_pdf(deposition$links$bucket, pdf_file, deposition$id)
-    pub_deposition <- publish_deposition(deposition$id)
-    update_post(post, pub_deposition$metadata$doi)
+    tryCatch(
+      {
+        upload_pdf(deposition$links$bucket, pdf_file)
+        pub_deposition <- publish_deposition(deposition$id)
+        update_post(post, pub_deposition$metadata$doi)
+      },
+      error = function(e) {
+        delete_deposition(deposition$id)
+        stop(e$message, call. = FALSE)
+      }
+    )
   }
 
   pdf_file
