@@ -214,7 +214,7 @@ jobs:
             })
 
   announce:
-    name: Announce new blog post
+    name: Send newsletter
     runs-on: ubuntu-latest
     needs: [build, checks]
     if: needs.checks.outputs.ANNOUNCE == 'true' && github.ref == 'refs/heads/main'
@@ -248,14 +248,9 @@ jobs:
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 
-      - name: Announce the post
+      - name: Send newsletter
         env:
-          BLUESKY_APP_PASS: ${{ secrets.BLUESKY_PWD }}
-          BLUESKY_APP_USER: "drmowinckels.io"
-          RTOOT_DEFAULT_TOKEN: ${{ secrets.RTOOT_TOKEN }}
           KIT_SECRET: ${{ secrets.KIT_KEY }}
-          LI_TOKEN: ${{ secrets.LI_TOKEN }}
           SHORTIO: ${{ secrets.SHORTIO }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           Rscript .github/scripts/announce.R ${{ needs.checks.outputs.POST }}
