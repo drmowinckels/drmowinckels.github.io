@@ -24,7 +24,7 @@ Welcome to the repository for my website.
 This repository contains the code for my content.
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(dplyr)
 posts <- list.files("content/blog", 
            "^index.md",
@@ -61,7 +61,7 @@ last_post <- as.numeric(max(postdf$date, na.rm = TRUE) - today)
 diff_med <- median(as.numeric(postdf$date_diff), na.rm = TRUE)
 diff_avg <- mean(as.numeric(postdf$date_diff), na.rm = TRUE)
 
-postavg <- sprintf("%0.2f", diff_avg)
+postavg <- sprintf("%0.0f", 30 / diff_med)
 postbtw <- sprintf("%s", round(diff_med, digits = 0))
 
 ```
