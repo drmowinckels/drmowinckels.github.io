@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents) - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="My dotfiles repo has evolved from basic shell configs to a full system that keeps my AI coding agents in sync. Here’s how I structure it, how the skill marketplace fits in, and how symlinks tie everything together." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="How to manage dotfiles for consistent development environments, with a focus on configuring AI coding agents like Claude Code and OpenCode.">
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/dotfiles-coding-agents/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents) - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="How to manage dotfiles for consistent development environments, with a focus on configuring AI coding agents like Claude Code and OpenCode.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/blog/2026/dotfiles-coding-agents/">
+<meta name="twitter:title" content="Igloo">
+<meta name="twitter:description" content="How to manage dotfiles for consistent development environments, with a focus on configuring AI coding agents like Claude Code and OpenCode.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/dotfiles-coding-agents/image.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/dotfiles-coding-agents/image.png">
+
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.513f2c708ba173d0df3dd882e74a5d464c8a99648e1a376056c6f012ff15bec1.css" 
+    integrity="sha256-UT8scIuhc9DfPdiC50pdRkyKmWSOGjdgVsbwEv8VvsE=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-k6Rqe5g0pSv8V0e6fFfFjW1y77vKTjkE1IUaB+MHUO2GtODX6azbMqa6Y53/zJTU" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            <img src="https://drmowinckels.io/blog/2026/dotfiles-coding-agents/image.png" alt="A minimalist isometric 3D illustration on a dark background showing a central glowing cube labeled &#34;.dotfiles&#34; with a git icon. Glowing neon lines radiate from the cube to icons representing &#34;Shell Config,&#34; &#34;Editor &amp; Tooling,&#34; and &#34;AI Agents (Claude &amp; OpenCode).&#34; A sidebar labeled &#34;Skills Marketplace&#34; displays specialized icons for R, Shiny, Quarto, and writing voices, illustrating a unified development environment." class="uk-border-rounded">
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents)</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Mar 2, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/tooling/" class="uk-label uk-label-secondary tags">
+                            Tooling
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/dotfiles/" class="uk-label uk-label-secondary tags">
+                            Dotfiles
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/ai/" class="uk-label uk-label-secondary tags">
+                            AI
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/claude-code/" class="uk-label uk-label-secondary tags">
+                            Claude Code
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/opencode/" class="uk-label uk-label-secondary tags">
+                            OpenCode
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-basic-structure">The Basic Structure</a></li>
+    <li><a href="#configuring-r">Configuring R</a></li>
+    <li><a href="#configuring-ai-coding-agents">Configuring AI Coding Agents</a>
+      <ul>
+        <li><a href="#claude-code">Claude Code</a></li>
+        <li><a href="#opencode">OpenCode</a></li>
+      </ul>
+    </li>
+    <li><a href="#skills-marketplace-and-custom">Skills: Marketplace and Custom</a>
+      <ul>
+        <li><a href="#the-marketplace">The Marketplace</a></li>
+        <li><a href="#custom-skills">Custom Skills</a></li>
+        <li><a href="#what-about-opencode">What About OpenCode?</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-update-workflow">The Update Workflow</a></li>
+    <li><a href="#declarative-package-management">Declarative Package Management</a></li>
+    <li><a href="#feeding-config-back-to-your-ai-agent">Feeding Config Back to Your AI Agent</a></li>
+    <li><a href="#why-this-matters">Why This Matters</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">My dotfiles repo has evolved from basic shell configs to a full system that keeps my AI coding agents in sync. Here&rsquo;s how I structure it, how the skill marketplace fits in, and how symlinks tie everything together.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I formatted my Mac last year and was so thankful my colleague Inge had helped me setup a dotfiles repo years ago.
+If you&rsquo;re not familiar with the concept: <a href="https://driesvints.com/blog/getting-started-with-dotfiles/">dotfiles</a> are the hidden configuration files that live in your home directory (<code>.zshrc</code>, <code>.gitconfig</code>, etc.), and a dotfiles repo is a way to version control them so you can restore your entire setup on a new machine.</p>
+<p>But here&rsquo;s the thing — my dotfiles have grown well beyond shell configs.
+They now manage my AI coding agents too.
+With tools like Claude Code and OpenCode becoming central to how I actually work, I needed a way to keep their configurations consistent and shareable.
+So let me walk you through how I&rsquo;ve set all this up.</p>
+<h2 id="the-basic-structure">The Basic Structure</h2>
+<p>My dotfiles live at <code>~/.dotfiles</code> and get symlinked to where they need to be.
+Here&rsquo;s the layout:</p>
+<pre tabindex="0"><code>.dotfiles/
+├── config/
+│   ├── ast-grep/        # Structural code search (R grammar)
+│   ├── claude/          # Claude Code configuration
+│   ├── opencode/        # OpenCode configuration
+│   ├── env/             # Shell environment (zshrc, aliases, etc.)
+│   ├── git/             # Git config and global ignore
+│   ├── npm/             # Global npm packages list
+│   ├── vscode/          # Positron/VSCode settings
+│   └── Brewfile         # Homebrew packages
+├── install/
+│   ├── symlinks.sh      # Creates all the symlinks
+│   ├── homebrew.sh      # Installs brew packages
+│   ├── apps.sh          # Builds tools &amp; installs packages
+│   └── ...
+├── install.sh           # Main installer
+├── update.sh            # Updates everything
+└── backup.sh            # Backs up before changes
+</code></pre><p>The key insight is that everything lives in <code>config/</code>, and a single script — <code>install/symlinks.sh</code> — creates the links to wherever each tool expects its config:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>safe_symlink <span style="color:#e6db74">&#34;</span>$DOTFILES<span style="color:#e6db74">/config/claude&#34;</span> <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.claude&#34;</span>
+</span></span><span style="display:flex;"><span>safe_symlink <span style="color:#e6db74">&#34;</span>$DOTFILES<span style="color:#e6db74">/config/opencode/opencode.json&#34;</span> <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.config/opencode/opencode.json&#34;</span>
+</span></span><span style="display:flex;"><span>safe_symlink <span style="color:#e6db74">&#34;</span>$DOTFILES<span style="color:#e6db74">/config/env/zshrc&#34;</span> <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.zshrc&#34;</span>
+</span></span></code></pre></div><p>So I edit files in one place, version control them, and they&rsquo;re automatically active wherever the tools look for them.
+No copying.
+No &ldquo;wait, which machine did I set that up on?&rdquo;</p>
+<h2 id="configuring-r">Configuring R</h2>
+<p>I install R through Homebrew, using <code>cask 'r-app'</code>, which is the only R installation through Homebrew I have found that actually works as expected.
+I should probably start looking into using <a href="https://github.com/ropensci/rix">Rix</a>, but even with that a globally installed R-version is something I&rsquo;d always want.
+Next is my very simple file that installs the R-packages I regularly use and would always expect to be on my system.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;pak&#34;</span>)
+</span></span><span style="display:flex;"><span>pak<span style="color:#f92672">::</span><span style="color:#a6e22e">pkg_install</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;blogdown&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;praise&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;covr&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;devtools&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;httr2&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;janitor&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;knitr&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;lintr&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;pkgdown&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;quarto&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;renv&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;reprex&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;rmarkdown&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;roxygen2&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;styler&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;testthat&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;tidyverse&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;usethis&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;vcr&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;vdiffr&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ellmer&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;mcptools&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;btw&#34;</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    upgrade <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>    ask <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>I&rsquo;ve been considering adapting this to look more like the Brewfile I have, but for now, the list is small enough to have it handled like this.</p>
+<h2 id="configuring-ai-coding-agents">Configuring AI Coding Agents</h2>
+<p>Here&rsquo;s where it gets interesting.
+Both Claude Code and OpenCode read configuration from specific locations, and I want them to behave consistently.
+I don&rsquo;t want Claude on my laptop doing things differently from Claude on my work machine, and I <em>definitely</em> don&rsquo;t want to manually set up my preferences every time I install a fresh system.</p>
+<h3 id="claude-code">Claude Code</h3>
+<p>Claude Code looks for its config in <code>~/.claude/</code>.
+My setup there includes two important files.</p>
+<p><strong>settings.json</strong> is the main configuration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;customInstructions&#34;</span>: <span style="color:#e6db74">&#34;You are working with an R package developer...&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;fileExclusions&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;.Rproj.user/**&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;node_modules/**&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;.git/**&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;docs/**&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;autoApprovePatterns&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;**/*.Rd&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;**/NEWS.md&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;**/NAMESPACE&#34;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>customInstructions</code> tell Claude about my preferences — no unnecessary comments, tidyverse style, concise responses.
+The <code>fileExclusions</code> prevent it from reading generated files (trust me, you don&rsquo;t want your agent trying to parse your <code>.Rproj.user</code> directory).
+And <code>autoApprovePatterns</code> lets routine R package documentation updates happen without me clicking &ldquo;approve&rdquo; every single time.
+That last one is a real quality-of-life thing — when you&rsquo;re iterating on roxygen docs, the approve clicks add up fast.</p>
+<p><strong>CLAUDE.md</strong> contains high-level instructions that apply across all projects:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span># Coding Standards
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> No code comments except when explaining necessary workarounds
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> Self-explanatory naming
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> R: tidyverse style, roxygen2 docs, testthat (describe/it) structure
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> Hugo: semantic CSS classes, minimal JS
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> Concise, direct responses
+</span></span></code></pre></div><p>This is essentially &ldquo;how I like things done&rdquo; written down once instead of repeated in every conversation.
+But I do find I need to remind the models once in a while what I like and don&rsquo;t like.</p>
+<h3 id="opencode">OpenCode</h3>
+<p>OpenCode is an open-source alternative I&rsquo;ve been experimenting with.
+Its config lives at <code>~/.config/opencode/opencode.json</code>.</p>
+<p>The neat part: I can point it to the same instruction file that Claude Code uses:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;model&#34;</span>: <span style="color:#e6db74">&#34;anthropic/claude-sonnet-4-5&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;instructions&#34;</span>: [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;{file:~/.claude/CLAUDE.md}&#34;</span>
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;watcher&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;ignore&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;.Rproj.user/**&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;node_modules/**&#34;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Same instructions, same exclusions.
+Consistency across tools without duplication.
+I like that a lot — if I refine a preference in <code>CLAUDE.md</code>, both tools pick it up.</p>
+<h2 id="skills-marketplace-and-custom">Skills: Marketplace and Custom</h2>
+<p>Claude Code supports &ldquo;skills&rdquo; — reusable instruction sets for specific tasks.
+Think of them as expert knowledge you can plug in: how to write R package tests, how to style a Quarto document, how to write in a particular voice.</p>
+<p>I initially tried managing community skills as git submodules.
+That seemed like the obvious approach — just point submodules at the GitHub repos and pull updates.
+But the nested folder structure made it awkward.
+Skills repos contain their own directory hierarchies, and neither Claude nor OpenCode picked up skills when they were nested like that.</p>
+<p>Claude Code&rsquo;s skill marketplace turned out to be a much better fit.
+There is a lovely post on <a href="https://snyk.io/articles/top-claude-skills-developers/">Skills and the Markedplace</a> from Snyk, that explains in more details what they are and what to look out for.</p>
+<p>One thing I will mention for clarity, make sure to do your due dilligence when adding skills from a 3rd party.
+It is absolutely possible to have injections in skills that pose <a href="https://snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub/">real security risks</a>.</p>
+<h3 id="the-marketplace">The Marketplace</h3>
+<p>Skill marketplaces are GitHub repos that bundle related skills.
+You add a marketplace, then install individual skills from it — or install everything at once.</p>
+<p>I manage this declaratively through a <code>plugins.conf</code> file in my dotfiles:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># Marketplaces to add and install ALL plugins from</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[install-all]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">posit-dev/skills</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">drmowinckels/straight-talk # Clone of apreshill/straight-talk made for markedplace</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">DrCatHicks/learning-opportunities</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Marketplaces to browse (pick plugins manually)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[marketplaces]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">anthropics/skills</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Individual plugins from browsable marketplaces</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[plugins]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">document-skills@anthropic-agent-skills</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">example-skills@anthropic-agent-skills</span>
+</span></span></code></pre></div><p>The <code>[install-all]</code> section is for marketplaces where I want everything — Posit&rsquo;s R/Shiny/Quarto skills, for instance.
+The <code>[marketplaces]</code> section adds repos I want to browse but not auto-install from (Anthropic&rsquo;s official skills collection is huge, and I only want specific ones).
+Then <code>[plugins]</code> lists the individual picks.</p>
+<p>My <code>install/claude.sh</code> script reads this file and runs the <code>claude plugin</code> commands:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>claude plugin marketplace add <span style="color:#e6db74">&#34;</span>$source<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For [install-all] marketplaces, install every plugin</span>
+</span></span><span style="display:flex;"><span>claude plugin install <span style="color:#e6db74">&#34;</span>$plugin<span style="color:#e6db74">@</span>$marketplace_name<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>The result in <code>settings.json</code> is a clean map of what&rsquo;s enabled:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;enabledPlugins&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;r-lib@posit-dev-skills&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;quarto@posit-dev-skills&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;shiny@posit-dev-skills&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;writing-voices@straight-talk&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;document-skills@anthropic-agent-skills&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The Posit skills repo includes gems like <code>testing-r-packages</code> (comprehensive testthat guidance) and <code>brand-yml</code> (styling for pkgdown sites).
+Alison Hill&rsquo;s <code>straight-talk</code> repo has writing skills I use as a foundation for my own voice — more on that in a moment.</p>
+<p>The beauty of this approach is that community skills stay upstream where they belong.
+When Posit improves their R testing skill, I get the update through the marketplace.
+No submodules to sync, no files to copy-paste.</p>
+<h3 id="custom-skills">Custom Skills</h3>
+<p>Of course, not everything comes from the community.
+My personal skills live in <code>config/claude/skills/</code> and extend or customize the marketplace ones.</p>
+<p>For example, my <code>r-package/skill.md</code> builds on Posit&rsquo;s testing skill with my own style preferences:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span># R Package Development - Personal Preferences
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Specific style preferences and workflow choices for R package development.
+</span></span><span style="display:flex;"><span>Use alongside Posit <span style="color:#e6db74">`testing-r-packages`</span> for comprehensive guidance.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Code Style Philosophy
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### Self-Explanatory Code Without Comments
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Functions and variables should be named clearly enough that comments
+</span></span><span style="display:flex;"><span>are unnecessary...
+</span></span></code></pre></div><p>And <code>drmo-voice/skill.md</code> captures my writing style for blog posts (yes, this very post was drafted with it active!):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span># Dr. Mo&#39;s Voice
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Write like you&#39;re explaining something to a smart friend who hasn&#39;t
+</span></span><span style="display:flex;"><span>encountered this specific thing yet. Be the guide you wished you had.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">**Foundation:**</span> This skill builds on the codex-voice principles.
+</span></span><span style="display:flex;"><span>Start there for the fundamentals of honest, reader-first technical writing.
+</span></span></code></pre></div><p>These are things I&rsquo;d otherwise repeat in every conversation.
+Now they&rsquo;re documented once and available whenever I invoke the skill.</p>
+<h3 id="what-about-opencode">What About OpenCode?</h3>
+<p>OpenCode doesn&rsquo;t have a skill marketplace — it reads instruction files directly.
+So while Claude Code gets the full marketplace ecosystem, OpenCode still picks up my <code>CLAUDE.md</code> and any custom instructions I point it to.
+Not quite the same breadth of skills, but the core coding preferences stay consistent across both tools.</p>
+<h2 id="the-update-workflow">The Update Workflow</h2>
+<p>Keeping all of this current is surprisingly easy.
+My <code>update.sh</code> script pulls everything together:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Update dotfiles from git</span>
+</span></span><span style="display:flex;"><span>git pull origin main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Refresh symlinks</span>
+</span></span><span style="display:flex;"><span>./install/symlinks.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update Homebrew packages</span>
+</span></span><span style="display:flex;"><span>brew bundle --file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$DOTFILES<span style="color:#e6db74">/config/Brewfile&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update Claude Code marketplace plugins</span>
+</span></span><span style="display:flex;"><span>./install/claude.sh
+</span></span></code></pre></div><p>One command.
+Shell config, editor settings, AI agent instructions, community skills — all current.</p>
+<h2 id="declarative-package-management">Declarative Package Management</h2>
+<p>As I built this out, a pattern emerged that I really like: <strong>list what you want in a file, let a script install it.</strong></p>
+<p>Homebrew already works this way with the Brewfile — you declare your packages, run <code>brew bundle</code>, and you&rsquo;re done.
+I extended the same idea to npm packages and VSCode/Positron extensions:</p>
+<pre tabindex="0"><code>config/
+├── Brewfile                   # brew bundle --file=...
+├── npm/global-packages.txt    # one package per line
+└── vscode/extensions.txt      # one extension ID per line
+</code></pre><p>The npm packages file is about as simple as it gets — one package per line:</p>
+<pre tabindex="0"><code>autoprefixer
+esbuild
+postcss-cli
+tree-sitter-cli
+</code></pre><p>And the install script just reads through it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">while</span> IFS<span style="color:#f92672">=</span> read -r pkg <span style="color:#f92672">||</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$pkg<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$pkg<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>    npm install -g <span style="color:#e6db74">&#34;</span>$pkg<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span> &lt; <span style="color:#e6db74">&#34;</span>$packages_file<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>No hardcoded install commands scattered across scripts.
+When I need a new global package, I add a line to the file.
+Same pattern, every tool.
+There&rsquo;s something satisfying about that consistency.</p>
+<h2 id="feeding-config-back-to-your-ai-agent">Feeding Config Back to Your AI Agent</h2>
+<p>Here&rsquo;s a pattern I didn&rsquo;t plan for but turned out to be genuinely useful: when you add a new tool to your dotfiles, you can teach your AI agent about it at the same time.</p>
+<p>I recently set up <a href="https://ast-grep.github.io/">ast-grep</a> for structural code search in R, inspired by <a href="https://emilhvitfeldt.com/post/ast-grep-r-claude/">Emil Hvitfeldt&rsquo;s post</a> on using CLI tools with Claude Code.
+The setup involved the usual dotfiles pieces — Brewfile entry, config file, shell alias, install script for building the tree-sitter grammar.</p>
+<p>But I also added a section to <code>CLAUDE.md</code> explaining the syntax — that <code>_VAR</code> is the metavariable sigil (not <code>$VAR</code>, since R uses <code>$</code> for column access) and how to invoke it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sg -l r -p <span style="color:#e6db74">&#39;_FUN(_ARG)&#39;</span> .
+</span></span></code></pre></div><p>Now Claude Code knows how to use <code>ast-grep</code> with R whenever it needs structural search.
+The tool config and the AI instructions live in the same repo, updated in the same commit.
+That&rsquo;s the kind of thing that&rsquo;s easy to forget if your agent config lives somewhere separate.</p>
+<p>This feedback loop — install a tool, teach the agent — happens naturally when everything lives in your dotfiles.
+The alternative is hoping you remember to explain your tooling in every new conversation, and I&rsquo;ll be honest, I never do.</p>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>Before this setup, I had instructions scattered everywhere.
+Project-specific config files that half-overlapped.
+Mental notes about &ldquo;how I like things done&rdquo; that I&rsquo;d forget to mention.
+Inconsistent behavior between tools that I&rsquo;d only notice when something came out wrong.</p>
+<p>Now:</p>
+<ul>
+<li><strong>New machine?</strong> Clone the repo, run <code>install.sh</code>, done.</li>
+<li><strong>New AI tool?</strong> Point it at the same instruction files.</li>
+<li><strong>Better skill from the community?</strong> Install it from the marketplace.</li>
+<li><strong>Refined my preferences?</strong> Edit once, applies everywhere.</li>
+</ul>
+<p>The AI coding agents are the newest addition to my dotfiles, but they follow the same principle as everything else: define it once, symlink it to where it needs to be, version control the whole thing.</p>
+<p>If you&rsquo;re using Claude Code or similar tools regularly, I&rsquo;d really encourage you to move their configs into your dotfiles.
+It doesn&rsquo;t have to be as elaborate as mine — even just getting your <code>CLAUDE.md</code> and <code>settings.json</code> under version control is a great start.
+Future you — reinstalling on a new machine at midnight with a deadline — will thank present you.</p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://github.com/drmowinckels/dotfiles">My dotfiles repo</a> (feel free to fork and adapt)</li>
+<li><a href="https://emilhvitfeldt.com/post/ast-grep-r-claude/">Emil Hvitfeldt&rsquo;s ast-grep post</a> — CLI tools for coding agents</li>
+<li><a href="https://github.com/posit-dev/skills">Posit Skills</a> — Official R/Shiny/Quarto skills</li>
+<li><a href="https://github.com/apreshill/straight-talk">Alison Hill&rsquo;s straight-talk</a> — Writing voice skills</li>
+<li><a href="https://dotfiles.github.io/">GitHub does dotfiles</a> — Inspiration and examples</li>
+</ul>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Mar 2, 2026) 
+                    Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents). 
+                    Retrieved from https://drmowinckels.io/blog/2026/dotfiles-coding-agents/.
+                     DOI: https://www.doi.org/10.5281/zenodo.18835306
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-dotfiles-taming-your-dev-environment-and-your-ai-coding-agents,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents)",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/dotfiles-coding-agents/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.18835306",<br> 
+                        &emsp;updated = "Mar 2, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Oct 07, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+      
+      
+    <h2>Creating post summary with AI from Hugging Face</h2>
+    
+      <p>Optimize your blog&rsquo;s SEO and Zenodo metadata with automated summaries using Hugging Face&rsquo;s text summarization models. Learn how to connect to the Hugging Face API, prepare content, and integrate summaries into your markdown files using R and the httr2 package.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/ai-blog-summary/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+           
+            
+                <div class="uk-label timeline-tags">r</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">llm</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">ai</div>
+            
+          
+           
+            
+                <div class="uk-label timeline-tags">api</div>
+            
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2026 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
