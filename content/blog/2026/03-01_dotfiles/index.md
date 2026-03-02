@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.18835306
 title: "Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents)"
 author: Dr. Mowinckel
 date: '2026-03-02'
