@@ -44,31 +44,8 @@ announce <- function(
   post_content <- readLines(post, warn = FALSE) |>
     paste(collapse = "\n")
 
-  drmo_voice <- readLines(
-    file.path(Sys.getenv("HOME"), ".claude/skills/drmo-voice/SKILL.md"),
-    warn = FALSE
-  ) |>
-    paste(collapse = "\n")
-
-  social_voice <- readLines(
-    file.path(
-      Sys.getenv("HOME"),
-      ".claude/skills/straight-talk/social-voice/SKILL.md"
-    ),
-    warn = FALSE
-  ) |>
-    paste(collapse = "\n")
-
   prompt <- sprintf(
-    'You are writing social media posts for Dr. Mowinckel. Follow these voice guidelines:
-
-<drmo-voice>
-%s
-</drmo-voice>
-
-<social-voice>
-%s
-</social-voice>
+    'You are writing social media posts for Dr. Mowinckel. Follow these voice guidelines: in drmo-voice, and social-voice. 
 
 Write announcements for the following blog post. Create four separate texts:
 - LinkedIn: Long, well-structured with line breaks, professional but warm
@@ -86,8 +63,6 @@ Output ONLY a single line JSON object with keys "linkedin", "bluesky", "mastodon
 <document>
 %s
 </document>',
-    drmo_voice,
-    social_voice,
     uri,
     post_content
   )
