@@ -1,0 +1,27 @@
+{{ if and .Site.Params.giscus .IsPage (not .Params.disable_comments) }}
+<section class="nouveau-section">
+  <div class="nouveau-section__inner">
+    <div class="nouveau-rule">
+      <div class="nouveau-rule__line"></div>
+      <div class="nouveau-rule__ornament">{{ partial "icons/nouveau-border.html" . }}</div>
+      <div class="nouveau-rule__line"></div>
+    </div>
+    <script src="https://giscus.app/client.js"
+            data-repo="{{ .Site.Params.giscus.repo }}"
+            data-repo-id="{{ .Site.Params.giscus.repo_id }}"
+            data-category="{{ .Site.Params.giscus.category }}"
+            data-category-id="{{ .Site.Params.giscus.category_id }}"
+            data-mapping="{{ .Site.Params.giscus.mapping | default "pathname" }}"
+            data-strict="{{ .Site.Params.giscus.strict | default "0" }}"
+            data-reactions-enabled="{{ .Site.Params.giscus.reactions_enabled | default "1" }}"
+            data-emit-metadata="{{ .Site.Params.giscus.emit_metadata | default "0" }}"
+            data-input-position="{{ .Site.Params.giscus.input_position | default "bottom" }}"
+            data-theme="{{ .Site.Params.giscus.theme | default "preferred_color_scheme" }}"
+            data-lang="{{ .Site.Params.giscus.lang | default "en" }}"
+            data-loading="{{ .Site.Params.giscus.loading | default "lazy" }}"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</section>
+{{ end }}

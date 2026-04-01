@@ -1,0 +1,10 @@
+{{- $main := resources.Get "js/vendor/main.bundle.min.js" }}
+{{- if $main }}
+  {{- if hugo.IsDevelopment }}
+    <script src="{{ $main.RelPermalink }}"></script>
+  {{- else }}
+    {{- with $main | fingerprint }}
+      <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+    {{- end }}
+  {{- end }}
+{{- end }}

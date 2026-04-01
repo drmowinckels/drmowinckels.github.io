@@ -1,0 +1,30 @@
+{
+  "name": "hugo-nouveau",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Art Nouveau Hugo theme with Tailwind 4, Alpine.js, and self-hosted fonts",
+  "scripts": {
+    "clean": "rm -rf assets/js/vendor assets/css/vendor",
+    "setup": "mkdir -p assets/js/vendor assets/css/vendor",
+    "build": "npm run clean && npm run setup && npm run build:css && npm run build:js && npm run sync:alpine",
+    "build:css": "npx @tailwindcss/cli -i assets/css/main.css -o assets/css/vendor/nouveau.css --minify",
+    "build:js": "npx esbuild assets/js/_main.entry.js --bundle --minify --sourcemap --outfile=assets/js/vendor/main.bundle.min.js",
+    "sync:alpine": "cp node_modules/alpinejs/dist/cdn.min.js assets/js/vendor/alpine.min.js 2>/dev/null || true",
+    "sync:fonts": "node scripts/sync-fonts.js",
+    "update": "npm update && npm run build",
+    "postinstall": "npm run sync:fonts && npm run build",
+    "dev": "hugo server -DM --disableFastRender",
+    "preview": "hugo server --environment production"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.9",
+    "@tailwindcss/cli": "^4.2.1",
+    "tailwindcss": "^4.1.4",
+    "@fontsource/cormorant-garamond": "^5.0.0",
+    "@fontsource/eb-garamond": "^5.0.0",
+    "@fontsource/raleway": "^5.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.2"
+  }
+}

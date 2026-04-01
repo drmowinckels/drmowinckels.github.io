@@ -1,0 +1,51 @@
+{{ $about := .Site.GetPage "/about" }}
+{{ if $about }}
+<section class="nouveau-section nouveau-section--alt nouveau-about-section">
+  <div class="nouveau-section__inner">
+    <div class="nouveau-about__grid">
+
+      <div class="nouveau-about__content">
+        <div class="nouveau-about__inset">
+          <p class="nouveau-section__eyebrow">About</p>
+          <h2 class="nouveau-section__title">{{ $about.Title }}</h2>
+          <p>{{ $about.Summary }}</p>
+
+          {{ with $about.Params.social_media }}
+          <div class="nouveau-social-links" style="margin-top: 1.5rem;">
+            {{ range . }}
+              <a href="{{ .link | default .url }}" class="nouveau-social-link" target="_blank" rel="noopener">
+                {{ partial "icons/social-icon.html" (dict "icon" .icon) }}
+              </a>
+            {{ end }}
+          </div>
+          {{ end }}
+
+          <div style="margin-top: 1.5rem;">
+            <a href="{{ $about.RelPermalink }}" class="btn-outline">Read more</a>
+          </div>
+        </div>
+      </div>
+
+      {{ if $about.Params.image }}
+      <div class="nouveau-about__image">
+        {{ $img := $about.Resources.Get $about.Params.image }}
+        {{ if $img }}
+        <div class="nouveau-about__portrait">
+          <div class="nouveau-about__accent-circle" aria-hidden="true">
+            <div class="nouveau-about__accent-circle-inner"></div>
+          </div>
+          <div class="nouveau-frame nouveau-frame--lg nouveau-frame--double">
+            <img src="{{ $img.RelPermalink }}"
+                 alt="{{ $about.Params.author | default $about.Title }}"
+                 loading="lazy">
+          </div>
+          <div class="nouveau-about__accent-dot" aria-hidden="true"></div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+
+    </div>
+  </div>
+</section>
+{{ end }}

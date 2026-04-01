@@ -1,0 +1,56 @@
+{{ $section := .Site.GetPage "/talks" }}
+{{ if $section }}
+{{ $dataFile := $section.Params.data | default "" }}
+{{ $talks := slice }}
+{{ if $dataFile }}
+  {{ $dataResource := $section.Resources.Get $dataFile }}
+  {{ if $dataResource }}
+    {{ $talks = $dataResource.Content | transform.Unmarshal }}
+  {{ end }}
+{{ end }}
+{{ $limit := $section.Params.n_posts | default 6 }}
+{{ $talks = first $limit $talks }}
+{{ if $talks }}
+<section class="nouveau-section">
+  <div class="nouveau-section__inner">
+    <div class="nouveau-section__header">
+      <div class="nouveau-vine nouveau-vine--lg">{{ partial "icons/nouveau-vine.html" . }}</div>
+      <p class="nouveau-section__eyebrow">Speaking</p>
+      <h2 class="nouveau-section__title">{{ $section.Title }}</h2>
+    </div>
+
+    <div class="nouveau-timeline">
+      {{ range $talks }}
+      {{ $talk := . }}
+      <div class="nouveau-timeline__item">
+        <div class="nouveau-timeline__content">
+          <p class="nouveau-timeline__date">
+            {{ with .date }}{{ time.Format ":date_long" . }}{{ end }}
+          </p>
+          <h3 class="nouveau-timeline__title">{{ .title }}</h3>
+          <p class="nouveau-timeline__summary">{{ .summary }}</p>
+          {{ with .url }}
+            <a href="{{ . }}" class="btn-outline" target="_blank" rel="noopener"
+               style="padding: 0.4rem 1.2rem; font-size: 0.6rem;">
+              {{ $talk.button | default "View" }}
+            </a>
+          {{ end }}
+        </div>
+        <div class="nouveau-timeline__image">
+          {{ with .image }}
+          <div class="nouveau-circle nouveau-circle--sm">
+            <img src="{{ . }}" alt="{{ $talk.title }}" loading="lazy">
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+
+    <div class="nouveau-actions">
+      <a href="{{ $section.RelPermalink }}" class="btn-outline">All talks</a>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}

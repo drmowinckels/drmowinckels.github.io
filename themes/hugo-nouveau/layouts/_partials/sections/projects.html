@@ -1,0 +1,45 @@
+{{ $section := .Site.GetPage "/projects" }}
+{{ if $section }}
+{{ $projects := $section.Pages }}
+{{ if $projects }}
+<section class="nouveau-section">
+  <div class="nouveau-section__inner">
+    <div class="nouveau-section__header">
+      <div class="nouveau-vine">{{ partial "icons/nouveau-vine.html" . }}</div>
+      <p class="nouveau-section__eyebrow">{{ $section.Params.subtitle | default "Work" }}</p>
+      <h2 class="nouveau-section__title">{{ $section.Title }}</h2>
+    </div>
+
+    <div class="nouveau-gallery-grid">
+      {{ range $i, $p := $projects }}
+      {{ $img := $p.Resources.GetMatch "*.png" | default ($p.Resources.GetMatch "*.jpg") | default ($p.Resources.GetMatch "*.svg") }}
+      <a href="{{ $p.RelPermalink }}" class="nouveau-gallery-card">
+        <div class="nouveau-gallery-card__image">
+          {{ with $img }}<img src="{{ .RelPermalink }}" alt="{{ $p.Title }}" loading="lazy">{{ end }}
+        </div>
+        <div class="nouveau-gallery-card__body">
+          <h3 class="nouveau-gallery-card__title">{{ $p.Title }}</h3>
+          {{ with $p.Params.subtitle }}
+            <p class="nouveau-gallery-card__desc">{{ . }}</p>
+          {{ end }}
+          {{ with $p.Params.social_media }}
+          <div class="nouveau-gallery-card__icons">
+            {{ range . }}
+              <span class="nouveau-gallery-card__icon">
+                {{ partial "icons/social-icon.html" (dict "icon" .icon) }}
+              </span>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+      </a>
+      {{ end }}
+    </div>
+
+    <div class="nouveau-actions" style="margin-top: 2rem;">
+      <a href="{{ $section.RelPermalink }}" class="btn-outline">View all projects</a>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}

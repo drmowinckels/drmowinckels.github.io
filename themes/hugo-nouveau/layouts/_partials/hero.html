@@ -1,0 +1,59 @@
+<section class="nouveau-hero">
+
+  <div class="nouveau-hero__bg" aria-hidden="true">
+    <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M400 50 C350 100, 200 150, 150 300 S250 500, 400 550 S600 500, 650 300 S450 100, 400 50" stroke="currentColor" stroke-width="1"/>
+      <path d="M400 100 C360 140, 250 180, 220 300 S290 460, 400 500 S550 460, 580 300 S440 140, 400 100" stroke="currentColor" stroke-width="0.7" opacity="0.6"/>
+      <path d="M400 150 C370 180, 300 210, 280 300 S330 420, 400 450 S500 420, 520 300 S430 180, 400 150" stroke="currentColor" stroke-width="0.5" opacity="0.35"/>
+      <path d="M200 100 C180 200, 100 250, 80 350 S120 480, 200 520" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+      <path d="M600 100 C620 200, 700 250, 720 350 S680 480, 600 520" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+    </svg>
+  </div>
+
+  <div class="nouveau-hero__inner">
+
+    <div class="nouveau-hero__ornament">
+      {{ partial "icons/nouveau-medallion.html" . }}
+    </div>
+
+    {{ if .Site.Params.heroEyebrow }}
+      <p class="nouveau-hero__eyebrow">{{ .Site.Params.heroEyebrow }}</p>
+    {{ end }}
+
+    <h1 class="nouveau-hero__title">
+      {{ .Site.Params.heroTitle | default .Site.Title }}
+    </h1>
+
+    {{ with .Site.Params.heroSubtitle }}
+      <div class="nouveau-hero__subtitle">
+        {{ if reflect.IsSlice . }}
+          <span class="nouveau-hero__subtitle-list">
+            {{ range . }}
+              <span class="nouveau-hero__subtitle-item">{{ . }}</span>
+            {{ end }}
+          </span>
+        {{ else }}
+          {{ . }}
+        {{ end }}
+      </div>
+    {{ end }}
+
+    {{ if .Site.Menus.main }}
+      <div class="nouveau-hero__actions">
+        {{ with index (where .Site.Menus.main "Weight" "le" 2) 0 }}
+          <a href="{{ .URL }}" class="btn-primary">{{ .Name }}</a>
+        {{ end }}
+        {{ with index (where .Site.Menus.main "Weight" "gt" 2) 0 }}
+          <a href="{{ .URL }}" class="btn-outline">{{ .Name }}</a>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    <div class="nouveau-rule nouveau-rule--contained nouveau-rule--vine">
+      <div class="nouveau-rule__line"></div>
+      <div class="nouveau-rule__ornament">{{ partial "icons/nouveau-vine.html" . }}</div>
+      <div class="nouveau-rule__line"></div>
+    </div>
+
+  </div>
+</section>

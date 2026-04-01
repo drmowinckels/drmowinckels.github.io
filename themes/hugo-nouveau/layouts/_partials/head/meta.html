@@ -1,0 +1,47 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{{ if .IsHome }}
+<title>{{ .Site.Title }}{{ with .Site.Params.subtitle }} {{ . | safeHTML }}{{ end }}</title>
+<meta name="description" content="{{ .Site.Params.description | default .Site.Title }}">
+{{ else }}
+<title>{{ .Title }} | {{ .Site.Title }}</title>
+<meta name="description" content="{{ with .Summary }}{{ . | truncate 160 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+{{ end }}
+
+<meta name="author" content="{{ .Site.Params.author }}">
+<meta name="generator" content="Hugo {{ hugo.Version }}">
+
+{{ if .Site.Params.enforce_ssl }}
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+{{ end }}
+
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Summary }}{{ . | truncate 160 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with .Site.Params.aesthetics.logo }}
+<meta property="og:image" content="{{ . | absURL }}">
+{{ end }}
+
+<meta name="twitter:card" content="summary{{ if .Site.Params.aesthetics.logo }}_large_image{{ end }}">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ with .Summary }}{{ . | truncate 160 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+{{ with .Site.Params.aesthetics.logo }}
+<meta name="twitter:image" content="{{ . | absURL }}">
+{{ end }}
+
+{{ with .Site.Params.aesthetics.favicon }}
+<link rel="icon" type="image/png" href="{{ . | relURL }}">
+{{ end }}
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{ with .OutputFormats.Get "rss" }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
+{{ end }}
+
+{{ if .Site.Params.enableGitInfo }}
+<meta name="git.revision" content="{{ .GitInfo.Hash }}">
+<meta name="git.date" content="{{ .GitInfo.AuthorDate.Format "2006-01-02T15:04:05Z07:00" }}">
+{{ end }}

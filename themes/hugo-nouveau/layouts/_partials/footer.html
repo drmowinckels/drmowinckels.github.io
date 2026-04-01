@@ -1,0 +1,59 @@
+<footer class="nouveau-footer">
+  <div class="nouveau-whiplash nouveau-whiplash--flip">{{ partial "icons/nouveau-whiplash.html" . }}</div>
+
+  <div class="nouveau-footer__inner">
+
+    <div class="nouveau-vine nouveau-vine--garnet" style="margin-bottom: 2rem;">
+      {{ partial "icons/nouveau-vine.html" . }}
+    </div>
+
+    <div class="nouveau-footer__grid">
+
+      <div class="nouveau-footer__brand">
+        <a href="/" class="nouveau-footer__logo">{{ .Site.Title }}</a>
+        {{ with .Site.Params.description }}
+          <p class="nouveau-footer__tagline">{{ . }}</p>
+        {{ end }}
+      </div>
+
+      <div>
+        {{ if .Site.Menus.footer }}
+          <nav class="nouveau-footer__links" aria-label="Footer navigation">
+            {{ range .Site.Menus.footer }}
+              <a href="{{ .URL }}" class="nouveau-footer__link"
+                 {{ if strings.HasPrefix .URL "http" }}target="_blank" rel="noopener"{{ end }}>
+                {{ .Name }}
+              </a>
+            {{ end }}
+          </nav>
+        {{ end }}
+
+        {{ with .Site.Params.social }}
+          <div class="nouveau-footer__links">
+            {{ with .github }}
+              <a href="https://github.com/{{ . }}" class="nouveau-footer__link" target="_blank" rel="noopener">GitHub</a>
+            {{ end }}
+            {{ with .mastodon }}
+              <a href="https://{{ index (split . "@") 1 }}/@{{ index (split . "@") 0 }}" class="nouveau-footer__link" target="_blank" rel="noopener">Mastodon</a>
+            {{ end }}
+            {{ with .bluesky }}
+              <a href="https://bsky.app/profile/{{ . }}" class="nouveau-footer__link" target="_blank" rel="noopener">Bluesky</a>
+            {{ end }}
+            {{ with .twitter }}
+              <a href="https://twitter.com/{{ . }}" class="nouveau-footer__link" target="_blank" rel="noopener">Twitter</a>
+            {{ end }}
+            {{ with .linkedin }}
+              <a href="https://linkedin.com/in/{{ . }}" class="nouveau-footer__link" target="_blank" rel="noopener">LinkedIn</a>
+            {{ end }}
+          </div>
+        {{ end }}
+
+        <p class="nouveau-footer__copy">
+          &copy; {{ now.Year }} {{ .Site.Title }}.
+          {{ with .Site.Params.footerText }}{{ . }}{{ end }}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</footer>

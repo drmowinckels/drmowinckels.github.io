@@ -1,0 +1,37 @@
+{{ define "main" }}
+<article class="nouveau-page-offset">
+  <section class="nouveau-section">
+    <div class="nouveau-section__inner">
+
+      <header class="nouveau-section__header">
+        <h1 class="nouveau-section__title">{{ .Title }}</h1>
+        {{ if .Date }}
+          <p class="nouveau-section__subtitle">
+            <time datetime="{{ .Date | time.Format "2006-01-02" }}">
+              {{ .Date | time.Format ":date_long" }}
+            </time>
+          </p>
+        {{ end }}
+      </header>
+
+      <div class="nouveau-rule">
+        <div class="nouveau-rule__line"></div>
+        <div class="nouveau-rule__ornament">{{ partial "icons/nouveau-border.html" . }}</div>
+        <div class="nouveau-rule__line"></div>
+      </div>
+
+      <div class="nouveau-prose">
+        {{ .Content }}
+        {{ if .Params.tags }}
+        <div class="nouveau-tag-list">
+          {{ range .Params.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="nouveau-tag">{{ . }}</a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+
+    </div>
+  </section>
+</article>
+{{ end }}

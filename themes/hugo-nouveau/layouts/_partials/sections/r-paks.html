@@ -1,0 +1,40 @@
+{{ $section := .Site.GetPage "/r-paks" }}
+{{ if $section }}
+{{ $limit := $section.Params.n_posts | default 6 }}
+{{ $pkgs := first $limit $section.Pages }}
+{{ if $pkgs }}
+<section class="nouveau-section nouveau-section--alt nouveau-section--bordered">
+  <div class="nouveau-whiplash">{{ partial "icons/nouveau-whiplash.html" . }}</div>
+  <div class="nouveau-section__inner">
+    <div class="nouveau-section__header">
+      <p class="nouveau-section__eyebrow">Open Source</p>
+      <h2 class="nouveau-section__title">{{ $section.Title }}</h2>
+    </div>
+
+    <div class="nouveau-pkg-grid">
+      {{ range $pkgs }}
+      <a href="{{ with .Params.external_link }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}"
+         class="nouveau-pkg-card"
+         {{ with .Params.external_link }}target="_blank" rel="noopener"{{ end }}>
+        {{ $img := .Resources.GetMatch "*.png" | default (.Resources.GetMatch "*.svg") | default (.Resources.GetMatch "*.jpg") }}
+        <div class="nouveau-pkg-card__image" {{ with .Params.color }}style="--pkg-color: {{ . }};"{{ end }}>
+          <div class="nouveau-circle nouveau-circle--sm nouveau-circle--nested">
+            {{ with $img }}<img src="{{ .RelPermalink }}" alt="{{ $.Title }}" loading="lazy">{{ end }}
+          </div>
+        </div>
+        <h3 class="nouveau-pkg-card__title">{{ .Title }}</h3>
+        {{ with .Params.subtitle }}
+          <p class="nouveau-pkg-card__subtitle">{{ . }}</p>
+        {{ end }}
+      </a>
+      {{ end }}
+    </div>
+
+    <div class="nouveau-actions" style="margin-top: 2rem;">
+      <a href="{{ $section.RelPermalink }}" class="btn-outline">All packages</a>
+    </div>
+  </div>
+  <div class="nouveau-whiplash nouveau-whiplash--flip">{{ partial "icons/nouveau-whiplash.html" . }}</div>
+</section>
+{{ end }}
+{{ end }}

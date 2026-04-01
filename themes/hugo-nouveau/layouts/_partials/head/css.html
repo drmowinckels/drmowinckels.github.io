@@ -1,0 +1,10 @@
+{{ $vars := resources.Get "scss/variables.scss" | toCSS }}
+{{ $tw := resources.Get "css/vendor/nouveau.css" }}
+{{ $css := slice $vars $tw
+  | resources.Concat "css/nouveau-bundled.css"
+}}
+
+{{ if eq hugo.Environment "production" }}
+  {{ $css = $css | minify | fingerprint "sha384" }}
+{{ end }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" />

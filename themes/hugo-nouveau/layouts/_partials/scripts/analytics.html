@@ -1,0 +1,8 @@
+{{ if .Site.Params.analytics.plausible }}
+    <script defer data-domain="{{ .Site.Params.analytics.plausible.domain }}" src="https://plausible.io/js/script.js"></script>
+{{ end }}
+
+{{ if .Site.Params.clicky }}
+    <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push({{ .Site.Params.clicky }});</script>
+    <script async src="//static.getclicky.com/js"></script>
+{{ end }}

@@ -1,0 +1,14 @@
+{{ $section := .Site.GetPage "/newsletter" }}
+{{ if $section }}
+<section class="nouveau-section nouveau-section--cta">
+  <div class="nouveau-section__inner">
+    <div class="nouveau-newsletter">
+      <div class="nouveau-vine nouveau-vine--garnet">{{ partial "icons/nouveau-vine.html" . }}</div>
+      <h2 class="nouveau-section__title">{{ $section.Title }}</h2>
+      <div class="nouveau-newsletter__embed">
+        {{ $section.Content }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

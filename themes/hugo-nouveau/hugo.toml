@@ -1,0 +1,94 @@
+baseURL = 'https://art-nouveau-theme.netlify.app'
+languageCode = 'en-us'
+title = 'Art Nouveau Hugo Theme'
+
+[params]
+  author = "Theme Developer"
+  description = "A dark, moody Hugo theme with flowing organic ornaments and Art Nouveau elegance"
+
+  heroTitle = "Art Nouveau Hugo Theme"
+  heroSubtitle = ["Organic Forms", "Flowing Ornaments", "Dark Elegance"]
+
+  [params.featured]
+    downloads = "1K+"
+    stars = "GitHub Stars"
+    packages = "50+"
+
+  testimonialQuote = "An exquisite theme that channels the flowing organic beauty of Art Nouveau into modern web design. Dark, moody, and utterly captivating."
+  testimonialAuthor = "Elegant, organic, and meticulously crafted"
+
+  [params.social]
+    github = "your-username/hugo-nouveau"
+    twitter = "your-twitter-handle"
+    linkedin = "your-linkedin-profile"
+    instagram = "your-instagram-handle"
+    mastodon = "your-handle@mastodon.social"
+    bluesky = "your-bluesky-handle"
+
+  footerText = "Open source theme with Art Nouveau elegance"
+
+  defaultTheme = "dark"
+
+  [params.aesthetics]
+    favicon = "/favicon.ico"
+    logo = "/logo.svg"
+    height = "40px"
+
+[[menus.main]]
+  name = "Components"
+  url = "/components/"
+  weight = 10
+
+[[menus.main]]
+  name = "Documentation"
+  url = "/docs/"
+  weight = 20
+
+[[menus.main]]
+  name = "Examples"
+  url = "/examples/"
+  weight = 30
+
+[[menus.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 40
+
+[[menus.footer]]
+  name = "Components"
+  url = "/components/"
+  weight = 10
+
+[[menus.footer]]
+  name = "Documentation"
+  url = "/docs/"
+  weight = 20
+
+[[menus.footer]]
+  name = "Examples"
+  url = "/examples/"
+  weight = 30
+
+[[menus.footer]]
+  name = "GitHub"
+  url = "https://github.com/your-username/hugo-nouveau"
+  weight = 40
+
+[[menus.footer]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 50
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  component = "components"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = true
+    codeFences = true

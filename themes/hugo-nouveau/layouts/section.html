@@ -1,0 +1,57 @@
+{{ define "main" }}
+<div class="nouveau-page-offset">
+
+  <section class="nouveau-section">
+    <div class="nouveau-section__inner">
+      <header class="nouveau-section__header">
+        <h1 class="nouveau-section__title">{{ .Title }}</h1>
+        {{ if .Content }}
+          <div class="nouveau-section__subtitle">{{ .Content }}</div>
+        {{ end }}
+      </header>
+
+      <div class="nouveau-rule nouveau-rule--vine">
+        <div class="nouveau-rule__line"></div>
+        <div class="nouveau-rule__ornament">{{ partial "icons/nouveau-vine.html" . }}</div>
+        <div class="nouveau-rule__line"></div>
+      </div>
+
+      <div class="nouveau-card-grid">
+        {{ range .Pages }}
+        <article class="nouveau-card">
+          {{ if .Resources.GetMatch "featured*" }}
+          <div class="nouveau-card__image">
+            <img src="{{ (.Resources.GetMatch "featured*").RelPermalink }}" alt="{{ .Title }}" loading="lazy">
+          </div>
+          {{ end }}
+          <div class="nouveau-card__body">
+            {{ if .Params.category }}
+              <span class="nouveau-card__category">{{ .Params.category }}</span>
+            {{ else if .Date }}
+              <span class="nouveau-card__category">{{ .Date.Format "Jan 2006" }}</span>
+            {{ end }}
+            <h2 class="nouveau-card__title">{{ .Title }}</h2>
+            <p class="nouveau-card__excerpt">{{ .Summary | truncate 120 }}</p>
+            {{ if .Params.tags }}
+            <div class="nouveau-tag-list">
+              {{ range first 3 .Params.tags }}
+                <span class="nouveau-tag">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
+            <a href="{{ .RelPermalink }}" class="nouveau-card__link">
+              Read more
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+
+    </div>
+  </section>
+
+</div>
+{{ end }}

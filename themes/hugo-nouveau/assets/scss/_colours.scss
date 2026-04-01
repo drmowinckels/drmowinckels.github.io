@@ -1,0 +1,41 @@
+// Art Nouveau Color Palette
+// Base colors are the "600" shade — the saturated tone
+$obsidian:   #1a1a1e;
+$midnight:   #1e2a3a;
+$amber:      #c9923e;
+$garnet:     #8b2d3a;
+$peacock:    #1a5c5a;
+$plum:       #5e3a6e;
+$absinthe:   #4a6741;
+$wisteria:   #8e7aad;
+$patina:     #5a8a7a;
+$copper:     #b87333;
+$parchment:  #f0e8d8;
+
+// Warm mixing bases
+$cream-warm: #f0e8d8;
+$dark-warm:  #1c1510;
+
+@mixin create-color-scale($base, $name) {
+  $dark-anchor: scale-color(mix($dark-warm, $base, 30%), $lightness: -82%);
+
+  $light-anchor: $cream-warm;
+
+  $scale: (
+    50:  mix($light-anchor, $base, 96%),
+    100: mix($light-anchor, $base, 88%),
+    200: mix($light-anchor, $base, 74%),
+    300: mix($light-anchor, $base, 56%),
+    400: mix($light-anchor, $base, 34%),
+    500: mix($light-anchor, $base, 14%),
+    600: $base,
+    700: mix($dark-anchor, $base, 22%),
+    800: mix($dark-anchor, $base, 44%),
+    900: mix($dark-anchor, $base, 66%),
+    950: mix($dark-anchor, $base, 82%),
+  );
+
+  @each $shade, $color in $scale {
+    --color-#{$name}-#{$shade}: #{$color};
+  }
+}

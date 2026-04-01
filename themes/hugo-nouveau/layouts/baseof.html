@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}"
+      x-data
+      x-bind:class="{ 'dark': $store.theme.dark }">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {{/* FOUC prevention: set dark class before paint */}}
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      if (saved === 'light' || (!saved && prefersLight)) {
+        return;
+      }
+      document.documentElement.classList.add('dark');
+    })();
+  </script>
+
+  {{ partial "head/meta.html" . }}
+  {{ partial "head/css.html" . }}
+  {{ partial "head/js.html" . }}
+</head>
+<body>
+  {{ partial "navigation.html" . }}
+
+  <main id="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+  {{ partial "scripts/analytics.html" . }}
+  {{ partial "giscus.html" . }}
+</body>
+</html>

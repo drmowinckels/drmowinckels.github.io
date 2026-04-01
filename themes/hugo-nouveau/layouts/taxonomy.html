@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="nouveau-page-offset">
+  <section class="nouveau-section">
+    <div class="nouveau-section__inner">
+      <header class="nouveau-section__header">
+        <h1 class="nouveau-section__title">{{ .Title }}</h1>
+      </header>
+      {{ .Content }}
+      <div class="nouveau-tag-list" style="justify-content: center; margin-top: 2rem;">
+        {{ range .Pages }}
+          <a href="{{ .RelPermalink }}" class="nouveau-tag">{{ .LinkTitle }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+</div>
+{{ end }}
