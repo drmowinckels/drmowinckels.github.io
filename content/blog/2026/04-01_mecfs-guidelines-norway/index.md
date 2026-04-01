@@ -1,12 +1,11 @@
 ---
-doi: 10.5281/zenodo.19369483
 title: Norway's New ME/CFS Guidelines Got It Backwards
 format:
   hugo-md:
     filters:
       - ../../../../figure-to-markdown.lua
 author: Dr. Mowinckel
-date: '2026-03-15'
+date: '2026-04-01'
 tags:
   - me/cfs
   - long covid
@@ -234,9 +233,8 @@ The guidelines recommend the opposite of what helped me.
 ## The consultation response
 
 I've written a detailed, referenced consultation response covering all of this.
-You can download the [full consultation response (PDF)](horingssvar-utmattelse-retningslinje.pdf)
 
-The response covers:
+My response covers:
 
 1.  **The scope conflation problem**: why ME/CFS and general fatigue need separate treatment recommendations
 2.  **The missing biomedical evidence**: what the published research actually shows about the biology of ME/CFS
@@ -250,8 +248,6 @@ The response covers:
 The consultation period is open until **May 4th, 2026**.
 Anyone can submit a response, you don't need to be a healthcare professional or a Norwegian citizen.
 If you are affected by ME/CFS or long COVID, your voice matters in this process.
-
-You can find the draft guidelines and submission form on [Helsedirektoratet's website](https://www.helsedirektoratet.no/horinger).
 
 If you want to use my response as a starting point or reference, please do.
 The more people who respond with evidence-based concerns, the harder it becomes to ignore the science.
