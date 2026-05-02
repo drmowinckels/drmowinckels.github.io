@@ -4,13 +4,15 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "README-files/",
   fig.retina = 3,
-  out.width = "100%"
+  out.width = "100%",
+  echo = FALSE,
+  message = FALSE
 )
 ```
 
@@ -20,103 +22,78 @@ knitr::opts_chunk$set(
 
 # DrMowinckels website repo!
 
-Welcome to the repository for my website. 
-This repository contains the code for my content.
+Source for **<https://drmowinckels.io>** — a [Hugo](https://gohugo.io) site about R, brain imaging, and the occasional post on long Covid life.
 
+```{r posts}
+posts <- list.files(
+  "content/blog",
+  "^index.md$",
+  recursive = TRUE,
+  full.names = TRUE
+)
 
-```{r, echo = FALSE, message = FALSE}
-library(dplyr)
-posts <- list.files("content/blog", 
-           "^index.md",
-           recursive = TRUE, 
-           full.names = TRUE)
-
-postdf <- lapply(posts, function(x){
+postdf <- do.call(rbind, lapply(posts, function(x) {
   yml <- rmarkdown::yaml_front_matter(x)
-
-  tibble(
+  data.frame(
     title = yml$title,
-    date = as.Date(yml$date),
-    slug = yml$slug,
-    draft = ifelse(is.null(yml$draft), FALSE, yml$draft),
-    link = sprintf(
-      "[%s](https://drmowinckels.io/blog/%s)", 
-      yml$title,
-      yml$slug),
-    image = ifelse(is.null(yml$image), NA, yml$image),
-    image_alt = ifelse(is.null(yml$image_alt), NA, yml$image_alt)
+    date  = as.Date(yml$date),
+    slug  = yml$slug,
+    link  = sprintf(
+      "[%s](https://drmowinckels.io/blog/%s)",
+      yml$title, yml$slug
+    ),
+    stringsAsFactors = FALSE
   )
-}) |> 
-  bind_rows() |> 
-  arrange(desc(date)) |>
-  mutate(
-    date_diff = lag(date) - date
-  )
+}))
+postdf <- postdf[order(postdf$date, decreasing = TRUE), ]
 
-today    <- Sys.Date()
-min_date <- min(postdf$date, na.rm = TRUE)
-last_post <- as.numeric(max(postdf$date, na.rm = TRUE) - today)
-
-# how many posts per month on average?
-diff_med <- median(as.numeric(postdf$date_diff), na.rm = TRUE)
-diff_avg <- mean(as.numeric(postdf$date_diff), na.rm = TRUE)
-
-postavg <- sprintf("%0.0f", 30 / diff_med)
-postbtw <- sprintf("%s", round(diff_med, digits = 0))
-
+today        <- Sys.Date()
+min_date     <- min(postdf$date)
+max_date     <- max(postdf$date)
+last_year    <- postdf[postdf$date >= today - 365, ]
+n_last_year  <- nrow(last_year)
 ```
 
-## Some stats 
+## Some stats
 
 🎉 DrMowinckels has **`r nrow(postdf)`** posts since **`r min_date`**!
 
-📅 That's a post roughly every **`r postbtw`** days, or about **`r postavg`** posts per month, since `r min_date`.
+📅 In the last 12 months: **`r n_last_year`** posts — roughly monthly.
 
-✍️ The last post was published **`r abs(last_post)`** days ago (`r tail(postdf, 1)$link`).
+✍️ Most recent post (`r max_date`): `r postdf$link[1]`.
 
 😉 I'll post as often as I am able, and hope people find it interesting. I'd love your feedback in the comments!
 
 
-```{r 'plot', echo = FALSE,  fig.width=10, fig.height=2.5}
-library(lattice)
-
-postdf$ones <- 1
-
-# Assuming postdf is loaded and has a 'date' column
-xyplot(ones ~ date, data = postdf,
-       type = 'p',
-       pch = "|",  
-       cex = 5,   
-       col = "cyan3",
-       xlab = "",
-       ylab = "",
-       main = "Published posts",
-       scales = list(x = list(cex = 1.4), y = list(draw = FALSE)),
-       strip = FALSE,  # Removes strip labels
-       axis.line = list(col = "transparent"),
-       layout = c(1, 1),  # Single panel
-       par.settings = list(
-         strip.border = list(col = "transparent"), #making the border transparent
-         axis.line = list(col = "transparent") #making the axes transparent
-       )
-      )
-
+```{r 'plot', fig.width=10, fig.height=3}
+year_counts <- table(format(postdf$date, "%Y"))
+op <- par(mar = c(3, 4, 2, 1))
+barplot(
+  year_counts,
+  col    = "cyan3",
+  border = NA,
+  main   = "Posts per year",
+  ylab   = "Posts",
+  las    = 1
+)
+par(op)
 ```
 
-<details><summary>📂 Click to expand a full list of posts</summary>
+<details><summary>📂 Click to expand a full list of posts (newest first)</summary>
 
-```{r posts-table, results='asis', echo = FALSE}
-data.frame(
-  Date = rev(postdf$date),
-  Title = rev(postdf$link)
-) |> 
-  knitr::kable()
+```{r posts-table, results='asis'}
+knitr::kable(
+  data.frame(
+    Date  = postdf$date,
+    Title = postdf$link
+  ),
+  row.names = FALSE
+)
 ```
 </details>
 
 ---
 
-_The automatically rendered readme was inspired by [Matt Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd)._
+_Automated readme inspired by [Matt Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd)._
 
-
-_Updated `r Sys.time()`_
+_Updated `r format(Sys.time(), "%Y-%m-%d %H:%M %Z")`_
