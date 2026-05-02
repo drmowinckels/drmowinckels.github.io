@@ -13,19 +13,19 @@ code for my content.
 
 ## Some stats
 
-🎉 DrMowinckels has **55** posts since **2018-03-08**!
+🎉 DrMowinckels has **58** posts since **2018-03-08**!
 
 📅 That’s a post roughly every **31** days, or about **1** posts per
 month, since 2018-03-08.
 
-✍️ The last post was published **5** days ago ([GAMM spaghetti plots in
+✍️ The last post was published **2** days ago ([GAMM spaghetti plots in
 R with
 ggplot](https://drmowinckels.io/blog/gamm-spaghetti-plots-in-r-with-ggplot)).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
 
-<img src="README-files/plot-1.png" alt="" width="100%" />
+<img src="README-files/plot-1.png" width="100%" />
 
 <details>
 
@@ -91,6 +91,9 @@ I’d love your feedback in the comments!
 | 2025-12-28 | [R Package Development Advent Calendar 2025: A Complete Journey](https://drmowinckels.io/blog/rpackage-dev-calendar) |
 | 2026-01-19 | [Year in review — 2025](https://drmowinckels.io/blog/year-in-review-2025) |
 | 2026-02-02 | [Why Every R Package Wrapping External Tools Needs a sitrep() Function](https://drmowinckels.io/blog/sitrep-functions) |
+| 2026-03-02 | [Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents)](https://drmowinckels.io/blog/dotfiles-coding-agents) |
+| 2026-04-01 | [Norway’s New ME/CFS Guidelines Got It Backwards](https://drmowinckels.io/blog/mecfs-guidelines-norway) |
+| 2026-05-04 | [Two Years of Visible: New Angles on the Long Covid Data](https://drmowinckels.io/blog/visible-year-two) |
 
 </details>
 
@@ -100,4 +103,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2026-01-28 16:30:07.804157*
+*Updated 2026-05-02 17:56:45.931403*
