@@ -6,6 +6,9 @@ title: 'Two Years of Visible: New Angles on the Long Covid Data'
 format: hugo-md
 code-fold: true
 code-summary: Show code
+execute:
+  warning: false
+  message: false
 author: Dr. Mowinckel
 date: '2026-05-01'
 categories: []
@@ -101,13 +104,23 @@ funcap_yearly <- visible |>
     ci_lower = score - 1.96 * se,
     ci_upper = score + 1.96 * se,
     .groups = "drop"
-  )
+  ) |>
+  group_by(type) |>
+  mutate(
+    y1_upper = ci_upper[year == "Year 1"],
+    y1_lower = ci_lower[year == "Year 1"],
+    y2_upper = ci_upper[year == "Year 2"],
+    y2_lower = ci_lower[year == "Year 2"],
+    meaningful = y2_lower > y1_upper | y2_upper < y1_lower
+  ) |>
+  ungroup() |>
+  mutate(highlight = if_else(meaningful, "Meaningful change", "Within noise"))
 
 dodge <- position_dodge(width = 0.35)
 
 ggplot(
   funcap_yearly,
-  aes(x = year, y = score, group = type, colour = type)
+  aes(x = year, y = score, group = type, colour = highlight)
 ) +
   geom_line(
     linewidth = 1,
@@ -137,9 +150,15 @@ ggplot(
   ) +
   scale_x_discrete(expand = expansion(mult = c(0.15, 0.45))) +
   scale_y_continuous(limits = c(0, 6)) +
+  scale_colour_manual(
+    values = c(
+      "Meaningful change" = visible_colours$accent,
+      "Within noise" = visible_colours$grey
+    )
+  ) +
   labs(
-    title = "Functional capacity, year over year",
-    subtitle = "Slope chart of mean FUNCAP27 category scores with 95% CIs",
+    title = "Four FUNCAP categories moved meaningfully — four didn't",
+    subtitle = "Year 1 → Year 2 mean scores with 95% CIs. Coloured = CIs don't overlap; grey = within noise.",
     x = NULL,
     y = "Mean score (0–6)"
   )
@@ -147,7 +166,7 @@ ggplot(
 
 </details>
 
-<img src="index.markdown_strict_files/figure-markdown_strict/funcap-slope-1.png" width="768" />
+![Walking, upright, home and concentration moved meaningfully between Year 1 and Year 2; hygiene, communication, outside and light stayed within sampling noise.](index.markdown_strict_files/figure-markdown_strict/funcap-slope-1.png)
 
 This is the visual confirmation of what I've been feeling --- but the CIs do the work of telling me which of these movements are real.
 
@@ -161,6 +180,71 @@ The lines where the CIs **do** overlap are the ones I shouldn't read too much in
 **Communication**, **hygiene**, and **outside** all move a little, but the error bars cross --- those changes are within noise.
 **Light** drifts down, but again the CIs overlap, so calling it "worse" would be over-claiming.
 What I can honestly say is that none of those four got dramatically better *or* worse --- they're holding pattern.
+
+### Zooming out: overall FUNCAP across time
+
+The slope chart compresses two years into two points per category, which makes movement legible but hides the path.
+A simple line chart of the **overall FUNCAP score** --- the mean across all eight categories on each monthly check-in --- shows what the journey actually looked like.
+
+<details class="code-fold">
+<summary>Show code</summary>
+
+``` r
+rehab_date <- as.Date("2025-01-09")
+
+funcap_overall <- visible |>
+  filter(category == "FunCap27") |>
+  group_by(odate) |>
+  summarise(score = mean(value, na.rm = TRUE), .groups = "drop") |>
+  arrange(odate)
+
+ggplot(funcap_overall, aes(x = odate, y = score)) +
+  geom_vline(
+    xintercept = rehab_date,
+    linetype = "dashed",
+    colour = visible_colours$accent,
+    alpha = 0.6
+  ) +
+  annotate(
+    "label",
+    x = rehab_date,
+    y = 5.6,
+    label = "Rehab",
+    colour = visible_colours$accent,
+    fill = "white",
+    label.size = 0,
+    fontface = "bold",
+    size = 3,
+    hjust = -0.15
+  ) +
+  geom_line(
+    colour = visible_colours$primary,
+    linewidth = 0.9
+  ) +
+  geom_point(
+    colour = visible_colours$primary,
+    size = 3
+  ) +
+  scale_y_continuous(limits = c(0, 6), breaks = 0:6) +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") +
+  labs(
+    title = "Overall FUNCAP score climbs across the two years",
+    subtitle = "Mean across all eight FUNCAP27 categories per monthly check-in.",
+    x = NULL,
+    y = "Overall FUNCAP score (0–6)"
+  )
+```
+
+</details>
+
+![Overall FUNCAP score across the two years. The score is the mean of all eight FUNCAP27 categories on each monthly check-in. The coral dashed line marks the rehab cutoff identified later in the post.](index.markdown_strict_files/figure-markdown_strict/funcap-overall-1.png)
+
+This is the trajectory view I find easiest to describe out loud.
+The line starts at about 2.9, then drops sharply to 2.0 in May 2024 --- the worst month of my bed-bound stretch --- before slowly climbing back up through the second half of 2024 and into the high-2s.
+Around the rehab cutoff at the start of 2025 it crosses into the 3s, and from there it keeps grinding upward through 2025 and into 2026, settling in the 3.5--3.7 range.
+
+The shape is the same one I felt living it: a dramatic plunge into the worst of it, a slow climb out, a structural lift around rehab, and a steady drift toward better that hasn't fully stopped.
+A FUNCAP score of 6 is "fully functional" and 0 is "completely incapacitated"; I'm not at 6, and I might never be, but the journey from a 2.0 floor to a 3.7 ceiling over two years is real and visible in the same chart that fits on a phone screen.
 
 ## The improvement arc as a calendar heatmap
 
@@ -202,7 +286,17 @@ ggplot(stability, aes(x = week, y = fct_rev(weekday), fill = score)) +
     scales = "free_x",
     space = "free_x"
   ) +
-  scale_fill_viridis_c(option = "magma", limits = c(1, 5)) +
+  scale_fill_gradientn(
+    colours = c(
+      visible_colours$primary,
+      visible_colours$secondary,
+      visible_colours$quat,
+      visible_colours$tertiary,
+      visible_colours$accent
+    ),
+    limits = c(1, 5),
+    name = "Stability"
+  ) +
   labs(
     title = "Daily stability score, two years on a calendar",
     subtitle = "Each tile is one day; colour is the morning stability score (1–5)",
@@ -218,7 +312,7 @@ ggplot(stability, aes(x = week, y = fct_rev(weekday), fill = score)) +
 
 </details>
 
-<img src="index.markdown_strict_files/figure-markdown_strict/stability-calendar-1.png" width="768" />
+![Two years of daily stability scores laid out as a calendar. The 2024 panel is darker and patchier; from late 2024 onwards the colour is noticeably warmer and more even, especially through 2026.](index.markdown_strict_files/figure-markdown_strict/stability-calendar-1.png)
 
 You can *see* the improvement in this plot in a way the smoothed line graphs from last year never quite captured.
 The early months of 2024 are dark and patchy --- lots of low scores scattered next to higher ones, which is the chaos I described in the original post.
@@ -256,7 +350,14 @@ visible |>
     show.legend = FALSE
   ) +
   scale_y_date(date_breaks = "2 months", date_labels = "%b %Y") +
-  scale_fill_viridis_c(option = "viridis") +
+  scale_fill_gradientn(
+    colours = c(
+      visible_colours$primary,
+      visible_colours$secondary,
+      visible_colours$quat,
+      visible_colours$accent
+    )
+  ) +
   labs(
     title = "HRV distributions, month by month",
     subtitle = "Each ridge is one month of morning measurements",
@@ -267,12 +368,7 @@ visible |>
 
 </details>
 
-    Warning: `stat(x)` was deprecated in ggplot2 3.4.0.
-    ℹ Please use `after_stat(x)` instead.
-
-    Picking joint bandwidth of 1.09
-
-<img src="index.markdown_strict_files/figure-markdown_strict/hrv-ridgeline-1.png" width="768" />
+![Monthly distributions of morning HRV stacked as ridgelines. The mean barely moves over the two years, but the spread tightens — early-2024 distributions are wide with long right tails, and the more recent months are noticeably narrower.](index.markdown_strict_files/figure-markdown_strict/hrv-ridgeline-1.png)
 
 What I'm looking for here isn't really the means moving --- they're broadly stable.
 What I'm looking for is the *shape* getting tighter.
@@ -301,27 +397,7 @@ The `changepoint` package gives you a clean way to do this with `cpt.mean()`.
 
 ``` r
 library(changepoint)
-```
 
-</details>
-
-    Loading required package: zoo
-
-
-    Attaching package: 'zoo'
-
-    The following objects are masked from 'package:base':
-
-        as.Date, as.Date.numeric
-
-    Successfully loaded changepoint package version 2.3
-     WARNING: From v.2.3 the default method in cpt.* functions has changed from AMOC to PELT.
-     See NEWS for details of all changes.
-
-<details class="code-fold">
-<summary>Show code</summary>
-
-``` r
 stability_ts <- visible |>
   filter(tracker == "Stability Score") |>
   arrange(odate) |>
@@ -343,7 +419,7 @@ cp
            ~~   : S4 class containing 14 slots with names
                   cpts.full pen.value.full data.set cpttype method test.stat pen.type pen.value minseglen cpts ncpts.max param.est date version 
 
-    Created on  : Fri May  1 20:18:03 2026 
+    Created on  : Sat May  2 12:49:35 2026 
 
     summary(.)  :
     ----------
@@ -394,17 +470,27 @@ cp_dates
 visible |>
   filter(tracker == "Stability Score") |>
   ggplot(aes(x = odate, y = value)) +
-  geom_jitter(alpha = 0.2, height = 0.1) +
-  geom_smooth(se = FALSE) +
+  geom_jitter(
+    alpha = 0.25,
+    height = 0.1,
+    colour = visible_colours$grey,
+    size = 0.7
+  ) +
+  geom_smooth(
+    se = FALSE,
+    colour = visible_colours$primary,
+    linewidth = 1
+  ) +
   geom_vline(
     xintercept = cp_dates,
     linetype = "dashed",
-    colour = "firebrick"
+    colour = visible_colours$accent,
+    linewidth = 0.7
   ) +
   scale_x_date(date_breaks = "3 months") +
   labs(
     title = "Stability score with detected change points",
-    subtitle = "Dashed lines = where the mean shifts according to BinSeg",
+    subtitle = "Dashed line = where the mean shifts according to BinSeg",
     x = NULL,
     y = "Stability score"
   )
@@ -412,9 +498,7 @@ visible |>
 
 </details>
 
-    `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
-
-<img src="index.markdown_strict_files/figure-markdown_strict/changepoint-plot-1.png" width="768" />
+![Daily morning stability score across two years, with the single change point detected by binary segmentation marked as a coral dashed line — landing right around the rehab period in early 2025.](index.markdown_strict_files/figure-markdown_strict/changepoint-plot-1.png)
 
 Despite asking for up to four change points, the algorithm only commits to **one** --- and it lands right around the end of 2024 / start of 2025.
 That's almost exactly when I went into rehab, and the period right after when my stability score quietly settled into a higher, less chaotic regime.
@@ -446,18 +530,7 @@ cp_hrv <- cpt.mean(
   Q = 4,
   penalty = "BIC"
 )
-```
 
-</details>
-
-    Warning in BINSEG(sumstat, pen = pen.value, cost_func = costfunc, minseglen =
-    minseglen, : The number of changepoints identified is Q, it is advised to
-    increase Q to make sure changepoints have not been missed.
-
-<details class="code-fold">
-<summary>Show code</summary>
-
-``` r
 cp_hrv_dates <- visible |>
   filter(tracker == "HRV") |>
   arrange(odate) |>
@@ -475,25 +548,78 @@ cp_hrv_dates
 <summary>Show code</summary>
 
 ``` r
+cp_hrv_labels <- tibble(
+  date = cp_hrv_dates,
+  label = c(
+    "End of bed-bound stretch",
+    "Pacing strategy lands",
+    "Run-up to rehab",
+    "Post-rehab consolidation"
+  ),
+  y_pos = c(1, 0.8, 1, 0.8)
+)
+
+hrv_y_max <- max(visible$value[visible$tracker == "HRV"], na.rm = TRUE)
+
 visible |>
   filter(tracker == "HRV") |>
   ggplot(aes(x = odate, y = value)) +
-  geom_jitter(alpha = 0.2, height = 0) +
-  geom_smooth(se = FALSE) +
+  geom_jitter(
+    alpha = 0.25,
+    height = 0,
+    colour = visible_colours$grey,
+    size = 0.7
+  ) +
+  geom_smooth(
+    se = FALSE,
+    colour = visible_colours$primary,
+    linewidth = 1
+  ) +
   geom_vline(
     xintercept = cp_hrv_dates,
     linetype = "dashed",
-    colour = "firebrick"
+    colour = visible_colours$accent,
+    linewidth = 0.7
   ) +
   geom_vline(
     xintercept = cp_dates,
     linetype = "dotted",
-    colour = "steelblue"
+    colour = visible_colours$secondary,
+    linewidth = 0.7
+  ) +
+  geom_label(
+    data = cp_hrv_labels,
+    aes(
+      x = date,
+      y = hrv_y_max + 12 * y_pos,
+      label = label
+    ),
+    size = 2.8,
+    colour = visible_colours$accent,
+    fill = "white",
+    label.size = 0,
+    fontface = "bold",
+    hjust = 0.5,
+    vjust = 0
+  ) +
+  geom_segment(
+    data = cp_hrv_labels,
+    aes(
+      x = date,
+      xend = date,
+      y = hrv_y_max + 12 * y_pos,
+      yend = hrv_y_max + 1
+    ),
+    colour = visible_colours$accent,
+    alpha = 0.4,
+    linewidth = 0.3
   ) +
   scale_x_date(date_breaks = "3 months") +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.3))) +
+  coord_cartesian(clip = "off") +
   labs(
-    title = "HRV with detected change points",
-    subtitle = "Red dashed = HRV change points; blue dotted = stability score change point (for comparison)",
+    title = "HRV picks out four moments along the improvement arc",
+    subtitle = "Coral dashed = HRV change points (each labelled with the event it lines up with). Teal dotted = stability score change point.",
     x = NULL,
     y = "HRV (ms)"
   )
@@ -501,9 +627,7 @@ visible |>
 
 </details>
 
-    `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
-
-<img src="index.markdown_strict_files/figure-markdown_strict/changepoint-hrv-1.png" width="768" />
+![Daily morning HRV with four detected change points (coral dashed lines), each labelled with the timeline event it lines up with. The single stability-score change point sits in between the third and fourth HRV change points (teal dotted line).](index.markdown_strict_files/figure-markdown_strict/changepoint-hrv-1.png)
 
 The HRV series is noisier than stability score, and the algorithm reflects that --- instead of committing to a single decisive shift, it picks up **four** change points spread across the journey:
 
@@ -639,45 +763,115 @@ phase_bands <- tibble(
   ),
   xmin = c(0.5, 5.5, 13.5, 16.5),
   xmax = c(5.5, 13.5, 16.5, 32.5)
-)
+) |>
+  mutate(
+    x_mid = (xmin + xmax) / 2,
+    colour = phase_colours[as.character(phase)]
+  )
+
+trough <- stability_by_day |>
+  filter(cycle_day %in% 11:14) |>
+  slice_min(mean_score, n = 1, with_ties = FALSE)
+
+peak <- stability_by_day |>
+  filter(cycle_day >= 25) |>
+  slice_max(mean_score, n = 1, with_ties = FALSE)
 
 ggplot() +
   geom_rect(
     data = phase_bands,
     aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf, fill = phase),
-    alpha = 0.25
+    alpha = 0.18,
+    show.legend = FALSE
   ) +
+  scale_fill_manual(values = phase_colours) +
+  geom_text(
+    data = phase_bands,
+    aes(x = x_mid, y = Inf, label = phase, colour = colour),
+    vjust = 1.6,
+    fontface = "bold",
+    size = 3.4
+  ) +
+  scale_colour_identity() +
   geom_ribbon(
     data = stability_by_day,
     aes(x = cycle_day, ymin = ci_lower, ymax = ci_upper),
-    fill = "grey30",
-    alpha = 0.25
+    fill = visible_colours$primary,
+    alpha = 0.18
   ) +
   geom_line(
     data = stability_by_day,
     aes(x = cycle_day, y = mean_score),
-    linewidth = 0.8
+    linewidth = 0.8,
+    colour = visible_colours$primary
   ) +
   geom_point(
     data = stability_by_day,
     aes(x = cycle_day, y = mean_score, size = n),
-    show.legend = FALSE
+    show.legend = FALSE,
+    colour = visible_colours$primary
+  ) +
+  geom_point(
+    data = bind_rows(trough, peak),
+    aes(x = cycle_day, y = mean_score),
+    size = 4,
+    shape = 21,
+    fill = visible_colours$accent,
+    colour = "white",
+    stroke = 1.2
+  ) +
+  annotate(
+    "label",
+    x = trough$cycle_day,
+    y = trough$mean_score - 0.18,
+    label = "Late-follicular trough\n(rough patch, days 12–13)",
+    size = 3,
+    colour = visible_colours$accent,
+    fill = "white",
+    label.size = 0,
+    fontface = "bold",
+    hjust = 0.5,
+    vjust = 1
+  ) +
+  annotate(
+    "label",
+    x = peak$cycle_day - 4,
+    y = peak$mean_score + 0.05,
+    label = "Late-luteal peak\n(my best days)",
+    size = 3,
+    colour = visible_colours$accent,
+    fill = "white",
+    label.size = 0,
+    fontface = "bold",
+    hjust = 1,
+    vjust = 0.5
+  ) +
+  geom_curve(
+    aes(
+      x = peak$cycle_day - 1.5,
+      y = peak$mean_score + 0.05,
+      xend = peak$cycle_day - 0.3,
+      yend = peak$mean_score
+    ),
+    arrow = arrow(length = unit(0.18, "cm")),
+    curvature = 0,
+    colour = visible_colours$accent
   ) +
   scale_x_continuous(breaks = c(1, 5, 14, 17, 28)) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.18))) +
   scale_size_continuous(range = c(1, 3)) +
+  coord_cartesian(clip = "off") +
   labs(
-    title = "Mean stability score by cycle day, with phase shading",
-    subtitle = "Grey ribbon = 95% CI on the daily mean; point size = observations per cycle day",
+    title = "My rough patch sits before ovulation, not before my period",
+    subtitle = "Mean morning stability score by cycle day. Phases shaded and labelled; ribbon = 95% CI.",
     x = "Cycle day",
-    y = "Mean stability score",
-    fill = "Phase"
-  ) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+    y = "Mean stability score"
+  )
 ```
 
 </details>
 
-<img src="index.markdown_strict_files/figure-markdown_strict/stability-cycle-day-1.png" width="768" />
+![Mean morning stability score by cycle day, with the four phases shaded and labelled inline. The lowest mean sits at days 12–13 (late follicular), and the highest at days 26–28 (late luteal) — the opposite of the standard PMS-doom narrative.](index.markdown_strict_files/figure-markdown_strict/stability-cycle-day-1.png)
 
 The research suggests that the worst stability would land somewhere in the menstrual phase or in the late luteal phase --- both of which fit the standard "period-week is bad" / "PMS week is bad" narrative.
 The data and my own experience flatly disagrees.
@@ -731,11 +925,21 @@ ggplot() +
   geom_rect(
     data = phase_bands,
     aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf, fill = phase),
-    alpha = 0.2,
-    inherit.aes = FALSE
+    alpha = 0.18,
+    inherit.aes = FALSE,
+    show.legend = FALSE
   ) +
-  scale_fill_viridis_d(option = "viridis", name = "Phase") +
+  scale_fill_manual(values = phase_colours) +
+  geom_text(
+    data = phase_bands,
+    aes(x = x_mid, y = Inf, label = phase, colour = colour),
+    vjust = 1.4,
+    fontface = "bold",
+    size = 3
+  ) +
+  scale_colour_identity() +
   new_scale_fill() +
+  new_scale_colour() +
   geom_ribbon(
     data = hr_cycle,
     aes(
@@ -745,12 +949,12 @@ ggplot() +
       group = era,
       fill = era
     ),
-    alpha = 0.25
+    alpha = 0.2
   ) +
   geom_line(
     data = hr_cycle,
     aes(x = cycle_day, y = mean_value, colour = era),
-    linewidth = 0.8
+    linewidth = 0.9
   ) +
   geom_point(
     data = hr_cycle,
@@ -759,14 +963,10 @@ ggplot() +
   ) +
   facet_wrap(~tracker, ncol = 1, scales = "free_y") +
   scale_x_continuous(breaks = c(1, 5, 14, 17, 28)) +
-  scale_colour_manual(
-    values = c("Pre-rehab" = "#7B3294", "Post-rehab" = "#1B7837"),
-    name = "Era"
-  ) +
-  scale_fill_manual(
-    values = c("Pre-rehab" = "#7B3294", "Post-rehab" = "#1B7837"),
-    name = "Era"
-  ) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.18))) +
+  scale_colour_manual(values = era_colours, name = "Era") +
+  scale_fill_manual(values = era_colours, name = "Era") +
+  coord_cartesian(clip = "off") +
   labs(
     title = "Resting HR and HRV across the cycle, before vs after rehab",
     subtitle = paste0(
@@ -776,13 +976,12 @@ ggplot() +
     ),
     x = "Cycle day",
     y = NULL
-  ) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+  )
 ```
 
 </details>
 
-<img src="index.markdown_strict_files/figure-markdown_strict/hr-cycle-1.png" width="768" />
+![Resting HR and HRV by cycle day, split into pre- and post-rehab eras. Post-rehab HRV sits clearly higher and flatter; post-rehab resting HR sits clearly lower. The cyclical pattern is most pronounced in pre-rehab HRV.](index.markdown_strict_files/figure-markdown_strict/hr-cycle-1.png)
 
 Reading the panels:
 
@@ -815,23 +1014,32 @@ The shape of it is simple to state and brutal to live with: do too much today, p
 PEM can hit 24 to 72 hours after the activity, and once it lands it can stick around for days.
 A "did pushing today cost me *tomorrow*?" analysis is too narrow to catch it; I need to look across a window of lags.
 
-Visible has four "Activity" trackers that let me ask the question, because I rate each evening how demanding the day was on four axes:
+Visible has four "Activity" trackers --- every evening I rate how demanding the day was on four axes (mental, emotional, physical, social).
+The way I actually pace, though, isn't axis-by-axis.
+I aim to keep the *total* daily load below a ceiling, because I've learned the hard way that an "easy" day on three axes can still leave me crashed if I went too hard on the fourth.
+So the right unit for asking the PEM question, for me, is the **total daily activity score** --- the sum across all four axes.
 
--   **Mentally demanding** (cognitive load)
--   **Emotionally stressful** (emotional load)
--   **Physically active** (physical load)
--   **Socially demanding** (social load)
-
-What I want is a **lag spectrum**: for each activity type, compute the correlation between today's activity score and stability / HRV at lag 0, 1, 2, ... up to a week.
-If PEM is real for me, I'd expect to see negative correlations --- pushing today should predict feeling worse later --- and I'd particularly expect to see them peak somewhere in the 1--3 day window, where the literature says the cost usually lands.
+What I want is a **lag spectrum**: compute the correlation between today's total load and stability / HRV at lag 0, 1, 2, ... up to a week.
+If PEM is real for me, I'd expect to see negative correlations --- pushing today should predict feeling worse later --- peaking somewhere in the 1--3 day window, where the literature says the cost usually lands.
 
 <details class="code-fold">
 <summary>Show code</summary>
 
 ``` r
-activity_long <- visible |>
+activity_total <- visible |>
   filter(type == "Activity") |>
-  select(odate, activity_type = tracker, activity_value = value)
+  pivot_wider(
+    id_cols = odate,
+    names_from = tracker,
+    values_from = value
+  ) |>
+  mutate(
+    total_load = `Mentally demanding` +
+      `Emotionally stressful` +
+      `Physically active` +
+      `Socially demanding`
+  ) |>
+  select(odate, total_load)
 
 metrics_wide <- visible |>
   filter(tracker %in% c("Stability Score", "HRV")) |>
@@ -845,7 +1053,6 @@ metrics_wide <- visible |>
 
 max_lag <- 7
 
-# Build all (lag, metric) outcome columns
 metrics_lagged <- metrics_wide |>
   mutate(
     across(
@@ -858,7 +1065,7 @@ metrics_lagged <- metrics_wide |>
     )
   )
 
-combined <- activity_long |>
+combined <- activity_total |>
   inner_join(metrics_lagged, by = "odate")
 
 lag_corrs <- combined |>
@@ -869,10 +1076,10 @@ lag_corrs <- combined |>
     values_to = "metric_value"
   ) |>
   mutate(lag = as.integer(lag)) |>
-  drop_na(activity_value, metric_value) |>
-  group_by(activity_type, metric, lag) |>
+  drop_na(total_load, metric_value) |>
+  group_by(metric, lag) |>
   summarise(
-    test = list(cor.test(activity_value, metric_value)),
+    test = list(cor.test(total_load, metric_value)),
     n = n(),
     .groups = "drop"
   ) |>
@@ -883,74 +1090,235 @@ lag_corrs <- combined |>
     metric = factor(
       case_match(metric, "stability" ~ "Stability", "hrv" ~ "HRV"),
       levels = c("Stability", "HRV")
-    ),
-    activity_type = factor(
-      activity_type,
-      levels = c(
-        "Mentally demanding",
-        "Emotionally stressful",
-        "Physically active",
-        "Socially demanding"
-      )
     )
   )
 
 ggplot(lag_corrs, aes(x = lag, y = cor, colour = metric, fill = metric)) +
-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey50") +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = visible_colours$baseline
+  ) +
   geom_ribbon(
     aes(ymin = ci_lower, ymax = ci_upper),
     alpha = 0.2,
     colour = NA
   ) +
-  geom_line(linewidth = 0.8) +
+  geom_line(linewidth = 0.9) +
   geom_point(size = 2) +
-  facet_wrap(~activity_type, ncol = 2) +
   scale_x_continuous(breaks = 0:max_lag) +
-  scale_colour_viridis_d(end = 0.6) +
-  scale_fill_viridis_d(end = 0.6) +
+  scale_colour_manual(
+    values = c(
+      "Stability" = visible_colours$primary,
+      "HRV" = visible_colours$accent
+    )
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Stability" = visible_colours$primary,
+      "HRV" = visible_colours$accent
+    )
+  ) +
   labs(
-    title = "Lag spectrum: today's activity vs state on later days",
-    subtitle = "Lag 0 = same day, lag 7 = a week later. Negative = activity predicts feeling worse later (PEM signal). Ribbons = 95% CI",
+    title = "Lag spectrum: today's total activity load vs state on later days",
+    subtitle = "Total load = sum across mental, emotional, physical and social. Negative = pushing today predicts feeling worse later. Ribbons = 95% CI.",
     x = "Days after activity",
     y = "Correlation",
     colour = "Outcome",
     fill = "Outcome"
-  ) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+  )
 ```
 
 </details>
 
-<img src="index.markdown_strict_files/figure-markdown_strict/activity-lag-spectrum-1.png" width="768" />
+![Correlation between today’s total activity load and stability / HRV at lags 0 to 7 days. Both lines start strongly positive at lag 0 (‘active when capable’) then drop toward zero, with no clear negative dip — the classic PEM signature is absent at this aggregate level.](index.markdown_strict_files/figure-markdown_strict/activity-lag-spectrum-1.png)
 
 A few honest caveats before reading this.
-The activity scores top out at 5 and most of my days sit in the 1--3 range, so high-activity days are rare and individual points carry weight.
-The lag analysis assumes activity on different days is independent, which it isn't --- high-activity days cluster together, and that auto-correlation can muddy the picture.
+The activity scores top out at 5 per axis, so total load can in principle range from 4 to 20, but most of my days sit in the lower half --- high total-load days are rare and individual points carry weight.
+The lag analysis also assumes activity on different days is independent, which it isn't; high-load days cluster together, and that auto-correlation can muddy the picture.
 And correlations are linear summaries of what may well be a non-linear relationship, so a flat line doesn't fully rule out a "threshold" PEM where only the very worst days hurt.
 
-With those caveats in hand, the four panels do tell a fairly clean story.
+What's there to read?
 
-**Physically active** is the panel that earns its keep.
-At lag 0 the correlation is strongly positive (~0.25 for stability) --- meaning on days I'm physically active, I'm *also* feeling more stable.
-That's me being active because I *can* be, not despite anything.
-But by lag 1--2 the line dives below zero and stays slightly negative through lag 3--5 before drifting back up.
-That dip --- positive same-day, negative a couple of days later --- is exactly the PEM signature I was looking for.
-The HRV line shows the same shape at smaller magnitude.
+At **lag 0**, both lines are strongly positive (stability ~0.20, HRV ~0.14).
+That's not surprising: on days I'm feeling capable, I do more, and the morning measurements that day reflect that.
+"Active when capable" is the same-day pattern, not a causal claim about activity making me better.
 
-**Socially demanding** mirrors physical activity in shape, just gentler.
-A weaker positive same-day correlation, then a smaller dip into negative territory around lag 1--2.
-That's consistent with how socialising lands for me --- it costs something, but less acutely than walking does.
+From **lag 1 onwards**, the correlations drop sharply and then hover near zero for the rest of the week.
+Stability dips to roughly 0.01 at lag 1 and bounces around in the 0.0--0.08 range out to lag 7, with CIs wide enough that none of those points are distinguishable from zero.
+HRV does something similar but a bit higher, settling in the 0.07--0.15 range.
+What's *not* there is a clear dip into negative territory in the 1--3 day window, which is what a PEM signature would look like.
 
-**Emotionally stressful** is mostly flat, hovering around zero across the whole lag spectrum.
-Surprisingly little next-day cost from emotionally taxing days as a class --- though that might be because the high end of "emotionally stressful" is rare in my data and the average emotional day doesn't move the needle.
+I take this as a quietly encouraging finding rather than a null one.
+The PEM signal is genuinely hard to find in this dataset because **pacing is working**.
+I keep my total daily load below the ceiling that would otherwise trigger a payback, so the correlation between load and "feeling worse a few days later" is essentially absent.
+On the rare days I do push past the ceiling I pay for it (and I *know* I pay for it --- see: every crash mentioned in the previous posts), but those days are rare enough that they don't move a two-year correlation much.
 
-**Mentally demanding** matches my prior best.
-The correlation stays positive across most of the lag spectrum for both stability and HRV --- meaning days where I'm cognitively engaged tend to be days I'm doing well, *and* that doesn't reverse into a cost in the days after.
-Reading a paper genuinely does seem cheaper than walking around the block, in my body's currency.
+If anything, this is the strongest argument I have for why the work I've done on pacing matters.
+The data isn't telling me PEM is fictional; it's telling me PEM is well-managed.
+That's a different and better thing.
 
-That's a satisfying finding to be able to point at.
-The dataset, with no help from me beyond setting the lag window, picked physical activity out as the most expensive thing I do, with social activity not far behind, and gave mental and emotional activity a relative pass.
-That's the same hierarchy I've arrived at by trial and error over two years of pacing --- except now I can show it with a chart instead of a story.
+### What about the days before an actual crash?
+
+The lag-spectrum approach treats every day equally --- and that's both its strength and its weakness, since most days are uneventful and the signal we care about lives in the rare bad ones.
+Visible has a binary **Crash** tracker that lets me ask the question more directly.
+On the days I've decided to mark "crash", what was my activity load doing in the run-up?
+
+<details class="code-fold">
+<summary>Show code</summary>
+
+``` r
+crash_starts <- visible |>
+  filter(tracker == "Crash") |>
+  arrange(odate) |>
+  mutate(
+    on_crash = !is.na(value) & value > 0,
+    new_crash = on_crash & !lag(on_crash, default = FALSE)
+  ) |>
+  filter(new_crash) |>
+  pull(odate)
+
+window <- 7
+
+crash_windows <- map_dfr(
+  crash_starts,
+  \(d) {
+    tibble(
+      crash_id = as.character(d),
+      crash_date = d,
+      days_before = -window:0,
+      odate = d + days_before
+    )
+  }
+)
+
+crash_trajectory <- crash_windows |>
+  left_join(activity_total, by = "odate") |>
+  drop_na(total_load) |>
+  group_by(days_before) |>
+  summarise(
+    mean_load = mean(total_load),
+    se = sd(total_load) / sqrt(n()),
+    ci_lower = mean_load - 1.96 * se,
+    ci_upper = mean_load + 1.96 * se,
+    n = n(),
+    .groups = "drop"
+  )
+
+baseline_mean <- mean(activity_total$total_load, na.rm = TRUE)
+
+spike <- crash_trajectory |> filter(days_before == -1)
+crash_day <- crash_trajectory |> filter(days_before == 0)
+
+ggplot(crash_trajectory, aes(x = days_before, y = mean_load)) +
+  geom_hline(
+    yintercept = baseline_mean,
+    linetype = "dashed",
+    colour = visible_colours$baseline
+  ) +
+  geom_ribbon(
+    aes(ymin = ci_lower, ymax = ci_upper),
+    alpha = 0.25,
+    fill = visible_colours$accent
+  ) +
+  geom_line(linewidth = 0.9, colour = visible_colours$accent) +
+  geom_point(size = 2.2, colour = visible_colours$accent) +
+  geom_vline(
+    xintercept = 0,
+    linetype = "dotted",
+    colour = visible_colours$baseline
+  ) +
+  geom_curve(
+    data = spike,
+    aes(x = -1, y = mean_load + 0.7, xend = -1, yend = mean_load + 0.1),
+    arrow = arrow(length = unit(0.18, "cm")),
+    curvature = 0,
+    colour = visible_colours$accent
+  ) +
+  annotate(
+    "label",
+    x = -1,
+    y = spike$mean_load + 0.85,
+    label = "Day before:\nactivity spikes",
+    size = 3,
+    colour = visible_colours$accent,
+    fill = "white",
+    label.size = 0,
+    fontface = "bold",
+    hjust = 0.5
+  ) +
+  geom_curve(
+    data = crash_day,
+    aes(x = 0, y = mean_load - 0.7, xend = 0, yend = mean_load - 0.1),
+    arrow = arrow(length = unit(0.18, "cm")),
+    curvature = 0,
+    colour = visible_colours$accent
+  ) +
+  annotate(
+    "label",
+    x = 0,
+    y = crash_day$mean_load - 0.85,
+    label = "Crash day:\nbody pulls back",
+    size = 3,
+    colour = visible_colours$accent,
+    fill = "white",
+    label.size = 0,
+    fontface = "bold",
+    hjust = 0.5,
+    vjust = 1
+  ) +
+  annotate(
+    "text",
+    x = -7,
+    y = baseline_mean + 0.08,
+    label = "Overall mean activity load",
+    hjust = 0,
+    size = 3,
+    colour = visible_colours$baseline
+  ) +
+  scale_x_continuous(
+    breaks = -window:0,
+    expand = expansion(mult = c(0.05, 0.1))
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0.18, 0.18))) +
+  coord_cartesian(clip = "off") +
+  labs(
+    title = "Activity spikes the day before a crash, then collapses",
+    subtitle = paste0(
+      "Mean total activity load across ",
+      length(crash_starts),
+      " crash events. Dashed line = overall baseline; ribbon = 95% CI."
+    ),
+    x = "Days before crash (0 = crash day)",
+    y = "Mean total activity load"
+  )
+```
+
+</details>
+
+![Mean total activity load on each of the seven days before a crash, plus the crash day itself. Activity hovers around the overall baseline most of the week, spikes sharply on the day before the crash, then collapses below baseline on the crash day.](index.markdown_strict_files/figure-markdown_strict/crash-windows-1.png)
+
+This is the cleaner version of the PEM question.
+Instead of asking "does activity correlate with feeling worse later", I'm asking "what does the run-up to an actual crash look like?"
+
+And the answer is satisfyingly visible in the data.
+
+For most of the week before a crash, my activity sits right around my overall baseline.
+Then **on the day before the crash, activity spikes sharply** --- the mean total load jumps to roughly 4.5, well above the baseline of about 3.5.
+**On the crash day itself, activity drops to about 3.0**, below baseline, which is the body putting the brakes on after the fact.
+
+That's the PEM shape, drawn cleanly in 14 crash events.
+The wide CI ribbons on the day -1 spike and the day 0 drop reflect that the absolute number of crash events is small, but the shape is consistent enough that the day-before spike is meaningfully above the baseline mean.
+
+What this is telling me, gently, is that my felt experience is roughly right --- but the lag is shorter than I thought.
+I'd been narrating crashes as "punishment for what I did 1--3 days ago", but in this view, the strongest signal is **the day immediately before**.
+The spike at day -1 is doing most of the work; days -3 and -2 are largely indistinguishable from baseline.
+That's actually a more useful answer for pacing: if I notice an unusually busy day, the at-risk day is *tomorrow*, not "some time in the next three days".
+
+The other thing this analysis underlines is why the lag-spectrum correlation looked so flat earlier.
+A handful of overdoing-it days getting punished a day later doesn't move a two-year correlation by much.
+The crash trajectory, by zooming in on the rare days where it actually mattered, picks the signal back up.
+The two analyses aren't in conflict --- one is averaged across all days (where pacing dominates), the other is conditioned on the days I lost the pacing battle.
 
 ## Wrapping up
 
@@ -966,10 +1334,11 @@ If you've got long-running personal health data sitting around in any form --- a
 Not for any clinical reason, just because it's surprisingly grounding to see your story laid out in numbers.
 And if you happen to be a quantitative scientist, well, you might as well make some pretty plots out of it.
 
-There wont be a year three, as I have decided to stop taking measurements.
+I had a plan on stopping the measurements now.
 I want to rely on my own personal experience and how my body feels, now that I have reached a stage where that feels right.
 Like I learned from my smart watch, I have learned lessons from the Visible app.
 Now, its time to rely on my self.
 
-If that doesn't go well, I will start again.
-But I hope that won't be necessary.
+However, seeing the possible downward trends in my HRV (increased spread in measurements and lowering of my mean level), I will continue taking measurements untill I am certain that is not what is happening.
+
+After all, what is the point of these analyses if not to help me make decisions to improve my recovery?
