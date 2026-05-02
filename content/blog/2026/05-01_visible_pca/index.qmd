@@ -10,7 +10,7 @@ execute:
   warning: false
   message: false
 author: Dr. Mowinckel
-date: '2026-05-01'
+date: '2026-05-04'
 categories: []
 tags:
   - R
@@ -308,7 +308,6 @@ A simple line chart of the **overall FUNCAP score** — the mean across all eigh
 #| label: funcap-overall
 #| fig-cap: "Overall FUNCAP score across the two years. The score is the mean of all eight FUNCAP27 categories on each monthly check-in. The coral dashed line marks the rehab cutoff identified later in the post."
 #| fig-alt: "Line plot of overall FUNCAP score over time, from April 2024 to April 2026. The y-axis runs from 0 to 6; the line and points are dark teal. The trajectory starts at about 3.2 in spring 2024, dips slightly through summer 2024, then climbs steadily from autumn 2024 onward, reaching the high 4s by 2026. A coral dashed vertical line in early January 2025 marks the rehab cutoff, with a 'Rehab' label."
-
 rehab_date <- as.Date("2025-01-09")
 
 funcap_overall <- visible |>
