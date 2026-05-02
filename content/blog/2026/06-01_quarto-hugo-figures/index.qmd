@@ -1,0 +1,245 @@
+---
+editor_options:
+  markdown:
+    wrap: sentence
+title: "Tidier Quarto Figures in Hugo: a Tiny Lua Filter"
+format:
+  hugo-md:
+    filters:
+      - ../../../../figure-to-markdown.lua
+code-fold: show
+code-summary: "Show code"
+execute:
+  warning: false
+  message: false
+author: Dr. Mowinckel
+date: '2026-06-01'
+categories: []
+tags:
+  - quarto
+  - hugo
+  - lua
+  - blogging
+slug: "quarto-hugo-figures"
+image: img/figure_filter.png
+image_alt: "A simplified diagram showing a Quarto qmd document on the left flowing through a Lua filter labelled figure-to-markdown into a Hugo theme on the right, with the figure being converted from HTML to a clean markdown image syntax."
+summary: |
+  My Hugo blog renders Quarto-generated figures with my own theme's image render hook, which means I want figures to come out as plain markdown image syntax — not the verbose `<figure>` HTML that Quarto's `hugo-md` format produces by default. A short Lua filter solves this. This post walks through what the filter does, how to wire it up either per-document or project-wide via `_quarto.yml`, and the small caption convention that makes it work cleanly with most Hugo themes.
+seo: "How to convert Quarto figures to clean markdown image syntax for Hugo themes using a small Lua filter and _quarto.yml configuration."
+---
+
+If you've ever rendered a Quarto document with `format: hugo-md` and tried to make the resulting figures behave nicely inside your Hugo theme, you might have run into the same little annoyance I have: Quarto wraps every figure in a chunk of raw HTML that bypasses your theme's image render hook entirely.
+
+For most use cases that's fine.
+For mine — where I rely on my Hugo theme to handle alt text, captions, lazy loading, responsive sizing, and dark-mode-aware styling — it isn't.
+What I want is for every figure Quarto produces to come out as a regular markdown image, which my theme's `render-image.html` hook can then take over and dress up the way it likes.
+
+The fix is a fifteen-line Lua filter that I drop into the project root and wire up once.
+This post walks through what the filter does, how to set it up across an entire Hugo site, and a small caption convention that keeps things tidy.
+
+## The problem in pictures
+
+Here's what Quarto's `hugo-md` format produces by default when you have a chunk with a figure caption:
+
+````markdown
+```{r}
+#| label: tiny-plot
+#| fig-cap: "A small example plot"
+plot(1:10, main = "Hello")
+```
+````
+
+After rendering, the resulting `index.md` contains something like this:
+
+```html
+<figure>
+<img src="path/to/figure.png"
+     data-fig-alt="A small example plot"
+     alt="A small example plot" />
+<figcaption>A small example plot</figcaption>
+</figure>
+```
+
+That's a complete HTML `<figure>` block, embedded inside a markdown file.
+Hugo will happily pass that through to the rendered page as-is.
+But because it's _raw HTML_, Hugo's [image render hook][hugo-render-hooks] never sees it — render hooks only fire for genuine markdown image syntax (`![alt](src)`).
+
+That means:
+
+- My theme's responsive `srcset` and lazy-loading attributes don't get added.
+- The caption styling defined in my theme's `figure.html` partial doesn't apply.
+- Alt text and caption text are duplicated, which is verbose and slightly redundant for screen readers.
+- Dark-mode treatment of figure backgrounds (which my theme handles in CSS based on a class added by the render hook) is skipped.
+
+What I _want_ in the rendered `index.md` is just this:
+
+```markdown
+![A small example plot](path/to/figure.png)
+```
+
+With that, Hugo's render hook fires, my theme handles the figure markup, and everything is consistent with images I write into prose by hand.
+
+## A small Lua filter
+
+Quarto runs Pandoc under the hood, and Pandoc lets you intercept the document AST with a Lua filter before the final output is written.
+"AST" is short for **Abstract Syntax Tree** — the structured, in-memory representation a parser builds out of your document after reading it but before writing it back out in some target format.
+For our purposes, you can think of it as a tree of nodes where every paragraph, heading, image, and figure in your `.qmd` file becomes its own typed object that you can inspect or rewrite.
+That's what lets us say "find every `Figure` node and replace it with a markdown image", without having to do any error-prone string-matching on the rendered HTML.
+
+So a Lua filter gives us a clean place to convert Quarto's `Figure` nodes back into plain markdown image syntax — and only those nodes, leaving everything else alone.
+
+Here's the entire filter, sitting at `figure-to-markdown.lua` in the root of my Hugo repository:
+
+```lua
+function Figure(fig)
+  -- Check if there's an image in the figure
+  local img = fig.content[1]
+
+  if img and img.t == "Plain" and img.content[1] and img.content[1].t == "Image" then
+    local image = img.content[1]
+    local alt_text = pandoc.utils.stringify(image.caption)
+    local src = image.src
+    local title = image.title or ""
+
+    -- Get caption from figure if it exists
+    local caption_text = ""
+    if fig.caption and fig.caption.long then
+      caption_text = pandoc.utils.stringify(fig.caption.long)
+    end
+
+    -- Build markdown image syntax
+    local markdown_img = ""
+
+    if caption_text ~= "" and alt_text ~= caption_text then
+      markdown_img = "![" .. alt_text .. "](" .. src .. ' "' .. caption_text .. '")'
+    elseif caption_text ~= "" then
+      markdown_img = "![" .. caption_text .. "](" .. src .. ")"
+    elseif title ~= "" then
+      markdown_img = "![" .. alt_text .. "](" .. src .. ' "' .. title .. '")'
+    else
+      markdown_img = "![" .. alt_text .. "](" .. src .. ")"
+    end
+
+    return pandoc.Para({ pandoc.RawInline("markdown", markdown_img) })
+  end
+
+  -- If it's not a simple image figure, return as-is
+  return fig
+end
+```
+
+It's not glamorous code, but it's doing a few useful things.
+
+The `Figure` function is a Pandoc filter callback that fires once for each `Figure` element in the AST.
+For each one, the filter checks whether the figure is wrapping a plain image — the simple case Quarto generates for a code chunk that produced a plot.
+If so, it pulls out the image source, the alt text, and any separate caption, and rebuilds them as a markdown image link with the right shape.
+
+The four branches handle the cases where:
+
+1. **Both alt and caption exist and differ** — emit `![alt](src "caption")`. Markdown's title attribute is the slot most Hugo render hooks pick up as the caption text, while the alt text in the brackets becomes the `alt` attribute.
+2. **Only caption exists** — use the caption as the alt text. (For Quarto's `hugo-md` output, this is the most common case, because the alt and caption tend to come out identical in the AST.)
+3. **There's a title but no caption** — preserve the title as the caption slot.
+4. **Just alt** — emit a plain `![alt](src)`.
+
+Anything that isn't a simple image figure (custom HTML figures, multi-image figures, etc.) gets returned untouched.
+
+## Wiring it up
+
+There are two reasonable ways to wire the filter into your project: per-document or project-wide.
+
+### Per-document
+
+In each post's YAML frontmatter, point at the filter via a relative path:
+
+```yaml
+---
+title: "..."
+format:
+  hugo-md:
+    filters:
+      - ../../../../figure-to-markdown.lua
+---
+```
+
+Whether the path is `../../../../figure-to-markdown.lua` or something else depends on how deep your posts live below the project root.
+For my site, posts sit at `content/blog/YYYY/MM-DD_slug/index.qmd`, which is four directories deep — hence the four `..` segments.
+
+This approach is fine if you only want the filter on certain posts.
+But if every post in your blog should use the filter (likely true if your Hugo theme handles all images consistently), repeating that block in every YAML header is the kind of thing you'll forget to do exactly once and then have a mystery to debug later.
+
+### Project-wide via `_quarto.yml`
+
+A cleaner approach is to declare the filter once in your project's root `_quarto.yml`, like so:
+
+```yaml
+project:
+  type: default
+
+format:
+  hugo-md:
+    filters:
+      - figure-to-markdown.lua
+```
+
+Note that the path is just `figure-to-markdown.lua` — when filters are declared at the project level in `_quarto.yml`, Quarto resolves the path relative to the project root, so no `../../..` gymnastics are needed.
+
+After this, every `qmd` file rendered with `format: hugo-md` will automatically run the filter.
+Posts that previously had their own per-document filter line can drop it; posts that didn't have it picked up the new behaviour for free.
+
+If you have specific posts that should _not_ run the filter (say, an essay post where you've hand-crafted some HTML and want it preserved), you can override at the document level — Quarto's filter resolution merges document-level and project-level filters, so you can also remove the project filter just for one document by setting an empty filters list.
+
+## A small caption convention
+
+Once the filter is in place, there's one convention worth landing on, because the markdown image syntax has fewer text slots than Quarto's full `<figure>` HTML.
+
+Markdown gives you exactly two text slots:
+
+```markdown
+![alt text goes here](path/to/img.png "title text goes here")
+```
+
+- `alt text` becomes the `alt` HTML attribute (read by screen readers).
+- `title text` becomes the `title` attribute, which most Hugo render hooks repurpose as the visible caption.
+
+The filter takes Quarto's `fig-cap` and uses it for both alt and title slots when only one is present.
+This is fine, but it pushes you toward a small writing convention: write `fig-cap` as a **descriptive caption that also reads well as alt text**.
+
+Practically, that means avoiding terse takeaway-style captions like:
+
+```r
+#| fig-cap: "Lots of progress this year"
+```
+
+…in favour of something more descriptive:
+
+```r
+#| fig-cap: "Mean activation across voxels for Subject 01. Brighter values indicate higher signal intensity, with the contour of a brain visible in the centre."
+```
+
+The second version reads like a proper figure caption to a sighted reader and gives a screen reader user a useful description of what the figure shows.
+You don't need to cover every detail; one or two sentences that say "what is this and what should I notice in it" is plenty.
+
+If a post genuinely needs distinct alt and caption text, you can still set both `fig-alt` and `fig-cap` in the chunk options — the filter's first branch handles that case and emits `![fig-alt](src "fig-cap")`.
+For most posts, though, a single descriptive `fig-cap` is enough.
+
+## Why bother with this at all?
+
+There are a few reasons I think it's worth the small bit of setup:
+
+1. **Consistency across image sources.** Once every figure goes through the same render hook, plot images and prose-embedded images get the same caption styling, lazy loading, srcset, and dark-mode behaviour. No "this image is from a code chunk and renders slightly differently" oddities.
+2. **Clean diffs in your `index.md`.** When a Quarto render produces simple markdown image lines instead of multi-line HTML blocks, your generated markdown is easier to read and diff. Useful for catching unintended changes when re-rendering.
+3. **Theme portability.** If you switch Hugo themes one day, the filter keeps working. Themes vary a lot in how they handle raw HTML figures, but virtually all of them support markdown image render hooks.
+4. **It's tiny.** Fifteen-ish lines of Lua, one entry in `_quarto.yml`. Almost nothing to maintain.
+
+## Where to grab the filter
+
+The Lua filter I use lives at the root of [my Hugo blog repo](https://github.com/drmowinckels/drmowinckels.github.io), as `figure-to-markdown.lua`.
+Drop it into the root of your own Hugo repo, add the `_quarto.yml` snippet, and you should be set.
+
+If your project structure is different — say, your Quarto sources live under a `posts/` subfolder rather than `content/blog/` — only the path-resolution comments above need adjusting.
+The filter itself doesn't care.
+
+There's nothing exciting about this filter, but it's one of those small bits of plumbing that quietly makes everything else fit together.
+That's usually a sign worth keeping.
+
+[hugo-render-hooks]: https://gohugo.io/render-hooks/images/
