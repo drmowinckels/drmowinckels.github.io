@@ -419,7 +419,7 @@ cp
            ~~   : S4 class containing 14 slots with names
                   cpts.full pen.value.full data.set cpttype method test.stat pen.type pen.value minseglen cpts ncpts.max param.est date version 
 
-    Created on  : Sat May  2 12:49:35 2026 
+    Created on  : Sun May  3 16:38:35 2026 
 
     summary(.)  :
     ----------
@@ -1342,3 +1342,10 @@ Now, its time to rely on my self.
 However, seeing the possible downward trends in my HRV (increased spread in measurements and lowering of my mean level), I will continue taking measurements untill I am certain that is not what is happening.
 
 After all, what is the point of these analyses if not to help me make decisions to improve my recovery?
+
+If you use Visible and are interested in a similar digest of your data, I made a [browser application](https://drmowinckels.io/visible/) that can create plots similar to those in this post to help you see patterns in your own data.
+It does everything in your browser, so your data is completely safe, its your own device that is doing the work.
+
+Note that the larger data you have, the more patience you need for it to load in the beginning.
+Likewise if you are trying it on your phone, its really best done on a computer.
+I hope it can help unveil valuable information for you.
