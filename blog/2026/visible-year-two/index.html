@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Two Years of Visible: New Angles on the Long Covid Data - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="It’s been two years since I started tracking my Long Covid with the Visible app, and a year since I last sat down with the data here on the blog. This post is a follow-up — same data, but now with twice as much of it, a clearer improvement arc, and some new plots and analyses I hadn’t tried before. Calendar heatmaps, ridgeline plots, change-point detection, and a phase-by-phase look at how my morning stability score moves across the menstrual cycle all make an appearance, alongside a quick check on whether last year’s symptom clusters still hold up." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/visible-year-two/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Two Years of Visible: New Angles on the Long Covid Data - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Two years of Long Covid data with the Visible app — calendar heatmaps, ridgeline plots, change-point detection, and stability score across menstrual cycle phases.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Two Years of Visible: New Angles on the Long Covid Data - Dr. Mowinckel&rsquo;s">
+<meta name="twitter:description" content="Two years of Long Covid data with the Visible app — calendar heatmaps, ridgeline plots, change-point detection, and stability score across menstrual cycle phases.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/visible-year-two/index.markdown_strict_files/figure-markdown_strict/stability-calendar-1.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/visible-year-two/index.markdown_strict_files/figure-markdown_strict/stability-calendar-1.png">
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f46eae58a95bd13440b3845d08d3bd2a3c54bc821ea91aa96d9efc2052ca1496.css" 
+    integrity="sha256-9G6uWKlb0TRAs4RdCNO9KjxUvIIeqRqpbZ78IFLKFJY=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            
+            <img src="https://drmowinckels.io/blog/2026/visible-year-two/index.markdown_strict_files/figure-markdown_strict/stability-calendar-1.png" alt="A calendar heatmap of daily stability scores across two years, with each cell coloured by the day&#39;s score. The first year is darker and patchier; the second year is noticeably lighter and more even, especially through the spring of 2026." class="uk-border-rounded">
+            
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Two Years of Visible: New Angles on the Long Covid Data</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    May 4, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags">
+                            R
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/health-data/" class="uk-label uk-label-secondary tags">
+                            Health-Data
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label uk-label-secondary tags">
+                            Longcovid
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#loading-two-years-of-data">Loading two years of data</a></li>
+    <li><a href="#how-did-the-funcap27-actually-move">How did the FUNCAP27 actually move?</a>
+      <ul>
+        <li><a href="#zooming-out-overall-funcap-across-time">Zooming out: overall FUNCAP across time</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-improvement-arc-as-a-calendar-heatmap">The improvement arc as a calendar heatmap</a></li>
+    <li><a href="#distribution-shifts-in-hrv">Distribution shifts in HRV</a></li>
+    <li><a href="#when-did-things-actually-turn">When did things actually turn?</a>
+      <ul>
+        <li><a href="#does-hrv-agree">Does HRV agree?</a></li>
+      </ul>
+    </li>
+    <li><a href="#stability-score-across-the-menstrual-cycle">Stability score across the menstrual cycle</a>
+      <ul>
+        <li><a href="#what-about-hr-and-hrv-across-the-cycle">What about HR and HRV across the cycle?</a></li>
+      </ul>
+    </li>
+    <li><a href="#does-pushing-today-predict-the-days-after">Does pushing today predict the days after?</a>
+      <ul>
+        <li><a href="#what-about-the-days-before-an-actual-crash">What about the days before an actual crash?</a></li>
+      </ul>
+    </li>
+    <li><a href="#wrapping-up">Wrapping up</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">It&rsquo;s been two years since I started tracking my Long Covid with the Visible app, and a year since I last sat down with the data here on the blog. This post is a follow-up — same data, but now with twice as much of it, a clearer improvement arc, and some new plots and analyses I hadn&rsquo;t tried before. Calendar heatmaps, ridgeline plots, change-point detection, and a phase-by-phase look at how my morning stability score moves across the menstrual cycle all make an appearance, alongside a quick check on whether last year&rsquo;s symptom clusters still hold up.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>It&rsquo;s been a full year since I <a href="../../../../blog/2025/visible-pca">last dove into my Visible data here</a>, and almost two since I <a href="../../../../blog/2025/visible">first wrote about it</a>.
+A lot has happened in that time &mdash; most importantly, I&rsquo;m doing <em>better</em>.
+Not all the way better, but better.
+Better enough that I sometimes forget for a few hours that I&rsquo;m sick, which I genuinely could not have said this time last year.</p>
+<p>This time, I thought I&rsquo;d sit down with the same export again &mdash; now with twice as much data &mdash; and try out some new plots and analyses I haven&rsquo;t shown here before.
+I&rsquo;m not going to re-do everything from before, so go check out <a href="../../../../blog/2025/visible">those</a> <a href="../../../../blog/2025/visible-pca">two</a> posts if you want the full backstory and the original analyses.
+What I <em>do</em> want to do is look at things year-over-year, see whether my slow improvement actually shows up clearly in the numbers, and try a few techniques I&rsquo;ve been itching to play with.</p>
+<h2 id="loading-two-years-of-data">Loading two years of data</h2>
+<p>Getting the data out is exactly as easy as last year &mdash; Visible&rsquo;s &ldquo;Export Health Data&rdquo; button still gives a tidy CSV, and the structure hasn&rsquo;t changed.
+So I&rsquo;ll just plug the new export straight into the same cleaning pipeline I built last year.
+If the cleaning steps look unfamiliar, the <a href="../../../../blog/2025/visible">first post</a> walks through them in detail.</p>
+<p>Then I&rsquo;ll add a simple <code>year</code> indicator that splits the data roughly in half.
+<strong>Year 1</strong> is the period covered by last year&rsquo;s posts (April 2024 &ndash; April 2025), and <strong>Year 2</strong> is everything since (May 2025 &ndash; April 2026).
+This is the split I&rsquo;ll lean on for most of what follows.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>visible <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    year <span style="color:#f92672">=</span> <span style="color:#a6e22e">if_else</span>(odate <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">as.Date</span>(<span style="color:#e6db74">&#34;2025-05-01&#34;</span>), <span style="color:#e6db74">&#34;Year 1&#34;</span>, <span style="color:#e6db74">&#34;Year 2&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">count</span>(visible, year)
+</span></span></code></pre></div></details>
+<pre><code># A tibble: 2 × 2
+  year       n
+  &lt;chr&gt;  &lt;int&gt;
+1 Year 1 11836
+2 Year 2 11490
+</code></pre>
+<h2 id="how-did-the-funcap27-actually-move">How did the FUNCAP27 actually move?</h2>
+<p>The FUNCAP27 is the most rigorous measure in this dataset, since it was actually built and validated for ME/CFS.
+Higher score = more functional capacity, i.e. more daily life I can do without paying for it later.
+Last year I plotted FUNCAP over time as a smooth, and could squint and see <em>some</em> improvement.
+With another year in the bag, I want something more direct: did each FUNCAP category actually move between the two years, and if so, by how much?</p>
+<p>A <strong>slope chart</strong> is perfect for this.
+One line per category, drawn from its Year-1 mean to its Year-2 mean.
+Going up means improving, flat means stuck, and going down means&hellip; well, hopefully not.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggrepel)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>funcap_yearly <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(category <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;FunCap27&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(year, type) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarise</span>(
+</span></span><span style="display:flex;"><span>    score <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(value, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>),
+</span></span><span style="display:flex;"><span>    se <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(value, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">sum</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(value))),
+</span></span><span style="display:flex;"><span>    ci_lower <span style="color:#f92672">=</span> score <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    ci_upper <span style="color:#f92672">=</span> score <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(type) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    y1_upper <span style="color:#f92672">=</span> ci_upper[year <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Year 1&#34;</span>],
+</span></span><span style="display:flex;"><span>    y1_lower <span style="color:#f92672">=</span> ci_lower[year <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Year 1&#34;</span>],
+</span></span><span style="display:flex;"><span>    y2_upper <span style="color:#f92672">=</span> ci_upper[year <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Year 2&#34;</span>],
+</span></span><span style="display:flex;"><span>    y2_lower <span style="color:#f92672">=</span> ci_lower[year <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Year 2&#34;</span>],
+</span></span><span style="display:flex;"><span>    meaningful <span style="color:#f92672">=</span> y2_lower <span style="color:#f92672">&gt;</span> y1_upper <span style="color:#f92672">|</span> y2_upper <span style="color:#f92672">&lt;</span> y1_lower
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ungroup</span>() <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(highlight <span style="color:#f92672">=</span> <span style="color:#a6e22e">if_else</span>(meaningful, <span style="color:#e6db74">&#34;Meaningful change&#34;</span>, <span style="color:#e6db74">&#34;Within noise&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dodge <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">position_dodge</span>(width <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.35</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(
+</span></span><span style="display:flex;"><span>  funcap_yearly,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> year, y <span style="color:#f92672">=</span> score, group <span style="color:#f92672">=</span> type, colour <span style="color:#f92672">=</span> highlight)
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> dodge,
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_errorbar</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(ymin <span style="color:#f92672">=</span> ci_lower, ymax <span style="color:#f92672">=</span> ci_upper),
+</span></span><span style="display:flex;"><span>    width <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.12</span>,
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> dodge,
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> dodge,
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_text_repel</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> <span style="color:#a6e22e">filter</span>(funcap_yearly, year <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Year 2&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(label <span style="color:#f92672">=</span> type),
+</span></span><span style="display:flex;"><span>    position <span style="color:#f92672">=</span> dodge,
+</span></span><span style="display:flex;"><span>    direction <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    segment.alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>,
+</span></span><span style="display:flex;"><span>    box.padding <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>,
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_discrete</span>(expand <span style="color:#f92672">=</span> <span style="color:#a6e22e">expansion</span>(mult <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.15</span>, <span style="color:#ae81ff">0.45</span>))) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_y_continuous</span>(limits <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">6</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_manual</span>(
+</span></span><span style="display:flex;"><span>    values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Meaningful change&#34;</span> <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Within noise&#34;</span> <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>grey
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Four FUNCAP categories moved meaningfully — four didn&#39;t&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Year 1 → Year 2 mean scores with 95% CIs. Coloured = CIs don&#39;t overlap; grey = within noise.&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean score (0–6)&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/funcap-slope-1.png" 
+         alt="Walking, upright, home and concentration moved meaningfully between Year 1 and Year 2; hygiene, communication, outside and light stayed within sampling noise." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Walking, upright, home and concentration moved meaningfully between Year 1 and Year 2; hygiene, communication, outside and light stayed within sampling noise.
+        </figcaption>
+        
+    </figure><p>This is the visual confirmation of what I&rsquo;ve been feeling &mdash; but the CIs do the work of telling me which of these movements are real.</p>
+<p>The lines whose Year 1 and Year 2 error bars <strong>don&rsquo;t overlap</strong> are the ones I should actually believe in.
+<strong>Walking</strong>, <strong>upright</strong>, and <strong>home</strong> all move a long way and the CI bars sit comfortably apart.
+Those are the genuine, can&rsquo;t-be-explained-by-noise improvements.
+A year ago I was timing every walk in minutes; this year I&rsquo;m walking enough that I&rsquo;ve stopped counting.
+<strong>Concentration</strong> also has clearly separated CIs &mdash; I feel that one daily, since I can read a news article now without losing the thread halfway through.</p>
+<p>The lines where the CIs <strong>do</strong> overlap are the ones I shouldn&rsquo;t read too much into.
+<strong>Communication</strong>, <strong>hygiene</strong>, and <strong>outside</strong> all move a little, but the error bars cross &mdash; those changes are within noise.
+<strong>Light</strong> drifts down, but again the CIs overlap, so calling it &ldquo;worse&rdquo; would be over-claiming.
+What I can honestly say is that none of those four got dramatically better <em>or</em> worse &mdash; they&rsquo;re holding pattern.</p>
+<h3 id="zooming-out-overall-funcap-across-time">Zooming out: overall FUNCAP across time</h3>
+<p>The slope chart compresses two years into two points per category, which makes movement legible but hides the path.
+A simple line chart of the <strong>overall FUNCAP score</strong> &mdash; the mean across all eight categories on each monthly check-in &mdash; shows what the journey actually looked like.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>rehab_date <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.Date</span>(<span style="color:#e6db74">&#34;2025-01-09&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>funcap_overall <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(category <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;FunCap27&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(odate) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarise</span>(score <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(value, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>), .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(funcap_overall, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> odate, y <span style="color:#f92672">=</span> score)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_vline</span>(
+</span></span><span style="display:flex;"><span>    xintercept <span style="color:#f92672">=</span> rehab_date,
+</span></span><span style="display:flex;"><span>    linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dashed&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.6</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> rehab_date,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#ae81ff">5.6</span>,
+</span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Rehab&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>    label.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">-0.15</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_y_continuous</span>(limits <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">6</span>), breaks <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_date</span>(date_breaks <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;3 months&#34;</span>, date_labels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%b %Y&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Overall FUNCAP score climbs across the two years&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean across all eight FUNCAP27 categories per monthly check-in.&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Overall FUNCAP score (0–6)&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/funcap-overall-1.png" 
+         alt="Overall FUNCAP score across the two years. The score is the mean of all eight FUNCAP27 categories on each monthly check-in. The coral dashed line marks the rehab cutoff identified later in the post." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Overall FUNCAP score across the two years. The score is the mean of all eight FUNCAP27 categories on each monthly check-in. The coral dashed line marks the rehab cutoff identified later in the post.
+        </figcaption>
+        
+    </figure><p>This is the trajectory view I find easiest to describe out loud.
+The line starts at about 2.9, then drops sharply to 2.0 in May 2024 &mdash; the worst month of my bed-bound stretch &mdash; before slowly climbing back up through the second half of 2024 and into the high-2s.
+Around the rehab cutoff at the start of 2025 it crosses into the 3s, and from there it keeps grinding upward through 2025 and into 2026, settling in the 3.5&ndash;3.7 range.</p>
+<p>The shape is the same one I felt living it: a dramatic plunge into the worst of it, a slow climb out, a structural lift around rehab, and a steady drift toward better that hasn&rsquo;t fully stopped.
+A FUNCAP score of 6 is &ldquo;fully functional&rdquo; and 0 is &ldquo;completely incapacitated&rdquo;; I&rsquo;m not at 6, and I might never be, but the journey from a 2.0 floor to a 3.7 ceiling over two years is real and visible in the same chart that fits on a phone screen.</p>
+<h2 id="the-improvement-arc-as-a-calendar-heatmap">The improvement arc as a calendar heatmap</h2>
+<p>The slope chart is great for &ldquo;did things change&rdquo;, but it tells you nothing about <em>when</em>.
+For that I want something I haven&rsquo;t used on this blog before &mdash; a <strong>calendar heatmap</strong>.
+One tile per day, coloured by stability score.
+You essentially get a year laid out like an actual calendar, with the colour telling you how I was doing.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>stability <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Stability Score&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transmute</span>(
+</span></span><span style="display:flex;"><span>    odate,
+</span></span><span style="display:flex;"><span>    score <span style="color:#f92672">=</span> value,
+</span></span><span style="display:flex;"><span>    year_label <span style="color:#f92672">=</span> <span style="color:#a6e22e">format</span>(odate, <span style="color:#e6db74">&#34;%Y&#34;</span>),
+</span></span><span style="display:flex;"><span>    week <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.numeric</span>(<span style="color:#a6e22e">format</span>(odate, <span style="color:#e6db74">&#34;%W&#34;</span>)),
+</span></span><span style="display:flex;"><span>    weekday <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">format</span>(odate, <span style="color:#e6db74">&#34;%A&#34;</span>),
+</span></span><span style="display:flex;"><span>      levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Monday&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Tuesday&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Wednesday&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Thursday&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Friday&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Saturday&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Sunday&#34;</span>
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    month <span style="color:#f92672">=</span> <span style="color:#a6e22e">format</span>(odate, <span style="color:#e6db74">&#34;%b&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(stability, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> week, y <span style="color:#f92672">=</span> <span style="color:#a6e22e">fct_rev</span>(weekday), fill <span style="color:#f92672">=</span> score)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_tile</span>(colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>, linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_grid</span>(
+</span></span><span style="display:flex;"><span>    year_label <span style="color:#f92672">~</span> .,
+</span></span><span style="display:flex;"><span>    scales <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;free_x&#34;</span>,
+</span></span><span style="display:flex;"><span>    space <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;free_x&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(
+</span></span><span style="display:flex;"><span>    colours <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>secondary,
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>quat,
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>tertiary,
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    limits <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>),
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Stability&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Daily stability score, two years on a calendar&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Each tile is one day; colour is the morning stability score (1–5)&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Week of year&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Stability&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme</span>(
+</span></span><span style="display:flex;"><span>    panel.grid <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_blank</span>(),
+</span></span><span style="display:flex;"><span>    axis.text.x <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(angle <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/stability-calendar-1.png" 
+         alt="Two years of daily stability scores laid out as a calendar. The 2024 panel is darker and patchier; from late 2024 onwards the colour is noticeably warmer and more even, especially through 2026." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Two years of daily stability scores laid out as a calendar. The 2024 panel is darker and patchier; from late 2024 onwards the colour is noticeably warmer and more even, especially through 2026.
+        </figcaption>
+        
+    </figure><p>You can <em>see</em> the improvement in this plot in a way the smoothed line graphs from last year never quite captured.
+The early months of 2024 are dark and patchy &mdash; lots of low scores scattered next to higher ones, which is the chaos I described in the original post.
+By late 2024 the colour is more even, mostly mid-range.
+And then the second half of 2025 onwards is noticeably brighter and more consistent.</p>
+<p>You can also see I had a bit of a destabilising period this year. It was around the end of February, and I had just got my Claude Max subscription.
+I got into a whole frenzy of feeling I could do <em>all the things</em> I wanted to but had not been cognitively able to now that I had Claude&rsquo;s help.
+But, yeah, I had a pretty big crash from that, and it took me almost 5 weeks to get back to feeling the same as before that crash.</p>
+<p>I keep returning to this plot.
+It&rsquo;s the most honest visual summary of &ldquo;how the last two years have been&rdquo; that I&rsquo;ve made.</p>
+<h2 id="distribution-shifts-in-hrv">Distribution shifts in HRV</h2>
+<p>Heart rate variability is the metric I trust the most from the morning measurements, because it&rsquo;s measured rather than self-reported.
+But HRV is noisy on any given day &mdash; what I really care about is whether the <em>distribution</em> has shifted.</p>
+<p>A <strong>ridgeline plot</strong> is the right tool here.
+One density curve per month, stacked vertically, so you can see how the shape of the distribution moves over time.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggridges)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;HRV&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(month <span style="color:#f92672">=</span> <span style="color:#a6e22e">floor_date</span>(odate, <span style="color:#e6db74">&#34;month&#34;</span>)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> value, y <span style="color:#f92672">=</span> month, group <span style="color:#f92672">=</span> month, fill <span style="color:#f92672">=</span> <span style="color:#a6e22e">stat</span>(x))) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_density_ridges_gradient</span>(
+</span></span><span style="display:flex;"><span>    scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.2</span>,
+</span></span><span style="display:flex;"><span>    rel_min_height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>,
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_y_date</span>(date_breaks <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2 months&#34;</span>, date_labels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%b %Y&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_gradientn</span>(
+</span></span><span style="display:flex;"><span>    colours <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>secondary,
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>quat,
+</span></span><span style="display:flex;"><span>      visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HRV distributions, month by month&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Each ridge is one month of morning measurements&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Heart rate variability (ms)&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/hrv-ridgeline-1.png" 
+         alt="Monthly distributions of morning HRV stacked as ridgelines. The mean barely moves over the two years, but the spread tightens — early-2024 distributions are wide with long right tails, and the more recent months are noticeably narrower." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Monthly distributions of morning HRV stacked as ridgelines. The mean barely moves over the two years, but the spread tightens — early-2024 distributions are wide with long right tails, and the more recent months are noticeably narrower.
+        </figcaption>
+        
+    </figure><p>What I&rsquo;m looking for here isn&rsquo;t really the means moving &mdash; they&rsquo;re broadly stable.
+What I&rsquo;m looking for is the <em>shape</em> getting tighter.
+The early months of 2024 have wide, lumpy distributions, with long tails out to the right where the occasional spike sits.
+Most of the more recent months are narrower and more symmetric, with the long tails appearing less often.</p>
+<p>That tightening is the bit I find most reassuring.
+As I mentioned <a href="../../../../blog/2025/visible">last year</a>, big HRV spikes for me are usually a warning sign that a crash is coming.
+So a tighter distribution doesn&rsquo;t just mean &ldquo;more average days&rdquo; &mdash; it means fewer of the warning-sign spikes that used to arrive in clusters.
+Fewer spikes and fewer dips is the win here, not just &ldquo;higher numbers on average&rdquo;.</p>
+<p>That being said, the last couple months look a little worse again, which is likely because I have been increasing activity quite a lot.
+I might need to remember to give myself a little more rest once in a while.</p>
+<h2 id="when-did-things-actually-turn">When did things actually turn?</h2>
+<p>I&rsquo;ve been telling myself a story about Dr. Simon&rsquo;s pacing strategy and the rehab stay being the turning points.
+But that&rsquo;s me retrofitting a story onto a feeling.
+Can the data actually tell us <em>when</em> things shifted?</p>
+<p>The technique I want is <strong>change-point detection</strong> &mdash; finding the points in a time series where the underlying mean (or variance) shifts.
+The <code>changepoint</code> package gives you a clean way to do this with <code>cpt.mean()</code>.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(changepoint)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>stability_ts <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Stability Score&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cpt.mean</span>(
+</span></span><span style="display:flex;"><span>  stability_ts,
+</span></span><span style="display:flex;"><span>  method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BinSeg&#34;</span>,
+</span></span><span style="display:flex;"><span>  Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>  penalty <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BIC&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp
+</span></span></code></pre></div></details>
+<pre><code>Class 'cpt' : Changepoint Object
+       ~~   : S4 class containing 14 slots with names
+              cpts.full pen.value.full data.set cpttype method test.stat pen.type pen.value minseglen cpts ncpts.max param.est date version 
+
+Created on  : Sun May  3 16:38:35 2026 
+
+summary(.)  :
+----------
+Created Using changepoint version 2.3 
+Changepoint type      : Change in mean 
+Method of analysis    : BinSeg 
+Test Statistic  : Normal 
+Type of penalty       : BIC with value, 13.16405 
+Minimum Segment Length : 1 
+Maximum no. of cpts   : 4 
+Changepoint Locations : 249 
+Range of segmentations:
+     [,1] [,2] [,3] [,4]
+[1,]  249   NA   NA   NA
+[2,]  249  132   NA   NA
+[3,]  249  132   10   NA
+[4,]  249  132   10  172
+
+ For penalty values: 20.71083 8.262984 7.87305 3.443767 
+</code></pre>
+<p><code>BinSeg</code> is binary segmentation &mdash; it splits the series, then splits each segment again, up to <code>Q</code> change points.
+I&rsquo;ve capped it at 4 because more than that and we&rsquo;re just overfitting to the noise.
+The <code>penalty = &quot;BIC&quot;</code> is a fairly standard way of saying &ldquo;don&rsquo;t add change points unless they really earn their keep&rdquo;.</p>
+<p>To see where they actually fell on the calendar, I&rsquo;ll pull the change-point indices and convert them back to dates.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cp_dates <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Stability Score&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">cpts</span>(cp)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(odate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp_dates
+</span></span></code></pre></div></details>
+<pre><code>[1] &quot;2025-01-09&quot;
+</code></pre>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Stability Score&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> odate, y <span style="color:#f92672">=</span> value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>(
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>,
+</span></span><span style="display:flex;"><span>    height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>grey,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(
+</span></span><span style="display:flex;"><span>    se <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_vline</span>(
+</span></span><span style="display:flex;"><span>    xintercept <span style="color:#f92672">=</span> cp_dates,
+</span></span><span style="display:flex;"><span>    linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dashed&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_date</span>(date_breaks <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;3 months&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Stability score with detected change points&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Dashed line = where the mean shifts according to BinSeg&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Stability score&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/changepoint-plot-1.png" 
+         alt="Daily morning stability score across two years, with the single change point detected by binary segmentation marked as a coral dashed line — landing right around the rehab period in early 2025." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Daily morning stability score across two years, with the single change point detected by binary segmentation marked as a coral dashed line — landing right around the rehab period in early 2025.
+        </figcaption>
+        
+    </figure><p>Despite asking for up to four change points, the algorithm only commits to <strong>one</strong> &mdash; and it lands right around the end of 2024 / start of 2025.
+That&rsquo;s almost exactly when I went into rehab, and the period right after when my stability score quietly settled into a higher, less chaotic regime.</p>
+<p>Honestly, I find this surprising.
+I have a very clear timeline in my head and journal, corroborated by my wife, that my improvement started earlier.
+The slope kind of looks like that too, but it seems the stability data does not have enough variation in it to show this.
+This makes sense, its just a 5-point scale.
+We likely need data with more variability in the measurement to get a clearer answer.</p>
+<h3 id="does-hrv-agree">Does HRV agree?</h3>
+<p>Stability score is a derived metric &mdash; Visible computes it from heart rate, HRV, and the previous evening&rsquo;s symptom scores using their own algorithms.
+So when the change-point algorithm tells me &ldquo;stability shifted around rehab&rdquo;, I have to wonder how much of that is the underlying physiology and how much is just my own self-rated symptom scores feeding into the composite.
+The cleanest way to check is to run the same analysis on a single <em>measured</em> signal &mdash; HRV &mdash; and see whether it picks the same date.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>hrv_ts <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;HRV&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp_hrv <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cpt.mean</span>(
+</span></span><span style="display:flex;"><span>  hrv_ts,
+</span></span><span style="display:flex;"><span>  method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BinSeg&#34;</span>,
+</span></span><span style="display:flex;"><span>  Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>  penalty <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BIC&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp_hrv_dates <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;HRV&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">cpts</span>(cp_hrv)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(odate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp_hrv_dates
+</span></span></code></pre></div></details>
+<pre><code>[1] &quot;2024-06-30&quot; &quot;2024-09-11&quot; &quot;2024-12-11&quot; &quot;2025-02-27&quot;
+</code></pre>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cp_hrv_labels <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  date <span style="color:#f92672">=</span> cp_hrv_dates,
+</span></span><span style="display:flex;"><span>  label <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;End of bed-bound stretch&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Pacing strategy lands&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Run-up to rehab&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Post-rehab consolidation&#34;</span>
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  y_pos <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.8</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hrv_y_max <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">max</span>(visible<span style="color:#f92672">$</span>value[visible<span style="color:#f92672">$</span>tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;HRV&#34;</span>], na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;HRV&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> odate, y <span style="color:#f92672">=</span> value)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_jitter</span>(
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>,
+</span></span><span style="display:flex;"><span>    height <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>grey,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_smooth</span>(
+</span></span><span style="display:flex;"><span>    se <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_vline</span>(
+</span></span><span style="display:flex;"><span>    xintercept <span style="color:#f92672">=</span> cp_hrv_dates,
+</span></span><span style="display:flex;"><span>    linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dashed&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_vline</span>(
+</span></span><span style="display:flex;"><span>    xintercept <span style="color:#f92672">=</span> cp_dates,
+</span></span><span style="display:flex;"><span>    linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dotted&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>secondary,
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_label</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> cp_hrv_labels,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(
+</span></span><span style="display:flex;"><span>      x <span style="color:#f92672">=</span> date,
+</span></span><span style="display:flex;"><span>      y <span style="color:#f92672">=</span> hrv_y_max <span style="color:#f92672">+</span> <span style="color:#ae81ff">12</span> <span style="color:#f92672">*</span> y_pos,
+</span></span><span style="display:flex;"><span>      label <span style="color:#f92672">=</span> label
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.8</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>    label.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>,
+</span></span><span style="display:flex;"><span>    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_segment</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> cp_hrv_labels,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(
+</span></span><span style="display:flex;"><span>      x <span style="color:#f92672">=</span> date,
+</span></span><span style="display:flex;"><span>      xend <span style="color:#f92672">=</span> date,
+</span></span><span style="display:flex;"><span>      y <span style="color:#f92672">=</span> hrv_y_max <span style="color:#f92672">+</span> <span style="color:#ae81ff">12</span> <span style="color:#f92672">*</span> y_pos,
+</span></span><span style="display:flex;"><span>      yend <span style="color:#f92672">=</span> hrv_y_max <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>,
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_date</span>(date_breaks <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;3 months&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_y_continuous</span>(expand <span style="color:#f92672">=</span> <span style="color:#a6e22e">expansion</span>(mult <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.3</span>))) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_cartesian</span>(clip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;off&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HRV picks out four moments along the improvement arc&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Coral dashed = HRV change points (each labelled with the event it lines up with). Teal dotted = stability score change point.&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HRV (ms)&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/changepoint-hrv-1.png" 
+         alt="Daily morning HRV with four detected change points (coral dashed lines), each labelled with the timeline event it lines up with. The single stability-score change point sits in between the third and fourth HRV change points (teal dotted line)." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Daily morning HRV with four detected change points (coral dashed lines), each labelled with the timeline event it lines up with. The single stability-score change point sits in between the third and fourth HRV change points (teal dotted line).
+        </figcaption>
+        
+    </figure><p>The HRV series is noisier than stability score, and the algorithm reflects that &mdash; instead of committing to a single decisive shift, it picks up <strong>four</strong> change points spread across the journey:</p>
+<ul>
+<li><strong>2024-06-30</strong> &mdash; late spring / early summer 2024</li>
+<li><strong>2024-09-11</strong> &mdash; September 2024</li>
+<li><strong>2024-12-11</strong> &mdash; December 2024</li>
+<li><strong>2025-02-27</strong> &mdash; late February 2025</li>
+</ul>
+<p>These fit quite nicely into the narrative I have seen myself:</p>
+<ul>
+<li>June 2024 sits roughly where the worst-of-the-worst bed-bound stretch tapered off and I started inching back toward function.</li>
+<li>September 2024 is right after I really committed to Dr. Simon&rsquo;s pacing strategy in August and started taking the 30-second-break thing seriously.</li>
+<li>December 2024 is the run-up to rehab, when I was finally letting myself stop pushing.</li>
+<li>February 2025 is post-rehab, when the new, calmer rhythm had bedded in.</li>
+</ul>
+<p>So HRV doesn&rsquo;t disagree with stability score &mdash; it just sees the journey at higher resolution.
+The single stability-score change point in January 2025 is sitting in the gap between the December and February HRV change points, where it makes sense for a smoothed composite to land.
+A reasonable reading: the rehab transition wasn&rsquo;t a single jump but a gradual handover that started before rehab and finished a couple of months after, and HRV is sensitive enough to pick up the start and end of that handover where stability score papers over them.</p>
+<p>That&rsquo;s actually the cross-validation I was hoping for, with a bonus.
+I&rsquo;m not reading my own narrative back into the data through self-rated symptoms, because the same general pattern of structural change shows up in a purely measured signal &mdash; and one that picks out multiple individually meaningful moments along the way, not just the headline shift.</p>
+<p>I&rsquo;ll keep using the stability-score change point as the cutoff for the rest of the analyses below, since it&rsquo;s the cleaner single date &mdash; but the HRV result is the receipt that says it isn&rsquo;t a self-rating artefact, and the bonus that the path of improvement had distinct chapters rather than one big inflection.</p>
+<h2 id="stability-score-across-the-menstrual-cycle">Stability score across the menstrual cycle</h2>
+<p>So far everything I&rsquo;ve shown ignores one of the most reliable rhythms in my data: the menstrual cycle.
+Last year&rsquo;s clustering grouped &ldquo;period&rdquo; together with stomach pain, muscle aches, light sensitivity, and constipation, and I left it there as the <strong>Menstruation cluster</strong> without going any further.
+But a cycle is far more than just the days you bleed.
+The four-ish weeks between periods come with a whole symphony of hormonal changes, and the question I really want to ask is: does my <strong>morning stability score</strong> &mdash; the headline metric Visible gives me each day &mdash; actually move with my cycle?</p>
+<p>Stability score is the right thing to look at here because it&rsquo;s the closest thing in this dataset to a single number summarising &ldquo;how is my body coping today&rdquo;.
+I know what I&rsquo;ve observed on my own, and it&rsquo;s not the <a href="https://www.medrxiv.org/content/10.1101/2025.01.24.25321092v2">expected pattern</a> of being worse during menstruation, which also was the reason it tok me so long to notice the correlation.</p>
+<p>The first step is to figure out when each cycle starts.
+Visible&rsquo;s <code>Period</code> tracker is logged on each day I&rsquo;m bleeding, so a new cycle begins on the first day of a run of period entries that follows a non-period day.
+That&rsquo;s a one-liner with <code>lag()</code>.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>period_data <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Period&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    on_period <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(value) <span style="color:#f92672">&amp;</span> value <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    new_cycle <span style="color:#f92672">=</span> on_period <span style="color:#f92672">&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">lag</span>(on_period, default <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cycle_starts <span style="color:#f92672">&lt;-</span> period_data <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(new_cycle) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(odate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">length</span>(cycle_starts)
+</span></span></code></pre></div></details>
+<pre><code>[1] 27
+</code></pre>
+<p>Then for every day in the dataset I want two things: which cycle day I&rsquo;m on, and which <strong>phase</strong> of the cycle that falls into.
+The four classic phases for a roughly 28-day cycle are:</p>
+<ul>
+<li><strong>Menstrual</strong>: days 1&ndash;5 (the period itself)</li>
+<li><strong>Follicular</strong>: days 6&ndash;13 (post-period, rising estrogen)</li>
+<li><strong>Ovulation</strong>: days 14&ndash;16 (a small window around expected ovulation)</li>
+<li><strong>Luteal</strong>: days 17 onward (post-ovulation, rising then dropping progesterone)</li>
+</ul>
+<p>I&rsquo;ll also compute cycle length so I can filter out anything biologically implausible &mdash; the few very long outliers are almost always because I forgot to log my period for a day or two, not because something dramatic happened.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>cycle_lookup <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  cycle_id <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq_along</span>(cycle_starts),
+</span></span><span style="display:flex;"><span>  cycle_start <span style="color:#f92672">=</span> cycle_starts,
+</span></span><span style="display:flex;"><span>  cycle_end <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(cycle_starts[<span style="color:#ae81ff">-1</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">max</span>(visible<span style="color:#f92672">$</span>odate))
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(cycle_length <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.integer</span>(cycle_end <span style="color:#f92672">-</span> cycle_start) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1L</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>visible_cycle <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(odate <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">min</span>(cycle_starts)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">left_join</span>(
+</span></span><span style="display:flex;"><span>    cycle_lookup,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">join_by</span>(<span style="color:#a6e22e">closest</span>(odate <span style="color:#f92672">&gt;=</span> cycle_start))
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    cycle_day <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.integer</span>(odate <span style="color:#f92672">-</span> cycle_start) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1L</span>,
+</span></span><span style="display:flex;"><span>    phase <span style="color:#f92672">=</span> <span style="color:#a6e22e">case_when</span>(
+</span></span><span style="display:flex;"><span>      cycle_day <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">~</span> <span style="color:#e6db74">&#34;Menstrual&#34;</span>,
+</span></span><span style="display:flex;"><span>      cycle_day <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">13</span> <span style="color:#f92672">~</span> <span style="color:#e6db74">&#34;Follicular&#34;</span>,
+</span></span><span style="display:flex;"><span>      cycle_day <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">16</span> <span style="color:#f92672">~</span> <span style="color:#e6db74">&#34;Ovulation&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">TRUE</span> <span style="color:#f92672">~</span> <span style="color:#e6db74">&#34;Luteal&#34;</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    phase <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(
+</span></span><span style="display:flex;"><span>      phase,
+</span></span><span style="display:flex;"><span>      levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Menstrual&#34;</span>, <span style="color:#e6db74">&#34;Follicular&#34;</span>, <span style="color:#e6db74">&#34;Ovulation&#34;</span>, <span style="color:#e6db74">&#34;Luteal&#34;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(cycle_length <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">21</span>, cycle_length <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">40</span>, cycle_day <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">35</span>)
+</span></span></code></pre></div></details>
+<p>Now the actual question: does stability score move with the cycle?</p>
+<p>I&rsquo;ll plot the mean stability score for each cycle day, with each of the four phases shaded behind the line as a coloured band.
+That way I can see the day-to-day pattern <em>and</em> have the phase context right there in the plot &mdash; no separate violins or summary tables needed.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>stability_by_day <span style="color:#f92672">&lt;-</span> visible_cycle <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Stability Score&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(cycle_day, phase) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarise</span>(
+</span></span><span style="display:flex;"><span>    mean_score <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(value, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>),
+</span></span><span style="display:flex;"><span>    se <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(value, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">sum</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(value))),
+</span></span><span style="display:flex;"><span>    ci_lower <span style="color:#f92672">=</span> mean_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    ci_upper <span style="color:#f92672">=</span> mean_score <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>(),
+</span></span><span style="display:flex;"><span>    .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(cycle_day <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">32</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phase_bands <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  phase <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Menstrual&#34;</span>, <span style="color:#e6db74">&#34;Follicular&#34;</span>, <span style="color:#e6db74">&#34;Ovulation&#34;</span>, <span style="color:#e6db74">&#34;Luteal&#34;</span>),
+</span></span><span style="display:flex;"><span>    levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Menstrual&#34;</span>, <span style="color:#e6db74">&#34;Follicular&#34;</span>, <span style="color:#e6db74">&#34;Ovulation&#34;</span>, <span style="color:#e6db74">&#34;Luteal&#34;</span>)
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>  xmin <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">5.5</span>, <span style="color:#ae81ff">13.5</span>, <span style="color:#ae81ff">16.5</span>),
+</span></span><span style="display:flex;"><span>  xmax <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5.5</span>, <span style="color:#ae81ff">13.5</span>, <span style="color:#ae81ff">16.5</span>, <span style="color:#ae81ff">32.5</span>)
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    x_mid <span style="color:#f92672">=</span> (xmin <span style="color:#f92672">+</span> xmax) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> phase_colours<span style="color:#a6e22e">[as.character</span>(phase)]
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>trough <span style="color:#f92672">&lt;-</span> stability_by_day <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(cycle_day <span style="color:#f92672">%in%</span> <span style="color:#ae81ff">11</span><span style="color:#f92672">:</span><span style="color:#ae81ff">14</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">slice_min</span>(mean_score, n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, with_ties <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>peak <span style="color:#f92672">&lt;-</span> stability_by_day <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(cycle_day <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">25</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">slice_max</span>(mean_score, n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, with_ties <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_rect</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> phase_bands,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(xmin <span style="color:#f92672">=</span> xmin, xmax <span style="color:#f92672">=</span> xmax, ymin <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#66d9ef">Inf</span>, ymax <span style="color:#f92672">=</span> <span style="color:#66d9ef">Inf</span>, fill <span style="color:#f92672">=</span> phase),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.18</span>,
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_manual</span>(values <span style="color:#f92672">=</span> phase_colours) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_text</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> phase_bands,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x_mid, y <span style="color:#f92672">=</span> <span style="color:#66d9ef">Inf</span>, label <span style="color:#f92672">=</span> phase, colour <span style="color:#f92672">=</span> colour),
+</span></span><span style="display:flex;"><span>    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.6</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.4</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_identity</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> stability_by_day,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> cycle_day, ymin <span style="color:#f92672">=</span> ci_lower, ymax <span style="color:#f92672">=</span> ci_upper),
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.18</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> stability_by_day,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> cycle_day, y <span style="color:#f92672">=</span> mean_score),
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> stability_by_day,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> cycle_day, y <span style="color:#f92672">=</span> mean_score, size <span style="color:#f92672">=</span> n),
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> <span style="color:#a6e22e">bind_rows</span>(trough, peak),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> cycle_day, y <span style="color:#f92672">=</span> mean_score),
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>    shape <span style="color:#f92672">=</span> <span style="color:#ae81ff">21</span>,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>    stroke <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.2</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> trough<span style="color:#f92672">$</span>cycle_day,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> trough<span style="color:#f92672">$</span>mean_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.18</span>,
+</span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Late-follicular trough\n(rough patch, days 12–13)&#34;</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>    label.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>,
+</span></span><span style="display:flex;"><span>    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> peak<span style="color:#f92672">$</span>cycle_day <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> peak<span style="color:#f92672">$</span>mean_score <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.05</span>,
+</span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Late-luteal peak\n(my best days)&#34;</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>    label.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_curve</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(
+</span></span><span style="display:flex;"><span>      x <span style="color:#f92672">=</span> peak<span style="color:#f92672">$</span>cycle_day <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.5</span>,
+</span></span><span style="display:flex;"><span>      y <span style="color:#f92672">=</span> peak<span style="color:#f92672">$</span>mean_score <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.05</span>,
+</span></span><span style="display:flex;"><span>      xend <span style="color:#f92672">=</span> peak<span style="color:#f92672">$</span>cycle_day <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.3</span>,
+</span></span><span style="display:flex;"><span>      yend <span style="color:#f92672">=</span> peak<span style="color:#f92672">$</span>mean_score
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    arrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">arrow</span>(length <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">0.18</span>, <span style="color:#e6db74">&#34;cm&#34;</span>)),
+</span></span><span style="display:flex;"><span>    curvature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_continuous</span>(breaks <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">28</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_y_continuous</span>(expand <span style="color:#f92672">=</span> <span style="color:#a6e22e">expansion</span>(mult <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.18</span>))) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_size_continuous</span>(range <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_cartesian</span>(clip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;off&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;My rough patch sits before ovulation, not before my period&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean morning stability score by cycle day. Phases shaded and labelled; ribbon = 95% CI.&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Cycle day&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean stability score&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/stability-cycle-day-1.png" 
+         alt="Mean morning stability score by cycle day, with the four phases shaded and labelled inline. The lowest mean sits at days 12–13 (late follicular), and the highest at days 26–28 (late luteal) — the opposite of the standard PMS-doom narrative." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Mean morning stability score by cycle day, with the four phases shaded and labelled inline. The lowest mean sits at days 12–13 (late follicular), and the highest at days 26–28 (late luteal) — the opposite of the standard PMS-doom narrative.
+        </figcaption>
+        
+    </figure><p>The research suggests that the worst stability would land somewhere in the menstrual phase or in the late luteal phase &mdash; both of which fit the standard &ldquo;period-week is bad&rdquo; / &ldquo;PMS week is bad&rdquo; narrative.
+The data and my own experience flatly disagrees.</p>
+<p>My <strong>lowest</strong> mean stability scores aren&rsquo;t during the period at all.
+They&rsquo;re in the <strong>late follicular phase</strong>, around days 12 and 13 &mdash; the run-up to ovulation.
+The line dips to about 3.1 there.
+Day 1 of the period is decent, the score actually <em>rises</em> through the bleeding days to a small peak around day 5, then steadily slides down through the follicular phase to that day 12&ndash;13 trough.
+After ovulation, things turn around.
+The luteal phase is, on average, my <strong>best</strong> time of the cycle, climbing steadily from around 3.55 to 4.0 by the late luteal days.</p>
+<p>In other words: I shouldn&rsquo;t be making claims about specific days, but I <em>can</em> say that my late-follicular days really do tend to be worse than my late-luteal days.
+If I had to write a one-line takeaway, it would be: <strong>for me, the rough patch is the days before ovulation, not the days before my period</strong>.
+That&rsquo;s actionable in a way the polar symptom plots weren&rsquo;t &mdash; it tells me roughly when in the month to plan for low-stability days, and when I can afford to be a bit more ambitious.</p>
+<h3 id="what-about-hr-and-hrv-across-the-cycle">What about HR and HRV across the cycle?</h3>
+<p>Stability score is a composite &mdash; Visible computes it from heart rate, HRV, and the previous evening&rsquo;s symptom scores.
+That&rsquo;s nice for &ldquo;how am I doing today&rdquo;, but it makes it hard to know whether the cycle pattern I just described is being driven by the underlying physiology (HR, HRV) or by my own self-rated symptoms feeding into the score.</p>
+<p>So let me strip the question down to the two purely <em>measured</em> signals &mdash; <strong>HRV</strong> and <strong>resting HR</strong> &mdash; and ask the same cyclical question.
+And while I&rsquo;m at it, I want to bring back the change-point cutoff from earlier and split each metric into <strong>pre-</strong> and <strong>post-rehab</strong> halves.
+That gives me a 2×2 lens: cycle phase <em>and</em> rehab era.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggnewscale)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cutoff <span style="color:#f92672">&lt;-</span> cp_dates[1]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hr_cycle <span style="color:#f92672">&lt;-</span> visible_cycle <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;HRV&#34;</span>, <span style="color:#e6db74">&#34;Resting HR&#34;</span>)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    era <span style="color:#f92672">=</span> <span style="color:#a6e22e">if_else</span>(odate <span style="color:#f92672">&lt;</span> cutoff, <span style="color:#e6db74">&#34;Pre-rehab&#34;</span>, <span style="color:#e6db74">&#34;Post-rehab&#34;</span>),
+</span></span><span style="display:flex;"><span>    era <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(era, levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Pre-rehab&#34;</span>, <span style="color:#e6db74">&#34;Post-rehab&#34;</span>))
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(tracker, era, cycle_day) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarise</span>(
+</span></span><span style="display:flex;"><span>    mean_value <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(value, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>),
+</span></span><span style="display:flex;"><span>    se <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(value, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">sum</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(value))),
+</span></span><span style="display:flex;"><span>    ci_lower <span style="color:#f92672">=</span> mean_value <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    ci_upper <span style="color:#f92672">=</span> mean_value <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>(),
+</span></span><span style="display:flex;"><span>    .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(cycle_day <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">32</span>, n <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_rect</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> phase_bands,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(xmin <span style="color:#f92672">=</span> xmin, xmax <span style="color:#f92672">=</span> xmax, ymin <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#66d9ef">Inf</span>, ymax <span style="color:#f92672">=</span> <span style="color:#66d9ef">Inf</span>, fill <span style="color:#f92672">=</span> phase),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.18</span>,
+</span></span><span style="display:flex;"><span>    inherit.aes <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>    show.legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_manual</span>(values <span style="color:#f92672">=</span> phase_colours) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_text</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> phase_bands,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> x_mid, y <span style="color:#f92672">=</span> <span style="color:#66d9ef">Inf</span>, label <span style="color:#f92672">=</span> phase, colour <span style="color:#f92672">=</span> colour),
+</span></span><span style="display:flex;"><span>    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.4</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_identity</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">new_scale_fill</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">new_scale_colour</span>() <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> hr_cycle,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(
+</span></span><span style="display:flex;"><span>      x <span style="color:#f92672">=</span> cycle_day,
+</span></span><span style="display:flex;"><span>      ymin <span style="color:#f92672">=</span> ci_lower,
+</span></span><span style="display:flex;"><span>      ymax <span style="color:#f92672">=</span> ci_upper,
+</span></span><span style="display:flex;"><span>      group <span style="color:#f92672">=</span> era,
+</span></span><span style="display:flex;"><span>      fill <span style="color:#f92672">=</span> era
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> hr_cycle,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> cycle_day, y <span style="color:#f92672">=</span> mean_value, colour <span style="color:#f92672">=</span> era),
+</span></span><span style="display:flex;"><span>    linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> hr_cycle,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> cycle_day, y <span style="color:#f92672">=</span> mean_value, colour <span style="color:#f92672">=</span> era),
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#f92672">~</span>tracker, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, scales <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;free_y&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_continuous</span>(breaks <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">28</span>)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_y_continuous</span>(expand <span style="color:#f92672">=</span> <span style="color:#a6e22e">expansion</span>(mult <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.18</span>))) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_manual</span>(values <span style="color:#f92672">=</span> era_colours, name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Era&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_manual</span>(values <span style="color:#f92672">=</span> era_colours, name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Era&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_cartesian</span>(clip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;off&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Resting HR and HRV across the cycle, before vs after rehab&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste0</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Rehab cutoff = &#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">format</span>(cutoff, <span style="color:#e6db74">&#34;%d %b %Y&#34;</span>),
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34; (from change-point detection earlier)&#34;</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Cycle day&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/hr-cycle-1.png" 
+         alt="Resting HR and HRV by cycle day, split into pre- and post-rehab eras. Post-rehab HRV sits clearly higher and flatter; post-rehab resting HR sits clearly lower. The cyclical pattern is most pronounced in pre-rehab HRV." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Resting HR and HRV by cycle day, split into pre- and post-rehab eras. Post-rehab HRV sits clearly higher and flatter; post-rehab resting HR sits clearly lower. The cyclical pattern is most pronounced in pre-rehab HRV.
+        </figcaption>
+        
+    </figure><p>Reading the panels:</p>
+<p><strong>HRV</strong>.
+The post-rehab line sits visibly higher than the pre-rehab line across pretty much every cycle day.
+That alone is the improvement story I&rsquo;ve been telling all post, told with a different signal.
+What&rsquo;s <em>new</em> here is the <strong>shape</strong>: pre-rehab (purple), my HRV swung quite a bit across the cycle &mdash; a clear trough around days 12&ndash;14 and a wide-CI bump in the late luteal phase.
+Post-rehab (green), the line is much flatter and the CI ribbon much narrower.
+So things getting better hasn&rsquo;t just lifted my HRV, it has <strong>stabilised</strong> it across the cycle.</p>
+<p><strong>Resting HR</strong>.
+The post-rehab line sits lower than the pre-rehab line &mdash; which is the right direction; lower resting HR means less autonomic strain on the same body doing the same things.
+The cyclical pattern is much weaker here than for HRV; both lines are reasonably flat across the cycle.
+Pre-rehab has more day-to-day jitter, especially toward the late luteal end where the CI fans out, but I don&rsquo;t see a clean phase-driven shape in either era.</p>
+<p>Two things are worth saying carefully.</p>
+<p>First, the CI ribbons for individual cycle days often overlap between eras, so I should be cautious about pointing at any one day and saying &ldquo;this is a real difference.&rdquo;
+What&rsquo;s <em>not</em> overlapping is the <strong>overall level</strong> of the lines.
+Post-rehab HRV is higher, and post-rehab resting HR is lower, across most of the cycle, with separated CIs at most points.</p>
+<p>Second, this is a much cleaner restatement of the change-point result from earlier in the post.
+Same cutoff date, two different physiological signals, both pointing in the same direction &mdash; that&rsquo;s the kind of internal consistency that makes me trust the cutoff is real, rather than an artefact of one specific metric or one specific algorithm.</p>
+<h2 id="does-pushing-today-predict-the-days-after">Does pushing today predict the days after?</h2>
+<p>The headline story of Long Covid (and ME/CFS) is <strong>post-exertional malaise</strong> &mdash; PEM, for short.
+The shape of it is simple to state and brutal to live with: do too much today, pay for it later.
+&ldquo;Later&rdquo; is doing a lot of work in that sentence, though.
+PEM can hit 24 to 72 hours after the activity, and once it lands it can stick around for days.
+A &ldquo;did pushing today cost me <em>tomorrow</em>?&rdquo; analysis is too narrow to catch it; I need to look across a window of lags.</p>
+<p>Visible has four &ldquo;Activity&rdquo; trackers &mdash; every evening I rate how demanding the day was on four axes (mental, emotional, physical, social).
+The way I actually pace, though, isn&rsquo;t axis-by-axis.
+I aim to keep the <em>total</em> daily load below a ceiling, because I&rsquo;ve learned the hard way that an &ldquo;easy&rdquo; day on three axes can still leave me crashed if I went too hard on the fourth.
+So the right unit for asking the PEM question, for me, is the <strong>total daily activity score</strong> &mdash; the sum across all four axes.</p>
+<p>What I want is a <strong>lag spectrum</strong>: compute the correlation between today&rsquo;s total load and stability / HRV at lag 0, 1, 2, &hellip; up to a week.
+If PEM is real for me, I&rsquo;d expect to see negative correlations &mdash; pushing today should predict feeling worse later &mdash; peaking somewhere in the 1&ndash;3 day window, where the literature says the cost usually lands.</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>activity_total <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Activity&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_wider</span>(
+</span></span><span style="display:flex;"><span>    id_cols <span style="color:#f92672">=</span> odate,
+</span></span><span style="display:flex;"><span>    names_from <span style="color:#f92672">=</span> tracker,
+</span></span><span style="display:flex;"><span>    values_from <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    total_load <span style="color:#f92672">=</span> `Mentally demanding` <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      `Emotionally stressful` <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      `Physically active` <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      `Socially demanding`
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(odate, total_load)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>metrics_wide <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Stability Score&#34;</span>, <span style="color:#e6db74">&#34;HRV&#34;</span>)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_wider</span>(
+</span></span><span style="display:flex;"><span>    id_cols <span style="color:#f92672">=</span> odate,
+</span></span><span style="display:flex;"><span>    names_from <span style="color:#f92672">=</span> tracker,
+</span></span><span style="display:flex;"><span>    values_from <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rename</span>(stability <span style="color:#f92672">=</span> `Stability Score`, hrv <span style="color:#f92672">=</span> HRV) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>max_lag <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>metrics_lagged <span style="color:#f92672">&lt;-</span> metrics_wide <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">across</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">c</span>(stability, hrv),
+</span></span><span style="display:flex;"><span>      .fns <span style="color:#f92672">=</span> <span style="color:#a6e22e">setNames</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">lapply</span>(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>max_lag, <span style="color:#a6e22e">\</span>(k) <span style="color:#a6e22e">\</span>(x) <span style="color:#a6e22e">lead</span>(x, n <span style="color:#f92672">=</span> k)),
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">as.character</span>(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>max_lag)
+</span></span><span style="display:flex;"><span>      ),
+</span></span><span style="display:flex;"><span>      .names <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{.col}__{.fn}&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>combined <span style="color:#f92672">&lt;-</span> activity_total <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">inner_join</span>(metrics_lagged, by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;odate&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lag_corrs <span style="color:#f92672">&lt;-</span> combined <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_longer</span>(
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">matches</span>(<span style="color:#e6db74">&#34;__\\d&#34;</span>),
+</span></span><span style="display:flex;"><span>    names_to <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;metric&#34;</span>, <span style="color:#e6db74">&#34;lag&#34;</span>),
+</span></span><span style="display:flex;"><span>    names_pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(\\w+)__(\\d+)&#34;</span>,
+</span></span><span style="display:flex;"><span>    values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;metric_value&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(lag <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.integer</span>(lag)) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">drop_na</span>(total_load, metric_value) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(metric, lag) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarise</span>(
+</span></span><span style="display:flex;"><span>    test <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#a6e22e">cor.test</span>(total_load, metric_value)),
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>(),
+</span></span><span style="display:flex;"><span>    .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    cor <span style="color:#f92672">=</span> <span style="color:#a6e22e">map_dbl</span>(test, <span style="color:#a6e22e">\</span>(x) <span style="color:#a6e22e">unname</span>(x<span style="color:#f92672">$</span>estimate)),
+</span></span><span style="display:flex;"><span>    ci_lower <span style="color:#f92672">=</span> <span style="color:#a6e22e">map_dbl</span>(test, <span style="color:#a6e22e">\</span>(x) x<span style="color:#f92672">$</span>conf.int[1]),
+</span></span><span style="display:flex;"><span>    ci_upper <span style="color:#f92672">=</span> <span style="color:#a6e22e">map_dbl</span>(test, <span style="color:#a6e22e">\</span>(x) x<span style="color:#f92672">$</span>conf.int[2]),
+</span></span><span style="display:flex;"><span>    metric <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">case_match</span>(metric, <span style="color:#e6db74">&#34;stability&#34;</span> <span style="color:#f92672">~</span> <span style="color:#e6db74">&#34;Stability&#34;</span>, <span style="color:#e6db74">&#34;hrv&#34;</span> <span style="color:#f92672">~</span> <span style="color:#e6db74">&#34;HRV&#34;</span>),
+</span></span><span style="display:flex;"><span>      levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Stability&#34;</span>, <span style="color:#e6db74">&#34;HRV&#34;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(lag_corrs, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> lag, y <span style="color:#f92672">=</span> cor, colour <span style="color:#f92672">=</span> metric, fill <span style="color:#f92672">=</span> metric)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_hline</span>(
+</span></span><span style="display:flex;"><span>    yintercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dashed&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>baseline
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(ymin <span style="color:#f92672">=</span> ci_lower, ymax <span style="color:#f92672">=</span> ci_upper),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> <span style="color:#66d9ef">NA</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_continuous</span>(breaks <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>max_lag) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_colour_manual</span>(
+</span></span><span style="display:flex;"><span>    values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Stability&#34;</span> <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;HRV&#34;</span> <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_fill_manual</span>(
+</span></span><span style="display:flex;"><span>    values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Stability&#34;</span> <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>primary,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;HRV&#34;</span> <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Lag spectrum: today&#39;s total activity load vs state on later days&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Total load = sum across mental, emotional, physical and social. Negative = pushing today predicts feeling worse later. Ribbons = 95% CI.&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Days after activity&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Correlation&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Outcome&#34;</span>,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Outcome&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/activity-lag-spectrum-1.png" 
+         alt="Correlation between today’s total activity load and stability / HRV at lags 0 to 7 days. Both lines start strongly positive at lag 0 (‘active when capable’) then drop toward zero, with no clear negative dip — the classic PEM signature is absent at this aggregate level." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Correlation between today’s total activity load and stability / HRV at lags 0 to 7 days. Both lines start strongly positive at lag 0 (‘active when capable’) then drop toward zero, with no clear negative dip — the classic PEM signature is absent at this aggregate level.
+        </figcaption>
+        
+    </figure><p>A few honest caveats before reading this.
+The activity scores top out at 5 per axis, so total load can in principle range from 4 to 20, but most of my days sit in the lower half &mdash; high total-load days are rare and individual points carry weight.
+The lag analysis also assumes activity on different days is independent, which it isn&rsquo;t; high-load days cluster together, and that auto-correlation can muddy the picture.
+And correlations are linear summaries of what may well be a non-linear relationship, so a flat line doesn&rsquo;t fully rule out a &ldquo;threshold&rdquo; PEM where only the very worst days hurt.</p>
+<p>What&rsquo;s there to read?</p>
+<p>At <strong>lag 0</strong>, both lines are strongly positive (stability ~0.20, HRV ~0.14).
+That&rsquo;s not surprising: on days I&rsquo;m feeling capable, I do more, and the morning measurements that day reflect that.
+&ldquo;Active when capable&rdquo; is the same-day pattern, not a causal claim about activity making me better.</p>
+<p>From <strong>lag 1 onwards</strong>, the correlations drop sharply and then hover near zero for the rest of the week.
+Stability dips to roughly 0.01 at lag 1 and bounces around in the 0.0&ndash;0.08 range out to lag 7, with CIs wide enough that none of those points are distinguishable from zero.
+HRV does something similar but a bit higher, settling in the 0.07&ndash;0.15 range.
+What&rsquo;s <em>not</em> there is a clear dip into negative territory in the 1&ndash;3 day window, which is what a PEM signature would look like.</p>
+<p>I take this as a quietly encouraging finding rather than a null one.
+The PEM signal is genuinely hard to find in this dataset because <strong>pacing is working</strong>.
+I keep my total daily load below the ceiling that would otherwise trigger a payback, so the correlation between load and &ldquo;feeling worse a few days later&rdquo; is essentially absent.
+On the rare days I do push past the ceiling I pay for it (and I <em>know</em> I pay for it &mdash; see: every crash mentioned in the previous posts), but those days are rare enough that they don&rsquo;t move a two-year correlation much.</p>
+<p>If anything, this is the strongest argument I have for why the work I&rsquo;ve done on pacing matters.
+The data isn&rsquo;t telling me PEM is fictional; it&rsquo;s telling me PEM is well-managed.
+That&rsquo;s a different and better thing.</p>
+<h3 id="what-about-the-days-before-an-actual-crash">What about the days before an actual crash?</h3>
+<p>The lag-spectrum approach treats every day equally &mdash; and that&rsquo;s both its strength and its weakness, since most days are uneventful and the signal we care about lives in the rare bad ones.
+Visible has a binary <strong>Crash</strong> tracker that lets me ask the question more directly.
+On the days I&rsquo;ve decided to mark &ldquo;crash&rdquo;, what was my activity load doing in the run-up?</p>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>crash_starts <span style="color:#f92672">&lt;-</span> visible <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(tracker <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Crash&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arrange</span>(odate) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mutate</span>(
+</span></span><span style="display:flex;"><span>    on_crash <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(value) <span style="color:#f92672">&amp;</span> value <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    new_crash <span style="color:#f92672">=</span> on_crash <span style="color:#f92672">&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">lag</span>(on_crash, default <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filter</span>(new_crash) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pull</span>(odate)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>window <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>crash_windows <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map_dfr</span>(
+</span></span><span style="display:flex;"><span>  crash_starts,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">\</span>(d) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>      crash_id <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.character</span>(d),
+</span></span><span style="display:flex;"><span>      crash_date <span style="color:#f92672">=</span> d,
+</span></span><span style="display:flex;"><span>      days_before <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>window<span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>      odate <span style="color:#f92672">=</span> d <span style="color:#f92672">+</span> days_before
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>crash_trajectory <span style="color:#f92672">&lt;-</span> crash_windows <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">left_join</span>(activity_total, by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;odate&#34;</span>) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">drop_na</span>(total_load) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(days_before) <span style="color:#f92672">|&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarise</span>(
+</span></span><span style="display:flex;"><span>    mean_load <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(total_load),
+</span></span><span style="display:flex;"><span>    se <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(total_load) <span style="color:#f92672">/</span> <span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">n</span>()),
+</span></span><span style="display:flex;"><span>    ci_lower <span style="color:#f92672">=</span> mean_load <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    ci_upper <span style="color:#f92672">=</span> mean_load <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.96</span> <span style="color:#f92672">*</span> se,
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>(),
+</span></span><span style="display:flex;"><span>    .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>baseline_mean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(activity_total<span style="color:#f92672">$</span>total_load, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>spike <span style="color:#f92672">&lt;-</span> crash_trajectory <span style="color:#f92672">|&gt;</span> <span style="color:#a6e22e">filter</span>(days_before <span style="color:#f92672">==</span> <span style="color:#ae81ff">-1</span>)
+</span></span><span style="display:flex;"><span>crash_day <span style="color:#f92672">&lt;-</span> crash_trajectory <span style="color:#f92672">|&gt;</span> <span style="color:#a6e22e">filter</span>(days_before <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>(crash_trajectory, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> days_before, y <span style="color:#f92672">=</span> mean_load)) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_hline</span>(
+</span></span><span style="display:flex;"><span>    yintercept <span style="color:#f92672">=</span> baseline_mean,
+</span></span><span style="display:flex;"><span>    linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dashed&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>baseline
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_ribbon</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(ymin <span style="color:#f92672">=</span> ci_lower, ymax <span style="color:#f92672">=</span> ci_upper),
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_line</span>(linewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9</span>, colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_point</span>(size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.2</span>, colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_vline</span>(
+</span></span><span style="display:flex;"><span>    xintercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dotted&#34;</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>baseline
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_curve</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> spike,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>, y <span style="color:#f92672">=</span> mean_load <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.7</span>, xend <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>, yend <span style="color:#f92672">=</span> mean_load <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.1</span>),
+</span></span><span style="display:flex;"><span>    arrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">arrow</span>(length <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">0.18</span>, <span style="color:#e6db74">&#34;cm&#34;</span>)),
+</span></span><span style="display:flex;"><span>    curvature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> spike<span style="color:#f92672">$</span>mean_load <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.85</span>,
+</span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Day before:\nactivity spikes&#34;</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>    label.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_curve</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> crash_day,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, y <span style="color:#f92672">=</span> mean_load <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.7</span>, xend <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, yend <span style="color:#f92672">=</span> mean_load <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.1</span>),
+</span></span><span style="display:flex;"><span>    arrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">arrow</span>(length <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">0.18</span>, <span style="color:#e6db74">&#34;cm&#34;</span>)),
+</span></span><span style="display:flex;"><span>    curvature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> crash_day<span style="color:#f92672">$</span>mean_load <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.85</span>,
+</span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Crash day:\nbody pulls back&#34;</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>accent,
+</span></span><span style="display:flex;"><span>    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>    label.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    fontface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>,
+</span></span><span style="display:flex;"><span>    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;text&#34;</span>,
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">-7</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> baseline_mean <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.08</span>,
+</span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Overall mean activity load&#34;</span>,
+</span></span><span style="display:flex;"><span>    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>    colour <span style="color:#f92672">=</span> visible_colours<span style="color:#f92672">$</span>baseline
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_x_continuous</span>(
+</span></span><span style="display:flex;"><span>    breaks <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>window<span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    expand <span style="color:#f92672">=</span> <span style="color:#a6e22e">expansion</span>(mult <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.1</span>))
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scale_y_continuous</span>(expand <span style="color:#f92672">=</span> <span style="color:#a6e22e">expansion</span>(mult <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.18</span>, <span style="color:#ae81ff">0.18</span>))) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coord_cartesian</span>(clip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;off&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">labs</span>(
+</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Activity spikes the day before a crash, then collapses&#34;</span>,
+</span></span><span style="display:flex;"><span>    subtitle <span style="color:#f92672">=</span> <span style="color:#a6e22e">paste0</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Mean total activity load across &#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">length</span>(crash_starts),
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34; crash events. Dashed line = overall baseline; ribbon = 95% CI.&#34;</span>
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Days before crash (0 = crash day)&#34;</span>,
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean total activity load&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div></details>
+<figure class="uk-thumbnail">
+        <img src="index.markdown_strict_files/figure-markdown_strict/crash-windows-1.png" 
+         alt="Mean total activity load on each of the seven days before a crash, plus the crash day itself. Activity hovers around the overall baseline most of the week, spikes sharply on the day before the crash, then collapses below baseline on the crash day." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Mean total activity load on each of the seven days before a crash, plus the crash day itself. Activity hovers around the overall baseline most of the week, spikes sharply on the day before the crash, then collapses below baseline on the crash day.
+        </figcaption>
+        
+    </figure><p>This is the cleaner version of the PEM question.
+Instead of asking &ldquo;does activity correlate with feeling worse later&rdquo;, I&rsquo;m asking &ldquo;what does the run-up to an actual crash look like?&rdquo;</p>
+<p>And the answer is satisfyingly visible in the data.</p>
+<p>For most of the week before a crash, my activity sits right around my overall baseline.
+Then <strong>on the day before the crash, activity spikes sharply</strong> &mdash; the mean total load jumps to roughly 4.5, well above the baseline of about 3.5.
+<strong>On the crash day itself, activity drops to about 3.0</strong>, below baseline, which is the body putting the brakes on after the fact.</p>
+<p>That&rsquo;s the PEM shape, drawn cleanly in 14 crash events.
+The wide CI ribbons on the day -1 spike and the day 0 drop reflect that the absolute number of crash events is small, but the shape is consistent enough that the day-before spike is meaningfully above the baseline mean.</p>
+<p>What this is telling me, gently, is that my felt experience is roughly right &mdash; but the lag is shorter than I thought.
+I&rsquo;d been narrating crashes as &ldquo;punishment for what I did 1&ndash;3 days ago&rdquo;, but in this view, the strongest signal is <strong>the day immediately before</strong>.
+The spike at day -1 is doing most of the work; days -3 and -2 are largely indistinguishable from baseline.
+That&rsquo;s actually a more useful answer for pacing: if I notice an unusually busy day, the at-risk day is <em>tomorrow</em>, not &ldquo;some time in the next three days&rdquo;.</p>
+<p>The other thing this analysis underlines is why the lag-spectrum correlation looked so flat earlier.
+A handful of overdoing-it days getting punished a day later doesn&rsquo;t move a two-year correlation by much.
+The crash trajectory, by zooming in on the rare days where it actually mattered, picks the signal back up.
+The two analyses aren&rsquo;t in conflict &mdash; one is averaged across all days (where pacing dominates), the other is conditioned on the days I lost the pacing battle.</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>Two years in, the headline is the same as the one I&rsquo;d give a friend over coffee: I&rsquo;m slowly getting better, and the data agrees.
+What&rsquo;s nice is that the data agrees in a few different ways &mdash; the FUNCAP slopes, the calendar heatmap, the HRV distributions, and the change-point algorithm all tell a compatible story, even though they&rsquo;re looking at completely different aspects of the dataset.</p>
+<p>The new plots earned their place too.
+The calendar heatmap in particular is one I&rsquo;ll keep coming back to.
+It&rsquo;s the rare visualisation where someone who&rsquo;s never seen this data before can look at it and understand the improvement in about three seconds, without me having to explain what HRV is or what a stability score is.
+That&rsquo;s worth a lot, especially with a hidden illness, where most of the time I&rsquo;m explaining what&rsquo;s going on rather than showing it.</p>
+<p>If you&rsquo;ve got long-running personal health data sitting around in any form &mdash; a sleep tracker, a step counter, a daily mood journal &mdash; I really do recommend pulling it apart yourself once a year.
+Not for any clinical reason, just because it&rsquo;s surprisingly grounding to see your story laid out in numbers.
+And if you happen to be a quantitative scientist, well, you might as well make some pretty plots out of it.</p>
+<p>I had a plan on stopping the measurements now.
+I want to rely on my own personal experience and how my body feels, now that I have reached a stage where that feels right.
+Like I learned from my smart watch, I have learned lessons from the Visible app.
+Now, its time to rely on my self.</p>
+<p>However, seeing the possible downward trends in my HRV (increased spread in measurements and lowering of my mean level), I will continue taking measurements untill I am certain that is not what is happening.</p>
+<p>After all, what is the point of these analyses if not to help me make decisions to improve my recovery?</p>
+<p>If you use Visible and are interested in a similar digest of your data, I made a <a href="https://drmowinckels.io/visible/">browser application</a> that can create plots similar to those in this post to help you see patterns in your own data.
+It does everything in your browser, so your data is completely safe, its your own device that is doing the work.</p>
+<p>Note that the larger data you have, the more patience you need for it to load in the beginning.
+Likewise if you are trying it on your phone, its really best done on a computer.
+I hope it can help unveil valuable information for you.</p>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (May 4, 2026) 
+                    Two Years of Visible: New Angles on the Long Covid Data. 
+                    Retrieved from https://drmowinckels.io/blog/2026/visible-year-two/.
+                     DOI: https://www.doi.org/10.5281/zenodo.20024430
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-two-years-of-visible-new-angles-on-the-long-covid-data,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Two Years of Visible: New Angles on the Long Covid Data",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/visible-year-two/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.20024430",<br> 
+                        &emsp;updated = "May 4, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jun 2, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2025/visible-pca/index.markdown_strict_files/figure-markdown_strict/pca-sankey-1_hu_6fd447152fe6617a.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Unmasking Long Covid: PCA &amp; Clustering Analysis of Symptom Syndromes</h2>
+    
+      <p>This blog post delves into the my personal Long Covid data, collected via the Visible app, using Principal Component Analysis (PCA). I detail four key clusters: Menstruation, Exertion, Emotional, and Neurological and then compare these clusters to the principal components derived from PCA. The analysis aims to provide a validated, data-driven framework for exploring my symptoms during this condition, using clear visualisations to showcase the results.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible-pca/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/health-data/" class="uk-label timeline-tags">
+              health-data
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label timeline-tags">
+              longcovid
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 1, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2025/visible/index.markdown_strict_files/figure-markdown_strict/featured-1_hu_677be328a9e94929.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>A year with Visible Long-Covid Tracking</h2>
+    
+      <p>This post dives into a year of tracking Long Covid symptoms and progress using the Visible app. Dr. Mowinckel, a quantitative scientist, shares their experience monitoring heart rate, heart rate variability (HRV), daily symptoms, and functional capacity using the app&rsquo;s features and the FUNCAP27 questionnaire. Discover how this data provides insights into pacing strategies, identifies potential warning signs like HRV spikes, and reveals meaningful clusters of interconnected symptoms and experiences. Explore the journey of living with and managing Long Covid through the lens of personal health data.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/visible/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/health-data/" class="uk-label timeline-tags">
+              health-data
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label timeline-tags">
+              longcovid
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 2, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/sitrep-functions/image_hu_5cb96fe139624936.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Why Every R Package Wrapping External Tools Needs a sitrep() Function</h2>
+    
+      <p>Stop playing &ldquo;diagnostics ping-pong&rdquo; with your users. This post explores why the _sitrep() (situation report) pattern — popularized by the usethis package — is a game-changer for R packages wrapping APIs or external software. Learn how to build structured validation functions that power both early error-handling and comprehensive system reports, featuring real-world implementation examples from the meetupr and freesurfer packages.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/sitrep-functions/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/package-development/" class="uk-label timeline-tags">
+              package development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/debugging/" class="uk-label timeline-tags">
+              debugging
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/wrappers/" class="uk-label timeline-tags">
+              wrappers
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 19, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/year-in-review-2025/newyear_hu_1ccaafba6e36316b.jpg') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Year in review — 2025</h2>
+    
+      <p>A year of deliberate work despite post-COVID recovery: API explorations with httr2, the R Package Development Advent Calendar, ggseg improvements, and looking ahead to 2026.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/year-in-review-2025/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/year-in-review/" class="uk-label timeline-tags">
+              year-in-review
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Dec 28, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2025/rpackage-dev-calendar/pak-dev-cal_hu_29515bf5aad23546.jpeg') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>R Package Development Advent Calendar 2025: A Complete Journey</h2>
+    
+      <p>A comprehensive guide to modern R package development, covering setup, documentation, testing, CI/CD, and CRAN submission, a summary of a social media advent calendar.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/rpackage-dev-calendar/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/rpackageadvent2025/" class="uk-label timeline-tags">
+              rpackageadvent2025
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/development/" class="uk-label timeline-tags">
+              development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/advent/" class="uk-label timeline-tags">
+              advent
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/tutorial/" class="uk-label timeline-tags">
+              tutorial
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2026 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
