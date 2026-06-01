@@ -3,10 +3,7 @@ editor_options:
   markdown:
     wrap: sentence
 title: 'Tidier Quarto Figures in Hugo: a Tiny Lua Filter'
-format:
-  hugo-md:
-    filters:
-      - ../../../../figure-to-markdown.lua
+format: hugo-md
 code-fold: show
 code-summary: Show code
 execute:
@@ -21,7 +18,7 @@ tags:
   - lua
   - blogging
 slug: quarto-hugo-figures
-image: img/figure_filter.png
+image: figure_filter.png
 image_alt: >-
   A simplified diagram showing a Quarto qmd document on the left flowing through
   a Lua filter labelled figure-to-markdown into a Hugo theme on the right, with
@@ -51,7 +48,8 @@ This post walks through what the filter does, how to set it up across an entire 
 
 ## The problem in pictures
 
-Here's what Quarto's `hugo-md` format produces by default when you have a chunk with a figure caption:
+Let's have a look at what Quarto's `hugo-md` format produces by default when you have a chunk with a figure caption.
+If you have something like this in your quarto document:
 
 ```` markdown
 
@@ -97,10 +95,12 @@ What I *want* in the rendered `index.md` is just this:
 
 With that, Hugo's render hook fires, my theme handles the figure markup, and everything is consistent with images I write into prose by hand.
 
+This idiosyncrasy of the `hugo-md` format has an [open upstream discussion](https://github.com/quarto-dev/quarto-cli/issues/11478) on the Quarto repo if you want the full context --- the workaround below is what I've landed on in the meantime.
+
 ## A small Lua filter
 
 Quarto runs Pandoc under the hood, and Pandoc lets you intercept the document AST with a Lua filter before the final output is written.
-"AST" is short for **Abstract Syntax Tree** --- the structured, in-memory representation a parser builds out of your document after reading it but before writing it back out in some target format.
+"AST" is short for **Abstract Syntax Tree** --- the structured, in-memory representation a parser builds out of your document after reading it, but before writing it back out in some target format.
 For our purposes, you can think of it as a tree of nodes where every paragraph, heading, image, and figure in your `.qmd` file becomes its own typed object that you can inspect or rewrite.
 That's what lets us say "find every `Figure` node and replace it with a markdown image", without having to do any error-prone string-matching on the rendered HTML.
 
@@ -180,7 +180,16 @@ format:
 ```
 
 Whether the path is `../../../../figure-to-markdown.lua` or something else depends on how deep your posts live below the project root.
-For my site, posts sit at `content/blog/YYYY/MM-DD_slug/index.qmd`, which is four directories deep --- hence the four `..` segments.
+For my site, posts sit at `content/blog/YYYY/MM-DD_slug/index.qmd`, which is four directories deep --- hence the four `..` segments:
+
+    .
+    ├── config.toml
+    ├── figure-to-markdown.lua
+    └── content/
+        └── blog/
+            └── 2026/
+                └── 06-01_quarto-hugo-figures/
+                    └── index.qmd
 
 This approach is fine if you only want the filter on certain posts.
 But if every post in your blog should use the filter (likely true if your Hugo theme handles all images consistently), repeating that block in every YAML header is the kind of thing you'll forget to do exactly once and then have a mystery to debug later.
@@ -197,10 +206,6 @@ format:
   hugo-md:
     filters:
       - figure-to-markdown.lua
-  pdf:
-    pdf-engine: xelatex
-    mainfont: "DejaVu Sans"
-    monofont: "DejaVu Sans Mono"
 ```
 
 Note that the path is just `figure-to-markdown.lua` --- when filters are declared at the project level in `_quarto.yml`, Quarto resolves the path relative to the project root, so no `../../..` gymnastics are needed.
