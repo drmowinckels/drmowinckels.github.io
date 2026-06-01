@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Tidier Quarto Figures in Hugo: a Tiny Lua Filter - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="My Hugo blog renders Quarto-generated figures with my own theme’s image render hook, which means I want figures to come out as plain markdown image syntax — not the verbose &lt;figure&gt; HTML that Quarto’s hugo-md format produces by default. A short Lua filter solves this. This post walks through what the filter does, how to wire it up either per-document or project-wide via _quarto.yml, and the small caption convention that makes it work cleanly with most Hugo themes." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/quarto-hugo-figures/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Tidier Quarto Figures in Hugo: a Tiny Lua Filter - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="How to convert Quarto figures to clean markdown image syntax for Hugo themes using a small Lua filter and _quarto.yml configuration.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Tidier Quarto Figures in Hugo: a Tiny Lua Filter - Dr. Mowinckel&rsquo;s">
+<meta name="twitter:description" content="How to convert Quarto figures to clean markdown image syntax for Hugo themes using a small Lua filter and _quarto.yml configuration.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/quarto-hugo-figures/figure_filter.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/quarto-hugo-figures/figure_filter.png">
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f46eae58a95bd13440b3845d08d3bd2a3c54bc821ea91aa96d9efc2052ca1496.css" 
+    integrity="sha256-9G6uWKlb0TRAs4RdCNO9KjxUvIIeqRqpbZ78IFLKFJY=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            
+            <img src="https://drmowinckels.io/blog/2026/quarto-hugo-figures/figure_filter.png" alt="A simplified diagram showing a Quarto qmd document on the left flowing through a Lua filter labelled figure-to-markdown into a Hugo theme on the right, with the figure being converted from HTML to a clean markdown image syntax." class="uk-border-rounded">
+            
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Tidier Quarto Figures in Hugo: a Tiny Lua Filter</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Jun 1, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/quarto/" class="uk-label uk-label-secondary tags">
+                            Quarto
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/hugo/" class="uk-label uk-label-secondary tags">
+                            Hugo
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/lua/" class="uk-label uk-label-secondary tags">
+                            Lua
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/blogging/" class="uk-label uk-label-secondary tags">
+                            Blogging
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-problem-in-pictures">The problem in pictures</a></li>
+    <li><a href="#a-small-lua-filter">A small Lua filter</a></li>
+    <li><a href="#wiring-it-up">Wiring it up</a>
+      <ul>
+        <li><a href="#per-document">Per-document</a></li>
+        <li><a href="#project-wide-via-_quartoyml">Project-wide via <code>_quarto.yml</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#a-small-caption-convention">A small caption convention</a></li>
+    <li><a href="#why-bother-with-this-at-all">Why bother with this at all?</a></li>
+    <li><a href="#where-to-grab-the-filter">Where to grab the filter</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">My Hugo blog renders Quarto-generated figures with my own theme&rsquo;s image render hook, which means I want figures to come out as plain markdown image syntax — not the verbose <code>&lt;figure&gt;</code> HTML that Quarto&rsquo;s <code>hugo-md</code> format produces by default. A short Lua filter solves this. This post walks through what the filter does, how to wire it up either per-document or project-wide via <code>_quarto.yml</code>, and the small caption convention that makes it work cleanly with most Hugo themes.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>If you&rsquo;ve ever rendered a Quarto document with <code>format: hugo-md</code> and tried to make the resulting figures behave nicely inside your Hugo theme, you might have run into the same little annoyance I have: Quarto wraps every figure in a chunk of raw HTML that bypasses your theme&rsquo;s image render hook entirely.</p>
+<p>For most use cases that&rsquo;s fine.
+For mine &mdash; where I rely on my Hugo theme to handle alt text, captions, lazy loading, responsive sizing, and dark-mode-aware styling &mdash; it isn&rsquo;t.
+What I want is for every figure Quarto produces to come out as a regular markdown image, which my theme&rsquo;s <code>render-image.html</code> hook can then take over and dress up the way it likes.</p>
+<p>The fix is a fifteen-line Lua filter that I drop into the project root and wire up once.
+This post walks through what the filter does, how to set it up across an entire Hugo site, and a small caption convention that keeps things tidy.</p>
+<h2 id="the-problem-in-pictures">The problem in pictures</h2>
+<p>Let&rsquo;s have a look at what Quarto&rsquo;s <code>hugo-md</code> format produces by default when you have a chunk with a figure caption.
+If you have something like this in your quarto document:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>::: {.cell}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>``<span style="color:#e6db74">`{.r .cell-code}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">plot(1:10, main = &#34;Hello&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>``
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>::: {.cell-output-display}
+</span></span><span style="display:flex;"><span>![<span style="color:#f92672">A small example plot</span>](<span style="color:#a6e22e">index.markdown_strict_files/figure-markdown_strict/tiny-plot-1.png</span>){width=768}
+</span></span><span style="display:flex;"><span>:::
+</span></span><span style="display:flex;"><span>:::
+</span></span></code></pre></div><p>After rendering, the resulting <code>index.md</code> contains something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">figure</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;path/to/figure.png&#34;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">data-fig-alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;A small example plot&#34;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;A small example plot&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">figcaption</span>&gt;A small example plot&lt;/<span style="color:#f92672">figcaption</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">figure</span>&gt;
+</span></span></code></pre></div><p>That&rsquo;s a complete HTML <code>&lt;figure&gt;</code> block, embedded inside a markdown file.
+Hugo will happily pass that through to the rendered page as-is.
+But because it&rsquo;s <em>raw HTML</em>, Hugo&rsquo;s <a href="https://gohugo.io/render-hooks/images/">image render hook</a> never sees it &mdash; render hooks only fire for genuine markdown image syntax (<code>![alt](src)</code>).</p>
+<p>That means:</p>
+<ul>
+<li>My theme&rsquo;s responsive <code>srcset</code> and lazy-loading attributes don&rsquo;t get added.</li>
+<li>The caption styling defined in my theme&rsquo;s <code>figure.html</code> partial doesn&rsquo;t apply.</li>
+<li>Alt text and caption text are duplicated, which is verbose and slightly redundant for screen readers.</li>
+<li>Dark-mode treatment of figure backgrounds (which my theme handles in CSS based on a class added by the render hook) is skipped.</li>
+</ul>
+<p>What I <em>want</em> in the rendered <code>index.md</code> is just this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>![<span style="color:#f92672">A small example plot</span>](<span style="color:#a6e22e">path/to/figure.png</span>)
+</span></span></code></pre></div><p>With that, Hugo&rsquo;s render hook fires, my theme handles the figure markup, and everything is consistent with images I write into prose by hand.</p>
+<p>This idiosyncrasy of the <code>hugo-md</code> format has an <a href="https://github.com/quarto-dev/quarto-cli/issues/11478">open upstream discussion</a> on the Quarto repo if you want the full context &mdash; the workaround below is what I&rsquo;ve landed on in the meantime.</p>
+<h2 id="a-small-lua-filter">A small Lua filter</h2>
+<p>Quarto runs Pandoc under the hood, and Pandoc lets you intercept the document AST with a Lua filter before the final output is written.
+&ldquo;AST&rdquo; is short for <strong>Abstract Syntax Tree</strong> &mdash; the structured, in-memory representation a parser builds out of your document after reading it, but before writing it back out in some target format.
+For our purposes, you can think of it as a tree of nodes where every paragraph, heading, image, and figure in your <code>.qmd</code> file becomes its own typed object that you can inspect or rewrite.
+That&rsquo;s what lets us say &ldquo;find every <code>Figure</code> node and replace it with a markdown image&rdquo;, without having to do any error-prone string-matching on the rendered HTML.</p>
+<p>So a Lua filter gives us a clean place to convert Quarto&rsquo;s <code>Figure</code> nodes back into plain markdown image syntax &mdash; and only those nodes, leaving everything else alone.</p>
+<p>Here&rsquo;s the entire filter, sitting at <code>figure-to-markdown.lua</code> in the root of my Hugo repository:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Figure</span>(fig)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">-- Check if there&#39;s an image in the figure</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">local</span> img <span style="color:#f92672">=</span> fig.content[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> img <span style="color:#f92672">and</span> img.t <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Plain&#34;</span> <span style="color:#f92672">and</span> img.content[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">and</span> img.content[<span style="color:#ae81ff">1</span>].t <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Image&#34;</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> image <span style="color:#f92672">=</span> img.content[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> alt_text <span style="color:#f92672">=</span> pandoc.utils.stringify(image.caption)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> src <span style="color:#f92672">=</span> image.src
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> title <span style="color:#f92672">=</span> image.title <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Get caption from figure if it exists</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> caption_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> fig.caption <span style="color:#f92672">and</span> fig.caption.long <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      caption_text <span style="color:#f92672">=</span> pandoc.utils.stringify(fig.caption.long)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Build markdown image syntax</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> markdown_img <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> caption_text <span style="color:#f92672">~=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">and</span> alt_text <span style="color:#f92672">~=</span> caption_text <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      markdown_img <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;![&#34;</span> <span style="color:#f92672">..</span> alt_text <span style="color:#f92672">..</span> <span style="color:#e6db74">&#34;](&#34;</span> <span style="color:#f92672">..</span> src <span style="color:#f92672">..</span> <span style="color:#e6db74">&#39; &#34;&#39;</span> <span style="color:#f92672">..</span> caption_text <span style="color:#f92672">..</span> <span style="color:#e6db74">&#39;&#34;)&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elseif</span> caption_text <span style="color:#f92672">~=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      markdown_img <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;![&#34;</span> <span style="color:#f92672">..</span> caption_text <span style="color:#f92672">..</span> <span style="color:#e6db74">&#34;](&#34;</span> <span style="color:#f92672">..</span> src <span style="color:#f92672">..</span> <span style="color:#e6db74">&#34;)&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elseif</span> title <span style="color:#f92672">~=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      markdown_img <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;![&#34;</span> <span style="color:#f92672">..</span> alt_text <span style="color:#f92672">..</span> <span style="color:#e6db74">&#34;](&#34;</span> <span style="color:#f92672">..</span> src <span style="color:#f92672">..</span> <span style="color:#e6db74">&#39; &#34;&#39;</span> <span style="color:#f92672">..</span> title <span style="color:#f92672">..</span> <span style="color:#e6db74">&#39;&#34;)&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>      markdown_img <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;![&#34;</span> <span style="color:#f92672">..</span> alt_text <span style="color:#f92672">..</span> <span style="color:#e6db74">&#34;](&#34;</span> <span style="color:#f92672">..</span> src <span style="color:#f92672">..</span> <span style="color:#e6db74">&#34;)&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pandoc.Para({ pandoc.RawInline(<span style="color:#e6db74">&#34;markdown&#34;</span>, markdown_img) })
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">-- If it&#39;s not a simple image figure, return as-is</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> fig
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>It&rsquo;s not glamorous code, but it&rsquo;s doing a few useful things.</p>
+<p>The <code>Figure</code> function is a Pandoc filter callback that fires once for each <code>Figure</code> element in the AST.
+For each one, the filter checks whether the figure is wrapping a plain image &mdash; the simple case Quarto generates for a code chunk that produced a plot.
+If so, it pulls out the image source, the alt text, and any separate caption, and rebuilds them as a markdown image link with the right shape.</p>
+<p>The four branches handle the cases where:</p>
+<ol>
+<li><strong>Both alt and caption exist and differ</strong> &mdash; emit <code>![alt](src &quot;caption&quot;)</code>. Markdown&rsquo;s title attribute is the slot most Hugo render hooks pick up as the caption text, while the alt text in the brackets becomes the <code>alt</code> attribute.</li>
+<li><strong>Only caption exists</strong> &mdash; use the caption as the alt text. (For Quarto&rsquo;s <code>hugo-md</code> output, this is the most common case, because the alt and caption tend to come out identical in the AST.)</li>
+<li><strong>There&rsquo;s a title but no caption</strong> &mdash; preserve the title as the caption slot.</li>
+<li><strong>Just alt</strong> &mdash; emit a plain <code>![alt](src)</code>.</li>
+</ol>
+<p>Anything that isn&rsquo;t a simple image figure (custom HTML figures, multi-image figures, etc.) gets returned untouched.</p>
+<h2 id="wiring-it-up">Wiring it up</h2>
+<p>There are two reasonable ways to wire the filter into your project: per-document or project-wide.</p>
+<h3 id="per-document">Per-document</h3>
+<p>In each post&rsquo;s YAML frontmatter, point at the filter via a relative path:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;...&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">format</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hugo-md</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">filters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">../../../../figure-to-markdown.lua</span>
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div><p>Whether the path is <code>../../../../figure-to-markdown.lua</code> or something else depends on how deep your posts live below the project root.
+For my site, posts sit at <code>content/blog/YYYY/MM-DD_slug/index.qmd</code>, which is four directories deep &mdash; hence the four <code>..</code> segments:</p>
+<pre><code>.
+├── config.toml
+├── figure-to-markdown.lua
+└── content/
+    └── blog/
+        └── 2026/
+            └── 06-01_quarto-hugo-figures/
+                └── index.qmd
+</code></pre>
+<p>This approach is fine if you only want the filter on certain posts.
+But if every post in your blog should use the filter (likely true if your Hugo theme handles all images consistently), repeating that block in every YAML header is the kind of thing you&rsquo;ll forget to do exactly once and then have a mystery to debug later.</p>
+<h3 id="project-wide-via-_quartoyml">Project-wide via <code>_quarto.yml</code></h3>
+<p>A cleaner approach is to declare the filter once in your project&rsquo;s root <code>_quarto.yml</code>, like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">project</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">format</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hugo-md</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">filters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">figure-to-markdown.lua</span>
+</span></span></code></pre></div><p>Note that the path is just <code>figure-to-markdown.lua</code> &mdash; when filters are declared at the project level in <code>_quarto.yml</code>, Quarto resolves the path relative to the project root, so no <code>../../..</code> gymnastics are needed.</p>
+<p>After this, every <code>qmd</code> file rendered with <code>format: hugo-md</code> will automatically run the filter.
+Posts that previously had their own per-document filter line can drop it; posts that didn&rsquo;t have it picked up the new behaviour for free.</p>
+<p>If you have specific posts that should <em>not</em> run the filter (say, an essay post where you&rsquo;ve hand-crafted some HTML and want it preserved), you can override at the document level &mdash; Quarto&rsquo;s filter resolution merges document-level and project-level filters, so you can also remove the project filter just for one document by setting an empty filters list.</p>
+<h2 id="a-small-caption-convention">A small caption convention</h2>
+<p>Once the filter is in place, there&rsquo;s one convention worth landing on, because the markdown image syntax has fewer text slots than Quarto&rsquo;s full <code>&lt;figure&gt;</code> HTML.</p>
+<p>Markdown gives you exactly two text slots:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>![<span style="color:#f92672">alt text goes here</span>](<span style="color:#a6e22e">path/to/img.png &#34;title text goes here&#34;</span>)
+</span></span></code></pre></div><ul>
+<li><code>alt text</code> becomes the <code>alt</code> HTML attribute (read by screen readers).</li>
+<li><code>title text</code> becomes the <code>title</code> attribute, which most Hugo render hooks repurpose as the visible caption.</li>
+</ul>
+<p>The filter takes Quarto&rsquo;s <code>fig-cap</code> and uses it for both alt and title slots when only one is present.
+This is fine, but it pushes you toward a small writing convention: write <code>fig-cap</code> as a <strong>descriptive caption that also reads well as alt text</strong>.</p>
+<p>Practically, that means avoiding terse takeaway-style captions like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#| fig-cap: &#34;Lots of progress this year&#34;</span>
+</span></span></code></pre></div><p>&hellip;in favour of something more descriptive:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#| fig-cap: &#34;Mean activation across voxels for Subject 01. Brighter values indicate higher signal intensity, with the contour of a brain visible in the centre.&#34;</span>
+</span></span></code></pre></div><p>The second version reads like a proper figure caption to a sighted reader and gives a screen reader user a useful description of what the figure shows.
+You don&rsquo;t need to cover every detail; one or two sentences that say &ldquo;what is this and what should I notice in it&rdquo; is plenty.</p>
+<p>If a post genuinely needs distinct alt and caption text, you can still set both <code>fig-alt</code> and <code>fig-cap</code> in the chunk options &mdash; the filter&rsquo;s first branch handles that case and emits <code>![fig-alt](src &quot;fig-cap&quot;)</code>.
+For most posts, though, a single descriptive <code>fig-cap</code> is enough.</p>
+<h2 id="why-bother-with-this-at-all">Why bother with this at all?</h2>
+<p>There are a few reasons I think it&rsquo;s worth the small bit of setup:</p>
+<ol>
+<li><strong>Consistency across image sources.</strong> Once every figure goes through the same render hook, plot images and prose-embedded images get the same caption styling, lazy loading, srcset, and dark-mode behaviour. No &ldquo;this image is from a code chunk and renders slightly differently&rdquo; oddities.</li>
+<li><strong>Clean diffs in your <code>index.md</code>.</strong> When a Quarto render produces simple markdown image lines instead of multi-line HTML blocks, your generated markdown is easier to read and diff. Useful for catching unintended changes when re-rendering.</li>
+<li><strong>Theme portability.</strong> If you switch Hugo themes one day, the filter keeps working. Themes vary a lot in how they handle raw HTML figures, but virtually all of them support markdown image render hooks.</li>
+<li><strong>It&rsquo;s tiny.</strong> Fifteen-ish lines of Lua, one entry in <code>_quarto.yml</code>. Almost nothing to maintain.</li>
+</ol>
+<h2 id="where-to-grab-the-filter">Where to grab the filter</h2>
+<p>The Lua filter I use lives at the root of <a href="https://github.com/drmowinckels/drmowinckels.github.io">my Hugo blog repo</a>, as <code>figure-to-markdown.lua</code>.
+Drop it into the root of your own Hugo repo, add the <code>_quarto.yml</code> snippet, and you should be set.</p>
+<p>If your project structure is different &mdash; say, your Quarto sources live under a <code>posts/</code> subfolder rather than <code>content/blog/</code> &mdash; only the path-resolution comments above need adjusting.
+The filter itself doesn&rsquo;t care.</p>
+<p>There&rsquo;s nothing exciting about this filter, but it&rsquo;s one of those small bits of plumbing that quietly makes everything else fit together.
+That&rsquo;s usually a sign worth keeping.</p>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Jun 1, 2026) 
+                    Tidier Quarto Figures in Hugo: a Tiny Lua Filter. 
+                    Retrieved from https://drmowinckels.io/blog/2026/quarto-hugo-figures/.
+                     DOI: https://www.doi.org/10.5281/zenodo.20489086
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-tidier-quarto-figures-in-hugo-a-tiny-lua-filter,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Tidier Quarto Figures in Hugo: a Tiny Lua Filter",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/quarto-hugo-figures/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.20489086",<br> 
+                        &emsp;updated = "Jun 1, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 2, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2025/submodules/featured_hu_2bf285fd7b3d3db7.webp') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Hugo modules vs. Git submodules: manage your website more easily</h2>
+    
+      <p>Explore the dynamics of Hugo modules and Git submodules in managing site dependencies efficiently. I go through their features, advantages, and practical  applications in web development, centering on my experience with Hugo and Git.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/submodules/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/git/" class="uk-label timeline-tags">
+              git
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label timeline-tags">
+              hugo
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/submodules/" class="uk-label timeline-tags">
+              submodules
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/web-development/" class="uk-label timeline-tags">
+              web development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 1, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/theme_15772550410115698330_hu_8ae9f0fabf9a5987.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Hugo Igloo theme</h2>
+    
+      <p>This is a theme for creating a website theme for the <a href="https://gohugo.io/">Hugo</a> static site generator. The Hugo Igloo
+theme is the theme of my website and created using UIkit 3.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/projects/hugo-igloo/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label timeline-tags">
+              hugo
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 1, 2024
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+    <h2>New year, New blog</h2>
+    
+      <p>Reflecting on the past years, I&rsquo;ve focused on significant career milestones, volunteer work, and a new website revamp. Highlights include leading a new Core Facility at the University of Oslo, attending Posit::conf 2023, contributing to R-Ladies, rOpenSci, and R-Hub communities. My new Hugo Igloo theme offers a fresh look for my website.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2024/newyear-newblog/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/reflections/" class="uk-label timeline-tags">
+              reflections
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label timeline-tags">
+              hugo
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 3, 2023
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2023/reorganising-hugo/image_hu_b50dddae50f4e5eb.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Reorganising Hugo Content and Aliasing</h2>
+    
+      <p>Revamping a website and organizing content can be challenging. Here&rsquo;s how I restructured my blog posts into yearly subfolders using a Bash script, added Hugo aliases for seamless redirects, and simplified file slugs for cleaner URLs. This automation ensures better content organization and link integrity.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2023/reorganising-hugo/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/blogdown/" class="uk-label timeline-tags">
+              blogdown
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label timeline-tags">
+              hugo
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/bash/" class="uk-label timeline-tags">
+              bash
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 23, 2021
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/gh-deploy_hu_1052332eba6ccd3.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Using GitHub Actions to Build your Hugo Website</h2>
+    
+      <p>Learn to build Hugo websites using GitHub Actions and deploy them with Netlify. This guide covers setting up GitHub Actions to build your site, install dependencies, render Rmarkdown files, and deploy to Netlify or GitHub Pages. Enhanced control and maintenance for your site, with step-by-step instructions.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2021/using-github-actions-to-build-your-hugo-website/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/hugo/" class="uk-label timeline-tags">
+              hugo
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/continuous-integration/" class="uk-label timeline-tags">
+              Continuous Integration
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/github-actions/" class="uk-label timeline-tags">
+              GitHub Actions
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2026 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
