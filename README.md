@@ -13,12 +13,12 @@ site about R, brain imaging, and the occasional post on long Covid life.
 
 ## Some stats
 
-🎉 DrMowinckels has **58** posts since **2018-03-08**!
+🎉 DrMowinckels has **59** posts since **2018-03-08**!
 
 📅 In the last 12 months: **13** posts — roughly monthly.
 
-✍️ Most recent post (2026-05-04): [Two Years of Visible: New Angles on
-the Long Covid Data](https://drmowinckels.io/blog/visible-year-two).
+✍️ Most recent post (2026-06-01): [Tidier Quarto Figures in Hugo: a Tiny
+Lua Filter](https://drmowinckels.io/blog/quarto-hugo-figures).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
@@ -34,6 +34,7 @@ I’d love your feedback in the comments!
 
 | Date | Title |
 |:---|:---|
+| 2026-06-01 | [Tidier Quarto Figures in Hugo: a Tiny Lua Filter](https://drmowinckels.io/blog/quarto-hugo-figures) |
 | 2026-05-04 | [Two Years of Visible: New Angles on the Long Covid Data](https://drmowinckels.io/blog/visible-year-two) |
 | 2026-04-01 | [Norway’s New ME/CFS Guidelines Got It Backwards](https://drmowinckels.io/blog/mecfs-guidelines-norway) |
 | 2026-03-02 | [Dotfiles: Taming Your Dev Environment (and Your AI Coding Agents)](https://drmowinckels.io/blog/dotfiles-coding-agents) |
@@ -101,4 +102,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2026-05-27 03:43 UTC*
+*Updated 2026-06-03 04:03 UTC*
