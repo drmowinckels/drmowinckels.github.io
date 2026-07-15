@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.21373205
 title: "Year in review — 2025"
 author: "Dr. Mowinckel"
 date: "2026-01-19"
