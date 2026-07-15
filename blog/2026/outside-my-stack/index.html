@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Outside My Stack: Building Entracte and Cairn With Claude - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="I’m an R person who somehow shipped two cross-platform desktop apps in a Rust &#43; Tauri &#43; React stack I don’t speak natively. This post is about the process — how Entracte got built straight in code with Claude as a guide, why we took a completely different approach for Cairn (designing the whole thing as an interactive Claude artifact before writing a line of production code), and what I learned about pairing with an AI on creative work that sits well outside your expertise." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/outside-my-stack/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Outside My Stack: Building Entracte and Cairn With Claude - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="How I built two cross-platform desktop apps — Entracte and Cairn — in Tauri,
+Rust, and React, despite being an R person.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Outside My Stack: Building Entracte and Cairn With Claude - Dr. Mowinckel&rsquo;s">
+<meta name="twitter:description" content="How I built two cross-platform desktop apps — Entracte and Cairn — in Tauri,
+Rust, and React, despite being an R person.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/img/logo.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/img/logo.png">
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f46eae58a95bd13440b3845d08d3bd2a3c54bc821ea91aa96d9efc2052ca1496.css" 
+    integrity="sha256-9G6uWKlb0TRAs4RdCNO9KjxUvIIeqRqpbZ78IFLKFJY=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            
+            <img src="https://drmowinckels.io/img/logo.png" alt="A modern minimalist desk setup in warm, natural light. On a light wooden surface, a stylized cairn of stacked stones glows with digital, circuit-board patterns. Next to it, an open silver laptop displays a dark-mode productivity dashboard with charts and UI elements labeled &#34;Cairn.&#34; A blurred succulent sits in the background.
+" class="uk-border-rounded">
+            
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Outside My Stack: Building Entracte and Cairn With Claude</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Jul 1, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/claude/" class="uk-label uk-label-secondary tags">
+                            Claude
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/tauri/" class="uk-label uk-label-secondary tags">
+                            Tauri
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/ai-pairing/" class="uk-label uk-label-secondary tags">
+                            Ai-Pairing
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/design/" class="uk-label uk-label-secondary tags">
+                            Design
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/desktop-apps/" class="uk-label uk-label-secondary tags">
+                            Desktop-Apps
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-entracte">Why Entracte</a></li>
+    <li><a href="#the-entracte-experiment">The Entracte experiment</a></li>
+    <li><a href="#cairn-started-somewhere-else">Cairn started somewhere else</a></li>
+    <li><a href="#designing-the-whole-thing-inside-claude-design">Designing the whole thing inside Claude Design</a></li>
+    <li><a href="#two-apps-deliberately-drawn-apart">Two apps, deliberately drawn apart</a></li>
+    <li><a href="#what-i-learned-about-working-outside-my-stack">What I learned about working outside my stack</a></li>
+    <li><a href="#if-you-want-to-try-the-artifact-first-approach">If you want to try the artifact-first approach</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">I&rsquo;m an R person who somehow shipped two cross-platform desktop apps in a Rust + Tauri + React stack I don&rsquo;t speak natively. This post is about the process — how Entracte got built straight in code with Claude as a guide, why we took a completely different approach for Cairn (designing the whole thing as an interactive Claude artifact before writing a line of production code), and what I learned about pairing with an AI on creative work that sits well outside your expertise.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>If you&rsquo;ve read my blog before, you know I&rsquo;m an R person.
+I write R packages, I teach R, I think in tidy data and ggplot layers.
+So when I started getting itchy about building a desktop break-reminder app, my first reaction was &ldquo;great idea, wrong person.&rdquo;</p>
+<p>I didn&rsquo;t even know what stack would make sense for this kind of app, I just knew it wasn&rsquo;t going to be R.</p>
+<p>But I&rsquo;d been wanting to test something.
+With Claude as a coding partner, how far can I get on a project where I don&rsquo;t really speak the language?
+Where I can read code well enough to know if it&rsquo;s bad, but not well enough to know if it&rsquo;s <em>right</em>?
+That&rsquo;s the question I&rsquo;ve been chewing on for a while.</p>
+<p>After a while, I decided to start exploring.
+I had a start by having a chat with Claude about what I wanted, and what type of tools would be appropriate to use.
+After some pointed questions from Claude about more details, and what pros and cons for various approaches would be, we landed on a stack.
+The stack I needed was Tauri 2, Rust, React, TypeScript &mdash; basically the entire universe of things I have only ever read about.
+I knew what Typescript was, I do do some javascript work after all (TypeScript is a superset of javascript), and I had some idea about Rust being powerful and fast.
+But that was about it.</p>
+<p>I decided to jump into it anyway, and ended up starting to develop two things:</p>
+<ul>
+<li><a href="https://entracte.drmowinckels.io/">Entracte</a> a break reminder app.</li>
+<li><a href="https://github.com/drmowinckels/cairn">Cairn</a> a project tracking app.</li>
+</ul>
+<p>This post is about what that process actually looked like &mdash; both the part where Claude and I just wrote code together, and the part where we started somewhere completely different.</p>
+<h2 id="why-entracte">Why Entracte</h2>
+<p>I&rsquo;ve been recovering from Long Covid for a while now (see <a href="../../../../tags/longcovid/">the visible posts</a> for the full picture).
+One of the things that changed during recovery is that I can no longer push through a workday (and my workday is only 10% of full-time!).
+If I sit too long, work too hard, or skip too many breaks, I pay for it that evening &mdash; and sometimes for days.</p>
+<p><a href="https://hovancik.net/stretchly/">Stretchly</a> is a lovely app, and I used it for years, but I wanted things it didn&rsquo;t have.
+Awareness of whether my camera was on &mdash; because nothing is more rude than a break overlay during a meeting.
+Multi-monitor handling that didn&rsquo;t fling fullscreen windows across Spaces.
+A daily screen-time budget that quietly nudged me toward wind-down.
+And a Sleep prompt at the end of the day, because evening &ldquo;just one more thing&rdquo; is how I wreck tomorrow, or at worst the entire week.</p>
+<p>So I had a feature list.
+I had no idea how to build any of it.</p>
+<h2 id="the-entracte-experiment">The Entracte experiment</h2>
+<p>We started straight in Claude code.
+Claude scaffolded the Tauri project &mdash; Rust backend, React frontend, the basic IPC (inter-process communication) bridge between them &mdash; and from there we built features one at a time.</p>
+<ul>
+<li>Tick loop.</li>
+<li>Break overlay.</li>
+<li>Tray icon.</li>
+<li>CLI tool.</li>
+<li>Stats.</li>
+<li>Camera detection.</li>
+<li>Idle detection.</li>
+</ul>
+<p>Each one took me from &ldquo;I don&rsquo;t know what that even means&rdquo; to &ldquo;okay, I can review this PR&rdquo; &mdash; further than I expected to get.</p>
+<p>A few things made it work.</p>
+<p>I treated each feature like a small specification &mdash; what does it do, when does it fire, what should it <em>not</em> do.
+That gave Claude something concrete to work against, and gave me something I could actually test against.</p>
+<p>Very early on, almost right off the bat, I made sure we had CI workflows that ran cross-platform checks.
+Thankfully, Rust is <em>opinionated</em> so setting up good testing and linting CIs was really easy, and I made sure we had equivalents for the rest of the stack too, as much as possible.
+Having this in place, made it easier to find issues early on, and make sure things were adhereing to best-practices.</p>
+<p>I made a habit of saying &ldquo;show me the test for that&rdquo; any time something felt brittle.
+Tests and docs ship <em>with</em> the code, in the same PR.
+No deferred test debt, no &ldquo;we&rsquo;ll cover it next sprint.&rdquo;
+I wrote that rule down because I kept needing the reminder, and now Claude reads it at the start of every session.</p>
+<p>I cared more about the architecture diagrams than the line-by-line code.
+If I could understand the data flow, I trusted the implementation.
+The scheduler in Entracte is a Tokio tick loop that consults native OS hooks, applies pause and suppression rules, and decides when to surface a break.
+I cannot write a Tokio tick loop from scratch.
+I <em>can</em> tell you what mine does.</p>
+<p>Lastly, I had three LMM skills I used for <em>every</em> PR with a feature we made:</p>
+<ul>
+<li><a href="https://github.com/posit-dev/skills/blob/main/posit-dev/critical-code-reviewer/SKILL.md">Critical code reviewer</a></li>
+<li><a href="https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code">Security review</a> - catch vulnerabilities in code that could be exploited.</li>
+<li>Simplify - Internal Claude Code skill to help make functions less complex and detect duplications etc.</li>
+</ul>
+<p>These three helped me find code duplications, security flaws, and general poor or flawed logic in the code.
+They also helped me navigate the stack better and actually learn a little about code smells in a stack I knew almost nothing about.</p>
+<p>Entracte runs well on my Mac now, ships on Windows and Linux too (with a few platform-specific gaps), and is <a href="https://github.com/drmowinckels/entracte">open source under Apache 2.0</a>.
+I also have colleagues using it on Linux, and they seem quite happy with it.
+I&rsquo;d be very happy if more people use it, I think we all could do with break reminders as we sit glued to our computers doing work.</p>
+<p>It has lots and lots of customisations, maybe too many (is there such a thing)?</p>
+<p>There&rsquo;s a short <em>Micro</em> break for eyes and posture, a longer <em>Long</em> break, and a <em>Sleep</em> prompt near bedtime that gets its own separate treatment.
+It knows to shut up during Do Not Disturb, while my camera&rsquo;s on, while I&rsquo;m idle, or outside my work hours &mdash; the whole point was never getting ambushed by a break overlay mid-meeting again.
+And because I&rsquo;m going to see this screen fifty times a day whether I like it or not, there are five overlay themes to choose from &mdash; dark, midnight, forest, sunset, rose.</p>
+<figure class="uk-thumbnail">
+        <img src="img/entracte-break-overlay-active.png" 
+         alt="Entracte&rsquo;s micro-break overlay: a dark full-screen dim with a countdown ring at six seconds, the prompt “Reach for the ceiling — both arms, slow stretch,” and Postpone and Skip buttons" >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            A micro break in progress
+        </figcaption>
+        
+    </figure><p>There&rsquo;s a tray countdown if I want to watch the next break coming, pause presets from fifteen minutes to indefinitely, and a small CLI for wiring into hotkeys &mdash; <code>entracte pause 30m</code>, <code>entracte trigger long</code>.</p>
+<p>And there&rsquo;s stats.
+A local history of breaks taken, dismissed, and suppressed, with a time-of-day breakdown and a 12-week heatmap.
+None of it leaves my machine.
+It&rsquo;s there so I can actually see whether I&rsquo;m taking the breaks I built this whole app for, or just clicking Skip on autopilot.</p>
+<figure class="uk-thumbnail">
+        <img src="img/entracte-stats-summary.png" 
+         alt="Entracte&rsquo;s stats summary for the past week: 66 breaks taken, a 16% dismissal rate, 3 hours 15 minutes paused, and a breakdown of why breaks were suppressed — idle time, active typing, Do Not Disturb, camera in use, and a paused app" >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            A week of break stats, kept entirely on my machine
+        </figcaption>
+        
+    </figure><figure class="uk-thumbnail">
+        <img src="img/entracte-stats-heatmap.png" 
+         alt="A time-of-day histogram of when breaks happen, plus a 12-week heatmap showing break activity building up over time" >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            The 12-week heatmap view in Entracte’s stats
+        </figcaption>
+        
+    </figure><p>There&rsquo;s also a Supporter pack, a one-off purchase that unlocks a few personalisation extras &mdash; custom overlay colour, theme rotation, custom CSS, custom sounds.
+Every scheduling, suppression, profile, stats, and CLI feature is free, for everyone.
+The unlock check for the paid extras sits right there in the source, readable by anyone who cares to look &mdash; it&rsquo;s a thank-you, not a lock.</p>
+<h2 id="cairn-started-somewhere-else">Cairn started somewhere else</h2>
+<p>Once Entracte was in the air, I started thinking about a sibling app &mdash; a time tracker.
+Something like Toggl, except local-first.</p>
+<ul>
+<li>No accounts.</li>
+<li>No cloud.</li>
+<li>No telemetry.</li>
+</ul>
+<p>Pair it with passive work signals (the folder open in your IDE, your git branch, your calendar, your browser domain) and let <em>user-defined rules</em> assign time to projects automatically.
+If a rule isn&rsquo;t sure, ask a quiet &ldquo;Working on X?&rdquo; instead of guessing.</p>
+<p>I called it Cairn &mdash; the stacked stones you leave on a path to mark where you&rsquo;ve been.</p>
+<p>This time, though, something was different.
+Time trackers are emotional objects.
+Most of them are noisy.
+Judgemental.
+Full of metrics that make you feel like a worse worker than you actually are.
+The whole point of Cairn is to feel <em>quiet</em>, and be respectful.</p>
+<p>You can&rsquo;t engineer that in at the end.
+You have to see it first.</p>
+<p>So we didn&rsquo;t start in Tauri.
+We started in a Claude Design.</p>
+<h2 id="designing-the-whole-thing-inside-claude-design">Designing the whole thing inside Claude Design</h2>
+<p>There&rsquo;s a name for what we were doing, even if I didn&rsquo;t think of it that way at the time: UX-driven development.
+Instead of starting from the data model and bolting a UI onto it later, you start from how the thing should <em>feel</em> to use, and work backward to whatever needs to exist underneath to support that.
+It&rsquo;s the opposite of how I work in R, where I reach for the data structure first and the presentation is an afterthought.
+For Cairn, the UI came first, on purpose, because the feeling was the whole point.</p>
+<p>Claude Design is built for exactly this kind of thing &mdash; documents, prototypes, whole websites.
+It&rsquo;s iterative: it asks you a lot of questions, you answer, it builds, you react, and somewhere in that back-and-forth an artifact comes out the other end.
+If you haven&rsquo;t used artifacts in Claude before, they&rsquo;re interactive HTML/React canvases you build with Claude directly inside the chat &mdash; real components, real CSS, actually clickable.
+You can flip it dark or light, swap out a whole layout, prototype the entire UI, and never once open a build tool.</p>
+<p>That&rsquo;s where Cairn lived for a very good while.</p>
+<p>We built the popover shell &mdash; header, nav, body, footer.
+Then the Today view, with its running-timer chip and day-timeline strip.
+Then the Reports view with its weekly stacked-bar chart, by-project breakdown, and the &ldquo;honesty meter&rdquo; (a tiny bar that flags when too many entries were guessed by rules instead of confirmed by you).
+Then the Rules view, with three depth modes &mdash; light, medium, heavy &mdash; so we could test how much complexity to expose by default.</p>
+<figure class="uk-thumbnail">
+        <img src="img/cairn-light-design-tweak.png" 
+         alt="Cairn&rsquo;s Today view in light mode, showing a detected work-session banner asking “Working on Cairn — Rule preview UI?” with Confirm and Change buttons, a running timer, and an open tweaks panel exposing theme, density, layout, and rules-engine controls" >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            The Cairn Today view with the floating tweaks panel open, light theme
+        </figcaption>
+        
+    </figure><figure class="uk-thumbnail">
+        <img src="img/cairn-dark-design-tweak.png" 
+         alt="The same Cairn Today view in dark mode, with the tweaks panel switched to dark theme and comfy density, and the day&rsquo;s timeline and recent entries visible underneath" >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            The Cairn Today view with the floating tweaks panel open, dark theme
+        </figcaption>
+        
+    </figure><p>The whole time, the question wasn&rsquo;t &ldquo;does this work.&rdquo;
+It was &ldquo;does this <em>feel</em> right&rdquo; &mdash; whether the running-timer chip reads as calm or anxious, whether the auto-detect banner comes across as reassuring or presumptuous, whether the rule builder feels like a tool you reach for or a chore you dread.</p>
+<p>Claude Design also has this editing tool where you can adjust things in the design your self.
+I didn&rsquo;t do this much, but I can see it being very nice when you have a clear idea of what needs fixing.</p>
+<figure class="uk-thumbnail">
+        <img src="img/claude-design-edit.png" 
+         alt="Claude Design&rsquo;s Pro edit panel open alongside the Cairn Reports view, showing the layer tree of buttons and groups on the left and the weekly tracked-time summary with a by-project breakdown on the right" >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            Editing the Cairn Reports view directly inside Claude Design
+        </figcaption>
+        
+    </figure><p>Those are visual decisions, but they&rsquo;re also <em>ethical</em> decisions about how a piece of software relates to the person using it.
+And they&rsquo;re enormously easier to make when you can actually <em>see</em> them in front of you.</p>
+<p>By the time we were done, the artifact had:</p>
+<ul>
+<li>A real palette &mdash; eggshell, burnt peach, twilight indigo, muted teal, apricot cream.</li>
+<li>Two density modes &mdash; compact and comfy &mdash; and a working theme switch.</li>
+<li>A floating &ldquo;Tweaks&rdquo; panel pinned to the bottom-right, so I could flip every variant without touching code.</li>
+<li>A complete fixture data set, so views looked alive instead of empty.</li>
+<li>An atomic component vocabulary &mdash; <code>ProjectChip</code>, <code>Tag</code>, <code>LocalBadge</code>, <code>Kbd</code>, <code>Icon</code> &mdash; that carried straight into the production app.</li>
+</ul>
+<p>When I finally went to build the actual Tauri app, the <code>design/</code> folder came along <em>as the spec</em>.
+The README in there literally says: &ldquo;These are not production code.
+They are a spec for what to build.&rdquo;
+The HTML is the visual source of truth.
+The prose spec sits alongside it.</p>
+<p>That was the bet, and it paid off.
+The Tauri+React build of Cairn is, mostly, a careful port of the artifact.
+The design decisions were already made &mdash; pinned in code, sitting right in front of me &mdash; so the production work was just engineering, instead of engineering and aesthetic gambling rolled into one.</p>
+<p>I do have to note though, a really weird and funny thing with the first iteration claude code made, it had the app <em>inside</em> another window, just like it looked in claude design.
+Difference it, claude design runs in the browser (or where I used it at least), and so the app inside a windows (with another background colour etc) made sense there.
+I mean, it couldn&rsquo;t create a standalone app.</p>
+<p>But it looked absolutely ridiculous as a standalone app.
+I&rsquo;m a little sad I didn&rsquo;t screenshot it for posterity to show it.
+It was quite funny.</p>
+<p>Under that funny bug, the actual architecture is pretty boring, in a good way.
+The rules engine &mdash; the thing deciding whether an entry is &ldquo;acme-web&rdquo; or &ldquo;Cairn&rdquo; or &ldquo;Meetings&rdquo; &mdash; is pure Rust with no I/O.
+That&rsquo;s on purpose: I can throw everything at it in tests without ever mocking a filesystem or a git repo.
+Reading your actual work signals lives somewhere else entirely &mdash; a window watcher, a git-branch watcher, an idle watcher, each its own small module, all feeding into that same engine.
+Everything lands in a local SQLite database.
+No accounts, no cloud, no telemetry &mdash; that&rsquo;s not a tagline, it&rsquo;s just what the storage layer does.
+And the popover itself sits off the tray, with a global shortcut to summon it, so checking in on my day doesn&rsquo;t mean alt-tabbing into a whole separate app.</p>
+<h2 id="two-apps-deliberately-drawn-apart">Two apps, deliberately drawn apart</h2>
+<p>There&rsquo;s one more thing that came out of all this.</p>
+<p>Once both apps existed, they started drifting toward each other.
+Entracte&rsquo;s wishlist had calendar integration, and Cairn already needed to read your calendar for its work signals.
+Entracte tracked screen time; Cairn was already tracking work time, which is more or less the same number wearing a different hat.
+And Cairn&rsquo;s rules kept nudging toward something Pomodoro-shaped &mdash; which Entracte, of course, already was.</p>
+<p>So we drew a line, and wrote it down:</p>
+<ul>
+<li>Entracte owns <em>breaks</em> &mdash; scheduling, Pomodoro, overlay, suppression, break stats.</li>
+<li>Cairn owns <em>work</em> &mdash; time entries, projects, rules, work-time analytics, calendar awareness.</li>
+</ul>
+<p>If a Cairn user wants Pomodoro, they install Entracte.
+If an Entracte user wants project-level analytics, they install Cairn.
+Neither app grows into the other.
+When they need to cooperate, they cooperate through a shared local event bus &mdash; not by absorbing each other&rsquo;s domains.</p>
+<p>That line only exists because we caught the duplication early.
+It would have been <em>so</em> easy to keep slipping features across the boundary and end up with two apps that did 80% of the same thing slightly differently.</p>
+<h2 id="what-i-learned-about-working-outside-my-stack">What I learned about working outside my stack</h2>
+<p>A few things have stuck with me.</p>
+<p>The collaboration only works if I&rsquo;m a real participant.
+Claude can write Rust I cannot write.
+But Claude cannot decide what kind of thing this is going to be.
+That decision &mdash; what does it <em>do</em>, who does it <em>serve</em>, what should it <em>feel like</em> &mdash; is still my job.
+Doesn&rsquo;t matter how good the model gets.</p>
+<p>It many times made choices on settings etc that made little sense, or where very haphazardly placed together with weird ways to specify settings.
+It needed a human to make better design decisions.</p>
+<p>Designing visually before designing in code is a superpower for emotional software.
+Time trackers, break reminders, anything you live with &mdash; these need to be <em>seen</em> before they&rsquo;re built.
+The Claude Design approach for Cairn worked because it let me sketch the relationship between the user and the tool, without paying the cost of actually building it first.</p>
+<p>Reading code well is a skill in its own right, and one I&rsquo;d undersold.
+I&rsquo;ve spent most of my career <em>writing</em> code, but for these projects I needed to be a critical reader instead.
+PR review turned out to be its own discipline, separate from writing the code.
+So did knowing when to ask &ldquo;where&rsquo;s the test for this branch?&rdquo; instead of just approving.
+So did saying &ldquo;this looks brittle, walk me through it&rdquo; instead of nodding along because I didn&rsquo;t want to seem lost.
+I got noticeably better at all three, mostly by being forced to.</p>
+<p>Rules you write down survive sessions.
+&ldquo;Tests and docs ship with the code.&rdquo;
+&ldquo;Codecov gate stays at 100% on patches, can only be overruled by human decision.&rdquo;
+&ldquo;Entracte owns breaks, Cairn owns work, never the twain shall meet.&rdquo;
+These are project-level memory entries Claude reads at the start of every session.
+They keep us honest in a way that an in-session reminder never could.</p>
+<p>And finally &mdash; I built two cross-platform desktop apps in a stack I do not write natively.
+That feels like a thing worth telling other R people about.
+If you&rsquo;ve been sitting on an idea because you don&rsquo;t have the &ldquo;right&rdquo; background, I think the answer is closer than you think.
+You don&rsquo;t need to learn Rust.
+You need to learn how to <em>direct</em> a project in a language you&rsquo;re still learning to read &mdash; and to be honest with yourself about which decisions are still yours to make.</p>
+<h2 id="if-you-want-to-try-the-artifact-first-approach">If you want to try the artifact-first approach</h2>
+<p><a href="https://entracte.drmowinckels.io/">Entracte</a> is free, open source, Apache 2.0, and works on macOS, Windows, and Linux.
+There&rsquo;s a Supporter pack for personalisation extras if you want to back development.</p>
+<p><a href="https://cairn.drmowinckels.io/">Cairn</a> is in its first public beta &mdash; I&rsquo;ve been using it privately for a while, and while there are still some things I want to figure out, I&rsquo;d also like to know how its working for others at this point.</p>
+<p>If you want to try the &ldquo;design in an artifact first&rdquo; approach for your own thing, the recipe is roughly this:</p>
+<ul>
+<li>Start a Claude Design (or similar tool) conversation and ask for an HTML/React artifact of the main view.</li>
+<li>Iterate visually until it looks like the thing you actually want.</li>
+<li>Add a tweaks panel &mdash; every variant on a switch &mdash; so you can <em>see</em> states without rebuilding.</li>
+<li>Build a fixture data file, so the views look alive.</li>
+<li>Only then move into production code, treating the artifact as the spec.</li>
+</ul>
+<p>You won&rsquo;t have a working app at the end of this.
+What you&rsquo;ll have is something I needed more: a clear, visible answer to &ldquo;what am I trying to build,&rdquo; sitting right in front of me, before I&rsquo;d written a line of production code.</p>
+<p>That was worth more to me than a head start on the Rust.</p>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Jul 1, 2026) 
+                    Outside My Stack: Building Entracte and Cairn With Claude. 
+                    Retrieved from https://drmowinckels.io/blog/2026/outside-my-stack/.
+                     DOI: https://www.doi.org/10.5281/zenodo.21373210
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-outside-my-stack-building-entracte-and-cairn-with-claude,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Outside My Stack: Building Entracte and Cairn With Claude",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/outside-my-stack/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.21373210",<br> 
+                        &emsp;updated = "Jul 15, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2026 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
