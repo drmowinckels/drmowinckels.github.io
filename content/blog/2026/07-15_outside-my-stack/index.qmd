@@ -1,11 +1,8 @@
 ---
-editor_options:
-  markdown:
-    wrap: sentence
 title: "Outside My Stack: Building Entracte and Cairn With Claude"
 format: hugo-md
 author: Dr. Mowinckel
-date: "2026-07-01"
+date: "2026-07-15"
 tags:
   - claude
   - tauri
@@ -13,11 +10,10 @@ tags:
   - design
   - desktop-apps
 slug: "outside-my-stack"
-image: ""
-image_alt: >-
-  TODO — replace with header image (e.g. side-by-side screenshots of the
-  Entracte break overlay and the Cairn popover).
-seo: >-
+image: "featured.jpg"
+image_alt: |
+  A modern minimalist desk setup in warm, natural light. On a light wooden surface, a stylized cairn of stacked stones glows with digital, circuit-board patterns. Next to it, an open silver laptop displays a dark-mode productivity dashboard with charts and UI elements labeled "Cairn." A blurred succulent sits in the background.
+seo: |
   How I built two cross-platform desktop apps — Entracte and Cairn — in Tauri,
   Rust, and React, despite being an R person.
 summary: |
@@ -72,7 +68,7 @@ Claude scaffolded the Tauri project — Rust backend, React frontend, the basic 
 - Tick loop.
 - Break overlay.
 - Tray icon.
-- CLI.
+- CLI tool.
 - Stats.
 - Camera detection.
 - Idle detection.
@@ -118,7 +114,7 @@ There's a short _Micro_ break for eyes and posture, a longer _Long_ break, and a
 It knows to shut up during Do Not Disturb, while my camera's on, while I'm idle, or outside my work hours — the whole point was never getting ambushed by a break overlay mid-meeting again.
 And because I'm going to see this screen fifty times a day whether I like it or not, there are five overlay themes to choose from — dark, midnight, forest, sunset, rose.
 
-![Entracte's micro-break overlay: a dark full-screen dim with a countdown ring at six seconds, the prompt "Reach for the ceiling — both arms, slow stretch," and Postpone and Skip buttons](img/entracte-break-overlay-active.png "A micro break in progress")
+![A micro break in progress](img/entracte-break-overlay-active.png){fig-alt="Entracte's micro-break overlay: a dark full-screen dim with a countdown ring at six seconds, the prompt “Reach for the ceiling — both arms, slow stretch,” and Postpone and Skip buttons"}
 
 There's a tray countdown if I want to watch the next break coming, pause presets from fifteen minutes to indefinitely, and a small CLI for wiring into hotkeys — `entracte pause 30m`, `entracte trigger long`.
 
@@ -127,9 +123,9 @@ A local history of breaks taken, dismissed, and suppressed, with a time-of-day b
 None of it leaves my machine.
 It's there so I can actually see whether I'm taking the breaks I built this whole app for, or just clicking Skip on autopilot.
 
-![Entracte's stats summary for the past week: 66 breaks taken, a 16% dismissal rate, 3 hours 15 minutes paused, and a breakdown of why breaks were suppressed — idle time, active typing, Do Not Disturb, camera in use, and a paused app](img/entracte-stats-summary.png "A week of break stats, kept entirely on my machine")
+![A week of break stats, kept entirely on my machine](img/entracte-stats-summary.png){fig-alt="Entracte's stats summary for the past week: 66 breaks taken, a 16% dismissal rate, 3 hours 15 minutes paused, and a breakdown of why breaks were suppressed — idle time, active typing, Do Not Disturb, camera in use, and a paused app"}
 
-![A time-of-day histogram of when breaks happen, plus a 12-week heatmap showing break activity building up over time](img/entracte-stats-heatmap.png "The 12-week heatmap view in Entracte's stats")
+![The 12-week heatmap view in Entracte's stats](img/entracte-stats-heatmap.png){fig-alt="A time-of-day histogram of when breaks happen, plus a 12-week heatmap showing break activity building up over time"}
 
 There's also a Supporter pack, a one-off purchase that unlocks a few personalisation extras — custom overlay colour, theme rotation, custom CSS, custom sounds.
 Every scheduling, suppression, profile, stats, and CLI feature is free, for everyone.
@@ -181,9 +177,9 @@ Then the Today view, with its running-timer chip and day-timeline strip.
 Then the Reports view with its weekly stacked-bar chart, by-project breakdown, and the "honesty meter" (a tiny bar that flags when too many entries were guessed by rules instead of confirmed by you).
 Then the Rules view, with three depth modes — light, medium, heavy — so we could test how much complexity to expose by default.
 
-![Cairn's Today view in light mode, showing a detected work-session banner asking "Working on Cairn — Rule preview UI?" with Confirm and Change buttons, a running timer, and an open tweaks panel exposing theme, density, layout, and rules-engine controls](img/cairn-light-design-tweak.png "The Cairn Today view with the floating tweaks panel open, light theme")
+![The Cairn Today view with the floating tweaks panel open, light theme](img/cairn-light-design-tweak.png){fig-alt="Cairn's Today view in light mode, showing a detected work-session banner asking “Working on Cairn — Rule preview UI?” with Confirm and Change buttons, a running timer, and an open tweaks panel exposing theme, density, layout, and rules-engine controls"}
 
-![The same Cairn Today view in dark mode, with the tweaks panel switched to dark theme and comfy density, and the day's timeline and recent entries visible underneath](img/cairn-dark-design-tweak.png "The Cairn Today view with the floating tweaks panel open, dark theme")
+![The Cairn Today view with the floating tweaks panel open, dark theme](img/cairn-dark-design-tweak.png){fig-alt="The same Cairn Today view in dark mode, with the tweaks panel switched to dark theme and comfy density, and the day's timeline and recent entries visible underneath"}
 
 The whole time, the question wasn't "does this work."
 It was "does this _feel_ right" — whether the running-timer chip reads as calm or anxious, whether the auto-detect banner comes across as reassuring or presumptuous, whether the rule builder feels like a tool you reach for or a chore you dread.
@@ -191,7 +187,7 @@ It was "does this _feel_ right" — whether the running-timer chip reads as calm
 Claude Design also has this editing tool where you can adjust things in the design your self.
 I didn't do this much, but I can see it being very nice when you have a clear idea of what needs fixing.
 
-![Claude Design's Pro edit panel open alongside the Cairn Reports view, showing the layer tree of buttons and groups on the left and the weekly tracked-time summary with a by-project breakdown on the right](img/claude-design-edit.png "Editing the Cairn Reports view directly inside Claude Design")
+![Editing the Cairn Reports view directly inside Claude Design](img/claude-design-edit.png){fig-alt="Claude Design's Pro edit panel open alongside the Cairn Reports view, showing the layer tree of buttons and groups on the left and the weekly tracked-time summary with a by-project breakdown on the right"}
 
 Those are visual decisions, but they're also _ethical_ decisions about how a piece of software relates to the person using it.
 And they're enormously easier to make when you can actually _see_ them in front of you.
