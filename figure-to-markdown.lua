@@ -1,24 +1,35 @@
 function Figure(fig)
   -- Check if there's an image in the figure
   local img = fig.content[1]
-  
+
   if img and img.t == "Plain" and img.content[1] and img.content[1].t == "Image" then
     local image = img.content[1]
-    local alt_text = pandoc.utils.stringify(image.caption)
+    local bracket_text = pandoc.utils.stringify(image.caption)
     local src = image.src
     local title = image.title or ""
-    
-    -- Get caption from figure if it exists
+    local fig_alt = image.attributes["fig-alt"]
+
+    -- Get caption from figure if it exists (Pandoc's implicit-figures rule copies
+    -- the bracket text up to the figure caption, so they're normally identical.
+    -- The `{fig-alt="..."}` attribute is the only way source markdown can carry a
+    -- screen-reader alt distinct from the caption people actually read.)
     local caption_text = ""
     if fig.caption and fig.caption.long then
       caption_text = pandoc.utils.stringify(fig.caption.long)
     end
-    
+
+    local alt_text = bracket_text
+    if fig_alt and fig_alt ~= "" then
+      alt_text = fig_alt
+      -- bracket text is the caption when fig-alt supplies the alt separately
+      caption_text = bracket_text
+    end
+
     -- Build markdown image syntax
     -- If we have both alt and caption, use alt for alt text and title for caption
     -- Hugo's render hook can access .Title for the caption
     local markdown_img = ""
-    
+
     if caption_text ~= "" and alt_text ~= caption_text then
       -- Both alt and caption exist and differ
       markdown_img = "![" .. alt_text .. "](" .. src .. ' "' .. caption_text .. '")'

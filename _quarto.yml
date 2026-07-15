@@ -1,5 +1,15 @@
 project:
   type: default
+  render:
+    - "**/*.qmd"
+    - "**/*.Rmd"
+    - "!themes/"
+    - "!renv/"
+    - "!node_modules/"
+
+editor_options:
+  markdown:
+    wrap: sentence
 
 format:
   hugo-md:
