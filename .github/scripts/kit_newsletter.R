@@ -22,7 +22,7 @@ send_newsletter <- function(frontmatter, url, body = NULL) {
 
       {body_html}
 
-      <div style="width:100%;display:flow-root;text-align:center;margin-top:8px;margin-bottom:8px"><a href="{uri}" target="_blank" rel="noopener noreferrer" class="ck-button" style="color:#0875c1;color:#825a83;display:inline-block;text-decoration:none;border-style:solid;text-align:center;background-color:#0f6261;color:#ffffff;font-size:16px;border-color:#0f6261;padding:12px 20px;border-radius:4px 4px 4px 4px">Read more</a></div>
+      <div style="width:100%;display:flow-root;text-align:center;margin-top:8px;margin-bottom:8px"><a href="{url}" target="_blank" rel="noopener noreferrer" class="ck-button" style="color:#0875c1;color:#825a83;display:inline-block;text-decoration:none;border-style:solid;text-align:center;background-color:#0f6261;color:#ffffff;font-size:16px;border-color:#0f6261;padding:12px 20px;border-radius:4px 4px 4px 4px">Read more</a></div>
     </div>
   '
   )
