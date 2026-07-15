@@ -11,7 +11,7 @@ tags:
   - design
   - desktop-apps
 slug: outside-my-stack
-image: featured.png
+image: featured.jpg
 image_alt: >
   A modern minimalist desk setup in warm, natural light. On a light wooden
   surface, a stylized cairn of stacked stones glows with digital, circuit-board
