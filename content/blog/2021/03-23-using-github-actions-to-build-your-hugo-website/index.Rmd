@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273514
 title: Using GitHub Actions to Build your Hugo Website
 author: Dr. Mowinckel
 date: '2021-03-23'

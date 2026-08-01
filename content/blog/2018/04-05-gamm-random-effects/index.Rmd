@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13256615
 title: GAMM random effects
 author: DrMowinckels
 date: '2018-04-05'

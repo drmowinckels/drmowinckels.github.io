@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273502
 title: Using Freesurfer annotation files to plot in R
 author: 'Dr. Mowinckel'
 date: '2020-04-30'

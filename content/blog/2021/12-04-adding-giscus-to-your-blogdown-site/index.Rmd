@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273518
 title: Adding giscus to your blogdown site
 author: Athanasia M. Mowinckel
 date: '2021-12-04'

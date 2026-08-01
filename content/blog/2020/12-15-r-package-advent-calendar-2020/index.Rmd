@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273508
 title: 'R-Package Advent Calendar 2020'
 author: Dr. Mowinckel
 date: '2020-12-25'

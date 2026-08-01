@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273483
 title: Christmas tree in ggplot
 author: DrMowinckel
 date: '2018-12-13'
