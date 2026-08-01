@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>A Rust Crate, an R Package, and One Very Stubborn Windows Crash - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="I had never ported a Rust crate to R, and I wanted more control over link checking than I was getting. So I wrapped lychee with extendr. This is the whole trip: why I started outside CRAN on purpose, how you run async Rust from inside R, the Windows crash that took four attempts to fix, and an honest look at whether the result was actually worth it." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/rust-in-r-rambutan/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="A Rust Crate, an R Package, and One Very Stubborn Windows Crash - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Wrapping the Rust lychee crate in an R package with extendr — deciding to
+start outside CRAN, embedding a Tokio runtime in R, and the Windows exit crash
+that took four attempts to fix.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="A Rust Crate, an R Package, and One Very Stubborn Windows Crash - Dr. Mowinckel&rsquo;s">
+<meta name="twitter:description" content="Wrapping the Rust lychee crate in an R package with extendr — deciding to
+start outside CRAN, embedding a Tokio runtime in R, and the Windows exit crash
+that took four attempts to fix.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/rust-in-r-rambutan/featured.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/rust-in-r-rambutan/featured.png">
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f46eae58a95bd13440b3845d08d3bd2a3c54bc821ea91aa96d9efc2052ca1496.css" 
+    integrity="sha256-9G6uWKlb0TRAs4RdCNO9KjxUvIIeqRqpbZ78IFLKFJY=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            
+            <img src="https://drmowinckels.io/blog/2026/rust-in-r-rambutan/featured.png" alt="The rambutan R package hex logo. Three spiky rambutan fruits in shades of maroon and dusty pink sit inside a pale pink hexagon; the largest is half-peeled to reveal a smiling white face. The word &#34;rambutan&#34; runs across the bottom in rounded dark red letters.
+" class="uk-border-rounded">
+            
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">A Rust Crate, an R Package, and One Very Stubborn Windows Crash</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Aug 1, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags">
+                            R
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/rust/" class="uk-label uk-label-secondary tags">
+                            Rust
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/extendr/" class="uk-label uk-label-secondary tags">
+                            Extendr
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/cran/" class="uk-label uk-label-secondary tags">
+                            Cran
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/package-development/" class="uk-label uk-label-secondary tags">
+                            Package-Development
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-the-research-turned-up">What the research turned up</a></li>
+    <li><a href="#starting-outside-cran-on-purpose">Starting outside CRAN, on purpose</a></li>
+    <li><a href="#running-async-rust-from-inside-r">Running async Rust from inside R</a>
+      <ul>
+        <li><a href="#what-actually-happens-when-you-call-that">What actually happens when you call that</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-crash-that-happened-after-everything-passed">The crash that happened after everything passed</a>
+      <ul>
+        <li><a href="#three-fixes-that-didnt-work">Three fixes that didn&rsquo;t work</a></li>
+        <li><a href="#the-part-that-actually-changed-the-game">The part that actually changed the game</a></li>
+      </ul>
+    </li>
+    <li><a href="#what-it-actually-was">What it actually was</a></li>
+    <li><a href="#what-id-tell-you-before-you-start">What I&rsquo;d tell you before you start</a></li>
+    <li><a href="#so-was-it-worth-it">So was it worth it?</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">I had never ported a Rust crate to R, and I wanted more control over link checking than I was getting. So I wrapped lychee with extendr. This is the whole trip: why I started outside CRAN on purpose, how you run async Rust from inside R, the Windows crash that took four attempts to fix, and an honest look at whether the result was actually worth it.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I already use <a href="https://github.com/lycheeverse/lychee">lychee</a> to check links several website repos I maintain.
+It is a link checker written in Rust, it is good, fast, and customizable, and I wanted that same control from inside R.</p>
+<p>There is already an excellent R package for checking url status &mdash; <a href="https://github.com/r-lib/urlchecker">urlchecker</a>.
+It does the CRAN-style URL scan well, and indeed, it&rsquo;s intended scope is to do just that.
+But I kept wanting to configure things it doesn&rsquo;t expose, and lychee exposes them.</p>
+<p>The other reason is simpler: I had never ported a Rust crate to R, and I wanted to know how that works.
+That is a perfectly good reason to build something.</p>
+<p>I did this with Claude as a pairing partner, which mostly meant I had someone to argue with about tradeoffs.</p>
+<h2 id="what-the-research-turned-up">What the research turned up</h2>
+<p>The mature path for Rust in R is <a href="https://extendr.github.io/">extendr</a> and its R-side companion <code>rextendr</code>.
+It has had support from the R Consortium, whose <a href="https://r-consortium.org/all-projects/2025-group-2.html">2025 project listing</a> puts it at &ldquo;28 CRAN packages and nearly 600,000 downloads.&rdquo;
+There is a newer, more explicit alternative called <a href="https://github.com/yutannihilation/savvy">savvy</a>, which <a href="https://yutannihilation.github.io/savvy/guide/">compares itself to extendr directly</a> if you want to weigh them up.</p>
+<p>CRAN has an official policy document, <a href="https://cran.r-project.org/web/packages/using_rust.html">Using Rust in CRAN packages</a>, and it is worth reading in full before you commit to anything.
+Here is what it actually says, so you can check me.</p>
+<p>On downloading dependencies at build time:</p>
+<blockquote>
+<p>Downloading should be avoided if at all possible.
+The package would become uninstallable if the Internet resources are temporarily or permanently unavailable, and CRAN packages are kept available for many years.</p>
+</blockquote>
+<p>The recommended alternative is that &ldquo;in most cases all the Rust software can be bundled into the package via <code>cargo vendor</code>.</p>
+<p>On the toolchain:</p>
+<blockquote>
+<p>test before submission with at least a two-year-old version of cargo, and preferably one four or more years old.</p>
+</blockquote>
+<p>That is not a hypothetical &mdash; it is because Linux distributions update these tools slowly.</p>
+<p>On declaring the dependency: <code>SystemRequirements: Cargo (Rust's package manager), rustc</code>, verbatim.</p>
+<p>The R-package size limit is not in that document, but is a limit I know well from the ggsegverse development.
+It is in the general <a href="https://cran.r-project.org/web/packages/policies.html">CRAN Repository Policy</a>: <em>&ldquo;Source package tarballs should if possible not exceed 10MB.&rdquo;</em>
+The policy does allow a higher limit on request where third-party source has to be bundled, which is exactly the situation a Rust package is in &mdash; so treat 10MB as a strong default rather than a hard wall.</p>
+<p>Then I went and measured what lychee actually costs.</p>
+<p>All the numbers below come from <code>lychee-lib</code> 0.24.2 as of writing.
+How many crates does it drag in?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cargo tree -p lychee-lib --prefix none | sed <span style="color:#e6db74">&#39;s/ (\*)//&#39;</span> | awk <span style="color:#e6db74">&#39;{print $1&#34; &#34;$2}&#39;</span> | sort -u | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; 330</span>
+</span></span></code></pre></div><p>330 transitive dependencies.
+Now vendor them and see what a CRAN submission would have to carry:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cargo vendor vendor/
+</span></span><span style="display:flex;"><span>du -sh vendor/                  
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; 463M</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tar -cJf vendor.tar.xz vendor/  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># xz, as CRAN&#39;s policy recommends</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>du -h vendor.tar.xz             
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; 34.5M</span>
+</span></span></code></pre></div><p><strong>463MB raw, 34.5MB compressed.</strong>
+Against a 10MB guideline, before I have written a single line of my own code.</p>
+<p>The three biggest offenders are worth naming, because they say something about where the weight actually is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>du -sh vendor/* | sort -rh | head -3
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;  68M  vendor/aws-lc-sys</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;  54M  vendor/winapi-x86_64-pc-windows-gnu</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;  51M  vendor/winapi-i686-pc-windows-gnu</span>
+</span></span></code></pre></div><p><code>aws-lc-sys</code> is the TLS crypto backend, and it arrives through <code>reqwest</code>&rsquo;s default TLS feature &mdash; remember this one, it comes back later and ruins my week.
+The other two are Windows import libraries.
+Roughly a third of what I would be shipping to CRAN is platform support I am not even the consumer of.</p>
+<p>And then the toolchain problem: lychee-lib&rsquo;s <code>rust-version</code> is <strong>1.88</strong>, released in 2025.
+CRAN asks me to test against a cargo that is two to four years old.
+Those two requirements do not fit in the same room.</p>
+<p>There is also a cautionary tale sitting right there, and it is worth getting the details right because it is usually told wrong.</p>
+<p>R <code>polars</code>, the Rust-backed DataFrame library, <em>did</em> make it onto CRAN.
+Version 0.7.0 was published on 2023-07-17 &mdash; and <a href="https://cran.r-project.org/web/packages/polars/index.html">archived on 2023-07-18 &ldquo;for policy violations&rdquo;</a>.
+One day.
+The maintainers went back and forth about a return for a while, and then closed the CRAN release issue with <a href="https://github.com/pola-rs/r-polars/issues/80">&ldquo;Update in 2024: I don&rsquo;t think we will make a CRAN release, please install from R-multiverse&rdquo;</a>.</p>
+<p>So it isn&rsquo;t a story about a package that couldn&rsquo;t get in.
+It&rsquo;s a story about one that got in, fell out, and decided the fight wasn&rsquo;t worth having again.
+<a href="https://github.com/pola-rs/r-polars">Its README now points at R-multiverse</a> as the recommended channel, with r-universe for development builds.</p>
+<h2 id="starting-outside-cran-on-purpose">Starting outside CRAN, on purpose</h2>
+<p>This is the part I want to be precise about, because &ldquo;not on CRAN&rdquo; gets read as a verdict and it wasn&rsquo;t one.</p>
+<p>I decided to stay off CRAN <em>first</em>.
+Mybe not forever &mdash; but at least at first.</p>
+<p>Every one of those constraints above is a constraint on architecture.
+Vendoring shapes your dependency budget.
+An old-toolchain assumption shapes your MSRV, which shapes which version of lychee-lib you can even call.
+If I had started by designing around all of that, I would have been designing around CRAN&rsquo;s requirements before I knew whether the thing worked at all.</p>
+<p>So the plan was: build it properly, get the architecture right, find out what this package actually wants to be &mdash; and then deal with CRAN adaptations later, with a working package in hand and real information about what they&rsquo;d cost.</p>
+<p>The immediate payoff of targeting r-universe instead is that its build servers have network access.
+No vendoring, no 34MB tarball, no trimming lychee&rsquo;s features to fit a budget, no fighting the MSRV.
+I could depend on current <code>lychee-lib</code> and get on with it.</p>
+<p>Here&rsquo;s the number that made me glad about the sequencing: a clean build takes about <strong>13 minutes</strong>, compiling that whole dependency tree from scratch.
+Fine locally, fine on r-universe which caches between builds.
+It would have been a serious problem inside CRAN&rsquo;s check-time budget, and I would have been fighting it from day one instead of finding out about it at leisure.</p>
+<p>The cost is real, though it lands more softly than I expected: no <code>install.packages(&quot;rambutan&quot;)</code> straight from CRAN, and anyone building from source needs a Rust toolchain.
+I&rsquo;ll come back to that at the end, because working out who actually pays it took me a while.</p>
+<p>Oh, and the name.
+The obvious choice was <code>lychee</code>, but <a href="https://github.com/sumtxt/lychee">an R package called lychee already exists</a> &mdash; it does optimal one-to-one record linkage between data frames, nothing to do with checking links.
+It isn&rsquo;t on CRAN, but &ldquo;not on CRAN&rdquo; is not the same as &ldquo;available&rdquo;, and quietly claiming a name someone else is already using in the same language is just not great.</p>
+<p>So I went looking for something adjacent.
+A rambutan (<em>Nephelium lappaceum</em>) and a lychee (<em>Litchi chinensis</em>) are both in the <a href="https://en.wikipedia.org/wiki/Rambutan">soapberry family, Sapindaceae</a> &mdash; same family, spikier packaging.
+That was that.</p>
+<figure class="uk-thumbnail">
+        <img src="featured.png" 
+         alt="The rambutan R package hex logo. Three spiky rambutan fruits in shades of maroon and dusty pink sit inside a pale pink hexagon; the largest is half-peeled to reveal a smiling white face. The word “rambutan” runs across the bottom in rounded dark red letters." >
+        
+        <figcaption class="uk-thumbnail-caption uk-text-small uk-text-muted" aria-hidden="true">
+            The rambutan R package hex logo. Three spiky rambutan fruits in shades of maroon and dusty pink sit inside a pale pink hexagon; the largest is half-peeled to reveal a smiling white face. The word “rambutan” runs across the bottom in rounded dark red letters.
+        </figcaption>
+        
+    </figure><h2 id="running-async-rust-from-inside-r">Running async Rust from inside R</h2>
+<p>Rust has async/await in the language, but it ships no engine to run it.
+An async fn doesn&rsquo;t do anything when you call it &mdash; it hands you back a future, which is a description of work rather than work in progress.
+Something has to take that description and drive it to completion, and Rust deliberately leaves that to a library.</p>
+<p>Tokio is the library almost everyone picks.
+It&rsquo;s the scheduler, the I/O event loop, and the timers &mdash; the part that actually turns &ldquo;here is a plan to fetch 200 URLs&rdquo; into 200 URLs being fetched.
+<code>block_on()</code> is the door between the two worlds: give it a future, it runs the whole thing and hands you a plain value back.</p>
+<p>The closest R analogy I have is curl::multi_run() &mdash; you queue up a pile of requests, then one loop drives them all concurrently and you get results at the end.
+Tokio is that loop, generalised to everything.</p>
+<p>Every public function in <code>lychee-lib</code> is an <code>async fn</code>.
+There is no synchronous wrapper.
+R, meanwhile, has no idea what a future is and would like you to just return a value.</p>
+<p>So the binding has to stand up a Tokio runtime, hand it the future, and block until it comes back.</p>
+<p>extendr documents this pattern, and it&rsquo;s the part I was most nervous about, because embedding someone else&rsquo;s async runtime inside R&rsquo;s process is exactly the sort of thing that works on your laptop and then doesn&rsquo;t.</p>
+<p>It worked on the first try.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rambutan)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">check_url</span>(<span style="color:#e6db74">&#34;https://www.r-project.org&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; $url</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; [1] &#34;https://www.r-project.org&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; $is_success</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; [1] TRUE</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; $code</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; [1] 200</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; $details</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; [1] &#34;200 OK&#34;</span>
+</span></span></code></pre></div><h3 id="what-actually-happens-when-you-call-that">What actually happens when you call that</h3>
+<p>That one line goes through four layers before it touches the network, and I found the shape of it genuinely clarifying once I could see it.</p>
+<pre class="mermaid">
+  ---
+config:
+  theme: &#39;base&#39;
+  themeVariables:
+    primaryColor: &#39;#116162&#39;
+    primaryTextColor: &#39;#d9ebec&#39;
+    primaryBorderColor: &#39;#116162&#39;
+    lineColor: &#39;#116162&#39;
+    secondaryColor: &#39;#843c83&#39;
+    tertiaryColor: &#39;#d9ebec&#39;
+---
+
+flowchart TD
+    subgraph r[&#34;R&#34;]
+        A[&#34;check_url()&lt;br&gt;exported, validates arguments&#34;]
+        B[&#34;check_url_impl()&lt;br&gt;generated by extendr, calls .Call()&#34;]
+    end
+
+    subgraph bnd[&#34;The language boundary&#34;]
+        C[&#34;wrap__check_url_impl&lt;br&gt;C symbol, registered when the package loads&#34;]
+    end
+
+    subgraph rust[&#34;Rust&#34;]
+        D[&#34;check_url_impl()&lt;br&gt;the extendr-annotated function&#34;]
+        E[&#34;run_async()&lt;br&gt;start Tokio, block_on, shut it down&#34;]
+        F[&#34;lychee-lib&lt;br&gt;async link checking&#34;]
+    end
+
+    G([&#34;the network&#34;])
+
+    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G
+    G -.-&gt; F -.-&gt; E -.-&gt; D -.-&gt; A
+</pre>
+<p>Layer one is the function you call, and it is ordinary R.
+It validates, collects configuration, and hands off &mdash; nothing exotic:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>check_url <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(url, options <span style="color:#f92672">=</span> <span style="color:#a6e22e">lychee_options</span>()) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stopifnot</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">is.character</span>(url),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">length</span>(url) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1L</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">inherits</span>(options, <span style="color:#e6db74">&#34;lychee_options&#34;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  args <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lychee_options_impl_args</span>(options)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">do.call</span>(check_url_impl, <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">list</span>(url <span style="color:#f92672">=</span> url), args))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Layer two is <code>check_url_impl()</code>, and I did not write it.
+<code>rextendr::document()</code> generates it into <code>R/extendr-wrappers.R</code> every time the Rust signature changes, which is why the file says what it says:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># Generated by extendr: Do not edit by hand</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @useDynLib rambutan, .registration = TRUE</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>check_url_impl <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(url, exclude, include, timeout, <span style="color:#66d9ef">...</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">.Call</span>(wrap__check_url_impl, url, exclude, include, timeout, <span style="color:#66d9ef">...</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I have trimmed the arguments there &mdash; the real one takes eighteen, all spelled out, because extendr does not do <code>...</code> across the boundary.
+Every argument has to be named on both sides, and that is the honest cost of the whole arrangement: the R signature and the Rust signature are one thing pretending to be two, and they drift the moment you stop regenerating.</p>
+<p>Layer three is the Rust function, which looks almost like normal Rust apart from the attribute:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[extendr]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">check_url_impl</span>(
+</span></span><span style="display:flex;"><span>    url: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>,
+</span></span><span style="display:flex;"><span>    exclude: Vec<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    timeout: <span style="color:#a6e22e">Nullable</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...fifteen more
+</span></span></span><span style="display:flex;"><span>) -&gt; <span style="color:#a6e22e">std</span>::result::Result<span style="color:#f92672">&lt;</span>List, String<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> config <span style="color:#f92672">=</span> config_from_args(exclude, timeout, <span style="color:#75715e">/* ... */</span>)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> client <span style="color:#f92672">=</span> build_client(config)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">extendr_module!</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mod</span> rambutan;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">check_url_impl</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">check_urls_impl</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">check_paths_impl</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The types are the interesting part.
+<code>Vec&lt;String&gt;</code> is an R character vector.
+<code>Nullable&lt;f64&gt;</code> is a numeric that might be <code>NULL</code>, which is how R spells &ldquo;unset&rdquo; and Rust does not.
+Returning <code>Result&lt;List, String&gt;</code> means an <code>Err</code> becomes an R error, so a failure in Rust surfaces as <code>stop()</code> rather than a crash.
+That mapping is most of what extendr is for.</p>
+<p>And layer four is where the async problem gets solved:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">run_async</span><span style="color:#f92672">&lt;</span>F: <span style="color:#a6e22e">std</span>::future::Future<span style="color:#f92672">&gt;</span>(future: <span style="color:#a6e22e">F</span>) -&gt; <span style="color:#a6e22e">F</span>::Output {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> rt <span style="color:#f92672">=</span> tokio::runtime::Builder::new_current_thread()
+</span></span><span style="display:flex;"><span>        .enable_all()
+</span></span><span style="display:flex;"><span>        .build()
+</span></span><span style="display:flex;"><span>        .expect(<span style="color:#e6db74">&#34;failed to start tokio runtime&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> rt.block_on(future);
+</span></span><span style="display:flex;"><span>    rt.shutdown_timeout(Duration::from_millis(<span style="color:#ae81ff">100</span>));
+</span></span><span style="display:flex;"><span>    result
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Build a runtime, block on the future, shut the runtime down, return a plain value.
+R never learns that any of this was asynchronous.</p>
+<p>Hold onto that function, by the way.
+It does not look like this by accident, and the reason is the rest of this post.</p>
+<p>There&rsquo;s a small delight in there too &mdash; lychee automatically excludes <code>.invalid</code> domains, because <a href="https://www.rfc-editor.org/rfc/rfc6761">RFC 6761</a> reserves that TLD for exactly this kind of &ldquo;definitely not real&rdquo; use.
+I got that behaviour for free by wrapping someone else&rsquo;s careful work, which is the whole point of wrapping someone else&rsquo;s careful work.</p>
+<p>From there the API filled out: <code>check_urls()</code> for concurrent checks that preserve input order, <code>check_paths()</code> for scanning files, directories and globs using lychee&rsquo;s own Markdown and HTML extractors, and <code>check_package()</code>, which scans an R package&rsquo;s <code>DESCRIPTION</code>, Rd files, <code>NEWS</code>, <code>CITATION</code> and vignettes &mdash; the same set CRAN&rsquo;s own URL check looks at.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">check_urls</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;https://www.r-project.org&#34;</span>, <span style="color:#e6db74">&#34;https://cran.r-project.org&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;                          url is_success code details</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; 1  https://www.r-project.org       TRUE  200  200 OK</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; 2 https://cran.r-project.org       TRUE  200  200 OK</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">check_project</span>(<span style="color:#e6db74">&#34;.&#34;</span>)
+</span></span></code></pre></div><p>The configuration I wanted in the first place lives in <code>lychee_options()</code>, and it reads a <code>lychee.toml</code> if you have one &mdash; so the settings I already use on my websites carry straight over.</p>
+<p>Then I turned on CI, and Windows started screaming.</p>
+<h2 id="the-crash-that-happened-after-everything-passed">The crash that happened after everything passed</h2>
+<p>Here is the shape of the bug, because the shape is the interesting part.</p>
+<p>On <code>windows-latest</code>, <code>R CMD check</code> reported an ERROR from the test step.
+But when I pulled the actual test output from the CI artifact, it read:</p>
+<pre><code>[ FAIL 0 | WARN 0 | SKIP 0 | PASS 101 ]
+</code></pre>
+<p>Every test passed.
+Then the R process exited with <code>-1073740791</code>, which is <code>0xC0000409</code>, which is <code>STATUS_STACK_BUFFER_OVERRUN</code> &mdash; Windows&rsquo; stack-cookie check firing.
+Not a generic failure. A specific, native, &ldquo;something corrupted memory during teardown&rdquo; failure.</p>
+<p>The function worked.
+The result was correct.
+The process just refused to die politely.</p>
+<p>In practice this only bites non-interactive use where someone checks the exit code &mdash; <code>Rscript</code> in a CI step, basically.
+Interactively it was invisible.</p>
+<h3 id="three-fixes-that-didnt-work">Three fixes that didn&rsquo;t work</h3>
+<p>My first assumption was that this was my fault, and specifically that it was the Tokio runtime.
+I think it was a reasonable assumption, but it was also wrong three times in a row.</p>
+<p><strong>Attempt one: switch the runtime from multi-threaded to current-thread.</strong>
+The multi-threaded scheduler spawns persistent background OS threads, and persistent background OS threads are a classic way to make process teardown unhappy.
+Result: identical crash.</p>
+<p><strong>Attempt two: leak the runtime with <code>Box::leak</code> so its <code>Drop</code> never runs.</strong>
+This is a well-established fix for this exact class of bug in other embedded-Rust contexts &mdash; if teardown is what crashes, don&rsquo;t tear down.
+Result: instead of failing at 10 to 13 minutes, the job ran for 19 and a half minutes on the same step with no resolution.
+I traded a crash for a hang, and cancelled it rather than let it sit there for the six-hour default timeout.</p>
+<p>That&rsquo;s a genuinely informative failure, though.
+A hang means something was waiting for the runtime&rsquo;s shutdown signal that never came.
+So the state does need to be torn down &mdash; it just crashes when teardown happens during process exit.</p>
+<p><strong>Attempt three: build a fresh runtime per call and shut it down explicitly before returning to R.</strong>
+This is the <code>run_async()</code> I showed you earlier.
+It is shaped that way &mdash; build, block, shut down, all inside one call &mdash; because of this attempt, and it stayed that way afterwards even though it did not fix anything.
+No static, no global, nothing surviving past the <code>.Call()</code> boundary.
+Teardown now happens at a deterministic, safe point in the middle of a call rather than during DLL unload.
+Result: identical crash.</p>
+<p>And that is the one that mattered, because it ruled out my own code entirely.
+There was no Tokio state left to blame.
+Whatever was crashing was in something else entirely.</p>
+<p>So I documented it as a known issue in <code>?rambutan</code> and put <code>continue-on-error</code> on the Windows matrix job.</p>
+<p>I want to be straight about that decision, because &ldquo;known issue, workaround applied&rdquo; can read as giving up and it wasn&rsquo;t.
+The problem with a permanently red Windows job is not that it looks bad &mdash; it&rsquo;s that it drowns out signal.
+I needed CI that errored on errors I could actually do something about, so that the next real Windows bug would be visible instead of buried under this one.
+Marking it non-blocking bought that.</p>
+<p>It still felt bad. I always intended to come back.</p>
+<h3 id="the-part-that-actually-changed-the-game">The part that actually changed the game</h3>
+<p>The single most useful thing I did in this whole investigation was not a fix.
+It was building a faster loop.</p>
+<p>A full <code>R CMD check</code> on Windows costs 20 to 40 minutes.
+At that price, every hypothesis is an expensive guess, and after two or three of them you start reaching for whatever is cheap to try rather than whatever is likely to be true.</p>
+<p>So I wrote a throwaway Windows-only workflow that did exactly one thing: load the package, call <code>check_url()</code> once, print the result, exit.
+Minutes instead of tens of minutes.
+That&rsquo;s what turned guessing back into debugging, and it&rsquo;s what let me confirm the eventual fix three times over instead of once.</p>
+<h2 id="what-it-actually-was">What it actually was</h2>
+<p>I came back to it after a break, wanting to give it another stab.
+No new insight, no upstream bug report &mdash; just a fresh look and the question: what variable has nobody tested yet?</p>
+<p>The answer was the TLS crypto backend.</p>
+<p><code>reqwest</code>&rsquo;s default TLS feature pulls in <code>aws-lc-rs</code> as its crypto provider.
+I confirmed that rather than assuming it, and you can too:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cargo tree -e features -i aws-lc-rs
+</span></span></code></pre></div><p>which walks the chain back as <code>reqwest</code> &ldquo;default&rdquo; → &ldquo;default-tls&rdquo; → &ldquo;rustls&rdquo; → &ldquo;__rustls-aws-lc-rs&rdquo; → <code>hyper-rustls</code> → <code>rustls</code> → <code>aws-lc-rs</code>.</p>
+<p>And rambutan builds for <code>x86_64-pc-windows-gnu</code> &mdash; the MinGW/Rtools target, which is what R uses on Windows, and the less-travelled of the two Windows targets.</p>
+<p>Now, <a href="https://aws.github.io/aws-lc-rs/platform_support.html">aws-lc-rs&rsquo;s own platform support table</a> gives <code>x86_64-pc-windows-gnu</code> ticks for both Build and Tests.
+That is true, and it is also not the situation we&rsquo;re in.
+They test it as a standalone binary.
+An R package is a DLL, dynamically loaded into a long-lived host process, and potentially unloaded mid-session while that host keeps running.</p>
+<p>That distinction is worth sitting with if you&rsquo;re wrapping any Rust crate for R.
+Crates test themselves as programs.
+Your package is a guest inside somebody else&rsquo;s program.
+Those are different lifecycles, and teardown is exactly where the difference shows up.</p>
+<p>The fix was small.
+<code>reqwest</code> only falls back to <code>aws-lc-rs</code> if no process-wide <code>CryptoProvider</code> has already been installed &mdash; I (or Claude in this case, because I was WAY out of my comfort-zone here) read reqwest&rsquo;s source to confirm that rather than trusting the docs.
+So install rustls&rsquo; <code>ring</code> provider first, before the first client is ever built:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">INSTALL_CRYPTO_PROVIDER</span>: <span style="color:#a6e22e">std</span>::sync::Once <span style="color:#f92672">=</span> std::sync::Once::new();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">ensure_crypto_provider</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">INSTALL_CRYPTO_PROVIDER</span>.call_once(<span style="color:#f92672">||</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> rustls::crypto::ring::default_provider().install_default();
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">debug_assert!</span>(
+</span></span><span style="display:flex;"><span>            result.is_ok(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;a rustls CryptoProvider was already installed before rambutan could install ring; </span><span style="color:#ae81ff">\</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             the aws-lc-rs Windows exit crash this guards against may resurface&#34;</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>ring</code> has years of solid Windows-GNU track record.
+<code>aws-lc-rs</code> is comparatively new there.</p>
+<p>Note what this does and does not do.
+<code>aws-lc-rs</code> is still compiled into the binary &mdash; Cargo&rsquo;s feature unification means another dependency drags it in and I can&rsquo;t remove it.
+It just never runs.
+That&rsquo;s a workaround, not a cure, and the <code>debug_assert!</code> is there to shout if some future dependency installs a provider before I get there.</p>
+<p>Three clean runs on the fast debug workflow, against a crash that had been 100% reproducible.
+Then the real thing: the full <code>R-CMD-check.yaml</code>, all five matrix targets, 120 tests, vignettes and all.</p>
+<p><code>windows-latest</code> passed. 24 minutes and 47 seconds, genuinely green for the first time in the package&rsquo;s history.
+Then I removed the <code>continue-on-error</code>, pushed again, and watched it pass as a real blocking check.</p>
+<h2 id="what-id-tell-you-before-you-start">What I&rsquo;d tell you before you start</h2>
+<p><strong>Decide your distribution channel deliberately, and early.</strong>
+Not necessarily CRAN &mdash; but decide, because it determines your MSRV, whether you vendor, and how big a dependency tree you can afford.
+Choosing to defer CRAN is a real strategy.
+Drifting into it by accident is not.</p>
+<p><strong>&ldquo;It works but the process dies&rdquo; is a real category of bug.</strong>
+When your tests pass and the exit code is still wrong, stop looking at your logic.
+The bug is in teardown, and teardown is mostly other people&rsquo;s code.</p>
+<p><strong>Your package is a guest in someone else&rsquo;s process.</strong>
+A crate that is well-tested as a binary has not been tested as a DLL loaded into R and unloaded mid-session.
+That gap is where the ugly platform-specific bugs live.</p>
+<p><strong>Build the fast loop before the third guess, not after.</strong>
+If a hypothesis costs 30 minutes to test, you will start optimising for cheap hypotheses instead of good ones.</p>
+<p><strong>Ruling things out is progress.</strong>
+Those three failed Tokio fixes weren&rsquo;t wasted work.
+They&rsquo;re the reason the fourth attempt was an informed experiment rather than a fourth guess.</p>
+<h2 id="so-was-it-worth-it">So was it worth it?</h2>
+<p>Here&rsquo;s where I have to be honest with you, because the obvious ending to a post like this is &ldquo;and now link checking is fast,&rdquo; and I&rsquo;m not sure that&rsquo;s true.</p>
+<p>urlchecker is already fast.
+It is pure R, it installs instantly, it has no system dependencies at all, and for the CRAN-style check it does the job.
+rambutan installs as a binary now, so that gap is smaller than it was when I started writing this &mdash; but it is still a package with a Rust toolchain somewhere in its history, against one that is just R.
+And I have not benchmarked the actual checking. I have a fast async link checker underneath and a strong hunch, which is not the same as a number.
+If you handed me a stopwatch and asked me to justify the trade on speed alone, I could not, because I have not done the measurement.</p>
+<p>What I did get is the thing I actually went looking for.
+I have the configurability I wanted, wired to the same <code>lychee.toml</code> I already use elsewhere.
+And I now know a little more about porting a Rust crate to R &mdash; the extendr scaffolding, the async-runtime embedding, the CRAN constraints in concrete numbers rather than vague dread, and a debugging story about DLL teardown I will not soon forget.</p>
+<p>That was the point.
+Not every package has to win a benchmark to have been worth building.</p>
+<p>rambutan lives at <a href="https://github.com/drmowinckels/rambutan">github.com/drmowinckels/rambutan</a>, with a <a href="http://drmowinckels.io/rambutan/">pkgdown site</a>, and can be installed through R-universe.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;rambutan&#39;</span>, 
+</span></span><span style="display:flex;"><span>  repos <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;https://drmowinckels.r-universe.dev&#39;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;https://cloud.r-project.org&#39;</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div><p>That line does not need Rust on your machine, and working out why took me longer than it should have &mdash; because I had two separate problems glued together in my head.</p>
+<p>The first is vendoring, and it is the CRAN-shaped one.
+extendr&rsquo;s scaffold already wires <code>src/Makevars.in</code> up to build offline from either a <code>vendor/</code> directory or a <code>vendor.tar.xz</code>, and <code>tools/config.R</code> only passes <code>--offline</code> to cargo when one of them is present.
+So the machinery is there; what I haven&rsquo;t done is generate and ship the tarball, which means today&rsquo;s builds still fetch from the network.
+That is the thing standing between rambutan and a CRAN submission.</p>
+<p>The second is the Rust toolchain, and it is the user-shaped one &mdash; and here is the bit I had wrong.
+Vendoring would not have helped with it at all.
+Vendoring solves <em>offline</em> builds: it bundles the crate sources so the build doesn&rsquo;t need the network.
+It does nothing about needing <code>cargo</code> and <code>rustc</code> to compile those sources.
+<code>SystemRequirements</code> stays exactly as it is either way.</p>
+<p>What spares users a Rust toolchain is precompiled binaries &mdash; and that is what r-universe quietly does for you.
+It has built rambutan for Windows, macOS and Linux, on x86_64 and arm64, across R 4.5 through 4.7.
+If you are on any of those, <code>install.packages()</code> hands you a binary and Rust never enters the conversation.
+You only need <code>cargo</code> and <code>rustc</code> (<a href="https://rustup.rs/">rustup.rs</a>) if you are building from source &mdash; installing from GitHub, or running a platform nobody has built for.</p>
+<p>Two problems, then, not one, and only one of them is still open.
+I find that quietly satisfying, mostly because for a while I thought the annoying one was the hard one, and it turned out to be a checkbox.</p>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Aug 1, 2026) 
+                    A Rust Crate, an R Package, and One Very Stubborn Windows Crash. 
+                    Retrieved from https://drmowinckels.io/blog/2026/rust-in-r-rambutan/.
+                     DOI: https://www.doi.org/10.5281/zenodo.21739201
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-a-rust-crate-an-r-package-and-one-very-stubborn-windows-crash,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "A Rust Crate, an R Package, and One Very Stubborn Windows Crash",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/rust-in-r-rambutan/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.21739201",<br> 
+                        &emsp;updated = "Aug 1, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 4, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/visible-year-two/index.markdown_strict_files/figure-markdown_strict/stability-calendar-1_hu_11cda171c7493726.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Two Years of Visible: New Angles on the Long Covid Data</h2>
+    
+      <p>It&rsquo;s been two years since I started tracking my Long Covid with the Visible app, and a year since I last sat down with the data here on the blog. This post is a follow-up — same data, but now with twice as much of it, a clearer improvement arc, and some new plots and analyses I hadn&rsquo;t tried before. Calendar heatmaps, ridgeline plots, change-point detection, and a phase-by-phase look at how my morning stability score moves across the menstrual cycle all make an appearance, alongside a quick check on whether last year&rsquo;s symptom clusters still hold up.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/visible-year-two/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/health-data/" class="uk-label timeline-tags">
+              health-data
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label timeline-tags">
+              longcovid
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 2, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/sitrep-functions/image_hu_5cb96fe139624936.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Why Every R Package Wrapping External Tools Needs a sitrep() Function</h2>
+    
+      <p>Stop playing &ldquo;diagnostics ping-pong&rdquo; with your users. This post explores why the _sitrep() (situation report) pattern — popularized by the usethis package — is a game-changer for R packages wrapping APIs or external software. Learn how to build structured validation functions that power both early error-handling and comprehensive system reports, featuring real-world implementation examples from the meetupr and freesurfer packages.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/sitrep-functions/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/package-development/" class="uk-label timeline-tags">
+              package development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/debugging/" class="uk-label timeline-tags">
+              debugging
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/wrappers/" class="uk-label timeline-tags">
+              wrappers
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 19, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/year-in-review-2025/newyear_hu_1ccaafba6e36316b.jpg') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Year in review — 2025</h2>
+    
+      <p>A year of deliberate work despite post-COVID recovery: API explorations with httr2, the R Package Development Advent Calendar, ggseg improvements, and looking ahead to 2026.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/year-in-review-2025/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/year-in-review/" class="uk-label timeline-tags">
+              year-in-review
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Dec 28, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2025/rpackage-dev-calendar/pak-dev-cal_hu_29515bf5aad23546.jpeg') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>R Package Development Advent Calendar 2025: A Complete Journey</h2>
+    
+      <p>A comprehensive guide to modern R package development, covering setup, documentation, testing, CI/CD, and CRAN submission, a summary of a social media advent calendar.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/rpackage-dev-calendar/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/rpackageadvent2025/" class="uk-label timeline-tags">
+              rpackageadvent2025
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/development/" class="uk-label timeline-tags">
+              development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/advent/" class="uk-label timeline-tags">
+              advent
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/tutorial/" class="uk-label timeline-tags">
+              tutorial
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Nov 1, 2025
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2025/apply-multidimensional/img/mri_3d_hu_ba08052e5d16a367.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Mastering Apply: From Matrices to Multidimensional Neuroimaging Data</h2>
+    
+      <p>Deep dive into apply() for matrices and high-dimensional arrays. From basic row/column operations to complex fMRI analyses with 5D data. Learn to master the MARGIN parameter for neuroimaging and scientific computing.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2025/apply-multidimensional/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/apply/" class="uk-label timeline-tags">
+              apply
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/matrices/" class="uk-label timeline-tags">
+              matrices
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/arrays/" class="uk-label timeline-tags">
+              arrays
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label timeline-tags">
+              neuroimaging
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/fmri/" class="uk-label timeline-tags">
+              fMRI
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2026 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+
+</body>
+</html>
