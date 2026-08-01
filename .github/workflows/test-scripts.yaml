@@ -31,15 +31,13 @@ jobs:
         with:
           use-public-rspm: true
 
+      # The tests are hermetic and need nothing from renv, so they install
+      # what they need directly and skip .Rprofile, which would otherwise
+      # activate renv and hide these packages.
       - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          dependencies: '"none"'
-          packages: |
-            any::httr2
-            any::rmarkdown
-            any::testthat
-            any::withr
+        run: |
+          Rscript --no-init-file -e \
+            'install.packages(c("httr2", "rmarkdown", "testthat", "withr"))'
 
       - name: Run tests
-        run: Rscript .github/scripts/tests/run.R
+        run: Rscript --no-init-file .github/scripts/tests/run.R
