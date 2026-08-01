@@ -1,0 +1,45 @@
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/scripts/**"
+      - ".github/workflows/test-scripts.yaml"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/scripts/**"
+      - ".github/workflows/test-scripts.yaml"
+
+name: Test scripts
+
+jobs:
+  zenodo:
+    name: Zenodo pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install cURL headers
+        run: |
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          dependencies: '"none"'
+          packages: |
+            any::httr2
+            any::rmarkdown
+            any::testthat
+            any::withr
+
+      - name: Run tests
+        run: Rscript .github/scripts/tests/run.R
