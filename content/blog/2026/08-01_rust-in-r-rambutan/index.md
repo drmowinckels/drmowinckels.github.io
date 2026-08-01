@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.21739201
 title: A Rust Crate, an R Package, and One Very Stubborn Windows Crash
 format: hugo-md
 author: Dr. Mowinckel
