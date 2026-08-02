@@ -34,10 +34,13 @@ jobs:
       # The tests are hermetic and need nothing from renv, so they install
       # what they need directly and skip .Rprofile, which would otherwise
       # activate renv and hide these packages.
+      # Skipping .Rprofile also skips the repo setup-r writes there, so the
+      # mirror it exports as RSPM is set explicitly.
       - name: Install dependencies
         run: |
-          Rscript --no-init-file -e \
-            'install.packages(c("httr2", "rmarkdown", "testthat", "withr"))'
+          Rscript --no-init-file \
+            -e 'options(repos = c(CRAN = Sys.getenv("RSPM", "https://cloud.r-project.org")))' \
+            -e 'install.packages(c("httr2", "rmarkdown", "testthat", "withr"))'
 
       - name: Run tests
         run: Rscript --no-init-file .github/scripts/tests/run.R
