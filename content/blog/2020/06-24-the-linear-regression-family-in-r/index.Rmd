@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273506
 title: The Linear Regression Family in R
 author: Dr. Mowinckel
 date: '2020-06-24'

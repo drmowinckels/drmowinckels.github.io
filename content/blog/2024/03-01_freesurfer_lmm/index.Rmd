@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273543
 title: Setting up a Freesurfer LMM through R
 author: Dr. Mowinckel
 date: '2024-03-01'

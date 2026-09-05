@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13256467
 title: GAMM spaghetti plots in R with ggplot
 author: Dr. Mowinckel
 date: '2018-03-08'

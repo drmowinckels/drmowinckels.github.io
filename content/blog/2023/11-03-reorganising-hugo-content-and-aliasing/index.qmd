@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273531
 title: 'Reorganising Hugo Content and Aliasing'
 author: 'Dr. Mowinckel'
 date: '2023-11-03'

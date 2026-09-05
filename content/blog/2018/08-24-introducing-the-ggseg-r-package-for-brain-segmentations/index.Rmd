@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273427
 title: Introducing the ggseg R-package for brain segmentations
 author: DrMowinckels
 date: '2018-08-30'

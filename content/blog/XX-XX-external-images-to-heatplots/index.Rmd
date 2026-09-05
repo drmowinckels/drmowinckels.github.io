@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.13273516
 title: External Images to Heatplots
 author: Dr. Mowinckel
 date: '2021-04-02'
