@@ -15,7 +15,7 @@ site about R, brain imaging, and the occasional post on long Covid life.
 
 🎉 DrMowinckels has **61** posts since **2018-03-08**!
 
-📅 In the last 12 months: **13** posts — roughly monthly.
+📅 In the last 12 months: **12** posts — roughly monthly.
 
 ✍️ Most recent post (2026-08-01): [A Rust Crate, an R Package, and One
 Very Stubborn Windows
@@ -105,4 +105,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2026-09-02 03:03 UTC*
+*Updated 2026-09-09 03:16 UTC*
