@@ -21,6 +21,8 @@ summary: >
   ggsegverse is built on packages handing each other atlases. I wrote some
   code that worked, showed it to people who knew better, and was told it
   smelled. This is what we worked through and where we landed.
+image: data_door.png
+image_alt: A 3D minimalist illustration comparing an open doorway to a bricked-off door. On the left, an open door glows with teal light, flanked by a giant pair of curved parentheses. Inside the doorway sits a glowing pedestal with a stylized brain outline and a small tag reading "dk()". On the right, a second door is completely walled off with grey bricks and a nameplate reading "dk". Below the doors, code text reads "ggplot() + geom_brain(atlas = dk())
 ---
 
 A little while ago (6months'ish), I started doing quite some substantial work on ggseg-packages.
