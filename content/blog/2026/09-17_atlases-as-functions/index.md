@@ -308,4 +308,4 @@ If you want to see the result in place, [ggseg.formats](https://github.com/ggseg
     That is why it is worth asking other people: the whole diagnostic value of a smell is that it is a hunch, and a hunch is exactly the kind of thing you cannot verify by staring harder at your own code.
 
 [^nullary]:
-  A function that takes no arguments or parameters.
+    A function that takes no arguments or parameters.
