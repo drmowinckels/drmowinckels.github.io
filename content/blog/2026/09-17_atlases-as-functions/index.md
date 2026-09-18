@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.22828847
 title: "Why ggseg Atlases Became Function Calls"
 format: hugo-md
 author: Dr. Mowinckel
