@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>Why ggseg Atlases Became Function Calls - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="Re-exporting lazy-loaded datasets is not possible in R-packages, since they don’t exist in a package’s namespace. This created a conundrum for me as I was reinventing how the ggseg-ecosystem would look like in the future. Here, I walk through the problem and solution I ended up with, with the help of good colleagues in rOpenSci." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/atlases-as-functions/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Why ggseg Atlases Became Function Calls - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Why the ggseg atlases moved from lazy-loaded data objects to nullary
+functions: R cannot re-export a dataset from one package&rsquo;s namespace into
+another, and the whole ggsegverse depends on being able to.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="Why ggseg Atlases Became Function Calls - Dr. Mowinckel&rsquo;s">
+<meta name="twitter:description" content="Why the ggseg atlases moved from lazy-loaded data objects to nullary
+functions: R cannot re-export a dataset from one package&rsquo;s namespace into
+another, and the whole ggsegverse depends on being able to.">
+
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/atlases-as-functions/data_door.png" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/atlases-as-functions/data_door.png">
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f46eae58a95bd13440b3845d08d3bd2a3c54bc821ea91aa96d9efc2052ca1496.css" 
+    integrity="sha256-9G6uWKlb0TRAs4RdCNO9KjxUvIIeqRqpbZ78IFLKFJY=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            
+            <img src="https://drmowinckels.io/blog/2026/atlases-as-functions/data_door.png" alt="A 3D minimalist illustration comparing an open doorway to a bricked-off door. On the left, an open door glows with teal light, flanked by a giant pair of curved parentheses. Inside the doorway sits a glowing pedestal with a stylized brain outline and a small tag reading &#34;dk()&#34;. On the right, a second door is completely walled off with grey bricks and a nameplate reading &#34;dk&#34;. Below the doors, code text reads &#34;ggplot() &#43; geom_brain(atlas = dk())" class="uk-border-rounded">
+            
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">Why ggseg Atlases Became Function Calls</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Sep 17, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags">
+                            R
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/ggseg/" class="uk-label uk-label-secondary tags">
+                            Ggseg
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/package-development/" class="uk-label uk-label-secondary tags">
+                            Package-Development
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/namespaces/" class="uk-label uk-label-secondary tags">
+                            Namespaces
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/api-design/" class="uk-label uk-label-secondary tags">
+                            Api-Design
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-thing-i-wanted-to-do">The thing I wanted to do</a></li>
+    <li><a href="#let-me-show-you-rather-than-assert-it">Let me show you, rather than assert it</a></li>
+    <li><a href="#now-what">Now what?</a>
+      <ul>
+        <li><a href="#depends">Depends</a></li>
+        <li><a href="#onattach-plus-data"><code>.onAttach()</code> plus <code>data()</code></a></li>
+        <li><a href="#so-i-wrote-something-clever-i-thought-and-then-showed-it-to-people">So I wrote something clever (I thought), and then showed it to people</a></li>
+        <li><a href="#a-sibling-trick-i-tested-afterwards">A sibling trick I tested afterwards</a></li>
+        <li><a href="#functions">Functions</a></li>
+      </ul>
+    </li>
+    <li><a href="#what-i-picked-and-what-it-costs">What I picked, and what it costs</a></li>
+    <li><a href="#the-takeaway-if-you-are-designing-something-similar">The takeaway, if you are designing something similar</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">Re-exporting lazy-loaded datasets is not possible in R-packages, since they don&rsquo;t exist in a package&rsquo;s namespace. This created a conundrum for me as I was reinventing how the ggseg-ecosystem would look like in the future. Here, I walk through the problem and solution I ended up with, with the help of good colleagues in rOpenSci.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>A little while ago, I started doing quite some substantial work on ggseg-packages.
+I wanted to make things more coherent, clear, a proper ecosystem of packages that could more easily be expanded upon.
+In that work, I needed to make some hard decisions on how things should <em>work</em> for the user, which collided with how they currently worked for the user.
+Ick, it was hard to do something I knew would break so many people&rsquo;s code.</p>
+<p>If you have used ggseg for a while, you have probably hit this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_brain</span>(atlas <span style="color:#f92672">=</span> dk)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; Error: `atlas` must be a &lt;ggseg_atlas&gt; object, not a function.</span>
+</span></span></code></pre></div><p>The fix is two characters.
+Write <code>dk()</code> instead of <code>dk</code>, and everything works again.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_brain</span>(atlas <span style="color:#f92672">=</span> <span style="color:#a6e22e">dk</span>())
+</span></span></code></pre></div><p>But two characters is not nothing when they are sitting in every analysis script you have written, every paper figure you might need to regenerate, and every teaching material you have handed to students.
+So I owe you the reasoning.</p>
+<h2 id="the-thing-i-wanted-to-do">The thing I wanted to do</h2>
+<p>ggseg was once package for plotting brains using ggplot, which then expanded into plotting 3d brains with ggseg3d, and creating new atlases with ggseg.extra.
+It&rsquo;s been growing, and growing out of its beginnings, and mine.
+When I started this project, I was a novice developer, and made some choices that were not great for the long-term maintenance of the ecosystem as a whole.
+Mainly because I could not have imagined it evolving as it has, or having so many users.</p>
+<p>ggseg is not one package anymore, it&rsquo;s a whole suite of them that we call ggsegverse<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.
+It is <a href="https://github.com/ggsegverse/ggseg.formats">ggseg.formats</a> holding the atlas classes and the bundled atlases, <a href="https://github.com/ggsegverse/ggseg">ggseg</a> drawing them in 2D, <a href="https://github.com/ggsegverse/ggseg3d">ggseg3d</a> drawing them in 3D, <a href="https://github.com/ggsegverse/ggseg.extra">ggseg.extra</a> for creating atlases, and then a long tail of atlas packages like ggsegShen, ggsegSchaefer and ggsegGlasser.</p>
+<p>The split is deliberate.
+Atlas data is big and slow-moving; plotting code is small and may change more often.
+I did not want a bug fix in <code>geom_brain()</code> to force everyone to re-download several megabytes of polygons.</p>
+<p>But here is what a user reasonably expects.
+You install ggseg, you type <code>dk</code>, you get the Desikan-Killiany atlas.
+You install ggseg3d instead, you type <code>dk</code>, you get the same atlas.
+You should not have to know or care that neither of those packages actually contains it.</p>
+<p>That is a re-export.
+Package A owns the thing, packages B and C offer it under their own names.</p>
+<p>For a function, R makes this pleasant.
+Three lines of roxygen in each package:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; @importFrom ggseg.formats ggseg_atlas</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span>ggseg.formats<span style="color:#f92672">::</span>ggseg_atlas
+</span></span></code></pre></div><p>That is what sits in ggseg&rsquo;s package file, and again in ggseg3d&rsquo;s.</p>
+<p>For a dataset, it is not so pleasant.</p>
+<h2 id="let-me-show-you-rather-than-assert-it">Let me show you, rather than assert it</h2>
+<p>I did not want to take my own word for this, so I built the smallest possible demonstration.
+Two throwaway packages. <code>pkgA</code> ships both a function and a dataset:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># pkgA/R/a.R</span>
+</span></span><span style="display:flex;"><span>dkfun <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() <span style="color:#e6db74">&#34;I am an atlas&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pkgA/data/dkdata.rda contains</span>
+</span></span><span style="display:flex;"><span>dkdata <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;I am an atlas&#34;</span>
+</span></span></code></pre></div><p><code>pkgB</code> tries to re-export both:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># pkgB/NAMESPACE</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">importFrom</span>(pkgA, dkfun)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">importFrom</span>(pkgA, dkdata)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">export</span>(dkfun)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">export</span>(dkdata)
+</span></span></code></pre></div><p>Installing it:</p>
+<pre tabindex="0"><code>** byte-compile and prepare package for lazy loading
+Error: object &#39;dkdata&#39; is not exported by &#39;namespace:pkgA&#39;
+ERROR: lazy loading failed for package &#39;pkgB&#39;
+</code></pre><p>There it is.
+Drop the two <code>dkdata</code> lines and <code>pkgB</code> installs happily.</p>
+<p>The reason is that a dataset in <code>data/</code> never enters the package&rsquo;s <em>namespace</em> at all.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
+It lives in a separate lazy-load database that <code>::</code> knows how to reach into — <code>pkgA::dkdata</code> works fine — but <code>importFrom()</code> looks in the namespace, and the namespace does not have it.
+There is no <code>export()</code> directive you can write to change that, because there is nothing in the namespace to export.</p>
+<p>So the ggsegverse, as I wanted it to exist, was not buildable with atlases as data objects.</p>
+<h2 id="now-what">Now what?</h2>
+<p>I was little at a loss on how to move forward.
+I first added ggseg.formats to the packages <code>Depends</code> in the <code>DESCRIPTION</code>.
+This genuinely works, it means loading <code>pkgB</code> automatically also loads <code>pkgA</code>, so everything in <code>pkgA</code> is immediately available, including the dataset.</p>
+<p>But I also know from previous discussions with very good package developers that using <code>Depends</code> is generally not advised.
+Indeed, running <code>goodpractice::gp()</code> (which I do for most my packages), did flag using Depends like this as bad practice.</p>
+<p>Ok, next option to me seemed to be using a full package import.
+Meaning, instead of importing distinct functions <code>@importFrom</code> I&rsquo;d import the entire package catalogue with <code>@import</code>.
+Goodpractice also flagged this as bad practice, and I was running out of options.</p>
+<p>I decided to seek advice in the <a href="https://ropensci.org/community/">rOpenSci</a> slack, where such discussions often occur, and are very enlightening and wholesome.
+My initial question was which was best of these two options: <code>Depends</code> or full <code>@import</code>?.
+What followed was a very useful discussion, so let me walk through the options the way we actually walked through them, because every single one has a catch and I do not think any of it is obvious.</p>
+<h3 id="depends">Depends</h3>
+<p><a href="https://jonthegeek.com">Jon Harmon</a>&rsquo;s instinct, and the conventional answer: put ggseg.formats in <code>Depends</code> rather than <code>Imports</code>, and its exports land on the user&rsquo;s search path when they attach ggseg.</p>
+<p>This works and it is boring, which is usually a compliment.
+The catch is that <code>Depends</code> is a blunt instrument.
+It attaches the <em>entire</em> package to the search path, not the three names I wanted, and the R community has spent a decade quietly agreeing that <code>Depends</code> is something you reach for rarely and apologetically.</p>
+<p>It is also not what Jon himself would do.
+His full answer was that he would <em>either</em> split out the data package <em>or</em> wrap it in a function — but that both of those were &ldquo;more complicated and/or weirder&rdquo; than what I already had.</p>
+<h3 id="onattach-plus-data"><code>.onAttach()</code> plus <code>data()</code></h3>
+<p><a href="https://gaborcsardi.org">Gábor Csárdi</a>&rsquo;s next suggestion, and this one has a nice twist.
+Call <code>utils::data()</code> in <code>.onAttach()</code> to materialise the dataset when the package is attached.</p>
+<p>I pushed back thinking it would put several copies of the same name on the search path if someone loaded both ggseg and ggseg3d.
+I was overcomplicating it, though.
+<code>data()</code> called twice for the same dataset is perfectly fine.</p>
+<p>I also worried about <code>R CMD check</code> flagging undocumented objects, and Gábor showed that a clean check is achievable — <code>help()</code> searches loaded packages, so <code>?dk</code> would still resolve.</p>
+<p>Then he worked out the actual problem himself:</p>
+<blockquote>
+<p>OTOH, just realized that <code>data()</code> just puts the object in <code>.GlobalEnv</code>, not the search path, so that&rsquo;s not great, either, probably worse than <code>Depends</code>.</p>
+</blockquote>
+<p>And that is disqualifying.
+A package that writes into your global environment when you attach it is doing something you did not ask for and cannot easily undo.
+<code>Depends</code> at least puts things somewhere designed to hold them.</p>
+<h3 id="so-i-wrote-something-clever-i-thought-and-then-showed-it-to-people">So I wrote something clever (I thought), and then showed it to people</h3>
+<p>If the name cannot come in through <code>importFrom()</code>, I can put it in the namespace myself at load time:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>.onLoad <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>(libname, pkgname) {
+</span></span><span style="display:flex;"><span>  ns <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">topenv</span>(<span style="color:#a6e22e">environment</span>())
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (obj <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dk&#34;</span>, <span style="color:#e6db74">&#34;aseg&#34;</span>, <span style="color:#e6db74">&#34;tracula&#34;</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">local</span>({
+</span></span><span style="display:flex;"><span>      name <span style="color:#f92672">&lt;-</span> obj
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">delayedAssign</span>(
+</span></span><span style="display:flex;"><span>        name,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">getExportedValue</span>(<span style="color:#e6db74">&#34;ggseg.formats&#34;</span>, name),
+</span></span><span style="display:flex;"><span>        assign.env <span style="color:#f92672">=</span> ns
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And I want to be fair to this code: it works.
+I rebuilt it in my toy packages to be sure, and it installs, the name exports, and <code>delayedAssign()</code> keeps it properly lazy so the big object is not pulled into memory just because someone loaded your package.
+You keep <code>atlas = dk</code>.
+Nothing breaks for anyone.</p>
+<p>This was a function created by interpreting some suggestions in that slack discussion, but something with it felt&hellip; off.
+I took it to the rOpenSci Slack with the question &ldquo;this works, but does it smell?&rdquo;<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, which is I think the correct question to ask about code like this.</p>
+<p>Gábor&rsquo;s reply was four words: &ldquo;That <code>.onLoad</code> definitely smells bad.&rdquo;</p>
+<p>It does.
+I knew it did.
+I asked knowing what the answer was.</p>
+<h3 id="a-sibling-trick-i-tested-afterwards">A sibling trick I tested afterwards</h3>
+<p>For completeness, since I went looking: <code>makeActiveBinding()</code> in <code>.onLoad()</code> behaves much like the <code>delayedAssign()</code> version.
+It installs, it re-exports through <code>importFrom()</code> into a second package, and it stays lazy.</p>
+<p>Same smell, same objection.</p>
+<h3 id="functions">Functions</h3>
+<p>Where Gábor landed:</p>
+<blockquote>
+<p>TBH personally I would probably try to work around by creating functions to access the data, and then exporting/importing the functions, but YMMV.</p>
+</blockquote>
+<p>Which is where Jon had gestured at the top of the thread too, filed under &ldquo;weirder&rdquo;.</p>
+<p>Two people who know R&rsquo;s package machinery considerably better than I do arrived at the same place independently, having first watched me demonstrate that the clever version worked.
+That is about as strong a signal as you get.</p>
+<p>I will admit my honest reaction in the moment was mild dismay: &ldquo;I really didn&rsquo;t know I was trying to do something so unorthodox.&rdquo;
+Because it did not <em>feel</em> unorthodox.
+Shipping data in a data package and using it from a plotting package is the most ordinary thing in the world.
+It is only unorthodox because of where R draws the line between a namespace and a lazy-load database, and you do not find that line until you slam into it.</p>
+<h2 id="what-i-picked-and-what-it-costs">What I picked, and what it costs</h2>
+<p>A nullary<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> function per atlas.
+The implementation is as boring as it gets:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>dk <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() .dk_atlas
+</span></span></code></pre></div><p><code>.dk_atlas</code> is an internal object in <code>R/sysdata.rda</code>, which lazy-loads from the package database like everything else.
+The function is a thin door onto it.</p>
+<p>Every atlas package in the ecosystem now has exactly this shape.
+Here is ggsegShen, doing what ggseg.formats does:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#&#39; @export</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; @examples</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&#39; shen268_cortical()</span>
+</span></span><span style="display:flex;"><span>shen268_cortical <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() .shen268_cortical
+</span></span></code></pre></div><p>It&rsquo;s not <em>necessary</em> for all the atlas packages, really only for the default atlases shipped through ggseg.formats.
+But I thought it would be cleaner to apply the same logic everywhere, and then others could also re-export the atlases in other packages if they wanted.</p>
+<p>And it buys things none of the alternatives bought all at once.
+It re-exports with three lines of roxygen.
+Each atlas gets its own help page with its own references section, which for atlases genuinely matters — people need to cite the parcellation they used.
+Tab completion works, static analysis works, and <code>dk</code> is honest about being a function rather than a name that quietly runs code when you look at it.
+And the door stays open: the day I want <code>dk(surface = &quot;inflated&quot;)</code>, the signature is already there to grow into.</p>
+<p>That last point is the one that retroactively justifies the whole thing for me.
+The <code>.onLoad</code> version was not just smelly, it was a one-way door.
+An active binding or a delayed assignment can never take an argument, so the first time I needed one I would have been breaking everyone&rsquo;s code anyway — except by then with more users, and after having promised them it was stable.</p>
+<p>Now the cost, which is real.</p>
+<p>This was a hard break, shipped in ggseg 2.0.0.
+<code>atlas = dk</code> does not warn and degrade, it errors.
+Every script, every <code>.Rmd</code> that regenerates a figure, every workshop notebook — if it passed a bare atlas object, it stopped working.
+Some of the people this happened to were mid-revision on a paper, which is close to the worst possible moment for your plotting code to break.</p>
+<p>I do not think I could have avoided the break itself.
+A deprecation path needs the old name to still resolve to something useful, and once <code>dk</code> is a function, <code>atlas = dk</code> is a function object.
+I can detect that exact case and throw a message that tells you to add parentheses, which is what happens now.
+I cannot make it keep working.</p>
+<p>What I could have done better was say it earlier and louder — ahead of the release, not in the NEWS file of it.
+That part is on me.</p>
+<h2 id="the-takeaway-if-you-are-designing-something-similar">The takeaway, if you are designing something similar</h2>
+<p>If you are building an ecosystem of R packages where one package owns data and others surface it, decide this early, because it is not really a data question.
+It is a namespace question.</p>
+<p>The moment you want a second package to offer the same object under its own name, you have chosen the namespace.
+A function is the honest way to put something there.</p>
+<p>The parentheses are not decoration.
+They are the visible edge of that decision.</p>
+<p>And the other takeaway, which is less about R: I had working code, I felt something was off about it, and I showed it to people anyway.
+The clever version would have shipped, and it would have been fine, right up until it wasn&rsquo;t.
+Ask the smell question out loud.
+Someone will tell you.</p>
+<p>If you want to see the result in place, <a href="https://github.com/ggsegverse/ggseg.formats">ggseg.formats</a> is where the atlases and the classes live, and the rest is in the <a href="https://github.com/ggsegverse">ggsegverse</a> org.</p>
+<p>A function that takes no arguments or parameters.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Though we are working on a long-term solution where ggsegverse IS a meta-package like <a href="https://tidyverse.org/">tidyverse</a> that loads in core packages.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>A package&rsquo;s namespace is the private environment holding everything defined in its <code>R/</code> files — every function, every internal helper, whether or not you meant anyone else to see them.
+It is what makes <code>ggseg:::some_internal_thing</code> work with three colons and <code>ggseg::geom_brain()</code> work with two: the namespace holds both, and <code>NAMESPACE</code> decides which ones the outside world is allowed to ask for by name.
+Attaching a package with <code>library()</code> does not dump this into your session; it puts the exported names on the search path and leaves the rest where they are, which is why two packages can both define a <code>filter()</code> without clobbering each other&rsquo;s internals.
+The thing to notice is that <code>data/</code> is not part of any of this.
+It is a separate store, loaded lazily, sitting alongside the namespace rather than inside it — which is exactly the gap this post falls into.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>A code smell is a bit of code that works but reads wrong — the term comes from Kent Beck, popularised by Martin Fowler&rsquo;s <a href="https://refactoring.com/"><em>Refactoring</em></a> and his <a href="https://martinfowler.com/bliki/CodeSmell.html">write-up of the idea</a>, and the nose metaphor is doing real work.
+A smell is not a bug.
+Bugs announce themselves; you get a wrong answer or an error and you go and fix it.
+A smell is the feeling that something here will cost you later, without yet being able to point at what breaks.
+That is why it is worth asking other people: the whole diagnostic value of a smell is that it is a hunch, and a hunch is exactly the kind of thing you cannot verify by staring harder at your own code.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
+</ol>
+</div>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Sep 17, 2026) 
+                    Why ggseg Atlases Became Function Calls. 
+                    Retrieved from https://drmowinckels.io/blog/2026/atlases-as-functions/.
+                     DOI: https://www.doi.org/10.5281/zenodo.22828847
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-why-ggseg-atlases-became-function-calls,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "Why ggseg Atlases Became Function Calls",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/atlases-as-functions/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.22828847",<br> 
+                        &emsp;updated = "Sep 18, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 1, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/rust-in-r-rambutan/featured_hu_270dad0235192f3c.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>A Rust Crate, an R Package, and One Very Stubborn Windows Crash</h2>
+    
+      <p>I had never ported a Rust crate to R, and I wanted more control over link checking than I was getting. So I wrapped lychee with extendr. This is the whole trip: why I started outside CRAN on purpose, how you run async Rust from inside R, the Windows crash that took four attempts to fix, and an honest look at whether the result was actually worth it.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/rust-in-r-rambutan/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/rust/" class="uk-label timeline-tags">
+              rust
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/extendr/" class="uk-label timeline-tags">
+              extendr
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/cran/" class="uk-label timeline-tags">
+              cran
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/package-development/" class="uk-label timeline-tags">
+              package-development
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Mar 14, 2021
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2021/new-ggseg-with-geom/index_files/figure-html/featured-1_hu_808c610b3db13d18.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>New {ggseg} with Geom!</h2>
+    
+      <p>We released a new version of the ggseg R-package for visualizing brain atlases. It features a <code>geom_brain</code> function and <code>position_brain</code> for flexible brain slice positioning in ggplot2. This update enhances atlas plotting, offering more customization and improved visuals.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2021/new-ggseg-with-geom/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/neuroimaging/" class="uk-label timeline-tags">
+              Neuroimaging
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/ggseg/" class="uk-label timeline-tags">
+              ggseg
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 4, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/visible-year-two/index.markdown_strict_files/figure-markdown_strict/stability-calendar-1_hu_11cda171c7493726.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Two Years of Visible: New Angles on the Long Covid Data</h2>
+    
+      <p>It&rsquo;s been two years since I started tracking my Long Covid with the Visible app, and a year since I last sat down with the data here on the blog. This post is a follow-up — same data, but now with twice as much of it, a clearer improvement arc, and some new plots and analyses I hadn&rsquo;t tried before. Calendar heatmaps, ridgeline plots, change-point detection, and a phase-by-phase look at how my morning stability score moves across the menstrual cycle all make an appearance, alongside a quick check on whether last year&rsquo;s symptom clusters still hold up.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/visible-year-two/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/health-data/" class="uk-label timeline-tags">
+              health-data
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label timeline-tags">
+              longcovid
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 2, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/sitrep-functions/image_hu_5cb96fe139624936.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Why Every R Package Wrapping External Tools Needs a sitrep() Function</h2>
+    
+      <p>Stop playing &ldquo;diagnostics ping-pong&rdquo; with your users. This post explores why the _sitrep() (situation report) pattern — popularized by the usethis package — is a game-changer for R packages wrapping APIs or external software. Learn how to build structured validation functions that power both early error-handling and comprehensive system reports, featuring real-world implementation examples from the meetupr and freesurfer packages.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/sitrep-functions/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/package-development/" class="uk-label timeline-tags">
+              package development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/debugging/" class="uk-label timeline-tags">
+              debugging
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/wrappers/" class="uk-label timeline-tags">
+              wrappers
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 19, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/year-in-review-2025/newyear_hu_1ccaafba6e36316b.jpg') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Year in review — 2025</h2>
+    
+      <p>A year of deliberate work despite post-COVID recovery: API explorations with httr2, the R Package Development Advent Calendar, ggseg improvements, and looking ahead to 2026.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/year-in-review-2025/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/year-in-review/" class="uk-label timeline-tags">
+              year-in-review
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2026 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
