@@ -417,7 +417,7 @@ another, and the whole ggsegverse depends on being able to.">
                     
                     <div class="uk-card uk-margin-left uk-margin-bottom">
                         <a href="https://drmowinckels.io/tags/package-development/" class="uk-label uk-label-secondary tags">
-                            Package-Development
+                            Package Development
                         </a>
                     </div>
                     
@@ -487,7 +487,7 @@ Write <code>dk()</code> instead of <code>dk</code>, and everything works again.<
 </span></span></code></pre></div><p>But two characters is not nothing when they are sitting in every analysis script you have written, every paper figure you might need to regenerate, and every teaching material you have handed to students.
 So I owe you the reasoning.</p>
 <h2 id="the-thing-i-wanted-to-do">The thing I wanted to do</h2>
-<p>ggseg was once package for plotting brains using ggplot, which then expanded into plotting 3d brains with ggseg3d, and creating new atlases with ggseg.extra.
+<p>ggseg was once a package for plotting brains using ggplot, which then expanded into plotting 3d brains with ggseg3d, and creating new atlases with ggseg.extra.
 It&rsquo;s been growing, and growing out of its beginnings, and mine.
 When I started this project, I was a novice developer, and made some choices that were not great for the long-term maintenance of the ecosystem as a whole.
 Mainly because I could not have imagined it evolving as it has, or having so many users.</p>
@@ -543,7 +543,7 @@ Indeed, running <code>goodpractice::gp()</code> (which I do for most my packages
 Meaning, instead of importing distinct functions <code>@importFrom</code> I&rsquo;d import the entire package catalogue with <code>@import</code>.
 Goodpractice also flagged this as bad practice, and I was running out of options.</p>
 <p>I decided to seek advice in the <a href="https://ropensci.org/community/">rOpenSci</a> slack, where such discussions often occur, and are very enlightening and wholesome.
-My initial question was which was best of these two options: <code>Depends</code> or full <code>@import</code>?.
+My initial question was which was best of these two options: <code>Depends</code> or full <code>@import</code>?
 What followed was a very useful discussion, so let me walk through the options the way we actually walked through them, because every single one has a catch and I do not think any of it is obvious.</p>
 <h3 id="depends">Depends</h3>
 <p><a href="https://jonthegeek.com">Jon Harmon</a>&rsquo;s instinct, and the conventional answer: put ggseg.formats in <code>Depends</code> rather than <code>Imports</code>, and its exports land on the user&rsquo;s search path when they attach ggseg.</p>
