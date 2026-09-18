@@ -23,7 +23,7 @@
 announce <- function(
   post,
   platforms = c("bluesky", "mastodon", "linkedin"),
-  newsletter = FALSE,
+  newsletter = TRUE,
   dry_run = FALSE
 ) {
   source(here::here(".github/scripts/utils.R"))
