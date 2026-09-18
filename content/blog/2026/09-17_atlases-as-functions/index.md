@@ -45,7 +45,7 @@ So I owe you the reasoning.
 
 ## The thing I wanted to do
 
-ggseg was once package for plotting brains using ggplot, which then expanded into plotting 3d brains with ggseg3d, and creating new atlases with ggseg.extra.
+ggseg was once a package for plotting brains using ggplot, which then expanded into plotting 3d brains with ggseg3d, and creating new atlases with ggseg.extra.
 It's been growing, and growing out of its beginnings, and mine.
 When I started this project, I was a novice developer, and made some choices that were not great for the long-term maintenance of the ecosystem as a whole.
 Mainly because I could not have imagined it evolving as it has, or having so many users.
@@ -132,7 +132,7 @@ Meaning, instead of importing distinct functions `@importFrom` I'd import the en
 Goodpractice also flagged this as bad practice, and I was running out of options.
 
 I decided to seek advice in the [rOpenSci](https://ropensci.org/community/) slack, where such discussions often occur, and are very enlightening and wholesome.
-My initial question was which was best of these two options: `Depends` or full `@import`?.
+My initial question was which was best of these two options: `Depends` or full `@import`?
 What followed was a very useful discussion, so let me walk through the options the way we actually walked through them, because every single one has a catch and I do not think any of it is obvious.
 
 ### Depends
