@@ -78,21 +78,25 @@ if [ -z "$image" ]; then
 fi
 
 social_text() {
-  local text
+  local text limit
   text=$(fm ".social.$1")
   if [ -z "$text" ]; then
     case $1 in
-    bluesky)
-      # Bluesky caps posts at 300 graphemes including the link; drop trailing tags until it fits.
-      text=$(jq -rn --arg head "📝 New post: $title" --arg tags "$tags" --arg url "$url" '
-        [$tags | splits(" ") | select(. != "")] as $t
-        | [range($t | length; -1; -1) | $head + "\n\n" + ($t[:.] | join(" "))]
-        | map(select(length + 2 + ($url | length) <= 300)) | first // $head | rtrimstr("\n\n")')
-      ;;
-    *) text=$(printf '📝 New post: %s\n\n%s\n\n%s' "$title" "$(fm .summary)" "$tags") ;;
+    bluesky) text="📝 New post: $title" ;;
+    *) text=$(printf '📝 New post: %s\n\n%s' "$title" "$(fm .summary)") ;;
     esac
   fi
-  printf '%s\n\n%s' "$text" "$url"
+  case $1 in
+  bluesky) limit=300 ;;
+  mastodon) limit=500 ;;
+  *) limit=3000 ;;
+  esac
+  # Append post tags the text lacks, dropping trailing tags until it fits the platform limit.
+  jq -rn --arg text "$text" --arg tags "$tags" --arg url "$url" --argjson limit "$limit" '
+    ($text | ascii_downcase | [scan("#[a-z0-9]+")]) as $have
+    | [$tags | splits(" ") | select(. != "" and ((ascii_downcase | IN($have[])) | not))] as $t
+    | [range($t | length; -1; -1) | [$text, ($t[:.] | join(" ")), $url] | map(select(. != "")) | join("\n\n")]
+    | map(select(length <= $limit)) | first // ($text + "\n\n" + $url)'
 }
 
 buffer() {

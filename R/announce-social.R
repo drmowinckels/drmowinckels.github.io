@@ -5,7 +5,7 @@
 #' frontmatter. Review and edit them in the PR; once the post is merged and
 #' live, `.github/workflows/announce.yml` posts the social texts via Buffer and
 #' sends the newsletter text as a Kit broadcast.
-#' The post URL is appended automatically, so the texts should not include it.
+#' The post URL and hashtags from the post's tags are appended automatically.
 #'
 #' @param post Path to the blog post index.md file
 #' @param overwrite If TRUE, replace an existing `social:` block
@@ -33,7 +33,8 @@ Write announcements for the following blog post. Create four separate texts:
 All texts should:
 - Be in first person (the author posting on their own accounts)
 - NOT include a link to the post (it is appended automatically)
-Social media texts should include relevant hashtags and emojis where appropriate. If the post is about R, always include #rstats.
+- NOT include hashtags for the post's tags (they are appended automatically)
+Social media texts may use emojis where appropriate.
 
 Output ONLY a single line JSON object with keys "linkedin", "bluesky", "mastodon", and "newsletter". No markdown formatting, no code blocks, just the raw JSON.
 
