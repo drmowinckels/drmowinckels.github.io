@@ -10,7 +10,7 @@
 #   DRY_RUN         "true": print Buffer payloads instead of posting, and save the
 #                   Kit broadcast as a draft (send yourself a test from Kit)
 #   MAX_AGE_DAYS    skip posts dated longer ago than this (default: 3)
-#   LIVE_TIMEOUT    seconds to wait for the post to go live (default: 1800)
+#   LIVE_TIMEOUT    seconds to wait for GitHub Pages to publish the post (default: 1800)
 #
 # Targets already listed in the post's `announced:` frontmatter are skipped,
 # and successful targets are appended, so reruns never double-post.
@@ -21,6 +21,7 @@ DRY_RUN=${DRY_RUN:-false}
 MAX_AGE_DAYS=${MAX_AGE_DAYS:-3}
 LIVE_TIMEOUT=${LIVE_TIMEOUT:-1800}
 SITE=https://drmowinckels.io
+REPO=${GITHUB_REPOSITORY:-drmowinckels/drmowinckels.github.io}
 TARGETS=(bluesky mastodon linkedin newsletter)
 
 fm() { yq --front-matter=extract "($1) // \"\"" "$post"; }
@@ -48,22 +49,31 @@ if [ ${#todo[@]} -eq 0 ]; then
 fi
 
 title=$(fm .title)
-url="$SITE/blog/$(basename "$(dirname "$(dirname "$post")")")/$(fm .slug)/"
+page_path="blog/$(basename "$(dirname "$(dirname "$post")")")/$(fm .slug)"
+url="$SITE/$page_path/"
 alt=$(fm .image_alt)
 tags=$(fm '.tags // [] | map("#" + sub("[^A-Za-z0-9]"; ""; "g")) | join(" ")')
 
-echo "Waiting for $url to go live"
+# The site sits behind Cloudflare, which blocks CI runners, so check the deploy via GitHub instead of the URL.
+git fetch -q --depth=1 origin gh-pages
+if ! page=$(git show "FETCH_HEAD:$page_path/index.html" 2>/dev/null); then
+  echo "::error::$page_path/index.html is not on gh-pages"
+  exit 1
+fi
+deployed_at=$(git show -s --format=%ct FETCH_HEAD)
+echo "Waiting for GitHub Pages to publish $url"
 deadline=$(($(date +%s) + LIVE_TIMEOUT))
-until page=$(curl -sfL "$url"); do
+until gh api "repos/$REPO/pages/builds/latest" |
+  jq -e --argjson t "$deployed_at" '.status == "built" and (.created_at | fromdate) >= $t' >/dev/null; do
   if [ "$(date +%s)" -ge "$deadline" ]; then
-    echo "::error::$url not live after ${LIVE_TIMEOUT}s"
+    echo "::error::GitHub Pages did not publish $url within ${LIVE_TIMEOUT}s"
     exit 1
   fi
   sleep 20
 done
 image=$(grep -o 'property="og:image" content="[^"]*"' <<<"$page" | head -1 | sed 's/.*content="//; s/"$//')
 if [ -z "$image" ]; then
-  echo "::error::No og:image found on $url"
+  echo "::error::No og:image found in $page_path/index.html"
   exit 1
 fi
 

@@ -212,6 +212,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
+      pages: read
     uses: ./.github/workflows/announce.yml
     with:
       post: ${{ needs.checks.outputs.POST }}
