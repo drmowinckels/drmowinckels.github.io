@@ -100,10 +100,12 @@ jobs:
 
       - name: Setup variables
         id: version
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           ver=$(cat .Rprofile | grep hugo.version | cut -d'"' -f2 )
           echo "hugo_v=${ver}" >> $GITHUB_ENV
-          nalias=$(echo ${{ github.head_ref }} | sed 's/_/-/g')
+          nalias=$(echo "$HEAD_REF" | sed 's/[_/]/-/g')
           echo "nalias=${nalias}" >> $GITHUB_ENV
 
       - name: Install cURL Headers
