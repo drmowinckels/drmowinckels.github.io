@@ -10,7 +10,7 @@
 #   DRY_RUN         "true": print Buffer payloads instead of posting, and save the
 #                   Kit broadcast as a draft (send yourself a test from Kit)
 #   MAX_AGE_DAYS    skip posts dated longer ago than this (default: 3)
-#   LIVE_TIMEOUT    seconds to wait for the post to go live (default: 600)
+#   LIVE_TIMEOUT    seconds to wait for the post to go live (default: 1800)
 #
 # Targets already listed in the post's `announced:` frontmatter are skipped,
 # and successful targets are appended, so reruns never double-post.
@@ -19,7 +19,7 @@ set -euo pipefail
 post=${1:?Usage: announce.sh path/to/index.md}
 DRY_RUN=${DRY_RUN:-false}
 MAX_AGE_DAYS=${MAX_AGE_DAYS:-3}
-LIVE_TIMEOUT=${LIVE_TIMEOUT:-600}
+LIVE_TIMEOUT=${LIVE_TIMEOUT:-1800}
 SITE=https://drmowinckels.io
 TARGETS=(bluesky mastodon linkedin newsletter)
 
