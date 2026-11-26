@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: read
     concurrency:
       group: announce
       cancel-in-progress: false
@@ -41,6 +42,7 @@ jobs:
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           KIT_API_KEY: ${{ secrets.KIT_KEY }}
+          GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ inputs.dry_run == true }}
         run: .github/scripts/announce.sh "$POST"
 
