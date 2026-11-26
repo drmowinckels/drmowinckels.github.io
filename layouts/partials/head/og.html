@@ -1,0 +1,18 @@
+{{ $summary := .Params.seo | default .Summary}}
+
+<!-- General Meta Tags -->
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="{{ .RelPermalink | absURL }}">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="{{ if not .IsHome }}{{ .Title  | markdownify | safeHTML }} - {{ end }}{{ site.Title | markdownify | safeHTML  }}">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="{{ if not .IsHome }}{{ $summary | markdownify | safeHTML }}{{else}}{{ site.Params.subtitle  | markdownify | safeHTML }}{{end}}">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="{{ site.BaseURL }}">
+<meta name="twitter:title" content="{{ if not .IsHome }}{{ .Title  | markdownify | safeHTML }} - {{ end }}{{ site.Title | markdownify | safeHTML  }}">
+<meta name="twitter:description" content="{{ if not .IsHome }}{{ $summary | markdownify | safeHTML }}{{else}}{{ site.Params.subtitle  | markdownify | safeHTML }}{{end}}">
+
+{{ with partial "funcs/social_image.html" . }}
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="{{ .RelPermalink | absURL }}" />
+    <meta name="twitter:image" content="{{ .RelPermalink | absURL }}">
+{{ end }}

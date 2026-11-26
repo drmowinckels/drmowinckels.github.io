@@ -1,156 +1,111 @@
-#' Announce blog post on social media
+#' Draft social media and newsletter texts into a post's frontmatter
+#'
+#' Asks Claude to draft Bluesky, Mastodon, LinkedIn and newsletter texts in
+#' Dr. Mowinckel's voice and writes them to a `social:` block in the post's
+#' frontmatter. Review and edit them in the PR; once the post is merged and
+#' live, `.github/workflows/announce.yml` posts the social texts via Buffer and
+#' Kit's RSS-to-email sends the newsletter text from `/blog/newsletter.xml`.
+#' The post URL is appended automatically, so the texts should not include it.
 #'
 #' @param post Path to the blog post index.md file
-#' @param platforms Which platforms to post to (default: all)
-#' @param newsletter If TRUE, also send newsletter (default: FALSE)
-#' @param dry_run If TRUE, generate text but don't post (default: FALSE)
+#' @param overwrite If TRUE, replace an existing `social:` block
 #'
 #' @examples
-#' # Source this file first
-#' source("announce-social.R")
-#'
-#' # Then run interactively
-#' announce("content/blog/2026/02-02_sitrep/index.md")
-#'
-#' # Preview without posting
-#' announce("content/blog/2026/02-02_sitrep/index.md", dry_run = TRUE)
-#'
-#' # Post to specific platforms only
-#' announce("content/blog/2026/02-02_sitrep/index.md", platforms = c("bluesky", "mastodon"))
-#'
-#' # Also send newsletter
-#' announce("content/blog/2026/02-02_sitrep/index.md", newsletter = TRUE)
-announce <- function(
-  post,
-  platforms = c("bluesky", "mastodon", "linkedin"),
-  newsletter = TRUE,
-  dry_run = FALSE
-) {
-  source(here::here(".github/scripts/utils.R"))
-
-  cli::cli_progress_step("Reading post metadata")
+#' source("R/announce-social.R")
+#' draft_social("content/blog/2026/02-02_sitrep/index.md")
+draft_social <- function(post, overwrite = FALSE) {
   frontmatter <- rmarkdown::yaml_front_matter(post)
-  url <- sprintf(
-    "https://drmowinckels.io/blog/%s/%s",
-    basename(dirname(dirname(post))),
-    frontmatter$slug %||% make_slug(post)
-  )
-
-  cli::cli_progress_step("Creating short URL")
-  uri <- short_url(url)
-  frontmatter$url <- url
-
-  cli::cli_progress_step("Loading voice skills")
-  post_content <- readLines(post, warn = FALSE) |>
-    paste(collapse = "\n")
+  if (!is.null(frontmatter$social) && !overwrite) {
+    cli::cli_abort(
+      "{.path {post}} already has a {.field social} block. Use {.code overwrite = TRUE} to replace it."
+    )
+  }
 
   prompt <- sprintf(
-    'You are writing social media posts for Dr. Mowinckel. Follow these voice guidelines: in drmo-voice, and social-voice. 
+    'You are writing social media posts for Dr. Mowinckel. Follow these voice guidelines: in drmo-voice, and social-voice.
 
 Write announcements for the following blog post. Create four separate texts:
-- LinkedIn: Long, well-structured with line breaks, professional but warm
-- Bluesky: Less than 250 characters (graphemes), casual and engaging
-- Mastodon: Short, community-focused
-- Newsletter: 2-3 paragraphs for email subscribers. Highlight key insights, practical takeaways, or interesting points from the post. More personal and detailed than social media. Do NOT include the link (it will be added separately). Plain text only, no HTML or markdown.
+- linkedin: Long, well-structured with line breaks, professional but warm
+- bluesky: At most 240 characters (graphemes), casual and engaging
+- mastodon: Short, community-focused, at most 400 characters
+- newsletter: 2-3 paragraphs for email subscribers separated by blank lines. Highlight key insights, practical takeaways, or interesting points from the post. More personal and detailed than social media. Plain text only, no HTML or markdown.
 
-Social media posts should:
+All texts should:
 - Be in first person (the author posting on their own accounts)
-- Include relevant hashtags and emojis where appropriate
-- End with the link: %s
+- NOT include a link to the post (it is appended automatically)
+Social media texts should include relevant hashtags and emojis where appropriate.
 
 Output ONLY a single line JSON object with keys "linkedin", "bluesky", "mastodon", and "newsletter". No markdown formatting, no code blocks, just the raw JSON.
 
 <document>
 %s
 </document>',
-    uri,
-    post_content
+    paste(readLines(post, warn = FALSE), collapse = "\n")
   )
 
-  cli::cli_progress_step("Generating posts with Claude")
+  cli::cli_progress_step("Drafting texts with Claude")
   result <- processx::run(
     "claude",
     args = c("-p", prompt, "--output-format", "text"),
     error_on_status = TRUE
   )
-
-  raw_output <- result$stdout |> trimws()
-
-  # Extract JSON object from output (in case Claude adds extra text)
-  json_match <- regmatches(raw_output, regexpr("\\{.*\\}", raw_output))
-  if (length(json_match) == 0) {
-    cli::cli_abort("Could not find JSON in Claude output: {raw_output}")
+  json <- regmatches(result$stdout, regexpr("\\{.*\\}", result$stdout))
+  if (length(json) == 0) {
+    cli::cli_abort("Could not find JSON in Claude output: {result$stdout}")
   }
-
-  # Replace smart quotes with regular quotes
-  json_clean <- json_match |>
-    gsub(pattern = "[\u201C\u201D]", replacement = '"') |>
-    gsub(pattern = "[\u2018\u2019]", replacement = "'")
-
-  texts <- jsonlite::fromJSON(json_clean)
+  texts <- jsonlite::fromJSON(json)[c(
+    "bluesky",
+    "mastodon",
+    "linkedin",
+    "newsletter"
+  )]
   cli::cli_progress_done()
 
-  cli::cli_progress_step("Optimizing image")
-  image <- here::here(dirname(post), frontmatter$image) |>
-    optimize_image_size(
-      max_size_mb = .976,
-      quality = 80,
-      scale_factor = 0.90
+  write_social(post, texts)
+
+  if (nchar(texts$bluesky, type = "chars") > 250) {
+    cli::cli_warn(
+      "Bluesky text is {nchar(texts$bluesky)} characters; with the link it may exceed Bluesky's 300 limit."
     )
-  cli::cli_progress_done()
-
-  if (dry_run) {
-    cli::cli_alert_warning("Dry run - not posting")
-    return(invisible(texts))
   }
-
-  if ("bluesky" %in% platforms) {
-    cli::cli_progress_step("Posting to Bluesky")
-    bpst <- bskyr::bs_post(
-      text = texts$bluesky,
-      images = image,
-      images_alt = frontmatter$image_alt
-    )
-    bskurl <- paste0("https://bsky.app/profile/drmowinckels.io/post/", bpst$cid)
-    cli::cli_progress_done()
-    cli::cli_alert_success("{.url {bskurl}}")
-  }
-
-  if ("mastodon" %in% platforms) {
-    cli::cli_progress_step("Posting to Mastodon")
-    toot <- rtoot::post_toot(
-      status = texts$mastodon,
-      media = image,
-      alt_text = frontmatter$image_alt,
-      visibility = "public",
-      language = "US-en"
-    )
-    tooturl <- toot$uri %||%
-      paste0("https://fosstodon.org/@drmowinckels/", toot$id)
-    cli::cli_progress_done()
-    cli::cli_alert_success("{.url {tooturl}}")
-  }
-
-  if ("linkedin" %in% platforms) {
-    cli::cli_h2("LinkedIn (copy/paste to {.url https://linkedin.com/feed})")
-    cli::cli_verbatim(texts$linkedin)
-    if (clipr::clipr_available()) {
-      clipr::write_clip(texts$linkedin)
-      cli::cli_alert_success("LinkedIn text copied to clipboard")
-    }
-  }
-
-  if (newsletter) {
-    cli::cli_h2("Newsletter preview")
-    cli::cli_verbatim(texts$newsletter)
-    if (utils::askYesNo("Send newsletter?")) {
-      cli::cli_progress_step("Sending newsletter")
-      source(here::here(".github/scripts/kit_newsletter.R"))
-      send_newsletter(frontmatter, url, body = texts$newsletter)
-      cli::cli_progress_done()
-    }
-  }
-
-  cli::cli_alert_info("Done!")
+  cli::cli_alert_success(
+    "Wrote {.field social} to {.path {post}}. Review before merging."
+  )
   invisible(texts)
+}
+
+write_social <- function(post, texts) {
+  texts <- lapply(texts, function(x) enc2utf8(trimws(x)))
+  lines <- readLines(post, warn = FALSE, encoding = "UTF-8")
+  fences <- which(lines == "---")
+  stopifnot(length(fences) >= 2, fences[1] == 1)
+  header <- lines[2:(fences[2] - 1)]
+
+  social_start <- grep("^social:", header)
+  if (length(social_start) > 0) {
+    nested <- grepl("^(\\s|$)", header[-(1:social_start)])
+    social_end <- social_start +
+      (if (all(nested)) length(nested) else which(!nested)[1] - 1)
+    header <- header[-(social_start:social_end)]
+  }
+
+  block <- c(
+    "social:",
+    unlist(lapply(names(texts), function(key) {
+      body <- strsplit(texts[[key]], "\n", fixed = TRUE)[[1]]
+      c(
+        paste0("  ", key, ": |-"),
+        ifelse(nzchar(body), paste0("    ", body), "")
+      )
+    }))
+  )
+
+  out <- enc2utf8(c("---", header, block, lines[fences[2]:length(lines)]))
+  writeLines(out, post, useBytes = TRUE)
+
+  written <- rmarkdown::yaml_front_matter(post)$social
+  stopifnot(identical(
+    enc2utf8(unlist(written[names(texts)])),
+    unlist(texts)
+  ))
 }
