@@ -1,8 +1,9 @@
 on:
-  workflow_run:
-    workflows: ["Update website"]
-    types: [completed]
-    branches: [main]
+  workflow_call:
+    inputs:
+      post:
+        type: string
+        required: true
   workflow_dispatch:
     inputs:
       post:
@@ -15,17 +16,14 @@ on:
 
 name: Announce new post
 
-permissions:
-  contents: write
-
-concurrency:
-  group: announce
-  cancel-in-progress: false
-
 jobs:
   announce:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: announce
+      cancel-in-progress: false
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7
@@ -43,7 +41,7 @@ jobs:
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           KIT_API_KEY: ${{ secrets.KIT_KEY }}
-          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          DRY_RUN: ${{ inputs.dry_run == true }}
         run: .github/scripts/announce.sh "$POST"
 
       - name: Record announced targets

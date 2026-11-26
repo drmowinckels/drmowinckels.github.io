@@ -19,7 +19,6 @@ jobs:
     outputs:
       POST: ${{ steps.check-post.outputs.POST }}
       POST_DATE: ${{ steps.check-date.outputs.POST_DATE }}
-      ANNOUNCE: ${{ steps.check-date.outputs.ANNOUNCE }}
       DOI: ${{ steps.check-doi.outputs.DOI }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -41,13 +40,6 @@ jobs:
         run: |
           post_date=$(grep "^date:" "${{ steps.check-post.outputs.POST }}" | sed 's/^date: //' | sed 's/["'\'']//g')
           echo "POST_DATE=${post_date}" >> $GITHUB_OUTPUT
-
-          one_day_ago=$(date -d "-1 days" +%Y%m%d)
-          post_date=$(date -d "${post_date}" +%Y%m%d)
-          echo "ANNOUNCE=false" >> $GITHUB_OUTPUT
-          if [ "${post_date}" -gt "${one_day_ago}" ]; then
-            echo "ANNOUNCE=true" >> $GITHUB_OUTPUT
-          fi
 
       - name: Check if needs DOI
         id: check-doi
@@ -79,7 +71,6 @@ jobs:
     steps:
       - name: Debug Outputs
         run: |
-          echo "ANNOUNCE: ${{ needs.checks.outputs.ANNOUNCE }}"
           echo "DOI: ${{ needs.checks.outputs.DOI }}"
           echo "POST: ${{ needs.checks.outputs.POST }}"
           echo "POST_DATE: ${{ needs.checks.outputs.POST_DATE }}"
@@ -214,3 +205,14 @@ jobs:
               repo: 'drmowinckels.github.io',
               body: ':tada: The preview is built! [Check it out :eyes:](https://${{ env.nalias }}--drmowinckels.netlify.app/)'
             })
+
+  announce:
+    name: Announce new post
+    needs: [checks, build]
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    uses: ./.github/workflows/announce.yml
+    with:
+      post: ${{ needs.checks.outputs.POST }}
+    secrets: inherit
