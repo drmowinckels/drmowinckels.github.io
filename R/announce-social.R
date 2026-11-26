@@ -4,7 +4,7 @@
 #' Dr. Mowinckel's voice and writes them to a `social:` block in the post's
 #' frontmatter. Review and edit them in the PR; once the post is merged and
 #' live, `.github/workflows/announce.yml` posts the social texts via Buffer and
-#' Kit's RSS-to-email sends the newsletter text from `/blog/newsletter.xml`.
+#' sends the newsletter text as a Kit broadcast.
 #' The post URL is appended automatically, so the texts should not include it.
 #'
 #' @param post Path to the blog post index.md file

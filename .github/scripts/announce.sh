@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-# Announce a published blog post on Bluesky, Mastodon and LinkedIn via Buffer.
-# The newsletter is sent by Kit's RSS-to-email from /blog/newsletter.xml.
+# Announce a published blog post on Bluesky, Mastodon and LinkedIn via Buffer,
+# and send it to newsletter subscribers as a Kit broadcast.
 #
 # Usage: announce.sh content/blog/YYYY/MM-DD_name/index.md
 #
 # Env:
 #   BUFFER_API_KEY  Buffer API key
-#   DRY_RUN         "true" prints payloads instead of posting (default: false)
+#   KIT_API_KEY     Kit v4 API key
+#   DRY_RUN         "true": print Buffer payloads instead of posting, and save the
+#                   Kit broadcast as a draft (send yourself a test from Kit)
 #   MAX_AGE_DAYS    skip posts dated longer ago than this (default: 3)
 #   LIVE_TIMEOUT    seconds to wait for the post to go live (default: 600)
 #
@@ -19,7 +21,7 @@ DRY_RUN=${DRY_RUN:-false}
 MAX_AGE_DAYS=${MAX_AGE_DAYS:-3}
 LIVE_TIMEOUT=${LIVE_TIMEOUT:-600}
 SITE=https://drmowinckels.io
-TARGETS=(bluesky mastodon linkedin)
+TARGETS=(bluesky mastodon linkedin newsletter)
 
 fm() { yq --front-matter=extract "($1) // \"\"" "$post"; }
 
@@ -127,10 +129,48 @@ post_buffer() {
   echo "Posted to $service: $(jq -r '.data.createPost.post.id' <<<"$resp")"
 }
 
+send_newsletter() {
+  local body html payload resp send_at=null
+  body=$(fm .social.newsletter)
+  [ -n "$body" ] || body=$(fm .summary)
+  html=$(jq -rn --arg body "$body" --arg img "$image" --arg alt "$alt" --arg url "$url" '
+    "<img src=\"" + $img + "\" alt=\"" + ($alt | @html) + "\" width=\"800\" style=\"display:block;max-width:100%;height:auto;margin:0 auto 1em;border-radius:4px\">"
+    + ($body | split("\n\n") | map("<p>" + (. | @html) + "</p>") | join(""))
+    + "<p style=\"text-align:center\"><a href=\"" + $url + "\" style=\"display:inline-block;text-decoration:none;background-color:#0f6261;color:#ffffff;padding:12px 20px;border-radius:4px\">Read the full post</a></p>"')
+  [ "$DRY_RUN" = "true" ] || send_at="\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\""
+  payload=$(jq -n --arg title "$title" --arg preview "$(fm .summary)" --arg img "$image" \
+    --arg alt "$alt" --arg html "$html" --arg now "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --argjson send_at "$send_at" '{
+    subject: $title, description: $title, preview_text: $preview, content: $html,
+    thumbnail_url: $img, thumbnail_alt: $alt,
+    public: true, published_at: $now, send_at: $send_at
+  }')
+  if [ -z "${KIT_API_KEY:-}" ]; then
+    if [ "$DRY_RUN" = "true" ]; then
+      jq . <<<"$payload"
+      return 0
+    fi
+    echo "KIT_API_KEY not set" >&2
+    return 1
+  fi
+  resp=$(curl -sS --fail-with-body https://api.kit.com/v4/broadcasts \
+    -H "X-Kit-Api-Key: $KIT_API_KEY" \
+    -H 'Content-Type: application/json' -d "$payload") || {
+    echo "Kit rejected the broadcast: $resp" >&2
+    return 1
+  }
+  if [ "$DRY_RUN" = "true" ]; then
+    echo "Kit draft broadcast $(jq -r '.broadcast.id' <<<"$resp") created; send yourself a test from Kit"
+  else
+    echo "Kit broadcast $(jq -r '.broadcast.id' <<<"$resp") sending"
+  fi
+}
+
 failed=()
 for t in "${todo[@]}"; do
   echo "--- $t"
-  post_buffer "$t" && done_targets+=("$t") || failed+=("$t")
+  if [ "$t" = newsletter ]; then send_newsletter; else post_buffer "$t"; fi &&
+    done_targets+=("$t") || failed+=("$t")
 done
 
 if [ "$DRY_RUN" != "true" ] && [ ${#done_targets[@]} -gt 0 ]; then
