@@ -72,5 +72,5 @@ hugo              # Build site
 The repo has GitHub Actions for:
 - Site building and deployment
 - Zenodo DOI assignment for posts
-- Social media announcements: `announce.yml` runs as the last job of `build-site.yaml` on main (or manually, dry run by default) and posts to Bluesky, Mastodon and LinkedIn via Buffer, built from the post's title, summary, tags (R becomes #rstats) and image. Posted channels are recorded in the post's `announced:` field so reruns never double-post.
+- Social media announcements: `announce.yml` runs as the last job of `build-site.yaml` on main (or manually, dry run by default) and posts to Bluesky (a thread: title, image, tags and link, then the summary as replies), Mastodon and LinkedIn via Buffer, built from the post's title, summary, tags (R becomes #rstats) and image. Posted channels are recorded in the post's `announced:` field so reruns never double-post.
 - Newsletter: the same workflow creates a Kit broadcast (v4 API) with the post image and summary. Dry runs save it as a Kit draft so a test email can be sent from Kit

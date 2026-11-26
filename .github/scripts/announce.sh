@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Announce a published blog post on Bluesky, Mastodon and LinkedIn via Buffer,
-# and send it to newsletter subscribers as a Kit broadcast.
+# Announce a published blog post on Bluesky (as a thread with the summary),
+# Mastodon and LinkedIn via Buffer, and send it to newsletter subscribers as a
+# Kit broadcast.
 #
 # Usage: announce.sh content/blog/YYYY/MM-DD_name/index.md
 #
@@ -134,6 +135,17 @@ post_buffer() {
       assets: [{image: {url: $img, metadata: {altText: $alt}}}]
     }}
   }')
+  if [ "$service" = bluesky ]; then
+    payload=$(jq --arg summary "$(fm .summary)" '
+      def pack($max): reduce .[] as $s ([];
+        if length > 0 and ((.[-1] + " " + $s) | length) <= $max then .[-1] += " " + $s else . + [$s] end);
+      . as $p | .variables.input as $in
+      | [$summary | splits("(?<=[.!?])\\s+") | select(. != "")
+          | if length > 300 then [splits("\\s+")] | pack(300) | .[] else . end] | pack(300)
+      | map({text: ., assets: []}) as $replies
+      | $p | if ($replies | length) == 0 then .
+        else .variables.input.metadata.bluesky.thread = [{text: $in.text, assets: $in.assets}] + $replies end' <<<"$payload")
+  fi
   if [ "$DRY_RUN" = "true" ]; then
     jq . <<<"$payload"
     return 0
