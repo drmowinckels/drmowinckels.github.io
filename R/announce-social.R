@@ -33,7 +33,7 @@ Write announcements for the following blog post. Create four separate texts:
 All texts should:
 - Be in first person (the author posting on their own accounts)
 - NOT include a link to the post (it is appended automatically)
-Social media texts should include relevant hashtags and emojis where appropriate.
+Social media texts should include relevant hashtags and emojis where appropriate. If the post is about R, always include #rstats.
 
 Output ONLY a single line JSON object with keys "linkedin", "bluesky", "mastodon", and "newsletter". No markdown formatting, no code blocks, just the raw JSON.
 

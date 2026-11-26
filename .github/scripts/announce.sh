@@ -52,7 +52,7 @@ title=$(fm .title)
 page_path="blog/$(basename "$(dirname "$(dirname "$post")")")/$(fm .slug)"
 url="$SITE/$page_path/"
 alt=$(fm .image_alt)
-tags=$(fm '.tags // [] | map("#" + sub("[^A-Za-z0-9]"; ""; "g")) | join(" ")')
+tags=$(fm '.tags // [] | .[]' | jq -Rrs 'split("\n") | map(select(. != "") | if ascii_downcase == "r" then "rstats" else . end | "#" + gsub("[^A-Za-z0-9]"; "")) | reduce .[] as $t ([]; if any(.[]; ascii_downcase == ($t | ascii_downcase)) then . else . + [$t] end) | sort_by(. != "#rstats") | join(" ")')
 
 # The site sits behind Cloudflare, which blocks CI runners, so check the deploy via GitHub instead of the URL.
 git fetch -q --depth=1 origin gh-pages
@@ -82,7 +82,13 @@ social_text() {
   text=$(fm ".social.$1")
   if [ -z "$text" ]; then
     case $1 in
-    bluesky) text="📝 New post: $title" ;;
+    bluesky)
+      # Bluesky caps posts at 300 graphemes including the link; drop trailing tags until it fits.
+      text=$(jq -rn --arg head "📝 New post: $title" --arg tags "$tags" --arg url "$url" '
+        [$tags | splits(" ") | select(. != "")] as $t
+        | [range($t | length; -1; -1) | $head + "\n\n" + ($t[:.] | join(" "))]
+        | map(select(length + 2 + ($url | length) <= 300)) | first // $head | rtrimstr("\n\n")')
+      ;;
     *) text=$(printf '📝 New post: %s\n\n%s\n\n%s' "$title" "$(fm .summary)" "$tags") ;;
     esac
   fi
