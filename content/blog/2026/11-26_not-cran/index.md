@@ -1,4 +1,5 @@
 ---
+doi: 10.5281/zenodo.24562630
 title: "The NOT_CRAN Line I Don't Remember Writing"
 format: hugo-md
 author: Dr. Mowinckel
