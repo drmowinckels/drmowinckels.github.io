@@ -42,6 +42,7 @@ jobs:
       - name: Announce
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          KIT_API_KEY: ${{ secrets.KIT_KEY }}
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
         run: .github/scripts/announce.sh "$POST"
 
