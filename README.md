@@ -13,18 +13,17 @@ site about R, brain imaging, and the occasional post on long Covid life.
 
 ## Some stats
 
-🎉 DrMowinckels has **61** posts since **2018-03-08**!
+🎉 DrMowinckels has **63** posts since **2018-03-08**!
 
-📅 In the last 12 months: **12** posts — roughly monthly.
+📅 In the last 12 months: **11** posts — roughly monthly.
 
-✍️ Most recent post (2026-08-01): [A Rust Crate, an R Package, and One
-Very Stubborn Windows
-Crash](https://drmowinckels.io/blog/rust-in-r-rambutan).
+✍️ Most recent post (2026-11-26): [The NOT_CRAN Line I Don’t Remember
+Writing](https://drmowinckels.io/blog/not-cran).
 
 😉 I’ll post as often as I am able, and hope people find it interesting.
 I’d love your feedback in the comments!
 
-<img src="README-files/plot-1.png" width="100%" />
+<img src="README-files/plot-1.png" alt="" width="100%" />
 
 <details>
 
@@ -35,6 +34,8 @@ I’d love your feedback in the comments!
 
 | Date | Title |
 |:---|:---|
+| 2026-11-26 | [The NOT_CRAN Line I Don’t Remember Writing](https://drmowinckels.io/blog/not-cran) |
+| 2026-09-17 | [Why ggseg Atlases Became Function Calls](https://drmowinckels.io/blog/atlases-as-functions) |
 | 2026-08-01 | [A Rust Crate, an R Package, and One Very Stubborn Windows Crash](https://drmowinckels.io/blog/rust-in-r-rambutan) |
 | 2026-07-15 | [Outside My Stack: Building Entracte and Cairn With Claude](https://drmowinckels.io/blog/outside-my-stack) |
 | 2026-06-01 | [Tidier Quarto Figures in Hugo: a Tiny Lua Filter](https://drmowinckels.io/blog/quarto-hugo-figures) |
@@ -105,4 +106,4 @@ I’d love your feedback in the comments!
 Dray](https://www.rostrum.blog/2021/04/14/gha-readme/) and [Piping Hot
 Data](https://github.com/shannonpileggi/pipinghotdata_distill/blob/master/README.Rmd).*
 
-*Updated 2026-09-09 03:16 UTC*
+*Updated 2026-11-26 11:23 UTC*
