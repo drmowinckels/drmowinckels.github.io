@@ -3,7 +3,6 @@ title: "The NOT_CRAN Line I Don't Remember Writing"
 format: hugo-md
 author: Dr. Mowinckel
 date: "2026-11-26"
-draft: true
 tags:
   - R
   - testthat
@@ -40,6 +39,10 @@ Facepalm.
 And I'll be honest with you: I have no idea who put it there.
 I don't remember writing it.
 I've been leaning on LLM agents a lot lately, and I'm fairly sure one of them added it at some point and I just didn't notice.
+
+Before we dig in, this is really a non-issue in most cases. 
+Like, I **WANT** all the tests to run generally. 
+This isn't really a bad default behaviour, it was just not what I was expecting.
 
 So, let's look at what that one line does, because it turned out to be more interesting than "delete it and move on".
 
