@@ -1,0 +1,8 @@
+{{/* Page image resized for social platforms and email; Bluesky rejects images over ~1MB */}}
+{{ $img := partial "funcs/get_image.html" . }}
+{{ with $img }}
+  {{ if in (slice "png" "jpeg" "webp") .MediaType.SubType }}
+    {{ $img = .Fit "1200x1200 jpg q80" }}
+  {{ end }}
+{{ end }}
+{{ return $img }}

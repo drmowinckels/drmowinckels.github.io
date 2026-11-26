@@ -1,0 +1,56 @@
+on:
+  workflow_run:
+    workflows: ["Update website"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      post:
+        description: "Path to the post's index.md (default: latest post)"
+        required: false
+      dry_run:
+        description: "Print payloads without posting"
+        type: boolean
+        default: true
+
+name: Announce new post
+
+permissions:
+  contents: write
+
+concurrency:
+  group: announce
+  cancel-in-progress: false
+
+jobs:
+  announce:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Find post
+        env:
+          INPUT_POST: ${{ inputs.post }}
+        run: |
+          post=${INPUT_POST:-$(find content/blog | grep /index.md$ | grep -v "XX-XX" | sort | tail -n1)}
+          echo "POST=${post}" >> "$GITHUB_ENV"
+
+      - name: Announce
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: .github/scripts/announce.sh "$POST"
+
+      - name: Record announced targets
+        if: always() && inputs.dry_run != true
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git diff --quiet -- "$POST" && exit 0
+          git commit "$POST" -m "Record announcement of $(basename "$(dirname "$POST")")"
+          git pull --rebase origin main
+          git push origin main
