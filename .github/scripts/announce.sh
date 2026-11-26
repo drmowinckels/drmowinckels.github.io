@@ -79,13 +79,10 @@ fi
 
 social_text() {
   local text limit
-  text=$(fm ".social.$1")
-  if [ -z "$text" ]; then
-    case $1 in
-    bluesky) text="📝 New post: $title" ;;
-    *) text=$(printf '📝 New post: %s\n\n%s' "$title" "$(fm .summary)") ;;
-    esac
-  fi
+  case $1 in
+  bluesky) text="📝 New post: $title" ;;
+  *) text=$(printf '📝 New post: %s\n\n%s' "$title" "$(fm .summary)") ;;
+  esac
   case $1 in
   bluesky) limit=300 ;;
   mastodon) limit=500 ;;
@@ -151,8 +148,7 @@ post_buffer() {
 
 send_newsletter() {
   local body html payload resp send_at=null
-  body=$(fm .social.newsletter)
-  [ -n "$body" ] || body=$(fm .summary)
+  body=$(fm .summary)
   html=$(jq -rn --arg body "$body" --arg img "$image" --arg alt "$alt" --arg url "$url" '
     "<img src=\"" + $img + "\" alt=\"" + ($alt | @html) + "\" width=\"800\" style=\"display:block;max-width:100%;height:auto;margin:0 auto 1em;border-radius:4px\">"
     + ($body | split("\n\n") | map("<p>" + (. | @html) + "</p>") | join(""))
