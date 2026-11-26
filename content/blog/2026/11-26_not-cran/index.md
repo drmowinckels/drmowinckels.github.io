@@ -2,7 +2,7 @@
 title: "The NOT_CRAN Line I Don't Remember Writing"
 format: hugo-md
 author: Dr. Mowinckel
-date: "2026-11-15"
+date: "2026-11-26"
 draft: true
 tags:
   - R
@@ -16,6 +16,11 @@ seo: |
   syntax that keeps both agent-driven test runs and CRAN-like checks honest.
 summary: >
   While getting the ggsegverse ready for CRAN, my `--as-cran` checks went red in ways CRAN would never see. The culprit was a single `NOT_CRAN=TRUE` in my `.Renviron` that I have no memory of writing. Here is what that variable actually does, why it turned out to be useful, and the small change that made it stop lying to me.
+image: confused.png
+image_alt: | 
+  An Art Nouveau-style illustration of Dr. Mowinckel looking deeply confused and perplexed at a computer monitor. She is seated at a wooden desk, leaning forward with one hand touching her temple in bewilderment, furrowing her brow at the glowing screen. She has dark hair with short straight bangs, wearing a black cardigan embroidered with white daisies over an olive-green ribbed turtleneck.
+  The ornate computer monitor is framed in decorative vintage brass and copper filigree,
+  The scene is enclosed in an intricate, Alphonse Mucha-inspired decorative border featuring swirling botanical vines, monstera leaves, stylized brain motifs, and waveform flourishes in muted earthy jewel tones, sage green, and antique gold. A steaming coffee cup sits on the desk next to books and a keyboard. A hand-lettered banner at the bottom reads: "THE NOT_CRAN LINE I DON'T REMEMBER WRITING".
 ---
 
 I have been getting a whole bunch of ggseg packages ready for CRAN lately.
@@ -89,7 +94,7 @@ So if you are thinking "I don't use `skip_on_cran()`, this doesn't concern me", 
 My first instinct was to override it for one run:
 
 ```sh
-NOT_CRAN=false Rscript -e 'Sys.getenv("NOT_CRAN")'
+NOT_CRAN=false; Rscript -e 'Sys.getenv("NOT_CRAN")'
 #> [1] "TRUE"
 ```
 
