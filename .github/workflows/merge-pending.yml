@@ -16,7 +16,7 @@ jobs:
       process: ${{ steps.find_pending_prs.outputs.process }}
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Find PRs with "pending" label
         id: find_pending_prs
@@ -35,7 +35,7 @@ jobs:
     if: ${{ needs.find_pending_prs.outputs.process == 'true' }}
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Process and Merge Qualifying PRs
         env:
@@ -77,7 +77,7 @@ jobs:
             done
 
       - name: Trigger Website build
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
