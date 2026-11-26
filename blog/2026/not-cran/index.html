@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+<title>The NOT_CRAN Line I Don&rsquo;t Remember Writing - Dr. Mowinckel&#39;s</title>
+
+
+<meta name="hugo-igloo" />
+
+
+
+
+  <meta name="description" content="While getting the ggsegverse ready for CRAN, my &ndash;as-cran checks went red in ways CRAN would never see. The culprit was a single NOT_CRAN=TRUE in my .Renviron that I have no memory of writing. Here is what that variable actually does, why it turned out to be useful, and the small change that made it stop lying to me." />
+  <meta name="author" content="Dr. Mowinckel" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+
+        
+
+
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://drmowinckels.io/blog/2026/not-cran/">
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website">
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="The NOT_CRAN Line I Don&rsquo;t Remember Writing - Dr. Mowinckel&rsquo;s">
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="How a global NOT_CRAN=TRUE in ~/.Renviron changes which testthat tests run,
+why it cannot be overridden from the shell, and the one-line default-value
+syntax that keeps both agent-driven test runs and CRAN-like checks honest.">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="https://drmowinckels.io/">
+<meta name="twitter:title" content="The NOT_CRAN Line I Don&rsquo;t Remember Writing - Dr. Mowinckel&rsquo;s">
+<meta name="twitter:description" content="How a global NOT_CRAN=TRUE in ~/.Renviron changes which testthat tests run,
+why it cannot be overridden from the shell, and the one-line default-value
+syntax that keeps both agent-driven test runs and CRAN-like checks honest.">
+
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://drmowinckels.io/blog/2026/not-cran/confused_hu_8ff1ed473e64c727.jpg" />
+    <meta name="twitter:image" content="https://drmowinckels.io/blog/2026/not-cran/confused_hu_8ff1ed473e64c727.jpg">
+
+
+        
+  
+
+
+
+
+
+    
+
+
+
+ 
+
+    <link rel="stylesheet" href="https://drmowinckels.io/bundle.min.f46eae58a95bd13440b3845d08d3bd2a3c54bc821ea91aa96d9efc2052ca1496.css" 
+    integrity="sha256-9G6uWKlb0TRAs4RdCNO9KjxUvIIeqRqpbZ78IFLKFJY=" 
+    crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit.min.js"></script>
+
+
+    <script src="https://drmowinckels.io/uikit/dist/js/uikit-icons.min.js"></script>
+
+
+
+    <script async data-id="101481527" src="//static.getclicky.com/js"></script>
+
+
+        
+
+
+
+    
+
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_4e4a717c037bf20f.png"
+        sizes="16x16"
+        type="image/png"
+    />
+    
+    
+    
+        
+        <link rel="shortcut icon" href="https://drmowinckels.io/favicon.ico" type="image/x-icon">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_b68370edd2522b4f.png"
+        sizes="32x32"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d7a4b2b703340348.png"
+        sizes="57x57"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a354d575a22f35c5.png"
+        sizes="76x76"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_fabb71fb56dd5f5d.png"
+        sizes="96x96"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_106426305b4e5006.png"
+        sizes="128x128"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_e6a9026df9344986.png"
+        sizes="120x120"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_a49ab26aa0bf7103.png"
+        sizes="150x150"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_d01b49368e3aad87.png"
+        sizes="152x152"
+        type="image/png"
+    />
+    
+    
+    
+        <meta name="msapplication-TileImage" 
+            content="/img/fav.ico_hu_8a91dd82885181b1.png">
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_8a91dd82885181b1.png"
+        sizes="144x144"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="apple-touch-icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_733d72fe0fae367.png"
+        sizes="180x180"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_dfb9293e7c1d2665.png"
+        sizes="192x192"
+        type="image/png"
+    />
+    
+    
+    
+    <link
+        rel="shortcut icon"
+        href="https://drmowinckels.io/img/fav.ico_hu_6a4875b3fc065a55.png"
+        sizes="196x196"
+        type="image/png"
+    />
+<meta name="msapplication-TileColor" content="#198c8c">
+<meta name="theme-color" content="#198c8c"> 
+<meta name="msapplication-TileColor" content="#198c8c">
+
+    </head>
+    <body>
+            
+<div class="banner ">
+    
+        <div class="uk-container uk-container-small banner-top">
+            <h1>blog</h1>
+        </div>
+    
+</div>
+
+        
+
+
+
+<div id="smallnav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav">
+            
+                <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                    <img src="https://drmowinckels.io/img/logo.png" width="40">
+                </a> 
+            
+            
+                <li>
+                    <a href="https://drmowinckels.io/about">
+                        About
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/blog">
+                        Blog
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/talks">
+                        Talks
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    <a href="https://drmowinckels.io/projects">
+                        Projects
+                        
+                    </a>
+                    
+                </li>
+            
+        </ul>
+    </div>
+</div>
+<a class="uk-navbar-container uk-navbar-left uk-navbar-toggle uk-hidden@s" uk-toggle="target: #smallnav" uk-navbar-toggle-icon></a>
+
+<div class="uk-visible@s" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container">   
+        <div uk-navbar>     
+            <div class="uk-navbar-center">
+                
+                    
+                        <div class="uk-navbar-center-left">
+                            <ul class="uk-navbar-nav">
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/about">
+                            About
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/blog">
+                            Blog
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+                    
+                    
+                        
+                            <a class="uk-navbar-item uk-logo" href="https://drmowinckels.io/">
+                                <img src="https://drmowinckels.io/img/logo.png" width="40">
+                            </a> 
+                        
+                        <div class="uk-navbar-center-right">
+                            <ul class="uk-navbar-nav"> 
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/talks">
+                            Talks
+                            
+                        </a>
+                        
+                    </li>
+                    
+                
+                    
+                    
+                    <li>
+                        <a href="https://drmowinckels.io/projects">
+                            Projects
+                            
+                        </a>
+                        
+                    </li>
+                    
+                            </ul>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+        <div id="content" class="uk-container uk-container-small uk-margin-large-top">
+<article class="uk-article">
+    <div class="uk-grid uk-flex-top" uk-grid>
+        
+        
+        <div class="uk-width-1-4@s">
+            
+            <img src="https://drmowinckels.io/blog/2026/not-cran/confused.png" alt="An Art Nouveau-style illustration of Dr. Mowinckel looking deeply confused and perplexed at a computer monitor. She is seated at a wooden desk, leaning forward with one hand touching her temple in bewilderment, furrowing her brow at the glowing screen. She has dark hair with short straight bangs, wearing a black cardigan embroidered with white daisies over an olive-green ribbed turtleneck.
+The ornate computer monitor is framed in decorative vintage brass and copper filigree,
+The scene is enclosed in an intricate, Alphonse Mucha-inspired decorative border featuring swirling botanical vines, monstera leaves, stylized brain motifs, and waveform flourishes in muted earthy jewel tones, sage green, and antique gold. A steaming coffee cup sits on the desk next to books and a keyboard. A hand-lettered banner at the bottom reads: &#34;THE NOT_CRAN LINE I DON&#39;T REMEMBER WRITING&#34;.
+" class="uk-border-rounded">
+            
+            
+        </div>
+
+        <div class="uk-width-3-4@s">
+            <h1 class="uk-article-title">The NOT_CRAN Line I Don&rsquo;t Remember Writing</h1>
+            
+            <div class="uk-border-top uk-article-meta uk-flex uk-flex-center uk-flex-between">
+                <h3 class="uk-margin-top-small">
+                    Nov 26, 2026
+                </h3>
+                
+                <button class="uk-button uk-button-default uk-margin-small-right uk-position-z-index"
+                    uk-sticky="offset: 90; show-on-up: true; animation: uk-animation-slide-top" type="button"
+                    uk-toggle="target: #offcanvas-reveal">
+                    Table of Content
+                </button>
+                
+
+                
+                <div class="uk-flex uk-flex-wrap uk-flex-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/r/" class="uk-label uk-label-secondary tags">
+                            R
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/testthat/" class="uk-label uk-label-secondary tags">
+                            Testthat
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/package-development/" class="uk-label uk-label-secondary tags">
+                            Package-Development
+                        </a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="uk-card uk-margin-left uk-margin-bottom">
+                        <a href="https://drmowinckels.io/tags/renviron/" class="uk-label uk-label-secondary tags">
+                            Renviron
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div id="offcanvas-reveal" uk-offcanvas="mode: reveal; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <h3>Table of Content</h3>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-not_cran-actually-does">What NOT_CRAN actually does</a></li>
+    <li><a href="#its-not-just-skip_on_cran">It&rsquo;s not just skip_on_cran()</a></li>
+    <li><a href="#your-renviron-beats-your-shell">Your .Renviron beats your shell</a></li>
+    <li><a href="#why-im-keeping-it-anyway">Why I&rsquo;m keeping it anyway</a></li>
+    <li><a href="#the-fix-a-default-not-a-value">The fix: a default, not a value</a></li>
+    <li><a href="#use-your-own-switch-for-things-you-really-care-about">Use your own switch for things you really care about</a></li>
+    <li><a href="#go-look-at-your-renviron">Go look at your .Renviron</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+        
+        <p class="uk-text-lead">While getting the ggsegverse ready for CRAN, my <code>--as-cran</code> checks went red in ways CRAN would never see. The culprit was a single <code>NOT_CRAN=TRUE</code> in my <code>.Renviron</code> that I have no memory of writing. Here is what that variable actually does, why it turned out to be useful, and the small change that made it stop lying to me.</p>
+        
+        <div class="uk-markdown uk-width">
+            <p>I have been getting a whole bunch of ggseg packages ready for CRAN lately.
+Part of that is running <code>R CMD check --as-cran</code> over and over, so you know what CRAN will see before CRAN sees it.</p>
+<p>Except mine didn&rsquo;t.
+ggseg came back with 23 failing snapshot tests.
+Tests that, on CRAN, would never have run at all.</p>
+<p>The cause was line 2 of my <code>~/.Renviron</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>NOT_CRAN<span style="color:#f92672">=</span>TRUE
+</span></span></code></pre></div><p>Facepalm.
+And I&rsquo;ll be honest with you: I have no idea who put it there.
+I don&rsquo;t remember writing it.
+I&rsquo;ve been leaning on LLM agents a lot lately, and I&rsquo;m fairly sure one of them added it at some point and I just didn&rsquo;t notice.</p>
+<p>Before we dig in, this is really a non-issue in most cases.
+Like, I <strong>WANT</strong> all the tests to run generally.
+This isn&rsquo;t really a bad default behaviour, it was just not what I was expecting.</p>
+<p>So, let&rsquo;s look at what that one line does, because it turned out to be more interesting than &ldquo;delete it and move on&rdquo;.</p>
+<h2 id="what-not_cran-actually-does">What NOT_CRAN actually does</h2>
+<p>testthat decides whether you are &ldquo;on CRAN&rdquo; with a tiny internal function.
+In testthat 3.3.2, it looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>testthat<span style="color:#f92672">:::</span>on_cran
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; function ()</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; {</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;     env &lt;- Sys.getenv(&#34;NOT_CRAN&#34;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;     if (identical(env, &#34;&#34;)) {</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;         !interactive()</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;     }</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;     else {</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;         !isTRUE(as.logical(env))</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;     }</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; }</span>
+</span></span></code></pre></div><p>CRAN never sets <code>NOT_CRAN</code>.
+So on CRAN, the variable is empty, R is running non-interactively, and <code>on_cran()</code> returns <code>TRUE</code>.
+Anything guarded by <code>skip_on_cran()</code> is skipped.</p>
+<p>If <code>NOT_CRAN</code> is set to <code>TRUE</code>, that whole branch is bypassed, and testthat believes you are <em>not</em> on CRAN, no matter how you are running things.</p>
+<h2 id="its-not-just-skip_on_cran">It&rsquo;s not just skip_on_cran()</h2>
+<p>This is the part that surprised me.
+I went looking for <code>skip_on_cran()</code> calls in the ggsegverse, expecting loads of them.</p>
+<table class="uk-table uk-table-responsive uk-table-divider">
+  <thead>
+      <tr>
+          <th>Package</th>
+          <th><code>skip_on_cran()</code></th>
+          <th>Snapshot expectations</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ggseg.extra</td>
+          <td>1</td>
+          <td>88</td>
+      </tr>
+      <tr>
+          <td>ggseg.formats</td>
+          <td>0</td>
+          <td>31</td>
+      </tr>
+      <tr>
+          <td>ggseg3d</td>
+          <td>8</td>
+          <td>10</td>
+      </tr>
+  </tbody>
+</table>
+<p>One.
+ggseg.extra, the package with all the external neuroimaging dependencies, has a single explicit CRAN skip.</p>
+<p>But snapshot tests skip themselves on CRAN too.
+<code>expect_snapshot()</code>, <code>expect_snapshot_file()</code> and <code>vdiffr::expect_doppelganger()</code> all have a <code>cran = FALSE</code> argument, and they consult the very same <code>on_cran()</code>.
+So all those snapshots are quietly CRAN-skipped tests, and <code>NOT_CRAN=TRUE</code> switches every one of them back on.
+That is exactly where ggseg&rsquo;s 23 failures came from: visual snapshots that genuinely did not match the new geometry, and that CRAN would never have compared.</p>
+<p>So if you are thinking &ldquo;I don&rsquo;t use <code>skip_on_cran()</code>, this doesn&rsquo;t concern me&rdquo;, check your snapshots.</p>
+<h2 id="your-renviron-beats-your-shell">Your .Renviron beats your shell</h2>
+<p>My first instinct was to override it for one run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>NOT_CRAN<span style="color:#f92672">=</span>false; Rscript -e <span style="color:#e6db74">&#39;Sys.getenv(&#34;NOT_CRAN&#34;)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt; [1] &#34;TRUE&#34;</span>
+</span></span></code></pre></div><p>Nope.
+R reads <code>~/.Renviron</code> at startup and overwrites whatever the shell handed it.
+Unsetting it with <code>env -u NOT_CRAN</code> doesn&rsquo;t help either, for the same reason.</p>
+<p>And <code>R CMD check --as-cran</code> is no protection, because the R processes it starts read your <code>.Renviron</code> as well.
+I made a tiny throwaway package with one test that is designed to fail, guarded by <code>skip_on_cran()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">test_that</span>(<span style="color:#e6db74">&#34;only runs off CRAN&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">skip_on_cran</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">expect_equal</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>With an empty <code>.Renviron</code>, <code>R CMD check --as-cran</code> skips it and passes.
+With <code>NOT_CRAN=TRUE</code>, it runs and fails: <code>[ FAIL 1 | WARN 0 | SKIP 0 | PASS 0 ]</code>.</p>
+<p>Notice which direction this goes, though.
+A global <code>NOT_CRAN=TRUE</code> makes you run <em>more</em> tests than CRAN, not fewer.
+A green local check is still trustworthy.
+A red one might be red for reasons CRAN will never see.</p>
+<h2 id="why-im-keeping-it-anyway">Why I&rsquo;m keeping it anyway</h2>
+<p>So, delete the line?
+That was the plan, until I thought about how R gets called these days.</p>
+<p>Look at that <code>on_cran()</code> code again.
+When <code>NOT_CRAN</code> is empty, it falls back to <code>!interactive()</code>.
+In your console, <code>interactive()</code> is <code>TRUE</code>, so everything runs, and you never notice anything.
+But agents don&rsquo;t sit in a console.
+They call R from the shell, with <code>Rscript</code>, where <code>interactive()</code> is <code>FALSE</code>.</p>
+<p>I ran that same throwaway test from the shell, with <code>NOT_CRAN</code> unset, through the entry points an agent is likely to reach for:</p>
+<table class="uk-table uk-table-responsive uk-table-divider">
+  <thead>
+      <tr>
+          <th>Called from the shell</th>
+          <th>The <code>skip_on_cran()</code> test</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>devtools::test()</code>, <code>testthat::test_local()</code></td>
+          <td>Runs</td>
+      </tr>
+      <tr>
+          <td><code>testthat::test_file()</code>, <code>test_dir()</code>, <code>devtools::test_active_file()</code></td>
+          <td>Skipped</td>
+      </tr>
+      <tr>
+          <td><code>covr::package_coverage()</code></td>
+          <td>Skipped</td>
+      </tr>
+      <tr>
+          <td><code>R CMD check</code></td>
+          <td>Skipped</td>
+      </tr>
+  </tbody>
+</table>
+<p><code>devtools::test()</code> is fine, because <code>test_local()</code> sets <code>NOT_CRAN</code> for you behind the scenes.
+But the moment an agent runs a single test file to check its own fix, or runs coverage, every CRAN-skipped test and every snapshot quietly disappears.
+The output says zero failures.
+The agent says &ldquo;all tests pass&rdquo;.
+Technically true, and not at all what you wanted.</p>
+<p>So whoever wrote that line, it was doing a real job.</p>
+<h2 id="the-fix-a-default-not-a-value">The fix: a default, not a value</h2>
+<p><code>.Renviron</code> supports a default-value syntax.
+Instead of setting the variable outright, you can say &ldquo;use <code>TRUE</code> unless something already set it&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>NOT_CRAN<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>NOT_CRAN-TRUE<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><p>Now everything that calls R without thinking about it, agents included, still gets <code>TRUE</code>.
+And when you want a check that behaves like CRAN, you ask for one:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>NOT_CRAN<span style="color:#f92672">=</span>false R CMD check --as-cran mypkg_0.1.0.tar.gz
+</span></span></code></pre></div><p>Back to the throwaway package:</p>
+<table class="uk-table uk-table-responsive uk-table-divider">
+  <thead>
+      <tr>
+          <th><code>.Renviron</code> line</th>
+          <th><code>NOT_CRAN=false R CMD check --as-cran</code></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>NOT_CRAN=TRUE</code></td>
+          <td>Override ignored, test runs and fails</td>
+      </tr>
+      <tr>
+          <td><code>NOT_CRAN=${NOT_CRAN-TRUE}</code></td>
+          <td>Test skipped, check passes, like CRAN</td>
+      </tr>
+  </tbody>
+</table>
+<p>Weee, both worlds!</p>
+<h2 id="use-your-own-switch-for-things-you-really-care-about">Use your own switch for things you really care about</h2>
+<p>One last thing the hunt taught me.
+The reason I might have wanted <code>NOT_CRAN</code> in the first place was to make sure tests that touch external tools actually ran.
+ggseg.extra drives FreeSurfer, and I want those tests exercised, not skipped.</p>
+<p>But <code>NOT_CRAN</code> was never doing that job.
+Those tests are guarded by our own helper, and it has its own switch:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>skip_if_no_freesurfer <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nzchar</span>(<span style="color:#a6e22e">Sys.getenv</span>(<span style="color:#e6db74">&#34;GGSEG_REQUIRE_FREESURFER&#34;</span>))) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>freesurfer<span style="color:#f92672">::</span><span style="color:#a6e22e">have_fs</span>() <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">nzchar</span>(<span style="color:#a6e22e">Sys.which</span>(<span style="color:#e6db74">&#34;mri_info&#34;</span>))) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;GGSEG_REQUIRE_FREESURFER is set but FreeSurfer is not available&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(<span style="color:#a6e22e">invisible</span>(<span style="color:#66d9ef">TRUE</span>))
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">skip_on_os</span>(<span style="color:#e6db74">&#34;windows&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">skip_if_not_installed</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;freesurfer&#34;</span>,
+</span></span><span style="display:flex;"><span>    minimum_version <span style="color:#f92672">=</span> <span style="color:#a6e22e">freesurfer_min_version</span>()
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>freesurfer<span style="color:#f92672">::</span><span style="color:#a6e22e">have_fs</span>() <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">nzchar</span>(<span style="color:#a6e22e">Sys.which</span>(<span style="color:#e6db74">&#34;mri_info&#34;</span>))) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">skip</span>(<span style="color:#e6db74">&#34;FreeSurfer not available&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Set <code>GGSEG_REQUIRE_FREESURFER</code>, and a missing FreeSurfer is an error instead of a silent skip.
+That is a much better pattern for &ldquo;this must run here&rdquo; than overloading a variable that means &ldquo;pretend I&rsquo;m not CRAN&rdquo;.
+It says exactly what it does, and nothing else.</p>
+<h2 id="go-look-at-your-renviron">Go look at your .Renviron</h2>
+<p>It is a small file, it affects every R session you start, and it is very easy to forget about.
+Especially now, when something other than you might be editing it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>usethis<span style="color:#f92672">::</span><span style="color:#a6e22e">edit_r_environ</span>()
+</span></span></code></pre></div><p>Have a read.
+If there is a line in there you don&rsquo;t recognise, it might be doing something useful.
+Find out what before you delete it.</p>
+
+        </div>
+</article><div class="uk-margin">
+    <button  class="uk-button uk-button-default" uk-toggle="target: #citation; animation: uk-animation-fade" type="button">
+        Cite me!
+    </button>
+    <div id="citation" hidden class="uk-margin">
+        <div uk-grid class="uk-child-width-1-2@s">
+            <div>
+                For attribution, please cite this work as
+                <div class="uk-card uk-card-default uk-card-bod uk-text-breaky">
+                    Dr. Mowinckel 
+                    (Nov 26, 2026) 
+                    The NOT_CRAN Line I Don&#39;t Remember Writing. 
+                    Retrieved from https://drmowinckels.io/blog/2026/not-cran/.
+                     DOI: https://www.doi.org/10.5281/zenodo.24562630
+                </div>
+            </div>
+            <div>
+                <b>BibTeX citation</b>
+                <div class="uk-card uk-card-default uk-card-body uk-text-break">
+                    @misc{ <br>
+                        2026-the-not_cran-line-i-dont-remember-writing,<br>
+                        &emsp;author =  "Dr. Mowinckel",<br>
+                        &emsp;title = "The NOT_CRAN Line I Don&#39;t Remember Writing",<br>
+                        &emsp;url = "https://drmowinckels.io/blog/2026/not-cran/",<br>
+                        &emsp;year = 2026,<br>
+                         &emsp;doi = "https://www.doi.org/10.5281/zenodo.24562630",<br> 
+                        &emsp;updated = "Nov 26, 2026"<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="section" style="height: auto !important;">
+    <div class="uk-section">
+
+        <div class="uk-position-relative uk-visible-toggle uk-light timeline-horizontal" tabindex="-1"
+            uk-slider="clsActivated: uk-transition-active; center: true">
+
+            <ul class="uk-slider-items uk-grid">
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Sep 17, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/atlases-as-functions/data_door_hu_1970c643b2a4cf37.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Why ggseg Atlases Became Function Calls</h2>
+    
+      <p>Re-exporting lazy-loaded datasets is not possible in R-packages, since they don&rsquo;t exist in a package&rsquo;s namespace. This created a conundrum for me as I was reinventing how the ggseg-ecosystem would look like in the future. Here, I walk through the problem and solution I ended up with, with the help of good colleagues in rOpenSci.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/atlases-as-functions/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/ggseg/" class="uk-label timeline-tags">
+              ggseg
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/package-development/" class="uk-label timeline-tags">
+              package-development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/namespaces/" class="uk-label timeline-tags">
+              namespaces
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/api-design/" class="uk-label timeline-tags">
+              api-design
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Aug 1, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/rust-in-r-rambutan/featured_hu_270dad0235192f3c.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>A Rust Crate, an R Package, and One Very Stubborn Windows Crash</h2>
+    
+      <p>I had never ported a Rust crate to R, and I wanted more control over link checking than I was getting. So I wrapped lychee with extendr. This is the whole trip: why I started outside CRAN on purpose, how you run async Rust from inside R, the Windows crash that took four attempts to fix, and an honest look at whether the result was actually worth it.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/rust-in-r-rambutan/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/rust/" class="uk-label timeline-tags">
+              rust
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/extendr/" class="uk-label timeline-tags">
+              extendr
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/cran/" class="uk-label timeline-tags">
+              cran
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/package-development/" class="uk-label timeline-tags">
+              package-development
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    May 4, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/visible-year-two/index.markdown_strict_files/figure-markdown_strict/stability-calendar-1_hu_11cda171c7493726.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Two Years of Visible: New Angles on the Long Covid Data</h2>
+    
+      <p>It&rsquo;s been two years since I started tracking my Long Covid with the Visible app, and a year since I last sat down with the data here on the blog. This post is a follow-up — same data, but now with twice as much of it, a clearer improvement arc, and some new plots and analyses I hadn&rsquo;t tried before. Calendar heatmaps, ridgeline plots, change-point detection, and a phase-by-phase look at how my morning stability score moves across the menstrual cycle all make an appearance, alongside a quick check on whether last year&rsquo;s symptom clusters still hold up.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/visible-year-two/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/health-data/" class="uk-label timeline-tags">
+              health-data
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/longcovid/" class="uk-label timeline-tags">
+              longcovid
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Feb 2, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/sitrep-functions/image_hu_5cb96fe139624936.png') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Why Every R Package Wrapping External Tools Needs a sitrep() Function</h2>
+    
+      <p>Stop playing &ldquo;diagnostics ping-pong&rdquo; with your users. This post explores why the _sitrep() (situation report) pattern — popularized by the usethis package — is a game-changer for R packages wrapping APIs or external software. Learn how to build structured validation functions that power both early error-handling and comprehensive system reports, featuring real-world implementation examples from the meetupr and freesurfer packages.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/sitrep-functions/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/package-development/" class="uk-label timeline-tags">
+              package development
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/debugging/" class="uk-label timeline-tags">
+              debugging
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/wrappers/" class="uk-label timeline-tags">
+              wrappers
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+                
+                <li class="uk-width-3-4">
+                    <div class="timeline-item timeline-item-horizontal">
+  
+
+  
+  <div class="timeline-date">
+    Jan 19, 2026
+  </div>
+
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+      
+      
+      
+
+      
+        
+        
+          
+        
+      
+      
+        
+        
+        <div class="timeline-img"
+            style="background: url('https://drmowinckels.io/blog/2026/year-in-review-2025/newyear_hu_1ccaafba6e36316b.jpg') center no-repeat;"
+        ></div>
+        
+      
+      
+    <h2>Year in review — 2025</h2>
+    
+      <p>A year of deliberate work despite post-COVID recovery: API explorations with httr2, the R Package Development Advent Calendar, ggseg improvements, and looking ahead to 2026.</p>
+    
+    <div class="uk-flex uk-flex-between uk-flex-middle ">
+      
+        <a class="btn-more" href="https://drmowinckels.io/blog/2026/year-in-review-2025/">
+          Read
+        </a>
+      
+    
+      
+        <span class="uk-text-right">
+          
+            
+            <a href="https://drmowinckels.io/tags/r/" class="uk-label timeline-tags">
+              R
+            </a>
+          
+            
+            <a href="https://drmowinckels.io/tags/year-in-review/" class="uk-label timeline-tags">
+              year-in-review
+            </a>
+          
+        </span>
+      
+    </div>
+  </div>
+</div> 
+                </li>
+                
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small slide-nav-primary" href uk-slidenav-previous
+                uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small slide-nav-primary" href uk-slidenav-next
+                uk-slider-item="next"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-margin-top">
+            <script src="https://giscus.app/client.js"
+                data-repo=DrMowinckels/drmowinckels.github.io
+                data-repo-id=MDEwOlJlcG9zaXRvcnkxMjM0NzEwMTI&#61;
+                data-category=Comments
+                data-category-id=DIC_kwDOB1wEpM4CAG0c
+                data-mapping=pathname
+                data-reactions-enabled=1
+                data-emit-metadata=0
+                data-theme=light
+                data-lang=en
+                crossorigin="anonymous"
+                async>
+            </script>
+</div>
+
+
+
+        </div><div class="section uk-section uk-padding-remove-vertical uk-margin">
+    <div class="banner footer" height="500px">
+        <div class="uk-container">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-2@m">
+                    
+                      <h3><i class="fa-regular fa-copyright"></i> 2026 Athanasia Mo Mowinckel</h3>
+                      <p></p>
+                    
+                  </div>
+              <div class="uk-width-1-2@m">
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-title uk-text-right">
+            <h1>Dr. Mowinckel&rsquo;s</h1>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
