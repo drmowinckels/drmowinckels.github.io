@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Announce a published blog post on Bluesky, Mastodon and LinkedIn via Buffer,
-# and send it to newsletter subscribers as a Kit broadcast.
+# Announce a published blog post on Bluesky (as a thread with the summary),
+# Mastodon and LinkedIn via Buffer, and send it to newsletter subscribers as a
+# Kit broadcast.
 #
 # Usage: announce.sh content/blog/YYYY/MM-DD_name/index.md
 #
@@ -52,7 +53,7 @@ title=$(fm .title)
 page_path="blog/$(basename "$(dirname "$(dirname "$post")")")/$(fm .slug)"
 url="$SITE/$page_path/"
 alt=$(fm .image_alt)
-tags=$(fm '.tags // [] | map("#" + sub("[^A-Za-z0-9]"; ""; "g")) | join(" ")')
+tags=$(fm '.tags // [] | .[]' | jq -Rrs 'split("\n") | map(select(. != "") | if ascii_downcase == "r" then "rstats" else . end | "#" + gsub("[^A-Za-z0-9]"; "")) | reduce .[] as $t ([]; if any(.[]; ascii_downcase == ($t | ascii_downcase)) then . else . + [$t] end) | sort_by(. != "#rstats") | join(" ")')
 
 # The site sits behind Cloudflare, which blocks CI runners, so check the deploy via GitHub instead of the URL.
 git fetch -q --depth=1 origin gh-pages
@@ -78,15 +79,22 @@ if [ -z "$image" ]; then
 fi
 
 social_text() {
-  local text
-  text=$(fm ".social.$1")
-  if [ -z "$text" ]; then
-    case $1 in
-    bluesky) text="📝 New post: $title" ;;
-    *) text=$(printf '📝 New post: %s\n\n%s\n\n%s' "$title" "$(fm .summary)" "$tags") ;;
-    esac
-  fi
-  printf '%s\n\n%s' "$text" "$url"
+  local text limit
+  case $1 in
+  bluesky) text="📝 New post: $title" ;;
+  *) text=$(printf '📝 New post: %s\n\n%s' "$title" "$(fm .summary)") ;;
+  esac
+  case $1 in
+  bluesky) limit=300 ;;
+  mastodon) limit=500 ;;
+  *) limit=3000 ;;
+  esac
+  # Append post tags the text lacks, dropping trailing tags until it fits the platform limit.
+  jq -rn --arg text "$text" --arg tags "$tags" --arg url "$url" --argjson limit "$limit" '
+    ($text | ascii_downcase | [scan("#[a-z0-9]+")]) as $have
+    | [$tags | splits(" ") | select(. != "" and ((ascii_downcase | IN($have[])) | not))] as $t
+    | [range($t | length; -1; -1) | [$text, ($t[:.] | join(" ")), $url] | map(select(. != "")) | join("\n\n")]
+    | map(select(length <= $limit)) | first // ($text + "\n\n" + $url)'
 }
 
 buffer() {
@@ -127,6 +135,17 @@ post_buffer() {
       assets: [{image: {url: $img, metadata: {altText: $alt}}}]
     }}
   }')
+  if [ "$service" = bluesky ]; then
+    payload=$(jq --arg summary "$(fm .summary)" '
+      def pack($max): reduce .[] as $s ([];
+        if length > 0 and ((.[-1] + " " + $s) | length) <= $max then .[-1] += " " + $s else . + [$s] end);
+      . as $p | .variables.input as $in
+      | [$summary | splits("(?<=[.!?])\\s+") | select(. != "")
+          | if length > 300 then [splits("\\s+")] | pack(300) | .[] else . end] | pack(300)
+      | map({text: ., assets: []}) as $replies
+      | $p | if ($replies | length) == 0 then .
+        else .variables.input.metadata.bluesky.thread = [{text: $in.text, assets: $in.assets}] + $replies end' <<<"$payload")
+  fi
   if [ "$DRY_RUN" = "true" ]; then
     jq . <<<"$payload"
     return 0
@@ -141,8 +160,7 @@ post_buffer() {
 
 send_newsletter() {
   local body html payload resp send_at=null
-  body=$(fm .social.newsletter)
-  [ -n "$body" ] || body=$(fm .summary)
+  body=$(fm .summary)
   html=$(jq -rn --arg body "$body" --arg img "$image" --arg alt "$alt" --arg url "$url" '
     "<img src=\"" + $img + "\" alt=\"" + ($alt | @html) + "\" width=\"800\" style=\"display:block;max-width:100%;height:auto;margin:0 auto 1em;border-radius:4px\">"
     + ($body | split("\n\n") | map("<p>" + (. | @html) + "</p>") | join(""))
